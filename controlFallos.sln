@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25123.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "controlFallos", "controlFallos\controlFallos.csproj", "{AE65C335-8C56-4210-8F4E-3D6AC0B16C55}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Sistema de Reporte de Fallos", "Sistema de Reporte de Fallos\Sistema de Reporte de Fallos.vdproj", "{86A0963D-BA08-4D20-813E-72D5EFDA964D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AE65C335-8C56-4210-8F4E-3D6AC0B16C55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AE65C335-8C56-4210-8F4E-3D6AC0B16C55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AE65C335-8C56-4210-8F4E-3D6AC0B16C55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AE65C335-8C56-4210-8F4E-3D6AC0B16C55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A0963D-BA08-4D20-813E-72D5EFDA964D}.Debug|Any CPU.ActiveCfg = Debug
+		{86A0963D-BA08-4D20-813E-72D5EFDA964D}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

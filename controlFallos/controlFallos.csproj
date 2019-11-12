@@ -1,0 +1,948 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AE65C335-8C56-4210-8F4E-3D6AC0B16C55}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>controlFallos</RootNamespace>
+    <AssemblyName>controlFallos</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
+    <PublishUrl>C:\Users\Desarrollador 7\Desktop\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>27</ApplicationRevision>
+    <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>64DDA1958653C22938F3C1341BD5098944D015E3</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>controlFallos_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GriauleFingerprintLibrary">
+      <HintPath>G:\Documentos\17-06-19\V2\controlFallos\controlFallos\bin\Debug\GriauleFingerprintLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="itextsharp">
+      <HintPath>..\..\..\itextsharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="bloqueoLogin.cs" />
+    <Compile Include="catAnaqueles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catAnaqueles.designer.cs">
+      <DependentUpon>catAnaqueles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catAreas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catAreas.designer.cs">
+      <DependentUpon>catAreas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catCategorias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catCategorias.designer.cs">
+      <DependentUpon>catCategorias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catClasificaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catClasificaciones.designer.cs">
+      <DependentUpon>catClasificaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catDescFallos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catDescFallos.designer.cs">
+      <DependentUpon>catDescFallos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catEmpresas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catEmpresas.designer.cs">
+      <DependentUpon>catEmpresas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catEstaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catEstaciones.designer.cs">
+      <DependentUpon>catEstaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catfallosGrales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catfallosGrales.designer.cs">
+      <DependentUpon>catfallosGrales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catGiros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catGiros.designer.cs">
+      <DependentUpon>catGiros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatIncidencias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatIncidencias.designer.cs">
+      <DependentUpon>CatIncidencias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catIVA.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catIVA.designer.cs">
+      <DependentUpon>catIVA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatModelos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatModelos.designer.cs">
+      <DependentUpon>CatModelos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catNiveles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catNiveles.designer.cs">
+      <DependentUpon>catNiveles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catPasillos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catPasillos.designer.cs">
+      <DependentUpon>catPasillos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catPersonal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catPersonal.designer.cs">
+      <DependentUpon>catPersonal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catProveedores.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catProveedores.designer.cs">
+      <DependentUpon>catProveedores.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catPuestos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catPuestos.designer.cs">
+      <DependentUpon>catPuestos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catRefacciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catRefacciones.designer.cs">
+      <DependentUpon>catRefacciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catServicios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catServicios.designer.cs">
+      <DependentUpon>catServicios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatTipos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatTipos.designer.cs">
+      <DependentUpon>CatTipos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catUnidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catUnidades.designer.cs">
+      <DependentUpon>catUnidades.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catUnidaesTRI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catUnidaesTRI.designer.cs">
+      <DependentUpon>catUnidaesTRI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ConcentradosComparativas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ConcentradosComparativas.designer.cs">
+      <DependentUpon>ConcentradosComparativas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="conexion.cs" />
+    <Compile Include="databaseLocalClone.cs" />
+    <Compile Include="datosGeneralesComparativa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="datosGeneralesComparativa.designer.cs">
+      <DependentUpon>datosGeneralesComparativa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="familias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="familias.designer.cs">
+      <DependentUpon>familias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormContraFinal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormContraFinal.designer.cs">
+      <DependentUpon>FormContraFinal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormFallasMantenimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormFallasMantenimiento.designer.cs">
+      <DependentUpon>FormFallasMantenimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Incidencia de Personal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Incidencia de Personal.designer.cs">
+      <DependentUpon>Incidencia de Personal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="LectorHuellas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LectorHuellas.designer.cs">
+      <DependentUpon>LectorHuellas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="leerHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="leerHost.Designer.cs">
+      <DependentUpon>leerHost.cs</DependentUpon>
+    </Compile>
+    <Compile Include="marcas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="marcas.designer.cs">
+      <DependentUpon>marcas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="menuPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="menuPrincipal.designer.cs">
+      <DependentUpon>menuPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="modificaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="modificaciones.designer.cs">
+      <DependentUpon>modificaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="moreinfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="moreinfo.designer.cs">
+      <DependentUpon>moreinfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="mostrarFolio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="mostrarFolio.Designer.cs">
+      <DependentUpon>mostrarFolio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NombresOC.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NombresOC.designer.cs">
+      <DependentUpon>NombresOC.cs</DependentUpon>
+    </Compile>
+    <Compile Include="login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="login.Designer.cs">
+      <DependentUpon>login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Nombres_Familias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Nombres_Familias.designer.cs">
+      <DependentUpon>Nombres_Familias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotificacionAlmacen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NotificacionAlmacen.designer.cs">
+      <DependentUpon>NotificacionAlmacen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotificacionSupervision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NotificacionSupervision.Designer.cs">
+      <DependentUpon>NotificacionSupervision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NotificacionTri.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NotificacionTri.Designer.cs">
+      <DependentUpon>NotificacionTri.cs</DependentUpon>
+    </Compile>
+    <Compile Include="nuevaRefaccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="nuevaRefaccion.designer.cs">
+      <DependentUpon>nuevaRefaccion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="observacionesEdicion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="observacionesEdicion.Designer.cs">
+      <DependentUpon>observacionesEdicion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="OrdenDeCompra.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OrdenDeCompra.designer.cs">
+      <DependentUpon>OrdenDeCompra.cs</DependentUpon>
+    </Compile>
+    <Compile Include="percances.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="percances.designer.cs">
+      <DependentUpon>percances.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Privilegios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Privilegios.Designer.cs">
+      <DependentUpon>Privilegios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="privilegiosAlmacen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="privilegiosAlmacen.Designer.cs">
+      <DependentUpon>privilegiosAlmacen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="privilegiosMantenimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="privilegiosMantenimiento.designer.cs">
+      <DependentUpon>privilegiosMantenimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="privilegiosSupervision.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="privilegiosSupervision.Designer.cs">
+      <DependentUpon>privilegiosSupervision.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="readFingerprint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="readFingerprint.Designer.cs">
+      <DependentUpon>readFingerprint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="recibirCredencial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="recibirCredencial.Designer.cs">
+      <DependentUpon>recibirCredencial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="relacionServicioEstacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="relacionServicioEstacion.Designer.cs">
+      <DependentUpon>relacionServicioEstacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportePersonal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportePersonal.designer.cs">
+      <DependentUpon>ReportePersonal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportesVigencias.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReportesVigencias.designer.cs">
+      <DependentUpon>ReportesVigencias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="requisicionRefacciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="requisicionRefacciones.Designer.cs">
+      <DependentUpon>requisicionRefacciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SplashScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SplashScreen.designer.cs">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Supervisión.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Supervisión.designer.cs">
+      <DependentUpon>Supervisión.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TRI.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TRI.designer.cs">
+      <DependentUpon>TRI.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ubicaciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ubicaciones.designer.cs">
+      <DependentUpon>ubicaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ums.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ums.designer.cs">
+      <DependentUpon>ums.cs</DependentUpon>
+    </Compile>
+    <Compile Include="updateStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="updateStock.designer.cs">
+      <DependentUpon>updateStock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="validaciones.cs" />
+    <Compile Include="writeFingerprint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="writeFingerprint.Designer.cs">
+      <DependentUpon>writeFingerprint.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="catAnaqueles.resx">
+      <DependentUpon>catAnaqueles.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catAreas.resx">
+      <DependentUpon>catAreas.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catCategorias.resx">
+      <DependentUpon>catCategorias.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catClasificaciones.resx">
+      <DependentUpon>catClasificaciones.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catDescFallos.resx">
+      <DependentUpon>catDescFallos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catEmpresas.resx">
+      <DependentUpon>catEmpresas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catEstaciones.resx">
+      <DependentUpon>catEstaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catfallosGrales.resx">
+      <DependentUpon>catfallosGrales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catGiros.resx">
+      <DependentUpon>catGiros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatIncidencias.resx">
+      <DependentUpon>CatIncidencias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catIVA.resx">
+      <DependentUpon>catIVA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatModelos.resx">
+      <DependentUpon>CatModelos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catNiveles.resx">
+      <DependentUpon>catNiveles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catPasillos.resx">
+      <DependentUpon>catPasillos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catPersonal.resx">
+      <DependentUpon>catPersonal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catProveedores.resx">
+      <DependentUpon>catProveedores.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catPuestos.resx">
+      <DependentUpon>catPuestos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catRefacciones.resx">
+      <DependentUpon>catRefacciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catServicios.resx">
+      <DependentUpon>catServicios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatTipos.resx">
+      <DependentUpon>CatTipos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catUnidades.resx">
+      <DependentUpon>catUnidades.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catUnidaesTRI.resx">
+      <DependentUpon>catUnidaesTRI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConcentradosComparativas.resx">
+      <DependentUpon>ConcentradosComparativas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="datosGeneralesComparativa.resx">
+      <DependentUpon>datosGeneralesComparativa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="familias.resx">
+      <DependentUpon>familias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormContraFinal.resx">
+      <DependentUpon>FormContraFinal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormFallasMantenimiento.resx">
+      <DependentUpon>FormFallasMantenimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Incidencia de Personal.resx">
+      <DependentUpon>Incidencia de Personal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LectorHuellas.resx">
+      <DependentUpon>LectorHuellas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="leerHost.resx">
+      <DependentUpon>leerHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="marcas.resx">
+      <DependentUpon>marcas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="menuPrincipal.resx">
+      <DependentUpon>menuPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="modificaciones.resx">
+      <DependentUpon>modificaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="moreinfo.resx">
+      <DependentUpon>moreinfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="mostrarFolio.resx">
+      <DependentUpon>mostrarFolio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NombresOC.resx">
+      <DependentUpon>NombresOC.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="login.resx">
+      <DependentUpon>login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Nombres_Familias.resx">
+      <DependentUpon>Nombres_Familias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotificacionAlmacen.resx">
+      <DependentUpon>NotificacionAlmacen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotificacionSupervision.resx">
+      <DependentUpon>NotificacionSupervision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NotificacionTri.resx">
+      <DependentUpon>NotificacionTri.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="nuevaRefaccion.resx">
+      <DependentUpon>nuevaRefaccion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="observacionesEdicion.resx">
+      <DependentUpon>observacionesEdicion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OrdenDeCompra.resx">
+      <DependentUpon>OrdenDeCompra.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="percances.resx">
+      <DependentUpon>percances.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Privilegios.resx">
+      <DependentUpon>Privilegios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="privilegiosAlmacen.resx">
+      <DependentUpon>privilegiosAlmacen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="privilegiosMantenimiento.resx">
+      <DependentUpon>privilegiosMantenimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="privilegiosSupervision.resx">
+      <DependentUpon>privilegiosSupervision.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="readFingerprint.resx">
+      <DependentUpon>readFingerprint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="recibirCredencial.resx">
+      <DependentUpon>recibirCredencial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="relacionServicioEstacion.resx">
+      <DependentUpon>relacionServicioEstacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportePersonal.resx">
+      <DependentUpon>ReportePersonal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportesVigencias.resx">
+      <DependentUpon>ReportesVigencias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="requisicionRefacciones.resx">
+      <DependentUpon>requisicionRefacciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SplashScreen.resx">
+      <DependentUpon>SplashScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Supervisión.resx">
+      <DependentUpon>Supervisión.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TRI.resx">
+      <DependentUpon>TRI.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ubicaciones.resx">
+      <DependentUpon>ubicaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ums.resx">
+      <DependentUpon>ums.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="updateStock.resx">
+      <DependentUpon>updateStock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="writeFingerprint.resx">
+      <DependentUpon>writeFingerprint.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 y x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\20.png" />
+    <None Include="Resources\1-02-512.png" />
+    <Content Include="Resources\add.png" />
+    <None Include="Resources\add1.png" />
+    <None Include="Resources\ajax-spinner.gif" />
+    <Content Include="Resources\ajustes.png" />
+    <Content Include="Resources\ajustes1.png" />
+    <None Include="Resources\antique-building.png" />
+    <None Include="Resources\archive.png" />
+    <Content Include="Resources\back.png" />
+    <Content Include="Resources\bell %281%29.png" />
+    <Content Include="Resources\boton-guardar-archivo.png" />
+    <Content Include="Resources\box.png" />
+    <None Include="Resources\bug__1_.png" />
+    <Content Include="Resources\bus %281%29.png" />
+    <Content Include="Resources\bus.png" />
+    <None Include="Resources\bus1.png" />
+    <Content Include="Resources\buscar-en-carpeta %281%29.png" />
+    <Content Include="Resources\businessman %281%29.png" />
+    <Content Include="Resources\businessman %282%29.png" />
+    <Content Include="Resources\businessman %284%29.png" />
+    <Content Include="Resources\businessman.png" />
+    <None Include="Resources\businessman__4_.png" />
+    <None Include="Resources\calendar.png" />
+    <None Include="Resources\bx_loader.gif" />
+    <Content Include="Resources\cancel.png" />
+    <None Include="Resources\canvas.png" />
+    <Content Include="Resources\car %281%29.png" />
+    <Content Include="Resources\car-machine.png" />
+    <Content Include="Resources\car-parts.png" />
+    <Content Include="Resources\car.png" />
+    <Content Include="Resources\carpeta.png" />
+    <None Include="Resources\catalog__1_.png" />
+    <None Include="Resources\_goto.png" />
+    <None Include="Resources\_1491313940_repeat_82991.png" />
+    <None Include="Resources\chevron-sign-left.png" />
+    <None Include="Resources\chevron-sign-to-right.png" />
+    <None Include="Resources\check.png" />
+    <None Include="Resources\complete.png" />
+    <Content Include="Resources\comprobar.png" />
+    <Content Include="Resources\computer %281%29.png" />
+    <Content Include="Resources\computer.png" />
+    <Content Include="Resources\conexion.txt" />
+    <Content Include="Resources\construction.png" />
+    <Content Include="Resources\copy.png" />
+    <None Include="Resources\cross.png" />
+    <None Include="Resources\correct.png" />
+    <Content Include="Resources\customer.png" />
+    <Content Include="Resources\Dbkel_CXkAE43aG.png" />
+    <Content Include="Resources\delete %281%29.png" />
+    <None Include="Resources\delete %281%291.png" />
+    <Content Include="Resources\delete %282%29.png" />
+    <Content Include="Resources\delete %284%29.png" />
+    <Content Include="Resources\delete-logo-png-6.png" />
+    <None Include="Resources\delete__4_.png" />
+    <None Include="Resources\delivery-truck.png" />
+    <None Include="Resources\DERECHO SOMBRA.png" />
+    <None Include="Resources\delete.png" />
+    <Content Include="Resources\derecho_sombra_pZF_icon.ico" />
+    <Content Include="Resources\desactivate.png" />
+    <None Include="Resources\descargar-pdf.png" />
+    <Content Include="Resources\description.png" />
+    <Content Include="Resources\deshacer.png" />
+    <None Include="Resources\document-edit_icon-icons.com_52428.png" />
+    <Content Include="Resources\DocumentEdit_40924.png" />
+    <Content Include="Resources\edit.png" />
+    <None Include="Resources\edit1.png" />
+    <Content Include="Resources\enterprise.png" />
+    <Content Include="Resources\enviar.png" />
+    <Content Include="Resources\eraser.png" />
+    <None Include="Resources\exchange.png" />
+    <None Include="Resources\eye__2_.png" />
+    <None Include="Resources\eraser1.png" />
+    <Content Include="Resources\file.png" />
+    <None Include="Resources\fingerprint-scanning.png" />
+    <None Include="Resources\fingerprint-transparent-gif-14.gif" />
+    <None Include="Resources\fingerprint.png" />
+    <None Include="Resources\fingerprint1.png" />
+    <None Include="Resources\fingerprint2.png" />
+    <None Include="Resources\file1.png" />
+    <None Include="Resources\fingerprint-transparent-gif-141.gif" />
+    <Content Include="Resources\folder %281%29.png" />
+    <Content Include="Resources\folder %282%29.png" />
+    <Content Include="Resources\folder %283%29.png" />
+    <Content Include="Resources\folder %284%29.png" />
+    <Content Include="Resources\folder %285%29.png" />
+    <Content Include="Resources\folder.png" />
+    <None Include="Resources\foursquare-button.png" />
+    <None Include="Resources\frontal-crash.png" />
+    <None Include="Resources\FRONTAL_SOMBRA__1_.png" />
+    <None Include="Resources\FRENTE.png" />
+    <Content Include="Resources\goma-de-borrar.png" />
+    <Content Include="Resources\guardar %286%29.png" />
+    <Content Include="Resources\guardar %286%291.png" />
+    <None Include="Resources\guardar__6_.png" />
+    <Content Include="Resources\home-icon-silhouette.png" />
+    <None Include="Resources\house.png" />
+    <None Include="Resources\huella-dactilar.png" />
+    <None Include="Resources\ICN_scan_fp.gif" />
+    <Content Include="Resources\icon.ico" />
+    <None Include="Resources\icons8-tornillo-480.png" />
+    <None Include="Resources\icon_image.png" />
+    <Content Include="Resources\idea.png" />
+    <None Include="Resources\image.png" />
+    <Content Include="Resources\Imagen2.png" />
+    <None Include="Resources\internet.png" />
+    <None Include="Resources\LATERAL DERECHO.png" />
+    <None Include="Resources\incorrect.png" />
+    <None Include="Resources\KindheartedSimpleAppaloosa-size_restricted.gif" />
+    <None Include="Resources\images.png" />
+    <Content Include="Resources\LATERAL IZQUIERDO.png" />
+    <Content Include="Resources\left-arrow.png" />
+    <Content Include="Resources\list-button.png" />
+    <None Include="Resources\loader.gif" />
+    <None Include="Resources\lock.png" />
+    <Content Include="Resources\login.png" />
+    <Content Include="Resources\Logo TRI_curvas.jpg" />
+    <Content Include="Resources\logo.png" />
+    <Content Include="Resources\logout.png" />
+    <None Include="Resources\magnifier.png" />
+    <Content Include="Resources\manager.png" />
+    <None Include="Resources\manager1.png" />
+    <None Include="Resources\maps-and-flags.png" />
+    <Content Include="Resources\mas.png" />
+    <Content Include="Resources\mas1.png" />
+    <Content Include="Resources\measuring-tape.png" />
+    <Content Include="Resources\medical-history %281%29.png" />
+    <Content Include="Resources\medical-history %282%29.png" />
+    <Content Include="Resources\medical-history.png" />
+    <Content Include="Resources\medical-report.png" />
+    <None Include="Resources\menos add.png" />
+    <None Include="Resources\menos add1.png" />
+    <Content Include="Resources\menu %281%29.png" />
+    <Content Include="Resources\menu %282%29.png" />
+    <Content Include="Resources\menu %283%29.png" />
+    <Content Include="Resources\menu-button.png" />
+    <Content Include="Resources\menu.png" />
+    <None Include="Resources\minimazar.png" />
+    <Content Include="Resources\mirror.png" />
+    <Content Include="Resources\navigate-up-arrow.png" />
+    <Content Include="Resources\newspaper.png" />
+    <Content Include="Resources\no-waiting.png" />
+    <Content Include="Resources\notification %281%29.png" />
+    <Content Include="Resources\notification %282%29.png" />
+    <Content Include="Resources\notification.png" />
+    <Content Include="Resources\notification1.png" />
+    <None Include="Resources\nut.png" />
+    <None Include="Resources\notification__4_.png" />
+    <None Include="Resources\notification__3_1.png" />
+    <Content Include="Resources\original.png" />
+    <Content Include="Resources\password.png" />
+    <None Include="Resources\pdf-folder-upload-storage-transfer-512.png" />
+    <Content Include="Resources\pdf.png" />
+    <Content Include="Resources\pencil.png" />
+    <None Include="Resources\plus.png" />
+    <None Include="Resources\Preloader.gif" />
+    <None Include="Resources\Preloader1.gif" />
+    <None Include="Resources\Preloader2.gif" />
+    <Content Include="Resources\presentation.png" />
+    <None Include="Resources\purchase_order__1_.png" />
+    <None Include="Resources\previous %283%29.png" />
+    <None Include="Resources\previous %282%29.png" />
+    <Content Include="Resources\pushpin.png" />
+    <Content Include="Resources\racing.png" />
+    <Content Include="Resources\rec.png" />
+    <Content Include="Resources\refresh-arrows-symbol-of-interface.png" />
+    <None Include="Resources\refresh-page-option.png" />
+    <Content Include="Resources\refresh.png" />
+    <Content Include="Resources\report.png" />
+    <None Include="Resources\robber_silhouette_trying_to_steal_car_part__1_.png" />
+    <Content Include="Resources\save.png" />
+    <Content Include="Resources\search.png" />
+    <Content Include="Resources\settings.png" />
+    <None Include="Resources\settings1.png" />
+    <Content Include="Resources\settings2.png" />
+    <Content Include="Resources\shopping-cart %281%29.png" />
+    <None Include="Resources\shopping-cart.png" />
+    <Content Include="Resources\signo-de-verificacion-en-un-circulo.png" />
+    <Content Include="Resources\sobresalir.png" />
+    <Content Include="Resources\sobresalir1.png" />
+    <None Include="Resources\sort-by-attributes.png" />
+    <Content Include="Resources\square.png" />
+    <Content Include="Resources\support %281%29.png" />
+    <Content Include="Resources\support.png" />
+    <None Include="Resources\team.png" />
+    <None Include="Resources\sync.png" />
+    <None Include="Resources\test.png" />
+    <None Include="Resources\timer-transparent-css-6.gif" />
+    <Content Include="Resources\transmasivo %281%29.ico" />
+    <Content Include="Resources\transmasivo.png" />
+    <None Include="Resources\TSD.png" />
+    <None Include="Resources\t_frente.png" />
+    <None Include="Resources\t_derecho.png" />
+    <None Include="Resources\t_izquierdo.png" />
+    <None Include="Resources\t_trasero.png" />
+    <None Include="Resources\TRASERO.png" />
+    <Content Include="Resources\uncheck.png" />
+    <None Include="Resources\undo.png" />
+    <Content Include="Resources\unfriend.png" />
+    <Content Include="Resources\up.png" />
+    <Content Include="Resources\user-login-button %281%29.png" />
+    <Content Include="Resources\user-login-button.png" />
+    <Content Include="Resources\user.png" />
+    <Content Include="Resources\virus.png" />
+    <Content Include="Resources\visibility-button.png" />
+    <None Include="Resources\weight-balance.png" />
+    <None Include="Resources\w4bdgpvly079wsjlcndo.gif" />
+    <Content Include="Resources\xmag_search_find_export_locate_5984.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
