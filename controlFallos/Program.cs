@@ -16,7 +16,7 @@ namespace controlFallos
             Thread th = new Thread(new ThreadStart(Splash));
             th.Start();
             try
-            {                            
+            {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new login(v));

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +30,7 @@ namespace controlFallos
             if (!File.Exists(path))
             {
                 StreamWriter sw = new StreamWriter(path, true, Encoding.ASCII);
-                sw.Write("0yLCd4LvwPrdWaWtNqB4Aq40cfzUrZko0k0jP0LCfqk5xZ5tvcnda9mELH5IaVU1eF4lS5IfOD29YlcA9XXx5w==");
+                sw.Write("0yLCd4LvwPo9xeMPa3Xo60R8ubmf9ZS4hs58llM/Lovd0yqGbDjTyz2KnbCOiM+bcf37rsKzAOXV6ennUfW//X8XGFwnE/6V58HUmZbcf5o=");
                 sw.Close();
             }
             StreamReader lector = new StreamReader(path);
