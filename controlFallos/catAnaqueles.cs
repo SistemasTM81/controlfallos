@@ -27,10 +27,10 @@ namespace controlFallos
         public bool Pdesactivar { set; get; }
         public void establecerPrivilegios()
         {
-            object sql = v.getaData("SELECT CONCAT(insertar,';',consultar,';',editar,';',desactivar)  FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = 'catRefacciones'");
+            object sql = v.getaData("SELECT privilegio  FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = 'catRefacciones'");
             if (sql != null)
             {
-                string[] privilegios = sql.ToString().Split(';');
+                string[] privilegios = sql.ToString().Split('/');
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegios[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegios[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegios[2]));

@@ -2595,9 +2595,9 @@
             // 
             // pEvidencias
             // 
+            this.pEvidencias.Controls.Add(this.groupBox8);
             this.pEvidencias.Controls.Add(this.button10);
             this.pEvidencias.Controls.Add(this.label64);
-            this.pEvidencias.Controls.Add(this.groupBox8);
             this.pEvidencias.Location = new System.Drawing.Point(0, 0);
             this.pEvidencias.Name = "pEvidencias";
             this.pEvidencias.Size = new System.Drawing.Size(1920, 548);
@@ -2624,7 +2624,6 @@
             this.pEvidencia4.Location = new System.Drawing.Point(828, 281);
             this.pEvidencia4.Name = "pEvidencia4";
             this.pEvidencia4.Size = new System.Drawing.Size(557, 210);
-            this.pEvidencia4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pEvidencia4.TabIndex = 10;
             this.pEvidencia4.TabStop = false;
             // 
@@ -2634,7 +2633,6 @@
             this.pEvidencia3.Location = new System.Drawing.Point(113, 281);
             this.pEvidencia3.Name = "pEvidencia3";
             this.pEvidencia3.Size = new System.Drawing.Size(576, 210);
-            this.pEvidencia3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pEvidencia3.TabIndex = 9;
             this.pEvidencia3.TabStop = false;
             // 
@@ -2644,7 +2642,6 @@
             this.pEvidencia2.Location = new System.Drawing.Point(828, 45);
             this.pEvidencia2.Name = "pEvidencia2";
             this.pEvidencia2.Size = new System.Drawing.Size(554, 197);
-            this.pEvidencia2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pEvidencia2.TabIndex = 8;
             this.pEvidencia2.TabStop = false;
             // 
@@ -2654,7 +2651,6 @@
             this.pEvidencia1.Location = new System.Drawing.Point(117, 45);
             this.pEvidencia1.Name = "pEvidencia1";
             this.pEvidencia1.Size = new System.Drawing.Size(572, 195);
-            this.pEvidencia1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pEvidencia1.TabIndex = 7;
             this.pEvidencia1.TabStop = false;
             // 
@@ -2705,9 +2701,9 @@
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.dgvpercances);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.p1);
             this.Controls.Add(this.pEvidencias);
             this.Controls.Add(this.p2);
+            this.Controls.Add(this.p1);
             this.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

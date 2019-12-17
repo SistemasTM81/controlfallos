@@ -40,16 +40,15 @@ namespace controlFallos
         }
         public void privilegiosPuestos()
         {
-            string sql = "SELECT insertar,consultar,editar,desactivar FROM privilegios WHERE usuariofkcpersonal = '" + this.idusuario + "' and namform = '" + Name + "'";
-            MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
-            MySqlDataReader mdr = cmd.ExecuteReader();
-            mdr.Read();
-            Pconsultar = v.getBoolFromInt(mdr.GetInt32("consultar"));
-            Pinsertar = v.getBoolFromInt(mdr.GetInt32("insertar"));
-            Peditar = v.getBoolFromInt(mdr.GetInt32("editar"));
-            Pdesactivar = v.getBoolFromInt(mdr.GetInt32("desactivar"));
-            mdr.Close();
-            c.dbconection().Close();
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idusuario, this.Name)).ToString().Split('/');
+            if (privilegiosTemp.Length > 0)
+            {
+
+                Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
+                Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
+                Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
+                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+            }
             mostrar();
         }
         public void mostrar()

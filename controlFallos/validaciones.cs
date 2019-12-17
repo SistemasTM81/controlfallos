@@ -2868,7 +2868,7 @@ namespace controlFallos
         {
             if (!id.Equals(_id))
             {
-                if (Convert.ToInt32(getaData("SELECT COUNT(idarea) FROM careas WHERE identificador ='" + id + "' and empresafkcempresas='" + empresa + "'")) == 0)
+                if (Convert.ToInt32(getaData("SELECT COUNT(idarea) FROM careas WHERE identificador ='" + id + "' and empresafkcempresas='"+empresa+"'")) == 0)
                 {
                     return false;
                 }
@@ -2994,12 +2994,12 @@ namespace controlFallos
         }
         public void edit(string id, string ver, string insertar, string consultar, string modificar, string eliminar)
         {
-            c.insertar("UPDATE privilegios SET ver='" + ver + "', insertar='" + insertar + "',consultar='" + consultar + "',editar='" + modificar + "',desactivar='" + eliminar + "' WHERE idprivilegio='" + id + "'");
+            c.insertar("UPDATE privilegios SET ver='" + ver + "' "+ (short.Parse(ver)==1? ", privilegios='" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar)==1?"/" + eliminar :"")+ "'":"") +"WHERE idprivilegio='" + id + "'");
         }
         public void insert(string ver, string insertar, string consultar, string modificar, string eliminar, string nombre, int idUsuario)
         {
 
-            c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver,insertar,consultar,editar,desactivar) VALUES('" + idUsuario + "','" + nombre + "','" + ver + "','" + insertar + "','" + consultar + "','" + modificar + "','" + eliminar + "')");
+            c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver"+(short.Parse(ver) == 1 ? ",privilegios":"") +")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + "/" + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
         }
         public bool todosFalsos(string[,] b)
         {
@@ -3815,7 +3815,53 @@ namespace controlFallos
         {
             if (servicio1 > 0 || servicio2 > 0 || servicio3 > 0 || servicio4 > 0 || ecorecup > 0 || estacion > 0)
             {
-                return true;
+                if (servicio1 > 0)
+                {
+                    if (servicio2 > 0)
+                    {
+                        if (servicio3 > 0)
+                        {
+                            if (servicio4 > 0)
+                            {
+                                if (ecorecup > 0)
+                                {
+                                    if (estacion > 0)
+                                        return true;
+                                    else
+                                    {
+                                        MessageBox.Show("Seleccione Una Estación de La Lista Desplegable", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Seleccione El \"Economico de Recuperación de la Jornada\" de La Lista Desplegable", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("Seleccione El Servicio Omitido \"A\" de La Lista Desplegable", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Seleccione El Servicio Omitido \"Y De\" de La Lista Desplegable", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Seleccione El Servicio Omitido \"A\" de La Lista Desplegable", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Seleccione El Servicio Omitido \"De\" de La Lista Desplegable", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
             }
             else
                 return true;
@@ -3829,7 +3875,61 @@ namespace controlFallos
         {
             if (!string.IsNullOrWhiteSpace(marcaVehiculo) || !string.IsNullOrWhiteSpace(year) || !string.IsNullOrWhiteSpace(placas) || !string.IsNullOrWhiteSpace(nombreConductor) || !string.IsNullOrWhiteSpace(telefono) || !string.IsNullOrWhiteSpace(domicilio))
             {
-                return true;
+                if (!string.IsNullOrWhiteSpace(marcaVehiculo))
+                {
+                    if (!string.IsNullOrWhiteSpace(year))
+                    {
+                        if (Convert.ToInt32(year) > 0)
+                        {
+                            if (!string.IsNullOrWhiteSpace(placas))
+                            {
+                                if (!string.IsNullOrWhiteSpace(nombreConductor))
+                                {
+                                    if (!string.IsNullOrWhiteSpace(telefono))
+                                    {
+                                        if (!string.IsNullOrWhiteSpace(domicilio))
+                                            return true;
+                                        else
+                                        {
+                                            MessageBox.Show("El Campo \"Domicilio del Conductor\" de los Datos del Tercero No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                            return false;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("El Campo \"Teléfono del Conductor\" de los Datos del Tercero No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                        return false;
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("El Campo \"Nombre del Conductor\" de los Datos del Tercero No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("El Campo \"Placas del Vehiculo\" de los Datos del Tercero No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("El \"Año del Vehiculo\" de los Datos del Tercero Debe Ser Mayor a Cero", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Campo \"Año del Vehiculo\" de los Datos del Tercero No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El Campo \"Marca del Vehiculo\" de los Datos del Tercero No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
             }
             else
                 return true;
@@ -3842,7 +3942,29 @@ namespace controlFallos
         {
             if (!string.IsNullOrWhiteSpace(numSeguro) || !string.IsNullOrWhiteSpace(nombreAjustador))
             {
-                return true;
+                if (!string.IsNullOrWhiteSpace(numSeguro))
+                {
+                    if (Convert.ToInt32(numSeguro) > 0)
+                    {
+                        if (!string.IsNullOrWhiteSpace(nombreAjustador))
+                            return true;
+                        else
+                        {
+                            MessageBox.Show("El Campo \"Nombre Ajustador\" de los Datos del Seguro de la Unidad de Transmasivo No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El \"Numero de Seguro\" de los Datos del Seguro de la Unidad de Transmasivo Debe Ser Mayor a Cero", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El Campo \"Numero de Seguro\" de los Datos del Seguro de la Unidad de Transmasivo No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
             }
             else
                 return true;
@@ -3856,7 +3978,37 @@ namespace controlFallos
         {
             if (!string.IsNullOrWhiteSpace(solucion) || !string.IsNullOrWhiteSpace(numeroActa) || supervisor > 0)
             {
-                return true;
+                if (!string.IsNullOrWhiteSpace(solucion))
+                {
+                    if (!string.IsNullOrWhiteSpace(numeroActa))
+                    {
+                        if (Convert.ToInt32(numeroActa) > 0)
+                        {
+                            if (!string.IsNullOrWhiteSpace(solucion))
+                                return true;
+                            else
+                            {
+                                MessageBox.Show("Seleccione un Supervisor de los Datos Extra de la Lista Desplegable ", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("El \"Numero de Acta\" de los Datos Extra Debe Ser Mayor A Cero", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Campo \"Numero de Acta\" de los Datos Extra No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("El Campo \"Solución\" de los Datos Extra No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return false;
+                }
             }
             else
                 return true;
@@ -3876,7 +4028,37 @@ namespace controlFallos
             {
                 if (!string.IsNullOrWhiteSpace(unidad) || !string.IsNullOrWhiteSpace(pertenece) || !string.IsNullOrWhiteSpace(responsable))
                 {
-                    return true;
+                    if (!string.IsNullOrWhiteSpace(unidad))
+                    {
+                        if (Convert.ToInt32(unidad) > 0)
+                        {
+                            if (!string.IsNullOrWhiteSpace(pertenece))
+                            {
+                                if (!string.IsNullOrWhiteSpace(responsable))
+                                    return true;
+                                else
+                                {
+                                    MessageBox.Show("El Campo \"Responsable de la Unidad\" de los Datos En Caso de Ser Necesaria Asistencia Médica No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                    return false;
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("El Campo \"Perteneciente a\" de los Datos En Caso de Ser Necesaria Asistencia Médica No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("La \"Unidad\" de los Datos En Caso de Ser Necesaria Asistencia Médica Debe Ser Mayor a Cero", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Campo \"Unidad\" de los Datos En Caso de Ser Necesaria Asistencia Médica No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                        return false;
+                    }
                 }
                 else
                     return true;

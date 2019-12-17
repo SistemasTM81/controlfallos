@@ -30,7 +30,7 @@ namespace controlFallos
             foreach (Control ctrl in panel2.Controls)
             {
                 if (ctrl is Button)
-                    ctrl.BackgroundImage = controlFallos.Properties.Resources.uncheck;
+                    ctrl.BackgroundImage = Properties.Resources.uncheck;
             }
             catPersonal cat = (catPersonal)Owner;
             cat.privilegios = null;
@@ -398,100 +398,101 @@ namespace controlFallos
             if (Convert.ToInt32(v.getaData("SELECT COUNT(*) FROM privilegios WHERE usuariofkcpersonal='" + idUsuario + "'")) > 0)
             {
                 lbltexto.Text = "Actualizar Privilegios";
-                t = (DataTable)v.getData("SELECT namform, ver,insertar,consultar,editar,desactivar FROM privilegios WHERE usuariofkcpersonal='" + idUsuario + "'");
+                t = (DataTable)v.getData("SELECT namform, ver,COALESCE(privilegios,'0/0/0/0') FROM privilegios WHERE usuariofkcpersonal='" + idUsuario + "'");
                 id = v.getaData("SELECT group_concat(idprivilegio separator ';') from privilegios WHERE usuariofkcpersonal='" + idUsuario + "';").ToString().Split(';');
                 editar = true;
                 for (int i = 0; i < t.Rows.Count; i++)
                 {
-                    object[] privilegios = t.Rows[i].ItemArray;
-                    switch (privilegios[0].ToString())
+                    object[] pr= t.Rows[i].ItemArray;
+                    object[] privilegios = pr[2].ToString().Split('/'); 
+                    switch (pr[0].ToString())
                     {
                         case "catAreas":
-                            btninsertararea.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultararea.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificararea.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminararea.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertararea.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultararea.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificararea.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminararea.BackgroundImage = v.Checked(privilegios[3]);
                             break;
                         case "catEmpresas":
-                            btninsertarempresa.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarempresa.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarempresa.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminarempresa.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertarempresa.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarempresa.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarempresa.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminarempresa.BackgroundImage = v.Checked(privilegios[3]);
                             break;
                         case "catPersonal":
-                            btninsertarempleado.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarempleado.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarempleado.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminarempleado.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertarempleado.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarempleado.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarempleado.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminarempleado.BackgroundImage = v.Checked(privilegios[3]);
                             break;
                         case "catPuestos":
-                            btninsertarcargo.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarcargo.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarcargo.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminarcargo.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertarcargo.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarcargo.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarcargo.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminarcargo.BackgroundImage = v.Checked(privilegios[3]);
                             break;
 
                         case "catServicios":
-                            btninsertarservicio.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarservicio.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarservicio.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminarservicio.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertarservicio.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarservicio.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarservicio.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminarservicio.BackgroundImage = v.Checked(privilegios[3]);
                             break;
                         case "catTipos":
-                            btninsertartipo.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultartipo.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificartipo.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminartipo.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertartipo.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultartipo.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificartipo.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminartipo.BackgroundImage = v.Checked(privilegios[3]);
                             break;
                         case "catincidencias":
-                            btninsertarincidencia.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarincidencia.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarincidencia.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminarincidencia.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertarincidencia.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarincidencia.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarincidencia.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminarincidencia.BackgroundImage = v.Checked(privilegios[3]);
                             break;
                         case "catestaciones":
-                            btninsertarestacion.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarestacion.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarestacion.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminarestacion.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertarestacion.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarestacion.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarestacion.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminarestacion.BackgroundImage = v.Checked(privilegios[3]);
                             break;
                         case "catUnidades":
-                            btninsertarunidad.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarunidad.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarunidad.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminarunidad.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertarunidad.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarunidad.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarunidad.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminarunidad.BackgroundImage = v.Checked(privilegios[3]);
                             break;
                         case "catmodelos":
-                            btninsertarmodelo.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarmodelo.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarmodelo.BackgroundImage = v.Checked(privilegios[4]);
-                            btneliminarmodelo.BackgroundImage = v.Checked(privilegios[5]);
+                            btninsertarmodelo.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarmodelo.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarmodelo.BackgroundImage = v.Checked(privilegios[2]);
+                            btneliminarmodelo.BackgroundImage = v.Checked(privilegios[3]);
                             break;
                         case "Form1":
-                            btninsertarsuper.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarsuper.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarsuper.BackgroundImage = v.Checked(privilegios[4]);
+                            btninsertarsuper.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarsuper.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarsuper.BackgroundImage = v.Checked(privilegios[2]);
                             break;
                         case "percances":
-                            btninsertarpercances.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarpercances.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarpercances.BackgroundImage = v.Checked(privilegios[4]);
+                            btninsertarpercances.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarpercances.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarpercances.BackgroundImage = v.Checked(privilegios[2]);
                             break;
                         case "repPersonal":
-                            btninsertarrp.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarrp.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarrp.BackgroundImage = v.Checked(privilegios[4]);
+                            btninsertarrp.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarrp.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarrp.BackgroundImage = v.Checked(privilegios[2]);
                             break;
                         case "IncidenciaPersonal":
-                            btninsertarip.BackgroundImage = v.Checked(privilegios[2]);
-                            btnconsultarip.BackgroundImage = v.Checked(privilegios[3]);
-                            btnmodificarip.BackgroundImage = v.Checked(privilegios[4]);
+                            btninsertarip.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarip.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarip.BackgroundImage = v.Checked(privilegios[2]);
                             break;
                         case "encabezados":
-                            btnmodificarencabezados.BackgroundImage = v.Checked(privilegios[4]);
+                            btnmodificarencabezados.BackgroundImage = v.Checked(privilegios[2]);
                             break;
                         case "historial":
-                            btnconsultarhistorial.BackgroundImage = v.Checked(privilegios[3]);
+                            btnconsultarhistorial.BackgroundImage = v.Checked(privilegios[1]);
                             break;
                     }
                 }
