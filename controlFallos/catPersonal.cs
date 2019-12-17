@@ -23,7 +23,7 @@ namespace controlFallos
         new menuPrincipal Owner;
         public catPersonal(int idUsuario, int empresa, int area, Image logo, menuPrincipal f,validaciones v)
         {
-         th =  new Thread(new ThreadStart(v.Splash));
+            th =  new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
             this.v = v;
@@ -871,7 +871,7 @@ namespace controlFallos
         public string[,] privilegios = null;
         public void privilegiosPersonal()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
 

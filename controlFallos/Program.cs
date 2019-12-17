@@ -15,16 +15,16 @@ namespace controlFallos
             validaciones v = new validaciones();
             Thread th = new Thread(new ThreadStart(Splash));
             th.Start();
-            try
-            {
+          //  try
+            //{                            
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new login(v));
-            }
-            catch (Exception ex)
-            {
-                obtenerHost();
-            }
+           // }
+            ///catch (Exception ex)
+            //{
+            //    obtenerHost();
+            //}
         }
         static void obtenerHost()
         {

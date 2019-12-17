@@ -47,7 +47,7 @@ namespace controlFallos
 
         public void privilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catfallosGrales")).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catfallosGrales")).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
 

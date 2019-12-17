@@ -384,12 +384,6 @@
     <Compile Include="percances.designer.cs">
       <DependentUpon>percances.cs</DependentUpon>
     </Compile>
-    <Compile Include="Privilegios.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Privilegios.Designer.cs">
-      <DependentUpon>Privilegios.cs</DependentUpon>
-    </Compile>
     <Compile Include="privilegiosAlmacen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -632,9 +626,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="percances.resx">
       <DependentUpon>percances.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Privilegios.resx">
-      <DependentUpon>Privilegios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="privilegiosAlmacen.resx">
       <DependentUpon>privilegiosAlmacen.cs</DependentUpon>

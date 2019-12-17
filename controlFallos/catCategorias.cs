@@ -82,10 +82,10 @@ namespace controlFallos
         private void lnkLista_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e) { cbgrupo.SelectedIndex = 0; }
         public void privilegios()
         {
-            object sql = v.getaData("SELECT concat(insertar,';',consultar,';',editar,';',desactivar) FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = 'catfallosGrales'");
+            object sql = v.getaData("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = 'catfallosGrales'");
             if (sql != null)
             {
-                string[] privilegios = sql.ToString().Split(';');
+                string[] privilegios = sql.ToString().Split('/');
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegios[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegios[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegios[2]));

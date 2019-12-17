@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,7 +30,7 @@ namespace controlFallos
             if (!File.Exists(path))
             {
                 StreamWriter sw = new StreamWriter(path, true, Encoding.ASCII);
-                sw.Write("0yLCd4LvwPo9xeMPa3Xo60R8ubmf9ZS4hs58llM/Lovd0yqGbDjTyz2KnbCOiM+bcf37rsKzAOXV6ennUfW//X8XGFwnE/6V58HUmZbcf5o=");
+                sw.Write("0yLCd4LvwPo9xeMPa3Xo60R8ubmf9ZS4hs58llM/Lovd0yqGbDjTyz2KnbCOiM+bcf37rsKzAOWK1oy54Z7Zng4ZOiXbUAwqvWJXAPV18ec=");
                 sw.Close();
             }
             StreamReader lector = new StreamReader(path);
@@ -166,5 +166,6 @@ namespace controlFallos
             sw.WriteLine(v.Encriptar(seq));
             sw.Close();
         }
+        public string[] tableNames = new string[] {"bloqueologin","canaqueles","careas","catcategorias","catincidencias","cattipos","ccharolas","cdescfallo","cempresas","cestaciones","cfallosesp","cfallosgrales","cfamilias","cgiros","civa","cladas","cmarcas","cmedidas","cmodelos","cnfamilias","cniveles","comparativas","cpasillos","cpersonal","cproveedores","crefacciones","cservicios","cunidades","cunidadmedida","datosistema","detallesordencompra","encabezadoreportes","estatusvalidado","huellasupervision","incidenciapersonal","ladanac","modificaciones_sistema","nombresoc","ordencompra","pedidosrefaccion","privilegios","proveedorescomparativa","puestos","refaccionescomparativa","relacservicioestacion","reportemantenimiento","reportepercance","reportepersonal","reportesupervicion","reportetri","sepomex","vigencias_supervision"};
     }
 }
