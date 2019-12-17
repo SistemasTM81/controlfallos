@@ -108,10 +108,10 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::controlFallos.Properties.Resources.fingerprint_transparent_gif_14;
+            this.pictureBox1.Image = global::controlFallos.Properties.Resources.fingerprint2;
             this.pictureBox1.Location = new System.Drawing.Point(75, 26);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(100, 125);
+            this.pictureBox1.Size = new System.Drawing.Size(120, 125);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 36;
             this.pictureBox1.TabStop = false;

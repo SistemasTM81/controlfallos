@@ -15,14 +15,15 @@ namespace controlFallos
     {
         int empresa, area;
 
-        public catIVA(int empresa, int area)
+        public catIVA(int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.empresa = empresa;
             this.area = area;
         }
    
-        validaciones v = new validaciones();
+        validaciones v;
         int? idusu;
         double ivabd;
 

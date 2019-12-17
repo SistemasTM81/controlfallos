@@ -15,11 +15,11 @@ namespace controlFallos
 {
     public partial class ConcentradosComparativas : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         int idComparativa;
-        public ConcentradosComparativas(int Comparativa)
+        public ConcentradosComparativas(int Comparativa,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idComparativa = Comparativa;
             v.iniCombos(string.Format("SELECT idrefaccioncomparativa,COALESCE(t2.nombreRefaccion,t1.nombreRefaccion) as refaccion FROM refaccionescomparativa as t1 LEFT JOIN crefacciones as t2 ON t1.refaccionfkcrefacciones = t2.idrefaccion WHERE comparativafkcomparativas='{0}'", Comparativa), cbrefaccion, "idrefaccioncomparativa", "refaccion", "-- SELECCIONE REFACCIÓN --");

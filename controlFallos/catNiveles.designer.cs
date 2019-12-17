@@ -35,6 +35,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.lbltitle = new System.Windows.Forms.Label();
             this.gbaddnivel = new System.Windows.Forms.GroupBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.gbniveles = new System.Windows.Forms.GroupBox();
             this.dtniveles = new System.Windows.Forms.DataGridView();
             this.idnivel = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,6 +61,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.gbaddnivel.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.gbniveles.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtniveles)).BeginInit();
             this.pdelete.SuspendLayout();
@@ -113,7 +115,7 @@
             // gbaddnivel
             // 
             this.gbaddnivel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.gbaddnivel.Controls.Add(this.gbniveles);
+            this.gbaddnivel.Controls.Add(this.panel2);
             this.gbaddnivel.Controls.Add(this.pdelete);
             this.gbaddnivel.Controls.Add(this.label3);
             this.gbaddnivel.Controls.Add(this.label23);
@@ -136,15 +138,25 @@
             this.gbaddnivel.Text = "Agregar Nivel";
             this.gbaddnivel.Visible = false;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.gbniveles);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel2.Location = new System.Drawing.Point(3, 355);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(770, 251);
+            this.panel2.TabIndex = 70;
+            // 
             // gbniveles
             // 
             this.gbniveles.Controls.Add(this.dtniveles);
-            this.gbniveles.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.gbniveles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbniveles.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbniveles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbniveles.Location = new System.Drawing.Point(3, 307);
+            this.gbniveles.Location = new System.Drawing.Point(0, 0);
             this.gbniveles.Name = "gbniveles";
-            this.gbniveles.Size = new System.Drawing.Size(770, 299);
+            this.gbniveles.Size = new System.Drawing.Size(770, 251);
             this.gbniveles.TabIndex = 69;
             this.gbniveles.TabStop = false;
             this.gbniveles.Text = "Consulta de Niveles";
@@ -168,7 +180,7 @@
             this.dtniveles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
@@ -190,13 +202,13 @@
             this.dtniveles.RowHeadersVisible = false;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 12F);
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dtniveles.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dtniveles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dtniveles.Size = new System.Drawing.Size(764, 271);
+            this.dtniveles.Size = new System.Drawing.Size(764, 223);
             this.dtniveles.TabIndex = 0;
             this.dtniveles.TabStop = false;
             this.dtniveles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dtniveles_CellDoubleClick);
@@ -450,6 +462,7 @@
             this.panel1.PerformLayout();
             this.gbaddnivel.ResumeLayout(false);
             this.gbaddnivel.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.gbniveles.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dtniveles)).EndInit();
             this.pdelete.ResumeLayout(false);
@@ -489,5 +502,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuariofkcpersonal;
         private System.Windows.Forms.DataGridViewTextBoxColumn estatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn idpasillodatgrid;
+        private System.Windows.Forms.Panel panel2;
     }
 }

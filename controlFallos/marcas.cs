@@ -7,8 +7,7 @@ namespace controlFallos
 {
     public partial class marcas : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         int idmarcaTemp, idUsuario, status, empresa, area;
         bool reactivar;
         public bool editar { protected internal set; get; }
@@ -20,8 +19,9 @@ namespace controlFallos
         bool yaAparecioMensaje = false;
         string familiaAnterior, DescripcionAnterior;
         new catRefacciones Owner;
-        public marcas(int idUsuario, int empresa, int area, Form fh)
+        public marcas(int idUsuario, int empresa, int area, Form fh,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             tbmarcas.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
@@ -39,18 +39,15 @@ namespace controlFallos
             {
                 int descfamilia = 0; if (cbdesc.DataSource != null) descfamilia = Convert.ToInt32(cbdesc.SelectedValue);
                 if (status == 1 && (cbfamilia.SelectedIndex > 0 && descfamilia > 0 && !string.IsNullOrWhiteSpace(txtmarca.Text)) && (!familiaAnterior.Equals(cbfamilia.SelectedValue.ToString()) || !DescripcionAnterior.Equals(cbdesc.SelectedValue.ToString()) || marcaAnterior != v.mayusculas(txtmarca.Text.ToLower().Trim())))
-                {
                     btnsave.Visible = lblsave.Visible = true;
-                }
                 else
-                {
                     btnsave.Visible = lblsave.Visible = false;
-                }
+                
             }
         }
         public void establecerPrivilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
 
@@ -101,7 +98,7 @@ namespace controlFallos
         {
             AutoCompleteStringCollection data = new AutoCompleteStringCollection();
 
-            MySqlCommand cm = new MySqlCommand("SELECT UPPER(marca) as m FROM cmarcas WHERE marca LIKE '" + v.mayusculas(txtmarca.Text.Trim().ToLower()) + "%'", c.dbconection());
+            MySqlCommand cm = new MySqlCommand("SELECT UPPER(marca) as m FROM cmarcas WHERE marca LIKE '" + v.mayusculas(txtmarca.Text.Trim().ToLower()) + "%'", v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
 
             while (dr.Read())
@@ -109,7 +106,7 @@ namespace controlFallos
                 data.Add(dr.GetString("m"));
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
             return data;
         }
 
@@ -241,7 +238,7 @@ namespace controlFallos
         private void button1_Click(object sender, EventArgs e)
         {
 
-            NombresFamilias nm = new NombresFamilias(idUsuario, empresa, area);
+            NombresFamilias nm = new NombresFamilias(idUsuario, empresa, area,v);
             nm.Owner = this;
             nm.Show();
         }
@@ -272,7 +269,7 @@ namespace controlFallos
 
         private void btnaddpasillo_Click(object sender, EventArgs e)
         {
-            familias f = new familias(idUsuario, empresa, area);
+            familias f = new familias(idUsuario, empresa, area,v);
             f.Owner = this;
             f.ShowDialog();
 
@@ -280,7 +277,7 @@ namespace controlFallos
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            NombresFamilias n = new NombresFamilias(idUsuario, empresa, area);
+            NombresFamilias n = new NombresFamilias(idUsuario, empresa, area,v);
             n.Owner = this;
             n.ShowDialog();
         }

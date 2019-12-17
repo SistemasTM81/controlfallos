@@ -628,8 +628,8 @@ namespace controlFallos
 
         public void privilegios()
         {
-            string sql = "SELECT CONCAT(insertar,';',consultar,';',editar,';',desactivar) as privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuario + "' and namform = 'Mantenimiento'";
-            string[] privilegios = getaData(sql).ToString().Split(';');
+            string sql = "SELECT privilegios as privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuario + "' and namform = 'Mantenimiento'";
+            string[] privilegios = getaData(sql).ToString().Split('/');
             pinsertar = getBoolFromInt(Convert.ToInt32(privilegios[0]));
             pconsultar = getBoolFromInt(Convert.ToInt32(privilegios[1]));
             peditar = getBoolFromInt(Convert.ToInt32(privilegios[2]));
@@ -807,7 +807,7 @@ namespace controlFallos
 
         public void metodobtnfinalizarsref()
         {
-            FormContraFinal FCF = new FormContraFinal(empresa, area, this);
+            FormContraFinal FCF = new FormContraFinal(empresa, area, this,v);
             var res = FCF.ShowDialog();
             if (res == DialogResult.OK)
             {
@@ -852,7 +852,7 @@ namespace controlFallos
 
         public void metodobtnfinalizarcref()
         {
-            FormContraFinal FCF = new FormContraFinal(empresa, area, this);
+            FormContraFinal FCF = new FormContraFinal(empresa, area, this,v);
             FCF.Owner = this;
             FCF.ShowDialog();
             labelidFinal.Text = FCF.id;

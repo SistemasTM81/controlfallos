@@ -27,7 +27,7 @@ namespace controlFallos
         public bool Pdesactivar { set; get; }
         public void establecerPrivilegios()
         {
-            object sql = v.getaData("SELECT privilegio  FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = 'catRefacciones'");
+            object sql = v.getaData("SELECT privilegios  FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = 'catRefacciones'");
             if (sql != null)
             {
                 string[] privilegios = sql.ToString().Split('/');

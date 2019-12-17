@@ -11,8 +11,8 @@ namespace controlFallos
 {
     public partial class nuevaRefaccion : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        
+        validaciones v;
         int idUsuario, status, empresa, area;
         string idRefaccionTemp, codrefAnterior, nomrefanterior, modrefanterior, marcaAnterior, nivelAnterior, charolaAnterior, ultimoabastecimiento, mediaAnterior, abastecimientoAnterior, descripcionAnterior;
         public bool editar { private set; get; }
@@ -55,8 +55,9 @@ namespace controlFallos
                 MessageBox.Show(ex.ToString());
             }
         }
-        public nuevaRefaccion(int idUsuario, int empresa, int area)
+        public nuevaRefaccion(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -92,7 +93,7 @@ namespace controlFallos
         }
         public void establecerPrivilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario,"catRefacciones")).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario,"catRefacciones")).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
 
@@ -247,7 +248,7 @@ namespace controlFallos
                     MessageBox.Show("No se encontraron resultados", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     insertarRefacciones();
                 }
-                c.dbconection().Close();
+                v.c.dbcon.Close();
                 tbrefaccion.ClearSelection();
 
             }
@@ -600,7 +601,7 @@ namespace controlFallos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            updateStock up = new updateStock(int.Parse(idRefaccionTemp), empresa, area);
+            updateStock up = new updateStock(int.Parse(idRefaccionTemp), empresa, area,v);
             up.Owner = this;
             up.txtstock.Text = (up.stockaNT = stock).ToString();
             up.txtstock.Focus();
@@ -662,8 +663,9 @@ namespace controlFallos
                 sql += id;
             }
             sql += "','" + this.idUsuario + "',NOW(),'Exportación a Excel de Catálogo de Refacciones','" + this.empresa + "','" + this.area + "')";
-            MySqlCommand exportacion = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand exportacion = new MySqlCommand(sql, v.c.dbconection());
             exportacion.ExecuteNonQuery();
+            v.c.dbcon.Close();
         }
         void ExportarExcel()
         {
@@ -673,7 +675,6 @@ namespace controlFallos
                 for (int i = 0; i < tbrefaccion.Columns.Count; i++) if (tbrefaccion.Columns[i].Visible) dt.Columns.Add(tbrefaccion.Columns[i].HeaderText);
                 for (int j = 0; j < tbrefaccion.Rows.Count; j++)
                 {
-
                     DataRow row = dt.NewRow();
                     int indice = 0;
                     for (int i = 0; i < tbrefaccion.Columns.Count; i++)
@@ -684,7 +685,6 @@ namespace controlFallos
                             row[dt.Columns[indice]] = tbrefaccion.Rows[j].Cells[i].Value;
                             indice++;
                         }
-
                     }
                     dt.Rows.Add(row);
                 }

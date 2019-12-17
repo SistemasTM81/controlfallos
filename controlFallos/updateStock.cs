@@ -15,10 +15,10 @@ namespace controlFallos
         public object idUsuario;
         public double stockaNT;
         public int idRefaccion, empresa, area;
-        validaciones v = new validaciones();
-        conexion c = new conexion();
-        public updateStock(int idRefaccion, int empresa, int area)
+        validaciones v;
+        public updateStock(int idRefaccion, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idRefaccion = idRefaccion;
             this.empresa = empresa;

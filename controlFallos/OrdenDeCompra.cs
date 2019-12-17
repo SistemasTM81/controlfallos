@@ -23,7 +23,6 @@ namespace controlFallos
     public partial class OrdenDeCompra : Form
     {
         Thread th;
-        conexion co = new conexion();
 
         /* VAR ANTERIORES */
 
@@ -49,8 +48,9 @@ namespace controlFallos
         String almacenistapdf = "", autorizapdf = "", proveedorpdf = "", facturarpdf = "";
 
         new menuPrincipal Owner;
-        public OrdenDeCompra(int idUsuario, int empresa, int area, Form fh,System.Drawing.Image logo)
+        public OrdenDeCompra(int idUsuario, int empresa, int area, Form fh,System.Drawing.Image logo,validaciones v)
         {
+            this.v = v;
              th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -153,7 +153,7 @@ namespace controlFallos
             comboBoxFacturar.DisplayMember = "nombreEmpresa";
             comboBoxFacturar.DataSource = dt;
             comboBoxFacturar.SelectedIndex = 0;
-            co.dbconection().Close();
+            v.c.dbcon.Close();
         }
 
         public void CargarEmpresasBusqueda()
@@ -172,7 +172,7 @@ namespace controlFallos
             comboBoxProveedor.DisplayMember = "empresa";
             comboBoxProveedor.DataSource = dt;
             comboBoxProveedor.SelectedIndex = 0;
-            co.dbconection().Close();
+            v.c.dbcon.Close();
         }
 
         public void CargarProveedoresBusqueda()
@@ -429,8 +429,7 @@ namespace controlFallos
             metodorecid();
             personafinal = dataGridViewOCompra.CurrentRow.Cells["PERSONA FINAL"].Value.ToString();
             estatusOCompra = dataGridViewOCompra.CurrentRow.Cells["ESTATUS"].Value.ToString();
-
-            MySqlCommand cmd = new MySqlCommand("SELECT t1.idOrdCompra, t1.FechaEntregaOCompra, COALESCE(t1.Subtotal, '0') AS Subtotal, COALESCE(t1.IVA, '0') AS IVA, COALESCE(t1.Total, '0') AS Total, COALESCE(UPPER(t1.ObservacionesOC), '') AS Observaciones, UPPER(t2.nombreEmpresa) AS NEmpresa, t1.FacturadafkCEmpresas AS EFacturar, UPPER(t3.empresa) AS Proveedor, t1.ProveedorfkCProveedores AS NProveedores, COALESCE(SUM(t4.Total), '0') AS TotalCS FROM ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor INNER JOIN detallesordencompra AS t4 ON t1.idOrdCompra = t4.OrdfkOrdenCompra WHERE t1.FolioOrdCompra = '" + labelFolioOC.Text + "' and t1.empresa='"+empresa+"'", co.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT t1.idOrdCompra, t1.FechaEntregaOCompra, COALESCE(t1.Subtotal, '0') AS Subtotal, COALESCE(t1.IVA, '0') AS IVA, COALESCE(t1.Total, '0') AS Total, COALESCE(UPPER(t1.ObservacionesOC), '') AS Observaciones, UPPER(t2.nombreEmpresa) AS NEmpresa, t1.FacturadafkCEmpresas AS EFacturar, UPPER(t3.empresa) AS Proveedor, t1.ProveedorfkCProveedores AS NProveedores, COALESCE(SUM(t4.Total), '0') AS TotalCS FROM ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor INNER JOIN detallesordencompra AS t4 ON t1.idOrdCompra = t4.OrdfkOrdenCompra WHERE t1.FolioOrdCompra = '" + labelFolioOC.Text + "' and t1.empresa='"+empresa+"'", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
@@ -440,13 +439,9 @@ namespace controlFallos
                 fentregaestimadanterior = Convert.ToDateTime(dr.GetString("FechaEntregaOCompra"));
                 labelSubTotalOC.Text = dr.GetString("Subtotal");
                 if (personafinal.Equals(""))
-                {
                     metodocargaiva();
-                }
                 else
-                {
                     textBoxIVA.Text = dr.GetString("IVA");
-                }
                 labelTotalOC.Text = dr.GetString("Total");
                 labelIVAOC.Text = (Math.Truncate((dr.GetDouble("Subtotal")*(dr.GetDouble("IVA")/100))*100) / 100).ToString("N2");
                 textBoxObservaciones.Text = dr.GetString("Observaciones");
@@ -510,7 +505,7 @@ namespace controlFallos
                 labelSubTotal.Visible = false;
             }
             dr.Close();
-            co.dbconection().Close();
+            v.c.dbcon.Close();
             banderaeditar = true;
         }
 
@@ -573,24 +568,24 @@ namespace controlFallos
                 sql += Folio;
             }
             sql += "','" + idUsuario + "',now(),'Exportación a Excel de ordenes de compra','2','2')";
-            MySqlCommand exportacion = new MySqlCommand(sql, co.dbconection());
+            MySqlCommand exportacion = new MySqlCommand(sql, v.c.dbconection());
             exportacion.ExecuteNonQuery();
-            co.dbconection().Close();
+            v.c.dbcon.Close();
             //dtexcel.Reset();
         }
 
         public void exportacionpdf()
         {
             metodorecid();
-            MySqlCommand cmd = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo, empresa, area) VALUES('Orden De Compra', '" + idfolio + "', 'Exportación de orden de compra en archivo pdf', '" + idUsuario + "', NOW(), 'Exportación a PDF de orden de compra de almacen', '2', '2')", co.dbconection());
+            MySqlCommand cmd = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo, empresa, area) VALUES('Orden De Compra', '" + idfolio + "', 'Exportación de orden de compra en archivo pdf', '" + idUsuario + "', NOW(), 'Exportación a PDF de orden de compra de almacen', '2', '2')", v.c.dbconection());
             cmd.ExecuteNonQuery();
-            co.dbconection().Close();
+            v.c.dbcon.Close();
         }
 
         public void privilegios()
         {
-            string sql = "SELECT CONCAT(insertar,';',consultar,';',editar,';',desactivar) as privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuario + "' and namform = 'ordencompra'";
-            string[] privilegios = v.getaData(sql).ToString().Split(';');
+            string sql = "SELECT  privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuario + "' and namform = 'ordencompra'";
+            string[] privilegios = v.getaData(sql).ToString().Split('/');
             pinsertar = getBoolFromInt(Convert.ToInt32(privilegios[0]));
             pconsultar = getBoolFromInt(Convert.ToInt32(privilegios[1]));
             peditar = getBoolFromInt(Convert.ToInt32(privilegios[2]));
@@ -605,7 +600,7 @@ namespace controlFallos
         public void AutoCompletado(TextBox cajaTexto) //Metodo De AutoCompletado
         {
             AutoCompleteStringCollection nColl = new AutoCompleteStringCollection();
-            MySqlCommand cmd = new MySqlCommand("SELECT FolioOrdCompra AS Folio FROM ordencompra", co.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT FolioOrdCompra AS Folio FROM ordencompra", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.HasRows == true)
             {
@@ -615,7 +610,7 @@ namespace controlFallos
                 }
             }
             dr.Close();
-            co.dbconection().Close();
+            v.c.dbconection().Close();
             textBoxOCompraB.AutoCompleteMode = AutoCompleteMode.Suggest;
             textBoxOCompraB.AutoCompleteSource = AutoCompleteSource.CustomSource;
             textBoxOCompraB.AutoCompleteCustomSource = nColl;
@@ -623,7 +618,7 @@ namespace controlFallos
 
         public void cargafolio()
         {
-            MySqlCommand cmd = new MySqlCommand("SELECT CONCAT(SUBSTRING(FolioOrdCompra, LENGTH(FolioOrdCompra) -6, 7)+1) AS FolioOC FROM ordencompra WHERE idOrdCompra = (SELECT MAX(idOrdCompra) FROM ordencompra)", co.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT CONCAT(SUBSTRING(FolioOrdCompra, LENGTH(FolioOrdCompra) -6, 7)+1) AS FolioOC FROM ordencompra WHERE idOrdCompra = (SELECT MAX(idOrdCompra) FROM ordencompra)", v.c.dbconection());
             string Folio = (string)cmd.ExecuteScalar();
             if (Folio == null)
             {
@@ -637,10 +632,10 @@ namespace controlFallos
                 }
             }
             labelFolioOC.Text = "OC-" + Folio.ToString();
-            co.dbconection().Close();
+            v.c.dbconection().Close();
         }
 
-        validaciones v = new validaciones();
+        validaciones v;
 
         public void metodorecid()
         {
@@ -657,7 +652,7 @@ namespace controlFallos
 
         public void metodocargaiva()
         {
-            MySqlCommand cmd = new MySqlCommand("SELECT COALESCE(iva,'0') AS IVA FROM civa", co.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT COALESCE(iva,'0') AS IVA FROM civa", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
@@ -668,7 +663,7 @@ namespace controlFallos
                 textBoxIVA.Text = "0";
             }
             dr.Close();
-            co.dbconection().Close();
+            v.c.dbconection().Close();
         }
 
         public void metodocargadetordenPDF() //Metodo Para Cargar Los Datos De Las Refacciones
@@ -678,7 +673,7 @@ namespace controlFallos
                 DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SELECT t1.NumRefacc AS PARTIDA,(select if(a5.refaccionfkcrefacciones is null,'',(select a8.codrefaccion from crefacciones as a8 where a8.idrefaccion=a5.refaccionfkcrefacciones)) from refaccionescomparativa as a5 inner join proveedorescomparativa as a6 on a5.idrefaccioncomparativa=a6.refaccionfkrefaccionesComparativa inner join comparativas as a7 on a7.idcomparativa=a5.ComparativaFKComparativas where a6.idproveedorComparativa=t1.ClavefkCRefacciones)as CLAVE,(select if(a1.refaccionfkcrefacciones is null,a1.nombreRefaccion,(select upper(a4.nombreRefaccion) from crefacciones as a4 where a4.idrefaccion=a1.refaccionfkcrefacciones)) from refaccionescomparativa as a1 inner join proveedorescomparativa as a2 on a1.idrefaccioncomparativa=a2.refaccionfkrefaccionesComparativa inner join comparativas as a3 on a3.idcomparativa=a1.comparativafkcomparativas where a2.idproveedorComparativa=t1.ClavefkCRefacciones)as 'DESCRIPCIÓN',COALESCE((SELECT x3.existencias FROM crefacciones AS x3 inner join refaccionescomparativa as x4 on x3.idrefaccion=x4.refaccionfkcrefacciones inner join comparativas as x5 on x5.idcomparativa=x4.comparativafkcomparativas inner join proveedorescomparativa as x6 on x6.refaccionfkrefaccionesComparativa=x4.idrefaccioncomparativa where x6.idproveedorComparativa=t1.ClavefkCRefacciones), 0) AS 'CANTIDAD EN EXISTENCIA', t1.Cantidad AS 'CANTIDAD SOLICITADA', t1.Precio AS 'PRECIO COTIZADO', (t1.cantidad*t1.precio)AS TOTAL, t1.ObservacionesRefacc AS OBSERVACIONES FROM detallesordencompra AS t1 INNER JOIN ordencompra AS t2 ON t1.OrdfkOrdenCompra = t2.idOrdCompra WHERE t1.OrdfkOrdenCompra = '" + idfolio + "'");
 
                 dataGridViewPedOCompra.DataSource = dt;
-                co.dbconection().Close();
+                v.c.dbconection().Close();
             }
             catch (Exception e)
             {
@@ -690,7 +685,7 @@ namespace controlFallos
         {
             DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES'; SELECT t1.FolioOrdCompra AS 'ORDEN DE COMPRA', UPPER(t2.empresa) AS PROVEEDOR, UPPER(t3.nombreEmpresa) AS 'NOMBRE DE LA EMPRESA', UPPER(DATE_FORMAT(t1.FechaOCompra, '%W %d %M %Y')) AS 'FECHA', UPPER(DATE_FORMAT(t1.FechaEntregaOCompra, '%W %d %M %Y')) AS 'FECHA DE ENTREGA', t1.SUBTOTAL, cast(((t1.IVA/100)*t1.Subtotal) as decimal (18,2)) as IVA, t1.TOTAL, coalesce((UPPER(t1.ESTATUS)), '') AS ESTATUS, coalesce((SELECT UPPER(CONCAT(t4.ApPaterno, ' ', t4.ApMaterno, ' ', t4.nombres)) FROM cpersonal AS t4 WHERE t1.PersonaFinal = t4.idPersona), '') AS 'PERSONA FINAL', UPPER(t1.ObservacionesOC) AS 'OBSERVACIONES' FROM ordencompra AS t1 LEFT JOIN cproveedores AS t2 ON t1.ProveedorfkCProveedores = t2.idproveedor INNER JOIN cempresas AS t3 ON t1.FacturadafkCEmpresas = t3.idempresa where t1.empresa='" + empresa +"'ORDER BY t1.FolioOrdCompra DESC");
             dataGridViewOCompra.DataSource = dt;
-            co.dbconection().Close();
+            v.c.dbconection().Close();
         }
 
         public void conteoiniref() //Realiza Un Conteo Inicial Para Saber Si No Hubo Algun Cambio En El GridView
@@ -766,7 +761,7 @@ namespace controlFallos
             metodorecid();
             personafinal = dataGridViewOCompra.CurrentRow.Cells["PERSONA FINAL"].Value.ToString();
             estatusOCompra = dataGridViewOCompra.CurrentRow.Cells["ESTATUS"].Value.ToString(); if (string.IsNullOrWhiteSpace(estatusOCompra)) label3.Text = "VISUALIZAR ORDEN" + Environment.NewLine + " DE COMPRA"; else label3.Text = "GENERAR ORDEN" + Environment.NewLine + " DE COMPRA";
-            MySqlCommand cmd = new MySqlCommand("SELECT t1.idOrdCompra,t1.FechaEntregaOCompra as FechaEntregaOCompra, coalesce((t1.Subtotal), '0') AS Subtotal, coalesce((t1.IVA), '0') AS IVA, coalesce((t1.Total), '0') AS Total, coalesce(upper((t1.ObservacionesOC)), '') AS Observaciones, UPPER(t2.nombreEmpresa) AS NEmpresa, t1.FacturadafkCEmpresas AS EFacturar, UPPER(t3.empresa) AS Proveedor, t1.ProveedorfkCProveedores AS NProveedores,(select sum(x1.Cantidad * x1.Precio) from detallesordencompra as x1 where x1.OrdfkOrdenCompra=t1.idOrdCompra)AS TotalCS from ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor  WHERE t1.FolioOrdCompra =  '" + labelFolioOC.Text + "'", co.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT t1.idOrdCompra,t1.FechaEntregaOCompra as FechaEntregaOCompra, coalesce((t1.Subtotal), '0') AS Subtotal, coalesce((t1.IVA), '0') AS IVA, coalesce((t1.Total), '0') AS Total, coalesce(upper((t1.ObservacionesOC)), '') AS Observaciones, UPPER(t2.nombreEmpresa) AS NEmpresa, t1.FacturadafkCEmpresas AS EFacturar, UPPER(t3.empresa) AS Proveedor, t1.ProveedorfkCProveedores AS NProveedores,(select sum(x1.Cantidad * x1.Precio) from detallesordencompra as x1 where x1.OrdfkOrdenCompra=t1.idOrdCompra)AS TotalCS from ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor  WHERE t1.FolioOrdCompra =  '" + labelFolioOC.Text + "'", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
@@ -795,13 +790,13 @@ namespace controlFallos
                 sumaCSolicitada = Convert.ToDouble(dr.GetString("TotalCS"));
             }
             dr.Close();
-            co.dbconection().Close();
-            MySqlCommand cmd1 = new MySqlCommand("select UPPER (t1.nombreEmpresa) as nombreEmpresa, t1.idempresa from cempresas as t1 inner join ordencompra as t2 on t1.idempresa=t2.FacturadafkCEmpresas where t2.FolioOrdCompra='" + dataGridViewOCompra.CurrentRow.Cells[0].Value.ToString() + "' and t1.status='0'", co.dbconection());
+            v.c.dbconection().Close();
+            MySqlCommand cmd1 = new MySqlCommand("select UPPER (t1.nombreEmpresa) as nombreEmpresa, t1.idempresa from cempresas as t1 inner join ordencompra as t2 on t1.idempresa=t2.FacturadafkCEmpresas where t2.FolioOrdCompra='" + dataGridViewOCompra.CurrentRow.Cells[0].Value.ToString() + "' and t1.status='0'", v.c.dbconection());
             MySqlDataReader dr1 = cmd1.ExecuteReader();
             if (dr1.Read())
             {
                 comboBoxFacturar.DataSource = null;
-                MySqlCommand comando = new MySqlCommand("SELECT UPPER(nombreEmpresa) AS nombreEmpresa, idempresa FROM cempresas where status='1' order by nombreEmpresa", co.dbconection());
+                MySqlCommand comando = new MySqlCommand("SELECT UPPER(nombreEmpresa) AS nombreEmpresa, idempresa FROM cempresas where status='1' order by nombreEmpresa", v.c.dbconection());
                 MySqlDataAdapter da = new MySqlDataAdapter(comando);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -820,8 +815,8 @@ namespace controlFallos
                 comboBoxFacturar.Text = dr1["nombreEmpresa"].ToString();
             }
             dr1.Close();
-            co.dbconection().Close();
-            MySqlCommand proveedor = new MySqlCommand("SELECT UPPER(empresa) AS empresa,  idproveedor FROM cproveedores WHERE status = 0 and upper(concat(aPaterno,' ',aMaterno,' ',nombres))='" + dataGridViewOCompra.CurrentRow.Cells[1].Value.ToString() + "'", co.dbconection());
+            v.c.dbconection().Close();
+            MySqlCommand proveedor = new MySqlCommand("SELECT UPPER(empresa) AS empresa,  idproveedor FROM cproveedores WHERE status = 0 and upper(concat(aPaterno,' ',aMaterno,' ',nombres))='" + dataGridViewOCompra.CurrentRow.Cells[1].Value.ToString() + "'", v.c.dbconection());
             MySqlDataReader dr2 = proveedor.ExecuteReader();
             if (dr2.Read())
             {
@@ -840,10 +835,10 @@ namespace controlFallos
                 comboBoxProveedor.DataSource = dt;
                 comboBoxProveedor.SelectedIndex = 1;
                 comboBoxProveedor.Text = dr2["empresa"].ToString();
-                co.dbconection().Close();
+                v.c.dbconection().Close();
             }
             dr2.Close();
-            co.dbconection().Close();
+            v.c.dbconection().Close();
             if (personafinal != "")
             {
                 buttonFinalizar.Visible = false;
@@ -1260,10 +1255,10 @@ namespace controlFallos
 
                         string cantidad, cod, DescRef, existenciasA, cSOlicitada, pre_cotizado, total_Ref;
 
-                        MySqlCommand maximo = new MySqlCommand("select max(t1.NumRefacc) as tam from detallesordencompra as t1 inner join ordencompra as t2 on t1.OrdfkOrdenCompra=t2.idOrdCompra  where t2.FolioOrdCompra='" + labelFolioOC.Text + "' ", co.dbconection());
+                        MySqlCommand maximo = new MySqlCommand("select max(t1.NumRefacc) as tam from detallesordencompra as t1 inner join ordencompra as t2 on t1.OrdfkOrdenCompra=t2.idOrdCompra  where t2.FolioOrdCompra='" + labelFolioOC.Text + "' ", v.c.dbconection());
                         MySqlDataReader DR1 = maximo.ExecuteReader();
 
-                        MySqlCommand almacenar_datos = new MySqlCommand("SET NAMES 'utf8';SELECT t1.NumRefacc AS partida, IF(t1.ClavefkCRefacciones <> 0, (SELECT UPPER(x1.codrefaccion) FROM crefacciones AS x1 WHERE x1.idrefaccion = t1.ClavefkCRefacciones), '') AS codigo, IF(t1.Refacciones <> '', UPPER(t1.Refacciones), (SELECT UPPER(x2.nombreRefaccion) FROM crefacciones AS x2 WHERE x2.idrefaccion = t1.ClavefkCRefacciones)) AS nombre, COALESCE((SELECT x3.existencias FROM crefacciones AS x3 WHERE x3.idrefaccion = t1.ClavefkCRefacciones), 0) AS existencias_almacen, t1.Cantidad AS canti_soli, t1.Precio AS precio_cot, t1.Total AS Tot_ref FROM detallesordencompra AS t1 INNER JOIN ordencompra AS t2 ON t1.OrdfkOrdenCompra = t2.idOrdCompra WHERE t2.FolioOrdCompra ='" + labelFolioOC.Text + "'", co.dbconection());
+                        MySqlCommand almacenar_datos = new MySqlCommand("SET NAMES 'utf8';SELECT t1.NumRefacc AS partida, IF(t1.ClavefkCRefacciones <> 0, (SELECT UPPER(x1.codrefaccion) FROM crefacciones AS x1 WHERE x1.idrefaccion = t1.ClavefkCRefacciones), '') AS codigo, IF(t1.Refacciones <> '', UPPER(t1.Refacciones), (SELECT UPPER(x2.nombreRefaccion) FROM crefacciones AS x2 WHERE x2.idrefaccion = t1.ClavefkCRefacciones)) AS nombre, COALESCE((SELECT x3.existencias FROM crefacciones AS x3 WHERE x3.idrefaccion = t1.ClavefkCRefacciones), 0) AS existencias_almacen, t1.Cantidad AS canti_soli, t1.Precio AS precio_cot, t1.Total AS Tot_ref FROM detallesordencompra AS t1 INNER JOIN ordencompra AS t2 ON t1.OrdfkOrdenCompra = t2.idOrdCompra WHERE t2.FolioOrdCompra ='" + labelFolioOC.Text + "'", v.c.dbconection());
                         MySqlDataReader DR = almacenar_datos.ExecuteReader();
                         int i = 0;
                         while (DR.Read())
@@ -1335,7 +1330,7 @@ namespace controlFallos
                             i++;
                         }
                         DR.Close();
-                        co.dbconection().Close();
+                        v.c.dbconection().Close();
 
                         while (i < 49)
                         {
@@ -1460,7 +1455,7 @@ namespace controlFallos
             if (dataGridViewPedOCompra.Rows.Count > 0)
             {
                 privilegios();
-                MySqlCommand cmd = new MySqlCommand("SELECT Almacen, Autoriza FROM nombresoc WHERE empresa='"+empresa+"'", co.dbconection());
+                MySqlCommand cmd = new MySqlCommand("SELECT Almacen, Autoriza FROM nombresoc WHERE empresa='"+empresa+"'", v.c.dbconection());
                 MySqlDataReader dr = cmd.ExecuteReader();
                 if (dr.Read())
                 {
@@ -1473,8 +1468,8 @@ namespace controlFallos
                     autorizapdf = "";
                 }
                 dr.Close();
-                co.dbconection().Close();
-                MySqlCommand cmd0 = new MySqlCommand("SELECT t2.nombreEmpresa AS Empresa, t3.empresa AS Proveedor FROM ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor WHERE t1.FolioOrdCompra = '" + labelFolioOC.Text + "'", co.dbconection());
+                v.c.dbconection().Close();
+                MySqlCommand cmd0 = new MySqlCommand("SELECT t2.nombreEmpresa AS Empresa, t3.empresa AS Proveedor FROM ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor WHERE t1.FolioOrdCompra = '" + labelFolioOC.Text + "'", v.c.dbconection());
                 MySqlDataReader dr0 = cmd0.ExecuteReader();
                 if (dr0.Read())
                 {
@@ -1487,7 +1482,7 @@ namespace controlFallos
                     facturarpdf = "";
                 }
                 dr0.Close();
-                co.dbconection().Close();
+                v.c.dbconection().Close();
                 if ((almacenistapdf != "") && (autorizapdf != "") && (facturarpdf != "") && (proveedorpdf != ""))
                 {
                     To_pdf();
@@ -1495,7 +1490,7 @@ namespace controlFallos
                 else if ((string.IsNullOrWhiteSpace(almacenistapdf) && string.IsNullOrWhiteSpace(almacenistapdf)))
                 {
                     MessageBox.Show("Falta el registro de los nombres de los responsables de la Orden De Compra\n", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    NombresOC noc = new NombresOC(empresa, area, pictureBox1.BackgroundImage);
+                    NombresOC noc = new NombresOC(empresa, area, pictureBox1.BackgroundImage,v);
                     noc.Owner = this;
                     noc.ShowDialog();
                 }
@@ -1694,7 +1689,7 @@ namespace controlFallos
                     {
                         metodorecid();
 
-                        MySqlCommand cmd0 = new MySqlCommand("SELECT NumRefacc FROM detallesordencompra WHERE OrdfkOrdenCompra = '" + idfolio + "' ORDER BY idDetOrdCompra DESC ", co.dbconection());
+                        MySqlCommand cmd0 = new MySqlCommand("SELECT NumRefacc FROM detallesordencompra WHERE OrdfkOrdenCompra = '" + idfolio + "' ORDER BY idDetOrdCompra DESC ", v.c.dbconection());
                         MySqlDataReader dr0 = cmd0.ExecuteReader();
                         if (dr0.Read())
                         {
@@ -1707,15 +1702,15 @@ namespace controlFallos
                             contadorefacc = contadorefacc + 1;
                         }
                         dr0.Close();
-                        co.dbconection().Close();
+                        v.c.dbconection().Close();
                         if (idfolio == 0)
                         {
                             DataTable dt1 = new DataTable();
-                            MySqlCommand cmd1 = new MySqlCommand("INSERT INTO ordencompra(FolioOrdCompra, ProveedorfkCProveedores, FacturadafkCEmpresas, FechaOCompra, FechaEntregaOCompra,IVA,usuariofkcpersonal,ObservacionesOC,ComparativaFKComparativas,empresa) VALUES('" + labelFolioOC.Text + "', '" + comboBoxProveedor.SelectedValue + "', '" + comboBoxFacturar.SelectedValue + "', curdate(), '" + dateTimePickerFechaEntrega.Value.ToString("yyyy-MM-dd") + "','" + textBoxIVA.Text + "','" + idUsuario + "','" + textBoxObservaciones.Text.Trim() + "','" + cbcomparativa.SelectedValue + "','"+empresa+"')", co.dbconection());
+                            MySqlCommand cmd1 = new MySqlCommand("INSERT INTO ordencompra(FolioOrdCompra, ProveedorfkCProveedores, FacturadafkCEmpresas, FechaOCompra, FechaEntregaOCompra,IVA,usuariofkcpersonal,ObservacionesOC,ComparativaFKComparativas,empresa) VALUES('" + labelFolioOC.Text + "', '" + comboBoxProveedor.SelectedValue + "', '" + comboBoxFacturar.SelectedValue + "', curdate(), '" + dateTimePickerFechaEntrega.Value.ToString("yyyy-MM-dd") + "','" + textBoxIVA.Text + "','" + idUsuario + "','" + textBoxObservaciones.Text.Trim() + "','" + cbcomparativa.SelectedValue + "','"+empresa+"')", v.c.dbconection());
                             MySqlDataAdapter adp1 = new MySqlDataAdapter(cmd1);
                             adp1.Fill(dt1);
                             dataGridViewOCompra.DataSource = dt1;
-                            co.dbconection().Close();
+                            v.c.dbconection().Close();
                             if (label3.Text == "EXPORTANDO")
                             { }
                             else
@@ -1738,18 +1733,18 @@ namespace controlFallos
                         }
 
                         DataTable dt = new DataTable();
-                        MySqlCommand cmd = new MySqlCommand("INSERT INTO detallesordencompra(OrdfkOrdenCompra, NumRefacc, " + codigorefaccionvalidada1 + ", Cantidad, Precio, Total, ObservacionesRefacc,usuariofkcpersonal,empresa) VALUES('" + idfolio + "', '" + contadorefacc + "', '" + codigorefaccionvalidada + "', '" + lblCantidad.Text + "', '" + lblPrecio.Text + "', '" + resultado + "', '" + textBoxObservacionesRefacc.Text + "','" + idUsuario + "','"+empresa+"')", co.dbconection());
+                        MySqlCommand cmd = new MySqlCommand("INSERT INTO detallesordencompra(OrdfkOrdenCompra, NumRefacc, " + codigorefaccionvalidada1 + ", Cantidad, Precio, Total, ObservacionesRefacc,usuariofkcpersonal,empresa) VALUES('" + idfolio + "', '" + contadorefacc + "', '" + codigorefaccionvalidada + "', '" + lblCantidad.Text + "', '" + lblPrecio.Text + "', '" + resultado + "', '" + textBoxObservacionesRefacc.Text + "','" + idUsuario + "','"+empresa+"')", v.c.dbconection());
                         cmd.ExecuteNonQuery();
-                        co.dbconection().Close();
+                        v.c.dbconection().Close();
 
-                        MySqlCommand cmd3 = new MySqlCommand("SELECT COALESCE(SUM(Total), 0) AS Total FROM detallesordencompra WHERE OrdfkOrdenCompra = '" + idfolio + "'", co.dbconection());
+                        MySqlCommand cmd3 = new MySqlCommand("SELECT COALESCE(SUM(Total), 0) AS Total FROM detallesordencompra WHERE OrdfkOrdenCompra = '" + idfolio + "'", v.c.dbconection());
                         MySqlDataReader dr3 = cmd3.ExecuteReader();
                         if (dr3.Read())
                         {
                             sumaCSolicitada = Convert.ToDouble(dr3.GetString("Total"));
                         }
                         dr3.Close();
-                        co.dbconection().Close();
+                        v.c.dbconection().Close();
                         if (comboBoxProveedor.SelectedIndex != 0)
                         {
                             comboBoxProveedor.Enabled = false;
@@ -1793,19 +1788,19 @@ namespace controlFallos
                                 {
                                     acumobservacionesrefacc += ", Partida " + contadorefacc + " " + textBoxObservacionesRefacc.Text;
                                 }
-                                MySqlCommand cmd00 = new MySqlCommand("UPDATE pedidosrefaccion SET ObservacionesRefacc = '" + textBoxObservacionesRefacc.Text + "' WHERE OrdfkOrdenCompra = '" + idfolio + "' AND NumRefacc = '" + contadorefacc + "'", co.dbconection());
+                                MySqlCommand cmd00 = new MySqlCommand("UPDATE pedidosrefaccion SET ObservacionesRefacc = '" + textBoxObservacionesRefacc.Text + "' WHERE OrdfkOrdenCompra = '" + idfolio + "' AND NumRefacc = '" + contadorefacc + "'", v.c.dbconection());
                                 cmd00.ExecuteNonQuery();
-                                co.dbconection().Close();
-                                MySqlCommand cmd04 = new MySqlCommand("UPDATE ordencompra SET ObservacionesOC ='" + acumobservacionesrefacc + "' WHERE idOrdCompra = '" + idfolio + "'", co.dbconection());
+                                v.c.dbconection().Close();
+                                MySqlCommand cmd04 = new MySqlCommand("UPDATE ordencompra SET ObservacionesOC ='" + acumobservacionesrefacc + "' WHERE idOrdCompra = '" + idfolio + "'", v.c.dbconection());
                                 cmd04.ExecuteNonQuery();
-                                co.dbconection().Close();
+                                v.c.dbconection().Close();
                             }
                             else if ((textBoxObservaciones.Text != "") && (string.IsNullOrWhiteSpace(textBoxObservacionesRefacc.Text)))
                             {
                                 observacionesOCompra = textBoxObservaciones.Text + "; ";
-                                MySqlCommand cmd03 = new MySqlCommand("UPDATE ordencompra SET ObservacionesOC = '" + textBoxObservaciones.Text + "' WHERE idOrdCompra = '" + idfolio + "'", co.dbconection());
+                                MySqlCommand cmd03 = new MySqlCommand("UPDATE ordencompra SET ObservacionesOC = '" + textBoxObservaciones.Text + "' WHERE idOrdCompra = '" + idfolio + "'", v.c.dbconection());
                                 cmd03.ExecuteNonQuery();
-                                co.dbconection().Close();
+                                v.c.dbconection().Close();
                                 //observaciones = textBoxObservaciones.Text;
                             }
                         }
@@ -1923,11 +1918,11 @@ namespace controlFallos
                 {
                     WHERE += " and empresa='"+empresa+"' ORDER BY t1.FolioOrdCompra DESC";
                 }
-                MySqlDataAdapter adp = new MySqlDataAdapter(consulta + WHERE, co.dbconection());
+                MySqlDataAdapter adp = new MySqlDataAdapter(consulta + WHERE, v.c.dbconection());
                 DataSet ds = new DataSet();
                 adp.Fill(ds);
                 dataGridViewOCompra.DataSource = ds.Tables[0];
-                co.dbconection().Close();
+                v.c.dbconection().Close();
 
                 if (ds.Tables[0].Rows.Count == 0)
                 {
@@ -1952,7 +1947,7 @@ namespace controlFallos
                     limpiarRefaccB();
                     metodo();
                 }
-                co.dbconection().Close();
+                v.c.dbconection().Close();
             }
         }
 
@@ -1995,14 +1990,14 @@ namespace controlFallos
         private void buttonAgregarMas_Click(object sender, EventArgs e)
         {
             banderaeditar = false;
-            MySqlCommand cmd1 = new MySqlCommand("SELECT SUM(Total) AS Total FROM detallesordencompra WHERE OrdfkOrdenCompra = '" + idordencompra + "'", co.dbconection());
+            MySqlCommand cmd1 = new MySqlCommand("SELECT SUM(Total) AS Total FROM detallesordencompra WHERE OrdfkOrdenCompra = '" + idordencompra + "'", v.c.dbconection());
             MySqlDataReader dr1 = cmd1.ExecuteReader();
             if (dr1.Read())
             {
                 sumaCSolicitada = Convert.ToDouble(dr1.GetString("Total"));
             }
             dr1.Close();
-            co.dbconection().Close();
+            v.c.dbconection().Close();
             metodocargaiva();
             comboBoxClave.SelectedIndex = 0;
             comboBoxClave.Visible = true;
@@ -2044,13 +2039,13 @@ namespace controlFallos
                             {
                                 string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
 
-                                MySqlCommand cmd0 = new MySqlCommand("UPDATE ordencompra SET ProveedorfkCProveedores = '" + comboBoxProveedor.SelectedValue + "', FacturadafkCEmpresas = '" + comboBoxFacturar.SelectedValue + "', FechaEntregaOCompra = '" + dateTimePickerFechaEntrega.Value.ToString("yyyy-MM-dd") + "', ObservacionesOC = '" + textBoxObservaciones.Text + "' WHERE idOrdCompra = '" + idordencompra + "'", co.dbconection());
+                                MySqlCommand cmd0 = new MySqlCommand("UPDATE ordencompra SET ProveedorfkCProveedores = '" + comboBoxProveedor.SelectedValue + "', FacturadafkCEmpresas = '" + comboBoxFacturar.SelectedValue + "', FechaEntregaOCompra = '" + dateTimePickerFechaEntrega.Value.ToString("yyyy-MM-dd") + "', ObservacionesOC = '" + textBoxObservaciones.Text + "' WHERE idOrdCompra = '" + idordencompra + "'", v.c.dbconection());
                                 cmd0.ExecuteNonQuery();
-                                co.dbconection().Close();
+                                v.c.dbconection().Close();
 
-                                MySqlCommand cmd00 = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion ,empresa, area) VALUES('Orden De Compra', '" + idordencompra + "', CONCAT('" + comboBoxProveedor.SelectedValue + ";', '" + comboBoxFacturar.SelectedValue + ";', '" + fentregaestimadanterior + ";', '" + textBoxObservaciones.Text + "'), '" + idUsuario + "', now(), 'Actualización de Orden de Compra','" + observaciones + "', '2', '2')", co.dbconection());
+                                MySqlCommand cmd00 = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion ,empresa, area) VALUES('Orden De Compra', '" + idordencompra + "', CONCAT('" + comboBoxProveedor.SelectedValue + ";', '" + comboBoxFacturar.SelectedValue + ";', '" + fentregaestimadanterior + ";', '" + textBoxObservaciones.Text + "'), '" + idUsuario + "', now(), 'Actualización de Orden de Compra','" + observaciones + "', '2', '2')", v.c.dbconection());
                                 cmd00.ExecuteNonQuery();
-                                co.dbconection().Close();
+                                v.c.dbconection().Close();
 
                                 MessageBox.Show("Orden de Compra editada correctamente", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                 btneditar();
@@ -2100,21 +2095,21 @@ namespace controlFallos
                                             {
                                                 ////string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
                                                 //numerorefaccion = Convert.ToInt32(dataGridViewPedOCompra.CurrentRow.Cells["PARTIDA"].Value.ToString());
-                                                //MySqlCommand cmd = new MySqlCommand("UPDATE detallesordencompra SET ClavefkCRefacciones = '" + comboBoxClave.SelectedValue + "', Cantidad = '" + valorcantidadsolicitada + "', Precio = '" + valorpreciocotizado + "', Total = '" + resultado + "', ObservacionesRefacc = '" + textBoxObservacionesRefacc.Text + "' WHERE NumRefacc = '" + numerorefaccion + "' AND OrdfkOrdenCompra = '" + idordencompra + "'", co.dbconection());
+                                                //MySqlCommand cmd = new MySqlCommand("UPDATE detallesordencompra SET ClavefkCRefacciones = '" + comboBoxClave.SelectedValue + "', Cantidad = '" + valorcantidadsolicitada + "', Precio = '" + valorpreciocotizado + "', Total = '" + resultado + "', ObservacionesRefacc = '" + textBoxObservacionesRefacc.Text + "' WHERE NumRefacc = '" + numerorefaccion + "' AND OrdfkOrdenCompra = '" + idordencompra + "'", v.c.dbconection());
                                                 //cmd.ExecuteNonQuery();
                                                 //MessageBox.Show("Refacción actualizada con éxito", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                                                //co.dbconection().Close();
-                                                //MySqlCommand cmd1 = new MySqlCommand("SELECT SUM(Total) AS Total FROM detallesordencompra WHERE OrdfkOrdenCompra = '" + idordencompra + "'", co.dbconection());
+                                                //v.c.dbconection().Close();
+                                                //MySqlCommand cmd1 = new MySqlCommand("SELECT SUM(Total) AS Total FROM detallesordencompra WHERE OrdfkOrdenCompra = '" + idordencompra + "'", v.c.dbconection());
                                                 //MySqlDataReader dr1 = cmd1.ExecuteReader();
                                                 //if (dr1.Read())
                                                 //{
                                                 //    sumaCSolicitada = Convert.ToDouble(dr1.GetString("Total"));
                                                 //}
                                                 //dr1.Close();
-                                                //co.dbconection().Close();
-                                        //        MySqlCommand cmd2 = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo, motivoActualizacion,empresa, area) VALUES('Orden De Compra', '" + idordencompra + "', CONCAT('" + idcodigorefanterior + ";', '" + preciocotizadoanterior + ";', '" + cantidadsolicitadanterior + ";', '" + observacionesrefaccanterior + "'), '" + idUsuario + "', now(), 'Actualización de Refacción de Orden de Compra','" + observaciones + "','2', '2')", co.dbconection());
+                                                //v.c.dbconection().Close();
+                                        //        MySqlCommand cmd2 = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo, motivoActualizacion,empresa, area) VALUES('Orden De Compra', '" + idordencompra + "', CONCAT('" + idcodigorefanterior + ";', '" + preciocotizadoanterior + ";', '" + cantidadsolicitadanterior + ";', '" + observacionesrefaccanterior + "'), '" + idUsuario + "', now(), 'Actualización de Refacción de Orden de Compra','" + observaciones + "','2', '2')", v.c.dbconection());
                                             //    cmd2.ExecuteNonQuery();
-                                                co.dbconection().Close();
+                                                v.c.dbconection().Close();
                                                 btneditar();
                                             }
                                         }
@@ -2144,7 +2139,7 @@ namespace controlFallos
         }
         private void buttonFinalizar_Click(object sender, EventArgs e)
         {
-            FormContraFinal FCF = new FormContraFinal(empresa, area, this);
+            FormContraFinal FCF = new FormContraFinal(empresa, area, this,v);
             if (metodotxtpedcompra() == true)
             {
                 MessageBox.Show("Tiene que agregar al menos una refaccion en la Orden De Compra", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -2165,7 +2160,7 @@ namespace controlFallos
                         nrefacc = 0;
                         idordencompra = Convert.ToInt32(v.getaData("select idOrdCompra from ordencompra where FolioOrdCompra='" + labelFolioOC.Text + "'").ToString());
                         string sql = "SELECT MAX(NumRefacc) AS NumRefacc, SUM(Total) AS Cantidad FROM detallesordencompra WHERE OrdfkOrdenCompra = '" + idordencompra + "'";
-                        MySqlCommand cmd1 = new MySqlCommand(sql, co.dbconection());
+                        MySqlCommand cmd1 = new MySqlCommand(sql, v.c.dbconection());
                         MySqlDataReader dr1 = cmd1.ExecuteReader();
                         if (dr1.Read())
                         {
@@ -2173,7 +2168,7 @@ namespace controlFallos
                             cantidadrefacc = Convert.ToDouble(dr1.GetString("Cantidad"));
                         }
                         dr1.Close();
-                        co.dbconection().Close();
+                        v.c.dbconection().Close();
                         double resociva = Convert.ToDouble(labelIVAOC.Text);
                         double totaloc = Convert.ToDouble(labelTotalOC.Text);
                         double subt = Convert.ToDouble(labelSubTotalOC.Text);
@@ -2181,9 +2176,9 @@ namespace controlFallos
                         resociva = subt * (i_v_a / 100);
                         labelIVAOC.Text = resociva.ToString();
                         metodorecid();
-                        MySqlCommand cmd = new MySqlCommand("UPDATE ordencompra SET SubTotal = '" + subt + "',Total = '" + totaloc + "', Estatus = 'FINALIZADA',  PersonaFinal = '" + FCF.id+ "', ObservacionesOC='" + textBoxObservaciones.Text + "' WHERE FolioOrdCompra = '" + labelFolioOC.Text + "'", co.dbconection());
+                        MySqlCommand cmd = new MySqlCommand("UPDATE ordencompra SET SubTotal = '" + subt + "',Total = '" + totaloc + "', Estatus = 'FINALIZADA',  PersonaFinal = '" + FCF.id+ "', ObservacionesOC='" + textBoxObservaciones.Text + "' WHERE FolioOrdCompra = '" + labelFolioOC.Text + "'", v.c.dbconection());
                         cmd.ExecuteNonQuery();
-                        co.dbconection().Close();
+                        v.c.dbconection().Close();
                         cargafolio();
                         metodocargaorden();
                         actualizarcbx();
@@ -2234,7 +2229,7 @@ namespace controlFallos
 
         private void comboBoxProveedor_SelectedValueChanged(object sender, EventArgs e)
         {
-            MySqlCommand validar = new MySqlCommand("SELECT correo, UPPER(CONCAT(aPaterno, ' ',coalesce( aMaterno,''), ' ', nombres)) AS representante, coalesce((paginaweb), '') AS paginaweb FROM cproveedores WHERE idproveedor = '" + comboBoxProveedor.SelectedValue + "'", co.dbconection());
+            MySqlCommand validar = new MySqlCommand("SELECT correo, UPPER(CONCAT(aPaterno, ' ',coalesce( aMaterno,''), ' ', nombres)) AS representante, coalesce((paginaweb), '') AS paginaweb FROM cproveedores WHERE idproveedor = '" + comboBoxProveedor.SelectedValue + "'", v.c.dbconection());
             MySqlDataReader leer = validar.ExecuteReader();
             if (leer.Read())
             {
@@ -2252,7 +2247,7 @@ namespace controlFallos
                 }
             }
             leer.Close();
-            co.dbconection().Close();
+            v.c.dbconection().Close();
 
             if (banderaeditar == true)
             {
@@ -2303,7 +2298,7 @@ namespace controlFallos
         }
         void aEmpresas()
         {
-            catEmpresas c = new catEmpresas(idUsuario, empresa, area);
+            catEmpresas c = new catEmpresas(idUsuario, empresa, area,v);
             c.Owner = this;
             c.lbllogo.Visible = true;
             c.pblogo.Visible = true;
@@ -2317,7 +2312,7 @@ namespace controlFallos
 
         private void comboBoxClave_TextChanged(object sender, EventArgs e)
         {
-            MySqlCommand validar = new MySqlCommand("SELECT existencias, UPPER(nombreRefaccion) AS nombreRefaccion FROM crefacciones WHERE idrefaccion='" + comboBoxClave.SelectedValue + "'", co.dbconection());
+            MySqlCommand validar = new MySqlCommand("SELECT existencias, UPPER(nombreRefaccion) AS nombreRefaccion FROM crefacciones WHERE idrefaccion='" + comboBoxClave.SelectedValue + "'", v.c.dbconection());
             MySqlDataReader leer = validar.ExecuteReader();
             if (leer.Read())
             {
@@ -2333,7 +2328,7 @@ namespace controlFallos
                 }
             }
             leer.Close();
-            co.dbconection().Close();
+            v.c.dbconection().Close();
         }
 
         private void checkBoxFechas_CheckedChanged(object sender, EventArgs e)
@@ -2748,7 +2743,7 @@ namespace controlFallos
 
         private void buttonActualizarN_Click(object sender, EventArgs e)
         {
-            NombresOC noc = new NombresOC(empresa, area,pictureBox1.BackgroundImage);
+            NombresOC noc = new NombresOC(empresa, area,pictureBox1.BackgroundImage,v);
             noc.Owner = this;
             noc.ShowDialog();
         }

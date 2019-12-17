@@ -16,14 +16,14 @@ namespace controlFallos
 {
     public partial class catEmpresas : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         bool editbussines = false;
         int bussinestemp, idUsuario, status, empresa, area;
         bool yaAparecioMensaje = false;
         string nombreAnterior, imgserialAnt;
-        public catEmpresas(int idUsuario, int empresa, int area)
+        public catEmpresas(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             this.empresa = empresa;
@@ -284,14 +284,14 @@ namespace controlFallos
                 sql = "SELECT t1.idempresa,upper(t1.nombreEmpresa) as nombreEmpresa, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as persona, t1.status,t1.empresa,t1.area FROM cempresas as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona WHERE t1.empresa='" + empresa + "' AND t1.area='" + area + "' ORDER BY nombreEmpresa ASC";
             else
                 sql = "SELECT t1.idempresa,upper(t1.nombreEmpresa) as nombreEmpresa, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as persona, t1.status,t1.empresa,t1.area FROM cempresas as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona  ORDER BY nombreEmpresa ASC";
-            MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
                 busqempresa.Rows.Add(dr.GetInt32("idempresa"), dr.GetString("nombreEmpresa"), dr.GetString("persona"), v.getStatusString(dr.GetInt32("status")), dr.GetString("empresa"), dr.GetString("area"));
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
             busqempresa.ClearSelection();
         }
 

@@ -54,12 +54,14 @@
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.gbaddpasillo.SuspendLayout();
             this.pdelete.SuspendLayout();
             this.pCancelar.SuspendLayout();
             this.gbpasillos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbubicaciones)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -107,6 +109,7 @@
             // gbaddpasillo
             // 
             this.gbaddpasillo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.gbaddpasillo.Controls.Add(this.panel2);
             this.gbaddpasillo.Controls.Add(this.pdelete);
             this.gbaddpasillo.Controls.Add(this.label2);
             this.gbaddpasillo.Controls.Add(this.label23);
@@ -289,12 +292,12 @@
             // gbpasillos
             // 
             this.gbpasillos.Controls.Add(this.tbubicaciones);
-            this.gbpasillos.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.gbpasillos.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbpasillos.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbpasillos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbpasillos.Location = new System.Drawing.Point(0, 274);
+            this.gbpasillos.Location = new System.Drawing.Point(0, 0);
             this.gbpasillos.Name = "gbpasillos";
-            this.gbpasillos.Size = new System.Drawing.Size(611, 278);
+            this.gbpasillos.Size = new System.Drawing.Size(605, 208);
             this.gbpasillos.TabIndex = 33;
             this.gbpasillos.TabStop = false;
             this.gbpasillos.Text = "Consulta de Pasillos";
@@ -321,7 +324,7 @@
             this.tbubicaciones.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
@@ -357,7 +360,7 @@
             this.tbubicaciones.ShowCellToolTips = false;
             this.tbubicaciones.ShowEditingIcon = false;
             this.tbubicaciones.ShowRowErrors = false;
-            this.tbubicaciones.Size = new System.Drawing.Size(605, 250);
+            this.tbubicaciones.Size = new System.Drawing.Size(599, 180);
             this.tbubicaciones.TabIndex = 0;
             this.tbubicaciones.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tbubicaciones_CellContentDoubleClick);
             this.tbubicaciones.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.tbubicaciones_CellFormatting);
@@ -395,13 +398,21 @@
             this.Estatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Estatus.Width = 150;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.gbpasillos);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Location = new System.Drawing.Point(3, 314);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(605, 208);
+            this.panel2.TabIndex = 67;
+            // 
             // catPasillos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(611, 552);
-            this.Controls.Add(this.gbpasillos);
             this.Controls.Add(this.gbaddpasillo);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -421,6 +432,7 @@
             this.pCancelar.PerformLayout();
             this.gbpasillos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbubicaciones)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -450,5 +462,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estatus;
+        private System.Windows.Forms.Panel panel2;
     }
 }

@@ -12,13 +12,13 @@ namespace controlFallos
 {
     public partial class catCategorias : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         int idUsuario, empresa, area, idCategoriaTemp, grupoAnterior, subgrupoAnterior, status;
         bool editar, yaAparecioMensaje;
         string categoriaAnterior;
-        public catCategorias(int idUsuario, int empresa, int area)
+        public catCategorias(int idUsuario, int empresa, int area, validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             this.empresa = empresa;
@@ -27,6 +27,7 @@ namespace controlFallos
             cbsubgrupo.DrawItem += v.combos_DrawItem;
             cbgrupo.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cbsubgrupo.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
+          
         }
         bool pconsultar { set; get; }
         bool pinsertar { set; get; }

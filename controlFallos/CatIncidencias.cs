@@ -13,8 +13,7 @@ namespace controlFallos
 {
     public partial class CatIncidencias : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         public bool Pinsertar { set; get; }
         public bool Peditar { get; set; }
         public bool Pconsultar { set; get; }
@@ -25,8 +24,9 @@ namespace controlFallos
         int _estatus = 0;
         bool editar, mensaje = false;
 
-        public CatIncidencias(int idusuario, int empresa, int area)
+        public CatIncidencias(int idusuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             this.idusuario = idusuario;
             this.empresa = empresa;
             this.area = area;
@@ -117,14 +117,14 @@ namespace controlFallos
         public void Incidencias()
         {
             DgvIncidencias.Rows.Clear();
-            MySqlCommand datos = new MySqlCommand("select t1.idincidencia as id,t1.numeroIncidencia as 'N° de Incidencia',t1.concepto as 'Concepto',upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) as 'Persona',if(t1.status=1,'ACTIVO','NO ACTIVO') as estatus from catincidencias as t1 inner join cpersonal as t2 on t2.idPersona=t1.personaFKcpersonal order by t1.numeroIncidencia asc;", c.dbconection());
+            MySqlCommand datos = new MySqlCommand("select t1.idincidencia as id,t1.numeroIncidencia as 'N° de Incidencia',t1.concepto as 'Concepto',upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) as 'Persona',if(t1.status=1,'ACTIVO','NO ACTIVO') as estatus from catincidencias as t1 inner join cpersonal as t2 on t2.idPersona=t1.personaFKcpersonal order by t1.numeroIncidencia asc;", v.c.dbconection());
             MySqlDataReader dr = datos.ExecuteReader();
             while (dr.Read())
             {
                 DgvIncidencias.Rows.Add(dr.GetString("id"), dr.GetString("N° de Incidencia"), dr.GetString("Concepto"), dr.GetString("Persona"), dr.GetString("estatus"));
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbconection().Close();
             DgvIncidencias.ClearSelection();
         }
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -167,9 +167,9 @@ namespace controlFallos
                     if (obs.ShowDialog() == DialogResult.OK)
                     {
                         string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
-                        MySqlCommand editar = new MySqlCommand("update catincidencias set numeroIncidencia='" + txtIncidencia.Text.Trim() + "',concepto='" + txtConcepto.Text.Trim() + "' where idincidencia='" + _idAnterior + "'", c.dbconection());
+                        MySqlCommand editar = new MySqlCommand("update catincidencias set numeroIncidencia='" + txtIncidencia.Text.Trim() + "',concepto='" + txtConcepto.Text.Trim() + "' where idincidencia='" + _idAnterior + "'", v.c.dbconection());
                         editar.ExecuteNonQuery();
-                        MySqlCommand modificaciones = new MySqlCommand("insert into modificaciones_sistema (form,idregistro,ultimaModificacion,usuariofkcpersonal,fechaHora,Tipo,empresa,area,motivoActualizacion) values('Catálogo de Incidencias','" + _idAnterior + "','" + _numeroAnterior + ";" + _conceptoAnterior + "','" + this.idusuario + "',now(),'Actualización de Incidencia','" + empresa + "','" + area + "','" + observaciones + "')", c.dbconection());
+                        MySqlCommand modificaciones = new MySqlCommand("insert into modificaciones_sistema (form,idregistro,ultimaModificacion,usuariofkcpersonal,fechaHora,Tipo,empresa,area,motivoActualizacion) values('Catálogo de Incidencias','" + _idAnterior + "','" + _numeroAnterior + ";" + _conceptoAnterior + "','" + this.idusuario + "',now(),'Actualización de Incidencia','" + empresa + "','" + area + "','" + observaciones + "')", v.c.dbconection());
                         modificaciones.ExecuteNonQuery();
                         Incidencia_de_Personal cat = (Incidencia_de_Personal)Owner;
                         cat.incidencias();
@@ -177,7 +177,7 @@ namespace controlFallos
                         limpiar();
                         Incidencias();
                         if (!mensaje) MessageBox.Show("Incidencia editada correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        c.dbconection().Close();
+                       v.c.dbcon.Close();
                     }
                 }
             }
@@ -192,14 +192,14 @@ namespace controlFallos
             {
                 if (!v.existe_incidencia(Convert.ToInt32(txtIncidencia.Text.Trim()), _idAnterior))
                 {
-                    MySqlCommand insertar = new MySqlCommand("insert into catincidencias (numeroIncidencia,concepto,personafkcpersonal,status)values('" + Convert.ToInt32(txtIncidencia.Text.Trim()) + "','" + txtConcepto.Text.Trim() + "','" + this.idusuario + "','1')", c.dbconection());
+                    MySqlCommand insertar = new MySqlCommand("insert into catincidencias (numeroIncidencia,concepto,personafkcpersonal,status)values('" + Convert.ToInt32(txtIncidencia.Text.Trim()) + "','" + txtConcepto.Text.Trim() + "','" + this.idusuario + "','1')", v.c.dbconection());
                     insertar.ExecuteNonQuery();
-                    MySqlCommand modificaciones = new MySqlCommand("insert into modificaciones_sistema (form,idregistro,usuariofkcpersonal,fechaHora,Tipo,empresa,area) values('Catálogo de Incidencias',(select idincidencia from catincidencias where numeroIncidencia='" + txtIncidencia.Text + "'),'" + this.idusuario + "',now(),'Incerción de Incidencia','" + empresa + "','" + area + "');", c.dbconection());
+                    MySqlCommand modificaciones = new MySqlCommand("insert into modificaciones_sistema (form,idregistro,usuariofkcpersonal,fechaHora,Tipo,empresa,area) values('Catálogo de Incidencias',(select idincidencia from catincidencias where numeroIncidencia='" + txtIncidencia.Text + "'),'" + this.idusuario + "',now(),'Incerción de Incidencia','" + empresa + "','" + area + "');", v.c.dbconection());
                     modificaciones.ExecuteNonQuery();
                     Incidencia_de_Personal cat = (Incidencia_de_Personal)Owner;
                     cat.incidencias();
                     cat._bincidencias();
-                    c.dbconection().Close();
+                    v.c.dbcon.Close();
                     limpiar();
                     Incidencias();
                     MessageBox.Show("Incidencia insertada correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);

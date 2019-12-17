@@ -22,19 +22,17 @@ namespace controlFallos
     {
         public string folio = "";
         public conexion c = new conexion();
-
-
         public void Sololetras(KeyPressEventArgs e)
         {
-            if (Char.IsLetter(e.KeyChar))
+            if (char.IsLetter(e.KeyChar))
             {
                 e.Handled = false;
             }
-            else if (Char.IsControl(e.KeyChar))
+            else if (char.IsControl(e.KeyChar))
             {
                 e.Handled = false;
             }
-            else if (Char.IsSeparator(e.KeyChar))
+            else if (char.IsSeparator(e.KeyChar))
             {
                 e.Handled = false;
             }

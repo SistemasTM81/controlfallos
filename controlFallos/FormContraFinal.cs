@@ -13,7 +13,7 @@ namespace controlFallos
 {
     public partial class FormContraFinal : Form
     {
-        validaciones val = new validaciones();
+        validaciones val;
         conexion co = new conexion();
         Form FFM;
         OrdenDeCompra ODC;
@@ -25,8 +25,9 @@ namespace controlFallos
         int empresa, area;
         public string id, tipobtn;
 
-        public FormContraFinal(int empresa, int area, Form F)
+        public FormContraFinal(int empresa, int area, Form F,validaciones v)
         {
+            this.val = v;
             InitializeComponent();
             if (empresa == 1 && area == 1)
                 if (F.Name == "ReportePersonal")

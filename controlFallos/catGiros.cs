@@ -13,8 +13,7 @@ namespace controlFallos
 {
     public partial class catGiros : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         int idUsuario, empresa, area, statusAnterior;
         string idclasificacionAnterior, clasificacionAnterior;
         public bool Pinsertar { set; get; }
@@ -24,8 +23,9 @@ namespace controlFallos
         public bool Pdesactivar { set; get; }
         bool editar;
         bool yaAparecioMensaje;
-        public catGiros(int idUsuario, int empresa, int area)
+        public catGiros(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             this.empresa = empresa;

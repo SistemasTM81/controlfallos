@@ -10,9 +10,10 @@ namespace controlFallos
         private FingerprintCore fngPrint;
         private GriauleFingerprintLibrary.DataTypes.FingerprintRawImage rawImage;
         public GriauleFingerprintLibrary.DataTypes.FingerprintTemplate _template;
-        conexion c = new conexion(); validaciones v = new validaciones();
-        public writeFingerprint()
+         validaciones v;
+        public writeFingerprint(validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             fngPrint = new FingerprintCore();
             fngPrint.onStatus += new StatusEventHandler(fngPrint_onStatus);

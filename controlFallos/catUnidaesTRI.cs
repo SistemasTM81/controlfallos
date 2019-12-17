@@ -16,8 +16,7 @@ namespace controlFallos
 {
     public partial class catUnidaesTRI : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
 
         int idUsuario, empresa, area, idcusu;
         string binanterior, nmotoranterior, ntransmisionAnterior, modeloAnterior, marcaAnterior, eco, nempresa, narea, usuarioact;
@@ -31,24 +30,22 @@ namespace controlFallos
 
         public void privilegios()
         {
-            string sql = "SELECT insertar,consultar,editar,desactivar FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = 'catUnidades'";
-            MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
-            MySqlDataReader mdr = cmd.ExecuteReader();
-            if (mdr.Read())
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catUnidades")).ToString().Split('/');
+            if (privilegiosTemp.Length > 0)
             {
-                pconsultar = v.getBoolFromInt(mdr.GetInt32("consultar"));
-                pinsertar = v.getBoolFromInt(mdr.GetInt32("insertar"));
-                peditar = v.getBoolFromInt(mdr.GetInt32("editar"));
-                pdesactivar = v.getBoolFromInt(mdr.GetInt32("desactivar"));
-                mostrar();
-                mdr.Close();
-                c.dbconection().Close();
+
+                pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
+                pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
+                peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
+                pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
             }
-            else{this.Close();}
+            mostrar();
+             
         }
 
-        public catUnidaesTRI(int idUsuario, Image logo, int empresa, int area)
+        public catUnidaesTRI(int idUsuario, Image logo, int empresa, int area,validaciones v)
         {
+            this.v=v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -312,15 +309,15 @@ namespace controlFallos
                         eco = dataGridViewUnidadesTRI.Rows[e.RowIndex].Cells[0].Value.ToString();
                         narea = dataGridViewUnidadesTRI.Rows[e.RowIndex].Cells[2].Value.ToString();
                         usuarioact = dataGridViewUnidadesTRI.Rows[e.RowIndex].Cells[8].Value.ToString();
-                        MySqlCommand cmdid = new MySqlCommand("SELECT t1.idunidad FROM cunidades AS t1 INNER JOIN careas AS t2 ON t1.areafkcareas = t2.idarea WHERE t2.nombreArea = '" + narea + "' AND CONCAT(t2.identificador, LPAD(t1.consecutivo, 4, '0')) = '" + eco + "'", c.dbconection());
+                        MySqlCommand cmdid = new MySqlCommand("SELECT t1.idunidad FROM cunidades AS t1 INNER JOIN careas AS t2 ON t1.areafkcareas = t2.idarea WHERE t2.nombreArea = '" + narea + "' AND CONCAT(t2.identificador, LPAD(t1.consecutivo, 4, '0')) = '" + eco + "'", v.c.dbconection());
                         MySqlDataReader drid = cmdid.ExecuteReader();
                         if (drid.Read())
                         {
                             idUnidadTemp = Convert.ToString(drid.GetString("idunidad"));
                         }
                         drid.Close();
-                        c.dbconection().Close();
-                        MySqlCommand cmd = new MySqlCommand("SELECT CONCAT(t2.identificador,LPAD(t1.consecutivo,4,'0')) AS ECO, (SELECT UPPER(nombreEmpresa) FROM cempresas WHERE idempresa = t2.empresafkcempresas) AS EMPRESA, coalesce(t1.bin, '') AS bin, coalesce(t1.nmotor, '') AS nmotor, coalesce(t1.ntransmision, '') AS ntransmision, coalesce(t1.modelo, '') AS modelo, coalesce(t1.Marca, '') AS Marca FROM cunidades as t1 INNER JOIN careas AS t2 ON t1.areafkcareas = t2.idarea WHERE t1.idunidad = '" + idUnidadTemp + "'", c.dbconection());
+                        v.c.dbcon.Close();
+                        MySqlCommand cmd = new MySqlCommand("SELECT CONCAT(t2.identificador,LPAD(t1.consecutivo,4,'0')) AS ECO, (SELECT UPPER(nombreEmpresa) FROM cempresas WHERE idempresa = t2.empresafkcempresas) AS EMPRESA, coalesce(t1.bin, '') AS bin, coalesce(t1.nmotor, '') AS nmotor, coalesce(t1.ntransmision, '') AS ntransmision, coalesce(t1.modelo, '') AS modelo, coalesce(t1.Marca, '') AS Marca FROM cunidades as t1 INNER JOIN careas AS t2 ON t1.areafkcareas = t2.idarea WHERE t1.idunidad = '" + idUnidadTemp + "'", v.c.dbconection());
                         MySqlDataReader dr = cmd.ExecuteReader();
                         if (dr.Read())
                         {
@@ -346,7 +343,7 @@ namespace controlFallos
                             }
                         }
                         dr.Close();
-                        c.dbconection().Close();
+                        v.c.dbcon.Close();
                         gbECO.Enabled = true;
                         btncancelu.Visible = true;
                         label13.Visible = true;
@@ -470,7 +467,7 @@ namespace controlFallos
                     }
                     if (wheres != "") wheres += "";
                     sql += wheres + " ORDER BY EMPRESA, 'ÁREA', 'ECONÓMICO' DESC";
-                    MySqlDataAdapter cm = new MySqlDataAdapter(sql, c.dbconection());
+                    MySqlDataAdapter cm = new MySqlDataAdapter(sql, v.c.dbconection());
                     DataSet ds = new DataSet();
                     cm.Fill(ds);
                     dataGridViewUnidadesTRI.DataSource = ds.Tables[0];
@@ -574,7 +571,6 @@ namespace controlFallos
                             }
                             else
                             {
-
                                 if (peditar)
                                 {
                                     if (string.IsNullOrWhiteSpace(textBoxCUsu.Text.Trim()))

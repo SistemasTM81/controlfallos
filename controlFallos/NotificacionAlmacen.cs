@@ -12,12 +12,12 @@ namespace controlFallos
 {
     public partial class NotificacionAlmacen : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         bool res = true;
         Thread t; ThreadStart tS;
-        public NotificacionAlmacen()
+        public NotificacionAlmacen(validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             cbmes.DrawItem += new DrawItemEventHandler(v.combos_DrawItem);
         }
@@ -25,7 +25,7 @@ namespace controlFallos
         {
             tbnotvigencias.Rows.Clear();
             string sql = "SET lc_time_names = 'es_ES'; SELECT t2.idPersona,UPPER(coalesce(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres), '')) AS NOMBRE,  COALESCE(CONCAT(T3.Tipo,' - ',t3.Descripcion),'') AS 'TIPO DE LICENCIA', UPPER(coalesce(DATE_FORMAT(t1.fechaEmisionConducir, '%W %d %M %Y'), '')) AS 'FECHA DE EMISIÓN DE LICENCIA DE CONDUCIR', UPPER(coalesce(DATE_FORMAT(t1.fechaVencimientoConducir, '%W %d %M %Y'), '')) AS 'FECHA DE VENCIMIENTO DE LICENCIA DE CONDUCIR'FROM vigencias_supervision AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona inner join cattipos as t3 On t1.tipolicenciafkcattipos=t3.idcattipos WHERE t2.empresa='2' and t2.area='2' AND DATEDIFF(t1.fechaVencimientoConducir, curdate()) <= 7 AND t2.status='1'";
-            MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cmd = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -38,7 +38,7 @@ namespace controlFallos
         {
             tbnotiffolios.Rows.Clear();
             string sql = "SELECT t2.idReporteSupervicion as id, t2.Folio as folio,concat(t5.identificador,LPAD(t3.consecutivo,4,'0')) as eco, CONCAT(T4.nombres,' ',T4.ApPaterno) as mecanico,t1.FechaReporteM as fechas,(SELECT count(idPedRef) FROM pedidosrefaccion WHERE FolioPedfkSupervicion= t2.idReporteSupervicion) as total FROM reportemantenimiento as t1 INNER JOIN reportesupervicion as t2 ON t1.FoliofkSupervicion= t2.idReporteSupervicion INNER JOIN cunidades as t3 ON t2.UnidadfkCUnidades = t3.idunidad INNER JOIN cpersonal AS t4 ON t1.MecanicofkPersonal = t4.idPersona INNER JOIN careas as t5 ON t3.areafkcareas=t5.idarea  WHERE StatusRefacciones = 'Se Requieren Refacciones' and t1.seenAlmacen=0 AND t2.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();";
-            MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
@@ -46,14 +46,14 @@ namespace controlFallos
                 tbnotiffolios.Rows.Add(filas);
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
             tbnotiffolios.ClearSelection();
         }
          void busqnotificacionesAlertas()
         {
             tbnotifrefacc.Rows.Clear();
             string sql = "SET lc_time_names='es_ES';SELECT t1.idrefaccion,t1.codrefaccion,t1.nombreRefaccion,t1.modeloRefaccion, COALESCE(DATE_FORMAT(t1.proximoAbastecimiento,'%W, %d de %M del %Y ' ),'') AS proximoAbastecimiento, CONCAT(t1.existencias,' ',t2.Simbolo) AS existencias, t1.existencias as exist, t1.media AS media,t1.abastecimiento AS abastecimiento,COALESCE(datediff(t1.proximoAbastecimiento,curdate()),'') as dif FROM crefacciones as t1 INNER JOIN cmarcas as t4 ON t1.marcafkcmarcas= t4.idmarca INNER JOIN Cfamilias as t3 ON t4.descripcionfkcfamilias = t3.idfamilia  INNER JOIN cunidadmedida as t2 ON t3.umfkcunidadmedida=t2.idunidadmedida WHERE t1.existencias <=t1.media OR t1.existencias<= t1.abastecimiento OR datediff(t1.proximoAbastecimiento,curdate()) <=20 and t1.status=1";
-            MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
@@ -61,7 +61,7 @@ namespace controlFallos
                 tbnotifrefacc.Rows.Add(filas);
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
             tbnotifrefacc.ClearSelection();
             colorearCeldas();
     }

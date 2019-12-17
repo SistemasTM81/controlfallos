@@ -17,8 +17,7 @@ namespace controlFallos
         int idFalloTemp;
         string clasificacionAnterior;
         int status;
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         bool pconsultar { set; get; }
         bool pinsertar { set; get; }
         bool peditar { set; get; }
@@ -52,8 +51,9 @@ namespace controlFallos
                 editar = true;
             }
         }
-        public catClasificaciones(int idUsuario, int empresa, int area)
+        public catClasificaciones(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             this.empresa = empresa;
@@ -76,12 +76,12 @@ namespace controlFallos
             {
                 tbfallos.Rows.Clear();
                 String sql = "SELECT t1.idFalloGral,UPPER(t1.nombreFalloGral) AS nombreFalloGral,t1.status, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as nombre FROM cfallosgrales as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona WHERE t1.empresa = '" + empresa + "'";
-                MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+                MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
                 MySqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
                     tbfallos.Rows.Add(dr.GetInt32("idFalloGral"), dr.GetString("nombreFalloGral"), dr.GetString("nombre"), v.getStatusString(dr.GetInt32("status")));
                 dr.Close();
-                c.dbconection().Close();
+                v.c.dbcon.Close();
                 tbfallos.ClearSelection();
             }
             catch (Exception ex)

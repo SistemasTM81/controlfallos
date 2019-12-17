@@ -1,13 +1,6 @@
-﻿using System.Globalization;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace controlFallos
@@ -15,15 +8,10 @@ namespace controlFallos
     public partial class ReportesVigencias : Form
     {
         validaciones v;
-
         int reporte, empresa, area, idusuario, contadortxt, contadoralltxt, idencabezadoreporte, idUsuarioP;
-
         //VARIABLES ANTERIORES
-
         string nombreanterior, codigoanterior, fechaAnterior, revisionanterior;
-
         bool peditar { get; set; }
-
         public ReportesVigencias(int empresa, int area, int idUsuarioP,validaciones v)
         {
             InitializeComponent();
@@ -32,7 +20,6 @@ namespace controlFallos
             this.area = area;
             this.idUsuarioP = idUsuarioP;
         }
-
         private void ReportesVigencias_Load(object sender, EventArgs e)
         {
             privilegios();
@@ -47,28 +34,16 @@ namespace controlFallos
             if (!peditar)
                 btnEditar.Visible = label9.Visible = false;
         }
-
         // EVENTOS
-
         public void privilegios()
         {
-            string sql = "SELECT CONCAT(editar) as privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuarioP + "' and namform = 'repPersonal'";
-            string[] privilegios = getaData(sql).ToString().Split(';');
+            string sql = "SELECT privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuarioP + "' and namform = 'repPersonal'";
+            string[] privilegios = v.getaData(sql).ToString().Split(';');
             peditar = getBoolFromInt(Convert.ToInt32(privilegios[0]));
         }
 
-        public bool getBoolFromInt(int i)
-        {
-            return i == 1;
-        }
-
-        public object getaData(string sql)
-        {
-            MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
-            var res = cm.ExecuteScalar();
-            v.c.dbconection();
-            return res;
-        }
+        public bool getBoolFromInt(int i){return i == 1;}
+        
 
         public void txtallnum_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -77,7 +52,7 @@ namespace controlFallos
 
         public void txtallcodigo_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (Char.IsLetter(e.KeyChar) || Char.IsNumber(e.KeyChar) || e.KeyChar == 45 || e.KeyChar == 127 || e.KeyChar == 08)
+            if (char.IsLetter(e.KeyChar) || char.IsNumber(e.KeyChar) || e.KeyChar == 45 || e.KeyChar == 127 || e.KeyChar == 08)
                 e.Handled = false;
             else
             {

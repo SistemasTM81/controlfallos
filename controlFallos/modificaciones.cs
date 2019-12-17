@@ -13,13 +13,13 @@ namespace controlFallos
 {
     public partial class modificaciones : Form
     {
-        
-        validaciones v = new validaciones();
+        validaciones v;
         int empresa, area;
         Thread th;
-        public modificaciones(int empresa,int area)
+        public modificaciones(int empresa, int area, validaciones v)
         {
-             th = new Thread(new ThreadStart(v.Splash));
+            this.v = v;
+            th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
             this.empresa = empresa;
@@ -36,18 +36,15 @@ namespace controlFallos
             DataTable dt = (DataTable)v.getData(string.Format("SET lc_time_names='es_ES';SELECT t1.idmodificacion, t1.idregistro,(SELECT UPPER(t1.form)) as form,UPPER((SELECT DATE_FORMAT(fechaHora,'%W, %d de %M del %Y / %H:%i:%s') FROM modificaciones_sistema WHERE idmodificacion=t1.idmodificacion and form=t1.form and empresa='{0}' and area='{1}')) as fecha,upper(Tipo) as ultima,UPPER(Concat('Mostrar Más Información')) as m,if((SELECT COUNT(*) FROM modificaciones_sistema WHERE idregistro=t1.idregistro and upper(form)=t1.form)>1,'MOSTRAR HISTORIAL','')as h FROM modificaciones_sistema as t1 WHERE t1.empresa='{0}' and t1.area='{1}' and DATE_FORMAT( t1.fechaHora,'%Y/%m/%d') = DATE_FORMAT( NOW(),'%Y/%m/%d') ORDER BY time((SELECT MAX(fechaHora) FROM modificaciones_sistema WHERE empresa='{0}' and area='{1}' and form= t1.form and idmodificacion=t1.idmodificacion)) desc ;", empresa, area));
             int numFilas = dt.Rows.Count;
             if (numFilas == 0)
-            {
                 tbmodif.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            }else
-            {
+            else
                 tbmodif.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            }
             for (int i = 0; i < numFilas; i++)
             {
-        
+
                 tbmodif.Rows.Add(dt.Rows[i].ItemArray);
             }
-            for (int i= 0; i<numFilas;i++)
+            for (int i = 0; i < numFilas; i++)
             {
                 tbmodif.Rows[i].Cells[3].Value = v.mayusculas(tbmodif.Rows[i].Cells[3].Value.ToString());
             }
@@ -56,7 +53,7 @@ namespace controlFallos
         void iniusuarios()
         {
 
-            DataTable dr = (DataTable)v.getData("SELECT DISTINCT t2.idpersona,UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as nombre FROM modificaciones_sistema as t1 INNER JOIN  cpersonal AS t2 ON t1.usuariofkcpersonal=t2.idpersona WHERE t1.empresa='"+empresa+"' && t1.area ='"+area+"' and status=1 GROUP BY t1.usuariofkcpersonal ORDER BY t2.nombres ASC ");
+            DataTable dr = (DataTable)v.getData("SELECT DISTINCT t2.idpersona,UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as nombre FROM modificaciones_sistema as t1 INNER JOIN  cpersonal AS t2 ON t1.usuariofkcpersonal=t2.idpersona WHERE t1.empresa='" + empresa + "' && t1.area ='" + area + "' and status=1 GROUP BY t1.usuariofkcpersonal ORDER BY t2.nombres ASC ");
             DataRow nuevaFila = dr.NewRow();
             nuevaFila["idpersona"] = 0;
             nuevaFila["nombre"] = "--Seleccione un Empleado--".ToUpper();
@@ -71,11 +68,11 @@ namespace controlFallos
             iniusuarios();
             iniapartado();
             iniModificaciones();
-           v.inimeses(cbmes);
+            v.inimeses(cbmes);
             dtpd.MaxDate = DateTime.Now;
             dtpa.MaxDate = DateTime.Now;
             valoresDTP();
-          dtpa.MinDate=  dtpd.MinDate = Convert.ToDateTime(v.getaData("SELECT date(coalesce(MIN(fechaHora),NOW())) FROM modificaciones_sistema WHERE empresa='"+this.empresa+"' AND area= '"+this.area+"'"));
+            dtpa.MinDate = dtpd.MinDate = Convert.ToDateTime(v.getaData("SELECT date(coalesce(MIN(fechaHora),NOW())) FROM modificaciones_sistema WHERE empresa='" + this.empresa + "' AND area= '" + this.area + "'"));
             foreach (Form frm in Application.OpenForms)
             {
                 if (frm.GetType() == typeof(SplashScreen))
@@ -95,7 +92,8 @@ namespace controlFallos
         }
         void valoresDTP()
         {
-            try{
+            try
+            {
                 dtpd.Value = DateTime.Now.Subtract(TimeSpan.Parse("1"));
             }
             catch
@@ -114,8 +112,8 @@ namespace controlFallos
             row["id"] = 0;
             row["Nombre"] = "--Seleccione un Apartado--".ToUpper();
             dt.Rows.Add(row);
-      
-           if (empresa == 1)
+
+            if (empresa == 1)
             {
                 row = dt.NewRow();
                 row["id"] = 1;
@@ -205,7 +203,7 @@ namespace controlFallos
             cbapartado.DataSource = dt;
 
         }
-        
+
         private void cbapartado_SelectedIndexChanged(object sender, EventArgs e)
         {
             iniModificaciones();
@@ -215,7 +213,8 @@ namespace controlFallos
         {
             try
             {
-                if (cbapartado.SelectedIndex>0 || cbusuario.SelectedIndex>0 || cbtipo.SelectedIndex>0 || cbmes.SelectedIndex>0 || cb1.Checked) {
+                if (cbapartado.SelectedIndex > 0 || cbusuario.SelectedIndex > 0 || cbtipo.SelectedIndex > 0 || cbmes.SelectedIndex > 0 || cb1.Checked)
+                {
                     if (cb1.Checked && DateTime.Parse(dtpd.Value.ToString("yyyy-MM-dd")) > DateTime.Parse(dtpa.Value.ToString("yyyy-MM-dd")))
                     {
                         MessageBox.Show("Las Fechas Son Incorrectas. Verifique", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -229,7 +228,7 @@ namespace controlFallos
                         if (cbapartado.SelectedIndex > 0)
                         {
                             if (wheres == "")
-                            {                      
+                            {
                                 wheres = " WHERE t1.form LIKE '" + cbapartado.Text + "%' ";
                             }
                             else
@@ -310,7 +309,7 @@ namespace controlFallos
                         }
                         else
                         {
-                            sql = string.Format(sql, "UPPER((SELECT DATE_FORMAT(MAX(fechaHora),'%W, %d de %M del %Y / %H:%i:%s') FROM modificaciones_sistema WHERE idregistro=t1.idregistro and form=t1.form and empresa='"+empresa+"' and area='"+area+"')) as fecha");
+                            sql = string.Format(sql, "UPPER((SELECT DATE_FORMAT(MAX(fechaHora),'%W, %d de %M del %Y / %H:%i:%s') FROM modificaciones_sistema WHERE idregistro=t1.idregistro and form=t1.form and empresa='" + empresa + "' and area='" + area + "')) as fecha");
                         }
 
                         DataTable dt = (DataTable)v.getData(sql);
@@ -341,7 +340,8 @@ namespace controlFallos
                             inimodificaciones();
                         }
                     }
-                }else
+                }
+                else
                 {
                     MessageBox.Show("Seleccione un Criterio de Búsqueda", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
@@ -350,7 +350,7 @@ namespace controlFallos
             {
                 MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            }
+        }
 
         private void lnkrestablecerTabla_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
@@ -359,12 +359,12 @@ namespace controlFallos
 
         private void tbmodif_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex>=0 && (e.ColumnIndex==5 || e.ColumnIndex==6))
+            if (e.RowIndex >= 0 && (e.ColumnIndex == 5 || e.ColumnIndex == 6))
             {
                 bool historial = (e.ColumnIndex == 6);
                 string id;
                 if (e.ColumnIndex == 5) { id = v.mayusculas(tbmodif.Rows[e.RowIndex].Cells[0].Value.ToString()); } else { id = v.mayusculas(tbmodif.Rows[e.RowIndex].Cells[1].Value.ToString()); }
-                moreinfo m = new moreinfo(id, v.mayusculas(tbmodif.Rows[e.RowIndex].Cells[2].Value.ToString().ToLower()), empresa,area,historial);
+                moreinfo m = new moreinfo(id, v.mayusculas(tbmodif.Rows[e.RowIndex].Cells[2].Value.ToString().ToLower()), empresa, area, historial,v);
                 tbmodif.ClearSelection();
                 m.Owner = this;
                 m.ShowDialog();
@@ -383,11 +383,12 @@ namespace controlFallos
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
-            if (((CheckBox) sender).Checked)
+            if (((CheckBox)sender).Checked)
             {
                 dtpd.Enabled = true;
                 dtpa.Enabled = true;
-            }else
+            }
+            else
             {
                 dtpd.Enabled = false;
                 dtpa.Enabled = false;
@@ -407,31 +408,32 @@ namespace controlFallos
 
         private void button1_Enter(object sender, EventArgs e)
         {
-    
+
         }
 
         private void button1_Leave(object sender, EventArgs e)
         {
-           
+
         }
 
         private void button1_MouseMove(object sender, MouseEventArgs e)
         {
-       
+
         }
 
         private void button1_MouseLeave(object sender, EventArgs e)
         {
-        
+
         }
 
         private void cbmes_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbmes.SelectedIndex>0)
+            if (cbmes.SelectedIndex > 0)
             {
                 cb1.Checked = false;
                 cb1.Enabled = false;
-            }else
+            }
+            else
             {
                 cb1.Enabled = true;
             }
@@ -448,13 +450,13 @@ namespace controlFallos
 
             var res = cbapartado.Text;
             cbtipo.DataSource = null;
-                DataTable dt = new DataTable();
-                dt.Columns.Add("id");
-                dt.Columns.Add("Nombre");
-                DataRow row = dt.NewRow();
-                row["id"] = 0;
-                row["Nombre"] = "--Seleccione un Tipo--".ToUpper();
-                dt.Rows.Add(row);
+            DataTable dt = new DataTable();
+            dt.Columns.Add("id");
+            dt.Columns.Add("Nombre");
+            DataRow row = dt.NewRow();
+            row["id"] = 0;
+            row["Nombre"] = "--Seleccione un Tipo--".ToUpper();
+            dt.Rows.Add(row);
 
             if (res == "Catálogo de Personal".ToUpper())
             {
@@ -509,7 +511,7 @@ namespace controlFallos
                     dt.Rows.Add(row);
                 }
             }
-                    
+
 
             cbtipo.ValueMember = "id";
             cbtipo.DisplayMember = "Nombre";

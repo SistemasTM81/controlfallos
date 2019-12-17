@@ -73,10 +73,10 @@ namespace controlFallos
         }
         public void establecerPrivilegios()
         {
-            object sql = v.getaData("SELECT CONCAT(insertar,';',consultar,';',editar,';',desactivar)  FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = 'catRefacciones'");
+            object sql = v.getaData("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = 'catRefacciones'");
             if (sql != null)
             {
-                string[] privilegios = sql.ToString().Split(';');
+                string[] privilegios = sql.ToString().Split('/');
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegios[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegios[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegios[2]));
@@ -93,7 +93,7 @@ namespace controlFallos
         }
         private void button7_Click(object sender, EventArgs e)
         {
-            catPasillos cP = new catPasillos(this.idUsuario, empresa, area);
+            catPasillos cP = new catPasillos(this.idUsuario, empresa, area,v);
             cP.Owner = this;
             cP.ShowDialog();
         }
@@ -364,7 +364,7 @@ namespace controlFallos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            catNiveles cat = new catNiveles(empresa, area, idUsuario);
+            catNiveles cat = new catNiveles(empresa, area, idUsuario,v);
             cat.Owner = this;
             cat.ShowDialog();
         }

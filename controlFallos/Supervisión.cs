@@ -11,8 +11,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Globalization;
-using Microsoft.VisualBasic;
-using System.Reflection;
 
 namespace controlFallos
 {
@@ -27,8 +25,9 @@ namespace controlFallos
         Thread th;
         int _grupoanterior = 0, _subgrupoanterior = 0, _categoriaanterior = 0;
 
-        public Supervisión(int idUsuario, int empresa, int area)
+        public Supervisión(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
@@ -471,21 +470,62 @@ namespace controlFallos
 
         private void txtDescFalloNoC_KeyPress(object sender, KeyPressEventArgs e)
         {
-            v.enGeneral(e);
+            if (e.KeyChar == 13)
+            {
+                if (bandera_editar) btnGuardar_Click(null, e); else btnEditar_Click(null, e);
+            }
+            else
+            {
+                {// Validación de letras, números, y carácteres permitidos para ingresar en la caja de texto
+                    if (Char.IsLetter(e.KeyChar) || Char.IsNumber(e.KeyChar) || (e.KeyChar == 47) || (e.KeyChar == 35) || (e.KeyChar == 44) || (e.KeyChar == 46) || (e.KeyChar == 249 || e.KeyChar == 127 || e.KeyChar == 08 || e.KeyChar == 32))
+                    {
+                        e.Handled = false;
+                    }
+                    else
+                    {
+                        e.Handled = true;
+                        MessageBox.Show("Solo se aceptan letras, números  #  /  ,  .  en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+
         }
         public void ValidarLetra(KeyPressEventArgs e)//Método para validación de letras en cajas de texto.
         {
-            v.Sololetras(e);
+            if (Char.IsLetter(e.KeyChar) || Char.IsSeparator(e.KeyChar) || Char.IsControl(e.KeyChar) || (e.KeyChar == 44) || (e.KeyChar == 46))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+                MessageBox.Show("Solo se aceptan letras en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void txtConductor_KeyPress(object sender, KeyPressEventArgs e)
         {
-            v.Solonumeros(e);
+            //Validación para solo permitir ingresar números en la caja de texto.
+            if (Char.IsNumber(e.KeyChar) || Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+                MessageBox.Show("Solo se aceptan números en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
 
         public void limpiarmant()//Creamos método para limpiar campos donde se muestra información de mantenimiento
         {
-            lblHIM.Text = lblHTM.Text = lblestatus.Text = LblTrabajoRealizado.Text = lblMecanico.Text = LblObsevacionesMantenimiento.Text = lblEsperaDeMan.Text = lblTM.Text = "";
-
+            lblHIM.Text = "";
+            lblHTM.Text = "";
+            lblTM.Text = "";
+            lblestatus.Text = "";
+            LblTrabajoRealizado.Text = "";
+            lblMecanico.Text = "";
+            LblObsevacionesMantenimiento.Text = "";
+            lblEsperaDeMan.Text = "";
         }
         void realiza_busquedas()
         {
@@ -592,7 +632,8 @@ namespace controlFallos
                             }
                             LblExcel.Visible = true;
                         }
-                        btnActualizar.Visible = LblActTabla.Visible = true;
+                        btnActualizar.Visible = true;
+                        LblActTabla.Visible = true;
                     }
 
                     c.dbconection().Close();
@@ -716,6 +757,7 @@ namespace controlFallos
             cmbBuscarDescripcion.SelectedIndex = 0;
             cmbEmpresa.SelectedIndex = 0;
             cmbBuscStatus.SelectedIndex = 0;
+            //cmbBuscarUnidad.SelectedIndex = 0;
             dtpFechaDe.ResetText();
             dtpFechaA.ResetText();
             cmbMeses.SelectedIndex = 0;
@@ -724,30 +766,93 @@ namespace controlFallos
         private void txtSupervisor_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Validamos que se permitan ingresar letras, números y ciertos carácteres en la caja de texto.
-            v.letrasynumerossinespacios(e);
+            if (Char.IsLetter(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsControl(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else if (Char.IsDigit(e.KeyChar))
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+                MessageBox.Show("Solo se aceptan letras y números en este campo".ToUpper(), "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
         public void LimpiarReporte()//Creamos metodo para limpiar campos de reporte de supervisión
         {
-            cmbUnidad.SelectedIndex = cmbTipoFallo.SelectedIndex = cbgrupo.SelectedIndex = 0;
+            cmbUnidad.SelectedIndex = 0;
             txtSupervisor.Clear();
-            lblSupervisor.Text = lblid.Text = lblCredCond.Text = idsupervisor = _unidad = "";
+            lblSupervisor.Text = "";
+            lblid.Text = "";
             txtConductor.Clear();
+            lblCredCond.Text = "";
+            idsupervisor = "";
             txtKilometraje.Clear();
+            cmbTipoFallo.SelectedIndex = 0;
+            cbgrupo.SelectedIndex = 0;
             txtDescFalloNoC.Clear();
             txtObserSupervicion.Clear();
             lblFechaReporte.Text = DateTime.Now.ToLongDateString().ToUpper();
-            cmbCodFallo.Enabled = bandera = bandera_c = bandera_nuevo = editar = mensaje = btnEditar.Visible = lblactualizar.Visible = bPdf.Visible = LblPDF.Visible = cmbServicio.Enabled = false;
+            cmbCodFallo.Enabled = false;
+            bandera = false;
+            bandera_c = false;
+            bandera_nuevo = false;
+            editar = false;
+            mensaje = false;
+            btnEditar.Visible = false;
+            lblactualizar.Visible = false;
+            bPdf.Visible = false;
+            LblPDF.Visible = false;
             DgvTabla.ClearSelection();
-            btnGuardar.Visible = LblGuardar.Visible = true;
+            btnGuardar.Visible = true;
             txtKilometraje.MaxLength = 12;
+            LblGuardar.Visible = true;
+            _unidad = "";
             esta_exportando();
+            cmbServicio.Enabled = false;
         }
 
-
+        string _fallonoc;
+        string folio, unidad, fecha, supervisor, conductor, serviciou, kmR, hora, tipo, descFallo, codFallo, DesFalloNo, ObservacionesSUp, TiempoE, HoraIni, HoraTer, TiempoMan, Estatus, TrabajoR, MecánicoRT, ObservacionesMante, lbldesc;
         private void To_pdf()//Método generar PDF
         {
-            string[] datos = v.getaData("SET lc_time_names = 'es_ES';Select upper(concat( t1.Folio,'|',concat(t4.identificador,LPAD(consecutivo,4,'0')),'|',date_format(t1.FechaReporte,'%W %d de %M del %Y'),'|',(select concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres,'|',x1.credencial) from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCpersonal),'|',if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)),'|',t1.HoraEntrada,'|',t1.kmEntrada,'|',t1.tipoFallo,'|',if(t1.DescrFallofkcdescfallo is null,t1.DescFalloNoCod,concat((select x3.descfallo from cdescfallo as x3 where x3.iddescfallo=t1.DescrFallofkcdescfallo),'|',(select x4.codfallo from cfallosesp as x4 where x4.idfalloEsp=t1.CodFallofkcfallosesp))),'|',coalesce(t1.ObservacionesSupervision,''),'|',coalesce(t5.EsperaTiempoM,''),'|',coalesce(concat(date_format(t5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(t5.HoraInicioM,'%H:%i')),''),'|',coalesce(date_format(t5.HoraTerminoM,'%W %d de %M del %Y'),''),'|',coalesce(t5.DiferenciaTiempoM,''),'|',coalesce(t5.Estatus,'EN PROCESO'),'|',coalesce(t5.TrabajoRealizado,''),'|',coalesce((select concat(x5.appaterno,' ',x5.apmaterno,' ',x5.nombres) from cpersonal as x5 where t5.MecanicofkPersonal=x5.idpersona),''),'|',coalesce(t5.ObservacionesM,''))) as r from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas as t4 on t4.idarea=t2.areafkcareas left join reportemantenimiento as t5 on t5.FoliofkSupervicion=t1.idReporteSupervicion WHERE t1.folio='" + lblFolio.Text + "'").ToString().Split('|');
-
+            MySqlCommand cargar = new MySqlCommand("SET lc_time_names = 'es_ES'; select t1.Folio,(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS Económico,(select Date_format(t1.FechaReporte,'%W %d de %M del %Y')) AS 'Fecha Del Reporte',(select concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCpersonal)as'Supervisor',(SELECT x2.Credencial FROM cpersonal AS x2 WHERE  x2.idpersona=t1.CredencialConductorfkCPersonal)as 'Credencial Conductor',(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)))as 'SERVICIO', t1.HoraEntrada as 'Hora Del Reporte', t1.KmEntrada as 'Kilometraje Del Reporte', t1.TipoFallo as 'Tipo de Fallo',COALESCE((select x3.descfallo from cdescfallo as x3 where x3.iddescfallo=t1.DescrFallofkcdescfallo),'')as 'Descripción Del Fallo',COALESCE((select x4.codfallo from cfallosesp as x4 where x4.idfalloEsp=t1.CodFallofkcfallosesp),'')as 'Código De Fallo',t1.DescFalloNoCod as 'Descripción De Fallo No Códificado', t1.ObservacionesSupervision as 'Observaciones De Supervisión',COALESCE((SELECT x13.EsperaTiempoM FROM reportemantenimiento AS x13 WHERE x13.FoliofkSupervicion=t1.idReporteSupervicion),'' ) AS 'Espera De Mantenimiento' ,coalesce((select concat(date_format(x5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(x5.HoraInicioM,'%H:%i')) from reportemantenimiento as x5 where x5.FoliofkSupervicion=t1.idReporteSupervicion),'') as 'Hora Inicio Mantenimiento',coalesce((select date_format(x6.HoraTerminoM,'%W %d de %M del %Y') from reportemantenimiento as x6 where x6.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'Hora Termino Mantenimiento' ,COALESCE((select x7.DiferenciaTiempoM  from reportemantenimiento as x7 where x7.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'Tiempo Mantenimiento', COALESCE((select x8.Estatus from reportemantenimiento as x8 where x8.FoliofkSupervicion=t1.idReporteSupervicion),'')as Estatus,COALESCE((select x9.TrabajoRealizado from reportemantenimiento as x9 where x9.FoliofkSupervicion=t1.idReporteSupervicion),'') as 'Trabajo Realizado',COALESCE((select concat(x11.ApPaterno,' ',x11.ApMaterno,' ',x11.nombres) from cpersonal as x11 inner join reportemantenimiento as x12 on x11.idPersona=x12.MecanicofkPersonal where x12.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'Mecánico Que Realizo El Mantenimiento',COALESCE((select x10.ObservacionesM from reportemantenimiento as x10 where x10.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'Observaciones Mantenimiento' from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas as t4 on t4.idarea=t2.areafkcareas WHERE t1.folio='" + lblFolio.Text + "'", c.dbconection());
+            MySqlDataReader dr = cargar.ExecuteReader();
+            if (dr.Read())
+            {
+                folio = Convert.ToString(dr["Folio"]).ToUpper();
+                unidad = Convert.ToString(dr["Económico"]).ToUpper();
+                fecha = Convert.ToString(dr["Fecha Del Reporte"]).ToUpper(); ;
+                supervisor = Convert.ToString(dr["Supervisor"]).ToUpper(); ;
+                conductor = Convert.ToString(dr["Credencial Conductor"]).ToUpper(); ;
+                serviciou = Convert.ToString(dr["Servicio"]).ToUpper(); ;
+                kmR = Convert.ToString(dr["Kilometraje Del Reporte"]).ToUpper(); ;
+                hora = Convert.ToString(dr["Hora Del Reporte"]).ToUpper(); ;
+                tipo = Convert.ToString(dr["Tipo de Fallo"]).ToUpper();
+                descFallo = Convert.ToString(dr["Descripción Del Fallo"]).ToUpper();
+                codFallo = Convert.ToString(dr["Código De Fallo"]);
+                DesFalloNo = Convert.ToString(dr["Descripción De Fallo No Códificado"]).ToUpper();
+                ObservacionesSUp = Convert.ToString(dr["Observaciones De Supervisión"]).ToUpper();
+                TiempoE = Convert.ToString(dr["Espera De Mantenimiento"]).ToUpper();
+                HoraIni = Convert.ToString(dr["Hora Inicio Mantenimiento"]).ToUpper();
+                HoraTer = Convert.ToString(dr["Hora Termino Mantenimiento"]).ToUpper();
+                TiempoMan = Convert.ToString(dr["Tiempo Mantenimiento"]).ToUpper();
+                Estatus = Convert.ToString(dr["Estatus"]).ToUpper();
+                TrabajoR = Convert.ToString(dr["Trabajo Realizado"]).ToUpper();
+                MecánicoRT = Convert.ToString(dr["Mecánico Que Realizo El Mantenimiento"]).ToUpper();
+                ObservacionesMante = Convert.ToString(dr["Observaciones Mantenimiento"]).ToUpper();
+                if (!string.IsNullOrWhiteSpace(descFallo))
+                {
+                    lbldesc = v.getaData("SELECT falloesp from cfallosesp where codfallo='" + codFallo + "' ").ToString().ToUpper();
+                }
+            }
+            dr.Close();
             Document doc = new Document(PageSize.LETTER);
             doc.SetMargins(20f, 20f, 10f, 10f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -798,15 +903,15 @@ namespace controlFallos
                     tabla.WidthPercentage = 100;
                     PdfPCell cell1 = new PdfPCell();
                     cell1.Border = 0;
-                    Phrase LblFolio = new Phrase(datos[0], arial);
+                    Phrase LblFolio = new Phrase(folio, arial);
                     Phrase Folio = new Phrase("FOLIO:", arial2);
-                    Phrase LSupervisor = new Phrase(datos[3], arial);
+                    Phrase LSupervisor = new Phrase(supervisor, arial);
                     Phrase Supervisor = new Phrase("SUPERVISOR:", arial2);
                     Phrase SaltoLinea = new Phrase("           ");
                     Phrase KM = new Phrase("KILOMETRAJE:", arial2);
                     Phrase LHoraReporte = new Phrase("HORA DEL REPORTE:", arial2);
-                    Phrase HoraRep = new Phrase(datos[6], arial);
-                    Phrase LKM = new Phrase(datos[7], arial);
+                    Phrase HoraRep = new Phrase(hora, arial);
+                    Phrase LKM = new Phrase(kmR, arial);
                     cell1.AddElement(Folio);
                     cell1.AddElement(LblFolio);
                     cell1.AddElement(SaltoLinea);
@@ -818,12 +923,12 @@ namespace controlFallos
                     cell1.AddElement(SaltoLinea);
                     PdfPCell cell2 = new PdfPCell();
                     cell2.Border = 0;
-                    Phrase lUnidad = new Phrase(datos[1], arial);
+                    Phrase lUnidad = new Phrase(unidad, arial);
                     Phrase Unidad = new Phrase("UNIDAD:", arial2);
-                    Phrase LCredencial = new Phrase(datos[4], arial);
+                    Phrase LCredencial = new Phrase(conductor, arial);
                     Phrase Credencial = new Phrase("CREDENCIAL DE CONDUCTOR:", arial2);
                     Phrase LtipoFAllo = new Phrase("TIPO DE FALLO: ", arial2);
-                    Phrase TipoFAllo = new Phrase(datos[8], arial);
+                    Phrase TipoFAllo = new Phrase(tipo, arial);
                     cell2.AddElement(Unidad);
                     cell2.AddElement(lUnidad);
                     cell2.AddElement(SaltoLinea);
@@ -834,9 +939,9 @@ namespace controlFallos
                     cell2.AddElement(LKM);
                     PdfPCell cell3 = new PdfPCell();
                     cell3.Border = 0;
-                    Phrase LFecha = new Phrase(datos[2], arial);
+                    Phrase LFecha = new Phrase(fecha, arial);
                     Phrase Fecha = new Phrase("FECHA DEL REPORTE:", arial2);
-                    Phrase LServicio = new Phrase(datos[5], arial);
+                    Phrase LServicio = new Phrase(serviciou, arial);
                     Phrase Servicio = new Phrase("SERVICIO:", arial2);
                     cell3.AddElement(Fecha);
                     cell3.AddElement(LFecha);
@@ -861,7 +966,7 @@ namespace controlFallos
                     celdaf1.Border = 0;
                     celdaf2.Border = 0;
                     celdaf3.Border = 0;
-                    /**if (string.IsNullOrWhiteSpace(descFallo))
+                    if (string.IsNullOrWhiteSpace(descFallo))
                     {
                         Phrase DescNoC = new Phrase("DESCRIPCIÓN DE FALLO NO CÓDIFICADO", arial2);
                         Phrase LDescNoc = new Phrase(DesFalloNo, arial);
@@ -980,7 +1085,6 @@ namespace controlFallos
                     doc.Add(new Paragraph("             "));
                     doc.Add(tabla3);
                     doc.Add(tabla4);
-    **/
                     doc.Close();
                     //Exportacion(;)
                     System.Diagnostics.Process.Start(filename);
@@ -1031,8 +1135,8 @@ namespace controlFallos
             {
                 if (bandera_c == false)
                 {
-                    btnGuardar.Visible = LblGuardar.Visible = false;
-                     false;
+                    btnGuardar.Visible = false;
+                    LblGuardar.Visible = false;
                     lblFolio.Text = DgvTabla.Rows[e.RowIndex].Cells[0].Value.ToString();
                     IdRepor = v.getaData("SELECT idreportesupervicion FROM reportesupervicion WHERE folio='" + lblFolio.Text + "'").ToString();
                     cmbUnidad.Text = _unidad = DgvTabla.Rows[e.RowIndex].Cells[1].Value.ToString();
@@ -1313,7 +1417,7 @@ namespace controlFallos
                     codfallo = Convert.ToString(DR["CODFALLO"]);
                     desfallonot = Convert.ToString(DR["DESFALLONOT"]);
                     observaciones = Convert.ToString(DR["OBSER"]);
-                    if (credencial == txtConductor.Text && supervissor == lblSupervisor.Text && servicio == cmbServicio.Text && km == txtKilometraje.Text  && observaciones == txtObserSupervicion.Text && ((desfallonot == txtDescFalloNoC.Text && cbgrupo.SelectedIndex == 0) || ((int)cbgrupo.SelectedValue == grupo_anterior && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))))
+                    if (credencial == txtConductor.Text && supervissor == lblSupervisor.Text && servicio == cmbServicio.Text && km == txtKilometraje.Text && tipo == cmbTipoFallo.Text && observaciones == txtObserSupervicion.Text && ((desfallonot == txtDescFalloNoC.Text && cbgrupo.SelectedIndex == 0) || ((int)cbgrupo.SelectedValue == grupo_anterior && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))))
                     {
                         DialogResult oDlgRes;
                         MessageBox.Show("No se realizaron modificaciones".ToUpper(), "SIN MODIFICACIONES", MessageBoxButtons.OK, MessageBoxIcon.Warning);
