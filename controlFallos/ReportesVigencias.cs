@@ -38,7 +38,7 @@ namespace controlFallos
         public void privilegios()
         {
             string sql = "SELECT privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuarioP + "' and namform = 'repPersonal'";
-            string[] privilegios = v.getaData(sql).ToString().Split(';');
+            string[] privilegios = v.getaData(sql).ToString().Split('/');
             peditar = getBoolFromInt(Convert.ToInt32(privilegios[0]));
         }
 
@@ -105,9 +105,7 @@ namespace controlFallos
             dr.Close();
             v.c.dbconection().Close();
         }
-
         // MÉTODOS
-
         public void rbtnAll_CheckedChanged(object sender, EventArgs e)
         {
             habilitado(true);
@@ -297,10 +295,7 @@ namespace controlFallos
             }
         }
 
-        public void habilitado(bool caracteristica)
-        {
-            txtNombreReporte.Enabled = txtCodigoReporte.Enabled = dtpVigencia.Enabled = txtRevisionReporte.Enabled = txtPassUsuario.Enabled = caracteristica;
-        }
+        public void habilitado(bool caracteristica){txtNombreReporte.Enabled = txtCodigoReporte.Enabled = dtpVigencia.Enabled = txtRevisionReporte.Enabled = txtPassUsuario.Enabled = caracteristica;}
 
         public void validaciongbxs(int tipo)
         {
@@ -370,40 +365,7 @@ namespace controlFallos
             gbxVigencia.Text = "VIGENCIA";
             gbxRevision.Text = "REVISIÓN";
         }
-
-        // DISEÑO
-
-        public void combos_para_otros_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            ComboBox cbx = sender as ComboBox;
-            if (cbx != null)
-            {
-                e.DrawBackground();
-                if (e.Index >= 0)
-                {
-                    StringFormat sf = new StringFormat();
-                    sf.LineAlignment = StringAlignment.Center;
-                    sf.Alignment = StringAlignment.Center;
-                    Brush brush = new SolidBrush(cbx.ForeColor);
-                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    {
-                        brush = SystemBrushes.HighlightText;
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, Color.Crimson);
-                        e.DrawBackground();
-
-                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, new SolidBrush(Color.White), e.Bounds, sf);
-                        e.DrawFocusRectangle();
-                    }
-                    else
-                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, brush, e.Bounds, sf);
-                }
-            }
-        }
-
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            v.mover(sender, e, this);
-        }
+        private void panel1_MouseDown(object sender, MouseEventArgs e){v.mover(sender, e, this);}
 
         public void btnall_MouseMove(object sender, MouseEventArgs e)
         {
@@ -423,9 +385,6 @@ namespace controlFallos
             v.DrawGroupBox(gbxall, e.Graphics, Color.FromArgb(75, 44, 52), Color.FromArgb(75, 44, 52), this);
         }
 
-        public void dtpall_KeyDown(object sender, KeyEventArgs e)
-        {
-            e.SuppressKeyPress = true;
-        }
+        public void dtpall_KeyDown(object sender, KeyEventArgs e){e.SuppressKeyPress = true;}
     }
 }

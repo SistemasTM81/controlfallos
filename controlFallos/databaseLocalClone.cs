@@ -3,7 +3,6 @@ using System;
 using System.Data;
 using System.IO;
 using System.Windows.Forms;
-
 namespace controlFallos
 {
 
@@ -15,7 +14,6 @@ namespace controlFallos
         {
             this.v = v;
             localConnection = new MySqlConnection("Server = "+v.c.hostLocal+"; user="+v.c.userLocal+"; password = "+v.c.passwordLocal+" ; database = sistrefaccmant ;port="+v.c.portLocal);
-
             if (File.Exists(Application.StartupPath + @"\updates.srf") && v.c.conexionOriginal())
                 v.c.insertarGlobal();
             CopyTable(new string[] { "bloqueologin", "canaqueles", "careas", "catcategorias", "catincidencias", "cattipos", "ccharolas", "cdescfallo", "cempresas", "cestaciones", "cfallosesp", "cfallosgrales", "cfamilias", "cgiros", "civa", "cladas", "cmarcas", "cmedidas", "cmodelos", "cnfamilias", "cniveles", "comparativas", "cpasillos", "cpersonal", "cproveedores", "crefacciones", "cservicios", "cunidades", "cunidadmedida", "datosistema", "detallesordencompra", "encabezadoreportes", "estatusvalidado", "huellasupervision", "incidenciapersonal", "ladanac", "modificaciones_sistema", "nombresoc", "ordencompra", "pedidosrefaccion", "privilegios", "proveedorescomparativa", "puestos", "refaccionescomparativa", "relacservicioestacion", "reportemantenimiento", "reportepercance", "reportepersonal", "reportesupervicion", "reportetri", "vigencias_supervision" });

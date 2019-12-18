@@ -637,15 +637,9 @@ namespace controlFallos
             est_expor = false;
             LblExcel.Text = "Exportar";
         }
-        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.letrasnumerosdiagonalypunto(e);
-        }
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e){v.letrasnumerosdiagonalypunto(e);}
 
-        private void cantidada_Validated(object sender, EventArgs e)
-        {
-
-        }
+        private void cantidada_Validated(object sender, EventArgs e){}
 
         void _UnidadesExportadas(DataTable dt)
         {
@@ -656,10 +650,7 @@ namespace controlFallos
             {
                 contador++;
                 id = v.getaData(string.Format("SELECT idrefaccion FROM crefacciones WHERE codrefaccion='{0}'", row.ItemArray[0])).ToString();
-                if (contador < dt.Rows.Count)
-                {
-                    id += ";";
-                }
+                if (contador < dt.Rows.Count){id += ";";}
                 sql += id;
             }
             sql += "','" + this.idUsuario + "',NOW(),'Exportación a Excel de Catálogo de Refacciones','" + this.empresa + "','" + this.area + "')";
@@ -921,10 +912,7 @@ namespace controlFallos
                     guardarReporte(e);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
 
         }
         public double stock;
@@ -958,13 +946,9 @@ namespace controlFallos
                 {
                     lblexistencias.Text = v.getExistenciasFromIDRefaccion(idRefaccionTemp);
                     if ((stock = Convert.ToDouble(v.getaData("SELECT existencias FROM crefacciones WHERE idrefaccion='" + idRefaccionTemp + "'"))) > 0)
-                    {
                         pStock.Visible = true;
-                    }
                     else
-                    {
                         pStock.Visible = false;
-                    }
                     txtcodrefaccion.Text = codrefAnterior = (string)tbrefaccion.Rows[e.RowIndex].Cells[1].Value;
                     txtnombrereFaccion.Text = nomrefanterior = v.mayusculas(tbrefaccion.Rows[e.RowIndex].Cells[2].Value.ToString().ToLower());
                     txtmodeloRefaccion.Text = modrefanterior = tbrefaccion.Rows[e.RowIndex].Cells[3].Value.ToString();
@@ -1037,14 +1021,9 @@ namespace controlFallos
                     if (status == 0) MessageBox.Show(v.mayusculas("Para Modificar La Información Necesita Reactivar El Registro"), validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
-                {
                     MessageBox.Show("Usted No Cuenta Con Privilegios Para Editar", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         bool mostrarmotivoActualizacion(string[,] cambios)
         {
