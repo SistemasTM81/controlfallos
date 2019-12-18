@@ -53,7 +53,7 @@ namespace controlFallos
                 if (v.c.conexionOriginal())
                     dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
                 else
-                    dbcon = new MySqlConnection("Server =  "+v.c.hostLocal+"; user="+ v.c.userLocal +"; password = "+ v.c.passwordLocal +" ;database = sistrefaccmant ;port="+ v.c.portLocal);
+                    dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
                 dbcon.Open();
                 MySqlCommand cmd = new MySqlCommand("UPDATE reportemantenimiento SET seen = 1 WHERE seen  = 0 AND (Estatus='LIBERADA' || Estatus='REPROGRAMADA')", dbcon);
                 cmd.ExecuteNonQuery();
@@ -81,14 +81,11 @@ namespace controlFallos
         }
         public void privilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "Form1")).ToString().Split('/');
-            if (privilegiosTemp.Length > 0)
-            {
-
-                pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
-                pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
-                peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));   
-            }
+            string sql = "SELECT privilegios as privilegios FROM privilegios where usuariofkcpersonal='" + idUsuario + "' and namform='Form1'";
+            string[] privilegios = v.getaData(sql).ToString().Split('/');
+            pinsertar = getboolfromint(Convert.ToInt32(privilegios[0]));
+            pconsultar = getboolfromint(Convert.ToInt32(privilegios[1]));
+            peditar = getboolfromint(Convert.ToInt32(privilegios[2]));
         }
         void cmbUnidad_MouseWheel(object sender, MouseEventArgs e)
         {
@@ -296,7 +293,7 @@ namespace controlFallos
         public void cargarDAtos()//Metodo para cargar los reportes que se encuentra en la base de datos en el datagridview y para generar el folio de reporte autoincrementable
         {
             //Conusulta para pbtener reportes almacenados en la base de datos
-            MySqlDataAdapter cargar = new MySqlDataAdapter("SET lc_time_names = 'es_ES'; select t1.Folio AS 'FOLIO',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'ECO',(select UPPER(Date_format(t1.FechaReporte,'%W %d de %M del %Y'))) AS 'FECHA DEL REPORTE',(select UPPER(concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres))from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCpersonal)as 'PERSONA QUE INSERTÓ',coalesce((SELECT x2.Credencial FROM cpersonal AS x2 WHERE  x2.idpersona=t1.CredencialConductorfkCPersonal),'')as 'CREDENCIAL DE CONDUCTOR',(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)))as 'SERVICIO', TIME_FORMAT(t1.HoraEntrada,'%r') as 'HORA DEL REPORTE', t1.KmEntrada as 'KILOMETRAJE DE REPORTE',UPPER(t1.TipoFallo) as 'TIPO DE FALLO',COALESCE((select UPPER(x3.descfallo) from cdescfallo as x3 where x3.iddescfallo=t1.DescrFallofkcdescfallo),'')as 'SUBGRUPO DE FALLO',COALESCE((select UPPER(x4.codfallo) from cfallosesp as x4 where x4.idfalloEsp=t1.CodFallofkcfallosesp),'')as 'CÓDIGO DE FALLO',UPPER(t1.DescFalloNoCod) as 'DESCRIPCIÓN DE FALLO NO CODIFICADO',UPPER(t1.ObservacionesSupervision) as 'OBSERVACIONES DE SUPERVISIÓN',(select upper(concat(date_format(x5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(x5.HoraInicioM,'%H:%i'))) from reportemantenimiento as x5 where x5.FoliofkSupervicion=t1.idReporteSupervicion) as 'FECHA/HORA INICIO MANTENIMIENTO',(select upper(concat(date_format(x6.HoraTerminoM,'%W %d de %M del %Y'),' / ',time_format(x6.HoraTerminoM,'%H:%i'))) from reportemantenimiento as x6 where x6.FoliofkSupervicion=t1.idReporteSupervicion)as 'FECHA/HORA TERMINO MANTENIMIENTO',COALESCE((SELECT UPPER(x13.EsperaTiempoM) FROM reportemantenimiento AS x13 WHERE x13.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00' ) AS 'ESPERA DE MANTENIMIENTO',COALESCE((select UPPER(x7.DiferenciaTiempoM)  from reportemantenimiento as x7 where x7.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00')as 'TIEMPO MANTENIMIENTO', COALESCE((select UPPER(x8.Estatus) from reportemantenimiento as x8 where x8.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'ESTATUS',COALESCE((select UPPER(x9.TrabajoRealizado) from reportemantenimiento as x9 where x9.FoliofkSupervicion=t1.idReporteSupervicion),'') as 'TRABAJO REALIZADO',COALESCE((select UPPER(concat(x11.ApPaterno,' ',x11.ApMaterno,' ',x11.nombres)) from cpersonal as x11 inner join reportemantenimiento as x12 on x11.idPersona=x12.MecanicofkPersonal where x12.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'MECÁNICO QUE REALIZÓ EL MANTENIMIENTO',COALESCE((select UPPER(x10.ObservacionesM) from reportemantenimiento as x10 where x10.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'OBSERVACIONES DE MANTENIMIENTO' from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas AS t4 on t4.idarea=t2.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas WHERE FechaReporte BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate() order by t1.FechaReporte desc, t1.HoraEntrada desc;", c.dbconection());
+            MySqlDataAdapter cargar = new MySqlDataAdapter("SET lc_time_names = 'es_ES'; select t1.Folio AS 'FOLIO',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'ECO',(select UPPER(Date_format(t1.FechaReporte,'%W %d de %M del %Y'))) AS 'FECHA DEL REPORTE',(select UPPER(concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres))from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCpersonal)as 'PERSONA QUE INSERTÓ',coalesce((SELECT x2.Credencial FROM cpersonal AS x2 WHERE  x2.idpersona=t1.CredencialConductorfkCPersonal),'')as 'CREDENCIAL DE CONDUCTOR',(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)))as 'SERVICIO', TIME_FORMAT(t1.HoraEntrada,'%r') as 'HORA DEL REPORTE', t1.KmEntrada as 'KILOMETRAJE DE REPORTE',UPPER(t1.TipoFallo) as 'TIPO DE FALLO',COALESCE((select UPPER(x3.descfallo) from cdescfallo as x3 where x3.iddescfallo=t1.DescrFallofkcdescfallo),'')as 'SUBGRUPO DE FALLO',COALESCE((select UPPER(x4.codfallo) from cfallosesp as x4 where x4.idfalloEsp=t1.CodFallofkcfallosesp),'')as 'CÓDIGO DE FALLO',UPPER(t1.DescFalloNoCod) as 'DESCRIPCIÓN DE FALLO NO CODIFICADO',UPPER(t1.ObservacionesSupervision) as 'OBSERVACIONES DE SUPERVISIÓN',(select upper(concat(date_format(x5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(x5.HoraInicioM,'%H:%i'))) from reportemantenimiento as x5 where x5.FoliofkSupervicion=t1.idReporteSupervicion) as 'FECHA/HORA INICIO MANTENIMIENTO',(select upper(concat(date_format(x6.HoraTerminoM,'%W %d de %M del %Y'),' / ',time_format(x6.HoraTerminoM,'%H:%i'))) from reportemantenimiento as x6 where x6.FoliofkSupervicion=t1.idReporteSupervicion)as 'FECHA/HORA TERMINO MANTENIMIENTO',COALESCE((SELECT UPPER(x13.EsperaTiempoM) FROM reportemantenimiento AS x13 WHERE x13.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00' ) AS 'ESPERA DE MANTENIMIENTO',COALESCE((select UPPER(x7.DiferenciaTiempoM)  from reportemantenimiento as x7 where x7.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00')as 'TIEMPO MANTENIMIENTO', COALESCE((select UPPER(x8.Estatus) from reportemantenimiento as x8 where x8.FoliofkSupervicion=t1.idReporteSupervicion),'EN PROCESO')as 'ESTATUS',COALESCE((select UPPER(x9.TrabajoRealizado) from reportemantenimiento as x9 where x9.FoliofkSupervicion=t1.idReporteSupervicion),'') as 'TRABAJO REALIZADO',COALESCE((select UPPER(concat(x11.ApPaterno,' ',x11.ApMaterno,' ',x11.nombres)) from cpersonal as x11 inner join reportemantenimiento as x12 on x11.idPersona=x12.MecanicofkPersonal where x12.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'MECÁNICO QUE REALIZÓ EL MANTENIMIENTO',COALESCE((select UPPER(x10.ObservacionesM) from reportemantenimiento as x10 where x10.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'OBSERVACIONES DE MANTENIMIENTO' from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas AS t4 on t4.idarea=t2.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas WHERE FechaReporte BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate() order by t1.FechaReporte desc, t1.HoraEntrada desc;", c.dbconection());
             DataSet ds = new DataSet();
             cargar.Fill(ds);
             DgvTabla.DataSource = ds.Tables[0];
@@ -306,165 +303,13 @@ namespace controlFallos
             DgvTabla.ClearSelection();
         }
 
-        void guardar_reporte()
-        {
-            //Validaciones de campos vacios al momento de dar click al boton guardar
-            if (cmbUnidad.SelectedIndex == 0)
-            {
-                MessageBox.Show("El campo \"unidad\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                if (string.IsNullOrWhiteSpace(txtSupervisor.Text))
-                {
-                    MessageBox.Show("El campo \"contraseña\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    if (string.IsNullOrWhiteSpace(txtConductor.Text))
-                    {
-                        MessageBox.Show("El campo \"credencial de conductor\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        if (cmbServicio.SelectedIndex == 0)
-                        {
-                            MessageBox.Show("El campo \"servicio\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        else
-                        {
-                            if (string.IsNullOrWhiteSpace(txtKilometraje.Text))
-                            {
-                                MessageBox.Show("El campo \"kilometraje de entrada a patio\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning); ;
-                            }
-                            else
-                            {
-                                if (cmbTipoFallo.SelectedIndex == 0)
-                                {
-                                    MessageBox.Show("El campo \"tipo de falla\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                }
-                                else
-                                {
-                                    if (cbgrupo.SelectedIndex == 0 && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))//validación de campos vacios en sección de fallos.
-                                    {
-                                        MessageBox.Show("Campos vacios en \"la sección de fallos\"".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    }
-                                    else
-                                    {
-                                        if (cbSubGrupo.SelectedIndex == 0)
-                                        {
-                                            MessageBox.Show("El campo \"Subgrupo\" se encuentra vacio".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        }
-                                        else
-                                        {
-                                            if (cbcategoria.SelectedIndex == 0)
-                                            {
-                                                MessageBox.Show("El campo \"Categoria\" se encuentra vacio".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                            }
-                                            else
-                                            {
-                                                if (cmbCodFallo.SelectedIndex == 0)
-                                                {
-                                                    MessageBox.Show("El campo \"Código de fallo\" se encuentra vacio".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                }
-                                                else
-                                                {
-                                                    if (cbgrupo.SelectedIndex > 0 && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text.Trim()))
-                                                    {
-                                                        validacionRegistro();
-                                                    }
-                                                    else
-                                                    {
-                                                        if (cbgrupo.SelectedIndex == 0 && !string.IsNullOrWhiteSpace(txtDescFalloNoC.Text.Trim()))
-                                                        {
-                                                            validacionRegistro();
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
+      
         void limpia_act()
         {
             btnActualizar.Visible = false;
             LblActTabla.Visible = false;
         }
-        public void validacionRegistro()
-        {//Metodo para validar que el numero de credencial exita en la base de datos, que el kilometraje sea mayor a 0 y para guardar el registro cuando se cumplan esas condiciones
-            try
-            {
-                MySqlCommand sql = new MySqlCommand("SELECT concat(t1.ApPaterno,' ',t1.ApMAterno,' ',t1.Nombres)as supervisor ,t1.idPersona,t2.puesto from cpersonal as t1  inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal=t1.idPersona where t3.password='" + v.Encriptar(txtSupervisor.Text) + "'and t1.status='1' and t2.status='1' and t1.empresa='1' and t1.area='1' ", c.dbconection());
-                MySqlDataReader cmd = sql.ExecuteReader();
-                if (cmd.Read())
-                {
-                    MySqlCommand cmd1 = new MySqlCommand("select t1.credencial,t2.puesto,t1.idPersona from cpersonal as t1 inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos where t1.credencial='" + txtConductor.Text + "' AND t1.status='1'   AND t2.status='1' and t1.empresa='1' and t1.area='1'", c.dbconection());
-                    MySqlDataReader lee = cmd1.ExecuteReader();//Validamos si la credencial ingresa es valida en la base de datos 
-                    if (lee.Read())
-                    {
-                        float km = float.Parse(txtKilometraje.Text);//Validamos que el kilometraje ingresado sea mayor a 0
-                        if (km <= 0)
-                        {
-                            MessageBox.Show("El kilometraje debe ser mayor a 0".ToUpper(), "KILOMETRAJE INCORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            txtKilometraje.Focus();
-                            txtKilometraje.Clear();
-                        }
-                        else
-                        {
-                            string campos = "Insert into reportesupervicion (Folio,UnidadfkCUnidades,FechaReporte, SupervisorfkCPersonal, CredencialConductorfkCPersonal, Serviciofkcservicios,HoraEntrada,KmEntrada,TipoFallo,ObservacionesSupervision";
-                            string valores = "('" + lblFolio.Text + "' , '" + cmbUnidad.SelectedValue + "' ,(select curdate()) , '" + Convert.ToInt32(idsupervisor) + "' , '" + Convert.ToInt32(idconductor) + "' , '" + cmbServicio.SelectedValue + "',(select curtime()) , '" + txtKilometraje.Text + "' , '" + cmbTipoFallo.Text + "','" + txtObserSupervicion.Text.Trim() + "' ";
-                            if (cbgrupo.SelectedIndex == 0)
-                            {
-                                campos += ",DescFalloNoCod)";
-                                valores += " ,'" + txtDescFalloNoC.Text.Trim() + "')";
-                            }
-                            else
-                            {
-                                campos += ",DescrFallofkcdescfallo,CodFallofkcfallosesp)";
-                                valores += " ,'" + cbSubGrupo.SelectedValue + "','" + cmbCodFallo.SelectedValue + "')";
-                            }
-                            string consulta = campos + " values " + valores;
-                            if (v.c.insertar(consulta))
-                                MessageBox.Show("Reporte guardado exitosamente ", "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            esta_exportando();
-                            limpia_act();
-                            cargarDAtos();
-                            Genera_Folio();
-                            LimpiarReporte();
-                        }
-                        c.dbconection().Close();
-                        c.dbconection().Close();
-                        lee.Close();
-                    }
-                    else
-                    {
-                        //Mensaje en caso de que no se encuentra la credencial ingresada.
-                        MessageBox.Show("El número de credencial es incorrecto".ToUpper(), "VERIFICAR CREDENCIAL", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtConductor.Focus();
-                        txtConductor.Clear();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("La contraseña ingresada es incorrecta".ToUpper(), "CONTRASEÑA INCORRECTA", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    txtSupervisor.Focus();
-                    txtSupervisor.Clear();
-                }
-                cmd.Close();
-                c.dbconection().Close();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
+
 
         string idsupervisor;
 
@@ -901,6 +746,32 @@ namespace controlFallos
                     PdfPTable tabla = new PdfPTable(3);
                     tabla.DefaultCell.Border = 1;
                     tabla.WidthPercentage = 100;
+<<<<<<< HEAD
+                    bool haveFallo = (datos.Length > 19);
+                    tabla.AddCell(v.valorCampo("\n\n\n", 3, 1, 0, arial));
+                    tabla.AddCell(v.valorCampo("FOLIO:", 1, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo("UNIDAD:", 1, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo("FECHA DEL REPORTE:", 1, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo(datos[0], 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo(datos[1], 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo(datos[2], 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
+                    tabla.AddCell(v.valorCampo("SUPERVISOR:", 1, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo("CREDENCIAL DE CONDUCTOR:", 1, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo("SERVICIO:", 1, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo(datos[3], 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo(datos[4], 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo(datos[5], 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
+                    tabla.AddCell(v.valorCampo("HORA DEL REPORTE: ", 1, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo("KILOMETRAJE:", 1, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo("TIPO DE FALLO:", 1, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo(datos[6], 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo(datos[7], 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo(datos[8], 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
+                    if (!haveFallo)
+=======
                     PdfPCell cell1 = new PdfPCell();
                     cell1.Border = 0;
                     Phrase LblFolio = new Phrase(folio, arial);
@@ -967,117 +838,65 @@ namespace controlFallos
                     celdaf2.Border = 0;
                     celdaf3.Border = 0;
                     if (string.IsNullOrWhiteSpace(descFallo))
+>>>>>>> 476a40c25371a836b66d3fbf39140c4839b797c6
                     {
-                        Phrase DescNoC = new Phrase("DESCRIPCIÓN DE FALLO NO CÓDIFICADO", arial2);
-                        Phrase LDescNoc = new Phrase(DesFalloNo, arial);
-                        celda.Colspan = 3;
-                        celda.AddElement(DescNoC);
-                        celda.AddElement(LDescNoc);
-                        celda.AddElement(SaltoLinea);
-                        tabla2.AddCell(celda);
+                        tabla.AddCell(v.valorCampo("DESCRIPCIÓN DE FALLO NO CÓDIFICADO", 3, 0, 0, arial2));
+                        tabla.AddCell(v.valorCampo(datos[9], 3, 0, 0, arial));
                     }
                     else
                     {
-                        Phrase Desc = new Phrase("GRUPO:", arial2);
-                        Phrase LDesc = new Phrase(v.getaData("select upper(nombreFalloGral) from cfallosgrales where idFalloGral='" + _grupoanterior + "'").ToString(), arial);
-                        celda.AddElement(Desc);
-                        celda.AddElement(LDesc);
-                        celda.AddElement(SaltoLinea);
-                        PdfPCell celdas = new PdfPCell();
-                        celdas.AddElement(new Phrase("SUBGRUPO:", arial2));
-                        celdas.AddElement(new Phrase(descFallo, arial));
-                        celdas.AddElement(SaltoLinea);
-                        PdfPCell celdas_1 = new PdfPCell();
-                        celdas_1.AddElement(new Phrase("CATEGORIA:", arial2));
-                        celdas_1.AddElement(new Phrase(v.getaData("select upper(categoria) from catcategorias where idcategoria='" + _categoriaanterior + "'").ToString(), arial));
-                        celdas_1.AddElement(SaltoLinea);
-                        Phrase Codigo = new Phrase("CÓDIGO DE FALLO:", arial2);
-                        Phrase Nombre = new Phrase("NOMBRE DE FALLO:", arial2);
-                        Phrase LCodigo = new Phrase(codFallo, arial);
-                        Phrase descfallo = new Phrase(lbldesc, arial);
-                        celdas.Border = celdas_1.Border = 0;
-                        celdaf1.AddElement(Codigo);
-                        celdaf1.AddElement(LCodigo);
-                        celdaf1.AddElement(SaltoLinea);
-                        celdaf2.AddElement(Nombre);
-                        celdaf2.AddElement(descfallo);
-                        celdaf3.AddElement(SaltoLinea);
-                        tabla2.AddCell(celda);
-                        tabla2.AddCell(celdas);
-                        tabla2.AddCell(celdas_1);
+                        tabla.AddCell(v.valorCampo("GRUPO:", 1, 0, 0, arial2));
+                        tabla.AddCell(v.valorCampo("SUBGRUPO:", 1, 0, 0, arial2));
+                        tabla.AddCell(v.valorCampo("CATEGORÍA:", 1, 0, 0, arial2));
+                        tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
+                        tabla.AddCell(v.valorCampo(datos[9], 3, 0, 0, arial));
+                        tabla.AddCell(v.valorCampo(datos[10], 3, 0, 0, arial));
+                        tabla.AddCell(v.valorCampo(datos[11], 3, 0, 0, arial));
+                        tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
+                        tabla.AddCell(v.valorCampo("CÓDIGO DE FALLO:", 1, 0, 0, arial2));
+                        tabla.AddCell(v.valorCampo("NOMBRE DE FALLO:", 2, 0, 0, arial2));
+                        tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
+                        tabla.AddCell(v.valorCampo("cejmplo", 1, 0, 0, arial));
+                        tabla.AddCell(v.valorCampo("nejemplo", 2, 0, 0, arial));
                     }
-                    PdfPTable tablaobservaciones = new PdfPTable(1);
-                    tablaobservaciones.DefaultCell.Border = 0;
-                    tablaobservaciones.WidthPercentage = 100;
-                    PdfPCell celda_obser = new PdfPCell();
-                    celda_obser.Border = 0;
-                    Phrase Obser = new Phrase("OBSERVACIONES DE SUPERVISIÓN:", arial2);
-                    Phrase LObser = new Phrase(ObservacionesSUp, arial);
-                    celda_obser.AddElement(Obser);
-                    celda_obser.AddElement(LObser);
-                    celda_obser.AddElement(SaltoLinea);
-                    PdfPTable tabla3 = new PdfPTable(2);
-                    tabla3.DefaultCell.Border = 0;
-                    tabla3.WidthPercentage = 100;
-                    PdfPCell celda2 = new PdfPCell();
-                    celda2.Border = 0;
-                    Phrase HoraInicio = new Phrase("FECHA / HORA DE INICIO:", arial2);
-                    Phrase LHoraInicio = new Phrase(HoraIni, arial);
-                    Phrase TiemEsp = new Phrase("TIEMPO DE ESPERA:", arial2);
-                    Phrase LTiemEsp = new Phrase(TiempoE, arial);
-                    Phrase Estatus = new Phrase("ESTATUS DE UNIDAD:", arial2);
-                    Phrase LEstatus = new Phrase(lblestatus.Text, arial);
-                    celda2.AddElement(HoraInicio);
-                    celda2.AddElement(LHoraInicio);
-                    celda2.AddElement(SaltoLinea);
-                    celda2.AddElement(TiemEsp);
-                    celda2.AddElement(LTiemEsp);
-                    celda2.AddElement(SaltoLinea);
-                    celda2.AddElement(Estatus);
-                    celda2.AddElement(LEstatus);
-                    celda2.AddElement(SaltoLinea);
-                    PdfPCell celda2_2 = new PdfPCell();
-                    celda2_2.Border = 0;
-                    Phrase HoraLib = new Phrase("FECHA / HORA DE LIBERACIÓN", arial2);
-                    Phrase LhoraLib = new Phrase(HoraTer, arial);
-                    Phrase TiempMan = new Phrase("TIEMPO DE MANTENIMIENTO:", arial2);
-                    Phrase LTiempMan = new Phrase(TiempoMan, arial);
-                    Phrase Trabajo = new Phrase("TRABAJO REALIZADO: ", arial2);
-                    Phrase Ltrabajo = new Phrase(TrabajoR, arial);
-                    celda2_2.AddElement(HoraLib);
-                    celda2_2.AddElement(LhoraLib);
-                    celda2_2.AddElement(SaltoLinea);
-                    celda2_2.AddElement(TiempMan);
-                    celda2_2.AddElement(LTiempMan);
-                    celda2_2.AddElement(SaltoLinea);
-                    celda2_2.AddElement(Trabajo);
-                    celda2_2.AddElement(Ltrabajo);
-                    PdfPTable tabla4 = new PdfPTable(1);
-                    tabla4.DefaultCell.Border = 0;
-                    tabla4.WidthPercentage = 100;
-                    PdfPCell celda4 = new PdfPCell();
-                    celda4.Border = 0;
-                    Phrase Mecanico = new Phrase("MECÁNICO QUE REALIZÓ MANTENIMIENTO:", arial2);
-                    Phrase Lmecanico = new Phrase(MecánicoRT, arial);
-                    Phrase ObserM = new Phrase("OBSERVACIONES DE MANTENIMIENTO:", arial2);
-                    Phrase LobserM = new Phrase(ObservacionesMante, arial);
-                    celda4.AddElement(Mecanico);
-                    celda4.AddElement(Lmecanico);
-                    celda4.AddElement(SaltoLinea);
-                    celda4.AddElement(ObserM);
-                    celda4.AddElement(LobserM);
-                    tabla.AddCell(cell1);
-                    tabla.AddCell(cell2);
-                    tabla.AddCell(cell3);
-                    tablafallos.AddCell(celdaf1);
-                    tablafallos.AddCell(celdaf2);
-                    tablafallos.AddCell(celdaf3);
-                    tablaobservaciones.AddCell(celda_obser);
-                    tabla3.AddCell(celda2);
-                    tabla3.AddCell(celda2_2);
-                    tabla4.AddCell(celda4);
+                    tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
+                    tabla.AddCell(v.valorCampo("OBSERVACIONES DE SUPERVISIÓN:", 3, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo((!haveFallo ? datos[10] : datos[12]), 3, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
+                    tabla.AddCell(v.valorCampo("DATOS DE MANTENIMIENTO", 3, 0, 0, FontFactory.GetFont("ARIAL", 18, iTextSharp.text.Font.BOLD)));
+                    tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
+                    PdfPTable tabla2 = new PdfPTable(2);
+                    tabla2.DefaultCell.Border = 0;
+                    tabla2.WidthPercentage = 100;
+                    tabla2.AddCell(v.valorCampo("FECHA/HORA DE INICIO:", 1, 0, 0, arial2));
+                    tabla2.AddCell(v.valorCampo("FECHA/HORA DE LIBERACIÓN:", 1, 0, 0, arial2));
+                    tabla2.AddCell(v.valorCampo("                ", 2, 1, 0, arial));
+                    tabla2.AddCell(v.valorCampo((!haveFallo ? datos[11] : datos[13]), 1, 0, 0, arial));
+                    tabla2.AddCell(v.valorCampo((!haveFallo ? datos[12] : datos[14]), 1, 0, 0, arial));
+                    tabla2.AddCell(v.valorCampo("                ", 2, 1, 0, arial));
+                    tabla2.AddCell(v.valorCampo("TIEMPO DE ESPERA:", 1, 0, 0, arial2));
+                    tabla2.AddCell(v.valorCampo("TIEMPO DE MANTENIMIENTO:", 1, 0, 0, arial2));
+                    tabla2.AddCell(v.valorCampo("                ", 2, 1, 0, arial));
+                    tabla2.AddCell(v.valorCampo((!haveFallo ? datos[13] : datos[15]), 1, 0, 0, arial));
+                    tabla2.AddCell(v.valorCampo((!haveFallo ? datos[14] : datos[16]), 1, 0, 0, arial));
+                    tabla2.AddCell(v.valorCampo("                ", 2, 1, 0, arial));
+                    tabla2.AddCell(v.valorCampo("ESTATUS DE UNIDAD:", 1, 0, 0, arial2));
+                    tabla2.AddCell(v.valorCampo("TRABAJO REALIZADO:", 1, 0, 0, arial2));
+                    tabla2.AddCell(v.valorCampo("                ", 2, 1, 0, arial));
+                    tabla2.AddCell(v.valorCampo((!haveFallo ? datos[15] : datos[17]), 1, 0, 0, arial));
+                    tabla2.AddCell(v.valorCampo((!haveFallo ? datos[16] : datos[18]), 1, 0, 0, arial));
+                    tabla2.AddCell(v.valorCampo("                ", 2, 1, 0, arial));
+                    tabla2.AddCell(v.valorCampo("MECÁNICO QUE REALIZÓ EL MANTENIMIENTO:", 2, 0, 0, arial2));
+                    tabla2.AddCell(v.valorCampo("                ", 2, 1, 0, arial));
+                    tabla2.AddCell(v.valorCampo((!haveFallo ? datos[17] : datos[19]), 2, 0, 0, arial));
+                    tabla2.AddCell(v.valorCampo("                ", 2, 1, 0, arial));
+                    tabla2.AddCell(v.valorCampo("OBSERVACIONES DE MANTENIMIENTO:", 2, 0, 0, arial2));
+                    tabla2.AddCell(v.valorCampo("                ", 2, 1, 0, arial));
+                    tabla2.AddCell(v.valorCampo((!haveFallo ? datos[18] : datos[19]), 2, 0, 0, arial));
                     doc.Add(tabla);
                     doc.Add(tabla2);
+<<<<<<< HEAD
+=======
                     doc.Add(tablafallos);
                     doc.Add(tablaobservaciones);
                     doc.Add(new Paragraph("             "));
@@ -1085,6 +904,7 @@ namespace controlFallos
                     doc.Add(new Paragraph("             "));
                     doc.Add(tabla3);
                     doc.Add(tabla4);
+>>>>>>> 476a40c25371a836b66d3fbf39140c4839b797c6
                     doc.Close();
                     //Exportacion(;)
                     System.Diagnostics.Process.Start(filename);
@@ -1098,41 +918,41 @@ namespace controlFallos
 
         public void HabilitarCampos()
         {
-            txtSupervisor.Enabled = true;
-            txtConductor.Enabled = true;
-            cmbServicio.Enabled = true;
-            txtKilometraje.Enabled = true;
-            cmbTipoFallo.Enabled = true;
-            cbgrupo.Enabled = true;
-            if (cbgrupo.SelectedIndex > 0)
-            {
-                txtDescFalloNoC.Enabled = false;
-            }
-            else
-            {
-                txtDescFalloNoC.Enabled = true;
-            }
-            txtObserSupervicion.Enabled = true;
+            txtSupervisor.Enabled = txtConductor.Enabled = cmbServicio.Enabled = txtKilometraje.Enabled = cmbTipoFallo.Enabled = cbgrupo.Enabled = txtObserSupervicion.Enabled = true;
+            txtDescFalloNoC.Enabled = (cbSubGrupo.SelectedIndex > 0 ? false : true);
         }
         public void DeshabilitarCampos()
         {
-            txtSupervisor.Enabled = false;
-            txtConductor.Enabled = false;
-            cmbServicio.Enabled = false;
-            txtKilometraje.Enabled = false;
-            cmbTipoFallo.Enabled = false;
-            cbgrupo.Enabled = cbcategoria.Enabled = false;
-            cbSubGrupo.Enabled = false;
-            cmbCodFallo.Enabled = false;
-            txtDescFalloNoC.Enabled = false;
-            txtObserSupervicion.Enabled = false;
+            txtSupervisor.Enabled = txtConductor.Enabled = cmbServicio.Enabled = txtKilometraje.Enabled = cmbTipoFallo.Enabled = cbgrupo.Enabled = cbcategoria.Enabled = cbSubGrupo.Enabled = cmbCodFallo.Enabled = txtDescFalloNoC.Enabled = txtObserSupervicion.Enabled = false;
         }
         string obs, _unidad;
-        int _idservicio = 0, grupo_anterior=0;
+        int _idservicio = 0, grupo_anterior = 0;
+        int unidadAnterior, supervisorAnterior, conductorAnterior, servicioAnterior, TipoFalloAnterior, grupoFalloAnterior, subGrupoAnterior, categoriaAnterior, codigoAnterior;
+
+        string descripcionAnterior, observacionesAnterior, fechaAnterior, kilometrajeAnterior, FalloAnterior, ObservacionesAnterior;
         void restaurar_datos(DataGridViewCellEventArgs e)
         {
             if (DgvTabla.Rows.Count > 0)
             {
+<<<<<<< HEAD
+
+                btnGuardar.Visible = LblGuardar.Visible = false;
+                lblFolio.Text = DgvTabla.Rows[e.RowIndex].Cells[0].Value.ToString();
+                string[] datos = v.getaData("select upper(concat(UnidadfkCUnidades,'|',date_format(FechaReporte,'%W %d de %M del %Y'),'|',SupervisorfkCPersonal,'|',CredencialConductorfkCPersonal,'|',Serviciofkcservicios,'|',KmEntrada,'|',TipoFallo,'|',coalesce(DescrFallofkcdescfallo,0),'|',coalesce(CodFallofkcfallosesp,0),'|',coalesce(DescFalloNoCod,''),'|',coalesce(ObservacionesSupervision,''))) as r from reportesupervicion where Folio='" + lblFolio.Text + "';").ToString().Split('|');
+                IdRepor = v.getaData("SELECT idreportesupervicion FROM reportesupervicion WHERE folio='" + lblFolio.Text + "'").ToString();
+                cmbUnidad.SelectedValue = unidadAnterior = Convert.ToInt32(datos[0]);
+                lblFechaReporte.Text = fechaAnterior = datos[1];
+                lblSupervisor.Text = v.getaData("select concat(appaterno,' ',apmaterno,' ',nombres) from cpersonal where idpersona='" + (supervisorAnterior = Convert.ToInt32(datos[2])) + "'").ToString();
+                txtConductor.Text = v.getaData("select credencial from cpersonal where idpersona='" + (conductorAnterior = Convert.ToInt32(datos[3])) + "'").ToString();
+                cmbServicio.SelectedValue = servicioAnterior = Convert.ToInt32(datos[4]);
+                txtKilometraje.Text = kilometrajeAnterior = datos[5];
+                cmbTipoFallo.SelectedValue = TipoFalloAnterior = Convert.ToInt32(datos[6]);
+                txtDescFalloNoC.Text = FalloAnterior = datos[9];
+                txtObserSupervicion.Text = ObservacionesAnterior = datos[10];
+                btnEditar.Visible = false;
+                lblactualizar.Visible = false;
+
+=======
                 if (bandera_c == false)
                 {
                     btnGuardar.Visible = false;
@@ -1285,6 +1105,7 @@ namespace controlFallos
                     //dr.Close();
                     dr1.Close();
                 }
+>>>>>>> 476a40c25371a836b66d3fbf39140c4839b797c6
             }
         }
 
@@ -1337,57 +1158,7 @@ namespace controlFallos
         }
 
 
-        public void ActualizarReporte()
-        {
-            try
-            {
 
-                MySqlCommand sql = new MySqlCommand("SELECT concat(t1.ApPaterno,' ',t1.ApMAterno,' ',t1.Nombres)as supervisor ,t1.idPersona,t2.puesto from cpersonal as t1  inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal=t1.idPersona where t3.password='" + v.Encriptar(txtSupervisor.Text) + "'and t1.status='1' and t2.status='1' and t1.empresa='1' and t1.area='1' ", c.dbconection());
-                MySqlDataReader DTR = sql.ExecuteReader();
-                if (DTR.Read())
-                {
-                    MySqlCommand cmd1 = new MySqlCommand("select t1.credencial, t2.puesto, t1.idPersona from cpersonal as t1 inner join puestos as t2 on t2.idpuesto = t1.cargofkcargos where t1.credencial = '" + txtConductor.Text + "' AND t1.status = '1'   AND t2.status = '1' and t1.empresa='1' and t1.area='1'", c.dbconection());
-                    MySqlDataReader lee = cmd1.ExecuteReader();
-                    if (lee.Read())
-                    {
-                        double km1 = double.Parse(txtKilometraje.Text);
-
-                        if (km1 == 0)
-                        {
-                            MessageBox.Show("El kilometraje debe ser mayor a 0".ToUpper(), "KILOMETRAJE INCORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            //if(condicionando formato)
-                            Editar_reporte();
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("El número de credencial es incorrecto".ToUpper(), "VERIFICAR CREDENCIAL", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        txtConductor.Focus();
-                        txtConductor.Clear();
-                        btnGuardar.Enabled = false;
-                        btnEditar.Enabled = true;
-                        bPdf.Enabled = true;
-                    }
-                    lee.Close();
-                    c.dbconection().Close();
-                }
-                else
-                {
-                    MessageBox.Show("La contraseña ingresada es incorrecta".ToUpper(), "CONTRASEÑA INCORRECTA", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                    txtSupervisor.Focus();
-                    txtSupervisor.Clear();
-                }
-                DTR.Close();
-                c.dbconection().Close();
-            }
-            catch (MySqlException ex)
-            {
-                MessageBox.Show(ex.ToString(), "ERROR AL ACTUALIZAR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
         void oculta_botones()
         {
             btnEditar.Visible = false;
@@ -1417,7 +1188,11 @@ namespace controlFallos
                     codfallo = Convert.ToString(DR["CODFALLO"]);
                     desfallonot = Convert.ToString(DR["DESFALLONOT"]);
                     observaciones = Convert.ToString(DR["OBSER"]);
+<<<<<<< HEAD
+                    if (credencial == txtConductor.Text && supervissor == lblSupervisor.Text && servicio == cmbServicio.Text && km == txtKilometraje.Text && observaciones == txtObserSupervicion.Text && ((desfallonot == txtDescFalloNoC.Text && cbgrupo.SelectedIndex == 0) || ((int)cbgrupo.SelectedValue == grupo_anterior && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))))
+=======
                     if (credencial == txtConductor.Text && supervissor == lblSupervisor.Text && servicio == cmbServicio.Text && km == txtKilometraje.Text && tipo == cmbTipoFallo.Text && observaciones == txtObserSupervicion.Text && ((desfallonot == txtDescFalloNoC.Text && cbgrupo.SelectedIndex == 0) || ((int)cbgrupo.SelectedValue == grupo_anterior && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))))
+>>>>>>> 476a40c25371a836b66d3fbf39140c4839b797c6
                     {
                         DialogResult oDlgRes;
                         MessageBox.Show("No se realizaron modificaciones".ToUpper(), "SIN MODIFICACIONES", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1494,135 +1269,12 @@ namespace controlFallos
             sql += "','" + idsupervisor + "',NOW(),'Actualización de Reporte de Supervisión','" + motivo + "','1','1')";
             v.c.insertar(sql);
         }
-        void Exportacion()
-        {
-            MySqlCommand exportacion = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Reporte de Supervisión','" + IdRepor + "','Exportación de reporte en archivo pdf','" + '1' + "',NOW(),'Exportación a PDF de reporte de supervisión','1','1')", c.dbconection());
-            exportacion.ExecuteNonQuery();
-        }
+
         string id, Folio;
-        void Exportación_Excel()
-        {
-            int contador = 0;
-            string sql = "INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Reporte de Supervisión','0','";
-            foreach (DataRow row in dt.Rows)
-            {
-                contador++;
-                id = row[0].ToString();
-                Folio = v.getaData("Select t1.idreportesupervicion from reportesupervicion as t1 where '" + id + "'=t1.folio").ToString();
-                if (contador < dt.Rows.Count)
-                {
-                    Folio += ";";
-                }
-                sql += Folio;
-            }
-            sql += "','1',NOW(),'Exportación a Excel de reportes de supervisión','1','1')";
-            v.c.insertar(sql);
-            dt = new DataTable();
-        }
         void actualiza_datos()
         {
-            if (string.IsNullOrWhiteSpace(lblFolio.Text))
-            {
-                MessageBox.Show("El campo \"folio\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                bandera_c = true;
-            }
-            else
-            {
-                if (cmbUnidad.SelectedIndex == 0)
-                {
-                    MessageBox.Show("El campo \"unidad\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    bandera_c = true;
-                    cmbUnidad.Focus();
-                }
-                else
-                {
-                    if (string.IsNullOrWhiteSpace(txtSupervisor.Text))
-                    {
-                        MessageBox.Show("El campo \"contraseña\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        bandera_c = true;
-                        txtSupervisor.Focus();
-                    }
-                    else
-                    {
-                        if (string.IsNullOrWhiteSpace(txtConductor.Text))
-                        {
-                            MessageBox.Show("El campo \"credencial de conductor\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                            bandera_c = true;
-                            txtConductor.Focus();
-                        }
-                        else
-                        {
-                            if (cmbServicio.SelectedIndex == 0)
-                            {
-                                MessageBox.Show("El campo \"servicio\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                bandera_c = true;
-                                cmbServicio.Focus();
-                            }
-                            else
-                            {
-                                if (string.IsNullOrWhiteSpace(txtKilometraje.Text))
-                                {
-                                    MessageBox.Show("El campo \"kilometraje de entrada a patio\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                    bandera_c = true;
-                                    txtKilometraje.Focus();
-                                }
-                                else
-                                {
-                                    if (cmbTipoFallo.SelectedIndex == 0)
-                                    {
-                                        MessageBox.Show("El campo \"tipo de falla\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        bandera_c = true;
-                                        cmbTipoFallo.Focus();
-                                    }
-                                    else
-                                    {
-                                        if (cmbCodFallo.SelectedIndex == 0 && cbSubGrupo.SelectedIndex == 0 && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))
-                                        {
-                                            MessageBox.Show("Campos vacios en \"la sección de fallos\"".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                            bandera_c = true;
-                                        }
-                                        else
-                                        {
-                                            if (cbSubGrupo.SelectedIndex == 0)
-                                            {
-                                                MessageBox.Show("El campo \"SUbgrupo\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                            }
-                                            else
-                                            {
-                                                if (cbcategoria.SelectedIndex == 0)
-                                                {
-                                                    MessageBox.Show("El campo \"Categoria\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                }
-                                                else
-                                                {
-                                                    if (cmbCodFallo.SelectedIndex == 0)
-                                                    {
-                                                        MessageBox.Show("El campo \"Código de fallo\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                    }
-                                                    else
-                                                    {
-                                                        if (cbgrupo.SelectedIndex > 0 && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text.Trim()))
-                                                        {
-                                                            ActualizarReporte();
-                                                        }
-                                                        else
-                                                        {
-                                                            if (cbgrupo.SelectedIndex == 0 && !string.IsNullOrWhiteSpace(txtDescFalloNoC.Text.Trim()))
-                                                            {
-                                                                ActualizarReporte();
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            if (!v.campossupervision(lblFolio.Text, cmbUnidad.SelectedIndex, txtSupervisor.Text, txtConductor.Text, cmbServicio.SelectedIndex, txtKilometraje.Text, cmbTipoFallo.SelectedIndex, cbgrupo.SelectedIndex, cbSubGrupo.SelectedIndex, cbcategoria.SelectedIndex, cmbCodFallo.SelectedIndex, txtDescFalloNoC.Text))
+                Editar_reporte();
         }
 
         Thread exportar;
@@ -1852,7 +1504,31 @@ namespace controlFallos
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
-            guardar_reporte();
+
+            //Validaciones de campos vacios al momento de dar click al boton guardar
+            if (v.campossupervision(lblFolio.Text, cmbUnidad.SelectedIndex, txtSupervisor.Text, txtConductor.Text, cmbServicio.SelectedIndex, txtKilometraje.Text, cmbTipoFallo.SelectedIndex, cbgrupo.SelectedIndex, cbSubGrupo.SelectedIndex, cbcategoria.SelectedIndex, cmbCodFallo.SelectedIndex, txtDescFalloNoC.Text))
+            {
+                string campos = "Insert into reportesupervicion (Folio,UnidadfkCUnidades,FechaReporte, SupervisorfkCPersonal, CredencialConductorfkCPersonal, Serviciofkcservicios,HoraEntrada,KmEntrada,TipoFallo,ObservacionesSupervision";
+                string valores = "('" + lblFolio.Text + "' , '" + cmbUnidad.SelectedValue + "' ,(select curdate()) , '" + Convert.ToInt32(idsupervisor) + "' , '" + Convert.ToInt32(idconductor) + "' , '" + cmbServicio.SelectedValue + "',(select curtime()) , '" + txtKilometraje.Text + "' , '" + cmbTipoFallo.Text + "','" + txtObserSupervicion.Text.Trim() + "' ";
+                if (cbgrupo.SelectedIndex == 0)
+                {
+                    campos += ",DescFalloNoCod)";
+                    valores += " ,'" + txtDescFalloNoC.Text.Trim() + "')";
+                }
+                else
+                {
+                    campos += ",DescrFallofkcdescfallo,CodFallofkcfallosesp)";
+                    valores += " ,'" + cbSubGrupo.SelectedValue + "','" + cmbCodFallo.SelectedValue + "')";
+                }
+                string consulta = campos + " values " + valores;
+                if (v.c.insertar(consulta))
+                    MessageBox.Show("Reporte guardado exitosamente ", "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                esta_exportando();
+                limpia_act();
+                cargarDAtos();
+                Genera_Folio();
+                LimpiarReporte();
+            }
         }
 
         private void btnNuevo_Click(object sender, EventArgs e)
@@ -1865,56 +1541,7 @@ namespace controlFallos
 
         private void bPdf_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(lblSupervisor.Text))
-            {
-                MessageBox.Show("El campo supervisor se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                if (string.IsNullOrWhiteSpace(txtConductor.Text))
-                {
-                    MessageBox.Show("El campo credencial de conductor se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                else
-                {
-                    if (cmbServicio.SelectedIndex == 0)
-                    {
-                        MessageBox.Show("El campo servicio se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    else
-                    {
-                        if (string.IsNullOrWhiteSpace(txtKilometraje.Text))
-                        {
-                            MessageBox.Show("El campo kilometraje se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            if (cmbTipoFallo.SelectedIndex == 0)
-                            {
-                                MessageBox.Show("El campo tipo de fallo se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
-                            else
-                            {
-                                if (cbSubGrupo.SelectedIndex == 0 && cmbCodFallo.SelectedIndex == 0 && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))
-                                {
-                                    MessageBox.Show("Campos vacios en la sección de fallos".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                                else
-                                {
-                                    if (cmbCodFallo.SelectedIndex == 0 && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))
-                                    {
-                                        MessageBox.Show("EL campo código de fallo se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
-                                    else
-                                    {
-                                        To_pdf();//Llamamos a nuestro método To_pdf               
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+            To_pdf();//Llamamos a nuestro método To_pdf               
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -1935,9 +1562,7 @@ namespace controlFallos
                     limpia_act();
                 }
                 else
-                {
                     actualiza_datos();
-                }
             }
         }
 
@@ -1968,9 +1593,8 @@ namespace controlFallos
         private void cmbDescFallo_Validating(object sender, CancelEventArgs e)
         {
             if (cbSubGrupo.SelectedIndex > 0)
-            {
                 txtDescFalloNoC.Enabled = false;
-            }
+
         }
 
         private void cmbUnidad_DrawItem(object sender, DrawItemEventArgs e)
@@ -1987,7 +1611,6 @@ namespace controlFallos
         {
             if (DgvTabla.Rows.Count > 0)
             {
-
                 dt = (DataTable)DgvTabla.DataSource;
 
                 if (this.InvokeRequired)
@@ -2015,10 +1638,6 @@ namespace controlFallos
                 {
                     for (int j = 0; j < dt.Columns.Count; j++)
                     {
-                        //foreach (DataGridViewColumn colk in dataGridView3.Columns)
-                        //{
-                        //if (DgvTabla.Columns[j].Visible == true)
-                        //{
                         try
                         {
 
@@ -2138,7 +1757,6 @@ namespace controlFallos
         {
             if (editar && peditar)
             {
-                //if(!string.IsNullOrWhiteSpace(txtSupervisor.Text) && !string.IsNullOrWhiteSpace(supervissor))contraseña = v.Desencriptar(v.getaData("SELECT coalesce(PASSWORD,'') FROM DATOSISTEMA AS T1 INNER JOIN CPERSONAL AS T2 ON T2.IDPERSONA=T1.usuariofkcpersonal WHERE upper(concat(APPATERNO,' ',APMATERNO,' ',NOMBRES))='" + supervissor + "'").ToString());
                 if ((obs != txtObserSupervicion.Text.Trim() || tipofallo != cmbTipoFallo.Text || km != txtKilometraje.Text || servicio != cmbServicio.Text || credencial != txtConductor.Text || (((_grupoanterior != Convert.ToInt32(cbgrupo.SelectedValue) && cbgrupo.SelectedIndex > 0) || (_subgrupoanterior != Convert.ToInt32(cbSubGrupo.SelectedValue) && cbSubGrupo.SelectedIndex > 0) || (_categoriaanterior != Convert.ToInt32(cbcategoria.SelectedValue) && cbcategoria.SelectedIndex > 0)) && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text)) || (desfallonot != txtDescFalloNoC.Text.Trim() && !string.IsNullOrWhiteSpace(txtDescFalloNoC.Text) && cbgrupo.SelectedIndex == 0)) && (cmbUnidad.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtConductor.Text) && cmbServicio.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtKilometraje.Text) && cmbTipoFallo.SelectedIndex > 0))
                 {
                     btnEditar.Visible = true;
@@ -2251,23 +1869,7 @@ namespace controlFallos
         }
         private void txtObserSupervicion_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
-            {
-                if (bandera_editar) btnGuardar_Click(null, e); else btnEditar_Click(null, e);
-            }
-            else
-            {
-                //Validación de letras y carácteres permitidos para ingresar en la caja de texto
-                if (e.KeyChar == 44 || e.KeyChar == 46 || e.KeyChar == 127 || e.KeyChar == 08 || e.KeyChar == 32 || Char.IsLetter(e.KeyChar) || Char.IsNumber(e.KeyChar))
-                {
-                    e.Handled = false;
-                }
-                else
-                {
-                    e.Handled = true;
-                    MessageBox.Show("SOLO SE ACEPTAN LETRAS, NUMEROS   ,   Y    .   ", "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
+            v.enGeneral(e);
         }
         private void dtpFechaDe_KeyDown(object sender, KeyEventArgs e)
         {
@@ -2329,9 +1931,7 @@ namespace controlFallos
                 {
                     double km = double.Parse(txtKilometraje.Text);
                     if (txtKilometraje.TextLength <= 3)
-                    {
                         txtKilometraje.Text = string.Format("{0:F2}", km);
-                    }
                     else
                     {
                         txtKilometraje.Text = Convert.ToString((Math.Floor(km * 100) / 100));
@@ -2405,17 +2005,12 @@ namespace controlFallos
             if (!string.IsNullOrWhiteSpace(txtSupervisor.Text))
             {
                 //Validación de la contraseña del supervisor, 
-                MySqlCommand sql = new MySqlCommand("SELECT UPPER(concat(t1.ApPaterno,' ',t1.ApMAterno,' ',t1.Nombres))as supervisor ,t1.idPersona,t2.puesto from cpersonal as t1  inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal=t1.idPersona inner join cempresas as t4 on t4.idempresa=t1.empresa where t3.password='" + v.Encriptar(txtSupervisor.Text) + "'and t1.status='1' and t2.status='1' and t1.empresa='1' and t1.area='1' ", c.dbconection());
-                MySqlDataReader cmd = sql.ExecuteReader();
-                if (cmd.Read())
+
+                if (Convert.ToInt32(v.getaData("SELECT count(*) from cpersonal as t1  inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal=t1.idPersona inner join cempresas as t4 on t4.idempresa=t1.empresa where t3.password='" + v.Encriptar(txtSupervisor.Text) + "'and t1.status='1' and t2.status='1' and t1.empresa='1' and t1.area='1'")) > 0)
                 {
                     //en caso correcto mostramos su nombre en en label 
-                    idsupervisor = Convert.ToString(cmd["idpersona"]);
-                    if ((Convert.ToInt32(v.getaData("select count(insertar) from privilegios as t1 inner join cpersonal as t2 on t2.idpersona=t1.usuariofkcpersonal where t2.idpersona='" + idsupervisor + "' and namform='Form1';").ToString()) > 0) || (Convert.ToInt32(v.getaData("select count(editar) from privilegios as t1 inner join cpersonal as t2 on t2.idpersona=t1.usuariofkcpersonal where t2.idpersona='" + idsupervisor + "' and namform='Form1';").ToString()) > 0))
-                    {
-                        lblSupervisor.Text = Convert.ToString(cmd["supervisor"]);
-                    }
-                    else lblSupervisor.Text = "";
+                    idsupervisor = v.getaData("select t1.idpersona from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where password='" + v.Encriptar(txtSupervisor.Text) + "';").ToString();
+                    lblSupervisor.Text = ((pinsertar || peditar) ? v.getaData("select concat(appaterno,' ',apmaterno,' ',nombres) from cpersonal where idpersona='" + idsupervisor + "';").ToString() : "");
                 }
                 else
                 {
@@ -2423,8 +2018,6 @@ namespace controlFallos
                     idsupervisor = "";
                     lblSupervisor.Text = "";
                 }
-                c.dbconection().Close();//Cerramos la conexión con la base de datos
-                cmd.Close();
             }
         }
 
@@ -2432,25 +2025,11 @@ namespace controlFallos
         {
             if (!string.IsNullOrWhiteSpace(txtConductor.Text))
             {
-                string creden = txtConductor.Text;
-                //COnsulta para validar la credencial de conductor, con cargo y estatus.
-                MySqlCommand sql1 = new MySqlCommand("select UPPER(concat(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres))as Conductor,t2.puesto,t1.idPersona from cpersonal as t1 inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos where t1.credencial='" + Convert.ToString(creden) + "' AND t1.status='1'   AND t2.status='1' and t1.empresa='1' and t1.area='1' ;", c.dbconection());
-                MySqlDataReader cmd1 = sql1.ExecuteReader();
-                if (cmd1.Read())
-                {
-                    //En caso correcto mostramos nombre en label           
-                    lblCredCond.Text = (Convert.ToString(cmd1["Conductor"]));
-                    idconductor = Convert.ToString(cmd1["idpersona"]);
-                }
-                else
-                {
-                    //En caso contrario no mostramos nada.
-                    idconductor = "";
-                    lblCredCond.Text = "";
-                }
-                cmd1.Close();
-                c.dbconection().Close();//Cerramos la conexión      
+                string[] datos = v.getaData("select UPPER(concat(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres,'|',idpersona)) from cpersonal as t1 inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos where t1.credencial='1577' AND t1.status='1'   AND t2.status='1' and t1.empresa='1' and t1.area='" + txtConductor.Text + "';").ToString().Split('|');
+                lblCredCond.Text = (!string.IsNullOrWhiteSpace(datos[0]) ? datos[0] : "");
+                idconductor = (!string.IsNullOrWhiteSpace(datos[1]) ? datos[1] : "");
             }
+                
         }
 
         private void dtpFechaA_KeyDown(object sender, KeyEventArgs e)
@@ -2460,61 +2039,10 @@ namespace controlFallos
         private void dataGridView1_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (this.DgvTabla.Columns[e.ColumnIndex].Name == "TIPO DE FALLO")
-            {
-                if (Convert.ToString(e.Value) == "PREVENTIVO")
-                {
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                }
-                else
-                {
-                    if (Convert.ToString(e.Value) == "CORRECTIVO")
-                    {
-                        e.CellStyle.BackColor = Color.Khaki;
-                    }
-                    else
-                    {
-                        if (Convert.ToString(e.Value) == "REITERATIVO")
-                        {
-                            e.CellStyle.BackColor = Color.LightCoral;
-                        }
-                        else
-                        {
-                            if (Convert.ToString(e.Value) == "REPROGRAMADO")
-                            {
-                                e.CellStyle.BackColor = Color.LightBlue;
-                            }
-                            else
-                            {
-                                if (Convert.ToString(e.Value) == "SEGUIMIENTO")
-                                {
-                                    e.CellStyle.BackColor = Color.FromArgb(246, 144, 123);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+                e.CellStyle.BackColor = (Convert.ToString(e.Value) == "PREVENTIVO" ? Color.PaleGreen : Convert.ToString(e.Value) == "CORRECTIVO" ? Color.Khaki : Convert.ToString(e.Value) == "REITERATIVO" ? Color.LightCoral : Convert.ToString(e.Value) == "REPROGRAMADO" ? Color.LightBlue : Color.FromArgb(246, 144, 123));
             if (this.DgvTabla.Columns[e.ColumnIndex].Name == "ESTATUS")
-            {
-                if (Convert.ToString(e.Value) == "EN PROCESO")
-                {
-                    e.CellStyle.BackColor = Color.Khaki;
-                }
-                else
-                {
-                    if (Convert.ToString(e.Value) == "LIBERADA")
-                    {
-                        e.CellStyle.BackColor = Color.PaleGreen;
-                    }
-                    else
-                    {
-                        if (Convert.ToString(e.Value) == "REPROGRAMADA")
-                        {
-                            e.CellStyle.BackColor = Color.LightCoral;
-                        }
-                    }
-                }
-            }
+                e.CellStyle.BackColor = (Convert.ToString(e.Value) == "EN PROCESO" ? Color.Khaki : Convert.ToString(e.Value) == "LIBERADA" ? Color.PaleGreen : Color.LightCoral);
+
         }
 
         string idconductor;

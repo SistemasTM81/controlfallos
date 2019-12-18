@@ -14,6 +14,7 @@ using System.IO;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using System.Threading;
+using iTextSharp.text.pdf;
 
 namespace controlFallos
 {
@@ -2866,7 +2867,7 @@ namespace controlFallos
         {
             if (!id.Equals(_id))
             {
-                if (Convert.ToInt32(getaData("SELECT COUNT(idarea) FROM careas WHERE identificador ='" + id + "' and empresafkcempresas='"+empresa+"'")) == 0)
+                if (Convert.ToInt32(getaData("SELECT COUNT(idarea) FROM careas WHERE identificador ='" + id + "' and empresafkcempresas='" + empresa + "'")) == 0)
                 {
                     return false;
                 }
@@ -2992,12 +2993,16 @@ namespace controlFallos
         }
         public void edit(string id, string ver, string insertar, string consultar, string modificar, string eliminar)
         {
-            c.insertar("UPDATE privilegios SET ver='" + ver + "' "+ (short.Parse(ver)==1? ", privilegios='" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar)==1?"/" + eliminar :"")+ "'":"") +"WHERE idprivilegio='" + id + "'");
+            c.insertar("UPDATE privilegios SET ver='" + ver + "' " + (short.Parse(ver) == 1 ? ", privilegios='" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") + "'" : "") + "WHERE idprivilegio='" + id + "'");
         }
         public void insert(string ver, string insertar, string consultar, string modificar, string eliminar, string nombre, int idUsuario)
         {
 
+<<<<<<< HEAD
             c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver"+(short.Parse(ver) == 1 ? ",privilegios":"") +")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
+=======
+            c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver" + (short.Parse(ver) == 1 ? ",privilegios" : "") + ")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + "/" + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
+>>>>>>> 3d70a136d3a6fea1c6b1acdbf643039cbfe37850
         }
         public bool todosFalsos(string[,] b)
         {
@@ -4245,6 +4250,114 @@ namespace controlFallos
             {
                 MessageBox.Show("El modelo ya se encuentra registrado en el sistema", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return true;
+            }
+        }
+        public PdfPCell valorCampo(string valor, int Colspan, int HorizontalAligment, int BorderBottom, iTextSharp.text.Font f)
+        {
+            PdfPCell temp = new PdfPCell(new iTextSharp.text.Phrase(valor, f));
+            temp.Colspan = Colspan;
+            temp.HorizontalAlignment = HorizontalAligment;
+            temp.BorderWidthLeft = 0;
+            temp.BorderWidthRight = 0;
+            temp.BorderWidthTop = 0;
+            temp.BorderWidthBottom = BorderBottom;
+            return temp;
+        }
+        public bool campossupervision(string folio, int idunidad, string contraseña, string credencial, int idservicio, string kilometraje, int idtipofallo, int idgrupofallo, int idsubgfallo, int idcatfallo, int idcodfallo, string Fallonc)
+        {
+            if (!string.IsNullOrWhiteSpace(folio))
+                if (idunidad > 0)
+                    if (!string.IsNullOrWhiteSpace(contraseña))
+                        if (Convert.ToInt32(getaData("select count(*) from datosistema as t1 inner join cpersonal as t2 on t2.idpersona=t1.usuariofkcpersonal where password='" + Encriptar(contraseña) + "' and status='1';")) > 0)
+                            if (!string.IsNullOrWhiteSpace(credencial))
+                                if (Convert.ToInt32(credencial) > 0)
+                                    if (Convert.ToInt32(getaData("select count(*) from cpersonal where credencial='" + credencial + "';")) > 0)
+                                        if (idservicio > 0)
+                                            if (!string.IsNullOrWhiteSpace(kilometraje))
+                                                if (Convert.ToDouble(kilometraje) > 0)
+                                                    if (idtipofallo > 0)
+                                                        if (idgrupofallo > 0 || !string.IsNullOrWhiteSpace(Fallonc))
+                                                            if (idsubgfallo > 0 || !string.IsNullOrWhiteSpace(Fallonc))
+                                                                if (idcatfallo > 0 || !string.IsNullOrWhiteSpace(Fallonc))
+                                                                    if (idcodfallo > 0 || !string.IsNullOrWhiteSpace(Fallonc))
+                                                                        if ((idgrupofallo > 0 && string.IsNullOrWhiteSpace(Fallonc)) || (idgrupofallo == 0 && !string.IsNullOrWhiteSpace(Fallonc)))
+                                                                            return true;
+                                                                        else
+                                                                            return false;
+                                                                    else
+                                                                    {
+                                                                        MessageBox.Show("El campo \"Código de fallo\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                        return false;
+                                                                    }
+                                                                else
+                                                                {
+                                                                    MessageBox.Show("El campo \"Categoria\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                    return false;
+                                                                }
+                                                            else
+                                                            {
+                                                                MessageBox.Show("El campo \"SUbgrupo\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                return false;
+                                                            }
+                                                        else
+                                                        {
+                                                            MessageBox.Show("Campos vacios en \"la sección de fallos\"".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                            return false;
+                                                        }
+                                                    else
+                                                    {
+                                                        MessageBox.Show("El campo \"tipo de falla\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                        return false;
+                                                    }
+                                                else
+                                                {
+                                                    MessageBox.Show("El kilometraje debe ser mayor a 0".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                    return false;
+                                                }
+                                            else
+                                            {
+                                                MessageBox.Show("El campo \"kilometraje de entrada a patio\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                return false;
+                                            }
+                                        else
+                                        {
+                                            MessageBox.Show("seleccione un servicio de la lista desplegable".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            return false;
+                                        }
+                                    else
+                                    {
+                                        MessageBox.Show("La credencial no es valida".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return false;
+                                    }
+                                else
+                                {
+                                    MessageBox.Show("La credencial debe ser mayor a 0".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return false;
+                                }
+                            else
+                            {
+                                MessageBox.Show("El campo \"credencial de conductor\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return false;
+                            }
+                        else
+                        {
+                            MessageBox.Show("contraseña incorrecta".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+                    else
+                    {
+                        MessageBox.Show("El campo \"contraseña\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                else
+                {
+                    MessageBox.Show("El campo \"unidad\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            else
+            {
+                MessageBox.Show("El campo \"folio\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
         }
     }
