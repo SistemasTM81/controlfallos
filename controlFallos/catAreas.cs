@@ -12,13 +12,13 @@ namespace controlFallos
 {
     public partial class catAreas : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         int idUsuario, statusAnterior, empresa, area;
         bool editar = false, yaAparecioMensaje = false;
         string idareaAnterior, empresaanterior, identificadorAnterior, nombreAreaAnterior;
-        public catAreas(int idUsuario, int empresa, int area)
+        public catAreas(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             cbempresa.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);

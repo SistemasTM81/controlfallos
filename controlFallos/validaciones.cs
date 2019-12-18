@@ -23,19 +23,17 @@ namespace controlFallos
     {
         public string folio = "";
         public conexion c = new conexion();
-
-
         public void Sololetras(KeyPressEventArgs e)
         {
-            if (Char.IsLetter(e.KeyChar))
+            if (char.IsLetter(e.KeyChar))
             {
                 e.Handled = false;
             }
-            else if (Char.IsControl(e.KeyChar))
+            else if (char.IsControl(e.KeyChar))
             {
                 e.Handled = false;
             }
-            else if (Char.IsSeparator(e.KeyChar))
+            else if (char.IsSeparator(e.KeyChar))
             {
                 e.Handled = false;
             }
@@ -3011,7 +3009,8 @@ namespace controlFallos
                 {
                     if (b[i, j] == "1")
                     {
-                        res = false;
+                       return false;
+                    
                     }
                 }
             }
@@ -3074,7 +3073,6 @@ namespace controlFallos
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
             ((DataGridView)sender).Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.NotSortable);
-
         }
         public void espaciosenblanco(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -3139,9 +3137,7 @@ namespace controlFallos
                 return false;
             }
         }
-
-
-        public void DrawGroupBox(GroupBox box, Graphics g, Color textColor, Color borderColor, Form f)
+    public void DrawGroupBox(GroupBox box, Graphics g, Color textColor, Color borderColor, Form f)
         {
             if (box != null)
             {
@@ -3182,7 +3178,6 @@ namespace controlFallos
 
         public void exportaExcel(DataTable dt)
         {
-
             h.Application X = new h.Application();
             X.Application.Workbooks.Add(Type.Missing);
             X.Cells.HorizontalAlignment = h.XlHAlign.xlHAlignCenter;
@@ -3245,7 +3240,6 @@ namespace controlFallos
             cbx.ValueMember = ValueMember;
             cbx.DisplayMember = DisplayMember;
             cbx.DataSource = dt;
-
         }
         public bool formularioNiveles(int pasillo, string nivel)
         {
@@ -4363,5 +4357,4 @@ namespace controlFallos
             }
         }
     }
-
 }

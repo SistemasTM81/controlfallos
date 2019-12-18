@@ -7,8 +7,7 @@ namespace controlFallos
 {
     public partial class ums : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         int idumTemp;
         bool reactivar;
         string nombreAnterior, simboloAnterior;
@@ -20,8 +19,9 @@ namespace controlFallos
         public bool Pconsultar { set; get; }
         public bool Pdesactivar { set; get; }
         bool yaAparecioMensaje = false;
-        public ums(int idUsuario, int empresa, int area)
+        public ums(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             tbum.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
@@ -44,7 +44,7 @@ namespace controlFallos
         }
         public void establecerPrivilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
 
@@ -165,14 +165,14 @@ namespace controlFallos
         {
             tbum.Rows.Clear();
             string sql = "SELECT t1.idunidadmedida,upper(t1.Nombre) as Nombre,upper(t1.Simbolo) as simbolo,t1.status,UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as nombre FROM cunidadmedida as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal= t2.idpersona where t1.empresa='" + empresa + "'";
-            MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
                 tbum.Rows.Add(dr.GetString("idunidadmedida"), dr.GetString("Nombre"), dr.GetString("Simbolo"), dr.GetString("nombre"), v.getStatusString(dr.GetInt32("status")));
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
             tbum.ClearSelection();
         }
 

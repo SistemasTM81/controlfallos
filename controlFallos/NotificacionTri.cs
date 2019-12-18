@@ -9,21 +9,19 @@ namespace controlFallos
 {
     public partial class NotificacionTri : Form
     {
-        conexion c = new conexion();
         int tipoFalla;
         ThreadStart tS;
         string SQL;
         Thread t;
         String sql;
         bool res = true;
-        validaciones v = new validaciones();
-        public NotificacionTri(int tipoFalla)
+        validaciones v;
+        public NotificacionTri(int tipoFalla,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.tipoFalla = tipoFalla;
             consulta();
-   
-
         }
         public void consulta() {
    
@@ -54,11 +52,11 @@ namespace controlFallos
         {
                 tbnotif.ClearSelection();
             DataTable ds = new DataTable();
-            MySqlDataAdapter cargar = new MySqlDataAdapter(sql, c.dbconection());
+            MySqlDataAdapter cargar = new MySqlDataAdapter(sql, v.c.dbconection());
             cargar.Fill(ds);
             tbnotif.DataSource = ds;
             tbnotif.ClearSelection();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
         }
         private void button1_Click(object sender, EventArgs e)
         {

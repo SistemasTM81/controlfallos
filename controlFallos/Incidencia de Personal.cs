@@ -37,15 +37,12 @@ namespace controlFallos
         bool pinsertar { get; set; }
         bool pconsultar { get; set; }
         bool peditar { get; set; }
-        bool getboolfromint(int i)
-        {
-            return i == 1;
-        }
+        bool getboolfromint(int i){return i == 1;}
 
-        validaciones v = new validaciones();
-        conexion c = new conexion();
-        public Incidencia_de_Personal(int idusuario, int empresa, int area)
+        validaciones v;
+        public Incidencia_de_Personal(int idusuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             this.idusuario = idusuario;
             this.empresa = empresa;
             this.area = area;
@@ -60,8 +57,8 @@ namespace controlFallos
         }
         public void privilegios()
         {
-            string sql = "SELECT CONCAT(insertar,';',consultar,';',editar,';',desactivar) as privilegios FROM privilegios where usuariofkcpersonal='" + idusuario + "' and namform='IncidenciaPersonal'";
-            string[] privilegios = v.getaData(sql).ToString().Split(';');
+            string sql = "SELECT privilegios FROM privilegios where usuariofkcpersonal='" + idusuario + "' and namform='IncidenciaPersonal'";
+            string[] privilegios = v.getaData(sql).ToString().Split('/');
             pinsertar = getboolfromint(Convert.ToInt32(privilegios[0]));
             pconsultar = getboolfromint(Convert.ToInt32(privilegios[1]));
             peditar = getboolfromint(Convert.ToInt32(privilegios[2]));
@@ -134,7 +131,7 @@ namespace controlFallos
 
         private void btnIncidencias_Click(object sender, EventArgs e)
         {
-            CatIncidencias cat = new CatIncidencias(idusuario, empresa, area);
+            CatIncidencias cat = new CatIncidencias(idusuario, empresa, area,v);
             cat.Owner = this;
             cat.ShowDialog();
         }
@@ -622,7 +619,7 @@ namespace controlFallos
 
         private void txtCredencial_Validating(object sender, CancelEventArgs e)
         {
-            MySqlCommand cmd = new MySqlCommand("Select idPersona as id, upper(concat(t1.apPaterno,' ',t1.ApMaterno,' ',t1.nombres)) as n from cpersonal as t1 where t1.credencial='" + txtCredencial.Text.Trim() + "' and t1.status='1' and t1.empresa='1' and t1.area='1';", c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("Select idPersona as id, upper(concat(t1.apPaterno,' ',t1.ApMaterno,' ',t1.nombres)) as n from cpersonal as t1 where t1.credencial='" + txtCredencial.Text.Trim() + "' and t1.status='1' and t1.empresa='1' and t1.area='1';",v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
@@ -635,7 +632,7 @@ namespace controlFallos
                 nColaborador = lblColaborador.Text = "";
             }
             dr.Close();
-            c.dbconection().Close();
+           v.c.dbconection().Close();
         }
 
         private void txtLugar_Validating(object sender, CancelEventArgs e)
@@ -839,7 +836,7 @@ namespace controlFallos
 
         public void genera_consecutivo()
         {
-            MySqlCommand maximo = new MySqlCommand("select coalesce(SUBSTRING(consecutivo,LENGTH(consecutivo)-4,5)+1,'1') from incidenciapersonal where idincidencia=(select max(idIncidencia)from incidenciapersonal);", c.dbconection());
+            MySqlCommand maximo = new MySqlCommand("select coalesce(SUBSTRING(consecutivo,LENGTH(consecutivo)-4,5)+1,'1') from incidenciapersonal where idincidencia=(select max(idIncidencia)from incidenciapersonal);",v.c.dbconection());
             string consecutivo = (string)maximo.ExecuteScalar();
             if (consecutivo == null)
                 consecutivo = "00001";
@@ -848,7 +845,7 @@ namespace controlFallos
                 consecutivo = "0" + consecutivo;
             }
             lblConsecutivo.Text = "IP-" + consecutivo;
-            c.dbconection().Close();
+           v.c.dbconection().Close();
         }
         void limpia_ids()
         {
@@ -937,13 +934,13 @@ namespace controlFallos
                                             if (idt > 0) campos += " ,testigofkCpersonal='" + idt + "'";
                                             else campos += " ,testigofkCpersonal='" + _idtAnterior + "'";
 
-                                            FormContraFinal f = new FormContraFinal(empresa, area, this);
+                                            FormContraFinal f = new FormContraFinal(empresa, area, this,v);
                                             f.LabelTitulo.Text = "¿Desea finalizar el reporte?";
                                             if (f.ShowDialog() == DialogResult.OK)
                                             {
-                                                MySqlCommand edita = new MySqlCommand(campos += ",Estatus='1',usuariofinalFKcpersonal='" + idf + "' where idIncidencia='" + idreporte + "'", c.dbconection());
+                                                MySqlCommand edita = new MySqlCommand(campos += ",Estatus='1',usuariofinalFKcpersonal='" + idf + "' where idIncidencia='" + idreporte + "'",v.c.dbconection());
                                                 edita.ExecuteNonQuery();
-                                                c.dbconection().Close();
+                                               v.c.dbconection().Close();
                                                 MessageBox.Show("El reporte se ha finalizado correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                                                 limpiar_campos();
                                                 incidencias();
@@ -993,20 +990,20 @@ namespace controlFallos
 
         public void mostrar_datos()
         {
-            MySqlDataAdapter obtener = new MySqlDataAdapter("SET lc_time_names = 'es_ES';select t1.idincidencia as id,coalesce((select x6.idincidencia from catincidencias as x6 where x6.idincidencia=t1.IncidenciafkCatIncidencias),0) as idin, Consecutivo as CONSECUTIVO,upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) as COLABORADOR,t2.credencial as CREDENCIAL,upper(Date_format(t1.Fecha,'%W %d de %M del %Y')) as FECHA,time_format(t1.hora,'%h:%i %p') as HORA,t1.Lugar as 'LUGAR DEL INCIDENTE',t1.Acta as 'ACTA N°',(select concat('INCIDENCIA: ',x7.numeroIncidencia) from catincidencias as x7 where x7.idincidencia=t1.IncidenciafkCatIncidencias) as 'N° DE INCIDENCIA' ,t1.Sintesis as 'SÍNTESIS DE LO OCURRIDO',t1.Comentario as 'COMENTARIO DE LO OCURRIDO',t1.fecha as fecha,t1.hora as hora,(select upper(concat(x2.ApPaterno,' ',x2.ApMaterno,' ',x2.nombres)) from cpersonal as x2 where x2.idpersona=t1.SupervisorfkCpersonal) as SUPERVISOR,(select upper(concat(x3.ApPaterno,' ',x3.ApMaterno,' ',x3.nombres)) from cpersonal as x3 where x3.idpersona=t1.JefefkCpersonal) as 'JEFE DE GRUPO',(select upper(concat(x4.ApPaterno,' ',x4.ApMaterno,' ',x4.nombres)) from cpersonal as x4 where x4.idpersona=t1.CoperativofkCpersonal) as 'C. OPERATIVO',(select upper(concat(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) from cpersonal as x5 where x5.idpersona=t1.testigofkCpersonal) as TESTIGO,if(t1.estatus=0,'EN PROCESO','FINALIZADO') as ESTATUS,(select concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)  from cpersonal as x1 where x1.idpersona=t1.Conductorfkcpersonal)as conductor,coalesce(t1.SupervisorfkCpersonal,0),coalesce(t1.Conductorfkcpersonal,0),coalesce(t1.JefefkCpersonal,0),coalesce(t1.CoperativofkCpersonal,0),coalesce(t1.testigofkCpersonal,0),coalesce(t1.ColaboradorfkCpersonal,0),(select upper(concat(x8.appaterno,' ',x8.apmaterno,' ',x8.nombres)) from cpersonal as x8 where x8.idpersona=t1.usuariofinalFKcpersonal)as 'USUARIO QUE FINALIZA' from incidenciapersonal as t1 inner join cpersonal as t2 on t2.idPersona=t1.ColaboradorfkCpersonal where date_format(t1.Fecha,'%m')=(select month(now()))  order by t1.consecutivo desc;", c.dbconection());
+            MySqlDataAdapter obtener = new MySqlDataAdapter("SET lc_time_names = 'es_ES';select t1.idincidencia as id,coalesce((select x6.idincidencia from catincidencias as x6 where x6.idincidencia=t1.IncidenciafkCatIncidencias),0) as idin, Consecutivo as CONSECUTIVO,upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) as COLABORADOR,t2.credencial as CREDENCIAL,upper(Date_format(t1.Fecha,'%W %d de %M del %Y')) as FECHA,time_format(t1.hora,'%h:%i %p') as HORA,t1.Lugar as 'LUGAR DEL INCIDENTE',t1.Acta as 'ACTA N°',(select concat('INCIDENCIA: ',x7.numeroIncidencia) from catincidencias as x7 where x7.idincidencia=t1.IncidenciafkCatIncidencias) as 'N° DE INCIDENCIA' ,t1.Sintesis as 'SÍNTESIS DE LO OCURRIDO',t1.Comentario as 'COMENTARIO DE LO OCURRIDO',t1.fecha as fecha,t1.hora as hora,(select upper(concat(x2.ApPaterno,' ',x2.ApMaterno,' ',x2.nombres)) from cpersonal as x2 where x2.idpersona=t1.SupervisorfkCpersonal) as SUPERVISOR,(select upper(concat(x3.ApPaterno,' ',x3.ApMaterno,' ',x3.nombres)) from cpersonal as x3 where x3.idpersona=t1.JefefkCpersonal) as 'JEFE DE GRUPO',(select upper(concat(x4.ApPaterno,' ',x4.ApMaterno,' ',x4.nombres)) from cpersonal as x4 where x4.idpersona=t1.CoperativofkCpersonal) as 'C. OPERATIVO',(select upper(concat(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) from cpersonal as x5 where x5.idpersona=t1.testigofkCpersonal) as TESTIGO,if(t1.estatus=0,'EN PROCESO','FINALIZADO') as ESTATUS,(select concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)  from cpersonal as x1 where x1.idpersona=t1.Conductorfkcpersonal)as conductor,coalesce(t1.SupervisorfkCpersonal,0),coalesce(t1.Conductorfkcpersonal,0),coalesce(t1.JefefkCpersonal,0),coalesce(t1.CoperativofkCpersonal,0),coalesce(t1.testigofkCpersonal,0),coalesce(t1.ColaboradorfkCpersonal,0),(select upper(concat(x8.appaterno,' ',x8.apmaterno,' ',x8.nombres)) from cpersonal as x8 where x8.idpersona=t1.usuariofinalFKcpersonal)as 'USUARIO QUE FINALIZA' from incidenciapersonal as t1 inner join cpersonal as t2 on t2.idPersona=t1.ColaboradorfkCpersonal where date_format(t1.Fecha,'%m')=(select month(now()))  order by t1.consecutivo desc;",v.c.dbconection());
             DataSet ds = new DataSet();
             obtener.Fill(ds);
             DgvTabla.DataSource = ds.Tables[0];
             DgvTabla.Columns[0].Visible = DgvTabla.Columns[1].Visible = DgvTabla.Columns[12].Visible = DgvTabla.Columns[19].Visible = DgvTabla.Columns[20].Visible = DgvTabla.Columns[25].Visible = DgvTabla.Columns[21].Visible = DgvTabla.Columns[22].Visible = DgvTabla.Columns[23].Visible = DgvTabla.Columns[24].Visible = DgvTabla.Columns[13].Visible = false;
             DgvTabla.ClearSelection();
-            c.dbconection().Close();
+           v.c.dbconection().Close();
         }
 
         private void btnConductor_Click(object sender, EventArgs e)
         {
             if (!camposvacios())
             {
-                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null);
+                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null,v);
                 incidencia_personal = true;
                 conductor = true;
                 l.Owner = this;
@@ -1018,7 +1015,7 @@ namespace controlFallos
         {
             if (!camposvacios())
             {
-                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null);
+                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null,v);
                 incidencia_personal = true;
                 jefe_grupo = true;
                 l.Owner = this;
@@ -1030,7 +1027,7 @@ namespace controlFallos
         {
             if (!camposvacios())
             {
-                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null);
+                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null,v);
                 incidencia_personal = true;
                 c_operativo = true;
                 l.Owner = this;
@@ -1042,7 +1039,7 @@ namespace controlFallos
         {
             if (!camposvacios())
             {
-                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null);
+                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null,v);
                 incidencia_personal = true;
                 testigo = true;
                 l.Owner = this;
@@ -1085,7 +1082,7 @@ namespace controlFallos
                     }
                     if (ids > 0 && idc > 0 && idj > 0 && ido > 0 && idt > 0 && !string.IsNullOrWhiteSpace(txtCredencial.Text) && cbIncidencia.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtLugar.Text) && !string.IsNullOrWhiteSpace(txtActa.Text) && !string.IsNullOrWhiteSpace(txtSintesis.Text))
                     {
-                        FormContraFinal f = new FormContraFinal(empresa, area, this);
+                        FormContraFinal f = new FormContraFinal(empresa, area, this,v);
                         f.LabelTitulo.Text = "¿Desea finalizar el reporte?";
                         if (f.ShowDialog() == DialogResult.OK) _completos = true;
                         if (idf != null)
@@ -1099,9 +1096,9 @@ namespace controlFallos
                     if (_completos || _incompletos)
                     {
                         string consulta = "insert into incidenciapersonal(" + campos + ")values(" + valores + ")";
-                        MySqlCommand insertar = new MySqlCommand(consulta, c.dbconection());
+                        MySqlCommand insertar = new MySqlCommand(consulta,v.c.dbconection());
                         insertar.ExecuteNonQuery();
-                        c.dbconection().Close();
+                       v.c.dbconection().Close();
                         if (idf != null)
                         {
                             MessageBox.Show("Reporte finalizado correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1169,9 +1166,9 @@ namespace controlFallos
                         if (cbIncidencia.SelectedIndex > 0) campos += " ,IncidenciafkCatIncidencias='" + cbIncidencia.SelectedValue + "'";
                         if (!string.IsNullOrWhiteSpace(txtSintesis.Text)) campos += " ,Sintesis='" + txtSintesis.Text.Trim() + "'";
                         if (!string.IsNullOrWhiteSpace(txtComentario.Text)) campos += " ,Comentario='" + txtComentario.Text.Trim() + "'";
-                        MySqlCommand edita = new MySqlCommand(campos += "where idIncidencia='" + idreporte + "'", c.dbconection());
+                        MySqlCommand edita = new MySqlCommand(campos += "where idIncidencia='" + idreporte + "'",v.c.dbconection());
                         edita.ExecuteNonQuery();
-                        c.dbconection().Close();
+                       v.c.dbconection().Close();
                         if (!_mensaje)
                         {
                             if (res)
@@ -1184,7 +1181,7 @@ namespace controlFallos
                                 {
                                     string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
                                     string nombre = v.getaData("select concat(ApPaterno,' ',ApMaterno,' ',nombres) from cpersonal where idpersona='" + _idcolaborador + "';").ToString();
-                                    MySqlCommand modificaciones = new MySqlCommand("insert into modificaciones_sistema (form,idregistro,ultimaModificacion,usuariofkcpersonal,fechaHora,Tipo,empresa,area,motivoActualizacion)values('Incidencia De Personal','" + idreporte + "','" + nombre + ";" + _credencialAnterior + ";" + _fechaAnterior + ";" + _horaAnterior + ";" + _incidenciaAnterior + ";" + _lugarAnterior + ";" + _actaAnterior + ";" + _sintesisAnterior + ";" + _comentarioAnterior + "','" + this.idusuario + "',now(),'Actualización De Reporte Incidencia Personal','" + empresa + "','" + area + "','" + observaciones + "');", c.dbconection());
+                                    MySqlCommand modificaciones = new MySqlCommand("insert into modificaciones_sistema (form,idregistro,ultimaModificacion,usuariofkcpersonal,fechaHora,Tipo,empresa,area,motivoActualizacion)values('Incidencia De Personal','" + idreporte + "','" + nombre + ";" + _credencialAnterior + ";" + _fechaAnterior + ";" + _horaAnterior + ";" + _incidenciaAnterior + ";" + _lugarAnterior + ";" + _actaAnterior + ";" + _sintesisAnterior + ";" + _comentarioAnterior + "','" + this.idusuario + "',now(),'Actualización De Reporte Incidencia Personal','" + empresa + "','" + area + "','" + observaciones + "');",v.c.dbconection());
                                     modificaciones.ExecuteNonQuery();
                                     MessageBox.Show("El reporte se ha editado correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     esta_exportando();
@@ -1244,7 +1241,7 @@ namespace controlFallos
         {
             if (!camposvacios())
             {
-                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null);
+                LectorHuellas l = new LectorHuellas(0, 0, null, null, null, null, null,v);
                 incidencia_personal = true;
                 supervisor = true;
                 l.Owner = this;
@@ -1416,7 +1413,7 @@ namespace controlFallos
                         wheres += " where (select Date_format(t1.Fecha,'%W %d %M %Y') like '%" + cbMeses.Text + "%' and (select year(t1.Fecha))=( select year(now())))";
                     }
                 }
-                MySqlDataAdapter busqueda = new MySqlDataAdapter(sql + wheres + "order by t1.consecutivo desc", c.dbconection());
+                MySqlDataAdapter busqueda = new MySqlDataAdapter(sql + wheres + "order by t1.consecutivo desc",v.c.dbconection());
                 DataSet ds = new DataSet();
                 busqueda.Fill(ds);
                 DgvTabla.DataSource = ds.Tables[0];
@@ -1439,7 +1436,7 @@ namespace controlFallos
                         lblExcel.Visible = true;
                     }
                 }
-                c.dbconection().Close();
+               v.c.dbconection().Close();
                 limpiar_busqueda();
             }
         }

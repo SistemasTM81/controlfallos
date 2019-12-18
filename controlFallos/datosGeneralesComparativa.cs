@@ -1,19 +1,9 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
-using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Threading;
 using System.Windows.Forms;
-using h = Microsoft.Office.Interop.Excel;
 using System.Globalization;
 
 namespace controlFallos
@@ -25,12 +15,11 @@ namespace controlFallos
         bool editarComparativa, editarRefaccion, editarProveedor, mejorOpcionAnterior, exportando, yaAparecioMensaje;
         string nombreComparativaAnterior, DescripcionComparativaAnterior, observacionesComparativaAnterior, refaccionAnterior, observacionesRefaccionAnterior, observacionesProveedorAnterior;
         double cantidadRefaccion, precioUnitario;
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         public Thread hilo,th;
-
-        public datosGeneralesComparativa(int idUsuario, int empresa, int area,System.Drawing.Image logo)
+        public datosGeneralesComparativa(int idUsuario, int empresa, int area,Image logo,validaciones v)
         {
+            this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -846,7 +835,7 @@ namespace controlFallos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ConcentradosComparativas conc = new ConcentradosComparativas(idComparativaTemp);
+            ConcentradosComparativas conc = new ConcentradosComparativas(idComparativaTemp,v);
             conc.Owner = this;
             if (Convert.ToInt32(v.getaData("SELECT status FROM comparativas WHERE idcomparativa='" + idComparativaTemp + "'")) == 1)
             {

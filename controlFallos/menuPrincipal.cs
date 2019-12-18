@@ -109,13 +109,13 @@ namespace controlFallos
                 DialogResult res;
                 if ((empresa == 1 && area == 1) || (empresa == 2 && area == 1))
                 {
-                    NotificacionSupervision n = new NotificacionSupervision(empresa, area);
+                    NotificacionSupervision n = new NotificacionSupervision(empresa, area,v);
                     n.Owner = this;
                     res = n.ShowDialog();
                 }
                 else
                 {
-                    NotificacionAlmacen n = new NotificacionAlmacen();
+                    NotificacionAlmacen n = new NotificacionAlmacen(v);
                     n.Owner = this;
                     res = n.ShowDialog();
                 }
@@ -190,7 +190,7 @@ namespace controlFallos
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<catfallosGrales>().FirstOrDefault();
-                catfallosGrales hijo = form ?? new catfallosGrales(idUsuario, empresa, area, this,newimg);
+                catfallosGrales hijo = form ?? new catfallosGrales(idUsuario, empresa, area, this,newimg, v);
                 AddFormInPanel(hijo);
             }
         }
@@ -223,13 +223,13 @@ namespace controlFallos
                 if (this.empresa == 1)
                 {
                     var form = Application.OpenForms.OfType<catUnidades>().FirstOrDefault();
-                    catUnidades hijo = form ?? new catUnidades(this.idUsuario, empresa, area);
+                    catUnidades hijo = form ?? new catUnidades(this.idUsuario, empresa, area, v);
                     AddFormInPanel(hijo);
                 }
                 else if (empresa == 2 || empresa ==3)
                 {
                     var form = Application.OpenForms.OfType<catUnidaesTRI>().FirstOrDefault();
-                    catUnidaesTRI hijo = form ?? new catUnidaesTRI(this.idUsuario, newimg, empresa, area);
+                    catUnidaesTRI hijo = form ?? new catUnidaesTRI(this.idUsuario, newimg, empresa, area, v);
                     AddFormInPanel(hijo);
                 }
             }
@@ -250,7 +250,7 @@ namespace controlFallos
                     lbltitle.Location = new Point(1591, 13);
                     Deshabilitar(reporteDeSupervisiónToolStripMenuItem);
                     var form1 = Application.OpenForms.OfType<Supervisión>().FirstOrDefault();
-                    Supervisión hijo = form1 ?? new Supervisión(this.idUsuario, empresa, area);
+                    Supervisión hijo = form1 ?? new Supervisión(this.idUsuario, empresa, area,v);
                     AddFormInPanel(hijo);
                 }
             }
@@ -278,7 +278,7 @@ namespace controlFallos
                     lbltitle.Location = new Point(1575, 13);
                     Deshabilitar(reporteAlmacenToolStripMenuItem1);
                     var form2 = Application.OpenForms.OfType<TRI>().FirstOrDefault();
-                    TRI hijo = form2 ?? new TRI(this.idUsuario, empresa, area);
+                    TRI hijo = form2 ?? new TRI(this.idUsuario, empresa, area,v);
                     AddFormInPanel(hijo);
                 }
             }
@@ -318,7 +318,6 @@ namespace controlFallos
         private void button2_Click(object sender, EventArgs e) { this.Close(); }
         private void menuPrincipal_Load(object sender, EventArgs e)
         {
-            
             lblnumnotificaciones.BackgroundImage = newimg = (empresa == 1?Properties.Resources.Dbkel_CXkAE43aG:(empresa == 2 ? Properties.Resources.Imagen2:(empresa==3?Properties.Resources.TSD:null)));
             v.c.referencia(idUsuario);
             var consultaPrivilegios = v.getaData("SELECT GROUP_CONCAT(namForm SEPARATOR ';') FROM privilegios WHERE usuariofkcpersonal= '" + this.idUsuario + "' and ver > 0").ToString().Split(';');
@@ -701,7 +700,7 @@ namespace controlFallos
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<modificaciones>().FirstOrDefault();
-                modificaciones hijo = form ?? new modificaciones(empresa, area);
+                modificaciones hijo = form ?? new modificaciones(empresa, area, v);
                 AddFormInPanel(hijo);
             }
         }
@@ -712,7 +711,7 @@ namespace controlFallos
         private void actualizaciónDeIVAToolStripMenuItem_Click(object sender, EventArgs e) { iraIva(); }
         public void iraIva()
         {
-            catIVA cat = new catIVA(empresa, area);
+            catIVA cat = new catIVA(empresa, area, v);
             cat.Owner = this;
             cat.ShowDialog();
         }
@@ -735,7 +734,7 @@ namespace controlFallos
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<OrdenDeCompra>().FirstOrDefault();
-                OrdenDeCompra hijo = form ?? new OrdenDeCompra(idUsuario, empresa, area, this,newimg);
+                OrdenDeCompra hijo = form ?? new OrdenDeCompra(idUsuario, empresa, area, this,newimg, v);
                 AddFormInPanel(hijo);
             }
         }
@@ -750,7 +749,7 @@ namespace controlFallos
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<datosGeneralesComparativa>().FirstOrDefault();
-                datosGeneralesComparativa hijo = form ?? new datosGeneralesComparativa(idUsuario, empresa, area,newimg);
+                datosGeneralesComparativa hijo = form ?? new datosGeneralesComparativa(idUsuario, empresa, area,newimg, v);
                 AddFormInPanel(hijo);
             }
         }
@@ -768,7 +767,7 @@ namespace controlFallos
                 lbltitle.Location = new Point(1591, 13);
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<Incidencia_de_Personal>().FirstOrDefault();
-                Incidencia_de_Personal hijo = form1 ?? new Incidencia_de_Personal(this.idUsuario, empresa, area);
+                Incidencia_de_Personal hijo = form1 ?? new Incidencia_de_Personal(this.idUsuario, empresa, area, v);
                 AddFormInPanel(hijo);
             }
         }
@@ -799,7 +798,7 @@ namespace controlFallos
                 lbltitle.Location = new Point(1591, 13);
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<ReportePersonal>().FirstOrDefault();
-                ReportePersonal hijo = form1 ?? new ReportePersonal(idUsuario, empresa, area);
+                ReportePersonal hijo = form1 ?? new ReportePersonal(idUsuario, empresa, area,v);
                 AddFormInPanel(hijo);
             }
         }

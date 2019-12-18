@@ -17,16 +17,16 @@ namespace controlFallos
         string descripcionAnterior;
         string idDescripcion;
         string clasifAnterior;
-        conexion c = new conexion();
         int idUsuario, empresa, area;
         int status;
-        validaciones v = new validaciones();
+        validaciones v;
         bool pconsultar { set; get; }
         bool pinsertar { set; get; }
         bool peditar { set; get; }
         bool pdesactivar { set; get; }
-        public catDescFallos(int idUsuario, int empresa, int area)
+        public catDescFallos(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             this.empresa = empresa;

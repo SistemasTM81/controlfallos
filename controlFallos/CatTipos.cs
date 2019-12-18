@@ -12,8 +12,7 @@ namespace controlFallos
 {
     public partial class CatTipos : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         public bool Pinsertar { set; get; }
         public bool Peditar { get; set; }
         public bool Pconsultar { set; get; }
@@ -22,8 +21,9 @@ namespace controlFallos
         int idUsuario, empresa, area, idtipo, status;
         string tipoAnterior, descrAnterior;
         bool editar = false, mensaje = false;
-        public CatTipos(int idUsuario, int empresa, int area)
+        public CatTipos(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             this.idUsuario = idUsuario;
             this.empresa = empresa;
             this.area = area;
@@ -54,16 +54,15 @@ namespace controlFallos
         }
         public void privilegiosPuestos()
         {
-            string sql = "SELECT insertar,consultar,editar,desactivar FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = '" + Name + "'";
-            MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
-            MySqlDataReader mdr = cmd.ExecuteReader();
-            mdr.Read();
-            Pconsultar = v.getBoolFromInt(mdr.GetInt32("consultar"));
-            Pinsertar = v.getBoolFromInt(mdr.GetInt32("insertar"));
-            Peditar = v.getBoolFromInt(mdr.GetInt32("editar"));
-            Pdesactivar = v.getBoolFromInt(mdr.GetInt32("desactivar"));
-            mdr.Close();
-            c.dbconection().Close();
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
+            if (privilegiosTemp.Length > 0)
+            {
+
+                Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
+                Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
+                Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
+                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+            }
             mostrar();
         }
         private void txtgettipo_KeyPress(object sender, KeyPressEventArgs e)
@@ -74,14 +73,14 @@ namespace controlFallos
         {
             tbtipos.Rows.Clear();
             String sql = "select idcattipos as id,t1.tipo as tipo,t1.Descripcion as descripcion,upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres))as nombre,if(t1.status=0,'NO ACTIVO','ACTIVO') as estatus from cattipos as t1 inner join cpersonal as t2 on t2.idPersona=t1.usuariofkcpersonal WHERE t1.empresa='" + empresa + "' and t1.area='" + area + "' order by tipo";
-            MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cmd = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
                 tbtipos.Rows.Add(dr.GetString("id"), dr.GetString("tipo"), dr.GetString("descripcion"), dr.GetString("nombre"), dr.GetString("estatus"));
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
             tbtipos.ClearSelection();
         }
         void _editar()

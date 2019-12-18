@@ -14,8 +14,7 @@ namespace controlFallos
 {
     public partial class catfallosGrales : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         string codfalloAnterior;
         string nombrefalloAnterior;
         public string idclasfallo;
@@ -26,8 +25,9 @@ namespace controlFallos
         int idUsuario;
         public Form MenuPrincipal;
         Thread th;
-        public catfallosGrales(int idUsuario, int empresa, int area, Form MenuPrincipal,Image logo)
+        public catfallosGrales(int idUsuario, int empresa, int area, Form MenuPrincipal,Image logo,validaciones v)
         {
+            this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -150,8 +150,6 @@ namespace controlFallos
         public void iniDescripcionesFallos()
         {
             String sql = "SELECT iddescfallo id,UPPER(descfallo) as nombre FROM cdescfallo WHERE status = 1 and falloGralfkcfallosgrales='" + cbclasificacion.SelectedValue + "' AND empresa='"+empresa+"'";
-            DataTable dt = new DataTable();
-            MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
             if (cbclasificacion.SelectedIndex > 0)
             {
                 if (Convert.ToInt32(v.getaData("SELECT COUNT(*) FROM cdescfallo WHERE status = 1 and falloGralfkcfallosgrales='" + cbclasificacion.SelectedValue + "'")) == 0)
@@ -162,7 +160,6 @@ namespace controlFallos
                 else
                 {
                     v.iniCombos(sql, cbdescripcion, "id", "nombre", "-- SELECCIONE UN SUBGRUPO --");
-
                     cbdescripcion.Enabled = true;
                 }
             }
@@ -552,14 +549,14 @@ namespace controlFallos
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            catClasificaciones catC = new catClasificaciones(this.idUsuario, empresa, area);
+            catClasificaciones catC = new catClasificaciones(this.idUsuario, empresa, area,v);
             catC.Owner = this;
             catC.ShowDialog();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            catDescFallos catC = new catDescFallos(this.idUsuario, empresa, area);
+            catDescFallos catC = new catDescFallos(this.idUsuario, empresa, area,v);
             catC.Owner = this;
             catC.ShowDialog();
         }
@@ -855,7 +852,7 @@ namespace controlFallos
 
         private void button5_Click_1(object sender, EventArgs e)
         {
-            catCategorias catC = new catCategorias(idUsuario, empresa, area);
+            catCategorias catC = new catCategorias(idUsuario, empresa, area,v);
             catC.Owner = this;
             catC.ShowDialog();
         }

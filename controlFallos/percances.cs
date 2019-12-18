@@ -88,7 +88,7 @@ namespace controlFallos
         }
         void obtenerPrivilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
                 pinsertar = v.getBoolFromInt(Convert.ToInt16(privilegiosTemp[0]));
@@ -602,7 +602,7 @@ namespace controlFallos
                     if (ress)
                     {
                         object usuariofinalizo = null;
-                        FormContraFinal fc = new FormContraFinal(empresa: 1, area: 1, F: this);
+                        FormContraFinal fc = new FormContraFinal(empresa: 1, area: 1, F: this,v:v);
                         fc.LabelTitulo.Text = "Introduzca Su Contraseña Para Finalizar\nEl Reporte ";
                         if (fc.ShowDialog() == DialogResult.OK)
                         {

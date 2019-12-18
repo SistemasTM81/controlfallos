@@ -763,7 +763,7 @@ namespace controlFallos
             {
                 if (v.yaExisteCredencialReactivar(CredencialAnterior))
                 {
-                    recibirCredencial r = new recibirCredencial(CredencialAnterior, idUsuarioTemp, idUsuario, empresa, area);
+                    recibirCredencial r = new recibirCredencial(CredencialAnterior, idUsuarioTemp, idUsuario, empresa, area,v);
                     r.ShowDialog();
                 }
                 status = 1;
@@ -1149,7 +1149,7 @@ namespace controlFallos
         }
         private void button1_Click_3(object sender, EventArgs e)
         {
-            CatTipos cat = new CatTipos(idUsuario, empresa, area);
+            CatTipos cat = new CatTipos(idUsuario, empresa, area, v);
             cat.Owner = this;
             cat.ShowDialog();
         }
@@ -1266,7 +1266,7 @@ namespace controlFallos
 
         private void button5_Click(object sender, EventArgs e)
         {
-            writeFingerprint wf = new writeFingerprint();
+            writeFingerprint wf = new writeFingerprint(v);
             wf.Owner = this;
             var res = wf.ShowDialog();
             if (res == DialogResult.OK)
@@ -1433,7 +1433,7 @@ namespace controlFallos
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            catPuestos cat = new catPuestos(idUsuario, empresa, area);
+            catPuestos cat = new catPuestos(idUsuario, empresa, area, v);
             cat.Owner = this;
             cat.ShowDialog();
         }

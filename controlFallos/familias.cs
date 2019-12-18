@@ -12,8 +12,7 @@ namespace controlFallos
 {
     public partial class familias : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         int idfamTemp;
         bool reactivar;
         string familiaAnterior, descAnterior;
@@ -24,8 +23,9 @@ namespace controlFallos
         public bool Peditar { get; set; }
         public bool Pconsultar { set; get; }
         public bool Pdesactivar { set; get; }
-        public familias(int idUsuario, int empresa, int area)
+        public familias(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             cbnombreFamilia.Focus();
             this.idUsuario = idUsuario;
@@ -66,7 +66,7 @@ namespace controlFallos
         }
         public void establecerPrivilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split(' ');
             if (privilegiosTemp.Length > 0)
             {
 
@@ -180,14 +180,14 @@ namespace controlFallos
             {
                 tbfamilias.Rows.Clear();
                 string sql = "SELECT t1.idfamilia,upper(t4.Familia) as familia,UPPER(t1.descripcionfamilia) as descripcionfamilia,upper(t3.Simbolo) as simbolo,t3.idunidadmedida as id,t1.status,UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as nombre,t4.idcnfamilia FROM cfamilias as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal= t2.idpersona inner join cunidadmedida as t3 on t3.idunidadmedida=t1.umfkcunidadmedida INNER JOIN cnfamilias as t4 ON t1.familiafkcnfamilias = t4.idcnfamilia where t1.empresa='" + empresa + "' ORDER BY familia,descripcionfamilia ASC";
-                MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+                MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
                 MySqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
                     tbfamilias.Rows.Add(dr.GetString("idfamilia"), dr.GetString("familia"), dr.GetString("descripcionfamilia"), dr.GetString("simbolo"), dr.GetInt32("id"), dr.GetString("nombre"), v.getStatusString(dr.GetInt32("status")), dr.GetString("idcnfamilia"));
                 }
                 dr.Close();
-                c.dbconection().Close();
+                v.c.dbconection().Close();
                 tbfamilias.ClearSelection();
             }
             catch (Exception ex)
@@ -446,7 +446,7 @@ namespace controlFallos
 
         private void btnaddpasillo_Click(object sender, EventArgs e)
         {
-            ums cP = new ums(this.idUsuario, empresa, area);
+            ums cP = new ums(this.idUsuario, empresa, area,v);
             cP.Owner = this;
             cP.ShowDialog();
         }

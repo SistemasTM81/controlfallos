@@ -12,8 +12,7 @@ namespace controlFallos
 {
     public partial class catPuestos : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         int idUsuario, empresa, area, idpuesto, status;
         string puestoAnterior;
         public bool Pinsertar { set; get; }
@@ -22,8 +21,9 @@ namespace controlFallos
         public bool Pdesactivar { set; get; }
         bool yaAparecioMensaje = false;
         bool editar;
-        public catPuestos(int idUsuario, int empresa, int area)
+        public catPuestos(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             this.empresa = empresa;
@@ -44,16 +44,15 @@ namespace controlFallos
         }
         public void privilegiosPuestos()
         {
-            string sql = "SELECT insertar,consultar,editar,desactivar FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = '" + Name + "'";
-            MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
-            MySqlDataReader mdr = cmd.ExecuteReader();
-            mdr.Read();
-            Pconsultar = v.getBoolFromInt(mdr.GetInt32("consultar"));
-            Pinsertar = v.getBoolFromInt(mdr.GetInt32("insertar"));
-            Peditar = v.getBoolFromInt(mdr.GetInt32("editar"));
-            Pdesactivar = v.getBoolFromInt(mdr.GetInt32("desactivar"));
-            mdr.Close();
-            c.dbconection().Close();
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
+            if (privilegiosTemp.Length > 0)
+            {
+
+                Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
+                Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
+                Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
+                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+            }
             mostrar();
         }
         void mostrar()
@@ -480,14 +479,14 @@ namespace controlFallos
         {
             tbpuestos.Rows.Clear();
             String sql = "SELECT t1.idpuesto as id, UPPER(t1.puesto) AS puesto, t1.status, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as persona  FROM puestos as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona WHERE t1.empresa = '" + empresa + "' and t1.area ='" + area + "' ORDER BY puesto ASC";
-            MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(sql,v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
                 tbpuestos.Rows.Add(dr.GetString("id"), dr.GetString("puesto"), dr.GetString("persona"), v.getStatusString(dr.GetInt32("status")));
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
             tbpuestos.ClearSelection();
         }
     }

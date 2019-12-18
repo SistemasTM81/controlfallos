@@ -12,8 +12,7 @@ namespace controlFallos
 {
     public partial class catPasillos : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         string idpasilloTemp;
         string pasilloAnterior;
         bool editar;
@@ -74,8 +73,9 @@ namespace controlFallos
                 editar = true;
             }
         }
-        public catPasillos(int idUsuario, int empresa, int area)
+        public catPasillos(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             tbubicaciones.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
@@ -206,13 +206,14 @@ namespace controlFallos
             {
                 tbubicaciones.Rows.Clear();
                 string sql = "SELECT t1.idpasillo as id,t1.pasillo as p,t1.status as s, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as nombres FROM cpasillos as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona where t1.empresa='" + empresa + "'";
-                MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+                MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
                 MySqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
                 {
                     tbubicaciones.Rows.Add(dr.GetString("id"), dr.GetString("p"), dr.GetString("nombres"), v.getStatusString(dr.GetInt32("s")));
                 }
                 tbubicaciones.ClearSelection();
+                v.c.dbcon.Close();
             }
             catch (Exception ex)
             {

@@ -7,14 +7,15 @@ namespace controlFallos
 {
     public partial class moreinfo : Form
     {
-        validaciones v = new validaciones();
+        validaciones v;
         int? y1 = null;
         string id, ct;
         int empresa, area;
         string sqlFolio;
         bool historial;
-        public moreinfo(string id, string ct, int empresa, int area, bool historial)
+        public moreinfo(string id, string ct, int empresa, int area, bool historial,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.id = id;
             this.ct = ct;
@@ -39,7 +40,6 @@ namespace controlFallos
             }
             else
             {
-                //gbadd.Dock = DockStyle.Fill;
                 this.Size = new Size(1225, 517);
                 lbltitle.Location = new Point(0, 0);
                 lbltitle.Left = (this.panel1.Width - lbltitle.Size.Width) / 2;
@@ -63,22 +63,8 @@ namespace controlFallos
             lbltitle.Left = (panel1.Width - lbltitle.Width) / 2;
             lbltitle.Top = (panel1.Height - lbltitle.Height) / 2;
         }
-        //void crearLabel()
-        //{
-
-        //   lbl.Text = "Creación de Label desde Código";
-        //    lbl.AutoSize = true;
-        //    lbl.Name = "lbl1s";
-        //    lbl.Location = new Point(500, 500);
-
-        //    panel2.Controls.Add(lbl);
-
-        //}
-
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        
+        private void panel2_Paint(object sender, PaintEventArgs e){}
         void crearListBox(string[] data, string texto)
         {
             cerrar();
@@ -125,12 +111,7 @@ namespace controlFallos
             list.Name = "listfolios";
             list.DrawItem += new DrawItemEventHandler(v.listbox_DrawItem);
             list.ItemHeight = 25;
-
-            //  list.DoubleClick += new EventHandler(MostrarDatosEspecificosListBox);
-            for (int i = 0; i < folio.Length; i++)
-            {
-                list.Items.Add(folio[i]);
-            }
+            for (int i = 0; i < folio.Length; i++)list.Items.Add(folio[i]);
             gbadd.Controls.Add(list);
 
         }
@@ -138,7 +119,7 @@ namespace controlFallos
         private void MostrarDatosEspecificosListBox(object sender, EventArgs e)
         {
             var res = ((ListBox)sender).SelectedItem;
-            mostrarFolio m = new mostrarFolio(res.ToString(), empresa, area);
+            mostrarFolio m = new mostrarFolio(res.ToString(), empresa, area,v);
             m.Owner = this;
             m.ShowDialog();
 

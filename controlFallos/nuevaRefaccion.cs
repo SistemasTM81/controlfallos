@@ -11,8 +11,8 @@ namespace controlFallos
 {
     public partial class nuevaRefaccion : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        
+        validaciones v;
         int idUsuario, status, empresa, area;
         string idRefaccionTemp, codrefAnterior, nomrefanterior, modrefanterior, marcaAnterior, nivelAnterior, charolaAnterior, ultimoabastecimiento, mediaAnterior, abastecimientoAnterior, descripcionAnterior;
         public bool editar { private set; get; }
@@ -55,8 +55,9 @@ namespace controlFallos
                 MessageBox.Show(ex.ToString());
             }
         }
-        public nuevaRefaccion(int idUsuario, int empresa, int area)
+        public nuevaRefaccion(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -92,7 +93,7 @@ namespace controlFallos
         }
         public void establecerPrivilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario,"catRefacciones")).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario,"catRefacciones")).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
 
@@ -247,7 +248,7 @@ namespace controlFallos
                     MessageBox.Show("No se encontraron resultados", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     insertarRefacciones();
                 }
-                c.dbconection().Close();
+                v.c.dbcon.Close();
                 tbrefaccion.ClearSelection();
 
             }
@@ -600,7 +601,7 @@ namespace controlFallos
 
         private void button1_Click(object sender, EventArgs e)
         {
-            updateStock up = new updateStock(int.Parse(idRefaccionTemp), empresa, area);
+            updateStock up = new updateStock(int.Parse(idRefaccionTemp), empresa, area,v);
             up.Owner = this;
             up.txtstock.Text = (up.stockaNT = stock).ToString();
             up.txtstock.Focus();
@@ -636,15 +637,9 @@ namespace controlFallos
             est_expor = false;
             LblExcel.Text = "Exportar";
         }
-        private void textBox5_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.letrasnumerosdiagonalypunto(e);
-        }
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e){v.letrasnumerosdiagonalypunto(e);}
 
-        private void cantidada_Validated(object sender, EventArgs e)
-        {
-
-        }
+        private void cantidada_Validated(object sender, EventArgs e){}
 
         void _UnidadesExportadas(DataTable dt)
         {
@@ -655,15 +650,13 @@ namespace controlFallos
             {
                 contador++;
                 id = v.getaData(string.Format("SELECT idrefaccion FROM crefacciones WHERE codrefaccion='{0}'", row.ItemArray[0])).ToString();
-                if (contador < dt.Rows.Count)
-                {
-                    id += ";";
-                }
+                if (contador < dt.Rows.Count){id += ";";}
                 sql += id;
             }
             sql += "','" + this.idUsuario + "',NOW(),'Exportación a Excel de Catálogo de Refacciones','" + this.empresa + "','" + this.area + "')";
-            MySqlCommand exportacion = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand exportacion = new MySqlCommand(sql, v.c.dbconection());
             exportacion.ExecuteNonQuery();
+            v.c.dbcon.Close();
         }
         void ExportarExcel()
         {
@@ -673,7 +666,6 @@ namespace controlFallos
                 for (int i = 0; i < tbrefaccion.Columns.Count; i++) if (tbrefaccion.Columns[i].Visible) dt.Columns.Add(tbrefaccion.Columns[i].HeaderText);
                 for (int j = 0; j < tbrefaccion.Rows.Count; j++)
                 {
-
                     DataRow row = dt.NewRow();
                     int indice = 0;
                     for (int i = 0; i < tbrefaccion.Columns.Count; i++)
@@ -684,7 +676,6 @@ namespace controlFallos
                             row[dt.Columns[indice]] = tbrefaccion.Rows[j].Cells[i].Value;
                             indice++;
                         }
-
                     }
                     dt.Rows.Add(row);
                 }
@@ -921,10 +912,7 @@ namespace controlFallos
                     guardarReporte(e);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
 
         }
         public double stock;
@@ -958,13 +946,9 @@ namespace controlFallos
                 {
                     lblexistencias.Text = v.getExistenciasFromIDRefaccion(idRefaccionTemp);
                     if ((stock = Convert.ToDouble(v.getaData("SELECT existencias FROM crefacciones WHERE idrefaccion='" + idRefaccionTemp + "'"))) > 0)
-                    {
                         pStock.Visible = true;
-                    }
                     else
-                    {
                         pStock.Visible = false;
-                    }
                     txtcodrefaccion.Text = codrefAnterior = (string)tbrefaccion.Rows[e.RowIndex].Cells[1].Value;
                     txtnombrereFaccion.Text = nomrefanterior = v.mayusculas(tbrefaccion.Rows[e.RowIndex].Cells[2].Value.ToString().ToLower());
                     txtmodeloRefaccion.Text = modrefanterior = tbrefaccion.Rows[e.RowIndex].Cells[3].Value.ToString();
@@ -1037,14 +1021,9 @@ namespace controlFallos
                     if (status == 0) MessageBox.Show(v.mayusculas("Para Modificar La Información Necesita Reactivar El Registro"), validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
-                {
                     MessageBox.Show("Usted No Cuenta Con Privilegios Para Editar", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         bool mostrarmotivoActualizacion(string[,] cambios)
         {

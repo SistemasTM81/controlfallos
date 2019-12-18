@@ -118,7 +118,6 @@ namespace controlFallos
             {
                 dbcon.Close();
                 dbcon.Dispose();
-
                 MessageBox.Show(ex.HResult + ": " + ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }

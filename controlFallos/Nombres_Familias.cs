@@ -12,13 +12,13 @@ namespace controlFallos
 {
     public partial class NombresFamilias : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         string familia_anteriror;
         int idUsuario, _status, _idtemp, empresa, area;
         bool editar = false, reactivar;
-        public NombresFamilias(int idUsuario, int empresa, int area)
+        public NombresFamilias(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             this.idUsuario = idUsuario;
             InitializeComponent();
 
@@ -47,7 +47,7 @@ namespace controlFallos
         }
         public void establecerPrivilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
 
@@ -76,7 +76,7 @@ namespace controlFallos
         {
             tbfamilia.Rows.Clear();
             string sql = "Select t1.idcnFamilia as id,upper(t1.familia) as fam,upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) as nom, t1.status as estatus from cnfamilias as t1 inner join cpersonal as t2 on t2.idpersona=t1.usuariofkcpersonal where t1.empresa='" + empresa + "' order by t1.familia asc;";
-            MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cmd = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
             {
@@ -133,7 +133,7 @@ namespace controlFallos
                         if (obs.ShowDialog() == DialogResult.OK)
                         {
                             string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
-                            MySqlCommand cmd = new MySqlCommand("update cnfamilias set familia='" + familia + "' where idcnFamilia='" + _idtemp + "'", c.dbconection());
+                            MySqlCommand cmd = new MySqlCommand("update cnfamilias set familia='" + familia + "' where idcnFamilia='" + _idtemp + "'", v.c.dbconection());
                             cmd.ExecuteNonQuery();
                             var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Refacciones - Nombres de Familias','" + _idtemp + "','" + familia_anteriror + "','" + idUsuario + "',NOW(),'Actualización de Familia','" + observaciones + "','" + empresa + "','" + area + "')");
                             MessageBox.Show("Se ha Actualizado La Familia Existosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);

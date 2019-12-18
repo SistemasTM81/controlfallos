@@ -22,9 +22,8 @@ namespace controlFallos
         public int empresaAnterior, areaAnterior, servicioAnterior, modeloAnterior;
         int statusUnidad;
         bool yaAparecioMensaje = false;
-        validaciones v = new validaciones();
+        validaciones v;
         public bool editar = false;
-        conexion c = new conexion();
         bool pconsultar { set; get; }
         bool pinsertar { set; get; }
         bool peditar { set; get; }
@@ -52,8 +51,9 @@ namespace controlFallos
             }
         }
         Thread th;
-        public catUnidades(int idUsuario, int empresaa, int area)
+        public catUnidades(int idUsuario, int empresaa, int area,validaciones v)
         {
+            this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -73,7 +73,7 @@ namespace controlFallos
         }
         public void privilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
 
@@ -106,7 +106,7 @@ namespace controlFallos
             if (csetEmpresa.SelectedIndex > 0)
             {
                 String sql1 = "SELECT idarea, upper(nombreArea) as nombreArea FROM careas where empresafkcempresas='" + csetEmpresa.SelectedValue + "' ORDER BY nombreArea asc";
-                MySqlCommand cmd = new MySqlCommand(sql1, c.dbconection());
+                MySqlCommand cmd = new MySqlCommand(sql1, v.c.dbconection());
                 if (Convert.ToInt32(cmd.ExecuteScalar()) == 0)
                 {
                     bool temp = false;
@@ -126,6 +126,7 @@ namespace controlFallos
                     v.iniCombos("SELECT idarea, upper(nombreArea) as nombreArea FROM careas WHERE status ='1' and empresafkcempresas='" + csetEmpresa.SelectedValue + "' ORDER BY nombreArea asc", cbareas, "idarea", "nombreArea", "-- SELECCIONE UN ÁREA --");
                     cbareas.Enabled = true;
                 }
+                v.c.dbcon.Close();
             }
             else
             {
@@ -306,14 +307,14 @@ namespace controlFallos
         void catalogos()
         {
             var consultaPrivilegios = "SELECT namForm FROM privilegios WHERE usuariofkcpersonal= '" + this.idUsuario + "' and ver =1 and (namForm= 'catEmpresas' OR namForm ='catServicios' OR namForm ='catAreas')";
-            MySqlCommand cm = new MySqlCommand(consultaPrivilegios, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(consultaPrivilegios, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
                 PrivilegiosVisibles(dr.GetString("namForm").ToLower());
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
         }
         void PrivilegiosVisibles(string nameform)
         {
@@ -667,21 +668,21 @@ namespace controlFallos
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            catEmpresas cat = new catEmpresas(idUsuario, empresaa, _area);
+            catEmpresas cat = new catEmpresas(idUsuario, empresaa, _area,v);
             cat.Owner = this;
             cat.ShowDialog();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            catServicios cat = new catServicios(idUsuario, empresaa, _area);
+            catServicios cat = new catServicios(idUsuario, empresaa, _area,v);
             cat.Owner = this;
             cat.ShowDialog();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-            catAreas cat = new catAreas(idUsuario, empresaa, _area);
+            catAreas cat = new catAreas(idUsuario, empresaa, _area,v);
             cat.Owner = this;
             cat.ShowDialog();
         }
@@ -729,7 +730,7 @@ namespace controlFallos
             if (cbempresa.SelectedIndex > 0)
             {
                 string sql = "SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea inner join cempresas as t3 on t3.idempresa=t2.empresafkcempresas where upper(nombreEmpresa)='" + cbempresa.Text + "';";
-                MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
+                MySqlCommand cmd = new MySqlCommand(sql, v.c.dbconection());
                 if (Convert.ToInt32(cmd.ExecuteScalar()) != 0)
                 {
                     cbeco.DataSource = null;
@@ -818,8 +819,9 @@ namespace controlFallos
                 sql += id;
             }
             sql += "','" + this.idUsuario + "',NOW(),'Exportación a Excel de Catálogo de Unidades','" + this.empresaa + "','" + this._area + "')";
-            MySqlCommand exportacion = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand exportacion = new MySqlCommand(sql, v.c.dbconection());
             exportacion.ExecuteNonQuery();
+            v.c.dbcon.Close();
         }
         void ExportarExcel()
         {
@@ -915,7 +917,7 @@ namespace controlFallos
 
         private void button10_Click(object sender, EventArgs e)
         {
-            relacionServicioEstacion cat = new relacionServicioEstacion(idUsuario);
+            relacionServicioEstacion cat = new relacionServicioEstacion(idUsuario,v);
             cat.Owner = this;
             cat.ShowDialog();
         }

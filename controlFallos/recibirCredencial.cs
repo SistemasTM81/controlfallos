@@ -1,22 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace controlFallos
 {
     public partial class recibirCredencial : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         int idUsuarioTemp, idUsuario, empresa, area;
-        public recibirCredencial(string credencial,int idUsuarioTemp,int idUsuario,int empresa,int area)
+        public recibirCredencial(string credencial,int idUsuarioTemp,int idUsuario,int empresa,int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             lblmsg.Text = "La Credencial Num. "+credencial+" ya está en uso. Ingrese una nueva";
             this.idUsuarioTemp = idUsuarioTemp;
@@ -25,15 +18,9 @@ namespace controlFallos
             this.area= area;
         }
 
-        private void recibirCredencial_Load(object sender, EventArgs e)
-        {
+        private void recibirCredencial_Load(object sender, EventArgs e){}
 
-        }
-
-        private void btnguardar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void btnguardar_Click(object sender, EventArgs e){this.Close();}
 
         private void txtgetcredencial_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -42,10 +29,7 @@ namespace controlFallos
                 v.Solonumeros(e);
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        private void panel2_Paint(object sender, PaintEventArgs e){}
 
         private void btnguardar_Click_1(object sender, EventArgs e)
         {
@@ -55,7 +39,6 @@ namespace controlFallos
                     if (v.c.insertar("UPDATE cpersonal SET credencial='" + txtgetcredencial.Text + "' WHERE idpersona =" + this.idUsuarioTemp))
                     {
                         MessageBox.Show("Credencial modificada Exitosamente.", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                         Close();
                     }
                 }else

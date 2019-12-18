@@ -14,9 +14,8 @@ namespace controlFallos
     public partial class catServicios : Form
     {
         int idservicetemp = 0; bool editarservice = false;
-        conexion c = new conexion();
         int idUsuario;
-        validaciones v = new validaciones();
+        validaciones v;
         int status, empresa, area;
         string nombreAnterior, descripcionAnterior, empresaAnterior, areaAnterior;
         bool pconsultar { set; get; }
@@ -24,8 +23,9 @@ namespace controlFallos
         bool peditar { set; get; }
         bool pdesactivar { set; get; }
         bool yaAparecioMensaje = false;
-        public catServicios(int idUsuario, int empresa, int area)
+        public catServicios(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
             this.empresa = empresa;
@@ -36,17 +36,15 @@ namespace controlFallos
         }
         public void privilegios()
         {
-            string sql = "SELECT insertar,consultar,editar,desactivar FROM privilegios WHERE usuariofkcpersonal = '" + this.idUsuario + "' and namform = '" + Name + "'";
-            MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
-            MySqlDataReader mdr = cmd.ExecuteReader();
-            mdr.Read();
-            pconsultar = v.getBoolFromInt(mdr.GetInt32("consultar"));
-            pinsertar = v.getBoolFromInt(mdr.GetInt32("insertar"));
-            peditar = v.getBoolFromInt(mdr.GetInt32("editar"));
-            pdesactivar = v.getBoolFromInt(mdr.GetInt32("desactivar"));
-            mostrar();
-            mdr.Close();
-            c.dbconection().Close();
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
+            if (privilegiosTemp.Length > 0)
+            {
+
+                pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
+                pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
+                peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
+                pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+            }
         }
         void iniEmpresa()
         {
@@ -286,7 +284,7 @@ namespace controlFallos
                     wheres += " and t3.idarea='" + cbarea.SelectedValue + "'";
                 }
             }
-            MySqlCommand cm = new MySqlCommand(sql + wheres, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(sql + wheres, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
@@ -294,13 +292,13 @@ namespace controlFallos
             }
             dataGridView2.ClearSelection();
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
         }
         public void busqservices()
         {
             dataGridView2.Rows.Clear();
             String sql = "SELECT t1.idservicio,UPPER(t1.Nombre) AS Nombre,UPPER(t4.nombreEmpresa) as Empresa,upper(t3.nombreArea) as Area,UPPER(t1.Descripcion) AS Descripcion,t1.status, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) AS persona,AreafkCareas as fk FROM cservicios as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal= t2.idpersona INNER JOIN careas as t3 on t3.idarea=t1.AreafkCareas inner join cempresas as t4 on t4.idempresa=t3.empresafkcempresas;";
-            MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
@@ -308,7 +306,7 @@ namespace controlFallos
             }
             dataGridView2.ClearSelection();
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbcon.Close();
         }
 
         private void dataGridView2_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)

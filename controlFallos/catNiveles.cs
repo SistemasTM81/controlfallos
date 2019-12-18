@@ -12,8 +12,7 @@ namespace controlFallos
 {
     public partial class catNiveles : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         bool editar;
         string idnivelAnterior, idpasilloAnterior, NivelAnterior;
         int idUsuario, empresa, area;
@@ -23,8 +22,9 @@ namespace controlFallos
         public bool Pdesactivar { set; get; }
         bool yaAparecioMensaje = false;
         int _state;
-        public catNiveles(int empresa, int area, int idUsuario)
+        public catNiveles(int empresa, int area, int idUsuario, validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.empresa = empresa;
             this.area = area;
@@ -34,7 +34,7 @@ namespace controlFallos
 
         public void establecerPrivilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar, ' ',desactivar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
 

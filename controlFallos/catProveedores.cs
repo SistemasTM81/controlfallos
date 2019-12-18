@@ -31,7 +31,7 @@ namespace controlFallos
         public bool pdesactivar { set; get; }
         public void privilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT CONCAT(insertar,' ',consultar,' ',editar) FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split(' ');
+            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
                 pinsertar = v.getBoolFromInt(Convert.ToInt16(privilegiosTemp[0]));
@@ -48,7 +48,7 @@ namespace controlFallos
             MySqlCommand cmd = new MySqlCommand(consulta, v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
 
-            if (dr.HasRows == true)
+            if (dr.HasRows)
             {
                 while (dr.Read())
                     namesCollection.Add(dr["empresa"].ToString());
@@ -67,7 +67,6 @@ namespace controlFallos
                     string giro = "";
                     if (cbgiros.DataSource != null)
                         giro = cbgiros.SelectedValue.ToString();
-
                     string asentemiento = "";
                     if (cbasentamiento.DataSource != null) asentemiento = cbasentamiento.SelectedValue.ToString();
                     ladasmanuales[0] = txtladaEmp1.Text.Trim();
@@ -1945,7 +1944,7 @@ namespace controlFallos
 
         private void button6_Click(object sender, EventArgs e)
         {
-            catGiros cat = new catGiros(idUsuario, empresa, area);
+            catGiros cat = new catGiros(idUsuario, empresa, area,v);
             cat.Owner = this;
             cat.ShowDialog();
         }

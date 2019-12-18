@@ -15,14 +15,14 @@ namespace controlFallos
     {
         bool mientras = true;
         int opcion;
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v ;
         ThreadStart ts;
         Thread t;
         string sql = "";
         int empresa, area;
-        public NotificacionSupervision(int empresa, int area)
+        public NotificacionSupervision(int empresa, int area,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             tbnotif.ColumnAdded += v.paraDataGridViews_ColumnAdded;
             tbnotif.CellDoubleClick += new DataGridViewCellEventHandler(reportes_CellContentDoubleClick);
@@ -55,9 +55,7 @@ namespace controlFallos
                 if (opcion == 0) m.TraerVariable(idfolio); else m.paraPErsonal(idfolio);
 
                 if (m.form.GetType() == typeof(catPersonal))
-                {
                     this.Close();
-                }
             }
         }
         private void reporttes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

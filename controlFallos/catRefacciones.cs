@@ -60,7 +60,7 @@ namespace controlFallos
                 pContenedor.Dock = DockStyle.Fill;
                 gbsubmenu.Visible = false;
                 var form1 = Application.OpenForms.OfType<nuevaRefaccion>().FirstOrDefault();
-                nuevaRefaccion hijo = form1 ?? new nuevaRefaccion(idUsuario, empresa, area);
+                nuevaRefaccion hijo = form1 ?? new nuevaRefaccion(idUsuario, empresa, area,v);
                 AddFormInPanel(hijo);
                 btnadd.Enabled = false;
                 btnatrib.Enabled = true;
@@ -98,7 +98,7 @@ namespace controlFallos
                     pContenedor.Dock = DockStyle.Fill;
                     gbsubmenu.Visible = false;
                     var form = Application.OpenForms.OfType<nuevaRefaccion>().FirstOrDefault();
-                    nuevaRefaccion hijo = form ?? new nuevaRefaccion(idUsuario, empresa, area);
+                    nuevaRefaccion hijo = form ?? new nuevaRefaccion(idUsuario, empresa, area,v);
                     AddFormInPanel(hijo);
                     if (!string.IsNullOrWhiteSpace(codref)) hijo.txtcodrefaccion.Text = codref;
                     if (!string.IsNullOrWhiteSpace(nomref)) hijo.txtnombrereFaccion.Text = nomref;
@@ -260,7 +260,7 @@ namespace controlFallos
             if (cerrar())
             {
                 var form = Application.OpenForms.OfType<ums>().FirstOrDefault();
-                ums hijo = form ?? new ums(this.idUsuario, empresa, area);
+                ums hijo = form ?? new ums(this.idUsuario, empresa, area,v);
                 AddFormInPanel(hijo);
                 lblubicaciones.Font = lblmarcas.Font = noActual;
                 btnubic.Enabled = true;
@@ -279,7 +279,7 @@ namespace controlFallos
             if (cerrar())
             {
                 var form = Application.OpenForms.OfType<marcas>().FirstOrDefault();
-                marcas hijo = form ?? new marcas(this.idUsuario, empresa, area, this);
+                marcas hijo = form ?? new marcas(this.idUsuario, empresa, area, this,v);
 
                 AddFormInPanel(hijo);
                 lblmarcas.Font = actual;

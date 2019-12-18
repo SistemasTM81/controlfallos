@@ -15,11 +15,11 @@ namespace controlFallos
     {
         int empresa, area, id = 0;
         string alm, aut, iddb;
-        conexion c = new conexion();
-        validaciones val = new validaciones();
+        validaciones val;
 
-        public NombresOC(int empresa, int area, Image logo)
+        public NombresOC(int empresa, int area, Image logo,validaciones v)
         {
+            this.val = v;
             InitializeComponent();
             this.empresa = empresa;
             this.area = area;
@@ -27,7 +27,7 @@ namespace controlFallos
 
         private void textBoxContras_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if ((Char.IsNumber(e.KeyChar)) || (Char.IsLetter(e.KeyChar) || (e.KeyChar == 8) || (e.KeyChar == 127)))
+            if ((char.IsNumber(e.KeyChar)) || (char.IsLetter(e.KeyChar) || (e.KeyChar == 8) || (e.KeyChar == 127)))
             {
                 e.Handled = false;
             }
@@ -45,7 +45,7 @@ namespace controlFallos
 
         private void textBoxNombres_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if((Char.IsLetter(e.KeyChar)) || (e.KeyChar == 8) || (e.KeyChar == 32) || (e.KeyChar == 127))
+            if((char.IsLetter(e.KeyChar)) || (e.KeyChar == 8) || (e.KeyChar == 32) || (e.KeyChar == 127))
             {
                 e.Handled = false;
             }
@@ -69,32 +69,32 @@ namespace controlFallos
             {
                 if(iddb == "0" && alm == "" && aut == "" && id != 0 && !string.IsNullOrWhiteSpace(textBoxAlmacen.Text) && !string.IsNullOrWhiteSpace(textBoxAutoriza.Text))
                 {
-                    MySqlCommand cmd = new MySqlCommand("INSERT INTO nombresoc(Almacen, Autoriza, personafkcpersonal,empresa) VALUES('" + textBoxAlmacen.Text + "', '" + textBoxAutoriza.Text + "', '" + id + "','"+empresa+"')", c.dbconection());
+                    MySqlCommand cmd = new MySqlCommand("INSERT INTO nombresoc(Almacen, Autoriza, personafkcpersonal,empresa) VALUES('" + textBoxAlmacen.Text + "', '" + textBoxAutoriza.Text + "', '" + id + "','"+empresa+"')", val.c.dbconection());
                     cmd.ExecuteNonQuery();
-                    c.dbconection().Close();
+                    val.c.dbconection().Close();
                     MessageBox.Show("Nombres ingresados correctamente", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else if(alm != "" && aut != "")
                 {
                     if (!(string.IsNullOrWhiteSpace(textBoxAlmacen.Text)) && !(string.IsNullOrWhiteSpace(textBoxAutoriza.Text)))
                     {
-                        MySqlCommand cmd = new MySqlCommand("UPDATE nombresoc SET Almacen = '" + textBoxAlmacen.Text + "', Autoriza = '" + textBoxAutoriza.Text + "'", c.dbconection());
+                        MySqlCommand cmd = new MySqlCommand("UPDATE nombresoc SET Almacen = '" + textBoxAlmacen.Text + "', Autoriza = '" + textBoxAutoriza.Text + "'", val.c.dbconection());
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Nombres actualizados correctamente", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if((string.IsNullOrWhiteSpace(textBoxAlmacen.Text)) || !(string.IsNullOrWhiteSpace(textBoxAutoriza.Text)))
                     {
-                        MySqlCommand cmd = new MySqlCommand("UPDATE nombresoc SET Autoriza = '" + textBoxAutoriza.Text + "'", c.dbconection());
+                        MySqlCommand cmd = new MySqlCommand("UPDATE nombresoc SET Autoriza = '" + textBoxAutoriza.Text + "'", val.c.dbconection());
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Nombres actualizados correctamente", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else if(!(string.IsNullOrWhiteSpace(textBoxAlmacen.Text)) || (string.IsNullOrWhiteSpace(textBoxAutoriza.Text)))
                     {
-                        MySqlCommand cmd = new MySqlCommand("UPDATE nombresoc SET Almacen = '" + textBoxAlmacen.Text + "'", c.dbconection());
+                        MySqlCommand cmd = new MySqlCommand("UPDATE nombresoc SET Almacen = '" + textBoxAlmacen.Text + "'", val.c.dbconection());
                         cmd.ExecuteNonQuery();
                         MessageBox.Show("Nombres actualizados correctamente", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                    c.dbconection().Close();
+                    val.c.dbconection().Close();
                 }
                 else
                 {
@@ -136,7 +136,7 @@ namespace controlFallos
 
         private void NombresOC_Load(object sender, EventArgs e)
         {
-            MySqlCommand cmd = new MySqlCommand("SELECT coalesce((personafkcpersonal), '0') AS persona, Almacen, Autoriza FROM nombresoc WHERE empresa='"+empresa+"'", c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT coalesce((personafkcpersonal), '0') AS persona, Almacen, Autoriza FROM nombresoc WHERE empresa='"+empresa+"'", val.c.dbconection());
             MySqlDataReader rd = cmd.ExecuteReader();
             if(rd.Read())
             {
@@ -151,12 +151,12 @@ namespace controlFallos
                 aut = "";
             }
             rd.Close();
-            c.dbconection().Close();
+            val.c.dbconection().Close();
         }
 
         private void textBoxUsuario_TextChanged(object sender, EventArgs e)
         {
-            MySqlCommand cmd = new MySqlCommand("SELECT t1.idpersona FROM cpersonal AS t1 INNER JOIN datosistema AS t2 ON t1.idpersona = t2.usuariofkcpersonal WHERE t2.password = '" + val.Encriptar(textBoxUsuario.Text) + "' AND t1.empresa = '" + empresa + "' AND t1.area = '" + area + "'", c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT t1.idpersona FROM cpersonal AS t1 INNER JOIN datosistema AS t2 ON t1.idpersona = t2.usuariofkcpersonal WHERE t2.password = '" + val.Encriptar(textBoxUsuario.Text) + "' AND t1.empresa = '" + empresa + "' AND t1.area = '" + area + "'", val.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if(dr.Read())
             {
@@ -166,7 +166,7 @@ namespace controlFallos
             {
                 id = 0;
             }
-            c.dbconection().Close();
+            val.c.dbconection().Close();
         }
 
         private void textBoxAll_Validated(object sender, EventArgs e)

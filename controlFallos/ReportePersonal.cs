@@ -22,8 +22,7 @@ namespace controlFallos
 {
     public partial class ReportePersonal : Form
     {
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
 
         int idcred, idreporteP, consecutivoReporteP, empresa, area, totalvalidaciontxt, reporte, numhuella;
         public int hresponsable = 0, hcoordinador = 0, idUsuario, idFinal;
@@ -45,8 +44,9 @@ namespace controlFallos
 
         string nombrePDF, credencialPDF, FechaPDF, HoraDF, LugarIncidentePDF, tipovehiculobjetoPDF, KilometrajePDF, observacionesPDF, consecutivoReportePPDF, nombreReporte, Codigo, Vigencia, Revision, responsable, coordinador;
 
-        public ReportePersonal(int idUsuario, int empresa, int area)
+        public ReportePersonal(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -129,8 +129,8 @@ namespace controlFallos
 
         public void privilegios()
         {
-            string sql = "SELECT CONCAT(insertar,';',consultar,';',editar) as privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuario + "' and namform = 'repPersonal'";
-            string[] privilegios = getaData(sql).ToString().Split(';');
+            string sql = "SELECT privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuario + "' and namform = 'repPersonal'";
+            string[] privilegios = getaData(sql).ToString().Split('/');
             pinsertar = getBoolFromInt(Convert.ToInt32(privilegios[0]));
             pconsultar = getBoolFromInt(Convert.ToInt32(privilegios[1]));
             peditar = getBoolFromInt(Convert.ToInt32(privilegios[2]));
@@ -143,9 +143,9 @@ namespace controlFallos
 
         public object getaData(string sql)
         {
-            MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             var res = cm.ExecuteScalar();
-            c.dbconection();
+            v.c.dbconection();
             return res;
         }
 
@@ -166,7 +166,7 @@ namespace controlFallos
 
         public void nuevaconsecutiva()
         {
-            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(idreportepersonal) AS CONTADOR FROM reportepersonal", c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(idreportepersonal) AS CONTADOR FROM reportepersonal", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
@@ -174,7 +174,7 @@ namespace controlFallos
                 consecutivoReporteP++;
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbconection().Close();
             gbxReporte.Text = "REPORTE # " + consecutivoReporteP + "";
         }
 
@@ -264,7 +264,7 @@ namespace controlFallos
         private void allpeople(string estatuss)
         {
             txtCredencial.Enabled = true; //NO QUITAR, APOYA A LA ACTIVACIÓN DEL EVENTO "LEAVE"
-            MySqlCommand cmd = new MySqlCommand("SELECT t1.ConsecutivoRP AS CONSECUTIVO, t2.credencial AS CREDENCIAL, COALESCE(DATE_FORMAT(t1.Fecha, '%d/%m/%Y'), Now()) AS FECHA, COALESCE(t1.Hora, '00:00') AS HORA, t1.LugarIncidente AS 'LUGAR DEL INCIDENTE', t1.TipoVehObj AS 'TIPO DEL VEH / OBJ', COALESCE(t1.Kilometraje, '0') AS KILOMETRAJE, t1.responsablefkcpersonal AS 'IDRESPONSABLE', (SELECT UPPER(b2.ApPaterno) FROM cpersonal AS b2 WHERE b2.idPersona = t1.responsablefkcpersonal) AS 'RESPATERNO', (SELECT UPPER(b3.ApMaterno) FROM cpersonal AS b3 WHERE b3.idPersona = t1.responsablefkcpersonal) AS 'RESMATERNO', (SELECT UPPER(b4.nombres) FROM cpersonal AS b4 WHERE b4.idPersona = responsablefkcpersonal) AS 'RESNOMBRES', t1.coordinadorfkcpersonal AS 'IDCOORDINADOR', (SELECT UPPER(b2.ApPaterno) FROM cpersonal AS b2 WHERE b2.idPersona = t1.coordinadorfkcpersonal) AS 'COOPATERNO', (SELECT UPPER(COALESCE(b3.ApMaterno, '')) FROM cpersonal AS b3 WHERE b3.idPersona = t1.coordinadorfkcpersonal) AS 'COOMATERNO', (SELECT UPPER(b4.nombres) FROM cpersonal AS b4 WHERE b4.idPersona = t1.coordinadorfkcpersonal) AS 'COONOMBRES', COALESCE(t1.Observaciones, '') AS OBSERVACIONES FROM reportepersonal AS t1 INNER JOIN cpersonal AS t2 ON t1.credencialfkcpersonal = t2.idpersona WHERE t1.idreportepersonal = '" + idreporteP + "'", c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT t1.ConsecutivoRP AS CONSECUTIVO, t2.credencial AS CREDENCIAL, COALESCE(DATE_FORMAT(t1.Fecha, '%d/%m/%Y'), Now()) AS FECHA, COALESCE(t1.Hora, '00:00') AS HORA, t1.LugarIncidente AS 'LUGAR DEL INCIDENTE', t1.TipoVehObj AS 'TIPO DEL VEH / OBJ', COALESCE(t1.Kilometraje, '0') AS KILOMETRAJE, t1.responsablefkcpersonal AS 'IDRESPONSABLE', (SELECT UPPER(b2.ApPaterno) FROM cpersonal AS b2 WHERE b2.idPersona = t1.responsablefkcpersonal) AS 'RESPATERNO', (SELECT UPPER(b3.ApMaterno) FROM cpersonal AS b3 WHERE b3.idPersona = t1.responsablefkcpersonal) AS 'RESMATERNO', (SELECT UPPER(b4.nombres) FROM cpersonal AS b4 WHERE b4.idPersona = responsablefkcpersonal) AS 'RESNOMBRES', t1.coordinadorfkcpersonal AS 'IDCOORDINADOR', (SELECT UPPER(b2.ApPaterno) FROM cpersonal AS b2 WHERE b2.idPersona = t1.coordinadorfkcpersonal) AS 'COOPATERNO', (SELECT UPPER(COALESCE(b3.ApMaterno, '')) FROM cpersonal AS b3 WHERE b3.idPersona = t1.coordinadorfkcpersonal) AS 'COOMATERNO', (SELECT UPPER(b4.nombres) FROM cpersonal AS b4 WHERE b4.idPersona = t1.coordinadorfkcpersonal) AS 'COONOMBRES', COALESCE(t1.Observaciones, '') AS OBSERVACIONES FROM reportepersonal AS t1 INNER JOIN cpersonal AS t2 ON t1.credencialfkcpersonal = t2.idpersona WHERE t1.idreportepersonal = '" + idreporteP + "'", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
@@ -321,7 +321,7 @@ namespace controlFallos
                 }
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbconection().Close();
             txtCredencial.Focus();
             txtKilometraje.Focus();
             txtCredencial.Focus();
@@ -353,7 +353,7 @@ namespace controlFallos
         public void consultageneral()
         {
             DataTable dt = new DataTable();
-            MySqlCommand cmd1 = new MySqlCommand("SET lc_time_names = 'es_ES'; SELECT t1.idreportepersonal AS 'ID REPORTE', UPPER(CONCAT(DATE_FORMAT(t1.Fecha, '%W %d de %M de %Y'), ' / ', DATE_FORMAT(t1.Hora, '%H:%i'))) AS 'FECHA/HORA', UPPER(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ' , t2.nombres)) AS PERSONAL, IF(t1.estatus = 1, 'FINALIZADO', '') AS ESTATUS, UPPER(t1.LugarIncidente) AS 'LUGAR DEL INCIDENTE', UPPER(t1.Observaciones) AS OBSERVACIONES FROM reportepersonal AS t1 INNER JOIN cpersonal AS t2 ON t1.credencialfkcpersonal = t2.idPersona ORDER BY t1.idreportepersonal DESC", c.dbconection());
+            MySqlCommand cmd1 = new MySqlCommand("SET lc_time_names = 'es_ES'; SELECT t1.idreportepersonal AS 'ID REPORTE', UPPER(CONCAT(DATE_FORMAT(t1.Fecha, '%W %d de %M de %Y'), ' / ', DATE_FORMAT(t1.Hora, '%H:%i'))) AS 'FECHA/HORA', UPPER(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ' , t2.nombres)) AS PERSONAL, IF(t1.estatus = 1, 'FINALIZADO', '') AS ESTATUS, UPPER(t1.LugarIncidente) AS 'LUGAR DEL INCIDENTE', UPPER(t1.Observaciones) AS OBSERVACIONES FROM reportepersonal AS t1 INNER JOIN cpersonal AS t2 ON t1.credencialfkcpersonal = t2.idPersona ORDER BY t1.idreportepersonal DESC", v.c.dbconection());
             MySqlDataAdapter adp = new MySqlDataAdapter(cmd1);
             adp.Fill(dt);
             dgvPMantenimiento.DataSource = null;
@@ -552,7 +552,7 @@ namespace controlFallos
 
         public void to_pdf()
         {
-            MySqlCommand encabezado = new MySqlCommand("SET lc_time_names = 'es_ES'; SELECT nombreReporte AS 'NREPORTE', codigoreporte AS 'CODIGO', UPPER(DATE_FORMAT(vigencia, '%M %Y')) AS 'VIGENCIA', revision AS 'REVISION' FROM encabezadoreportes WHERE reporte = 2", c.dbconection());
+            MySqlCommand encabezado = new MySqlCommand("SET lc_time_names = 'es_ES'; SELECT nombreReporte AS 'NREPORTE', codigoreporte AS 'CODIGO', UPPER(DATE_FORMAT(vigencia, '%M %Y')) AS 'VIGENCIA', revision AS 'REVISION' FROM encabezadoreportes WHERE reporte = 2", v.c.dbconection());
             MySqlDataReader drenca = encabezado.ExecuteReader();
             if (drenca.Read())
             {
@@ -570,7 +570,7 @@ namespace controlFallos
             }
             else
             {
-                MySqlCommand cmdbusq = new MySqlCommand("SET lc_time_names = 'ES_ES'; SELECT UPPER(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres)) AS PERSONAL, t1.ConsecutivoRP AS CONSECUTIVO, t2.credencial AS CREDENCIAL, DATE_FORMAT(t1.Fecha, '%W %d de %M de %Y') AS FECHA, DATE_FORMAT(t1.Hora, '%H:%i') AS HORA, CONCAT(UPPER(LEFT(t1.LugarIncidente, 1)), LOWER(SUBSTRING(t1.LugarIncidente, 2))) AS 'LUGAR DE INCIDENTES', 	CONCAT(UPPER(LEFT(t1.TipoVehObj, 1)), LOWER(SUBSTRING(t1.TipoVehObj, 2)))AS 'TIPO DE VEHICULOS / OBJETO INVOLUCRADO',  t1.Kilometraje AS KILOMETRAJES, (SELECT UPPER(CONCAT(b2.ApPaterno, ' ', b2.ApMaterno, ' ', b2.nombres)) FROM cpersonal AS b2 WHERE t1.responsablefkcpersonal = b2.idPersona) AS RESPONSABLE, (SELECT UPPER(CONCAT(b3.ApPaterno, ' ', b3.ApMaterno, ' ', b3.nombres)) FROM cpersonal AS b3 WHERE b3.idPersona = t1.coordinadorfkcpersonal) AS COORDINADOR, COALESCE(CONCAT(UPPER(LEFT(t1.observaciones, 1)), LOWER(SUBSTRING(t1.Observaciones, 2))), '') AS OBSERVACIONES FROM reportepersonal AS t1 INNER JOIN cpersonal AS t2 ON t1.credencialfkcpersonal = t2.idPersona WHERE t1.idreportepersonal = '" + idreporteP + "'", c.dbconection());
+                MySqlCommand cmdbusq = new MySqlCommand("SET lc_time_names = 'ES_ES'; SELECT UPPER(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres)) AS PERSONAL, t1.ConsecutivoRP AS CONSECUTIVO, t2.credencial AS CREDENCIAL, DATE_FORMAT(t1.Fecha, '%W %d de %M de %Y') AS FECHA, DATE_FORMAT(t1.Hora, '%H:%i') AS HORA, CONCAT(UPPER(LEFT(t1.LugarIncidente, 1)), LOWER(SUBSTRING(t1.LugarIncidente, 2))) AS 'LUGAR DE INCIDENTES', 	CONCAT(UPPER(LEFT(t1.TipoVehObj, 1)), LOWER(SUBSTRING(t1.TipoVehObj, 2)))AS 'TIPO DE VEHICULOS / OBJETO INVOLUCRADO',  t1.Kilometraje AS KILOMETRAJES, (SELECT UPPER(CONCAT(b2.ApPaterno, ' ', b2.ApMaterno, ' ', b2.nombres)) FROM cpersonal AS b2 WHERE t1.responsablefkcpersonal = b2.idPersona) AS RESPONSABLE, (SELECT UPPER(CONCAT(b3.ApPaterno, ' ', b3.ApMaterno, ' ', b3.nombres)) FROM cpersonal AS b3 WHERE b3.idPersona = t1.coordinadorfkcpersonal) AS COORDINADOR, COALESCE(CONCAT(UPPER(LEFT(t1.observaciones, 1)), LOWER(SUBSTRING(t1.Observaciones, 2))), '') AS OBSERVACIONES FROM reportepersonal AS t1 INNER JOIN cpersonal AS t2 ON t1.credencialfkcpersonal = t2.idPersona WHERE t1.idreportepersonal = '" + idreporteP + "'", v.c.dbconection());
                 MySqlDataReader dr = cmdbusq.ExecuteReader();
                 if (dr.Read())
                 {
@@ -587,9 +587,9 @@ namespace controlFallos
                     observacionesPDF = dr.GetString("OBSERVACIONES");
                 }
                 dr.Close();
-                c.dbconection().Close();
+                v.c.dbconection().Close();
                 drenca.Close();
-                c.dbconection().Close();
+                v.c.dbconection().Close();
                 Document dc = new Document(PageSize.LETTER);
                 dc.SetMargins(21f, 21f, 31f, 31f);
                 PdfPTable tb = new PdfPTable(4);
@@ -622,7 +622,6 @@ namespace controlFallos
                             FileStream file = new FileStream(filename, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
                             PdfWriter writer = PdfWriter.GetInstance(dc, file);
                             dc.Open();
-
                             byte[] img = Convert.FromBase64String(v.transmasivo);
                             iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(img);
                             imagen.ScalePercent(11f);
@@ -981,7 +980,7 @@ namespace controlFallos
             {
                 if (txtCredencial.Enabled)
                 {
-                    MySqlCommand cmd = new MySqlCommand("INSERT INTO reportepersonal(ConsecutivoRP, credencialfkcpersonal, Fecha, Hora, LugarIncidente, TipoVehObj, Kilometraje, responsablefkcpersonal, coordinadorfkcpersonal, Observaciones, FechaHoraRegistro, usuariofkcpersonal) VALUES('" + consecutivoReporteP + "', '" + idcred + "', '" + dtpFecha.Value.ToString("yyyy-MM-dd") + "', '" + dtpTime.Text + "', '" + txtLugarIncidente.Text.Trim() + "', '" + txtTipoVehiculo.Text.Trim() + "', '" + Convert.ToDouble(txtKilometraje.Text) + "', '" + hresponsable + "', '" + hcoordinador + "', '" + txtObservaciones.Text.Trim() + "', now(), '" + idUsuario + "')", c.dbconection());
+                    MySqlCommand cmd = new MySqlCommand("INSERT INTO reportepersonal(ConsecutivoRP, credencialfkcpersonal, Fecha, Hora, LugarIncidente, TipoVehObj, Kilometraje, responsablefkcpersonal, coordinadorfkcpersonal, Observaciones, FechaHoraRegistro, usuariofkcpersonal) VALUES('" + consecutivoReporteP + "', '" + idcred + "', '" + dtpFecha.Value.ToString("yyyy-MM-dd") + "', '" + dtpTime.Text + "', '" + txtLugarIncidente.Text.Trim() + "', '" + txtTipoVehiculo.Text.Trim() + "', '" + Convert.ToDouble(txtKilometraje.Text) + "', '" + hresponsable + "', '" + hcoordinador + "', '" + txtObservaciones.Text.Trim() + "', now(), '" + idUsuario + "')", v.c.dbconection());
                     cmd.ExecuteNonQuery();
                     MessageBox.Show("Información guardada con éxito", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     limpiar();
@@ -1009,15 +1008,15 @@ namespace controlFallos
                         set += " WHERE idreportepersonal = '" + idreporteP + "'";
                     if ((txtObservaciones.Enabled && txtObservaciones.Text != "") || (btnHDResponsable.Enabled && !string.IsNullOrWhiteSpace(lblNombresResponsable.Text)) || (btnHDCoordinador.Enabled && !string.IsNullOrWhiteSpace(lblNombresCoordinador.Text)))
                     {
-                        MySqlCommand cmmd = new MySqlCommand(consulta + set, c.dbconection());
+                        MySqlCommand cmmd = new MySqlCommand(consulta + set, v.c.dbconection());
                         cmmd.ExecuteNonQuery();
                         MessageBox.Show("Información guardada con éxito", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        c.dbconection().Close();
+                        v.c.dbconection().Close();
                     }
                     else
                         MessageBox.Show("Sin modificaciones", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     limpiar();
-                    c.dbconection().Close();
+                    v.c.dbconection().Close();
                     consultageneral();
                     limpiarvariablesanteriores();
                 }
@@ -1098,14 +1097,14 @@ namespace controlFallos
                         if (obs.ShowDialog() == DialogResult.OK)
                         {
                             string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
-                            MySqlCommand actualizar = new MySqlCommand(consulta + set, c.dbconection());
+                            MySqlCommand actualizar = new MySqlCommand(consulta + set, v.c.dbconection());
                             actualizar.ExecuteNonQuery();
-                            c.dbconection().Close();
+                            v.c.dbconection().Close();
                             MessageBox.Show("Información actualizada con éxito", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             string nombre = v.getaData("SELECT UPPER(CONCAT(ApPaterno, ' ', ApMaterno, ' ', nombres)) FROM cpersonal WHERE credencial = '" + credencialanterior + "'").ToString();
-                            MySqlCommand historial = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo, motivoActualizacion, empresa, area) VALUES('Reporte de Personal', (SELECT b1.idreportepersonal FROM reportepersonal AS b1 WHERE b1.ConsecutivoRP = '" + consecutivoReporteP + "'), '" + nombre + "; " + credencialanterior + "; " + fechaanterior + "; " + horanterior + "; " + lugarincidenteanterior + "; " + tipovehiculobjetoanterior + "; " + kilometrajeanterior + "; " + observacionesanterior + "; " + idresp + "; " + idcoord + "', '" + idUsuario + "', now(), 'Actualización de Reporte de Personal', '" + observaciones + "', '" + empresa + "', '" + area + "')", c.dbconection());
+                            MySqlCommand historial = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo, motivoActualizacion, empresa, area) VALUES('Reporte de Personal', (SELECT b1.idreportepersonal FROM reportepersonal AS b1 WHERE b1.ConsecutivoRP = '" + consecutivoReporteP + "'), '" + nombre + "; " + credencialanterior + "; " + fechaanterior + "; " + horanterior + "; " + lugarincidenteanterior + "; " + tipovehiculobjetoanterior + "; " + kilometrajeanterior + "; " + observacionesanterior + "; " + idresp + "; " + idcoord + "', '" + idUsuario + "', now(), 'Actualización de Reporte de Personal', '" + observaciones + "', '" + empresa + "', '" + area + "')", v.c.dbconection());
                             historial.ExecuteNonQuery();
-                            c.dbconection().Close();
+                            v.c.dbconection().Close();
                             limpiar();
                             consultageneral();
                             btnGuardar.BackgroundImage = Properties.Resources.guardar__6_;
@@ -1209,12 +1208,12 @@ namespace controlFallos
                     }
                     if (!string.IsNullOrWhiteSpace(where))
                         where += " ORDER BY t1.idreportepersonal DESC";
-                    MySqlDataAdapter adpbusq = new MySqlDataAdapter(consulta + where, c.dbconection());
+                    MySqlDataAdapter adpbusq = new MySqlDataAdapter(consulta + where, v.c.dbconection());
                     DataSet ds = new DataSet();
                     adpbusq.Fill(ds);
                     dgvPMantenimiento.DataSource = ds.Tables[0];
                     dgvPMantenimiento.Columns[0].Visible = false;
-                    c.dbconection().Close();
+                    v.c.dbconection().Close();
                     if (ds.Tables[0].Rows.Count == 0)
                     {
                         MessageBox.Show("No se encontraron reportes", "ADVERTEMCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1269,7 +1268,7 @@ namespace controlFallos
 
         private void txtCredencial_Leave(object sender, EventArgs e)
         {
-            MySqlCommand cmd = new MySqlCommand("SELECT idPersona, UPPER(ApPaterno) AS ApPaterno, UPPER(ApMaterno) AS ApMaterno, UPPER(nombres) AS nombres FROM cpersonal WHERE credencial = '" + txtCredencial.Text + "' AND empresa = '" + empresa + "' AND area = '" + area + "' AND status = '1'", c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT idPersona, UPPER(ApPaterno) AS ApPaterno, UPPER(ApMaterno) AS ApMaterno, UPPER(nombres) AS nombres FROM cpersonal WHERE credencial = '" + txtCredencial.Text + "' AND empresa = '" + empresa + "' AND area = '" + area + "' AND status = '1'", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
@@ -1284,7 +1283,7 @@ namespace controlFallos
                 idcred = 0;
             }
             dr.Close();
-            c.dbconection().Close();
+            v.c.dbconection().Close();
         }
 
         private void btnPDF_Click(object sender, EventArgs e)
@@ -1372,7 +1371,7 @@ namespace controlFallos
                 numhuella = 2;
                 tipo = "COORDINADOR";
             }
-            LectorHuellas lh = new LectorHuellas(2, numhuella, tipo, "Nombre", "Paterno", "Materno", idcred.ToString());
+            LectorHuellas lh = new LectorHuellas(2, numhuella, tipo, "Nombre", "Paterno", "Materno", idcred.ToString(),v);
             lh.Owner = this;
             lh.ShowDialog();
             if (numhuella == 1)
@@ -1529,7 +1528,7 @@ namespace controlFallos
                 }
                 else
                 {
-                    FormContraFinal FCF = new FormContraFinal(empresa, area, this);
+                    FormContraFinal FCF = new FormContraFinal(empresa, area, this,v);
                     FCF.LabelTitulo.Text = "Introduzca su contraseña para finalizar\nel reporte";
                     var res = FCF.ShowDialog();
                     if (res == DialogResult.OK)
@@ -1537,7 +1536,7 @@ namespace controlFallos
                         idFinal = Convert.ToInt32(FCF.id);
                         if (txtCredencial.Enabled && !validaciontxt)
                         {
-                            MySqlCommand cmd = new MySqlCommand("INSERT INTO reportepersonal(ConsecutivoRP, credencialfkcpersonal, Estatus, Fecha, Hora, LugarIncidente, TipoVehObj, Kilometraje, responsablefkcpersonal, coordinadorfkcpersonal, Observaciones, FechaHoraRegistro, usuariofkcpersonal, usuariofinalizofkcpersonal) VALUES('" + consecutivoReporteP + "', '" + idcred + "', '1', '" + dtpFecha.Value.ToString("yyyy-MM-dd") + "', '" + dtpTime.Text + "', '" + txtLugarIncidente.Text.Trim() + "', '" + txtTipoVehiculo.Text.Trim() + "', '" + Convert.ToDouble(txtKilometraje.Text) + "', '" + hresponsable + "', '" + hcoordinador + "', '" + txtObservaciones.Text.Trim() + "', now(), '" + idUsuario + "', '" + idFinal + "')", c.dbconection());
+                            MySqlCommand cmd = new MySqlCommand("INSERT INTO reportepersonal(ConsecutivoRP, credencialfkcpersonal, Estatus, Fecha, Hora, LugarIncidente, TipoVehObj, Kilometraje, responsablefkcpersonal, coordinadorfkcpersonal, Observaciones, FechaHoraRegistro, usuariofkcpersonal, usuariofinalizofkcpersonal) VALUES('" + consecutivoReporteP + "', '" + idcred + "', '1', '" + dtpFecha.Value.ToString("yyyy-MM-dd") + "', '" + dtpTime.Text + "', '" + txtLugarIncidente.Text.Trim() + "', '" + txtTipoVehiculo.Text.Trim() + "', '" + Convert.ToDouble(txtKilometraje.Text) + "', '" + hresponsable + "', '" + hcoordinador + "', '" + txtObservaciones.Text.Trim() + "', now(), '" + idUsuario + "', '" + idFinal + "')", v.c.dbconection());
                             cmd.ExecuteNonQuery();
                             MessageBox.Show("Información almacenada con éxito", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             limpiar();
@@ -1571,9 +1570,9 @@ namespace controlFallos
                                     set += ", Observaciones = '" + txtObservaciones.Text.Trim() + "'";
                             if (!string.IsNullOrWhiteSpace(set))
                                 set += " WHERE idreportepersonal = '" + idreporteP + "'";
-                            MySqlCommand finalizar = new MySqlCommand(update + set, c.dbconection());
+                            MySqlCommand finalizar = new MySqlCommand(update + set, v.c.dbconection());
                             finalizar.ExecuteNonQuery();
-                            c.dbconection().Close();
+                            v.c.dbconection().Close();
                             MessageBox.Show("El reporte ha sido finalizado", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             btnFinalizar.Visible = label26.Visible = btnPDF.Visible = label31.Visible = false;
                             btnGuardar.Visible = label24.Visible = txtCredencial.Enabled = dtpFecha.Enabled = dtpTime.Enabled = txtLugarIncidente.Enabled = txtTipoVehiculo.Enabled =  true;

@@ -13,12 +13,12 @@ namespace controlFallos
     public partial class relacionServicioEstacion : Form
     {
         int idUsuario, servicioAnterior, estacionAnterior, status, idrelacionTemp;
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         public bool editar { get; protected internal set; }
         bool yaAparecioMensaje;
-        public relacionServicioEstacion(int idUsuario)
+        public relacionServicioEstacion(int idUsuario,validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             cbxgetestacion.DrawItem += v.combos_DrawItem;
             cbxgetservicio.DrawItem += v.combos_DrawItem;

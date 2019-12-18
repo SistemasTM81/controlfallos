@@ -6,13 +6,14 @@ namespace controlFallos
 {
     static class Program
     {
+        public static validaciones v;
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            validaciones v = new validaciones();
+             v = new validaciones();
             Thread th = new Thread(new ThreadStart(Splash));
             th.Start();
           //  try
@@ -34,7 +35,6 @@ namespace controlFallos
         }
         static void Splash()
         {
-            validaciones v = new validaciones();
             try
             {
                 if (new conexion().conexionOriginal()) { var clonarTable = new databaseLocalClone(v); }

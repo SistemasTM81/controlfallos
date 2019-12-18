@@ -24,8 +24,9 @@ namespace controlFallos
 
         int idUsuario, empresa, area; public Thread hilo, th;
         bool res1 = true;
-        public TRI(int idUsuario, int empresa, int area)
+        public TRI(int idUsuario, int empresa, int area,validaciones v)
         {
+            this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -39,8 +40,7 @@ namespace controlFallos
             lbltitulo.Left = (this.Width - lbltitulo.Width) / 2;
         }
         Thread exportar;
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         void quitarseen()
         {
             while (res1)
@@ -78,8 +78,8 @@ namespace controlFallos
         }
         public void privilegios()
         {
-            string sql = "SELECT CONCAT(insertar,';',consultar,';',editar,';',desactivar) as privilegios FROM privilegios where usuariofkcpersonal='" + idUsuario + "' and namform='Almacen'";
-            string[] privilegios = getaData(sql).ToString().Split(';');
+            string sql = "SELECT  privilegios FROM privilegios where usuariofkcpersonal='" + idUsuario + "' and namform='Almacen'";
+            string[] privilegios = getaData(sql).ToString().Split('/');
             pinsertar = getboolfromint(Convert.ToInt32(privilegios[0]));
             pconsultar = getboolfromint(Convert.ToInt32(privilegios[1]));
             peditar = getboolfromint(Convert.ToInt32(privilegios[2]));
@@ -87,9 +87,9 @@ namespace controlFallos
         }
         public object getaData(string sql)
         {
-            MySqlCommand cm = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             var res = cm.ExecuteScalar();
-            c.dbconection().Close();
+            v.c.dbconection().Close();
             return res;
         }
         void Limpiar_v()
@@ -102,8 +102,8 @@ namespace controlFallos
         public void CargarDatos()// Metodo para cargar los reportes de la base de datos al datagridview y poder mostrarlos
         {
 
-            MySqlDataAdapter cargar = new MySqlDataAdapter("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'FOLIO', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'UNIDAD' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'FECHA DE SOLICITUD', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'MECÁNICO QUE SOLICITA' ,COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'FOLIO DE FACTURA' ,COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'FECHA DE ENTREGA',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'PERSONA QUE ENTREGO REFACCIÓN',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'OBSERVACIONES DE ALMACEN' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad INNER JOIN careas as  t4 on t4.idarea=t3.areafkcareas WHERE t1.StatusRefacciones='Se Requieren Refacciones' and (t1.FechaReporteM BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate()) and t1.empresa='" + empresa + "' ORDER BY t1.FechaReporteM DESC, t2.folio desc;", c.dbconection());
-            c.dbconection().Close();
+            MySqlDataAdapter cargar = new MySqlDataAdapter("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'FOLIO', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'UNIDAD' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'FECHA DE SOLICITUD', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'MECÁNICO QUE SOLICITA' ,COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'FOLIO DE FACTURA' ,COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'FECHA DE ENTREGA',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'PERSONA QUE ENTREGO REFACCIÓN',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'OBSERVACIONES DE ALMACEN' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad INNER JOIN careas as  t4 on t4.idarea=t3.areafkcareas WHERE t1.StatusRefacciones='Se Requieren Refacciones' and (t1.FechaReporteM BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate()) and t1.empresa='" + empresa + "' ORDER BY t1.FechaReporteM DESC, t2.folio desc;", v.c.dbconection());
+            v.c.dbcon.Close();
             DataSet ds = new DataSet();
             cargar.Fill(ds);
             tbReportes.DataSource = ds.Tables[0];
@@ -123,9 +123,9 @@ namespace controlFallos
         {
             AutoCompleteStringCollection namesCollection = new AutoCompleteStringCollection();
             string consulta = @"Select t1.Folio As folio ,t1.idReporteSupervicion from reportesupervicion as t1 Inner join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion WHERE t2.StatusRefacciones='Se Requieren Refacciones' and t2.empresa='" + empresa + "' ";
-            MySqlCommand cmd = new MySqlCommand(consulta, c.dbconection());
+            MySqlCommand cmd = new MySqlCommand(consulta, v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
-            c.dbconection().Close();
+            v.c.dbconection().Close();
             if (dr.HasRows == true)
             {
                 while (dr.Read())
@@ -427,8 +427,8 @@ namespace controlFallos
                     {
                         wheres += " and t1.StatusRefacciones='Se Requieren Refacciones' and t1.empresa='" + empresa + "' and (select year(t1.FechaReporteM))=( select year(now())) order by t2.folio desc";
                     }
-                    MySqlDataAdapter DTA = new MySqlDataAdapter(consulta + wheres, c.dbconection());
-                    c.dbconection().Close();
+                    MySqlDataAdapter DTA = new MySqlDataAdapter(consulta + wheres, v.c.dbconection());
+                    v.c.dbconection().Close();
                     DataSet ds = new DataSet();
                     DTA.Fill(ds);
                     tbReportes.DataSource = ds.Tables[0];
@@ -540,8 +540,8 @@ namespace controlFallos
                     {
                         wheres += " and t1.StatusRefacciones='Se Requieren Refacciones' and t1.empresa='" + empresa + "' and (select year(t1.FechaReporteM))=( select year(now())) order by t2.folio desc";
                     }
-                    c.dbconection().Close();
-                    MySqlDataAdapter DTA = new MySqlDataAdapter(consulta + wheres, c.dbconection());
+                    v.c.dbconection().Close();
+                    MySqlDataAdapter DTA = new MySqlDataAdapter(consulta + wheres, v.c.dbconection());
                     DataSet ds = new DataSet();
                     DTA.Fill(ds);
                     tbReportes.DataSource = ds.Tables[0];
@@ -633,12 +633,12 @@ namespace controlFallos
 
         public void Nuevas_Refacciones()
         {
-            MySqlCommand leerid = new MySqlCommand("SELECT t1.idReporteTransinsumos FROM reportetri as t1 inner join reportesupervicion as t2 on t2.idreportesupervicion=t1.idreportemfkreportemantenimiento where t2.folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "' and t1.idReporteTransinsumos=t1.idReporteTransinsumos", c.dbconection());
+            MySqlCommand leerid = new MySqlCommand("SELECT t1.idReporteTransinsumos FROM reportetri as t1 inner join reportesupervicion as t2 on t2.idreportesupervicion=t1.idreportemfkreportemantenimiento where t2.folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "' and t1.idReporteTransinsumos=t1.idReporteTransinsumos", v.c.dbconection());
             MySqlDataReader dr = leerid.ExecuteReader();
             if (dr.Read())
             {
                 //En caso de que si este guardado el reporte solamente guardamos el estatus y la cantidad de nuevas refacciones solicitadas.
-                MySqlCommand agregar = new MySqlCommand(@"UPDATE pedidosrefaccion AS t1 INNER JOIN crefacciones AS t2 ON t1.RefaccionfkCRefaccion = t2.idrefaccion SET t1.EstatusRefaccion = @EstatusRefaccion, t1.CantidadEntregada = (SELECT IF(t1.cantidadentregada < t1.Cantidad,(SELECT IF(t2.existencias > (t1.Cantidad - t1.CantidadEntregada),(t1.CantidadEntregada + (t1.Cantidad - t1.CantidadEntregada)),(t1.CantidadEntregada + t2.existencias))),(SELECT IF(t1.cantidad > t2.existencias,t2.existencias,t1.cantidad)))),t2.existencias = @existencias WHERE idPedRef = @idPedRef AND(t1.EstatusRefaccion IS NULL OR T1.CantidadEntregada = 0 OR t1.cantidadentregada < t1.cantidad OR T1.CantidadEntregada = ''); ", c.dbconection());
+                MySqlCommand agregar = new MySqlCommand(@"UPDATE pedidosrefaccion AS t1 INNER JOIN crefacciones AS t2 ON t1.RefaccionfkCRefaccion = t2.idrefaccion SET t1.EstatusRefaccion = @EstatusRefaccion, t1.CantidadEntregada = (SELECT IF(t1.cantidadentregada < t1.Cantidad,(SELECT IF(t2.existencias > (t1.Cantidad - t1.CantidadEntregada),(t1.CantidadEntregada + (t1.Cantidad - t1.CantidadEntregada)),(t1.CantidadEntregada + t2.existencias))),(SELECT IF(t1.cantidad > t2.existencias,t2.existencias,t1.cantidad)))),t2.existencias = @existencias WHERE idPedRef = @idPedRef AND(t1.EstatusRefaccion IS NULL OR T1.CantidadEntregada = 0 OR t1.cantidadentregada < t1.cantidad OR T1.CantidadEntregada = ''); ", v.c.dbconection());
                 foreach (DataGridViewRow row in tbRefacciones.Rows)// hacemos un ciclo repititivo para ir guardando el estatus de cada refacción solicitada
                 {
                     double existencias = Double.Parse(row.Cells[4].Value.ToString());
@@ -674,7 +674,7 @@ namespace controlFallos
                     agregar.ExecuteNonQuery();
                 }
                 //Nuevas_Refacc(lblFolio.Text);
-                MySqlCommand sql = new MySqlCommand("update estatusvalidado set seen =1 where idreportefkreportesupervicion='" + lblidreporte.Text + "' ", c.dbconection());
+                MySqlCommand sql = new MySqlCommand("update estatusvalidado set seen =1 where idreportefkreportesupervicion='" + lblidreporte.Text + "' ", v.c.dbconection());
                 sql.ExecuteNonQuery();
                 if (!edita_valida)
                 {
@@ -683,7 +683,7 @@ namespace controlFallos
                     ocultar_botones();
                     LimpiarReporteTri();
                 }
-                c.dbconection().Close();
+                v.c.dbconection().Close();
             }
             dr.Close();
         }
@@ -693,22 +693,22 @@ namespace controlFallos
             try
             {
                 //    //En caso contrario guardamos folio de factura, fecha, persona que dispenso y guardamos el estatus y cantidad entregada de cada una de las refacciones solicitadas.
-                MySqlCommand agregar = new MySqlCommand("update pedidosrefaccion as t1 inner join crefacciones as t2 on t1.RefaccionfkCRefaccion=t2.idrefaccion set t1.EstatusRefaccion=@EstatusRefaccion,t1.CantidadEntregada=(select if(t1.cantidad>t2.existencias,t2.existencias,t1.cantidad)),t2.existencias=(Select if(T1.cantidad>t2.existencias,(t2.existencias-t2.existencias),(t2.existencias-t1.cantidad))) Where idPedRef=@idPedRef   ", c.dbconection());
+                MySqlCommand agregar = new MySqlCommand("update pedidosrefaccion as t1 inner join crefacciones as t2 on t1.RefaccionfkCRefaccion=t2.idrefaccion set t1.EstatusRefaccion=@EstatusRefaccion,t1.CantidadEntregada=(select if(t1.cantidad>t2.existencias,t2.existencias,t1.cantidad)),t2.existencias=(Select if(T1.cantidad>t2.existencias,(t2.existencias-t2.existencias),(t2.existencias-t1.cantidad))) Where idPedRef=@idPedRef   ", v.c.dbconection());
                 foreach (DataGridViewRow row in tbRefacciones.Rows)// hacemos un ciclo repititivo para ir guardando el estatus de cada refacción solicitada
                 {
                     agregar.Parameters.Clear();
                     agregar.Parameters.AddWithValue("@EstatusRefaccion", Convert.ToString(row.Cells[5].Value));
                     agregar.Parameters.AddWithValue("@idPedRef", Convert.ToString(row.Cells[0].Value));
                     agregar.ExecuteNonQuery();
-                    c.dbconection().Close();
+                    v.c.dbconection().Close();
                 }
-                MySqlCommand sql = new MySqlCommand("insert into estatusvalidado(idreportefkreportesupervicion) values ('" + lblidreporte.Text + "')", c.dbconection());
+                MySqlCommand sql = new MySqlCommand("insert into estatusvalidado(idreportefkreportesupervicion) values ('" + lblidreporte.Text + "')", v.c.dbconection());
                 sql.ExecuteNonQuery();
 
                 // consulta para insertar los datos a la base de datos
-                MySqlCommand guardar = new MySqlCommand("insert into reportetri (idreportemfkreportemantenimiento,FolioFactura,FechaEntrega,PersonaEntregafkcPersonal,ObservacionesTrans,empresa) VALUES ('" + Convert.ToInt32(lblidreporte.Text) + "','" + Convert.ToInt32(txtFolioFactura.Text.Trim()) + "',curdate(), '" + Convert.ToInt32(IdDispenso) + "','" + txtObservacionesT.Text.Trim() + "','" + empresa + "') ;", c.dbconection());
+                MySqlCommand guardar = new MySqlCommand("insert into reportetri (idreportemfkreportemantenimiento,FolioFactura,FechaEntrega,PersonaEntregafkcPersonal,ObservacionesTrans,empresa) VALUES ('" + Convert.ToInt32(lblidreporte.Text) + "','" + Convert.ToInt32(txtFolioFactura.Text.Trim()) + "',curdate(), '" + Convert.ToInt32(IdDispenso) + "','" + txtObservacionesT.Text.Trim() + "','" + empresa + "') ;", v.c.dbconection());
                 guardar.ExecuteNonQuery();
-                c.dbconection().Close();
+                v.c.dbconection().Close();
                 MessageBox.Show("Registro guardado con exito ".ToUpper() + DateTime.Now.ToLongDateString().ToUpper() + " " + DateTime.Now.ToLongTimeString().ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //    Modificacion_Crear(lblFolio.Text);
                 //insertar_refacciones(lblFolio.Text);
@@ -729,7 +729,7 @@ namespace controlFallos
             string f = txtObservacionesT.Text;
             if (f == "") f = null;
             string sql = "INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Reporte de Almacen',(select idReporteTransinsumos from reportetri as t1 inner join reportesupervicion as t2 on t1.idreportemfkreportemantenimiento=t2.idreportesupervicion and t2.folio='" + folio + "' and t1.empresa='" + empresa + "'),CONCAT('" + txtFolioFactura.Text + ";',DATE(NOW()),';" + Convert.ToString(IdDispenso) + ";" + (f ?? " SIN OBSERVACIONES") + "'),'" + '1' + "',NOW(),'Inserción de reporte de almacén','2','2')";
-            MySqlCommand modificaciones_inserciones = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand modificaciones_inserciones = new MySqlCommand(sql, v.c.dbconection());
             modificaciones_inserciones.ExecuteNonQuery();
         }
         string existenciasR, fecha;
@@ -758,9 +758,9 @@ namespace controlFallos
                         else
                         {
                             //consulta para obtener el nombre del almacenista cuando ingrese su contaseña
-                            MySqlCommand sql = new MySqlCommand("SELECT CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t2.puesto='Almacenista' AND t1.status='1' AND t2.status='1' and t1.emprsa='" + empresa + "' ;", c.dbconection());
+                            MySqlCommand sql = new MySqlCommand("SELECT CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t2.puesto='Almacenista' AND t1.status='1' AND t2.status='1' and t1.emprsa='" + empresa + "' ;", v.c.dbconection());
                             MySqlDataReader cmd = sql.ExecuteReader();
-                            c.dbconection().Close();
+                            v.c.dbconection().Close();
                             if (!cmd.Read())
                             {
                                 MessageBox.Show("La contraseña ingresada es incorrecta, verifique la contraseña".ToUpper(), "CONTRASEÑA INCORRECTA", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -779,7 +779,7 @@ namespace controlFallos
                                 else
                                 {
                                     //Verificamos si ya se guardo el folio de factura
-                                    MySqlCommand FolioRepetido = new MySqlCommand("Select t1.FolioFactura as Folio,t1.idReporteTransinsumos as id  from reportetri as t1 where t1.foliofactura='" + txtFolioFactura.Text + "' and empresa='" + empresa + "'", c.dbconection());
+                                    MySqlCommand FolioRepetido = new MySqlCommand("Select t1.FolioFactura as Folio,t1.idReporteTransinsumos as id  from reportetri as t1 where t1.foliofactura='" + txtFolioFactura.Text + "' and empresa='" + empresa + "'", v.c.dbconection());
                                     MySqlDataReader DR = FolioRepetido.ExecuteReader();
                                     if (DR.Read())
                                     {
@@ -803,7 +803,7 @@ namespace controlFallos
                                         {
                                             if (tbRefacciones.Rows.Count == 1)
                                             {
-                                                MySqlCommand estatusR = new MySqlCommand("SET lc_time_names = 'es_ES';select t3.existencias,(SELECT DATE_FORMAT(t3.proximoAbastecimiento,'%W %d de %M del %Y')) as fecha from pedidosrefaccion as t1 inner join reportesupervicion as t2 on t1.FolioPedfkSupervicion=t2.idreportesupervicion inner join crefacciones as t3  on t1.RefaccionfkCRefaccion=t3.idrefaccion where t1.FolioPedfkSupervicion='" + lblidreporte.Text + "' ", c.dbconection());
+                                                MySqlCommand estatusR = new MySqlCommand("SET lc_time_names = 'es_ES';select t3.existencias,(SELECT DATE_FORMAT(t3.proximoAbastecimiento,'%W %d de %M del %Y')) as fecha from pedidosrefaccion as t1 inner join reportesupervicion as t2 on t1.FolioPedfkSupervicion=t2.idreportesupervicion inner join crefacciones as t3  on t1.RefaccionfkCRefaccion=t3.idrefaccion where t1.FolioPedfkSupervicion='" + lblidreporte.Text + "' ", v.c.dbconection());
                                                 MySqlDataReader DR1 = estatusR.ExecuteReader();
                                                 if (DR1.Read())
                                                 {
@@ -931,9 +931,9 @@ namespace controlFallos
         {
             tbRefacciones.ClearSelection();
             //consulta para obtener el id del reporte de supervisión
-            MySqlCommand cmd = new MySqlCommand("Select t1.idreportesupervicion as id  from reportesupervicion as t1 inner join reportemantenimiento as t2 on t2.FoliofkSupervicion=t1.idreportesupervicion Where t1.Folio='" + lblFolio.Text + "'", c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("Select t1.idreportesupervicion as id  from reportesupervicion as t1 inner join reportemantenimiento as t2 on t2.FoliofkSupervicion=t1.idreportesupervicion Where t1.Folio='" + lblFolio.Text + "'", v.c.dbconection());
             MySqlDataReader dr1 = cmd.ExecuteReader();
-            c.dbconection().Close();
+            v.c.dbconection().Close();
             if (dr1.Read())
             {
                 lblidreporte.Text = ((Convert.ToString(dr1["id"])));
@@ -960,7 +960,7 @@ namespace controlFallos
                 lblFechaSolicitud.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[2].Value);
                 lblMecanicoSolicita.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[3].Value);
                 statusDeMantenimiento = v.getaData("SELECT t1.Estatus FROM reportemantenimiento as t1 inner join reportesupervicion as t2 on t1.FoliofkSupervicion=t2.idReporteSupervicion where t2.folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "'").ToString() ?? "SIN ESTATUS";
-                MySqlCommand existencia = new MySqlCommand("Select T1.idreportemfkreportemantenimiento from reportetri as T1 inner join reportesupervicion as t2 on t2.idreportesupervicion=T1.idreportemfkreportemantenimiento where t2.folio='" + lblFolio.Text + "'", c.dbconection());
+                MySqlCommand existencia = new MySqlCommand("Select T1.idreportemfkreportemantenimiento from reportetri as T1 inner join reportesupervicion as t2 on t2.idreportesupervicion=T1.idreportemfkreportemantenimiento where t2.folio='" + lblFolio.Text + "'", v.c.dbconection());
                 MySqlDataReader dtr1 = existencia.ExecuteReader();
                 if (dtr1.Read())
                 {
@@ -989,7 +989,7 @@ namespace controlFallos
                     per_d = tbReportes.Rows[e.RowIndex].Cells[6].Value.ToString().Trim();
                     obser_t = tbReportes.Rows[e.RowIndex].Cells[7].Value.ToString().Trim();
                     fol_f = tbReportes.Rows[e.RowIndex].Cells[4].Value.ToString();
-                    MySqlCommand cmdestatus = new MySqlCommand("Select UPPER(t1.Estatus) as Estatus from reportemantenimiento as t1 inner join reportesupervicion as t2 on t1.FoliofkSupervicion=t2.idreportesupervicion Where t2.Folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "' ", c.dbconection());
+                    MySqlCommand cmdestatus = new MySqlCommand("Select UPPER(t1.Estatus) as Estatus from reportemantenimiento as t1 inner join reportesupervicion as t2 on t1.FoliofkSupervicion=t2.idreportesupervicion Where t2.Folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "' ", v.c.dbconection());
                     MySqlDataReader dtr = cmdestatus.ExecuteReader();
                     string status;
                     if (dtr.Read())
@@ -1031,7 +1031,7 @@ namespace controlFallos
                                 tbRefacciones.Rows.Add(dt.Rows[i].ItemArray);
                             }
                             tbRefacciones.Visible = true;
-                            c.dbconection().Close();
+                            v.c.dbconection().Close();
                         }
                         else
                         {
@@ -1111,7 +1111,7 @@ namespace controlFallos
                     dtr.Close();
                     CargarRefacciones();
                     //COnsulta para obtener nombre y contraseña del almacenista
-                    MySqlCommand cmd1 = new MySqlCommand("select t1.password,t2.nombres, t2.idpersona as id from datosistema AS t1 inner join cpersonal AS t2 on t2.idpersona=t1.usuariofkcpersonal  where concat(t2.Appaterno,' ',t2.ApMaterno,' ',t2.nombres)='" + lblPersonaDis.Text + "' and t2.empresa='" + empresa + "'", c.dbconection());
+                    MySqlCommand cmd1 = new MySqlCommand("select t1.password,t2.nombres, t2.idpersona as id from datosistema AS t1 inner join cpersonal AS t2 on t2.idpersona=t1.usuariofkcpersonal  where concat(t2.Appaterno,' ',t2.ApMaterno,' ',t2.nombres)='" + lblPersonaDis.Text + "' and t2.empresa='" + empresa + "'", v.c.dbconection());
                     MySqlDataReader dr2 = cmd1.ExecuteReader();
                     if (dr2.Read())
                     {
@@ -1123,7 +1123,7 @@ namespace controlFallos
                         txtDispenso.Text = "";
                         IdDispenso = "";
                     }
-                    c.dbconection().Close();
+                    v.c.dbconection().Close();
                     dr2.Close();
                 }
             }
@@ -1134,7 +1134,7 @@ namespace controlFallos
             DialogResult respuesta;
             if (!string.IsNullOrWhiteSpace(txtFolioFactura.Text) || !string.IsNullOrWhiteSpace(txtDispenso.Text))
             {
-                MySqlCommand modificaciones = new MySqlCommand("SET lc_time_names = 'es_ES';SELECT T1.IDREPORTETRANSINSUMOS AS ID, T1.FolioFactura AS FOLIO,upper(Date_format(T1.FechaEntrega,'%W %d de %M del %Y')) AS FECHA,(SELECT upper(CONCAT(X1.ApPaterno,' ',X1.ApMaterno,' ',X1.nombres)) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS DISPENSO ,UPPER(T1.ObservacionesTrans) AS OBSERVACIONES ,T3.Estatus AS ESTATUS FROM reportetri AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.idreportemfkreportemantenimiento INNER JOIN REPORTEMANTENIMIENTO AS T3 ON T2.IDREPORTESUPERVICION=T3.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';", c.dbconection());
+                MySqlCommand modificaciones = new MySqlCommand("SET lc_time_names = 'es_ES';SELECT T1.IDREPORTETRANSINSUMOS AS ID, T1.FolioFactura AS FOLIO,upper(Date_format(T1.FechaEntrega,'%W %d de %M del %Y')) AS FECHA,(SELECT upper(CONCAT(X1.ApPaterno,' ',X1.ApMaterno,' ',X1.nombres)) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS DISPENSO ,UPPER(T1.ObservacionesTrans) AS OBSERVACIONES ,T3.Estatus AS ESTATUS FROM reportetri AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.idreportemfkreportemantenimiento INNER JOIN REPORTEMANTENIMIENTO AS T3 ON T2.IDREPORTESUPERVICION=T3.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';", v.c.dbconection());
                 MySqlDataReader Dr = modificaciones.ExecuteReader();
                 if (Dr.Read())
                 {
@@ -1345,7 +1345,7 @@ namespace controlFallos
         //*********************************Animación de Botones************************************
         void Exportacion()
         {
-            MySqlCommand exportacion = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Reporte de Almacen','" + idrepor + "','Exportación de reporte en archivo pdf','" + '1' + "',NOW(),'Exportación a PDF de reporte de almacén','2','2')", c.dbconection());
+            MySqlCommand exportacion = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Reporte de Almacen','" + idrepor + "','Exportación de reporte en archivo pdf','" + '1' + "',NOW(),'Exportación a PDF de reporte de almacén','2','2')", v.c.dbconection());
             exportacion.ExecuteNonQuery();
         }
         string fo, uni, fe_so, Mec_soli, Se_requieen, fo_fac, fec_entrega_ref, pers_entr, observaciones_tri;
@@ -1483,7 +1483,7 @@ namespace controlFallos
 
         public void Expota_PDF()
         {
-            MySqlCommand Obetener_Datos = new MySqlCommand("SET lc_time_names = 'es_ES';SELECT  UPPER(t2.Folio) AS 'Folio',UPPER(concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita' , UPPER(t1.StatusRefacciones) AS 'Estatus De Refacciones',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT(x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad INNER JOIN careas as  t4 on t4.idarea=t3.areafkcareas WHERE t1.StatusRefacciones='Se Requieren Refacciones' and t2.folio='" + lblFolio.Text + "' an t1.empresa='"+empresa+"'", c.dbconection());
+            MySqlCommand Obetener_Datos = new MySqlCommand("SET lc_time_names = 'es_ES';SELECT  UPPER(t2.Folio) AS 'Folio',UPPER(concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita' , UPPER(t1.StatusRefacciones) AS 'Estatus De Refacciones',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT(x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad INNER JOIN careas as  t4 on t4.idarea=t3.areafkcareas WHERE t1.StatusRefacciones='Se Requieren Refacciones' and t2.folio='" + lblFolio.Text + "' an t1.empresa='"+empresa+"'", v.c.dbconection());
             MySqlDataReader dr = Obetener_Datos.ExecuteReader();
             if (dr.Read())
             {
@@ -1794,13 +1794,13 @@ namespace controlFallos
                 if (edita_valida && !B_Doble)
                 {
                     Nuevas_Refacciones();
-                    MySqlCommand actualizar = new MySqlCommand("update reportetri set FolioFactura='" + Convert.ToInt32(txtFolioFactura.Text) + "',PersonaEntregafkcPersonal='" + Convert.ToInt32(IdDispenso) + "', ObservacionesTrans='" + txtObservacionesT.Text.Trim() + "' WHERE idreportemfkreportemantenimiento='" + lblidreporte.Text + "'", c.dbconection());
+                    MySqlCommand actualizar = new MySqlCommand("update reportetri set FolioFactura='" + Convert.ToInt32(txtFolioFactura.Text) + "',PersonaEntregafkcPersonal='" + Convert.ToInt32(IdDispenso) + "', ObservacionesTrans='" + txtObservacionesT.Text.Trim() + "' WHERE idreportemfkreportemantenimiento='" + lblidreporte.Text + "'", v.c.dbconection());
                     actualizar.ExecuteNonQuery();
                     MessageBox.Show("Se actualizo el reporte y se validaron las refacciones satisfactoriamente ".ToUpper() + DateTime.Now.ToString().ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MySqlCommand actualizar = new MySqlCommand("update reportetri set FolioFactura='" + Convert.ToInt32(txtFolioFactura.Text) + "',PersonaEntregafkcPersonal='" + Convert.ToInt32(IdDispenso) + "', ObservacionesTrans='" + txtObservacionesT.Text.Trim() + "' WHERE idreportemfkreportemantenimiento='" + lblidreporte.Text + "'", c.dbconection());
+                    MySqlCommand actualizar = new MySqlCommand("update reportetri set FolioFactura='" + Convert.ToInt32(txtFolioFactura.Text) + "',PersonaEntregafkcPersonal='" + Convert.ToInt32(IdDispenso) + "', ObservacionesTrans='" + txtObservacionesT.Text.Trim() + "' WHERE idreportemfkreportemantenimiento='" + lblidreporte.Text + "'", v.c.dbconection());
                     actualizar.ExecuteNonQuery();
                     if (!mensaje)
                     {
@@ -1812,7 +1812,7 @@ namespace controlFallos
             LimpiarReporteTri();
             CargarDatos();
             btnGuardar.Enabled = false;
-            c.dbconection().Close();
+            v.c.dbconection().Close();
         }
 
         private void btnEditarReg_MouseMove(object sender, MouseEventArgs e)
@@ -1860,9 +1860,9 @@ namespace controlFallos
                         else
                         {
                             //consulta para obtener el nombre del almacenista cuando ingrese su contaseña
-                            MySqlCommand sql = new MySqlCommand("SELECT CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t2.puesto='Almacenista' AND t1.status='1' AND t2.status='1' and t1.empresa='"+empresa+"' ;", c.dbconection());
+                            MySqlCommand sql = new MySqlCommand("SELECT CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t2.puesto='Almacenista' AND t1.status='1' AND t2.status='1' and t1.empresa='"+empresa+"' ;", v.c.dbconection());
                             MySqlDataReader cmd = sql.ExecuteReader();
-                            c.dbconection().Close();
+                            v.c.dbconection().Close();
                             if (!cmd.Read())
                             {
                                 MessageBox.Show("La contraseña de almacenista ingresada es incorrecta", "CONTRASEÑA INCORRECTA", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1871,7 +1871,7 @@ namespace controlFallos
                             }
                             else
                             {
-                                MySqlCommand ValidarEdiciones = new MySqlCommand("SELECT t2.folio as folio,T1.FolioFactura As Factura, (SELECT concat(X1.ApPaterno,' ',X1.ApMaterno,' ',X1.nombres) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS Dispenso, T1.ObservacionesTrans AS Obser FROM REPORTETRI AS T1 INNER JOIN reportesupervicion as t2 on idreportemfkreportemantenimiento=t2.idreportesupervicion WHERE t2.folio='" + lblFolio.Text + "' and t1.empresa='"+empresa+"';", c.dbconection());
+                                MySqlCommand ValidarEdiciones = new MySqlCommand("SELECT t2.folio as folio,T1.FolioFactura As Factura, (SELECT concat(X1.ApPaterno,' ',X1.ApMaterno,' ',X1.nombres) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS Dispenso, T1.ObservacionesTrans AS Obser FROM REPORTETRI AS T1 INNER JOIN reportesupervicion as t2 on idreportemfkreportemantenimiento=t2.idreportesupervicion WHERE t2.folio='" + lblFolio.Text + "' and t1.empresa='"+empresa+"';", v.c.dbconection());
                                 MySqlDataReader DR = ValidarEdiciones.ExecuteReader();
                                 if (DR.Read())
                                 {
@@ -1900,7 +1900,7 @@ namespace controlFallos
                                         }
                                         else
                                         {
-                                            MySqlCommand editar_folio = new MySqlCommand("select t1.FolioFactura as folio from reportetri as t1 inner join reportesupervicion as t2 on t1.idreportemfkreportemantenimiento= t2.idreportesupervicion where t1.Foliofactura='" + txtFolioFactura.Text + "' and t1.empresa='"+empresa+"'", c.dbconection());
+                                            MySqlCommand editar_folio = new MySqlCommand("select t1.FolioFactura as folio from reportetri as t1 inner join reportesupervicion as t2 on t1.idreportemfkreportemantenimiento= t2.idreportesupervicion where t1.Foliofactura='" + txtFolioFactura.Text + "' and t1.empresa='"+empresa+"'", v.c.dbconection());
                                             MySqlDataReader DTR = editar_folio.ExecuteReader();
                                             if (DTR.Read())
                                             {
@@ -1918,7 +1918,7 @@ namespace controlFallos
                                                 actualizar_datos();
                                                 //consulta para actualizar los datos
                                             }
-                                            c.dbconection().Close();
+                                            v.c.dbconection().Close();
                                         }
                                     }
                                     DR.Close();
@@ -1932,7 +1932,7 @@ namespace controlFallos
 
         private void btnEditarReg_Click(object sender, EventArgs e)
         {
-            MySqlCommand Verificar_estatus = new MySqlCommand("SELECT UPPER(T1.Estatus) AS Estatus FROM reportemantenimiento AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='"+empresa+"';", c.dbconection());
+            MySqlCommand Verificar_estatus = new MySqlCommand("SELECT UPPER(T1.Estatus) AS Estatus FROM reportemantenimiento AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='"+empresa+"';", v.c.dbconection());
             MySqlDataReader DR = Verificar_estatus.ExecuteReader();
             if (DR.Read())
             {
@@ -1962,9 +1962,9 @@ namespace controlFallos
                 sql += "SIN OBSERVACIONES";
             }
             sql += "'),'" + idUsuario + "',NOW(),'Actualización de Reporte de Almacén','" + observaciones + "','2','2')";
-            MySqlCommand modificaciones = new MySqlCommand(sql, c.dbconection());
+            MySqlCommand modificaciones = new MySqlCommand(sql, v.c.dbconection());
             var res = modificaciones.ExecuteNonQuery();
-            c.dbconection().Close();
+            v.c.dbconection().Close();
         }
 
         private void dtpFechaA_KeyDown(object sender, KeyEventArgs e)
@@ -1977,9 +1977,9 @@ namespace controlFallos
             if (pinsertar)
             {
                 //consulta para obtener el nombre del almacenista cuando ingrese su contaseña
-                MySqlCommand sql = new MySqlCommand("SELECT UPPER(CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres)) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t1.status='1' AND t2.status='1' and t1.empresa='"+empresa+"';", c.dbconection());
+                MySqlCommand sql = new MySqlCommand("SELECT UPPER(CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres)) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t1.status='1' AND t2.status='1' and t1.empresa='"+empresa+"';", v.c.dbconection());
                 MySqlDataReader cmd = sql.ExecuteReader();
-                c.dbconection().Close();
+                v.c.dbconection().Close();
                 if (cmd.Read())
                 {
                     //si es correcta mostramos el nombre

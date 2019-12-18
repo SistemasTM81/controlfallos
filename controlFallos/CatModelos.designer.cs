@@ -60,12 +60,14 @@
             this.usuario = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idEmpresa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.gbModelos.SuspendLayout();
             this.pdelete.SuspendLayout();
             this.pCancelar.SuspendLayout();
             this.gbconsultar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tbModelos)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -169,7 +171,7 @@
             this.gbModelos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.gbModelos.Location = new System.Drawing.Point(0, 27);
             this.gbModelos.Name = "gbModelos";
-            this.gbModelos.Size = new System.Drawing.Size(894, 246);
+            this.gbModelos.Size = new System.Drawing.Size(894, 261);
             this.gbModelos.TabIndex = 7;
             this.gbModelos.TabStop = false;
             this.gbModelos.Text = "Agregar Modelo";
@@ -326,9 +328,9 @@
             this.gbconsultar.Controls.Add(this.tbModelos);
             this.gbconsultar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbconsultar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbconsultar.Location = new System.Drawing.Point(0, 279);
+            this.gbconsultar.Location = new System.Drawing.Point(0, 3);
             this.gbconsultar.Name = "gbconsultar";
-            this.gbconsultar.Size = new System.Drawing.Size(894, 238);
+            this.gbconsultar.Size = new System.Drawing.Size(894, 220);
             this.gbconsultar.TabIndex = 8;
             this.gbconsultar.TabStop = false;
             this.gbconsultar.Text = "Consulta de Modelos";
@@ -355,7 +357,7 @@
             this.tbModelos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -371,7 +373,7 @@
             this.idEmpresa});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 12F);
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -388,7 +390,7 @@
             this.tbModelos.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.CornflowerBlue;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -407,7 +409,7 @@
             this.tbModelos.ShowCellToolTips = false;
             this.tbModelos.ShowEditingIcon = false;
             this.tbModelos.ShowRowErrors = false;
-            this.tbModelos.Size = new System.Drawing.Size(888, 214);
+            this.tbModelos.Size = new System.Drawing.Size(888, 196);
             this.tbModelos.TabIndex = 1;
             this.tbModelos.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tbModelos_CellDoubleClick);
             this.tbModelos.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.tbModelos_CellFormatting);
@@ -454,13 +456,23 @@
             this.idEmpresa.ReadOnly = true;
             this.idEmpresa.Visible = false;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.gbconsultar);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel2.Location = new System.Drawing.Point(0, 294);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(894, 223);
+            this.panel2.TabIndex = 9;
+            // 
             // CatModelos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(894, 517);
-            this.Controls.Add(this.gbconsultar);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.gbModelos);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -483,6 +495,7 @@
             this.pCancelar.PerformLayout();
             this.gbconsultar.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.tbModelos)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -516,5 +529,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn usuario;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn idEmpresa;
+        private System.Windows.Forms.Panel panel2;
     }
 }

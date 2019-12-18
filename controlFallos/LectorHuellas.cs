@@ -17,10 +17,9 @@ namespace controlFallos
 {
     public partial class LectorHuellas : Form
     {
-        validaciones val = new validaciones();
-        conexion c = new conexion();
+        validaciones val;
         Thread th;
-        ReportePersonal rper = new ReportePersonal(1, 1, 1);
+        ReportePersonal rper;
         private FingerprintCore fngPrint;
         private GriauleFingerprintLibrary.DataTypes.FingerprintRawImage rawImage;
         GriauleFingerprintLibrary.DataTypes.FingerprintTemplate _template;
@@ -31,11 +30,13 @@ namespace controlFallos
         public string credencial, paterno, materno, nombres, puesto;
         public string tiporeporte1, tiporeporte2, tiporeporte3, tipo, tipoidreporte;
         bool inci = false;
-        public LectorHuellas(int reporte, int numhuella, string tipo, string lbl1, string lbl2, string lbl3, string idcred)
+        public LectorHuellas(int reporte, int numhuella, string tipo, string lbl1, string lbl2, string lbl3, string idcred,validaciones v)
         {
+            this.val = v;
             th = new Thread(new ThreadStart(val.Splash));
             th.Start();
             InitializeComponent();
+            rper = new ReportePersonal(1, 1, 1, val);
             fngPrint = new FingerprintCore();
             fngPrint.onStatus += new StatusEventHandler(fngPrint_onStatus);
             fngPrint.onImage += new ImageEventHandler(fngPrint_onImage);
@@ -480,7 +481,7 @@ namespace controlFallos
                         if (i.conductor) where = " where t3.puesto like '%Conductor%'";
                         if (i.jefe_grupo) where = " where upper(t3.puesto)='JEFE DE GRUPO' or upper(t3.puesto)='LIDER DE GRUPO'";
                     }
-                    MySqlCommand traer = new MySqlCommand(consulta + where, c.dbconection());
+                    MySqlCommand traer = new MySqlCommand(consulta + where, val.c.dbconection());
                     MySqlDataReader dr = traer.ExecuteReader();
                     while (dr.Read())
                     {
@@ -523,7 +524,7 @@ namespace controlFallos
                     }
                     dr.Read();
                 }
-                c.dbconection().Close();
+                val.c.dbcon.Close();
                 Thread.Sleep(500);
                 if (validMsbx == 0)
                 {
