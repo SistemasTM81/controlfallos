@@ -2701,9 +2701,9 @@
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.dgvpercances);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.p1);
             this.Controls.Add(this.pEvidencias);
             this.Controls.Add(this.p2);
-            this.Controls.Add(this.p1);
             this.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

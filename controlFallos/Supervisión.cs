@@ -11,6 +11,8 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Globalization;
+using Microsoft.VisualBasic;
+using System.Reflection;
 
 namespace controlFallos
 {
@@ -20,17 +22,26 @@ namespace controlFallos
 
         int empresa, area, idUsuario; public Thread hilo;
         static bool res = true;
-        validaciones v = new validaciones();
-        conexion c = new conexion();
+        validaciones v;
         Thread th;
         int _grupoanterior = 0, _subgrupoanterior = 0, _categoriaanterior = 0;
 
-        public Supervisión(int idUsuario, int empresa, int area,validaciones v)
+        public Supervisión(int idUsuario, int empresa, int area, validaciones v)
         {
             this.v = v;
             InitializeComponent();
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
+            cmbUnidad.DrawItem += v.combos_DrawItem;
+            cmbServicio.DrawItem += v.combos_DrawItem;
+            cbgrupo.DrawItem += v.combos_DrawItem;
+            cbSubGrupo.DrawItem += v.combos_DrawItem;
+            cbcategoria.DrawItem += v.combos_DrawItem;
+            cmbCodFallo.DrawItem += v.combos_DrawItem;
+            cmbEmpresa.DrawItem += v.combos_DrawItem;
+            cmbBuscarUnidad.DrawItem += v.combos_DrawItem;
+            cmbBuscarDescripcion.DrawItem += v.combos_DrawItem;
+            cmbSupervisores.DrawItem += v.combos_DrawItem;
             cmbUnidad.MouseWheel += new MouseEventHandler(cmbUnidad_MouseWheel);
             cmbServicio.MouseWheel += new MouseEventHandler(cmbUnidad_MouseWheel);
             cmbTipoFallo.MouseWheel += new MouseEventHandler(cmbUnidad_MouseWheel);
@@ -93,24 +104,24 @@ namespace controlFallos
         }
         void Muestra_empresas()
         {
-            v.iniCombos("select UPPER(t1.nombreEmpresa)as nom,t1.idempresa as id from cempresas as t1 where empresa ='1' order by t1.nombreEmpresa;", cmbEmpresa, "id", "nom", "--SELECCIONE EMPRESA--");
+            v.iniCombos("select t1.idempresa as id,UPPER(t1.nombreEmpresa)as nom  from cempresas as t1 where empresa ='1' order by t1.nombreEmpresa;", cmbEmpresa, "id", "nom", "--SELECCIONE EMPRESA--");
         }
         public void cargar_supervisor()
         {
-            v.iniCombos("SELECT UPPER(CONCAT(T1.ApPaterno,' ',T1.ApMaterno,' ',T1.nombres)) AS NOMBRE,idpersona FROM cpersonal AS T1 INNER JOIN datosistema AS T2 on T2.usuariofkcpersonal=T1.idpersona WHERE t1.area='1' and t1.empresa='1' ORDER BY ApPaterno;", cmbSupervisores, "idpersona", "NOMBRE", "--SELECCIONE SUPERVISOR--");
+            v.iniCombos("SELECT idpersona,UPPER(CONCAT(T1.ApPaterno,' ',T1.ApMaterno,' ',T1.nombres)) AS NOMBRE FROM cpersonal AS T1 INNER JOIN datosistema AS T2 on T2.usuariofkcpersonal=T1.idpersona WHERE t1.area='1' and t1.empresa='1' ORDER BY ApPaterno;", cmbSupervisores, "idpersona", "NOMBRE", "--SELECCIONE SUPERVISOR--");
         }
 
         public void CargarUnidades() //Metodo que funciona para agregar las unidades de la tabla cunidades en el comboBox de busqueda por unidad para seleccionar unidad y para agregar una opción por default.
         {
-            v.iniCombos("SELECT concat(t2.identificador,LPAD(consecutivo,4,'0')) as ECO,t1.idunidad FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea order by eco;", cmbBuscarUnidad, "idunidad", "ECO", "--SELECCIONE UNIDAD--");
+            v.iniCombos("SELECT t1.idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as ECO FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea order by eco;", cmbBuscarUnidad, "idunidad", "ECO", "--SELECCIONE UNIDAD--");
         }
         public void Unidades_sin_estatus()
         {
-            v.iniCombos("SELECT concat(t2.identificador,LPAD(consecutivo,4,'0')) as ECo,t1.idunidad FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea order by eco;", cmbUnidad, "idunidad", "ECo", "--SELECCIONE UNIDAD--");
+            v.iniCombos("SELECT t1.idunidad,concat(t2.identificador,LPAD(consecutivo,4,'0')) as ECo FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea order by eco;", cmbUnidad, "idunidad", "ECo", "--SELECCIONE UNIDAD--");
         }
         public void Unidades() //Metodo para aregar las unidades de la tabla cunidades y mostrarlas en el comboBox para seleccionar una unidad el hacer un nuevo reporte o editar alguno.
         {
-            v.iniCombos("SELECT concat(t2.identificador,LPAD(consecutivo,4,'0')) as ECo,t1.idunidad FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea where t1.status='1' order by eco;", cmbUnidad, "idunidad", "ECo", "--SELECCIONE UNIDAD--");
+            v.iniCombos("SELECT t1.idunidad,concat(t2.identificador,LPAD(consecutivo,4,'0')) as ECo FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea where t1.status='1' order by eco;", cmbUnidad, "idunidad", "ECo", "--SELECCIONE UNIDAD--");
         }
 
         public void combos_para_otros_DrawItem(object sender, DrawItemEventArgs e)
@@ -152,49 +163,10 @@ namespace controlFallos
                 }
             }
         }
-        public void combos_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            ComboBox cbx = sender as ComboBox;
-            if (cbx != null)
-            {
-                // Always draw the background 
-                e.DrawBackground();
 
-                // Drawing one of the items? 
-                if (e.Index >= 0)
-                {
-                    // Set the string alignment. Choices are Center, Near and Far 
-                    StringFormat sf = new StringFormat();
-                    sf.LineAlignment = StringAlignment.Center;
-                    sf.Alignment = StringAlignment.Center;
-
-                    // Set the Brush to ComboBox ForeColor to maintain any ComboBox color settings 
-                    // Assumes Brush is solid 
-                    Brush brush = new SolidBrush(cbx.ForeColor);
-
-                    // If drawing highlighted selection, change brush 
-                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    {
-                        brush = SystemBrushes.HighlightText;
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, Color.Crimson);
-                        e.DrawBackground();
-                        // Draw the string 
-                        DataTable f = (DataTable)cbx.DataSource;
-                        e.Graphics.DrawString(f.Rows[e.Index].ItemArray[0].ToString(), cbx.Font, new SolidBrush(Color.White), e.Bounds, sf);
-                        e.DrawFocusRectangle();
-                    }
-                    else
-                    {
-                        // Draw the string 
-                        DataTable f = (DataTable)cbx.DataSource;
-                        e.Graphics.DrawString(f.Rows[e.Index].ItemArray[0].ToString(), cbx.Font, brush, e.Bounds, sf);
-                    }
-                }
-            }
-        }
         void Buscar_descripcion()
         {
-            v.iniCombos("Select upper(descfallo) as d,iddescfallo as id from cdescfallo order by descfallo;;", cmbBuscarDescripcion, "id", "d", "--SELECCIONE SUBGRUPO--");
+            v.iniCombos("Select iddescfallo as id,upper(descfallo) as d  from cdescfallo order by descfallo;;", cmbBuscarDescripcion, "id", "d", "--SELECCIONE SUBGRUPO--");
         }
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -274,7 +246,7 @@ namespace controlFallos
         }
         void Genera_Folio()
         {
-            MySqlCommand cmd = new MySqlCommand("SELECT CONCAT(SUBSTRING(Folio,LENGTH(FOLIO)-6,7)+1)AS Folio from reportesupervicion WHERE idReporteSupervicion = (SELECT MAX(idReporteSupervicion) FROM reportesupervicion);", c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT CONCAT(SUBSTRING(Folio,LENGTH(FOLIO)-6,7)+1)AS Folio from reportesupervicion WHERE idReporteSupervicion = (SELECT MAX(idReporteSupervicion) FROM reportesupervicion);", v.c.dbconection());
             string Folio = (string)cmd.ExecuteScalar();
             if (Folio == null)
             {
@@ -288,22 +260,22 @@ namespace controlFallos
                 }
             }
             lblFolio.Text = "TRA" + Folio.ToString();
-            c.dbconection().Close();
+            v.c.dbconection();
         }
         public void cargarDAtos()//Metodo para cargar los reportes que se encuentra en la base de datos en el datagridview y para generar el folio de reporte autoincrementable
         {
             //Conusulta para pbtener reportes almacenados en la base de datos
-            MySqlDataAdapter cargar = new MySqlDataAdapter("SET lc_time_names = 'es_ES'; select t1.Folio AS 'FOLIO',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'ECO',(select UPPER(Date_format(t1.FechaReporte,'%W %d de %M del %Y'))) AS 'FECHA DEL REPORTE',(select UPPER(concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres))from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCpersonal)as 'PERSONA QUE INSERTÓ',coalesce((SELECT x2.Credencial FROM cpersonal AS x2 WHERE  x2.idpersona=t1.CredencialConductorfkCPersonal),'')as 'CREDENCIAL DE CONDUCTOR',(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)))as 'SERVICIO', TIME_FORMAT(t1.HoraEntrada,'%r') as 'HORA DEL REPORTE', t1.KmEntrada as 'KILOMETRAJE DE REPORTE',UPPER(t1.TipoFallo) as 'TIPO DE FALLO',COALESCE((select UPPER(x3.descfallo) from cdescfallo as x3 where x3.iddescfallo=t1.DescrFallofkcdescfallo),'')as 'SUBGRUPO DE FALLO',COALESCE((select UPPER(x4.codfallo) from cfallosesp as x4 where x4.idfalloEsp=t1.CodFallofkcfallosesp),'')as 'CÓDIGO DE FALLO',UPPER(t1.DescFalloNoCod) as 'DESCRIPCIÓN DE FALLO NO CODIFICADO',UPPER(t1.ObservacionesSupervision) as 'OBSERVACIONES DE SUPERVISIÓN',(select upper(concat(date_format(x5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(x5.HoraInicioM,'%H:%i'))) from reportemantenimiento as x5 where x5.FoliofkSupervicion=t1.idReporteSupervicion) as 'FECHA/HORA INICIO MANTENIMIENTO',(select upper(concat(date_format(x6.HoraTerminoM,'%W %d de %M del %Y'),' / ',time_format(x6.HoraTerminoM,'%H:%i'))) from reportemantenimiento as x6 where x6.FoliofkSupervicion=t1.idReporteSupervicion)as 'FECHA/HORA TERMINO MANTENIMIENTO',COALESCE((SELECT UPPER(x13.EsperaTiempoM) FROM reportemantenimiento AS x13 WHERE x13.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00' ) AS 'ESPERA DE MANTENIMIENTO',COALESCE((select UPPER(x7.DiferenciaTiempoM)  from reportemantenimiento as x7 where x7.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00')as 'TIEMPO MANTENIMIENTO', COALESCE((select UPPER(x8.Estatus) from reportemantenimiento as x8 where x8.FoliofkSupervicion=t1.idReporteSupervicion),'EN PROCESO')as 'ESTATUS',COALESCE((select UPPER(x9.TrabajoRealizado) from reportemantenimiento as x9 where x9.FoliofkSupervicion=t1.idReporteSupervicion),'') as 'TRABAJO REALIZADO',COALESCE((select UPPER(concat(x11.ApPaterno,' ',x11.ApMaterno,' ',x11.nombres)) from cpersonal as x11 inner join reportemantenimiento as x12 on x11.idPersona=x12.MecanicofkPersonal where x12.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'MECÁNICO QUE REALIZÓ EL MANTENIMIENTO',COALESCE((select UPPER(x10.ObservacionesM) from reportemantenimiento as x10 where x10.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'OBSERVACIONES DE MANTENIMIENTO' from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas AS t4 on t4.idarea=t2.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas WHERE FechaReporte BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate() order by t1.FechaReporte desc, t1.HoraEntrada desc;", c.dbconection());
+            MySqlDataAdapter cargar = new MySqlDataAdapter("SET lc_time_names = 'es_ES'; select t1.Folio AS 'FOLIO',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'ECO',(select UPPER(Date_format(t1.FechaReporte,'%W %d de %M del %Y'))) AS 'FECHA DEL REPORTE',(select UPPER(concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres))from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCpersonal)as 'PERSONA QUE INSERTÓ',coalesce((SELECT x2.Credencial FROM cpersonal AS x2 WHERE  x2.idpersona=t1.CredencialConductorfkCPersonal),'')as 'CREDENCIAL DE CONDUCTOR',(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)))as 'SERVICIO', TIME_FORMAT(t1.HoraEntrada,'%r') as 'HORA DEL REPORTE', t1.KmEntrada as 'KILOMETRAJE DE REPORTE',UPPER(t1.TipoFallo) as 'TIPO DE FALLO',COALESCE((select UPPER(x3.descfallo) from cdescfallo as x3 where x3.iddescfallo=t1.DescrFallofkcdescfallo),'')as 'SUBGRUPO DE FALLO',COALESCE((select UPPER(x4.codfallo) from cfallosesp as x4 where x4.idfalloEsp=t1.CodFallofkcfallosesp),'')as 'CÓDIGO DE FALLO',UPPER(t1.DescFalloNoCod) as 'DESCRIPCIÓN DE FALLO NO CODIFICADO',UPPER(t1.ObservacionesSupervision) as 'OBSERVACIONES DE SUPERVISIÓN',(select upper(concat(date_format(x5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(x5.HoraInicioM,'%H:%i'))) from reportemantenimiento as x5 where x5.FoliofkSupervicion=t1.idReporteSupervicion) as 'FECHA/HORA INICIO MANTENIMIENTO',(select upper(concat(date_format(x6.HoraTerminoM,'%W %d de %M del %Y'),' / ',time_format(x6.HoraTerminoM,'%H:%i'))) from reportemantenimiento as x6 where x6.FoliofkSupervicion=t1.idReporteSupervicion)as 'FECHA/HORA TERMINO MANTENIMIENTO',COALESCE((SELECT UPPER(x13.EsperaTiempoM) FROM reportemantenimiento AS x13 WHERE x13.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00' ) AS 'ESPERA DE MANTENIMIENTO',COALESCE((select UPPER(x7.DiferenciaTiempoM)  from reportemantenimiento as x7 where x7.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00')as 'TIEMPO MANTENIMIENTO', COALESCE((select UPPER(x8.Estatus) from reportemantenimiento as x8 where x8.FoliofkSupervicion=t1.idReporteSupervicion),'EN PROCESO')as 'ESTATUS',COALESCE((select UPPER(x9.TrabajoRealizado) from reportemantenimiento as x9 where x9.FoliofkSupervicion=t1.idReporteSupervicion),'') as 'TRABAJO REALIZADO',COALESCE((select UPPER(concat(x11.ApPaterno,' ',x11.ApMaterno,' ',x11.nombres)) from cpersonal as x11 inner join reportemantenimiento as x12 on x11.idPersona=x12.MecanicofkPersonal where x12.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'MECÁNICO QUE REALIZÓ EL MANTENIMIENTO',COALESCE((select UPPER(x10.ObservacionesM) from reportemantenimiento as x10 where x10.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'OBSERVACIONES DE MANTENIMIENTO' from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas AS t4 on t4.idarea=t2.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas WHERE FechaReporte BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate() order by t1.FechaReporte desc, t1.HoraEntrada desc;", v.c.dbconection());
             DataSet ds = new DataSet();
             cargar.Fill(ds);
             DgvTabla.DataSource = ds.Tables[0];
             DgvTabla.Columns[0].Frozen = true;// mostramos reportes en datagridview
             DgvTabla.ClearSelection();
-            c.dbconection().Close();
+            v.c.dbconection();
             DgvTabla.ClearSelection();
         }
 
-      
+
         void limpia_act()
         {
             btnActualizar.Visible = false;
@@ -315,62 +287,21 @@ namespace controlFallos
 
         private void txtDescFalloNoC_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == 13)
-            {
-                if (bandera_editar) btnGuardar_Click(null, e); else btnEditar_Click(null, e);
-            }
-            else
-            {
-                {// Validación de letras, números, y carácteres permitidos para ingresar en la caja de texto
-                    if (Char.IsLetter(e.KeyChar) || Char.IsNumber(e.KeyChar) || (e.KeyChar == 47) || (e.KeyChar == 35) || (e.KeyChar == 44) || (e.KeyChar == 46) || (e.KeyChar == 249 || e.KeyChar == 127 || e.KeyChar == 08 || e.KeyChar == 32))
-                    {
-                        e.Handled = false;
-                    }
-                    else
-                    {
-                        e.Handled = true;
-                        MessageBox.Show("Solo se aceptan letras, números  #  /  ,  .  en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                }
-            }
-
+            v.enGeneral(e);
         }
         public void ValidarLetra(KeyPressEventArgs e)//Método para validación de letras en cajas de texto.
         {
-            if (Char.IsLetter(e.KeyChar) || Char.IsSeparator(e.KeyChar) || Char.IsControl(e.KeyChar) || (e.KeyChar == 44) || (e.KeyChar == 46))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-                MessageBox.Show("Solo se aceptan letras en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            v.Sololetras(e);
         }
         private void txtConductor_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //Validación para solo permitir ingresar números en la caja de texto.
-            if (Char.IsNumber(e.KeyChar) || Char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-                MessageBox.Show("Solo se aceptan números en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
+            v.Solonumeros(e);
         }
 
         public void limpiarmant()//Creamos método para limpiar campos donde se muestra información de mantenimiento
         {
-            lblHIM.Text = "";
-            lblHTM.Text = "";
-            lblTM.Text = "";
-            lblestatus.Text = "";
-            LblTrabajoRealizado.Text = "";
-            lblMecanico.Text = "";
-            LblObsevacionesMantenimiento.Text = "";
-            lblEsperaDeMan.Text = "";
+            lblHIM.Text = lblHTM.Text = lblestatus.Text = LblTrabajoRealizado.Text = lblMecanico.Text = LblObsevacionesMantenimiento.Text = lblEsperaDeMan.Text = lblTM.Text = "";
+
         }
         void realiza_busquedas()
         {
@@ -455,7 +386,7 @@ namespace controlFallos
                     {
                         wheres += " order by FechaReporte desc, t1.HoraEntrada desc ";
                     }
-                    MySqlDataAdapter DT = new MySqlDataAdapter(cargar + wheres, c.dbconection());
+                    MySqlDataAdapter DT = new MySqlDataAdapter(cargar + wheres, v.c.dbconection());
                     DataSet ds = new DataSet();
                     DT.Fill(ds);
                     DgvTabla.DataSource = ds.Tables[0];
@@ -477,11 +408,10 @@ namespace controlFallos
                             }
                             LblExcel.Visible = true;
                         }
-                        btnActualizar.Visible = true;
-                        LblActTabla.Visible = true;
+                        btnActualizar.Visible = LblActTabla.Visible = true;
                     }
 
-                    c.dbconection().Close();
+                    v.c.dbconection();
                     limpiarbusqueda();
                     checkBox1.Checked = false;
                 }
@@ -566,7 +496,7 @@ namespace controlFallos
                     {
                         wheres += " and (select year(t1.FechaReporte))=( select year(now())) order by FechaReporte desc, t1.HoraEntrada desc ";
                     }
-                    MySqlDataAdapter cargar2 = new MySqlDataAdapter(cargar + wheres, c.dbconection());
+                    MySqlDataAdapter cargar2 = new MySqlDataAdapter(cargar + wheres, v.c.dbconection());
                     DataSet ds = new DataSet();
                     cargar2.Fill(ds);
                     DgvTabla.DataSource = ds.Tables[0];
@@ -591,7 +521,7 @@ namespace controlFallos
                         btnActualizar.Visible = true;
                         LblActTabla.Visible = true;
                     }
-                    c.dbconection().Close();
+                    v.c.dbconection();
                     limpiarbusqueda();
                 }
             }
@@ -602,7 +532,6 @@ namespace controlFallos
             cmbBuscarDescripcion.SelectedIndex = 0;
             cmbEmpresa.SelectedIndex = 0;
             cmbBuscStatus.SelectedIndex = 0;
-            //cmbBuscarUnidad.SelectedIndex = 0;
             dtpFechaDe.ResetText();
             dtpFechaA.ResetText();
             cmbMeses.SelectedIndex = 0;
@@ -611,93 +540,30 @@ namespace controlFallos
         private void txtSupervisor_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Validamos que se permitan ingresar letras, números y ciertos carácteres en la caja de texto.
-            if (Char.IsLetter(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (Char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (Char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-                MessageBox.Show("Solo se aceptan letras y números en este campo".ToUpper(), "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-            }
+            v.letrasynumerossinespacios(e);
         }
         public void LimpiarReporte()//Creamos metodo para limpiar campos de reporte de supervisión
         {
-            cmbUnidad.SelectedIndex = 0;
+            cmbUnidad.SelectedIndex = cmbTipoFallo.SelectedIndex = cbgrupo.SelectedIndex = 0;
             txtSupervisor.Clear();
-            lblSupervisor.Text = "";
-            lblid.Text = "";
+            lblSupervisor.Text = lblid.Text = lblCredCond.Text = idsupervisor = _unidad = "";
             txtConductor.Clear();
-            lblCredCond.Text = "";
-            idsupervisor = "";
             txtKilometraje.Clear();
-            cmbTipoFallo.SelectedIndex = 0;
-            cbgrupo.SelectedIndex = 0;
             txtDescFalloNoC.Clear();
             txtObserSupervicion.Clear();
             lblFechaReporte.Text = DateTime.Now.ToLongDateString().ToUpper();
-            cmbCodFallo.Enabled = false;
-            bandera = false;
-            bandera_c = false;
-            bandera_nuevo = false;
-            editar = false;
-            mensaje = false;
-            btnEditar.Visible = false;
-            lblactualizar.Visible = false;
-            bPdf.Visible = false;
-            LblPDF.Visible = false;
+            cmbCodFallo.Enabled = bandera = bandera_c = bandera_nuevo = editar = mensaje = btnEditar.Visible = lblactualizar.Visible = bPdf.Visible = LblPDF.Visible = cmbServicio.Enabled = false;
             DgvTabla.ClearSelection();
-            btnGuardar.Visible = true;
+            btnGuardar.Visible = LblGuardar.Visible = true;
             txtKilometraje.MaxLength = 12;
-            LblGuardar.Visible = true;
-            _unidad = "";
             esta_exportando();
-            cmbServicio.Enabled = false;
         }
 
-        string _fallonoc;
-        string folio, unidad, fecha, supervisor, conductor, serviciou, kmR, hora, tipo, descFallo, codFallo, DesFalloNo, ObservacionesSUp, TiempoE, HoraIni, HoraTer, TiempoMan, Estatus, TrabajoR, MecánicoRT, ObservacionesMante, lbldesc;
+
         private void To_pdf()//Método generar PDF
         {
-            MySqlCommand cargar = new MySqlCommand("SET lc_time_names = 'es_ES'; select t1.Folio,(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS Económico,(select Date_format(t1.FechaReporte,'%W %d de %M del %Y')) AS 'Fecha Del Reporte',(select concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCpersonal)as'Supervisor',(SELECT x2.Credencial FROM cpersonal AS x2 WHERE  x2.idpersona=t1.CredencialConductorfkCPersonal)as 'Credencial Conductor',(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)))as 'SERVICIO', t1.HoraEntrada as 'Hora Del Reporte', t1.KmEntrada as 'Kilometraje Del Reporte', t1.TipoFallo as 'Tipo de Fallo',COALESCE((select x3.descfallo from cdescfallo as x3 where x3.iddescfallo=t1.DescrFallofkcdescfallo),'')as 'Descripción Del Fallo',COALESCE((select x4.codfallo from cfallosesp as x4 where x4.idfalloEsp=t1.CodFallofkcfallosesp),'')as 'Código De Fallo',t1.DescFalloNoCod as 'Descripción De Fallo No Códificado', t1.ObservacionesSupervision as 'Observaciones De Supervisión',COALESCE((SELECT x13.EsperaTiempoM FROM reportemantenimiento AS x13 WHERE x13.FoliofkSupervicion=t1.idReporteSupervicion),'' ) AS 'Espera De Mantenimiento' ,coalesce((select concat(date_format(x5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(x5.HoraInicioM,'%H:%i')) from reportemantenimiento as x5 where x5.FoliofkSupervicion=t1.idReporteSupervicion),'') as 'Hora Inicio Mantenimiento',coalesce((select date_format(x6.HoraTerminoM,'%W %d de %M del %Y') from reportemantenimiento as x6 where x6.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'Hora Termino Mantenimiento' ,COALESCE((select x7.DiferenciaTiempoM  from reportemantenimiento as x7 where x7.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'Tiempo Mantenimiento', COALESCE((select x8.Estatus from reportemantenimiento as x8 where x8.FoliofkSupervicion=t1.idReporteSupervicion),'')as Estatus,COALESCE((select x9.TrabajoRealizado from reportemantenimiento as x9 where x9.FoliofkSupervicion=t1.idReporteSupervicion),'') as 'Trabajo Realizado',COALESCE((select concat(x11.ApPaterno,' ',x11.ApMaterno,' ',x11.nombres) from cpersonal as x11 inner join reportemantenimiento as x12 on x11.idPersona=x12.MecanicofkPersonal where x12.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'Mecánico Que Realizo El Mantenimiento',COALESCE((select x10.ObservacionesM from reportemantenimiento as x10 where x10.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'Observaciones Mantenimiento' from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas as t4 on t4.idarea=t2.areafkcareas WHERE t1.folio='" + lblFolio.Text + "'", c.dbconection());
-            MySqlDataReader dr = cargar.ExecuteReader();
-            if (dr.Read())
-            {
-                folio = Convert.ToString(dr["Folio"]).ToUpper();
-                unidad = Convert.ToString(dr["Económico"]).ToUpper();
-                fecha = Convert.ToString(dr["Fecha Del Reporte"]).ToUpper(); ;
-                supervisor = Convert.ToString(dr["Supervisor"]).ToUpper(); ;
-                conductor = Convert.ToString(dr["Credencial Conductor"]).ToUpper(); ;
-                serviciou = Convert.ToString(dr["Servicio"]).ToUpper(); ;
-                kmR = Convert.ToString(dr["Kilometraje Del Reporte"]).ToUpper(); ;
-                hora = Convert.ToString(dr["Hora Del Reporte"]).ToUpper(); ;
-                tipo = Convert.ToString(dr["Tipo de Fallo"]).ToUpper();
-                descFallo = Convert.ToString(dr["Descripción Del Fallo"]).ToUpper();
-                codFallo = Convert.ToString(dr["Código De Fallo"]);
-                DesFalloNo = Convert.ToString(dr["Descripción De Fallo No Códificado"]).ToUpper();
-                ObservacionesSUp = Convert.ToString(dr["Observaciones De Supervisión"]).ToUpper();
-                TiempoE = Convert.ToString(dr["Espera De Mantenimiento"]).ToUpper();
-                HoraIni = Convert.ToString(dr["Hora Inicio Mantenimiento"]).ToUpper();
-                HoraTer = Convert.ToString(dr["Hora Termino Mantenimiento"]).ToUpper();
-                TiempoMan = Convert.ToString(dr["Tiempo Mantenimiento"]).ToUpper();
-                Estatus = Convert.ToString(dr["Estatus"]).ToUpper();
-                TrabajoR = Convert.ToString(dr["Trabajo Realizado"]).ToUpper();
-                MecánicoRT = Convert.ToString(dr["Mecánico Que Realizo El Mantenimiento"]).ToUpper();
-                ObservacionesMante = Convert.ToString(dr["Observaciones Mantenimiento"]).ToUpper();
-                if (!string.IsNullOrWhiteSpace(descFallo))
-                {
-                    lbldesc = v.getaData("SELECT falloesp from cfallosesp where codfallo='" + codFallo + "' ").ToString().ToUpper();
-                }
-            }
-            dr.Close();
+            string[] datos = v.getaData("SET lc_time_names = 'es_ES';Select upper(concat( t1.Folio,'|',concat(t4.identificador,LPAD(consecutivo,4,'0')),'|',date_format(t1.FechaReporte,'%W %d de %M del %Y'),'|',(select concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres,'|',x1.credencial) from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCpersonal),'|',if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)),'|',t1.HoraEntrada,'|',t1.kmEntrada,'|',t1.tipoFallo,'|',if(t1.DescrFallofkcdescfallo is null,t1.DescFalloNoCod,concat((select x3.descfallo from cdescfallo as x3 where x3.iddescfallo=t1.DescrFallofkcdescfallo),'|',(select x4.codfallo from cfallosesp as x4 where x4.idfalloEsp=t1.CodFallofkcfallosesp))),'|',coalesce(t1.ObservacionesSupervision,''),'|',coalesce(t5.EsperaTiempoM,''),'|',coalesce(concat(date_format(t5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(t5.HoraInicioM,'%H:%i')),''),'|',coalesce(date_format(t5.HoraTerminoM,'%W %d de %M del %Y'),''),'|',coalesce(t5.DiferenciaTiempoM,''),'|',coalesce(t5.Estatus,'EN PROCESO'),'|',coalesce(t5.TrabajoRealizado,''),'|',coalesce((select concat(x5.appaterno,' ',x5.apmaterno,' ',x5.nombres) from cpersonal as x5 where t5.MecanicofkPersonal=x5.idpersona),''),'|',coalesce(t5.ObservacionesM,''))) as r from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas as t4 on t4.idarea=t2.areafkcareas left join reportemantenimiento as t5 on t5.FoliofkSupervicion=t1.idReporteSupervicion WHERE t1.folio='" + lblFolio.Text + "'").ToString().Split('|');
+
             Document doc = new Document(PageSize.LETTER);
             doc.SetMargins(20f, 20f, 10f, 10f);
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -746,7 +612,6 @@ namespace controlFallos
                     PdfPTable tabla = new PdfPTable(3);
                     tabla.DefaultCell.Border = 1;
                     tabla.WidthPercentage = 100;
-<<<<<<< HEAD
                     bool haveFallo = (datos.Length > 19);
                     tabla.AddCell(v.valorCampo("\n\n\n", 3, 1, 0, arial));
                     tabla.AddCell(v.valorCampo("FOLIO:", 1, 0, 0, arial2));
@@ -771,74 +636,6 @@ namespace controlFallos
                     tabla.AddCell(v.valorCampo(datos[8], 1, 0, 0, arial));
                     tabla.AddCell(v.valorCampo("\n\n", 3, 1, 0, arial));
                     if (!haveFallo)
-=======
-                    PdfPCell cell1 = new PdfPCell();
-                    cell1.Border = 0;
-                    Phrase LblFolio = new Phrase(folio, arial);
-                    Phrase Folio = new Phrase("FOLIO:", arial2);
-                    Phrase LSupervisor = new Phrase(supervisor, arial);
-                    Phrase Supervisor = new Phrase("SUPERVISOR:", arial2);
-                    Phrase SaltoLinea = new Phrase("           ");
-                    Phrase KM = new Phrase("KILOMETRAJE:", arial2);
-                    Phrase LHoraReporte = new Phrase("HORA DEL REPORTE:", arial2);
-                    Phrase HoraRep = new Phrase(hora, arial);
-                    Phrase LKM = new Phrase(kmR, arial);
-                    cell1.AddElement(Folio);
-                    cell1.AddElement(LblFolio);
-                    cell1.AddElement(SaltoLinea);
-                    cell1.AddElement(Supervisor);
-                    cell1.AddElement(LSupervisor);
-                    cell1.AddElement(SaltoLinea);
-                    cell1.AddElement(LHoraReporte);
-                    cell1.AddElement(HoraRep);
-                    cell1.AddElement(SaltoLinea);
-                    PdfPCell cell2 = new PdfPCell();
-                    cell2.Border = 0;
-                    Phrase lUnidad = new Phrase(unidad, arial);
-                    Phrase Unidad = new Phrase("UNIDAD:", arial2);
-                    Phrase LCredencial = new Phrase(conductor, arial);
-                    Phrase Credencial = new Phrase("CREDENCIAL DE CONDUCTOR:", arial2);
-                    Phrase LtipoFAllo = new Phrase("TIPO DE FALLO: ", arial2);
-                    Phrase TipoFAllo = new Phrase(tipo, arial);
-                    cell2.AddElement(Unidad);
-                    cell2.AddElement(lUnidad);
-                    cell2.AddElement(SaltoLinea);
-                    cell2.AddElement(Credencial);
-                    cell2.AddElement(LCredencial);
-                    cell2.AddElement(SaltoLinea);
-                    cell2.AddElement(KM);
-                    cell2.AddElement(LKM);
-                    PdfPCell cell3 = new PdfPCell();
-                    cell3.Border = 0;
-                    Phrase LFecha = new Phrase(fecha, arial);
-                    Phrase Fecha = new Phrase("FECHA DEL REPORTE:", arial2);
-                    Phrase LServicio = new Phrase(serviciou, arial);
-                    Phrase Servicio = new Phrase("SERVICIO:", arial2);
-                    cell3.AddElement(Fecha);
-                    cell3.AddElement(LFecha);
-                    cell3.AddElement(SaltoLinea);
-                    cell3.AddElement(Servicio);
-                    cell3.AddElement(LServicio);
-                    cell3.AddElement(SaltoLinea);
-                    cell3.AddElement(LtipoFAllo);
-                    cell3.AddElement(TipoFAllo);
-                    doc.Add(SaltoLinea);
-                    PdfPTable tabla2 = new PdfPTable(3);
-                    tabla2.DefaultCell.Border = 0;
-                    tabla2.WidthPercentage = 100;
-                    PdfPCell celda = new PdfPCell();
-                    celda.Border = 0;
-                    PdfPTable tablafallos = new PdfPTable(3);
-                    tablafallos.DefaultCell.Border = 0;
-                    tablafallos.WidthPercentage = 100;
-                    PdfPCell celdaf1 = new PdfPCell();
-                    PdfPCell celdaf2 = new PdfPCell();
-                    PdfPCell celdaf3 = new PdfPCell();
-                    celdaf1.Border = 0;
-                    celdaf2.Border = 0;
-                    celdaf3.Border = 0;
-                    if (string.IsNullOrWhiteSpace(descFallo))
->>>>>>> 476a40c25371a836b66d3fbf39140c4839b797c6
                     {
                         tabla.AddCell(v.valorCampo("DESCRIPCIÓN DE FALLO NO CÓDIFICADO", 3, 0, 0, arial2));
                         tabla.AddCell(v.valorCampo(datos[9], 3, 0, 0, arial));
@@ -895,16 +692,6 @@ namespace controlFallos
                     tabla2.AddCell(v.valorCampo((!haveFallo ? datos[18] : datos[19]), 2, 0, 0, arial));
                     doc.Add(tabla);
                     doc.Add(tabla2);
-<<<<<<< HEAD
-=======
-                    doc.Add(tablafallos);
-                    doc.Add(tablaobservaciones);
-                    doc.Add(new Paragraph("             "));
-                    doc.Add(new Chunk("DATOS DE MANTENIMIENTO", FontFactory.GetFont("ARIAL", 18, iTextSharp.text.Font.BOLD)));
-                    doc.Add(new Paragraph("             "));
-                    doc.Add(tabla3);
-                    doc.Add(tabla4);
->>>>>>> 476a40c25371a836b66d3fbf39140c4839b797c6
                     doc.Close();
                     //Exportacion(;)
                     System.Diagnostics.Process.Start(filename);
@@ -934,7 +721,6 @@ namespace controlFallos
         {
             if (DgvTabla.Rows.Count > 0)
             {
-<<<<<<< HEAD
 
                 btnGuardar.Visible = LblGuardar.Visible = false;
                 lblFolio.Text = DgvTabla.Rows[e.RowIndex].Cells[0].Value.ToString();
@@ -946,166 +732,12 @@ namespace controlFallos
                 txtConductor.Text = v.getaData("select credencial from cpersonal where idpersona='" + (conductorAnterior = Convert.ToInt32(datos[3])) + "'").ToString();
                 cmbServicio.SelectedValue = servicioAnterior = Convert.ToInt32(datos[4]);
                 txtKilometraje.Text = kilometrajeAnterior = datos[5];
-                cmbTipoFallo.SelectedValue = TipoFalloAnterior = Convert.ToInt32(datos[6]);
+                // cmbTipoFallo.SelectedValue = TipoFalloAnterior = Convert.ToInt32(datos[6]);
                 txtDescFalloNoC.Text = FalloAnterior = datos[9];
                 txtObserSupervicion.Text = ObservacionesAnterior = datos[10];
                 btnEditar.Visible = false;
                 lblactualizar.Visible = false;
 
-=======
-                if (bandera_c == false)
-                {
-                    btnGuardar.Visible = false;
-                    LblGuardar.Visible = false;
-                    lblFolio.Text = DgvTabla.Rows[e.RowIndex].Cells[0].Value.ToString();
-                    IdRepor = v.getaData("SELECT idreportesupervicion FROM reportesupervicion WHERE folio='" + lblFolio.Text + "'").ToString();
-                    cmbUnidad.Text = _unidad = DgvTabla.Rows[e.RowIndex].Cells[1].Value.ToString();
-                    lblSupervisor.Text = DgvTabla.Rows[e.RowIndex].Cells[3].Value.ToString();
-                    lblFechaReporte.Text = DgvTabla.Rows[e.RowIndex].Cells[2].Value.ToString();
-                    txtConductor.Text = DgvTabla.Rows[e.RowIndex].Cells[4].Value.ToString();
-                    txtKilometraje.Text = DgvTabla.Rows[e.RowIndex].Cells[7].Value.ToString();
-                    cmbTipoFallo.Text = DgvTabla.Rows[e.RowIndex].Cells[8].Value.ToString();
-                    HoraReporte = DgvTabla.Rows[e.RowIndex].Cells[6].Value.ToString();
-                    txtDescFalloNoC.Text = DgvTabla.Rows[e.RowIndex].Cells[11].Value.ToString();
-                    txtObserSupervicion.Text = DgvTabla.Rows[e.RowIndex].Cells[12].Value.ToString();
-                    lblEsperaDeMan.Text = DgvTabla.Rows[e.RowIndex].Cells[15].Value.ToString();
-                    lblHIM.Text = DgvTabla.Rows[e.RowIndex].Cells[13].Value.ToString();
-                    lblHTM.Text = DgvTabla.Rows[e.RowIndex].Cells[14].Value.ToString();
-                    lblTM.Text = DgvTabla.Rows[e.RowIndex].Cells[16].Value.ToString();
-                    lblestatus.Text = DgvTabla.Rows[e.RowIndex].Cells[17].Value.ToString();
-                    LblTrabajoRealizado.Text = DgvTabla.Rows[e.RowIndex].Cells[18].Value.ToString();
-                    lblMecanico.Text = DgvTabla.Rows[e.RowIndex].Cells[19].Value.ToString();
-                    LblObsevacionesMantenimiento.Text = DgvTabla.Rows[e.RowIndex].Cells[20].Value.ToString();
-                    credencial = DgvTabla.Rows[e.RowIndex].Cells[4].Value.ToString();
-                    supervissor = DgvTabla.Rows[e.RowIndex].Cells[3].Value.ToString();
-                    servicio = DgvTabla.Rows[e.RowIndex].Cells[5].Value.ToString();
-                    if (servicio.Equals("SIN SERVICIO")) { _idservicio = 1; }
-                    else { _idservicio = Convert.ToInt32(v.getaData("select idservicio from cservicios as t1 inner join reportesupervicion as t2 on t2.Serviciofkcservicios=t1.idservicio where Upper(t1.nombre)='" + servicio + "' and t2.idReporteSupervicion='" + IdRepor + "';")); }
-                    km = DgvTabla.Rows[e.RowIndex].Cells[7].Value.ToString();
-                    tipofallo = DgvTabla.Rows[e.RowIndex].Cells[8].Value.ToString();
-                    descfallo = DgvTabla.Rows[e.RowIndex].Cells[9].Value.ToString();
-                    codfallo = DgvTabla.Rows[e.RowIndex].Cells[10].Value.ToString();
-                    if (!string.IsNullOrWhiteSpace(descfallo))
-                        grupo_anterior = Convert.ToInt32(v.getaData("select coalesce(t1.idFalloGral,'0') from cfallosgrales as t1 inner join cdescfallo as t2 on t2.falloGralfkcfallosgrales=t1.idFalloGral inner join reportesupervicion as t3 on t3.DescrFallofkcdescfallo=t2.iddescfallo where t3.idReporteSupervicion='" + IdRepor + "';").ToString());
-                    int iddescf = Convert.ToInt32(v.getaData("select idfalloEsp from cfallosesp where codfallo='" + DgvTabla.Rows[e.RowIndex].Cells[10].Value.ToString() + "';"));
-                    desfallonot = DgvTabla.Rows[e.RowIndex].Cells[11].Value.ToString();
-                    obs = DgvTabla.Rows[e.RowIndex].Cells[12].Value.ToString();
-                    btnEditar.Visible = false;
-                    lblactualizar.Visible = false;
-                    cbgrupo.SelectedValue = _grupoanterior = Convert.ToInt32(v.getaData("select t4.idFalloGral as id from cfallosesp as t1 inner join catcategorias as t2 on t2.idcategoria=t1.descfallofkcdescfallo inner join cdescfallo as t3 on t2.subgrupofkcdescfallo=t3.iddescfallo inner join cfallosgrales as t4 on t3.falloGralfkcfallosgrales=t4.idFalloGral where t1.idfalloEsp='" + iddescf + "';"));
-                    cbSubGrupo.SelectedValue = _subgrupoanterior = Convert.ToInt32(v.getaData("select t3.iddescfallo as id from cfallosesp as t1 inner join catcategorias as t2 on t2.idcategoria=t1.descfallofkcdescfallo inner join cdescfallo as t3 on t2.subgrupofkcdescfallo=t3.iddescfallo inner join cfallosgrales as t4 on t3.falloGralfkcfallosgrales=t4.idFalloGral where t1.idfalloEsp='" + iddescf + "';"));
-                    cbcategoria.SelectedValue = _categoriaanterior = Convert.ToInt32(v.getaData("select t2.idcategoria as id from cfallosesp as t1 inner join catcategorias as t2 on t2.idcategoria=t1.descfallofkcdescfallo inner join cdescfallo as t3 on t2.subgrupofkcdescfallo=t3.iddescfallo inner join cfallosgrales as t4 on t3.falloGralfkcfallosgrales=t4.idFalloGral where t1.idfalloEsp='" + iddescf + "';"));
-                    MySqlCommand comando = new MySqlCommand("select UPPER(concat (t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres)) as nombre,t1.idpersona from cpersonal as t1 inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos  where t1.credencial='" + txtConductor.Text + "' and t1.empresa='1' and t1.area='1' ", c.dbconection());
-                    MySqlDataReader datareader = comando.ExecuteReader();
-                    if (datareader.Read())
-                    {
-                        lblCredCond.Text = Convert.ToString(datareader["nombre"]);
-                        idconductor = Convert.ToString(datareader["idpersona"]);
-                    }
-                    else
-                    {
-                        lblCredCond.Text = "";
-                        idconductor = "";
-                    }
-                    datareader.Close();
-                    c.dbconection().Close();
-                    MySqlCommand cmd1 = new MySqlCommand("select UPPER(t1.nombre) as nombre, t1.idservicio from cservicios as t1 inner join reportesupervicion as t2 on t1.idservicio=t2.Serviciofkcservicios where t1.nombre='" + DgvTabla.Rows[e.RowIndex].Cells[5].Value.ToString() + "' and t1.status='0' order by nombre", c.dbconection());
-                    MySqlDataReader dr1 = cmd1.ExecuteReader();
-                    if (dr1.Read())
-                    {
-                        cmbServicio.DataSource = null;
-                        MySqlCommand cmd2 = new MySqlCommand("Select UPPER(nombre) as servicio, idservicio from cservicios where status='1'", c.dbconection());
-                        MySqlDataAdapter da3 = new MySqlDataAdapter(cmd2);
-                        DataTable dt3 = new DataTable();
-                        da3.Fill(dt3);
-                        DataRow row3 = dt3.NewRow();
-                        DataRow row4 = dt3.NewRow();
-                        DataRow row5 = dt3.NewRow();
-                        row3["idservicio"] = dr1["idservicio"];
-                        row3["servicio"] = dr1["nombre"].ToString();
-                        row4["idservicio"] = 0;
-                        row4["servicio"] = "--  SELECCIONE UN SERVICIO  --";
-                        row5["idservicio"] = 1;
-                        row5["servicio"] = "SIN SERVICIO FIJO";
-                        dt3.Rows.InsertAt(row4, 0);
-                        dt3.Rows.InsertAt(row5, 1);
-                        dt3.Rows.InsertAt(row3, 5);
-                        cmbServicio.ValueMember = "idservicio";
-                        cmbServicio.DisplayMember = "servicio";
-                        cmbServicio.DataSource = dt3;
-                        cmbServicio.SelectedIndex = 1;
-                        cmbServicio.Text = dr1["nombre"].ToString();
-                        c.dbconection().Close();
-                    }
-                    else
-                    {
-                        cmbServicio.SelectedValue = _idservicio;
-                    }
-                    MySqlCommand cmd3 = new MySqlCommand("select t1.iddescfallo,UPPER(t1.descfallo) as descfallo from cdescfallo as t1 inner join reportesupervicion as t2 on t1.iddescfallo=t2.DescrFallofkcdescfallo where t1.descfallo='" + DgvTabla.Rows[e.RowIndex].Cells[9].Value.ToString() + "' and t1.status='0'order by t1.descfallo", c.dbconection());
-                    MySqlDataReader dr2 = cmd3.ExecuteReader();
-                    if (dr2.Read())
-                    {
-                        cbSubGrupo.DataSource = null;
-                        MySqlCommand cmd4 = new MySqlCommand("Select UPPER(descfallo) as descfallo , iddescfallo from cdescfallo where status='1' order by descfallo", c.dbconection());
-                        MySqlDataAdapter da3 = new MySqlDataAdapter(cmd4);
-                        DataTable dt3 = new DataTable();
-                        da3.Fill(dt3);
-                        DataRow row3 = dt3.NewRow();
-                        DataRow row4 = dt3.NewRow();
-                        row3["iddescfallo"] = dr2["iddescfallo"];
-                        row3["descfallo"] = dr2["descfallo"];
-                        row4["iddescfallo"] = 0;
-                        row4["descfallo"] = "--  SELECCIONE UNA DESCRIPCIÓN  --";
-                        dt3.Rows.InsertAt(row4, 0);
-                        dt3.Rows.InsertAt(row3, 25);
-                        cbSubGrupo.ValueMember = "iddescfallo";
-                        cbSubGrupo.DisplayMember = "descfallo";
-                        cbSubGrupo.DataSource = dt3;
-                        cbSubGrupo.SelectedIndex = 1;
-                        cbSubGrupo.Text = dr2["descfallo"].ToString();
-                        cbSubGrupo.Text = DgvTabla.Rows[e.RowIndex].Cells[9].Value.ToString();
-                        c.dbconection().Close();
-                    }
-                    else
-                    {
-                        cbSubGrupo.Text = DgvTabla.Rows[e.RowIndex].Cells[9].Value.ToString();
-                    }
-                    MySqlCommand cmd5 = new MySqlCommand("select UPPER(t1.codfallo) as Fallo, idfalloEsp from cfallosesp as t1 inner join cdescfallo as t2 on t2.iddescfallo=t1.descfallofkcdescfallo where descfallo='" + DgvTabla.Rows[e.RowIndex].Cells[9].Value.ToString() + "'and t1.status='0' ORDER BY SUBSTRING(codfallo,LENGTh(codFALLO)-3,4)asc;",
-                c.dbconection());
-                    MySqlDataReader dr3 = cmd5.ExecuteReader();
-                    if (dr3.Read())
-                    {
-                        cmbCodFallo.DataSource = null;
-                        MySqlCommand cmd6 = new MySqlCommand("select UPPER(t1.codfallo) as Fallo, idfalloEsp from cfallosesp as t1 inner join cdescfallo as t2 on t2.iddescfallo=t1.descfallofkcdescfallo where descfallo='" + DgvTabla.Rows[e.RowIndex].Cells[9].Value.ToString() + "'and t1.status='1' ORDER BY SUBSTRING(codfallo,LENGTh(codFALLO)-3,4)asc;", c.dbconection());
-                        MySqlDataAdapter da = new MySqlDataAdapter(cmd6);
-                        DataTable dt = new DataTable();
-                        da.Fill(dt);
-                        DataRow row = dt.NewRow();
-                        DataRow row1 = dt.NewRow();
-                        row1["idfalloEsp"] = dr3["idfalloEsp"];
-                        row1["Fallo"] = dr3["Fallo"];
-                        row["idfalloEsp"] = 0;
-                        row["Fallo"] = "--  SELECCIONE UN CÓDIGO  --";//agregamos una opción más
-                        dt.Rows.InsertAt(row, 0);
-                        dt.Rows.InsertAt(row1, 1);
-                        cmbCodFallo.ValueMember = "idfalloEsp";
-                        cmbCodFallo.DisplayMember = "Fallo";
-                        cmbCodFallo.DataSource = dt;
-                        cmbCodFallo.SelectedIndex = 0;
-                        cmbCodFallo.Text = dr3["Fallo"].ToString();
-                        cmbCodFallo.Text = DgvTabla.Rows[e.RowIndex].Cells[10].Value.ToString();
-                    }
-                    else
-                    {
-                        cmbCodFallo.Text = DgvTabla.Rows[e.RowIndex].Cells[10].Value.ToString();
-                    }
-                    dr3.Close();
-                    c.dbconection().Close();
-                    dr2.Close();
-                    //dr.Close();
-                    dr1.Close();
-                }
->>>>>>> 476a40c25371a836b66d3fbf39140c4839b797c6
             }
         }
 
@@ -1174,7 +806,7 @@ namespace controlFallos
             {
                 string motivo = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
 
-                MySqlCommand ValidarModificaciones = new MySqlCommand("SELECT (SELECT X1.credencial FROM CPERSONAL AS X1 WHERE X1.IDPERSONA=T1.CredencialConductorfkCPersonal)AS CONDUCTOR,(SELECT UPPER(CONCAT(X3.APPATERNO,' ',X3.APMATERNO,' ',X3.NOMBRES)) FROM CPERSONAL AS X3 WHERE X3.IdPersona=T1.SupervisorfkCPersonal) AS Supervisor,(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)))as 'SERVICIO', T1.KMENTRADA AS KM, UPPER(T1.TipoFallo) AS TFALLO,(SELECT UPPER(X2.descfallo) FROM cdescfallo AS X2 WHERE X2.iddescfallo=T1.DescrFallofkcdescfallo)AS DESCFALLO,T1.idreportesupervicion as id, (SELECT (UPPER(X3.codfallo)) FROM cfallosesp AS X3 WHERE X3.idfalloEsp=T1.CodFallofkcfallosesp) AS CODFALLO,UPPER(T1.DescFalloNoCod) AS DESFALLONOT, UPPER(T1.ObservacionesSupervision) AS OBSER FROM REPORTESUPERVICION AS T1 INNER JOIN CUNIDADES AS T2 ON T1.UNIDADFKCUNIDADES=T2.IDUNIDAD WHERE T1.FOLIO='" + lblFolio.Text + "' and T1.idreportesupervicion=T1.idreportesupervicion;", c.dbconection());
+                MySqlCommand ValidarModificaciones = new MySqlCommand("SELECT (SELECT X1.credencial FROM CPERSONAL AS X1 WHERE X1.IDPERSONA=T1.CredencialConductorfkCPersonal)AS CONDUCTOR,(SELECT UPPER(CONCAT(X3.APPATERNO,' ',X3.APMATERNO,' ',X3.NOMBRES)) FROM CPERSONAL AS X3 WHERE X3.IdPersona=T1.SupervisorfkCPersonal) AS Supervisor,(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)))as 'SERVICIO', T1.KMENTRADA AS KM, UPPER(T1.TipoFallo) AS TFALLO,(SELECT UPPER(X2.descfallo) FROM cdescfallo AS X2 WHERE X2.iddescfallo=T1.DescrFallofkcdescfallo)AS DESCFALLO,T1.idreportesupervicion as id, (SELECT (UPPER(X3.codfallo)) FROM cfallosesp AS X3 WHERE X3.idfalloEsp=T1.CodFallofkcfallosesp) AS CODFALLO,UPPER(T1.DescFalloNoCod) AS DESFALLONOT, UPPER(T1.ObservacionesSupervision) AS OBSER FROM REPORTESUPERVICION AS T1 INNER JOIN CUNIDADES AS T2 ON T1.UNIDADFKCUNIDADES=T2.IDUNIDAD WHERE T1.FOLIO='" + lblFolio.Text + "' and T1.idreportesupervicion=T1.idreportesupervicion;", v.c.dbconection());
                 MySqlDataReader DR = ValidarModificaciones.ExecuteReader();
                 if (DR.Read())
                 {
@@ -1188,11 +820,7 @@ namespace controlFallos
                     codfallo = Convert.ToString(DR["CODFALLO"]);
                     desfallonot = Convert.ToString(DR["DESFALLONOT"]);
                     observaciones = Convert.ToString(DR["OBSER"]);
-<<<<<<< HEAD
                     if (credencial == txtConductor.Text && supervissor == lblSupervisor.Text && servicio == cmbServicio.Text && km == txtKilometraje.Text && observaciones == txtObserSupervicion.Text && ((desfallonot == txtDescFalloNoC.Text && cbgrupo.SelectedIndex == 0) || ((int)cbgrupo.SelectedValue == grupo_anterior && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))))
-=======
-                    if (credencial == txtConductor.Text && supervissor == lblSupervisor.Text && servicio == cmbServicio.Text && km == txtKilometraje.Text && tipo == cmbTipoFallo.Text && observaciones == txtObserSupervicion.Text && ((desfallonot == txtDescFalloNoC.Text && cbgrupo.SelectedIndex == 0) || ((int)cbgrupo.SelectedValue == grupo_anterior && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text))))
->>>>>>> 476a40c25371a836b66d3fbf39140c4839b797c6
                     {
                         DialogResult oDlgRes;
                         MessageBox.Show("No se realizaron modificaciones".ToUpper(), "SIN MODIFICACIONES", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -1226,7 +854,7 @@ namespace controlFallos
                         consulta += " WHERE t1.Folio='" + lblFolio.Text + "';";
                         if (v.c.insertar(consulta))
                             MessageBox.Show("Registro actualizado exitosamente ".ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        c.dbconection().Close();
+                        v.c.dbconection();
                         Modificaciones_tabla(motivo);
                         esta_exportando();
                         cmbCodFallo.Enabled = false;
@@ -1246,6 +874,7 @@ namespace controlFallos
                 DR.Close();
             }
         }
+
         void Modificaciones_tabla(string motivo)
         {
             string sql = "INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Reporte de Supervisión','" + IdRepor + "','" + _unidad + ";" + supervissor + ";" + credencial + ";" + servicio + ";" + km + ";" + tipofallo + ";";
@@ -1314,7 +943,7 @@ namespace controlFallos
         }
         public void consulta_subgrupos()
         {
-            v.iniCombos("select upper(descfallo) as d,iddescfallo as id from cdescfallo as t1 inner join cfallosgrales as t2 on t2.idfallogral=t1.falloGralfkcfallosgrales where t2.idfallogral='" + cbgrupo.SelectedValue + "' order by descfallo;", cbSubGrupo, "id", "d", "--SELECCIONE SUBGRUPO--");
+            v.iniCombos("select iddescfallo as id,upper(descfallo) as d from cdescfallo as t1 inner join cfallosgrales as t2 on t2.idfallogral=t1.falloGralfkcfallosgrales where t2.idfallogral='" + cbgrupo.SelectedValue + "' order by descfallo;", cbSubGrupo, "id", "d", "--SELECCIONE SUBGRUPO--");
         }
         private void cbgrupo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1335,7 +964,7 @@ namespace controlFallos
 
         private void cmbCodFallo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MySqlCommand descfallo_o = new MySqlCommand("Select UPPER(falloesp) as fallo from cfallosesp where codfallo='" + cmbCodFallo.Text + "';", c.dbconection());
+            MySqlCommand descfallo_o = new MySqlCommand("Select UPPER(falloesp) as fallo from cfallosesp where codfallo='" + cmbCodFallo.Text + "';", v.c.dbconection());
             MySqlDataReader DR = descfallo_o.ExecuteReader();
             if (DR.Read())
             {
@@ -1346,12 +975,12 @@ namespace controlFallos
                 lblDescFallo.Text = "";
             }
             DR.Close();
-            c.dbconection().Close();
+            v.c.dbconection();
         }
 
         public void consulta_codigos()
         {
-            v.iniCombos("select upper(t1.codfallo)as c,t1.idfalloEsp as id from cfallosesp as t1 inner join catcategorias as t2 on t2.idcategoria=t1.descfallofkcdescfallo inner join cdescfallo as t3 on t2.subgrupofkcdescfallo=t3.iddescfallo inner join cfallosgrales as t4 on t3.falloGralfkcfallosgrales=t4.idFalloGral where t2.idcategoria='" + cbcategoria.SelectedValue + "';", cmbCodFallo, "id", "c", "--SELECCIONE CÓDIGO");
+            v.iniCombos("select t1.idfalloEsp as id,upper(t1.codfallo)as c from cfallosesp as t1 inner join catcategorias as t2 on t2.idcategoria=t1.descfallofkcdescfallo inner join cdescfallo as t3 on t2.subgrupofkcdescfallo=t3.iddescfallo inner join cfallosgrales as t4 on t3.falloGralfkcfallosgrales=t4.idFalloGral where t2.idcategoria='" + cbcategoria.SelectedValue + "';", cmbCodFallo, "id", "c", "--SELECCIONE CÓDIGO");
         }
         private void cbcategoria_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1395,11 +1024,11 @@ namespace controlFallos
             if (cmbEmpresa.SelectedIndex > 0)
             {
                 string sql = "SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea inner join cempresas as t3 on t3.idempresa=t2.empresafkcempresas where upper(nombreEmpresa)='" + cmbEmpresa.Text + "';";
-                MySqlCommand cmd = new MySqlCommand(sql, c.dbconection());
+                MySqlCommand cmd = new MySqlCommand(sql, v.c.dbconection());
                 if (Convert.ToInt32(cmd.ExecuteScalar()) != 0)
                 {
                     cmbBuscarUnidad.DataSource = null;
-                    DataTable dt = (DataTable)v.getData("SELECT concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco, idunidad  FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea inner join cempresas as t3 on t3.idempresa=t2.empresafkcempresas where upper(nombreEmpresa)='" + cmbEmpresa.Text + "';");
+                    DataTable dt = (DataTable)v.getData("SELECT  idunidad,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco  FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea inner join cempresas as t3 on t3.idempresa=t2.empresafkcempresas where upper(nombreEmpresa)='" + cmbEmpresa.Text + "';");
                     DataRow nuevaFila = dt.NewRow();
                     nuevaFila["idunidad"] = 0;
                     nuevaFila["eco"] = "--Seleccione un ECO--".ToUpper();
@@ -1425,8 +1054,9 @@ namespace controlFallos
 
         private void cmbUnidad_SelectedValueChanged(object sender, EventArgs e)
         {
+
             cmbBuscarUnidad.DataSource = null;
-            DataTable dt = (DataTable)v.getData("select upper(Nombre) as nombre,idservicio as id from cservicios as t1 inner join careas as t2 on t1.AreafkCareas=t2.idarea inner join cunidades as t3 on t3.areafkcareas=t2.idarea where idunidad ='" + cmbUnidad.SelectedValue + "' order by nombre;");
+            DataTable dt = (DataTable)v.getData("select idservicio as id,upper(Nombre) as nombre from cservicios as t1 inner join careas as t2 on t1.AreafkCareas=t2.idarea inner join cunidades as t3 on t3.areafkcareas=t2.idarea where idunidad ='" + cmbUnidad.SelectedValue + "' order by nombre;");
             DataRow nuevaFila = dt.NewRow();
             DataRow _sin = dt.NewRow();
             nuevaFila["id"] = 0;
@@ -1546,24 +1176,19 @@ namespace controlFallos
 
         private void btnEditar_Click(object sender, EventArgs e)
         {
-            MySqlCommand Verifica_Estatus = new MySqlCommand("select coalesce((select x1.estatus from reportemantenimiento as x1 where x1.FoliofkSupervicion=t1.idreportesupervicion),'') AS ESTATUS FROM reportesupervicion as t1 where t1.folio='" + lblFolio.Text + "';", c.dbconection());
-            MySqlDataReader DR = Verifica_Estatus.ExecuteReader();
-            if (DR.Read())
+            if (v.getData("select coalesce((select x1.estatus from reportemantenimiento as x1 where x1.FoliofkSupervicion=t1.idreportesupervicion),'') AS ESTATUS FROM reportesupervicion as t1 where t1.folio='" + lblFolio.Text + "'").ToString() != "LIBERADA" && (!peditar && !pinsertar && !pconsultar))
             {
-                string es = DR["ESTATUS"].ToString();
-                if (es == "LIBERADA" && (!peditar && !pinsertar && !pconsultar))
-                {
-                    MessageBox.Show("La unidad ya se encuentra liberada, ya no es posible realizar modificaciones".ToUpper(), "UNIDAD LIBERADA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    LimpiarReporte();
-                    Genera_Folio();
-                    limpiarmant();
-                    esta_exportando();
-                    cargarDAtos();
-                    limpia_act();
-                }
-                else
-                    actualiza_datos();
+                MessageBox.Show("La unidad ya se encuentra liberada, ya no es posible realizar modificaciones".ToUpper(), "UNIDAD LIBERADA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                LimpiarReporte();
+                Genera_Folio();
+                limpiarmant();
+                esta_exportando();
+                cargarDAtos();
+                limpia_act();
             }
+            else
+                actualiza_datos();
+
         }
 
         private void btnGuardar_MouseMove(object sender, MouseEventArgs e)
@@ -1597,10 +1222,7 @@ namespace controlFallos
 
         }
 
-        private void cmbUnidad_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            combos_DrawItem(sender, e);
-        }
+
 
         private void DgvTabla_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
         {
@@ -1643,36 +1265,12 @@ namespace controlFallos
 
                             h.Range rng = (h.Range)sheet.Cells[i + 2, j + 1];
                             sheet.Cells[i + 2, j + 1] = dt.Rows[i][j].ToString();
-                            rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.FromArgb(231, 230, 230));
                             rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
                             rng.Cells.Font.Name = "Calibri";
                             rng.Cells.Font.Size = 11;
                             rng.Font.Bold = false;
-                            if (dt.Rows[i][j].ToString() == "PREVENTIVO" || dt.Rows[i][j].ToString() == "LIBERADA")
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.PaleGreen);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dt.Rows[i][j].ToString() == "CORRECTIVO" || dt.Rows[i][j].ToString() == "EN PROCESO")
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.Khaki);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dt.Rows[i][j].ToString() == "REITERATIVO" || dt.Rows[i][j].ToString() == "REPROGRAMADA")
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.LightCoral);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dt.Rows[i][j].ToString() == "REPROGRAMADO")
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.LightBlue);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dt.Rows[i][j].ToString() == "SEGUIMIENTO")
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.FromArgb(246, 144, 123));
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
+
+                            rng.Interior.Color = ((dt.Rows[i][j].ToString() == "PREVENTIVO" || dt.Rows[i][j].ToString() == "LIBERADA") ? System.Drawing.ColorTranslator.ToOle(Color.PaleGreen) : (dt.Rows[i][j].ToString() == "CORRECTIVO" || dt.Rows[i][j].ToString() == "EN PROCESO") ? rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.Khaki) : (dt.Rows[i][j].ToString() == "REITERATIVO" || dt.Rows[i][j].ToString() == "REPROGRAMADA") ? rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.LightCoral) : (dt.Rows[i][j].ToString() == "REPROGRAMADO") ? rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.LightBlue) : (dt.Rows[i][j].ToString() == "SEGUIMIENTO") ? rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.FromArgb(246, 144, 123)) : System.Drawing.ColorTranslator.ToOle(Color.FromArgb(231, 230, 230)));
                         }
                         catch (System.NullReferenceException EX)
                         {
@@ -1789,7 +1387,7 @@ namespace controlFallos
         }
         public void consulta_grupos()
         {
-            v.iniCombos("select upper(nombreFalloGral) as n, idFalloGral as id from cfallosgrales where status='1' order by nombreFalloGral;", cbgrupo, "id", "n", "--SELECCIONE GRUPO--");
+            v.iniCombos("select idFalloGral as id,upper(nombreFalloGral) as n from cfallosgrales where status='1' order by nombreFalloGral;", cbgrupo, "id", "n", "--SELECCIONE GRUPO--");
         }
         public void consulta_descripciones()
         {
@@ -1801,7 +1399,7 @@ namespace controlFallos
             if (cmbUnidad.SelectedIndex > 0 || lblSupervisor.Text != "" || txtConductor.Text != "" || cmbServicio.SelectedIndex > 0 || txtKilometraje.Text != "" || cmbTipoFallo.SelectedIndex > 0 || ((cbSubGrupo.SelectedIndex > 0 || cmbCodFallo.SelectedIndex > 0) || (txtDescFalloNoC.Text != "")) || txtObserSupervicion.Text != "" || cbgrupo.SelectedIndex > 0 || cbcategoria.SelectedIndex > 0)
             {
                 DialogResult respuesta = new DialogResult();
-                MySqlCommand CMD = new MySqlCommand("SELECT T1.IDREPORTESUPERVICION AS ID, (SELECT X1.credencial FROM CPERSONAL AS X1 WHERE X1.IDPERSONA = T1.CredencialConductorfkCPersonal)AS CONDUCTOR,(SELECT UPPER(CONCAT(X3.APPATERNO, ' ', X3.APMATERNO, ' ', X3.NOMBRES)) FROM CPERSONAL AS X3 WHERE X3.IdPersona = T1.SupervisorfkCPersonal) AS Supervisor,(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios))) AS SERVICIO, T1.KMENTRADA AS KM, UPPER(T1.TipoFallo) AS TFALLO,COALESCE((SELECT UPPER(X2.descfallo) FROM cdescfallo AS X2 WHERE X2.iddescfallo = T1.DescrFallofkcdescfallo),'')AS DESCFALLO, coalesce((SELECT UPPER(X3.codfallo) FROM cfallosesp AS X3 WHERE X3.idfalloEsp = T1.CodFallofkcfallosesp),'') AS CODFALLO, UPPER(T1.DescFalloNoCod) AS DESFALLONOT, UPPER(T1.ObservacionesSupervision) AS OBSER,COALESCE((SELECT S1.ESTATUS FROM reportemantenimiento AS S1 WHERE S1.FoliofkSupervicion=T1.idReporteSupervicion),'') AS ESTATUS FROM REPORTESUPERVICION AS T1 INNER JOIN CUNIDADES AS T2 ON T1.UNIDADFKCUNIDADES = T2.IDUNIDAD  WHERE T1.FOLIO = '" + lblFolio.Text + "' and T1.idreportesupervicion = T1.idreportesupervicion; ", c.dbconection());
+                MySqlCommand CMD = new MySqlCommand("SELECT T1.IDREPORTESUPERVICION AS ID, (SELECT X1.credencial FROM CPERSONAL AS X1 WHERE X1.IDPERSONA = T1.CredencialConductorfkCPersonal)AS CONDUCTOR,(SELECT UPPER(CONCAT(X3.APPATERNO, ' ', X3.APMATERNO, ' ', X3.NOMBRES)) FROM CPERSONAL AS X3 WHERE X3.IdPersona = T1.SupervisorfkCPersonal) AS Supervisor,(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios))) AS SERVICIO, T1.KMENTRADA AS KM, UPPER(T1.TipoFallo) AS TFALLO,COALESCE((SELECT UPPER(X2.descfallo) FROM cdescfallo AS X2 WHERE X2.iddescfallo = T1.DescrFallofkcdescfallo),'')AS DESCFALLO, coalesce((SELECT UPPER(X3.codfallo) FROM cfallosesp AS X3 WHERE X3.idfalloEsp = T1.CodFallofkcfallosesp),'') AS CODFALLO, UPPER(T1.DescFalloNoCod) AS DESFALLONOT, UPPER(T1.ObservacionesSupervision) AS OBSER,COALESCE((SELECT S1.ESTATUS FROM reportemantenimiento AS S1 WHERE S1.FoliofkSupervicion=T1.idReporteSupervicion),'') AS ESTATUS FROM REPORTESUPERVICION AS T1 INNER JOIN CUNIDADES AS T2 ON T1.UNIDADFKCUNIDADES = T2.IDUNIDAD  WHERE T1.FOLIO = '" + lblFolio.Text + "' and T1.idreportesupervicion = T1.idreportesupervicion; ", v.c.dbconection());
                 MySqlDataReader DR = CMD.ExecuteReader();
                 if (DR.Read())
                 {
@@ -1938,9 +1536,7 @@ namespace controlFallos
                         km = double.Parse(txtKilometraje.Text);
                         txtKilometraje.Text = string.Format("{0:N2}", km);
                         if (km > 2000000)
-                        {
                             txtKilometraje.Text = "2,000,000.00";
-                        }
                     }
                     Regex r4 = new Regex(@"^\d{1,3}\,\d{3}\.\d{2,2}$");
                     Regex r5 = new Regex(@"^\d{1,3}\,\d{3}\,\d{3}\.\d{2,2}");
@@ -1966,38 +1562,25 @@ namespace controlFallos
         {
             if (checkBox1.Checked == true)
             {
-                dtpFechaDe.Enabled = true;
-                dtpFechaA.Enabled = true;
+                dtpFechaDe.Enabled = dtpFechaA.Enabled = true;
                 cmbMeses.Enabled = false;
                 cmbMeses.SelectedIndex = 0;
             }
             else
             {
-                dtpFechaA.Enabled = false;
-                dtpFechaDe.Enabled = false;
+                dtpFechaA.Enabled = dtpFechaDe.Enabled = false;
                 cmbMeses.Enabled = true;
             }
         }
 
         private void txtKilometraje_KeyPress(object sender, KeyPressEventArgs e)
         {
+            v.numerosDecimales(e);
             char signo_decimal = (char)46;
-            if (char.IsNumber(e.KeyChar) || char.IsControl(e.KeyChar) || e.KeyChar == 46)
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-                MessageBox.Show("Solo se aceptan: numéros y ( . ) en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             if (e.KeyChar == 46)
-            {
                 if (txtKilometraje.Text.LastIndexOf(signo_decimal) >= 0)
-                {
-                    e.Handled = true; // Interceptamos la pulsación para que no permitirla.
-                }
-            }
+                    e.Handled = true; // Interceptamos la pulsación para no permitirla.
+
         }
 
         private void txtSupervisor_Validating(object sender, CancelEventArgs e)
@@ -2029,7 +1612,7 @@ namespace controlFallos
                 lblCredCond.Text = (!string.IsNullOrWhiteSpace(datos[0]) ? datos[0] : "");
                 idconductor = (!string.IsNullOrWhiteSpace(datos[1]) ? datos[1] : "");
             }
-                
+
         }
 
         private void dtpFechaA_KeyDown(object sender, KeyEventArgs e)
