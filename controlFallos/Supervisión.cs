@@ -733,7 +733,7 @@ namespace controlFallos
                 if (Convert.ToInt32(v.getaData("select status from cservicios where idservicio='" + datos[4] + "';")) == 0)
                 {
                     cmbBuscarUnidad.DataSource = null;
-                    DataTable dt = (DataTable)v.getData("select idservicio as id,upper(Nombre) as nombre from cservicios as t1 inner join careas as t2 on t1.AreafkCareas=t2.idarea inner join cunidades as t3 on t3.areafkcareas=t2.idarea where idunidad ='" + cmbUnidad.SelectedValue + "' or idservicio='" + datos[4] + "'order by nombre;");
+                    DataTable dt = (DataTable)v.getData("select idservicio as id,upper(concat(Nombre,' ',descripcion)) as nombre from cservicios as t1 inner join careas as t2 on t1.AreafkCareas=t2.idarea where  (t2.empresafkcempresas='" + empresa + "' and t1.status='1' and (select areafkcareas from cunidades where idunidad='" + cmbUnidad.SelectedValue + "')=t1.AreafkCareas) or(idservicio='"+datos[4]+"') order by nombre;;");
                     DataRow nuevaFila = dt.NewRow();
                     DataRow _sin = dt.NewRow();
                     nuevaFila["id"] = 0;
@@ -1063,7 +1063,7 @@ namespace controlFallos
         private void cmbUnidad_SelectedValueChanged(object sender, EventArgs e)
         {
             cmbBuscarUnidad.DataSource = null;
-            DataTable dt = (DataTable)v.getData("select idservicio as id,upper(Nombre) as nombre from cservicios as t1 inner join careas as t2 on t1.AreafkCareas=t2.idarea inner join cunidades as t3 on t3.areafkcareas=t2.idarea where idunidad ='" + cmbUnidad.SelectedValue + "' order by nombre;");
+            DataTable dt = (DataTable)v.getData("select idservicio as id,upper(concat(Nombre,' ',descripcion)) as nombre from cservicios as t1 inner join careas as t2 on t1.AreafkCareas=t2.idarea where  t2.empresafkcempresas='"+empresa+"' and t1.status='1' and (select areafkcareas from cunidades where idunidad='"+cmbUnidad.SelectedValue+"')=t1.AreafkCareas order by nombre;");
             DataRow nuevaFila = dt.NewRow();
             DataRow _sin = dt.NewRow();
             nuevaFila["id"] = 0;
