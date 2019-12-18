@@ -2997,12 +2997,8 @@ namespace controlFallos
         }
         public void insert(string ver, string insertar, string consultar, string modificar, string eliminar, string nombre, int idUsuario)
         {
-<<<<<<< HEAD
 
-            c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver" + (short.Parse(ver) == 1 ? ",privilegios" : "") + ")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + "/" + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
-=======
             c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver"+(short.Parse(ver) == 1 ? ",privilegios":"") +")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
->>>>>>> cb810cea90233c46521fe186a036e46ad8222136
         }
         public bool todosFalsos(string[,] b)
         {
