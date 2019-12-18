@@ -17,14 +17,14 @@ namespace controlFallos
         conexion c = new conexion();
         validaciones v = new validaciones();
         string[] id;
-        void buscarNombre(){lbltitle.Text = "Nombre del Empleado: " + v.getaData("SELECT CONCAT(nombres,' ',apPaterno,' ',apMaterno) as Nombre FROM cpersonal WHERE idPersona ='" + idUsuario + "'");}
+        void buscarNombre() { lbltitle.Text = "Nombre del Empleado: " + v.getaData("SELECT CONCAT(nombres,' ',apPaterno,' ',apMaterno) as Nombre FROM cpersonal WHERE idPersona ='" + idUsuario + "'"); }
         public privilegiosSupervision(int idUsuario)
         {
             InitializeComponent();
             this.idUsuario = idUsuario;
         }
-        public privilegiosSupervision(){InitializeComponent();}
-        private void CambiarEstado_Click(object sender, EventArgs e){v.CambiarEstado_Click(sender, e);}
+        public privilegiosSupervision() { InitializeComponent(); }
+        private void CambiarEstado_Click(object sender, EventArgs e) { v.CambiarEstado_Click(sender, e); }
         private void button33_Click(object sender, EventArgs e)
         {
             foreach (Control ctrl in panel2.Controls)
@@ -403,8 +403,8 @@ namespace controlFallos
                 editar = true;
                 for (int i = 0; i < t.Rows.Count; i++)
                 {
-                    object[] pr= t.Rows[i].ItemArray;
-                    object[] privilegios = pr[2].ToString().Split('/'); 
+                    object[] pr = t.Rows[i].ItemArray;
+                    object[] privilegios = pr[2].ToString().Split('/');
                     switch (pr[0].ToString())
                     {
                         case "catAreas":
@@ -500,97 +500,47 @@ namespace controlFallos
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            string[,] respaldo = new string[16, 5];
+            string[,] respaldo = new string[16, 2];
             respaldo[0, 0] = v.getIntFrombool((v.ImageToString(btninsertararea.BackgroundImage) == v.check || v.ImageToString(btnconsultararea.BackgroundImage) == v.check || v.ImageToString(btnmodificararea.BackgroundImage) == v.check || v.ImageToString(btneliminararea.BackgroundImage) == v.check)).ToString();
-            respaldo[0, 1] = v.Checked(btninsertararea.BackgroundImage).ToString();
-            respaldo[0, 2] = v.Checked(btnconsultararea.BackgroundImage).ToString();
-            respaldo[0, 3] = v.Checked(btnmodificararea.BackgroundImage).ToString();
-            respaldo[0, 4] = v.Checked(btneliminararea.BackgroundImage).ToString();
+            respaldo[0, 1] = v.Checked(btninsertararea.BackgroundImage).ToString() + "/" + v.Checked(btnconsultararea.BackgroundImage).ToString() + "/" + v.Checked(btnmodificararea.BackgroundImage).ToString() + "/" + v.Checked(btneliminararea.BackgroundImage).ToString();
             respaldo[1, 0] = v.getIntFrombool((v.ImageToString(btninsertarempresa.BackgroundImage) == v.check || v.ImageToString(btnconsultarempresa.BackgroundImage) == v.check || v.ImageToString(btnmodificarempresa.BackgroundImage) == v.check || v.ImageToString(btneliminarempresa.BackgroundImage) == v.check)).ToString();
-            respaldo[1, 1] = v.Checked(btninsertarempresa.BackgroundImage).ToString();
-            respaldo[1, 2] = v.Checked(btnconsultarempresa.BackgroundImage).ToString();
-            respaldo[1, 3] = v.Checked(btnmodificarempresa.BackgroundImage).ToString();
-            respaldo[1, 4] = v.Checked(btneliminarempresa.BackgroundImage).ToString();
+            respaldo[1, 1] = v.Checked(btninsertarempresa.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarempresa.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarempresa.BackgroundImage).ToString() + "/" + v.Checked(btneliminarempresa.BackgroundImage).ToString();
             respaldo[2, 0] = v.getIntFrombool((v.ImageToString(btninsertarempleado.BackgroundImage) == v.check || v.ImageToString(btnconsultarempleado.BackgroundImage) == v.check || v.ImageToString(btnmodificarempleado.BackgroundImage) == v.check || v.ImageToString(btneliminarempleado.BackgroundImage) == v.check)).ToString();
-            respaldo[2, 1] = v.Checked(btninsertarempleado.BackgroundImage).ToString();
-            respaldo[2, 2] = v.Checked(btnconsultarempleado.BackgroundImage).ToString();
-            respaldo[2, 3] = v.Checked(btnmodificarempleado.BackgroundImage).ToString();
-            respaldo[2, 4] = v.Checked(btneliminarempleado.BackgroundImage).ToString();
+            respaldo[2, 1] = v.Checked(btninsertarempleado.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarempleado.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarempleado.BackgroundImage).ToString() + "/" + v.Checked(btneliminarempleado.BackgroundImage).ToString();
             respaldo[3, 0] = v.getIntFrombool((v.ImageToString(btninsertarcargo.BackgroundImage) == v.check || v.ImageToString(btnconsultarcargo.BackgroundImage) == v.check || v.ImageToString(btnmodificarcargo.BackgroundImage) == v.check || v.ImageToString(btneliminarcargo.BackgroundImage) == v.check)).ToString();
-            respaldo[3, 1] = v.Checked(btninsertarcargo.BackgroundImage).ToString();
-            respaldo[3, 2] = v.Checked(btnconsultarcargo.BackgroundImage).ToString();
-            respaldo[3, 3] = v.Checked(btnmodificarcargo.BackgroundImage).ToString();
-            respaldo[3, 4] = v.Checked(btneliminarcargo.BackgroundImage).ToString();
+            respaldo[3, 1] = v.Checked(btninsertarcargo.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarcargo.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarcargo.BackgroundImage).ToString() + "/" + v.Checked(btneliminarcargo.BackgroundImage).ToString();
             respaldo[4, 0] = v.getIntFrombool((v.ImageToString(btninsertarservicio.BackgroundImage) == v.check || v.ImageToString(btnconsultarservicio.BackgroundImage) == v.check || v.ImageToString(btnmodificarservicio.BackgroundImage) == v.check || v.ImageToString(btneliminarservicio.BackgroundImage) == v.check)).ToString();
-            respaldo[4, 1] = v.Checked(btninsertarservicio.BackgroundImage).ToString();
-            respaldo[4, 2] = v.Checked(btnconsultarservicio.BackgroundImage).ToString();
-            respaldo[4, 3] = v.Checked(btnmodificarservicio.BackgroundImage).ToString();
-            respaldo[4, 4] = v.Checked(btneliminarservicio.BackgroundImage).ToString();
+            respaldo[4, 1] = v.Checked(btninsertarservicio.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarservicio.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarservicio.BackgroundImage).ToString() + "/" + v.Checked(btneliminarservicio.BackgroundImage).ToString();
             respaldo[5, 0] = v.getIntFrombool((v.ImageToString(btninsertartipo.BackgroundImage) == v.check || v.ImageToString(btnconsultartipo.BackgroundImage) == v.check || v.ImageToString(btnmodificartipo.BackgroundImage) == v.check || v.ImageToString(btneliminartipo.BackgroundImage) == v.check)).ToString();
-            respaldo[5, 1] = v.Checked(btninsertartipo.BackgroundImage).ToString();
-            respaldo[5, 2] = v.Checked(btnconsultartipo.BackgroundImage).ToString();
-            respaldo[5, 3] = v.Checked(btnmodificartipo.BackgroundImage).ToString();
-            respaldo[5, 4] = v.Checked(btneliminartipo.BackgroundImage).ToString();
+            respaldo[5, 1] = v.Checked(btninsertartipo.BackgroundImage).ToString() + "/" + v.Checked(btnconsultartipo.BackgroundImage).ToString() + "/" + v.Checked(btnmodificartipo.BackgroundImage).ToString() + "/" + v.Checked(btneliminartipo.BackgroundImage).ToString();
             respaldo[6, 0] = v.getIntFrombool((v.ImageToString(btninsertarincidencia.BackgroundImage) == v.check || v.ImageToString(btnconsultarincidencia.BackgroundImage) == v.check || v.ImageToString(btnmodificarincidencia.BackgroundImage) == v.check || v.ImageToString(btneliminarincidencia.BackgroundImage) == v.check)).ToString();
-            respaldo[6, 1] = v.Checked(btninsertarincidencia.BackgroundImage).ToString();
-            respaldo[6, 2] = v.Checked(btnconsultarincidencia.BackgroundImage).ToString();
-            respaldo[6, 3] = v.Checked(btnmodificarincidencia.BackgroundImage).ToString();
-            respaldo[6, 4] = v.Checked(btneliminarincidencia.BackgroundImage).ToString();
-
+            respaldo[6, 1] = v.Checked(btninsertarincidencia.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarincidencia.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarincidencia.BackgroundImage).ToString() + "/" + v.Checked(btneliminarincidencia.BackgroundImage).ToString();
             respaldo[7, 0] = v.getIntFrombool((v.ImageToString(btninsertarestacion.BackgroundImage) == v.check || v.ImageToString(btnconsultarestacion.BackgroundImage) == v.check || v.ImageToString(btnmodificarestacion.BackgroundImage) == v.check || v.ImageToString(btneliminarestacion.BackgroundImage) == v.check)).ToString();
-            respaldo[7, 1] = v.Checked(btninsertarestacion.BackgroundImage).ToString();
-            respaldo[7, 2] = v.Checked(btnconsultarestacion.BackgroundImage).ToString();
-            respaldo[7, 3] = v.Checked(btnmodificarestacion.BackgroundImage).ToString();
-            respaldo[7, 4] = v.Checked(btneliminarestacion.BackgroundImage).ToString();
-
+            respaldo[7, 1] = v.Checked(btninsertarestacion.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarestacion.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarestacion.BackgroundImage).ToString() + "/" + v.Checked(btneliminarestacion.BackgroundImage).ToString();
             respaldo[8, 0] = v.getIntFrombool((v.ImageToString(btninsertarunidad.BackgroundImage) == v.check || v.ImageToString(btnconsultarunidad.BackgroundImage) == v.check || v.ImageToString(btnmodificarunidad.BackgroundImage) == v.check || v.ImageToString(btneliminarunidad.BackgroundImage) == v.check)).ToString();
-            respaldo[8, 1] = v.Checked(btninsertarunidad.BackgroundImage).ToString();
-            respaldo[8, 2] = v.Checked(btnconsultarunidad.BackgroundImage).ToString();
-            respaldo[8, 3] = v.Checked(btnmodificarunidad.BackgroundImage).ToString();
-            respaldo[8, 4] = v.Checked(btneliminarunidad.BackgroundImage).ToString();
+            respaldo[8, 1] = v.Checked(btninsertarunidad.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarunidad.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarunidad.BackgroundImage).ToString() + "/" + v.Checked(btneliminarunidad.BackgroundImage).ToString();
 
             respaldo[9, 0] = v.getIntFrombool((v.ImageToString(btninsertarmodelo.BackgroundImage) == v.check || v.ImageToString(btnconsultarmodelo.BackgroundImage) == v.check || v.ImageToString(btnmodificarmodelo.BackgroundImage) == v.check || v.ImageToString(btneliminarmodelo.BackgroundImage) == v.check)).ToString();
-            respaldo[9, 1] = v.Checked(btninsertarmodelo.BackgroundImage).ToString();
-            respaldo[9, 2] = v.Checked(btnconsultarmodelo.BackgroundImage).ToString();
-            respaldo[9, 3] = v.Checked(btnmodificarmodelo.BackgroundImage).ToString();
-            respaldo[9, 4] = v.Checked(btneliminarmodelo.BackgroundImage).ToString();
+            respaldo[9, 1] = v.Checked(btninsertarmodelo.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarmodelo.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarmodelo.BackgroundImage).ToString() + "/" + v.Checked(btneliminarmodelo.BackgroundImage).ToString();
 
 
             respaldo[10, 0] = v.getIntFrombool((v.ImageToString(btninsertarsuper.BackgroundImage) == v.check || v.ImageToString(btnconsultarsuper.BackgroundImage) == v.check || v.ImageToString(btnmodificarsuper.BackgroundImage) == v.check)).ToString();
-            respaldo[10, 1] = v.Checked(btninsertarsuper.BackgroundImage).ToString();
-            respaldo[10, 2] = v.Checked(btnconsultarsuper.BackgroundImage).ToString();
-            respaldo[10, 3] = v.Checked(btnmodificarsuper.BackgroundImage).ToString();
-            respaldo[10, 4] = "0";
+            respaldo[10, 1] = v.Checked(btninsertarsuper.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarsuper.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarsuper.BackgroundImage).ToString();
 
             respaldo[11, 0] = v.getIntFrombool((v.ImageToString(btninsertarpercances.BackgroundImage) == v.check || v.ImageToString(btnconsultarpercances.BackgroundImage) == v.check || v.ImageToString(btnmodificarpercances.BackgroundImage) == v.check)).ToString();
-            respaldo[11, 1] = v.Checked(btninsertarpercances.BackgroundImage).ToString();
-            respaldo[11, 2] = v.Checked(btnconsultarpercances.BackgroundImage).ToString();
-            respaldo[11, 3] = v.Checked(btnmodificarpercances.BackgroundImage).ToString();
-            respaldo[11, 4] = "0";
+            respaldo[11, 1] = v.Checked(btninsertarpercances.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarpercances.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarpercances.BackgroundImage).ToString();
 
             respaldo[12, 0] = v.getIntFrombool((v.ImageToString(btninsertarrp.BackgroundImage) == v.check || v.ImageToString(btnconsultarrp.BackgroundImage) == v.check || v.ImageToString(btnmodificarrp.BackgroundImage) == v.check)).ToString();
-            respaldo[12, 1] = v.Checked(btninsertarrp.BackgroundImage).ToString();
-            respaldo[12, 2] = v.Checked(btnconsultarrp.BackgroundImage).ToString();
-            respaldo[12, 3] = v.Checked(btnmodificarrp.BackgroundImage).ToString();
-            respaldo[12, 4] = "0";
+            respaldo[12, 1] = v.Checked(btninsertarrp.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarrp.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarrp.BackgroundImage).ToString() ;
 
             respaldo[13, 0] = v.getIntFrombool((v.ImageToString(btninsertarip.BackgroundImage) == v.check || v.ImageToString(btnconsultarip.BackgroundImage) == v.check || v.ImageToString(btnmodificarip.BackgroundImage) == v.check)).ToString();
-            respaldo[13, 1] = v.Checked(btninsertarip.BackgroundImage).ToString();
-            respaldo[13, 2] = v.Checked(btnconsultarip.BackgroundImage).ToString();
-            respaldo[13, 3] = v.Checked(btnmodificarip.BackgroundImage).ToString();
-            respaldo[13, 4] = "0";
+            respaldo[13, 1] = v.Checked(btninsertarip.BackgroundImage).ToString() + "/" + v.Checked(btnconsultarip.BackgroundImage).ToString() + "/" + v.Checked(btnmodificarip.BackgroundImage).ToString() ;
 
             respaldo[14, 0] = v.getIntFrombool((v.ImageToString(btninsertarsuper.BackgroundImage) == v.check || v.ImageToString(btnconsultarsuper.BackgroundImage) == v.check || v.ImageToString(btnmodificarsuper.BackgroundImage) == v.check)).ToString();
-            respaldo[14, 1] = "0";
-            respaldo[14, 2] = "0";
-            respaldo[14, 3] = v.Checked(btnmodificarencabezados.BackgroundImage).ToString();
-            respaldo[14, 4] = "0";
+            respaldo[14, 1] = "0" + "/" + "0" + "/" + v.Checked(btnmodificarencabezados.BackgroundImage).ToString();
 
             respaldo[15, 0] = v.getIntFrombool(v.ImageToString(btnconsultarhistorial.BackgroundImage) == v.check).ToString();
-            respaldo[15, 1] = "0";
-            respaldo[15, 2] = v.Checked(btnconsultarhistorial.BackgroundImage).ToString();
-            respaldo[15, 3] = "0";
-            respaldo[15, 4] = "0";
+            respaldo[15, 1] = "0" + "/" + v.Checked(btnconsultarhistorial.BackgroundImage).ToString();
             catPersonal cat = (catPersonal)Owner;
 
 

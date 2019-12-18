@@ -990,50 +990,59 @@ namespace controlFallos
         }
         bool dibujarPuntitos()
         {
-
-            Bitmap m = null;
-            switch (imagenActual)
+            if (cbxgeteco.DataSource != null)
             {
-                case 0:
-                    m = new Bitmap(panel1.BackgroundImage);
-                    break;
-                case 1:
-                    m = new Bitmap(panel2.BackgroundImage);
-                    break;
-                case 2:
-                    m = new Bitmap(panel3.BackgroundImage);
-                    break;
-                case 3:
-                    m = new Bitmap(panel4.BackgroundImage);
-                    break;
-            }
-            pbdibujar.BackgroundImage = m;
-            if (imagenes[imagenActual].Count > 0)
-            {
-                foreach (var elem in imagenes[imagenActual])
+                if (cbxgeteco.SelectedIndex > 0)
                 {
-                    try
+                    Bitmap m = null;
+                    switch (imagenActual)
                     {
-                        m.SetPixel(elem.X, elem.Y, Color.Blue);
-                        m.SetPixel(elem.X - 1, elem.Y, Color.Blue);
-                        m.SetPixel(elem.X - 1, elem.Y - 1, Color.Blue);
-                        m.SetPixel(elem.X, elem.Y - 1, Color.Blue);
-                        m.SetPixel(elem.X + 1, elem.Y, Color.Blue);
-                        m.SetPixel(elem.X - 1, elem.Y + 1, Color.Blue);
-                        m.SetPixel(elem.X, elem.Y + 1, Color.Blue);
-                        m.SetPixel(elem.X + 1, elem.Y + 1, Color.Blue);
+                        case 0:
+                            m = new Bitmap(panel1.BackgroundImage);
+                            break;
+                        case 1:
+                            m = new Bitmap(panel2.BackgroundImage);
+                            break;
+                        case 2:
+                            m = new Bitmap(panel3.BackgroundImage);
+                            break;
+                        case 3:
+                            m = new Bitmap(panel4.BackgroundImage);
+                            break;
                     }
-                    catch
-                    { continue; }
-                }
-                pbdibujar.BackgroundImage = m;
-                pbdibujar.Size = pbdibujar.BackgroundImage.Size;
-                pbdibujar.Top = (pContains.Height - pbdibujar.Height) / 2;
-                pbdibujar.Left = (pContains.Width - pbdibujar.Width) / 2;
-                return true;
-            }
+                    pbdibujar.BackgroundImage = m;
+                    if (imagenes[imagenActual].Count > 0)
+                    {
+                        foreach (var elem in imagenes[imagenActual])
+                        {
+                            try
+                            {
+                                m.SetPixel(elem.X, elem.Y, Color.Blue);
+                                m.SetPixel(elem.X - 1, elem.Y, Color.Blue);
+                                m.SetPixel(elem.X - 1, elem.Y - 1, Color.Blue);
+                                m.SetPixel(elem.X, elem.Y - 1, Color.Blue);
+                                m.SetPixel(elem.X + 1, elem.Y, Color.Blue);
+                                m.SetPixel(elem.X - 1, elem.Y + 1, Color.Blue);
+                                m.SetPixel(elem.X, elem.Y + 1, Color.Blue);
+                                m.SetPixel(elem.X + 1, elem.Y + 1, Color.Blue);
+                            }
+                            catch
+                            { continue; }
+                        }
+                        pbdibujar.BackgroundImage = m;
+                        pbdibujar.Size = pbdibujar.BackgroundImage.Size;
+                        pbdibujar.Top = (pContains.Height - pbdibujar.Height) / 2;
+                        pbdibujar.Left = (pContains.Width - pbdibujar.Width) / 2;
+                        return true;
+                    }
 
-            else return false;
+                    else return false;
+                }
+                else
+                    return false;
+            }
+            else
+                return false;
         }
         private void panel1_MouseHover(object sender, EventArgs e) { Control p = sender as Control; p.Size = new Size(105, 105); }
         private void panel1_MouseLeave(object sender, EventArgs e)
