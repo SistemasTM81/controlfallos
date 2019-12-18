@@ -45,6 +45,7 @@ namespace controlFallos
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
                 pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
             }
+            mostrar();
         }
         void iniEmpresa()
         {
