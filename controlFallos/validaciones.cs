@@ -2998,11 +2998,7 @@ namespace controlFallos
         public void insert(string ver, string insertar, string consultar, string modificar, string eliminar, string nombre, int idUsuario)
         {
 
-<<<<<<< HEAD
-            c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver"+(short.Parse(ver) == 1 ? ",privilegios":"") +")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
-=======
             c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver" + (short.Parse(ver) == 1 ? ",privilegios" : "") + ")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + "/" + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
->>>>>>> 3d70a136d3a6fea1c6b1acdbf643039cbfe37850
         }
         public bool todosFalsos(string[,] b)
         {
@@ -3013,8 +3009,8 @@ namespace controlFallos
                 {
                     if (b[i, j] == "1")
                     {
-                       return false;
-                    
+                        return false;
+
                     }
                 }
             }
@@ -3141,7 +3137,7 @@ namespace controlFallos
                 return false;
             }
         }
-    public void DrawGroupBox(GroupBox box, Graphics g, Color textColor, Color borderColor, Form f)
+        public void DrawGroupBox(GroupBox box, Graphics g, Color textColor, Color borderColor, Form f)
         {
             if (box != null)
             {
@@ -3244,6 +3240,10 @@ namespace controlFallos
             cbx.ValueMember = ValueMember;
             cbx.DisplayMember = DisplayMember;
             cbx.DataSource = dt;
+        }
+        public void desactivados(string sql, ComboBox cbx, string ValueMember, string DisplayMember)
+        {
+            DataTable dt = (DataTable)getData(sql);
         }
         public bool formularioNiveles(int pasillo, string nivel)
         {

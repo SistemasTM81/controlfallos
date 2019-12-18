@@ -218,7 +218,6 @@
             this.DgvTabla.Size = new System.Drawing.Size(1920, 282);
             this.DgvTabla.TabIndex = 0;
             this.DgvTabla.Visible = false;
-            this.DgvTabla.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvTabla_CellContentClick);
             this.DgvTabla.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             this.DgvTabla.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting_1);
             this.DgvTabla.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.DgvTabla_ColumnAdded);
@@ -441,7 +440,6 @@
             this.txtObserSupervicion.Size = new System.Drawing.Size(558, 97);
             this.txtObserSupervicion.TabIndex = 12;
             this.txtObserSupervicion.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
-            this.txtObserSupervicion.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtKilometraje_KeyDown);
             this.txtObserSupervicion.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtObserSupervicion_KeyPress_1);
             this.txtObserSupervicion.Validating += new System.ComponentModel.CancelEventHandler(this.txtObserSupervicion_Validating_1);
             // 
@@ -695,13 +693,6 @@
             this.cmbTipoFallo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbTipoFallo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbTipoFallo.FormattingEnabled = true;
-            this.cmbTipoFallo.Items.AddRange(new object[] {
-            "--SELECCIONE TIPO DE FALLO--",
-            "CORRECTIVO",
-            "PREVENTIVO",
-            "REITERATIVO",
-            "REPROGRAMADO",
-            "SEGUIMIENTO"});
             this.cmbTipoFallo.Location = new System.Drawing.Point(230, 364);
             this.cmbTipoFallo.Name = "cmbTipoFallo";
             this.cmbTipoFallo.Size = new System.Drawing.Size(312, 26);
