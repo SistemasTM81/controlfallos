@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 namespace controlFallos
@@ -39,7 +33,6 @@ namespace controlFallos
             string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
-
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
@@ -47,23 +40,15 @@ namespace controlFallos
             }
             mostrar();
         }
-        void iniEmpresa()
-        {
-            v.iniCombos("SELECT idempresa,UPPER(nombreEmpresa) AS nombreEmpresa FROM cempresas WHERE status=1 AND (empresa='" + empresa + "' AND area='" + area + "') ORDER BY nombreEmpresa ASC", cbempresa, "idempresa", "nombreEmpresa", "--SELECCIONE UNA EMPRESA--");
-        }
+        void iniEmpresa(){v.iniCombos("SELECT idempresa,UPPER(nombreEmpresa) AS nombreEmpresa FROM cempresas WHERE status=1 AND (empresa='" + empresa + "' AND area='" + area + "') ORDER BY nombreEmpresa ASC", cbempresa, "idempresa", "nombreEmpresa", "--SELECCIONE UNA EMPRESA--");}
         void getCambios(object sender, EventArgs e)
         {
             if (editarservice)
             {
                 if (status == 1 && (cbempresa.SelectedIndex > 0 && cbarea.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtgetclave.Text.Trim()) && !string.IsNullOrWhiteSpace(txtgetnombre_s.Text.Trim())) && (!(empresaAnterior ?? "0").Equals(cbempresa.SelectedValue.ToString()) || !(areaAnterior ?? "0").Equals(cbarea.SelectedValue.ToString()) || !nombreAnterior.Equals(v.mayusculas(txtgetclave.Text.Trim().ToLower())) || !descripcionAnterior.Equals(v.mayusculas(txtgetnombre_s.Text.Trim().ToLower()))))
-                //if (status == 1 && ((!string.IsNullOrWhiteSpace(txtgetclave.Text) && nombreAnterior != v.mayusculas(txtgetclave.Text.ToLower().Trim()) && cbempresa.SelectedIndex>0 && !string.IsNullOrWhiteSpace(txtgetnombre_s.Text))  && ( !nombreAnterior.Equals(txtgetclave.Text.Trim()) || descripcionAnterior != v.mayusculas(txtgetnombre_s.Text.Trim().ToLower().Trim('-')) || !empresaAnterior.Equals(cbempresa.SelectedValue.ToString()))))
-                {
                     btnsaves.Visible = lblsaves.Visible = true;
-                }
                 else
-                {
                     btnsaves.Visible = lblsaves.Visible = false;
-                }
             }
         }
         void mostrar()
@@ -99,18 +84,11 @@ namespace controlFallos
             try
             {
                 if (!editarservice)
-                {
                     insertar();
-                }
                 else
-                {
                     editar();
-                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         void editar()
         {
@@ -129,9 +107,7 @@ namespace controlFallos
                     {
                         var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Servicios','" + idservicetemp + "','Nombre: " + nombreAnterior + ";Descripción: " + descripcionAnterior + "','" + idUsuario + "',NOW(),'Actualización de Servicio','" + observaciones + "','" + this.empresa + "','" + area + "')");
                         if (!yaAparecioMensaje)
-                        {
                             MessageBox.Show("El Servicio Se Ha Actualizado Correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
                         limpiar();
                     }
                 }
@@ -149,10 +125,7 @@ namespace controlFallos
                 cbempresa.Focus();
             }
             if (pconsultar)
-            {
                 busqservices();
-
-            }
             yaAparecioMensaje = false;
             btnsaves.Visible = lblsaves.Visible = true;
             pCancelar.Visible = false;
@@ -160,7 +133,6 @@ namespace controlFallos
             pEliminarService.Visible = false;
             txtgetclave.Clear();
             txtgetnombre_s.Clear();
-
             catUnidades cat = (catUnidades)Owner;
             if (cat.csetEmpresa.SelectedIndex > 0)
             {
@@ -204,8 +176,6 @@ namespace controlFallos
             {
                 if (Convert.ToInt32(v.getaData("SELECT (SELECT status FROM careas WHERE idarea=areafkcareas) FROM cservicios WHERE idservicio='" + idservicetemp + "'")) == 1)
                 {
-
-
                     try
                     {
                         int state;
@@ -240,22 +210,14 @@ namespace controlFallos
                                     limpiar();
                                 }
                                 else
-                                {
                                     MessageBox.Show("Servicio no Desactivado");
-                                }
-
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
                 }
                 else
-                {
                     MessageBox.Show(v.mayusculas("No Se Puede Reactivar Debido A Que el Área a la Que Pertenece Se Encuentra desactivada".ToLower()), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
         }
         public void servicios_index()
@@ -266,24 +228,16 @@ namespace controlFallos
             if (cbempresa.SelectedIndex > 0)
             {
                 if (wheres == "")
-                {
                     wheres = "  where t4.idempresa='" + cbempresa.SelectedValue + "'";
-                }
                 else
-                {
                     wheres += " and t4.idempresa='" + cbempresa.SelectedValue + "'";
-                }
             }
             if (cbarea.SelectedIndex > 0 && cbempresa.SelectedIndex > 0)
             {
                 if (wheres == "")
-                {
                     wheres = " where t3.idarea='" + cbarea.SelectedValue + "'";
-                }
                 else
-                {
                     wheres += " and t3.idarea='" + cbarea.SelectedValue + "'";
-                }
             }
             MySqlCommand cm = new MySqlCommand(sql + wheres, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
@@ -301,10 +255,7 @@ namespace controlFallos
             String sql = "SELECT t1.idservicio,UPPER(t1.Nombre) AS Nombre,UPPER(t4.nombreEmpresa) as Empresa,upper(t3.nombreArea) as Area,UPPER(t1.Descripcion) AS Descripcion,t1.status, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) AS persona,AreafkCareas as fk FROM cservicios as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal= t2.idpersona INNER JOIN careas as t3 on t3.idarea=t1.AreafkCareas inner join cempresas as t4 on t4.idempresa=t3.empresafkcempresas;";
             MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read())
-            {
-                dataGridView2.Rows.Add(dr.GetInt32("idservicio"), dr.GetString("Nombre"), dr.GetString("Empresa"), dr.GetString("Area"), dr.GetString("Descripcion"), dr.GetString("persona"), v.getStatusString(dr.GetInt32("status")), dr.GetString("fk"));
-            }
+            while (dr.Read()){dataGridView2.Rows.Add(dr.GetInt32("idservicio"), dr.GetString("Nombre"), dr.GetString("Empresa"), dr.GetString("Area"), dr.GetString("Descripcion"), dr.GetString("persona"), v.getStatusString(dr.GetInt32("status")), dr.GetString("fk"));}
             dataGridView2.ClearSelection();
             dr.Close();
             v.c.dbcon.Close();
@@ -322,14 +273,10 @@ namespace controlFallos
                         btnsaves_Click(null, e);
                     }
                     else
-                    {
                         guardarReporte(e);
-                    }
                 }
                 else
-                {
                     guardarReporte(e);
-                }
             }
 
         }
@@ -380,17 +327,9 @@ namespace controlFallos
                     btnsaves.Visible = lblsaves.Visible = false;
                     if (status == 0) MessageBox.Show(v.mayusculas("Para Modificar La Información Necesita Reactivar El Registro"), validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else
-                {
-                    MessageBox.Show("Usted No Tiene Privilegios Para Editar En éste Formulario", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-
+                else MessageBox.Show("Usted No Tiene Privilegios Para Editar En éste Formulario", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         private void btncancelar_Click(object sender, EventArgs e)
         {
@@ -402,30 +341,19 @@ namespace controlFallos
                     btnsaves_Click(null, e);
                 }
                 else
-                {
-                    limpiar();
-                }
-            }
+              limpiar();
+                          }
             else
-            {
                 limpiar();
-            }
         }
 
-        private void dataGridView2_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
-        {
-            v.paraDataGridViews_ColumnAdded(sender, e);
-        }
+        private void dataGridView2_ColumnAdded(object sender, DataGridViewColumnEventArgs e){v.paraDataGridViews_ColumnAdded(sender, e);}
 
         private void txtgetclave_Validating(object sender, CancelEventArgs e)
         {
             v.espaciosenblanco(sender, e);
             TextBox txt = sender as TextBox;
-            while (txt.Text.Contains("--"))
-            {
-                txt.Text = txt.Text.Replace("--", "-").Trim();
-            }
-
+            while (txt.Text.Contains("--")){txt.Text = txt.Text.Replace("--", "-").Trim();}
         }
 
         private void gbaddservice_Paint(object sender, PaintEventArgs e)
@@ -434,17 +362,12 @@ namespace controlFallos
             v.DrawGroupBox(box, e.Graphics, Color.FromArgb(75, 44, 52), Color.FromArgb(75, 44, 52), this);
         }
 
-        private void panel1_MouseDown(object sender, MouseEventArgs e)
-        {
-            v.mover(sender, e, this);
-        }
+        private void panel1_MouseDown(object sender, MouseEventArgs e){v.mover(sender, e, this);}
 
         private void cbarea_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbempresa.SelectedIndex > 0)
-            {
                 servicios_index();
-            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -489,39 +412,24 @@ namespace controlFallos
 
         }
 
-        private void cbempresa_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            v.combos_DrawItem(sender, e);
-        }
-
+        private void cbempresa_DrawItem(object sender, DrawItemEventArgs e){v.combos_DrawItem(sender, e);}
         private void catServicios_Load(object sender, EventArgs e)
         {
             privilegios();
-            if (pconsultar)
-            {
-                busqservices();
-
-            }
+            if (pconsultar)busqservices();
         }
 
-        private void gbadd_Enter(object sender, EventArgs e)
-        {
-
-        }
+        private void gbadd_Enter(object sender, EventArgs e){}
 
         private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (dataGridView2.Columns[e.ColumnIndex].Name == "Estatus")
             {
                 if (Convert.ToString(e.Value) == "Activo".ToUpper())
-                {
-
                     e.CellStyle.BackColor = Color.PaleGreen;
-                }
+                
                 else
-                {
                     e.CellStyle.BackColor = Color.LightCoral;
-                }
             }
         }
     }

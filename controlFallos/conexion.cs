@@ -98,14 +98,14 @@ namespace controlFallos
             {
                 MySqlCommand cmd = new MySqlCommand(sql, dbconection());
                 int i = cmd.ExecuteNonQuery();
-                if (conexionOriginal())
+             /*   if (conexionOriginal())
                 {
                     if (localConnection.State != System.Data.ConnectionState.Open) localConnection.Open();
                     cmd = new MySqlCommand(sql, localConnection);
                     i = cmd.ExecuteNonQuery();
                     localConnection.Close();
                     localConnection.Dispose();
-                }
+                }*/
                 dbcon.Close();
                 dbcon.Dispose();
                 if (!conexionOriginal())

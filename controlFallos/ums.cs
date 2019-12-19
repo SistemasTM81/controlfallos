@@ -33,13 +33,9 @@ namespace controlFallos
             if (editar)
             {
                 if (status == 1 && ((!string.IsNullOrWhiteSpace(txtumedida.Text) && nombreAnterior != v.mayusculas(txtumedida.Text.ToLower().Trim())) || (!string.IsNullOrWhiteSpace(txtsimbolo.Text)) && simboloAnterior != txtsimbolo.Text.Trim()))
-                {
                     btnsave.Visible = lblsave.Visible = true;
-                }
                 else
-                {
                     btnsave.Visible = lblsave.Visible = false;
-                }
             }
         }
         public void establecerPrivilegios()
@@ -58,14 +54,9 @@ namespace controlFallos
         void mostrar()
         {
             if (Pinsertar || Peditar)
-            {
-
                 gbaddum.Visible = true;
-            }
             if (Pconsultar)
-            {
                 gbum.Visible = true;
-            }
             if (Peditar)
             {
                 label22.Visible = true;
@@ -77,18 +68,11 @@ namespace controlFallos
             try
             {
                 if (!editar)
-                {
                     insertar();
-                }
                 else
-                {
                     _editar();
-                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         void _editar()
         {
@@ -99,10 +83,7 @@ namespace controlFallos
                 if (um.Equals(nombreAnterior) && _simbolo.Equals(simboloAnterior))
                 {
                     MessageBox.Show("No se Realizaron Cambios", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    if (MessageBox.Show("¿Desea Limpiar Los Campos?", validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        limpiar();
-                    }
+                    if (MessageBox.Show("¿Desea Limpiar Los Campos?", validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes){limpiar();}
                 }
                 else
                 {
@@ -181,14 +162,9 @@ namespace controlFallos
             if (tbum.Columns[e.ColumnIndex].Name == "Estatus")
             {
                 if (Convert.ToString(e.Value) == "Activo".ToUpper())
-                {
-
                     e.CellStyle.BackColor = Color.PaleGreen;
-                }
                 else
-                {
                     e.CellStyle.BackColor = Color.LightCoral;
-                }
             }
         }
 
@@ -196,10 +172,7 @@ namespace controlFallos
         {
             establecerPrivilegios();
             if (Pconsultar)
-            {
                 insertarums();
-            }
-
         }
 
         private void tbum_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -217,14 +190,10 @@ namespace controlFallos
                         button5_Click(null, e);
                     }
                     else
-                    {
                         guardarReporte(e);
-                    }
                 }
                 else
-                {
                     guardarReporte(e);
-                }
             }
 
 
@@ -238,7 +207,6 @@ namespace controlFallos
                 if (Pdesactivar)
                 {
                     pdeleteum.Visible = true;
-
                     if (status == 0)
                     {
                         reactivar = true;
@@ -263,10 +231,7 @@ namespace controlFallos
                     gbaddum.Text = "Actualizar Unidad de Medida";
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         private void btncancel_Click(object sender, EventArgs e)
         {
@@ -280,9 +245,7 @@ namespace controlFallos
                     button5_Click(null, e);
                 }
                 else
-                {
                     limpiar();
-                }
             }
             else
             {
@@ -327,23 +290,15 @@ namespace controlFallos
                             insertarums();
                         }
                         else
-                        {
                             MessageBox.Show("La Unidad de Medida no ha sido " + msg);
-                        }
 
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    catch (Exception ex) { MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error); }
                 }
             }
         }
 
-        private void gbaddum_Enter(object sender, EventArgs e)
-        {
-
-        }
+        private void gbaddum_Enter(object sender, EventArgs e){}
 
         private void gbaddum_Paint(object sender, PaintEventArgs e)
         {
@@ -401,10 +356,7 @@ namespace controlFallos
                 txtumedida.Focus();
             }
             if (Pconsultar)
-            {
-
                 insertarums();
-            }
             padd.Visible = false;
             yaAparecioMensaje = false;
             pdeleteum.Visible = false;

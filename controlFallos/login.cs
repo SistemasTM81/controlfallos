@@ -9,16 +9,12 @@ namespace controlFallos
     {
         validaciones v;
         bloqueoLogin bl;
-
-        TimeSpan diferencia;
-        //Creamos el delegado 
+        TimeSpan diferencia; 
         ThreadStart delegado;
-        //Creamos la instancia del hilo 
         Thread hilo;
         public login(validaciones v)
         {
             InitializeComponent();
-         
             this.v = v;
             bl = new bloqueoLogin(v);
             delegado = new ThreadStart(desbloquearUsuarios);
@@ -26,7 +22,6 @@ namespace controlFallos
             lbltitle.Left = (status.Width - lbltitle.Width) / 2;
             lbltitle.Top = (status.Height - status.Height) / 2;
             v.ChangeControlStyles(btnlogin, ControlStyles.Selectable, false);
-            //Iniciamos el hilo 
             if (hilo.ThreadState == ThreadState.Stopped || hilo.ThreadState == ThreadState.Unstarted)
                 hilo.Start();
             string path = Application.StartupPath + @"\contains.txt";
@@ -42,10 +37,7 @@ namespace controlFallos
             }
         }
 
-        private void label6_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
+        private void label6_Click(object sender, EventArgs e){this.Close();}
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -53,16 +45,12 @@ namespace controlFallos
             if (e.KeyChar == 13)
                 button1_Click(null, e);
         }
-        private void status_MouseDown(object sender, MouseEventArgs e)
-        {
-            v.mover(sender, e, this);
-        }
+        private void status_MouseDown(object sender, MouseEventArgs e){v.mover(sender, e, this);}
 
         private void button1_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtgetusu.Text) && !string.IsNullOrWhiteSpace(txtgetpass.Text))
             {
-
                 string usu = txtgetusu.Text;
                 string pass = v.Encriptar(txtgetpass.Text);
                 object data = v.getaData("SELECT CONCAT(t2.idpersona ,';',t2.empresa,';', t2.area) FROM datosistema as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idPersona WHERE  t1.usuario COLLATE utf8_bin ='" + usu + "' and t1.password COLLATE utf8_bin ='" + pass + "' and status = '1'");
@@ -72,8 +60,6 @@ namespace controlFallos
                     {
                         if (!bl.usuarionobloqueado(usu))
                         {
-                        
-                       
                                 object[] datos = data.ToString().Split(';');
                                 if (!bl.noHainiciadoSesion(datos[0].ToString()))
                                 {
@@ -86,25 +72,16 @@ namespace controlFallos
                                         m.Show();
                                     }
                                     else
-                                    {
                                         MessageBox.Show("No tiene privilegios para navegar por el sistema. Contacte a su administrador de area", v.sistema(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                    }
                                 }
                                 else
-                                {
                                     MessageBox.Show("El usuario Tiene una Sesión Activa", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                }
-                           
                         }
                         else
-                        {
                             MessageBox.Show("El usuario ha sido Bloqueado", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
                     }
                     else
-                    {
                         MessageBox.Show("El usuario ingresado ha sido desactivado por el Administrador", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
                 }
                 else
                 {
@@ -141,24 +118,14 @@ namespace controlFallos
                 }
             }
             else
-            {
                 MessageBox.Show("El usuario o la contraseña no pueden estar vacíos", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            
-            
             txtgetusu.Clear();
             txtgetpass.Clear();
         }
 
-        private void lbltitle_MouseDown(object sender, MouseEventArgs e)
-        {
-            v.mover(sender, e, this);
-        }
+        private void lbltitle_MouseDown(object sender, MouseEventArgs e){v.mover(sender, e, this);}
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.paraUsuarios(e);
-        }
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e){v.paraUsuarios(e);}
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
@@ -195,19 +162,14 @@ namespace controlFallos
                     timer1.Start();
                 }
             }
-            catch
-            {
-               // this.Hide();
-            }
+            catch{}
             foreach (Form frm in Application.OpenForms)
             {
                 if (frm.GetType() == typeof(SplashScreen))
                 {
                     if (frm.InvokeRequired)
                     {
-
                         validaciones.delgado dm = new validaciones.delgado(v.cerrarForm);
-
                         Invoke(dm, frm);
                     }
 
@@ -216,10 +178,7 @@ namespace controlFallos
             }
         }
 
-        private void txtgetusu_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.paraUsuarios(e);
-        }
+        private void txtgetusu_KeyPress(object sender, KeyPressEventArgs e){v.paraUsuarios(e);}
          bool newe = true;
      
          void desbloquearUsuarios()
@@ -250,10 +209,7 @@ namespace controlFallos
                     catch { continue; }
                 }
             }
-            catch
-            {
-               
-            }
+            catch{}
         }
 
         private void login_FormClosing(object sender, FormClosingEventArgs e)
@@ -261,16 +217,9 @@ namespace controlFallos
             newe = false;
             hilo.Abort();
             Application.ExitThread();
-            Application.Exit();
+            try{Application.Exit();}catch { }
         }
-        private void login_Resize(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Normal;
-        }
-
-        private void button1_Click_1(object sender, EventArgs e)
-        {
-            Close();
-        }
+        private void login_Resize(object sender, EventArgs e){this.WindowState = FormWindowState.Normal;}
+        private void button1_Click_1(object sender, EventArgs e){Close();}
     }
 }

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 namespace controlFallos
 {
@@ -14,16 +8,16 @@ namespace controlFallos
         int idUsuario;
         bool editar = false;
         DataTable t;
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         string[] id;
         void buscarNombre() { lbltitle.Text = "Nombre del Empleado: " + v.getaData("SELECT CONCAT(nombres,' ',apPaterno,' ',apMaterno) as Nombre FROM cpersonal WHERE idPersona ='" + idUsuario + "'"); }
-        public privilegiosSupervision(int idUsuario)
+        public privilegiosSupervision(validaciones v,int idUsuario)
         {
+            this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
         }
-        public privilegiosSupervision() { InitializeComponent(); }
+        public privilegiosSupervision(validaciones v) { this.v = v; InitializeComponent(); }
         private void CambiarEstado_Click(object sender, EventArgs e) { v.CambiarEstado_Click(sender, e); }
         private void button33_Click(object sender, EventArgs e)
         {

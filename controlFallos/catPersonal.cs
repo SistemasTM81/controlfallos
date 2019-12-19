@@ -18,12 +18,11 @@ namespace controlFallos
         Thread th;
         public bool editar { protected internal set; get; }
         DateTime expedicionTarjetonAnterior, vencimientoTarjetonAnterior, expedicionlicenciaAnterior, vencimientolicenciaAnterior;
-       
         validaciones v;
         new menuPrincipal Owner;
-        public catPersonal(int idUsuario, int empresa, int area, Image logo, menuPrincipal f,validaciones v)
+        public catPersonal(int idUsuario, int empresa, int area, Image logo, menuPrincipal f, validaciones v)
         {
-            th =  new Thread(new ThreadStart(v.Splash));
+            th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
             this.v = v;
@@ -47,7 +46,7 @@ namespace controlFallos
         private void catPersonal_Load(object sender, EventArgs e)
         {
             if (empresa != 1) { gbvigencias.Text = ""; gbtarjeton.Visible = false; gbvigencias.Location = new Point(990, 30); }
-          pLicencias.Visible = Convert.ToInt32(v.getaData("SELECT ver FROM privilegios WHERE namform='catTipos' AND usuariofkcpersonal='" + idUsuario + "'")) == 1;
+            pLicencias.Visible = Convert.ToInt32(v.getaData("SELECT ver FROM privilegios WHERE namform='catTipos' AND usuariofkcpersonal='" + idUsuario + "'")) == 1;
             privilegiosPersonal();
             busqPuestos();
             if (Pconsultar) { busemp(); Estatus(); }
@@ -59,22 +58,19 @@ namespace controlFallos
                 {
                     if (frm.InvokeRequired)
                     {
-
                         validaciones.delgado dm = new validaciones.delgado(v.cerrarForm);
-
                         Invoke(dm, frm);
+                        break;
                     }
-
-                    break;
                 }
             }
             th.Abort();
-          
+
         }
         public void busqPuestos()
         {
             v.iniCombos("SELECT idpuesto,UPPER(puesto) as puesto FROM puestos WHERE  empresa = " + empresa + " and area = '" + this.area + "' and status= 1 ORDER BY puesto ASC", csetpuestos, "idpuesto", "puesto", "-- seleccione un puesto --");
-                  v.iniCombos("SELECT idpuesto,UPPER(puesto) as puesto FROM puestos WHERE  empresa = " + empresa + " and area = '" + this.area + "'  ORDER BY puesto ASC", csetbpuestos, "idpuesto", "puesto", "-- seleccione un puesto --");
+            v.iniCombos("SELECT idpuesto,UPPER(puesto) as puesto FROM puestos WHERE  empresa = " + empresa + " and area = '" + this.area + "'  ORDER BY puesto ASC", csetbpuestos, "idpuesto", "puesto", "-- seleccione un puesto --");
             csetpuestos.Enabled = csetbpuestos.Enabled = true;
         }
         void Estatus()
@@ -161,7 +157,6 @@ namespace controlFallos
                     v.c.insertar("UPDATE huellasupervision SET template =  '" + template + "',calidad = '" + qualityTemplate + "' WHERE PersonafkCpersonal = '" + idUsuarioTemp + "'");
                     if (string.IsNullOrWhiteSpace(usuarioAnterior)) v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Personal','" + idUsuarioTemp + "','Actualización de Huella','" + idUsuario + "',NOW(),'Actualización DE Huella Digital','" + edicion + "','" + empresa + "','" + area + "')");
                 }
-
                 else
                     v.c.insertar("INSERT INTO huellasupervision (PersonafkCpersonal,template,calidad) VALUES ('" + idUsuarioTemp + "','" + template + "','" + qualityTemplate + "')");
 
@@ -232,7 +227,6 @@ namespace controlFallos
                 if (!string.IsNullOrWhiteSpace(usuarioAnterior))
                     eliminarUsuario(edicion);
             }
-
         }
         void actualizarFechas()
         {
@@ -359,7 +353,6 @@ namespace controlFallos
             templateAnterior = template = null;
             qualityTemplateAnterior = qualityTemplate = 0;
             label17.Text = "Registrar Huella";
-
         }
         public void busemp()
         {
@@ -489,7 +482,6 @@ namespace controlFallos
                         }
                     }
                 }
-
             }
         }
         private void busqpersonal_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -529,7 +521,7 @@ namespace controlFallos
                             btndeleteuser.BackgroundImage = controlFallos.Properties.Resources.delete__4_;
                             lbldeleteuser.Text = "Desactivar";
                             reactivar = false;
-                            if(empresa ==1 && area ==1)pHD.Visible = true;
+                            if (empresa == 1 && area == 1) pHD.Visible = true;
                         }
                         peliminarusu.Visible = true;
                     }
@@ -663,7 +655,7 @@ namespace controlFallos
             }
         }
         private void lblbuscar_Click(object sender, EventArgs e)
-       {
+        {
             if (!string.IsNullOrWhiteSpace(txtbredencial.Text.Trim()) || !string.IsNullOrWhiteSpace(txtbap.Text.Trim()) || csetbpuestos.SelectedIndex > 0 || cbstatus.SelectedIndex > 0)
             {
                 busqEmpleados.DataSource = null;
@@ -763,7 +755,7 @@ namespace controlFallos
             {
                 if (v.yaExisteCredencialReactivar(CredencialAnterior))
                 {
-                    recibirCredencial r = new recibirCredencial(CredencialAnterior, idUsuarioTemp, idUsuario, empresa, area,v);
+                    recibirCredencial r = new recibirCredencial(CredencialAnterior, idUsuarioTemp, idUsuario, empresa, area, v);
                     r.ShowDialog();
                 }
                 status = 1;
@@ -804,25 +796,33 @@ namespace controlFallos
             {
                 if (this.idUsuarioTemp != idUsuario)
                 {
-                    Form ps;
                     if (empresa == 1)
                     {
-                        ps = new privilegiosSupervision(idUsuarioTemp);
+                        privilegiosSupervision ps = new privilegiosSupervision(v, idUsuarioTemp);
                         ps.Owner = this;
+                        string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
+                        ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
+                        if (privilegios != null) ps.insertarPrivilegios(privilegios);
                         ps.ShowDialog();
                     }
                     else
                     {
                         if (area == 1)
                         {
-                            ps = new privilegiosMantenimiento(idUsuarioTemp);
+                            privilegiosMantenimiento ps = new privilegiosMantenimiento(idUsuarioTemp, v);
+                            string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
+                            ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
                             ps.Owner = this;
+                            if (privilegios != null) ps.insertarPrivilegios(privilegios);
                             ps.ShowDialog();
                         }
                         else
                         {
-                            ps = new privilegiosAlmacen(idUsuarioTemp);
+                            privilegiosAlmacen ps = new privilegiosAlmacen(idUsuarioTemp,v);
+                            string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
+                            ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
                             ps.Owner = this;
+                            if (privilegios != null) ps.insertarPrivilegios(privilegios);
                             ps.ShowDialog();
                         }
                     }
@@ -835,20 +835,18 @@ namespace controlFallos
             {
                 if (empresa == 1)
                 {
-                    privilegiosSupervision ps = new privilegiosSupervision();
+                    privilegiosSupervision ps = new privilegiosSupervision(v);
                     ps.Owner = this;
                     string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                     ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
                     if (privilegios != null) ps.insertarPrivilegios(privilegios);
                     ps.ShowDialog();
                 }
-
-
                 else
                 {
                     if (area == 1)
                     {
-                        privilegiosMantenimiento ps = new privilegiosMantenimiento(idUsuarioTemp);
+                        privilegiosMantenimiento ps = new privilegiosMantenimiento(idUsuarioTemp, v);
                         string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                         ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
                         ps.Owner = this;
@@ -857,7 +855,7 @@ namespace controlFallos
                     }
                     else
                     {
-                        privilegiosAlmacen ps = new privilegiosAlmacen(idUsuarioTemp);
+                        privilegiosAlmacen ps = new privilegiosAlmacen(idUsuarioTemp,v);
                         string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                         ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
                         ps.Owner = this;
@@ -874,14 +872,13 @@ namespace controlFallos
             string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
-
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
                 Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
             }
-                mostrarPersonal();
-            ppuestos.Visible = Convert.ToInt32(v.getaData("SELECT ver FROM privilegios WHERE usuariofkcpersonal = '" + idUsuario + "' and namform = 'catPuestos'")) ==1;
+            mostrarPersonal();
+            ppuestos.Visible = Convert.ToInt32(v.getaData("SELECT ver FROM privilegios WHERE usuariofkcpersonal = '" + idUsuario + "' and namform = 'catPuestos'")) == 1;
         }
         public void mostrarLicencias()
         {
@@ -1111,7 +1108,7 @@ namespace controlFallos
                     else
                     {
                         pHD.Visible = false;
-                        return  (res || (!string.IsNullOrWhiteSpace(txtgetap.Text) || !string.IsNullOrWhiteSpace(txtgetam.Text) || !string.IsNullOrWhiteSpace(txtgetnombre.Text) || csetpuestos.SelectedIndex > 0 || !string.IsNullOrWhiteSpace(txtgetusu.Text) || !string.IsNullOrWhiteSpace(txtgetpass.Text) || !string.IsNullOrWhiteSpace(txtgetpass2.Text.Trim()) || cbtipo.SelectedIndex > 1 || DateTime.Parse(dtpexpconducir.Value.ToString("yyyy-MM-dd")) != DateTime.Today || DateTime.Parse(dtpexptrajeton.Value.ToString("yyyy-MM-dd")) != DateTime.Today || DateTime.Parse(dtpvencconducir.Value.ToString("yyyy-MM-dd")) != DateTime.Today || DateTime.Parse(dtpvenctarjeton.Value.ToString("yyyy-MM-dd")) != DateTime.Today || privilegios != null));
+                        return (res || (!string.IsNullOrWhiteSpace(txtgetap.Text) || !string.IsNullOrWhiteSpace(txtgetam.Text) || !string.IsNullOrWhiteSpace(txtgetnombre.Text) || csetpuestos.SelectedIndex > 0 || !string.IsNullOrWhiteSpace(txtgetusu.Text) || !string.IsNullOrWhiteSpace(txtgetpass.Text) || !string.IsNullOrWhiteSpace(txtgetpass2.Text.Trim()) || cbtipo.SelectedIndex > 1 || DateTime.Parse(dtpexpconducir.Value.ToString("yyyy-MM-dd")) != DateTime.Today || DateTime.Parse(dtpexptrajeton.Value.ToString("yyyy-MM-dd")) != DateTime.Today || DateTime.Parse(dtpvencconducir.Value.ToString("yyyy-MM-dd")) != DateTime.Today || DateTime.Parse(dtpvenctarjeton.Value.ToString("yyyy-MM-dd")) != DateTime.Today || privilegios != null));
                     }
                 }
                 else
@@ -1214,9 +1211,7 @@ namespace controlFallos
                 for (int i = 0; i < busqEmpleados.Columns.Count; i++)
                 {
                     if (busqEmpleados.Columns[i].Visible)
-                    {
                         dt.Columns.Add(busqEmpleados.Columns[i].HeaderText);
-                    }
                 }
                 for (int j = 0; j < busqEmpleados.Rows.Count; j++)
                 {
@@ -1247,6 +1242,9 @@ namespace controlFallos
             else
                 MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
+ 
+         
         private void btnExcel_Click(object sender, EventArgs e)
         {
             ThreadStart delegado = new ThreadStart(ExportarExcel);
