@@ -22,7 +22,9 @@ namespace controlFallos
         int empresa, area, idUsuario; public Thread hilo;
         static bool res = true;
         validaciones v;
-        Thread th;
+        DataTable dt = new DataTable();
+        delegate void El_Delegado(); delegate void El_Delegado1();
+        Thread th, exportar;
         int unidadAnterior, supervisorAnterior, conductorAnterior, servicioAnterior, TipoFalloAnterior, grupoFalloAnterior, subGrupoAnterior, categoriaAnterior, codigoAnterior, IdRepor, idconductor, idsupervisor;
         string fechaAnterior, kilometrajeAnterior, FalloAnterior, ObservacionesAnterior, consulta_gral = "SET lc_time_names = 'es_ES'; select t1.Folio AS 'FOLIO',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'ECO',(select UPPER(Date_format(t1.FechaReporte,'%W %d de %M del %Y'))) AS 'FECHA DEL REPORTE',(select UPPER(concat(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres))from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCpersonal)as 'PERSONA QUE INSERTÓ',coalesce((SELECT x2.Credencial FROM cpersonal AS x2 WHERE  x2.idpersona=t1.CredencialConductorfkCPersonal),'')as 'CREDENCIAL DE CONDUCTOR',(select if(t1.Serviciofkcservicios=1,'SIN SERVICIO',(select upper(x13.Nombre) from cservicios as x13 where x13.idservicio=t1.Serviciofkcservicios)))as 'SERVICIO', TIME_FORMAT(t1.HoraEntrada,'%r') as 'HORA DEL REPORTE', t1.KmEntrada as 'KILOMETRAJE DE REPORTE',if(tipofallo='1','CORRECTIVO',(if(tipofallo='2','PREVENTIVO',(if(tipofallo='3','REITERATIVO',(if(tipofallo='4','REPROGRAMADO','SEGUIMIENTO'))))))) as 'TIPO DE FALLO',COALESCE((select UPPER(x3.descfallo) from cdescfallo as x3 where x3.iddescfallo=t1.DescrFallofkcdescfallo),'')as 'SUBGRUPO DE FALLO',COALESCE((select UPPER(x4.codfallo) from cfallosesp as x4 where x4.idfalloEsp=t1.CodFallofkcfallosesp),'')as 'CÓDIGO DE FALLO',UPPER(t1.DescFalloNoCod) as 'DESCRIPCIÓN DE FALLO NO CODIFICADO',UPPER(t1.ObservacionesSupervision) as 'OBSERVACIONES DE SUPERVISIÓN',(select upper(concat(date_format(x5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(x5.HoraInicioM,'%H:%i'))) from reportemantenimiento as x5 where x5.FoliofkSupervicion=t1.idReporteSupervicion) as 'FECHA/HORA INICIO MANTENIMIENTO',(select upper(concat(date_format(x6.HoraTerminoM,'%W %d de %M del %Y'),' / ',time_format(x6.HoraTerminoM,'%H:%i'))) from reportemantenimiento as x6 where x6.FoliofkSupervicion=t1.idReporteSupervicion)as 'FECHA/HORA TERMINO MANTENIMIENTO',COALESCE((SELECT UPPER(x13.EsperaTiempoM) FROM reportemantenimiento AS x13 WHERE x13.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00' ) AS 'ESPERA DE MANTENIMIENTO',COALESCE((select UPPER(x7.DiferenciaTiempoM)  from reportemantenimiento as x7 where x7.FoliofkSupervicion=t1.idReporteSupervicion),'00:00:00')as 'TIEMPO MANTENIMIENTO', COALESCE((select UPPER(x8.Estatus) from reportemantenimiento as x8 where x8.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'ESTATUS',COALESCE((select UPPER(x9.TrabajoRealizado) from reportemantenimiento as x9 where x9.FoliofkSupervicion=t1.idReporteSupervicion),'') as 'TRABAJO REALIZADO',COALESCE((select UPPER(concat(x11.ApPaterno,' ',x11.ApMaterno,' ',x11.nombres)) from cpersonal as x11 inner join reportemantenimiento as x12 on x11.idPersona=x12.MecanicofkPersonal where x12.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'MECÁNICO QUE REALIZÓ EL MANTENIMIENTO',COALESCE((select UPPER(x10.ObservacionesM) from reportemantenimiento as x10 where x10.FoliofkSupervicion=t1.idReporteSupervicion),'')as 'OBSERVACIONES DE MANTENIMIENTO' from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas AS t4 on t4.idarea=t2.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas";
         public Supervisión(int idUsuario, int empresa, int area, validaciones v)
@@ -54,7 +56,6 @@ namespace controlFallos
             this.empresa = empresa; this.area = area; this.idUsuario = idUsuario;
             v.ChangeControlStyles(btnGuardar, ControlStyles.Selectable, true);
         }
-
         void quitarseen()
         {
             while (res)
@@ -227,26 +228,18 @@ namespace controlFallos
             v.c.dbconection().Close();
             DgvTabla.ClearSelection();
         }
-
-
         void limpia_act()
         {
             btnActualizar.Visible = LblActTabla.Visible = false;
         }
-
         private void txtDescFalloNoC_KeyPress(object sender, KeyPressEventArgs e)
         {
             v.enGeneral(e);
-        }
-        public void ValidarLetra(KeyPressEventArgs e)//Método para validación de letras en cajas de texto.
-        {
-            v.Sololetras(e);
         }
         private void txtConductor_KeyPress(object sender, KeyPressEventArgs e)
         {
             v.Solonumeros(e);
         }
-
         public void limpiarmant()//Creamos método para limpiar campos donde se muestra información de mantenimiento
         {
             lblHIM.Text = lblHTM.Text = lblestatus.Text = LblTrabajoRealizado.Text = lblMecanico.Text = LblObsevacionesMantenimiento.Text = lblEsperaDeMan.Text = lblTM.Text = "";
@@ -305,7 +298,6 @@ namespace controlFallos
             else
                 MessageBox.Show("Seleccione un criterio de búsqueda".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
-
         public void limpiarbusqueda()//Creamos método para limpiar campos de busqueda.
         {
             cmbBuscarDescripcion.SelectedIndex = cmbEmpresa.SelectedIndex = cmbBuscStatus.SelectedIndex = cmbMeses.SelectedIndex = cmbSupervisores.SelectedIndex = 0;
@@ -333,7 +325,6 @@ namespace controlFallos
             txtKilometraje.MaxLength = 12;
             esta_exportando();
         }
-
         void typeoffallos()
         {
             ComboBox cbx = cmbTipoFallo;
@@ -504,7 +495,6 @@ namespace controlFallos
                 MessageBox.Show(ex.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
         public void HabilitarCampos()
         {
             txtSupervisor.Enabled = txtConductor.Enabled = cmbServicio.Enabled = txtKilometraje.Enabled = cmbTipoFallo.Enabled = cbgrupo.Enabled = txtObserSupervicion.Enabled = true;
@@ -514,7 +504,6 @@ namespace controlFallos
         {
             txtSupervisor.Enabled = txtConductor.Enabled = cmbServicio.Enabled = txtKilometraje.Enabled = cmbTipoFallo.Enabled = cbgrupo.Enabled = cbcategoria.Enabled = cbSubGrupo.Enabled = cmbCodFallo.Enabled = txtDescFalloNoC.Enabled = txtObserSupervicion.Enabled = false;
         }
-
         void restaurar_datos(DataGridViewCellEventArgs e)
         {
             if (DgvTabla.Rows.Count > 0)
@@ -522,7 +511,7 @@ namespace controlFallos
                 btnGuardar.Visible = LblGuardar.Visible = false;
                 lblFolio.Text = DgvTabla.Rows[e.RowIndex].Cells[0].Value.ToString();
                 string[] datos = v.getaData("SET lc_time_names = 'es_ES';Select upper(concat(t1.UnidadfkCUnidades,'|',date_format(t1.FechaReporte,'%W %d de %M del %Y'),'|',t1.CredencialConductorfkCPersonal,'|',t1.SupervisorfkCPersonal,'|',t1.Serviciofkcservicios,'|',t1.kmEntrada,'|',t1.tipoFallo,'|',coalesce(t1.DescrFallofkcdescfallo,0),'|',coalesce(t1.CodFallofkcfallosesp,0),'|',t1.DescFalloNoCod,'|',coalesce(t1.ObservacionesSupervision,''),'|',coalesce(t5.EsperaTiempoM,''),'|',coalesce(concat(date_format(t5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(t5.HoraInicioM,'%H:%i')),''),'|',coalesce(date_format(t5.HoraTerminoM,'%W %d de %M del %Y'),''),'|',coalesce(t5.DiferenciaTiempoM,''),'|',coalesce(t5.Estatus,''),'|',coalesce(t5.TrabajoRealizado,''),'|',coalesce((select concat(x5.appaterno,' ',x5.apmaterno,' ',x5.nombres) from cpersonal as x5 where t5.MecanicofkPersonal=x5.idpersona),''),'|',coalesce(t5.ObservacionesM,''))) as r from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas as t4 on t4.idarea=t2.areafkcareas left join reportemantenimiento as t5 on t5.FoliofkSupervicion=t1.idReporteSupervicion WHERE Folio='" + lblFolio.Text + "';").ToString().Split('|');
-                IdRepor =Convert.ToInt32(v.getaData("SELECT idreportesupervicion FROM reportesupervicion WHERE folio='" + lblFolio.Text + "'").ToString());
+                IdRepor = Convert.ToInt32(v.getaData("SELECT idreportesupervicion FROM reportesupervicion WHERE folio='" + lblFolio.Text + "'").ToString());
                 cmbUnidad.SelectedValue = unidadAnterior = Convert.ToInt32(datos[0]);
                 lblFechaReporte.Text = fechaAnterior = datos[1];
                 lblSupervisor.Text = v.getaData("select concat(appaterno,' ',apmaterno,' ',nombres) from cpersonal where idpersona='" + (supervisorAnterior = Convert.ToInt32(datos[3])) + "'").ToString();
@@ -567,7 +556,6 @@ namespace controlFallos
                 btnEditar.Visible = lblactualizar.Visible = false;
             }
         }
-
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
@@ -605,7 +593,6 @@ namespace controlFallos
                 }
             }
         }
-
         void oculta_botones()
         {
             btnEditar.Visible = lblactualizar.Visible = bPdf.Visible = LblPDF.Visible = false;
@@ -636,7 +623,6 @@ namespace controlFallos
                 LimpiarReporte();
             }
         }
-
         void Modificaciones_tabla(string motivo)
         {
             string sql = "INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Reporte de Supervisión','" + IdRepor + "','" + unidadAnterior + ";" + supervisorAnterior + ";" + conductorAnterior + ";" + servicioAnterior + ";" + kilometrajeAnterior + ";" + TipoFalloAnterior + ";";
@@ -645,25 +631,20 @@ namespace controlFallos
             sql += "','" + idsupervisor + "',NOW(),'Actualización de Reporte de Supervisión','" + motivo + "','1','1')";
             v.c.insertar(sql);
         }
-
         void actualiza_datos()
         {
             if (v.campossupervision(lblFolio.Text, cmbUnidad.SelectedIndex, txtSupervisor.Text, txtConductor.Text, cmbServicio.SelectedIndex, txtKilometraje.Text, cmbTipoFallo.SelectedIndex, cbgrupo.SelectedIndex, cbSubGrupo.SelectedIndex, cbcategoria.SelectedIndex, cmbCodFallo.SelectedIndex, txtDescFalloNoC.Text))
                 Editar_reporte();
         }
-
-        Thread exportar;
-        delegate void El_Delegado();
         void cargando()
         {
             pictureBox2.Image = Properties.Resources.loader;
             btnExcel.Visible = false;
             LblExcel.Text = "EXPORTANDO";
         }
-        delegate void El_Delegado1();
         public void consulta_categorias()
         {
-            v.iniCombos("select upper(t3.categoria) as c,t3.idcategoria as id from cdescfallo as t1 inner join catcategorias as t3 on t3.subgrupofkcdescfallo=t1.iddescfallo where iddescfallo='" + cbSubGrupo.SelectedValue + "' order by categoria;", cbcategoria, "id", "c", "--SELECCIONE CATEGORIA--");
+            v.iniCombos("select t3.idcategoria as id ,upper(t3.categoria) as c from cdescfallo as t1 inner join catcategorias as t3 on t3.subgrupofkcdescfallo=t1.iddescfallo where iddescfallo='" + cbSubGrupo.SelectedValue + "' order by categoria;", cbcategoria, "id", "c", "--SELECCIONE CATEGORIA--");
         }
         private void cmbDescFallo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -677,13 +658,6 @@ namespace controlFallos
                 cbcategoria.DataSource = null;
                 cbcategoria.Enabled = false;
             }
-        }
-
-        private void txtObserSupervicion_Validating(object sender, CancelEventArgs e)
-        {
-            txtObserSupervicion.Text = txtObserSupervicion.Text.Replace(Environment.NewLine, "");
-            while (txtObserSupervicion.Text.Contains("  "))
-                txtObserSupervicion.Text = txtObserSupervicion.Text.Replace("  ", " ").Trim();
         }
         public void consulta_subgrupos()
         {
@@ -703,12 +677,10 @@ namespace controlFallos
                 txtDescFalloNoC.Enabled = !(cbSubGrupo.Enabled = false);
             }
         }
-
         private void cmbCodFallo_SelectedIndexChanged(object sender, EventArgs e)
         {
-            lblDescFallo.Text = v.getaData("Select UPPER(coalesce(falloesp,'')) as fallo from cfallosesp where idfalloEsp='" + cmbCodFallo.SelectedValue + "'").ToString();
+                lblDescFallo.Text = (cmbCodFallo.SelectedIndex > 0?v.getaData("Select UPPER(coalesce(falloesp,'')) as fallo from cfallosesp where idfalloEsp='" + cmbCodFallo.SelectedValue + "'").ToString():"");
         }
-
         public void consulta_codigos()
         {
             v.iniCombos("select t1.idfalloEsp as id,upper(t1.codfallo)as c from cfallosesp as t1 inner join catcategorias as t2 on t2.idcategoria=t1.descfallofkcdescfallo inner join cdescfallo as t3 on t2.subgrupofkcdescfallo=t3.iddescfallo inner join cfallosgrales as t4 on t3.falloGralfkcfallosgrales=t4.idFalloGral where t2.idcategoria='" + cbcategoria.SelectedValue + "';", cmbCodFallo, "id", "c", "--SELECCIONE CÓDIGO");
@@ -730,7 +702,6 @@ namespace controlFallos
         {
             hilo.Abort();
         }
-
         private void cmbTipoFallo_DrawItem(object sender, DrawItemEventArgs e)
         {
             Color c = Color.BlueViolet;
@@ -771,7 +742,6 @@ namespace controlFallos
             else
                 e.Graphics.DrawString(dt.Rows[e.Index].ItemArray[1].ToString(), e.Font, new SolidBrush(color_fuente), e.Bounds, sf);
         }
-
         private void cmbEmpresa_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbEmpresa.SelectedIndex > 0)
@@ -794,7 +764,6 @@ namespace controlFallos
                 cmbBuscarUnidad.Enabled = false;
             }
         }
-
         private void cmbUnidad_SelectedValueChanged(object sender, EventArgs e)
         {
             cmbBuscarUnidad.DataSource = null;
@@ -818,13 +787,11 @@ namespace controlFallos
         {
             ((Label)sender).Font = ((((Label)sender).Text.Length >= 30) ? new System.Drawing.Font("Garamond", 10) : new System.Drawing.Font("Garamond", 12));
         }
-
         public void GroupBox_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
             v.DrawGroupBox(box, e.Graphics, Color.FromArgb(75, 44, 52), Color.FromArgb(75, 44, 52), this);
         }
-
         private void btnBuscar_Click(object sender, EventArgs e)
         {
             realiza_busquedas();
@@ -851,7 +818,6 @@ namespace controlFallos
             exportar = new Thread(delegado);
             exportar.Start();
         }
-
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             //Validaciones de campos vacios al momento de dar click al boton guardar
@@ -870,7 +836,6 @@ namespace controlFallos
                 LimpiarReporte();
             }
         }
-
         private void btnNuevo_Click(object sender, EventArgs e)
         {
             mensaje = !(bandera = true);
@@ -881,7 +846,6 @@ namespace controlFallos
         {
             To_pdf();//Llamamos a nuestro método To_pdf               
         }
-
         private void btnEditar_Click(object sender, EventArgs e)
         {
             if (v.getData("select coalesce((select x1.estatus from reportemantenimiento as x1 where x1.FoliofkSupervicion=t1.idreportesupervicion),'') AS ESTATUS FROM reportesupervicion as t1 where t1.folio='" + lblFolio.Text + "'").ToString() != "LIBERADA" && (!peditar && !pinsertar && !pconsultar))
@@ -897,17 +861,14 @@ namespace controlFallos
             else
                 actualiza_datos();
         }
-
         private void btnGuardar_MouseMove(object sender, MouseEventArgs e)
         {
             ((Button)sender).Size = new Size(58, 53);
         }
-
         private void btnGuardar_MouseLeave(object sender, EventArgs e)
         {
             ((Button)sender).Size = new Size(55, 50);
         }
-
         void cargando1()
         {
             pictureBox2.Image = null;
@@ -917,18 +878,15 @@ namespace controlFallos
                 LblExcel.Visible = btnExcel.Visible = false;
             exportando = estado = false;
         }
-
         private void cmbDescFallo_Validating(object sender, CancelEventArgs e)
         {
             if (cbSubGrupo.SelectedIndex > 0)
                 txtDescFalloNoC.Enabled = false;
         }
-
         private void DgvTabla_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
-        DataTable dt = new DataTable();
         public void exporta_a_excel()//Método para exportar a EXCEL.
         {
             if (DgvTabla.Rows.Count > 0)
@@ -993,7 +951,6 @@ namespace controlFallos
             else
                 MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
         private void cmbBuscStatus_DrawItem(object sender, DrawItemEventArgs e)
         {
             Color c = Color.BlueViolet;
@@ -1036,7 +993,7 @@ namespace controlFallos
         {
             bool res = false;
             object grupof = (cbgrupo.SelectedValue ?? 0), subgrupof = cbSubGrupo.SelectedValue ?? 0, categoriaf = cbcategoria.SelectedValue ?? 0, codf = cmbCodFallo.SelectedValue ?? 0;
-            if (editar && (idconductor != conductorAnterior || Convert.ToInt32(cmbServicio.SelectedValue) != servicioAnterior || txtKilometraje.Text != kilometrajeAnterior || Convert.ToInt32(cmbTipoFallo.SelectedValue) != TipoFalloAnterior || Convert.ToInt32(grupof) != grupoFalloAnterior || Convert.ToInt32(subgrupof) != subGrupoAnterior || Convert.ToInt32(categoriaf) != categoriaAnterior || Convert.ToInt32(codf) != codigoAnterior || txtDescFalloNoC.Text != FalloAnterior || ObservacionesAnterior!=txtObserSupervicion.Text) && idsupervisor > 0 && idconductor > 0 && cmbServicio.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtKilometraje.Text) && cmbTipoFallo.SelectedIndex > 0 && ((cbgrupo.SelectedIndex > 0 && cbSubGrupo.SelectedIndex > 0 && cbcategoria.SelectedIndex > 0 && cmbCodFallo.SelectedIndex > 0 && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text) || (!string.IsNullOrWhiteSpace(txtDescFalloNoC.Text) && cbgrupo.SelectedIndex == 0))))
+            if (editar && (idconductor != conductorAnterior || Convert.ToInt32(cmbServicio.SelectedValue) != servicioAnterior || txtKilometraje.Text != kilometrajeAnterior || Convert.ToInt32(cmbTipoFallo.SelectedValue) != TipoFalloAnterior || Convert.ToInt32(grupof) != grupoFalloAnterior || Convert.ToInt32(subgrupof) != subGrupoAnterior || Convert.ToInt32(categoriaf) != categoriaAnterior || Convert.ToInt32(codf) != codigoAnterior || txtDescFalloNoC.Text != FalloAnterior || ObservacionesAnterior != txtObserSupervicion.Text) && idsupervisor > 0 && idconductor > 0 && cmbServicio.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtKilometraje.Text) && cmbTipoFallo.SelectedIndex > 0 && ((cbgrupo.SelectedIndex > 0 && cbSubGrupo.SelectedIndex > 0 && cbcategoria.SelectedIndex > 0 && cmbCodFallo.SelectedIndex > 0 && string.IsNullOrWhiteSpace(txtDescFalloNoC.Text) || (!string.IsNullOrWhiteSpace(txtDescFalloNoC.Text) && cbgrupo.SelectedIndex == 0))))
                 res = true;
             return res;
         }
@@ -1049,7 +1006,6 @@ namespace controlFallos
                 txtObserSupervicion.SelectionStart = txtObserSupervicion.TextLength + 1;
             }
         }
-
         private void txtDescFalloNoC_Validating_1(object sender, CancelEventArgs e)
         {
             while (txtDescFalloNoC.Text.Contains("  "))
@@ -1122,7 +1078,6 @@ namespace controlFallos
                 cmbUnidad.Focus();
             }
         }
-
         private void txtObserSupervicion_KeyPress_1(object sender, KeyPressEventArgs e)
         {
             v.enGeneral(e);
@@ -1131,7 +1086,6 @@ namespace controlFallos
         {
             e.SuppressKeyPress = true;
         }
-
         private void txtKilometraje_Validating(object sender, CancelEventArgs e)
         {
             try
@@ -1167,7 +1121,6 @@ namespace controlFallos
                 txtKilometraje.Clear();
             }
         }
-
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
@@ -1178,7 +1131,6 @@ namespace controlFallos
             else
                 cmbMeses.Enabled = !(dtpFechaA.Enabled = dtpFechaDe.Enabled = false);
         }
-
         private void txtKilometraje_KeyPress(object sender, KeyPressEventArgs e)
         {
             v.numerosDecimales(e);
@@ -1186,9 +1138,7 @@ namespace controlFallos
             if (e.KeyChar == 46)
                 if (txtKilometraje.Text.LastIndexOf(signo_decimal) >= 0)
                     e.Handled = true; // Interceptamos la pulsación para no permitirla.
-
         }
-
         private void txtSupervisor_Validating(object sender, CancelEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtSupervisor.Text))
@@ -1208,7 +1158,6 @@ namespace controlFallos
                 }
             }
         }
-
         private void txtConductor_Validating(object sender, CancelEventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtConductor.Text))
@@ -1218,7 +1167,6 @@ namespace controlFallos
                 idconductor = (!string.IsNullOrWhiteSpace(datos[1]) ? Convert.ToInt32(datos[1]) : 0);
             }
         }
-
         private void dtpFechaA_KeyDown(object sender, KeyEventArgs e)
         {
             e.SuppressKeyPress = true;
