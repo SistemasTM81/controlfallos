@@ -351,6 +351,7 @@
             this.bPdf.Size = new System.Drawing.Size(55, 50);
             this.bPdf.TabIndex = 16;
             this.bPdf.UseVisualStyleBackColor = false;
+            this.bPdf.Visible = false;
             this.bPdf.Click += new System.EventHandler(this.bPdf_Click);
             this.bPdf.MouseLeave += new System.EventHandler(this.btnGuardar_MouseLeave);
             this.bPdf.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnGuardar_MouseMove);
@@ -371,6 +372,7 @@
             this.btnEditar.Size = new System.Drawing.Size(55, 50);
             this.btnEditar.TabIndex = 15;
             this.btnEditar.UseVisualStyleBackColor = false;
+            this.btnEditar.Visible = false;
             this.btnEditar.Click += new System.EventHandler(this.btnEditar_Click);
             this.btnEditar.MouseLeave += new System.EventHandler(this.btnGuardar_MouseLeave);
             this.btnEditar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnGuardar_MouseMove);
