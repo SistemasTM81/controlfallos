@@ -19,7 +19,7 @@ namespace controlFallos
         bool yaAparecioMensaje = false;
         string familiaAnterior, DescripcionAnterior;
         new catRefacciones Owner;
-        public marcas(int idUsuario, int empresa, int area, Form fh,validaciones v)
+        public marcas(int idUsuario, int empresa, int area, Form fh, validaciones v)
         {
             this.v = v;
             InitializeComponent();
@@ -42,7 +42,6 @@ namespace controlFallos
                     btnsave.Visible = lblsave.Visible = true;
                 else
                     btnsave.Visible = lblsave.Visible = false;
-                
             }
         }
         public void establecerPrivilegios()
@@ -50,7 +49,6 @@ namespace controlFallos
             string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
-
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
@@ -60,20 +58,9 @@ namespace controlFallos
         }
         void mostrar()
         {
-            if (Pinsertar || Peditar)
-            {
-
-                gbadd.Visible = true;
-            }
-            if (Pconsultar)
-            {
-                gbconsulta.Visible = true;
-            }
-            if (Peditar)
-            {
-                label2.Visible = true;
-                label3.Visible = true;
-            }
+            gbadd.Visible = Pinsertar || Peditar;
+            gbconsulta.Visible = Pconsultar;
+            label2.Visible = label3.Visible = Peditar;
         }
         private void marcas_Load(object sender, EventArgs e)
         {
@@ -115,25 +102,18 @@ namespace controlFallos
             try
             {
                 if (!editar)
-                {
                     _insertar();
-                }
                 else
-                {
                     _editar();
-                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         void _editar()
         {
             string marca = v.mayusculas(txtmarca.Text.ToLower());
             int familia = Convert.ToInt32(cbfamilia.SelectedValue);
             int descfamilia = 0; if (cbdesc.DataSource != null) descfamilia = Convert.ToInt32(cbdesc.SelectedValue);
-            if (!v.camposVaciosCatMarcas(familia, descfamilia, marca) && !v.existeMarcaActualizar(descfamilia, Convert.ToInt32(DescripcionAnterior), marca, this.marcaAnterior,empresa))
+            if (!v.camposVaciosCatMarcas(familia, descfamilia, marca) && !v.existeMarcaActualizar(descfamilia, Convert.ToInt32(DescripcionAnterior), marca, this.marcaAnterior, empresa))
             {
                 observacionesEdicion obs = new observacionesEdicion(v);
                 obs.Owner = this;
@@ -154,7 +134,7 @@ namespace controlFallos
             string marca = v.mayusculas(txtmarca.Text.ToLower());
             int familia = Convert.ToInt32(cbfamilia.SelectedValue);
             int descfamilia = 0; if (cbdesc.DataSource != null) descfamilia = Convert.ToInt32(cbdesc.SelectedValue);
-            if (!v.camposVaciosCatMarcas(familia, descfamilia, marca) && !v.existeMarca(descfamilia, marca,empresa))
+            if (!v.camposVaciosCatMarcas(familia, descfamilia, marca) && !v.existeMarca(descfamilia, marca, empresa))
             {
                 if (v.c.insertar("INSERT INTO cmarcas(descripcionfkcfamilias,marca,personafkcpersonal) VALUES('" + descfamilia + "',LTRIM(RTRIM('" + marca + "')),'" + this.idUsuario + "')"))
                 {
@@ -165,9 +145,7 @@ namespace controlFallos
 
                 }
                 else
-                {
                     MessageBox.Show("La Marca no se Agrego", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
 
 
@@ -185,14 +163,9 @@ namespace controlFallos
             if (tbmarcas.Columns[e.ColumnIndex].HeaderText == "ESTATUS")
             {
                 if (Convert.ToString(e.Value) == "Activo".ToUpper())
-                {
-
                     e.CellStyle.BackColor = Color.PaleGreen;
-                }
                 else
-                {
                     e.CellStyle.BackColor = Color.LightCoral;
-                }
             }
         }
 
@@ -207,14 +180,10 @@ namespace controlFallos
                     button2_Click(null, e);
                 }
                 else
-                {
                     limpiar();
-                }
             }
             else
-            {
                 limpiar();
-            }
         }
 
         private void txtmarca_KeyPress(object sender, KeyPressEventArgs e)
@@ -237,8 +206,7 @@ namespace controlFallos
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            NombresFamilias nm = new NombresFamilias(idUsuario, empresa, area,v);
+            NombresFamilias nm = new NombresFamilias(idUsuario, empresa, area, v);
             nm.Owner = this;
             nm.Show();
         }
@@ -249,8 +217,6 @@ namespace controlFallos
             {
                 if (Convert.ToInt32(v.getaData("SELECT count(*) FROM cfamilias WHERE familiafkcnfamilias='" + cbfamilia.SelectedValue + "' AND status='1'")) > 0)
                 {
-
-
                     v.iniCombos("SELECT idfamilia as id, UPPER(descripcionFamilia) as descr FROM cfamilias WHERE familiafkcnfamilias='" + cbfamilia.SelectedValue + "' AND status='1' ORDER BY descripcionFamilia ASC", cbdesc, "id", "descr", "--SELECCIONE UNA DESCRIPCIÓN--");
                     cbdesc.Enabled = true;
                 }
@@ -269,28 +235,20 @@ namespace controlFallos
 
         private void btnaddpasillo_Click(object sender, EventArgs e)
         {
-            familias f = new familias(idUsuario, empresa, area,v);
+            familias f = new familias(idUsuario, empresa, area, v);
             f.Owner = this;
             f.ShowDialog();
 
         }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
-            NombresFamilias n = new NombresFamilias(idUsuario, empresa, area,v);
+            NombresFamilias n = new NombresFamilias(idUsuario, empresa, area, v);
             n.Owner = this;
             n.ShowDialog();
         }
 
-        private void gbadd_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void cbdesc_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
+        private void gbadd_Enter(object sender, EventArgs e){}
+        private void cbdesc_SelectedIndexChanged(object sender, EventArgs e){}
 
         private void tbmarcas_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -305,14 +263,10 @@ namespace controlFallos
                         button2_Click(null, e);
                     }
                     else
-                    {
                         guardarReporte(e);
-                    }
                 }
                 else
-                {
                     guardarReporte(e);
-                }
             }
         }
 
@@ -369,25 +323,17 @@ namespace controlFallos
                     tbmarcas.ClearSelection();
                     btnsave.Visible = lblsave.Visible = false;
                     if (status == 0) MessageBox.Show(v.mayusculas("Para Modificar La Información Necesita Reactivar El Registro"), validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-
-
                 }
                 else
-                {
                     MessageBox.Show("Usted No Cuenta Con Privilegios Para Editar", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         private void btndeleteuser_Click(object sender, EventArgs e)
         {
             if (idmarcaTemp > 0)
             {
                 string msg;
-               
                 int status;
                 if (reactivar)
                 {
@@ -398,7 +344,6 @@ namespace controlFallos
                 {
                     status = 0;
                     msg = "Des";
-
                 }
                 if (status == 1 && Convert.ToInt32(v.getaData(string.Format("SELECT t3.status FROM cmarcas as t1 INNER JOIN cfamilias as t2 ON t1.descripcionfkcfamilias=t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia WHERE idmarca='{0}'", idmarcaTemp))) == 0) MessageBox.Show("Error Al Reactivar:\n Nombre de Familia Desactivado", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 else if (status == 1 && Convert.ToInt32(v.getaData(string.Format("SELECT t2.status FROM cmarcas as t1 INNER JOIN cfamilias as t2 ON t1.descripcionfkcfamilias=t2.idfamilia WHERE idmarca='{0}'", idmarcaTemp))) == 0) MessageBox.Show("Error Al Reactivar:\n Descripción de Familia Desactivada", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -422,16 +367,10 @@ namespace controlFallos
                                 insertarums();
                             }
                             else
-                            {
                                 MessageBox.Show("La Marca no ha sido " + msg);
-                            }
 
                         }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                        }
+                        catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
                     }
                 }
             }
@@ -448,9 +387,7 @@ namespace controlFallos
                 cbfamilia.Focus();
             }
             if (Pconsultar)
-            {
                 insertarums();
-            }
             txtmarca.Clear();
             this.idmarcaTemp = 0;
             reactivar = false;

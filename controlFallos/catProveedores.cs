@@ -109,10 +109,7 @@ namespace controlFallos
 
 
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
         void mostrar()
         {
@@ -171,20 +168,20 @@ namespace controlFallos
         public void insertarums()
         {
             tbProveedores.Rows.Clear();
-            string sql = @"SELECT t1.idproveedor, UPPER(t1.empresa) AS empresa, COALESCE(t1.paginaweb, '') AS paginaweb, COALESCE(UPPER(t2.giro), '') AS giro, CONCAT(COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idlada) ,concat('(+',t1.lada1,') ')), t1.telefonoEmpresaUno, IF(t1.ext1 IS NULL, '', CONCAT(' Ext. ', t1.ext1)))), ''),COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('\\n(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idladados),CONCAT('\\n','(+',t1.lada2,') ')), t1.telefonoEmpresaDos, IF(t1.ext2 IS NULL, '', CONCAT(' Ext. ', t1.ext2)))), '')) AS telefonoEmpresa, COALESCE(UPPER(t1.observaciones), '') AS observaciones, COALESCE((SELECT UPPER(CONCAT('Calle: ', t1.calle, ', Número: ', t1.Numero, ', ', t2.tipo, ' ', t2.asentamiento, ', ', municipio, ', ', t2.estado, '. C. P. ', t2.cp)) FROM     sepomex AS t2 WHERE t1.domiciliofksepomex = t2.id), '') AS domicilio, COALESCE(UPPER(t1.aPaterno),'') AS aPaterno, COALESCE( UPPER(t1.AMaterno),'') AS aMaterno, COALESCE( UPPER(t1.nombres),'') AS nombres, COALESCE(t1.correo, '') AS correo, CONCAT(COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idladatres) ,concat('(+',t1.lada3,') ')), t1.telefonoContactoUno, IF(t1.ext3 IS NULL, '', CONCAT(' Ext. ', t1.ext3)))), ''),COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('\\n(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idladacuatro) ,CONCAT('\\n','(+',t1.lada4,') ')), t1.telefonoContactoDos, IF(t1.ext4 IS NULL, '', CONCAT(' Ext. ', t1.ext4)))), '')) AS telefonoContacto, IF(t1.status = 1, UPPER('Activo'), UPPER(CONCAT('No Activo'))), COALESCE(t2.idgiro, '') AS idgiro, t1.idlada AS idlada1, COALESCE(t1.telefonoEmpresaUno, '') AS telempresa1, t1.idladados AS idlada2, COALESCE(t1.telefonoEmpresaDos, '') AS telempresa2, COALESCE(t1.domiciliofksepomex, '') AS iddomicilio, COALESCE(calle, '') AS calle, COALESCE(numero, '') AS numero, COALESCE(referencias, '') AS referencias, t1.idladatres AS idlada3, COALESCE(t1.telefonoContactoUno, '') AS telcontacto1, t1.idladacuatro AS idlada4, COALESCE(t1.telefonoContactoDos, '') AS telcontacto2, COALESCE(ext1, '') AS ext1, COALESCE(ext2, '') AS ext2, COALESCE(ext3, '') AS ext3, COALESCE(ext4, '') AS ext4, COALESCE(lada1,'') as lada1, COALESCE(lada2,'') as lada2, COALESCE(lada3,'') as lada3, COALESCE(lada4,'') as lada4, coalesce(upper(t1.Puesto),'') FROM cproveedores AS t1 LEFT JOIN cgiros AS t2 ON t1.Clasificacionfkcgiros = t2.idgiro WHERE t1.empresaS ='"+empresa+"' ORDER BY t1.empresa ASC;";
+            string sql = @"SELECT t1.idproveedor, UPPER(t1.empresa) AS empresa, COALESCE(t1.paginaweb, '') AS paginaweb, COALESCE(UPPER(t2.giro), '') AS giro, CONCAT(COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idlada) ,concat('(+',t1.lada1,') ')), t1.telefonoEmpresaUno, IF(t1.ext1 IS NULL, '', CONCAT(' Ext. ', t1.ext1)))), ''),COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('\\n(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idladados),CONCAT('\\n','(+',t1.lada2,') ')), t1.telefonoEmpresaDos, IF(t1.ext2 IS NULL, '', CONCAT(' Ext. ', t1.ext2)))), '')) AS telefonoEmpresa, COALESCE(UPPER(t1.observaciones), '') AS observaciones, COALESCE((SELECT UPPER(CONCAT('Calle: ', t1.calle, ', Número: ', t1.Numero, ', ', t2.tipo, ' ', t2.asentamiento, ', ', municipio, ', ', t2.estado, '. C. P. ', t2.cp)) FROM     sepomex AS t2 WHERE t1.domiciliofksepomex = t2.id), '') AS domicilio, COALESCE(UPPER(t1.aPaterno),'') AS aPaterno, COALESCE( UPPER(t1.AMaterno),'') AS aMaterno, COALESCE( UPPER(t1.nombres),'') AS nombres, COALESCE(t1.correo, '') AS correo, CONCAT(COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idladatres) ,concat('(+',t1.lada3,') ')), t1.telefonoContactoUno, IF(t1.ext3 IS NULL, '', CONCAT(' Ext. ', t1.ext3)))), ''),COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('\\n(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idladacuatro) ,CONCAT('\\n','(+',t1.lada4,') ')), t1.telefonoContactoDos, IF(t1.ext4 IS NULL, '', CONCAT(' Ext. ', t1.ext4)))), '')) AS telefonoContacto, IF(t1.status = 1, UPPER('Activo'), UPPER(CONCAT('No Activo'))), COALESCE(t2.idgiro, '') AS idgiro, t1.idlada AS idlada1, COALESCE(t1.telefonoEmpresaUno, '') AS telempresa1, t1.idladados AS idlada2, COALESCE(t1.telefonoEmpresaDos, '') AS telempresa2, COALESCE(t1.domiciliofksepomex, '') AS iddomicilio, COALESCE(calle, '') AS calle, COALESCE(numero, '') AS numero, COALESCE(referencias, '') AS referencias, t1.idladatres AS idlada3, COALESCE(t1.telefonoContactoUno, '') AS telcontacto1, t1.idladacuatro AS idlada4, COALESCE(t1.telefonoContactoDos, '') AS telcontacto2, COALESCE(ext1, '') AS ext1, COALESCE(ext2, '') AS ext2, COALESCE(ext3, '') AS ext3, COALESCE(ext4, '') AS ext4, COALESCE(lada1,'') as lada1, COALESCE(lada2,'') as lada2, COALESCE(lada3,'') as lada3, COALESCE(lada4,'') as lada4, coalesce(upper(t1.Puesto),'') FROM cproveedores AS t1 LEFT JOIN cgiros AS t2 ON t1.Clasificacionfkcgiros = t2.idgiro WHERE t1.empresaS ='" + empresa + "' ORDER BY t1.empresa ASC;";
             DataTable t = (DataTable)v.getData(sql);
             for (int i = 0; i < t.Rows.Count; i++) tbProveedores.Rows.Add(t.Rows[i].ItemArray);
             tbProveedores.ClearSelection();
         }
-        
+
         public void giros_desactivados(string giro)
         {
-            MySqlCommand cmd = new MySqlCommand("Select idgiro, upper(giro) as giro from cgiros where idgiro='" + giro + "' AND empresa='"+empresa+"' and status='0'", v.c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("Select idgiro, upper(giro) as giro from cgiros where idgiro='" + giro + "' AND empresa='" + empresa + "' and status='0'", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 cbgiros.DataSource = null;
-                MySqlCommand cmd6 = new MySqlCommand("SELECT idgiro,upper(giro) as giro from cgiros where status='1' AND empresa='"+empresa+"' order by giro asc", v.c.dbconection());
+                MySqlCommand cmd6 = new MySqlCommand("SELECT idgiro,upper(giro) as giro from cgiros where status='1' AND empresa='" + empresa + "' order by giro asc", v.c.dbconection());
                 MySqlDataAdapter da = new MySqlDataAdapter(cmd6);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
@@ -202,7 +199,7 @@ namespace controlFallos
             }
             else
             {
-                v.iniCombos("SELECT idgiro,upper(giro) as giro from cgiros where status='1'  AND empresa ='"+empresa+"' order by giro asc", cbgiros, "idgiro", "giro", "-SELECIONE UN GIRO-");
+                v.iniCombos("SELECT idgiro,upper(giro) as giro from cgiros where status='1'  AND empresa ='" + empresa + "' order by giro asc", cbgiros, "idgiro", "giro", "-SELECIONE UN GIRO-");
                 cbgiros.SelectedValue = giro;
             }
             dr.Close();
@@ -333,14 +330,10 @@ namespace controlFallos
                     }
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex) { MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
         void insertar(string empresa, string ap, string am, string nombre, string correo, string[] telefonosEmpresa, string[] telefonosContacto, object asentamiento, string calle, string numero, string[] ladasManuales)
         {
-
             if (v.formularioProveedores(empresa, ap, am, nombre, correo, telefonosEmpresa, telefonosContacto, cmbTel_uno.SelectedValue.ToString(), cbTel_dos.SelectedValue.ToString(), cbladas.SelectedValue.ToString(), cbladas1.SelectedValue.ToString(), asentamiento.ToString(), calle, numero, ladasmanuales) && !v.existeProveedor(v.mayusculas(empresa), v.mayusculas(ap), v.mayusculas(am), v.mayusculas(nombre), v.mayusculas(correo)))
             {
                 string campos = "";
@@ -610,29 +603,12 @@ namespace controlFallos
         void borrar()
         {
             if (MessageBox.Show("¿Desea Limpiar Todos los Campos?", validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
                 limpiar();
-            }
         }
-        private void txtgetempresa_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.paraEmpresas(e);
-        }
-
-        private void txtgetap_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.Sololetras(e);
-        }
-
-        private void txtgettelefono_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.Solonumeros(e);
-        }
-
-        private void txtgetemail_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.paraUsuarios(e);
-        }
+        private void txtgetempresa_KeyPress(object sender, KeyPressEventArgs e){v.paraEmpresas(e);}
+        private void txtgetap_KeyPress(object sender, KeyPressEventArgs e){v.Sololetras(e);}
+        private void txtgettelefono_KeyPress(object sender, KeyPressEventArgs e){v.Solonumeros(e);}
+        private void txtgetemail_KeyPress(object sender, KeyPressEventArgs e){v.paraUsuarios(e);}
         void limpiar()
         {
             if (pinsertar)
@@ -701,8 +677,7 @@ namespace controlFallos
             ocultarLada2();
             ocultarLada3();
             ocultarLada4();
-
-        }
+            }
 
         private void catProveedores_Load(object sender, EventArgs e)
         {
@@ -714,7 +689,7 @@ namespace controlFallos
             }
             if (pinsertar || peditar)
             {
-                v.iniCombos("SELECT idgiro,upper(giro) as giro from cgiros where status='1' AND empresa='"+empresa+"' order by giro asc", cbgiros, "idgiro", "giro", "-SELECIONE UNa Clasificacion-");
+                v.iniCombos("SELECT idgiro,upper(giro) as giro from cgiros where status='1' AND empresa='" + empresa + "' order by giro asc", cbgiros, "idgiro", "giro", "-SELECIONE UNa Clasificacion-");
                 inigiros();
                 iniLadas();
             }
@@ -727,7 +702,6 @@ namespace controlFallos
                         validaciones.delgado dm = new validaciones.delgado(v.cerrarForm);
                         Invoke(dm, frm);
                     }
-
                     break;
                 }
             }
@@ -736,7 +710,7 @@ namespace controlFallos
         void inigiros()
         {
             cbgirosb.DataSource = null;
-            DataTable dt = (DataTable)v.getData("SELECT idgiro,upper(giro) as giro from cgiros where empresa='"+empresa+"' order by giro asc");
+            DataTable dt = (DataTable)v.getData("SELECT idgiro,upper(giro) as giro from cgiros where empresa='" + empresa + "' order by giro asc");
             DataRow nuevaFila = dt.NewRow();
             nuevaFila["idgiro"] = 0;
             nuevaFila["giro"] = "-- seleccione una Clasificacion --".ToUpper();
@@ -774,16 +748,10 @@ namespace controlFallos
                         mailItem.Display(false);
                         tbProveedores.ClearSelection();
                     }
-                    catch (Exception eX)
-                    {
-                        MessageBox.Show(eX.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    catch (Exception eX){MessageBox.Show(eX.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message + "\n\t Ocurrió Un Error!", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message + "\n\t Ocurrió Un Error!", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
 
         private void tbProveedores_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -791,14 +759,9 @@ namespace controlFallos
             if (tbProveedores.Columns[e.ColumnIndex].Name == "Estatus")
             {
                 if (Convert.ToString(e.Value) == "Activo".ToUpper())
-                {
-
                     e.CellStyle.BackColor = Color.PaleGreen;
-                }
                 else
-                {
                     e.CellStyle.BackColor = Color.LightCoral;
-                }
             }
         }
 
@@ -976,9 +939,7 @@ namespace controlFallos
                         if (!string.IsNullOrWhiteSpace(tbProveedores.Rows[e.RowIndex].Cells[22].Value.ToString()))
                         {
                             if (Convert.ToInt32(tbProveedores.Rows[e.RowIndex].Cells[22].Value) > 0)
-                            {
                                 cbladas.SelectedValue = _idladaanterior3 = tbProveedores.Rows[e.RowIndex].Cells[22].Value.ToString();
-                            }
                             else
                             {
                                 if (!string.IsNullOrWhiteSpace(tbProveedores.Rows[e.RowIndex].Cells[32].Value.ToString()))
@@ -1122,7 +1083,6 @@ namespace controlFallos
                 string edicion = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
                 try
                 {
-
                     String sql = "UPDATE cproveedores SET status = " + status + " WHERE idproveedor  = " + this._idproveedorTemp;
                     if (v.c.insertar(sql))
                     {
@@ -1134,31 +1094,21 @@ namespace controlFallos
                         esta_exportandO();
                     }
                     else
-                    {
                         MessageBox.Show("El Proveedor no ha sido desactivado", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
                 }
-                catch (MySqlException ex)
-                {
-                    MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                catch (MySqlException ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
             }
         }
 
-        private void linkcancel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-
-        }
-
-        private void button7_Click(object sender, EventArgs e)
+        private void linkcancel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e){}
+                private void button7_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtbempresa.Text) || !string.IsNullOrWhiteSpace(txtBNombre.Text) || !string.IsNullOrWhiteSpace(txtbap.Text) || cbgirosb.SelectedIndex > 0)
             {
                 try
                 {
-                    //limpiar();
                     tbProveedores.Rows.Clear();
-                    string wheres = "WHERE empresaS='"+empresa+"'";
+                    string wheres = "WHERE empresaS='" + empresa + "'";
                     string sql = "SELECT t1.idproveedor, UPPER(t1.empresa) AS empresa, COALESCE(t1.paginaweb, '') AS paginaweb, COALESCE(UPPER(t2.giro), '') AS giro, CONCAT(COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idlada) ,concat('(+',t1.lada1,') ')), t1.telefonoEmpresaUno, IF(t1.ext1 IS NULL, '', CONCAT(' Ext. ', t1.ext1)))), ''),COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('\n(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idladados),CONCAT('\n','(+',t1.lada2,') ')), t1.telefonoEmpresaDos, IF(t1.ext2 IS NULL, '', CONCAT(' Ext. ', t1.ext2)))), '')) AS telefonoEmpresa, COALESCE(UPPER(t1.observaciones), '') AS observaciones, COALESCE((SELECT UPPER(CONCAT('Calle: ', t1.calle, ', Número: ', t1.Numero, ', ', t2.tipo, ' ', t2.asentamiento, ', ', municipio, ', ', t2.estado, '. C. P. ', t2.cp)) FROM     sepomex AS t2 WHERE t1.domiciliofksepomex = t2.id), '') AS domicilio, COALESCE(UPPER(t1.aPaterno),'') AS aPaterno, COALESCE( UPPER(t1.AMaterno),'') AS aMaterno, COALESCE( UPPER(t1.nombres),'') AS nombres, COALESCE(t1.correo, '') AS correo, CONCAT(COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idladatres) ,concat('(+',t1.lada3,') ')), t1.telefonoContactoUno, IF(t1.ext3 IS NULL, '', CONCAT(' Ext. ', t1.ext3)))), ''),COALESCE((SELECT CONCAT(COALESCE((SELECT CONCAT('\n(+',Clave,') ') FROM ladanac WHERE idLadaNac=t1.idladacuatro) ,CONCAT('\n','(+',t1.lada4,') ')), t1.telefonoContactoDos, IF(t1.ext4 IS NULL, '', CONCAT(' Ext. ', t1.ext4)))), '')) AS telefonoContacto, IF(t1.status = 1, UPPER('Activo'), UPPER(CONCAT('No Activo'))), COALESCE(t2.idgiro, '') AS idgiro, t1.idlada AS idlada1, COALESCE(t1.telefonoEmpresaUno, '') AS telempresa1, t1.idladados AS idlada2, COALESCE(t1.telefonoEmpresaDos, '') AS telempresa2, COALESCE(t1.domiciliofksepomex, '') AS iddomicilio, COALESCE(calle, '') AS calle, COALESCE(numero, '') AS numero, COALESCE(referencias, '') AS referencias, t1.idladatres AS idlada3, COALESCE(t1.telefonoContactoUno, '') AS telcontacto1, t1.idladacuatro AS idlada4, COALESCE(t1.telefonoContactoDos, '') AS telcontacto2, COALESCE(ext1, '') AS ext1, COALESCE(ext2, '') AS ext2, COALESCE(ext3, '') AS ext3, COALESCE(ext4, '') AS ext4, COALESCE(lada1,'') as lada1, COALESCE(lada2,'') as lada2, COALESCE(lada3,'') as lada3, COALESCE(lada4,'') as lada4 FROM cproveedores AS t1 LEFT JOIN cgiros AS t2 ON t1.Clasificacionfkcgiros = t2.idgiro  ";
                     if (!string.IsNullOrWhiteSpace(txtbempresa.Text))
                     {
@@ -1321,7 +1271,7 @@ namespace controlFallos
                     El_Delegado1 delega = new El_Delegado1(cargando1);
                     this.Invoke(delega);
                 }
-               // _ProveedoresExportadas();
+                // _ProveedoresExportadas();
             }
             else
             {
@@ -1944,7 +1894,7 @@ namespace controlFallos
 
         private void button6_Click(object sender, EventArgs e)
         {
-            catGiros cat = new catGiros(idUsuario, empresa, area,v);
+            catGiros cat = new catGiros(idUsuario, empresa, area, v);
             cat.Owner = this;
             cat.ShowDialog();
         }

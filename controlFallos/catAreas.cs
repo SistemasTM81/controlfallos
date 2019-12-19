@@ -48,7 +48,6 @@ namespace controlFallos
             string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
-
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
@@ -268,10 +267,7 @@ namespace controlFallos
             }
         }
 
-        private void gbaddarea_Enter(object sender, EventArgs e)
-        {
-
-        }
+        private void gbaddarea_Enter(object sender, EventArgs e){}
 
         private void panel1_MouseDown(object sender, MouseEventArgs e) { v.mover(sender, e, this); }
         public void empresas_index()
@@ -316,7 +312,6 @@ namespace controlFallos
         }
         void guardarReporte(DataGridViewCellEventArgs e)
         {
-
             try
             {
                 idareaAnterior = tbareas.Rows[e.RowIndex].Cells[0].Value.ToString();

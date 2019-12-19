@@ -55,6 +55,7 @@
             this.txtgetpuesto = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.pdelete.SuspendLayout();
@@ -259,6 +260,7 @@
             // gbpuesto
             // 
             this.gbpuesto.AutoSize = true;
+            this.gbpuesto.Controls.Add(this.button2);
             this.gbpuesto.Controls.Add(this.label22);
             this.gbpuesto.Controls.Add(this.label23);
             this.gbpuesto.Controls.Add(this.pcancel);
@@ -398,6 +400,16 @@
             this.label2.TabIndex = 19;
             this.label2.Text = "________________________________________________________________________";
             // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(738, 177);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 29;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // catPuestos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -457,5 +469,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn people;
         private System.Windows.Forms.DataGridViewTextBoxColumn Estatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipo;
+        private System.Windows.Forms.Button button2;
     }
 }

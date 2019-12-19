@@ -20,7 +20,6 @@ namespace controlFallos
         public bool Pconsultar { set; get; }
         public bool Pdesactivar { set; get; }
         bool yaAparecioMensaje = false;
-
         validaciones v;
         new catRefacciones Owner;
         public ubicaciones(int idUsuario, int empresa, int area, Form fh, validaciones v)
@@ -57,19 +56,12 @@ namespace controlFallos
                 int anaquel = 0; if (cbanaquel.DataSource != null) anaquel = Convert.ToInt32(cbanaquel.SelectedValue);
                 string charola = txtcharola.Text.Trim();
                 if (_status == 1 && (pasillo > 0 && nivel > 0 && anaquel > 0 && !string.IsNullOrWhiteSpace(charola)) && (pasilloAnterior != pasillo || nivel != nivelAnterior || anaquel != anaquelAnterior || !charola.Equals(charolaAnterior)))
-                {
                     btnsave.Visible = lblsave.Visible = true;
-                }
                 else
-                {
                     btnsave.Visible = lblsave.Visible = false;
-                }
             }
             else
-            {
                 btnsave.Visible = lblsave.Visible = true;
-
-            }
         }
         public void establecerPrivilegios()
         {
@@ -115,7 +107,6 @@ namespace controlFallos
             }
             limpiar();
         }
-
         private void ubicaciones_Load(object sender, EventArgs e)
         {
             establecerPrivilegios();
@@ -134,10 +125,7 @@ namespace controlFallos
                 else
                     _editarCharola();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         void _insertarCharola()
         {
@@ -157,7 +145,6 @@ namespace controlFallos
                     limpiar();
                 }
             }
-
         }
         void _editarCharola()
         {
@@ -178,7 +165,6 @@ namespace controlFallos
                     limpiar();
                 }
             }
-
         }
         private void cbpasillo_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -190,7 +176,6 @@ namespace controlFallos
             }
             else
             {
-
                 cbniveles.DataSource = null;
                 cbniveles.Enabled = false;
             }
@@ -232,12 +217,8 @@ namespace controlFallos
                 cbpasillo.Focus();
             }
             if (Pconsultar)
-            {
                 insertarUbicaciones();
-            }
             busqUbic();
-
-
         }
 
         public void insertarUbicaciones()
@@ -245,9 +226,7 @@ namespace controlFallos
             tbubicaciones.Rows.Clear();
             DataTable dt = (DataTable)v.getData("SELECT t1.idcharola,UPPER(t4.pasillo),UPPER(t3.nivel),UPPER(t2.anaquel),UPPER(t1.charola),if(t1.status=1,UPPER('Activo'),UPPER('No Activo')),t4.idpasillo,t3.idnivel,t2.idanaquel FROM ccharolas AS t1 INNER JOIN canaqueles AS t2 ON t1.anaquelfkcanaqueles=t2.idanaquel INNER JOIN cniveles as t3 ON t2.nivelfkcniveles=t3.idnivel INNER JOIN cpasillos as t4 ON t3.pasillofkcpasillos=t4.idpasillo where t1.empresa='" + empresa + "' ORDER BY pasillo,nivel,anaquel,charola ASC");
             for (int i = 0; i < dt.Rows.Count; i++)
-            {
                 tbubicaciones.Rows.Add(dt.Rows[i].ItemArray);
-            }
             tbubicaciones.ClearSelection();
         }
         private void tbubicaciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -255,21 +234,13 @@ namespace controlFallos
             if (tbubicaciones.Columns[e.ColumnIndex].Name == "Estatus")
             {
                 if (Convert.ToString(e.Value) == "Activo".ToUpper())
-                {
-
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                }
+e.CellStyle.BackColor = Color.PaleGreen;
                 else
-                {
                     e.CellStyle.BackColor = Color.LightCoral;
-                }
             }
         }
 
-        private void pEliminarClasificacion_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        private void pEliminarClasificacion_Paint(object sender, PaintEventArgs e){}
 
         private void btndelcla_Click(object sender, EventArgs e)
         {
@@ -290,7 +261,6 @@ namespace controlFallos
                         else
                         {
                             msg = "Des";
-
                             status = 0;
                         }
 
@@ -310,31 +280,19 @@ namespace controlFallos
                                 var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Refacciones - Ubicaciones','" + idCharolaAnterior + "','" + msg + "activación de Ubicacón','" + idUsuario + "',NOW(),'" + msg + "activación de Ubicación','" + edicion + "','" + empresa + "','" + area + "')");
                                 limpiar();
                                 MessageBox.Show("La Ubicacion se ha " + msg + "activado Correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                             }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                    catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
                 }
                 else
-                {
                     MessageBox.Show("Seleccione una Ubicacion para Desactivar", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
         }
 
-        private void cbpasillo_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            v.combos_DrawItem(sender, e);
-        }
+        private void cbpasillo_DrawItem(object sender, DrawItemEventArgs e){v.combos_DrawItem(sender, e);}
 
-        private void tbubicaciones_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
-        {
-            v.paraDataGridViews_ColumnAdded(sender, e);
-        }
+        private void tbubicaciones_ColumnAdded(object sender, DataGridViewColumnEventArgs e){v.paraDataGridViews_ColumnAdded(sender, e);}
 
         private void tbubicaciones_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -369,10 +327,7 @@ namespace controlFallos
             cat.ShowDialog();
         }
 
-        private void gbaddubicacion_Enter(object sender, EventArgs e)
-        {
-
-        }
+        private void gbaddubicacion_Enter(object sender, EventArgs e){}
 
         private void cbniveles_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -384,7 +339,6 @@ namespace controlFallos
             }
             else
             {
-
                 cbanaquel.DataSource = null;
                 cbanaquel.Enabled = false;
             }
@@ -400,13 +354,11 @@ namespace controlFallos
                 {
                     if (_status == 0)
                     {
-
                         btndelcha.BackgroundImage = controlFallos.Properties.Resources.up;
                         lbldelcha.Text = "Reactivar";
                     }
                     else
                     {
-
                         btndelcha.BackgroundImage = controlFallos.Properties.Resources.delete__4_;
                         lbldelcha.Text = "Desactivar";
 
@@ -445,10 +397,7 @@ namespace controlFallos
                     if (_status == 0) MessageBox.Show(v.mayusculas("Para Modificar La Información Necesita Reactivar El Registro"), validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
     }
 }

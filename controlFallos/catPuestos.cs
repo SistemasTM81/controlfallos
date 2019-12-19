@@ -4,8 +4,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+using Word = Microsoft.Office.Interop.Word;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 namespace controlFallos
@@ -393,6 +393,124 @@ namespace controlFallos
             }
         }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Export_Data_To_Word(tbpuestos, null);
+        }
+        
+        public void Export_Data_To_Word(DataGridView dgvTabla1, string filename)
+        {
+            if (dgvTabla1.Rows.Count != 0)
+            {
+                List<object> obj = new List<object>();
+                //  int row = ;
+                int column = 0;
+                int RowCount = dgvTabla1.Rows.Count;
+                List<string> headerText = new List<string>();
+                //int ColumnCount = dgvTabla1.Columns.Count;
+                Word.Document oDoc = new Word.Document();
+                //add rows
+                int r = 0;
+                for (int i = 0; i < dgvTabla1.Columns.Count; i++)
+                {
+                    if (dgvTabla1.Columns[i].Visible)
+                    {
+                        headerText.Add(dgvTabla1.Columns[i].HeaderText);
+                        column++;
+                    }
+                }
+                for (int j = 0; j < dgvTabla1.Rows.Count; j++)
+                {
+
+                    for (int i = 0; i < dgvTabla1.Columns.Count; i++)
+                    {
+                        if (dgvTabla1.Columns[i].Visible)
+                            obj.Add(dgvTabla1.Rows[j].Cells[i].Value.ToString().Replace("\n", " "));
+                    }
+                }
+
+
+
+                //end column loop
+
+                //page orintation
+                oDoc.PageSetup.Orientation = Word.WdOrientation.wdOrientLandscape; ///Cambiar Imagen de forma horizontal
+
+                dynamic oRange = oDoc.Content.Application.Selection.Range;
+                //   oDoc.Content.Application.Selection.Range.HighlightColorIndex = Word.WdColorIndex.wdGreen;
+                string oTemp = ""; object[] DataArray = obj.ToArray();
+                for (r = 0; r < DataArray.Length; r++)
+                    oTemp += (!string.IsNullOrWhiteSpace(oTemp) ? "\t" : "") + DataArray[r];
+                //table format
+                oRange.Text = oTemp;
+                oRange.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                object Separator = Word.WdTableFieldSeparator.wdSeparateByTabs;
+                object ApplyBorders = true;
+                object AutoFit = false;
+                object AutoFitBehavior = Word.WdAutoFitBehavior.wdAutoFitContent;
+
+                oRange.ConvertToTable(ref Separator, ref RowCount, ref column,
+                                      Type.Missing, Type.Missing, ref ApplyBorders,
+                                      Type.Missing, Type.Missing, Type.Missing,
+                                      Type.Missing, Type.Missing, Type.Missing,
+                                      Type.Missing, ref AutoFit, ref AutoFitBehavior, Type.Missing);
+
+                oRange.Select();
+
+                oDoc.Application.Selection.Tables[1].Select();
+
+                oDoc.Application.Selection.Tables[1].Rows.AllowBreakAcrossPages = 0;
+                oDoc.Application.Selection.Tables[1].Rows.Alignment = Word.WdRowAlignment.wdAlignRowCenter;
+                oDoc.Application.Selection.InsertRowsAbove(1);
+                oDoc.Application.Selection.Tables[1].Rows[1].Select();
+                //   oDoc.Application.Selection.Tables[1].AutoFormat();
+                //header row style
+                for (int i = 2; i < oDoc.Application.Selection.Tables[1].Rows.Count + 1; i++)
+                {
+                    oDoc.Application.Selection.Tables[1].Rows[i].Range.Bold = 0;
+                    oDoc.Application.Selection.Tables[1].Rows[i].Range.Font.Name = "Franklin Gothic Book";
+                    oDoc.Application.Selection.Tables[1].Rows[i].Range.Font.Size = 9;
+                    //      oDoc.Application.Selection.Tables[1].Rows[i].Range.Font.Color = Word.WdColor.wdColorGold;
+                    oDoc.Application.Selection.Tables[1].Rows[i].Range.Borders.Enable = 1;
+
+                    oDoc.Application.Selection.Tables[1].Rows.Borders.Enable = 1; ;
+                    //    oDoc.Application.Selection.Tables[1].Rows[i].Cells.Shading.BackgroundPatternColor = Word.WdColor.wdColorPink;
+                }
+                //add header row manually
+                string[] headerTemp = headerText.ToArray();
+                for (int c = 0; c < headerTemp.Length; c++)
+                {
+                    oDoc.Application.Selection.Tables[1].Cell(1, c + 1).Range.Text = headerTemp[c];
+                    oDoc.Application.Selection.Tables[1].Cell(1, c + 1).Range.Bold = 1;
+                    oDoc.Application.Selection.Tables[1].Cell(1, c + 1).Range.Font.Name = "Franklin Gothic Book";
+                    oDoc.Application.Selection.Tables[1].Cell(1, c + 1).Range.Font.Size = 9;
+                    oDoc.Application.Selection.Tables[1].Cell(1, c + 1).WordWrap = false;
+                    oDoc.Application.Selection.Tables[1].Cell(1, c + 1).Range.Borders.Enable = 1;
+
+
+                }
+                //table style 
+                //     oDoc.Application.Selection.Tables[1].set_Style("Grid Table 4 - Accent 5");
+                oDoc.Application.Selection.Tables[1].Rows[1].Select();
+                oDoc.Application.Selection.Cells.VerticalAlignment = Word.WdCellVerticalAlignment.wdCellAlignVerticalCenter;
+
+                //header text
+                foreach (Word.Section section in oDoc.Application.ActiveDocument.Sections)
+                {
+                    Word.Range headerRange = section.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                    headerRange.Fields.Add(headerRange, Word.WdFieldType.wdFieldPage);
+                    headerRange.Text = "your header text";
+                    headerRange.Font.Size = 8;
+                    headerRange.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                }
+
+                //save the file
+                //oDoc.SaveAs2(filename);
+                oDoc.Application.Visible = true;
+                //NASSIM LOUCHANI
+                //NASSIM LOUCHANI
+            }
+        }
         private void lbltitle_MouseDown(object sender, MouseEventArgs e)
         {
             v.mover(sender, e, this);

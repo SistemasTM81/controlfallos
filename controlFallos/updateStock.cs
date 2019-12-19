@@ -1,13 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
 namespace controlFallos
 {
     public partial class updateStock : Form
@@ -29,7 +21,6 @@ namespace controlFallos
         {
             try
             {
-
                 object res = v.getaData("SELECT CONCAT(idpersona,';',nombres,' ',apPaterno,' ',apMaterno) FROM datosistema as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona WHERE password='" + v.Encriptar(((TextBox)sender).Text) + "' AND t2.empresa='"+empresa+"' AND t2.area='"+area+"'");
                 if (res != null)
                 {
@@ -43,10 +34,7 @@ namespace controlFallos
                     lblusu.Text = "";
                 }
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            catch (Exception ex){MessageBox.Show(ex.Message);}
         }
 
         private void buttonEditar_Click(object sender, EventArgs e)
