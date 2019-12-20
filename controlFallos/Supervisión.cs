@@ -500,10 +500,15 @@ namespace controlFallos
             txtSupervisor.Enabled = txtConductor.Enabled = cmbServicio.Enabled = txtKilometraje.Enabled = cmbTipoFallo.Enabled = cbgrupo.Enabled = txtObserSupervicion.Enabled = true;
             txtDescFalloNoC.Enabled = (cbSubGrupo.SelectedIndex > 0 ? false : true);
         }
+<<<<<<< HEAD
+        public void DeshabilitarCampos(){txtSupervisor.Enabled = txtConductor.Enabled = cmbServicio.Enabled = txtKilometraje.Enabled = cmbTipoFallo.Enabled = cbgrupo.Enabled = cbcategoria.Enabled = cbSubGrupo.Enabled = cmbCodFallo.Enabled = txtDescFalloNoC.Enabled = txtObserSupervicion.Enabled = false;}
+
+=======
         public void DeshabilitarCampos()
         {
             txtSupervisor.Enabled = txtConductor.Enabled = cmbServicio.Enabled = txtKilometraje.Enabled = cmbTipoFallo.Enabled = cbgrupo.Enabled = cbcategoria.Enabled = cbSubGrupo.Enabled = cmbCodFallo.Enabled = txtDescFalloNoC.Enabled = txtObserSupervicion.Enabled = false;
         }
+>>>>>>> ebc9bd80588c5d22a1af6ae7747124ad52965384
         void restaurar_datos(DataGridViewCellEventArgs e)
         {
             if (DgvTabla.Rows.Count > 0)
@@ -1152,13 +1157,11 @@ namespace controlFallos
                 //Validación de la contraseña del supervisor, 
                 if (Convert.ToInt32(v.getaData("SELECT count(*) from cpersonal as t1  inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal=t1.idPersona inner join cempresas as t4 on t4.idempresa=t1.empresa where t3.password='" + v.Encriptar(txtSupervisor.Text) + "'and t1.status='1' and t2.status='1' and t1.empresa='1' and t1.area='1'")) > 0)
                 {
-                    //en caso correcto mostramos su nombre en en label 
                     idsupervisor = Convert.ToInt32(v.getaData("select t1.idpersona from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where password='" + v.Encriptar(txtSupervisor.Text) + "';").ToString());
                     lblSupervisor.Text = ((pinsertar || peditar) ? v.getaData("select concat(appaterno,' ',apmaterno,' ',nombres) from cpersonal where idpersona='" + idsupervisor + "';").ToString() : "");
                 }
                 else
                 {
-                    //En caso contrario no mostramos nada
                     idsupervisor = 0;
                     lblSupervisor.Text = "";
                 }
@@ -1173,10 +1176,15 @@ namespace controlFallos
                 idconductor = (!string.IsNullOrWhiteSpace(datos[1]) ? Convert.ToInt32(datos[1]) : 0);
             }
         }
+<<<<<<< HEAD
+
+        private void dtpFechaA_KeyDown(object sender, KeyEventArgs e){e.SuppressKeyPress = true;}
+=======
         private void dtpFechaA_KeyDown(object sender, KeyEventArgs e)
         {
             e.SuppressKeyPress = true;
         }
+>>>>>>> ebc9bd80588c5d22a1af6ae7747124ad52965384
         private void dataGridView1_CellFormatting_1(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (this.DgvTabla.Columns[e.ColumnIndex].Name == "TIPO DE FALLO")

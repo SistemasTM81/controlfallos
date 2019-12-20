@@ -14,10 +14,11 @@ namespace controlFallos
 {
     public partial class leerHost : Form
     {
-        validaciones v = new validaciones();
+        validaciones v;
 
-        public leerHost()
+        public leerHost(validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             lbltitle.Left = (status.Width - lbltitle.Width) / 2;
             lbltitle.Top = (status.Height - lbltitle.Height) / 2;

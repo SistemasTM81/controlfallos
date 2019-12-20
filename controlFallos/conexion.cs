@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 using System.Windows.Forms;
 using System.IO;
-using System.Reflection;
 using System.Net.NetworkInformation;
-using System.Threading;
 using System.Security.Cryptography;
 namespace controlFallos
 {
     public class conexion
     {
+        validaciones v;
         public string host { protected internal set; get; }
         public string user { protected internal set; get; }
         public string password { protected internal set; get; }
@@ -24,8 +20,9 @@ namespace controlFallos
         public string portLocal { protected internal set; get; }
         public MySqlConnection dbcon;
         MySqlConnection localConnection;
-        public conexion()
+        public conexion(validaciones v)
         {
+            this.v = v;
             string path = Application.StartupPath + @"\conexion.txt";
             if (!File.Exists(path))
             {
@@ -133,9 +130,7 @@ namespace controlFallos
         {
             try
             {
-                validaciones v = new validaciones();
                 string path = Application.StartupPath + @"\updates.srf";
-
                 using (StreamReader lector = new StreamReader(path))
                 {
                     string sql;
@@ -144,10 +139,7 @@ namespace controlFallos
                 }
                 File.Delete(path);
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.HResult + ": " + ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch (Exception ex){MessageBox.Show(ex.HResult + ": " + ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
         }
         public bool conexionOriginal()
         {
@@ -160,8 +152,7 @@ namespace controlFallos
         }
         protected internal void WriteLocalSequence(string seq)
         {
-            validaciones v = new validaciones();
-            StreamWriter sw = new StreamWriter(Path.Combine(Application.StartupPath + @"\updates.srf"), true, Encoding.ASCII);
+         StreamWriter sw = new StreamWriter(Path.Combine(Application.StartupPath + @"\updates.srf"), true, Encoding.ASCII);
             sw.WriteLine(v.Encriptar(seq));
             sw.Close();
         }

@@ -14,7 +14,6 @@ namespace controlFallos
     public partial class FormContraFinal : Form
     {
         validaciones val;
-        conexion co = new conexion();
         Form FFM;
         OrdenDeCompra ODC;
         percances PC;
@@ -76,7 +75,7 @@ namespace controlFallos
 
         public void busquedageneral(string consulta, string tituloid, string nombre)
         {
-            MySqlCommand busqueda = new MySqlCommand(consulta, co.dbconection());
+            MySqlCommand busqueda = new MySqlCommand(consulta, val.c.dbconection());
             MySqlDataReader dr = busqueda.ExecuteReader();
             if (dr.Read())
             {
@@ -86,7 +85,7 @@ namespace controlFallos
             else
                 lblNombreFinal.Text = "";
             dr.Close();
-            co.dbconection().Close();
+            val.c.dbcon.Close();
         }
 
         public void btnall_MouseMove(object sender, MouseEventArgs e)
