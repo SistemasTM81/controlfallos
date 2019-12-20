@@ -98,14 +98,14 @@ namespace controlFallos
             {
                 MySqlCommand cmd = new MySqlCommand(sql, dbconection());
                 int i = cmd.ExecuteNonQuery();
-             /*   if (conexionOriginal())
-                {
-                    if (localConnection.State != System.Data.ConnectionState.Open) localConnection.Open();
-                    cmd = new MySqlCommand(sql, localConnection);
-                    i = cmd.ExecuteNonQuery();
-                    localConnection.Close();
-                    localConnection.Dispose();
-                }*/
+                /*   if (conexionOriginal())
+                   {
+                       if (localConnection.State != System.Data.ConnectionState.Open) localConnection.Open();
+                       cmd = new MySqlCommand(sql, localConnection);
+                       i = cmd.ExecuteNonQuery();
+                       localConnection.Close();
+                       localConnection.Dispose();
+                   }*/
                 dbcon.Close();
                 dbcon.Dispose();
                 if (!conexionOriginal())
@@ -165,6 +165,6 @@ namespace controlFallos
             sw.WriteLine(v.Encriptar(seq));
             sw.Close();
         }
-        public string[] tableNames = new string[] {"bloqueologin","canaqueles","careas","catcategorias","catincidencias","cattipos","ccharolas","cdescfallo","cempresas","cestaciones","cfallosesp","cfallosgrales","cfamilias","cgiros","civa","cladas","cmarcas","cmedidas","cmodelos","cnfamilias","cniveles","comparativas","cpasillos","cpersonal","cproveedores","crefacciones","cservicios","cunidades","cunidadmedida","datosistema","detallesordencompra","encabezadoreportes","estatusvalidado","huellasupervision","incidenciapersonal","ladanac","modificaciones_sistema","nombresoc","ordencompra","pedidosrefaccion","privilegios","proveedorescomparativa","puestos","refaccionescomparativa","relacservicioestacion","reportemantenimiento","reportepercance","reportepersonal","reportesupervicion","reportetri","sepomex","vigencias_supervision"};
+        public string[] tableNames = new string[] { "bloqueologin", "canaqueles", "careas", "catcategorias", "catincidencias", "cattipos", "ccharolas", "cdescfallo", "cempresas", "cestaciones", "cfallosesp", "cfallosgrales", "cfamilias", "cgiros", "civa", "cladas", "cmarcas", "cmedidas", "cmodelos", "cnfamilias", "cniveles", "comparativas", "cpasillos", "cpersonal", "cproveedores", "crefacciones", "cservicios", "cunidades", "cunidadmedida", "datosistema", "detallesordencompra", "encabezadoreportes", "estatusvalidado", "huellasupervision", "incidenciapersonal", "ladanac", "modificaciones_sistema", "nombresoc", "ordencompra", "pedidosrefaccion", "privilegios", "proveedorescomparativa", "puestos", "refaccionescomparativa", "relacservicioestacion", "reportemantenimiento", "reportepercance", "reportepersonal", "reportesupervicion", "reportetri", "sepomex", "vigencias_supervision" };
     }
 }

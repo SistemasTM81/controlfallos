@@ -350,11 +350,8 @@ namespace controlFallos
                 string nomfallo = txtgetdescfallo.Text.ToLower();
                 string codfallo = lblcodfallo.Text;
 
-<<<<<<< HEAD
-                var res = v.c.insertar("INSERT INTO cfallosesp (descfallofkcdescfallo, codfallo,falloesp,usuariofkcpersonal,empresa) VALUES('" + iddescfallo + "','" + codfallo + "',LTRIM(RTRIM('" + v.mayusculas(nomfallo) + "')),'" + this.idUsuario + "','"+empresa+"')");
-=======
+
                 var res = v.c.insertar("INSERT INTO cfallosesp (descfallofkcdescfallo, codfallo,falloesp,usuariofkcpersonal,empresa) VALUES('" + iddescfallo + "','" + codfallo + "','" + v.mayusculas(nomfallo) + "','" + this.idUsuario + "','"+empresa+"')");
->>>>>>> f057c7f25132b89b210d316b11f6c68ea9c01133
                 var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Catálogo de Fallos - Nombres de Fallos',(SELECT idfalloesp From cfallosesp Where codfallo='" + codfallo + "' AND empresa='"+empresa+"'),'Inserción de Fallo','" + idUsuario + "',NOW(),'Inserción de Nombre de Fallo','" + empresa + "','" + area + "')");
                 MessageBox.Show("Se ha Insertado el Nombre del Fallo Correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
 

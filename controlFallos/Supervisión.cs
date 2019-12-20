@@ -510,7 +510,7 @@ namespace controlFallos
             {
                 btnGuardar.Visible = LblGuardar.Visible = false;
                 lblFolio.Text = DgvTabla.Rows[e.RowIndex].Cells[0].Value.ToString();
-                string[] datos = v.getaData("SET lc_time_names = 'es_ES';Select upper(concat(t1.UnidadfkCUnidades,'|',date_format(t1.FechaReporte,'%W %d de %M del %Y'),'|',t1.CredencialConductorfkCPersonal,'|',t1.SupervisorfkCPersonal,'|',t1.Serviciofkcservicios,'|',t1.kmEntrada,'|',t1.tipoFallo,'|',coalesce(t1.DescrFallofkcdescfallo,0),'|',coalesce(t1.CodFallofkcfallosesp,0),'|',t1.DescFalloNoCod,'|',coalesce(t1.ObservacionesSupervision,''),'|',coalesce(t5.EsperaTiempoM,''),'|',coalesce(concat(date_format(t5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(t5.HoraInicioM,'%H:%i')),''),'|',coalesce(date_format(t5.HoraTerminoM,'%W %d de %M del %Y'),''),'|',coalesce(t5.DiferenciaTiempoM,''),'|',coalesce(t5.Estatus,''),'|',coalesce(t5.TrabajoRealizado,''),'|',coalesce((select concat(x5.appaterno,' ',x5.apmaterno,' ',x5.nombres) from cpersonal as x5 where t5.MecanicofkPersonal=x5.idpersona),''),'|',coalesce(t5.ObservacionesM,''))) as r from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas as t4 on t4.idarea=t2.areafkcareas left join reportemantenimiento as t5 on t5.FoliofkSupervicion=t1.idReporteSupervicion WHERE Folio='" + lblFolio.Text + "';").ToString().Split('|');
+                string[] datos = v.getaData("SET lc_time_names = 'es_ES';Select upper(concat(t1.UnidadfkCUnidades,'|',date_format(t1.FechaReporte,'%W %d de %M del %Y'),'|',t1.CredencialConductorfkCPersonal,'|',t1.SupervisorfkCPersonal,'|',t1.Serviciofkcservicios,'|',t1.kmEntrada,'|',t1.tipoFallo,'|',coalesce(t1.DescrFallofkcdescfallo,0),'|',coalesce(t1.CodFallofkcfallosesp,0),'|',coalesce(t1.DescFalloNoCod,''),'|',coalesce(t1.ObservacionesSupervision,''),'|',coalesce(t5.EsperaTiempoM,''),'|',coalesce(concat(date_format(t5.HoraInicioM,'%W %d de %M del %Y'),' / ',time_format(t5.HoraInicioM,'%H:%i')),''),'|',coalesce(date_format(t5.HoraTerminoM,'%W %d de %M del %Y'),''),'|',coalesce(t5.DiferenciaTiempoM,''),'|',coalesce(t5.Estatus,''),'|',coalesce(t5.TrabajoRealizado,''),'|',coalesce((select concat(x5.appaterno,' ',x5.apmaterno,' ',x5.nombres) from cpersonal as x5 where t5.MecanicofkPersonal=x5.idpersona),''),'|',coalesce(t5.ObservacionesM,''))) as r from reportesupervicion as t1 inner join cunidades as t2 on t1.UnidadfkCUnidades=t2.idunidad  INNER JOIN careas as t4 on t4.idarea=t2.areafkcareas left join reportemantenimiento as t5 on t5.FoliofkSupervicion=t1.idReporteSupervicion WHERE Folio='" + lblFolio.Text + "';").ToString().Split('|');
                 IdRepor = Convert.ToInt32(v.getaData("SELECT idreportesupervicion FROM reportesupervicion WHERE folio='" + lblFolio.Text + "'").ToString());
                 cmbUnidad.SelectedValue = unidadAnterior = Convert.ToInt32(datos[0]);
                 lblFechaReporte.Text = fechaAnterior = datos[1];
@@ -537,12 +537,18 @@ namespace controlFallos
                 cmbServicio.SelectedValue = servicioAnterior = Convert.ToInt32(datos[4]);
                 txtKilometraje.Text = kilometrajeAnterior = datos[5];
                 cmbTipoFallo.SelectedValue = TipoFalloAnterior = Convert.ToInt32(datos[6]);
-                cbgrupo.SelectedValue = grupoFalloAnterior = Convert.ToInt32(v.getaData("select coalesce(falloGralfkcfallosgrales,0) from cdescfallo where iddescfallo='" + datos[7] + "'"));
-                if (Convert.ToInt32(v.getaData("select status from cfallosgrales where idFalloGral='" + grupoFalloAnterior + "';")) == 0)
+                if (Convert.ToInt32(v.getaData("select status from cfallosgrales where idFalloGral='" + (grupoFalloAnterior = Convert.ToInt32(v.getaData("select coalesce(falloGralfkcfallosgrales,0) from cdescfallo where iddescfallo='" + datos[7] + "'"))) + "';")) == 0)
                     v.iniCombos("select idFalloGral as id,upper(nombreFalloGral) as n from cfallosgrales where status='1' or idFalloGral='" + grupoFalloAnterior + "' order by nombreFalloGral;", cbgrupo, "id", "n", "--SELECCIONE GRUPO--");
+                if (Convert.ToInt32(v.getaData("select status from cdescfallo where iddescfallo='" + datos[7] + "';")) == 0)
+                    v.iniCombos("select iddescfallo as id,upper(descfallo) as d from cdescfallo as t1 inner join cfallosgrales as t2 on t2.idfallogral=t1.falloGralfkcfallosgrales where t2.idfallogral='" + cbgrupo.SelectedValue + "' and t1.status='1' or(t1.iddescfallo='" + datos[7] +"') order by descfallo;", cbSubGrupo, "id", "d", "--SELECCIONE SUBGRUPO--");
+                if (Convert.ToInt32("select status from catcategorias where idcategoria='" + (categoriaAnterior = Convert.ToInt32(v.getaData("select coalesce(idcategoria,0) from catcategorias where subgrupofkcdescfallo='" + datos[7]) + "';")) + "';") == 0)
+                    v.iniCombos("select t3.idcategoria as id ,upper(t3.categoria) as c from cdescfallo as t1 inner join catcategorias as t3 on t3.subgrupofkcdescfallo=t1.iddescfallo where iddescfallo='" + Convert.ToInt32(datos[7]) + "' order by categoria;", cbcategoria, "id", "c", "--SELECCIONE CATEGORIA--");
+                if (Convert.ToInt32(v.getaData("select status from cfallosesp where idfalloEsp='" + (codigoAnterior = Convert.ToInt32(datos[8])) + "';")) == 0)
+                    v.iniCombos("select t1.idfalloEsp as id,upper(t1.codfallo)as c from cfallosesp as t1 inner join catcategorias as t2 on t2.idcategoria=t1.descfallofkcdescfallo inner join cdescfallo as t3 on t2.subgrupofkcdescfallo=t3.iddescfallo inner join cfallosgrales as t4 on t3.falloGralfkcfallosgrales=t4.idFalloGral where t2.idcategoria='" + categoriaAnterior+ "';", cmbCodFallo, "id", "c", "--SELECCIONE CÓDIGO");
+                cbgrupo.SelectedValue = grupoFalloAnterior;
                 cbSubGrupo.SelectedValue = subGrupoAnterior = Convert.ToInt32(datos[7]);
-                cbcategoria.SelectedValue = categoriaAnterior = Convert.ToInt32(v.getaData("select coalesce(idcategoria,0) from catcategorias where subgrupofkcdescfallo='" + datos[7] + "';"));
-                cmbCodFallo.SelectedValue = codigoAnterior = Convert.ToInt32(datos[8]);
+                cbcategoria.SelectedValue = categoriaAnterior;
+                cmbCodFallo.SelectedValue = codigoAnterior;
                 txtDescFalloNoC.Text = FalloAnterior = datos[9];
                 txtObserSupervicion.Text = ObservacionesAnterior = datos[10];
                 lblEsperaDeMan.Text = datos[11];
@@ -679,7 +685,7 @@ namespace controlFallos
         }
         private void cmbCodFallo_SelectedIndexChanged(object sender, EventArgs e)
         {
-                lblDescFallo.Text = (cmbCodFallo.SelectedIndex > 0?v.getaData("Select UPPER(coalesce(falloesp,'')) as fallo from cfallosesp where idfalloEsp='" + cmbCodFallo.SelectedValue + "'").ToString():"");
+            lblDescFallo.Text = (cmbCodFallo.SelectedIndex > 0 ? v.getaData("Select UPPER(coalesce(falloesp,'')) as fallo from cfallosesp where idfalloEsp='" + cmbCodFallo.SelectedValue + "'").ToString() : "");
         }
         public void consulta_codigos()
         {

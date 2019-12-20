@@ -54,7 +54,6 @@ namespace controlFallos
         /* VARIABLES PDF */
 
         string foliopdf, unidadpdf, kilometrajepdf, codigofallopdf, fechahorapdf, descripcionfallopdf, descripcionfallonocodificadopdf, supervisorpdf, observacionesmantenimientopdf, grupofallopdf, estatuspdf, mecanicopdf, mapoyopdf, supervisopdf, tiempoesperapdf, horainicioterminopdf, diferenciapdf, trabajorealizadopdf, observacionesupervisionpdf, vinpdf, marcamodelopdf, nmotorpdf, ntransmisionpdf;
-        string extensionarchivo = "", nombrearchivo = "", nombrearchivosinextension = "";
 
         void quitarseen()
         {
