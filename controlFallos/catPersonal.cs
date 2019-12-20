@@ -1233,11 +1233,15 @@ namespace controlFallos
                     this.Invoke(delega);
                 }
                 v.exportaExcel(dt);
-                if (this.InvokeRequired)
+                try
                 {
-                    El_Delegado1 delega = new El_Delegado1(cargando1);
-                    this.Invoke(delega);
+                    if (this.InvokeRequired)
+                    {
+                        El_Delegado1 delega = new El_Delegado1(cargando1);
+                        this.Invoke(delega);
+                    }
                 }
+                catch { }
             }
             else
                 MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);

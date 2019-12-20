@@ -18,25 +18,13 @@ using iTextSharp.text.pdf;
 
 namespace controlFallos
 {
-
     public class validaciones
     {
         public string folio = "";
         public conexion c = new conexion();
         public void Sololetras(KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (char.IsSeparator(e.KeyChar))
-            {
-                e.Handled = false;
-            }
+            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsSeparator(e.KeyChar))e.Handled = false;
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -56,7 +44,7 @@ namespace controlFallos
         }
         public void letrasNumerosGuiones(KeyPressEventArgs e)
         {
-            if (Char.IsLetter(e.KeyChar) || Char.IsNumber(e.KeyChar) || e.KeyChar == 45 || e.KeyChar == 127 || e.KeyChar == 08)
+            if (char.IsLetter(e.KeyChar) || char.IsNumber(e.KeyChar) || e.KeyChar == 45 || e.KeyChar == 127 || e.KeyChar == 08)
                 e.Handled = false;
             else
             {
@@ -86,27 +74,8 @@ namespace controlFallos
         }
         public void paraUM(KeyPressEventArgs e)
         {
-
-            if (Char.IsLetter(e.KeyChar))
-            {
+            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar) || char.IsSeparator(e.KeyChar) || e.KeyChar == 47 || e.KeyChar == 46 || e.KeyChar == 45)
                 e.Handled = false;
-            }
-            else if (Char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (Char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (Char.IsSeparator(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (e.KeyChar == 47 || e.KeyChar == 46 || e.KeyChar == 45)
-            {
-                e.Handled = false;
-            }
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras,Numero y Estos simbolos \"/\" \"-\" \".\" En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -115,26 +84,8 @@ namespace controlFallos
         }
         public void paraPaginasWeb(KeyPressEventArgs e)
         {
-            if (e.KeyChar >= 65 && e.KeyChar <= 90)
-            {
+            if ((e.KeyChar >= 65 && e.KeyChar <= 90) || (e.KeyChar >= 97 && e.KeyChar <= 122) || char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar) || e.KeyChar == 58 || e.KeyChar == 45 || e.KeyChar == 58 || e.KeyChar == 95 || e.KeyChar == 47 || e.KeyChar == 46)
                 e.Handled = false;
-            }
-            else if (e.KeyChar >= 97 && e.KeyChar <= 122)
-            {
-                e.Handled = false;
-            }
-            else if (Char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (Char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (e.KeyChar == 58 || e.KeyChar == 45 || e.KeyChar == 58 || e.KeyChar == 95 || e.KeyChar == 47 || e.KeyChar == 46)
-            {
-                e.Handled = false;
-            }
             else
             {
                 MessageBox.Show("'" + e.KeyChar + "' No es Un Carácter de Pagina Web", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -143,14 +94,8 @@ namespace controlFallos
         }
         public void Solonumeros(KeyPressEventArgs pE)
         {
-            if (char.IsDigit(pE.KeyChar))
-            {
+            if (char.IsDigit(pE.KeyChar) || char.IsControl(pE.KeyChar))
                 pE.Handled = false;
-            }
-            else if (char.IsControl(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
             else
             {
                 MessageBox.Show("Sólo Se Aceptan Números En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -159,24 +104,8 @@ namespace controlFallos
         }
         public void paraUsuarios(KeyPressEventArgs e)
         {
-            if (Char.IsLetter(e.KeyChar))
-            {
+            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsDigit(e.KeyChar) || e.KeyChar == 64 || e.KeyChar == 45 || e.KeyChar == 46 || e.KeyChar == 95 || e.KeyChar == 42 || e.KeyChar == 47)
                 e.Handled = false;
-            }
-            else if (Char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-
-
-            else if (Char.IsDigit(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else if (e.KeyChar == 64 || e.KeyChar == 45 || e.KeyChar == 46 || e.KeyChar == 95 || e.KeyChar == 42 || e.KeyChar == 47)
-            {
-                e.Handled = false;
-            }
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras, Números y Sólo Éstos Símbolos: - _ * / @ . En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -185,22 +114,7 @@ namespace controlFallos
         }
         public void letrasynumeros(KeyPressEventArgs pE)
         {
-            if (Char.IsLetter(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
-            else if (Char.IsDigit(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
-            else if (Char.IsControl(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
-            else if (Char.IsSeparator(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
+            if (Char.IsLetter(pE.KeyChar) || Char.IsDigit(pE.KeyChar) || Char.IsControl(pE.KeyChar) || Char.IsSeparator(pE.KeyChar))pE.Handled = false;
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras y Números En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -216,18 +130,8 @@ namespace controlFallos
         }
         public void letrasynumerossinespacios(KeyPressEventArgs pE)
         {
-            if (Char.IsLetter(pE.KeyChar))
-            {
+            if (char.IsLetter(pE.KeyChar) || char.IsDigit(pE.KeyChar) || char.IsControl(pE.KeyChar)) 
                 pE.Handled = false;
-            }
-            else if (Char.IsDigit(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
-            else if (Char.IsControl(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras y Números En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -238,26 +142,8 @@ namespace controlFallos
 
         public void letrasnumerosdiagonalyguion(KeyPressEventArgs pE)
         {
-            if (Char.IsLetter(pE.KeyChar))
-            {
+            if (char.IsLetter(pE.KeyChar) || char.IsDigit(pE.KeyChar) || pE.KeyChar == 47 || pE.KeyChar == 45 || char.IsControl(pE.KeyChar) || char.IsSeparator(pE.KeyChar))
                 pE.Handled = false;
-            }
-            else if (Char.IsDigit(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
-            else if (pE.KeyChar == 47 || pE.KeyChar == 45)
-            {
-                pE.Handled = false;
-            }
-            else if (Char.IsControl(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
-            else if (Char.IsSeparator(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras y Números \"/\" y \"-\" En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -266,26 +152,8 @@ namespace controlFallos
         }
         public void letrasnumerosdiagonalypunto(KeyPressEventArgs pE)
         {
-            if (Char.IsLetter(pE.KeyChar))
-            {
+            if (Char.IsLetter(pE.KeyChar) || Char.IsDigit(pE.KeyChar) || pE.KeyChar == 47 || pE.KeyChar == 46 || Char.IsControl(pE.KeyChar) || Char.IsSeparator(pE.KeyChar))
                 pE.Handled = false;
-            }
-            else if (Char.IsDigit(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
-            else if (pE.KeyChar == 47 || pE.KeyChar == 46)
-            {
-                pE.Handled = false;
-            }
-            else if (Char.IsControl(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
-            else if (Char.IsSeparator(pE.KeyChar))
-            {
-                pE.Handled = false;
-            }
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras y Números \"/\" y \".\" En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -368,7 +236,6 @@ namespace controlFallos
             return res;
         }
         bool fechasPersonalInsertar(int empresa, int area, int tipoLicencia, DateTime expedicionLicencia, DateTime vencimientoLicencia, DateTime expedicionTarjeton, DateTime vencimientoTarjeton, bool LicenciasDataSource)
-
         {
             if (empresa == 1 && area == 1)
             {
@@ -403,9 +270,7 @@ namespace controlFallos
                                                                     if ((DateTime.Parse(vencimientoTarjeton.ToString("yyyy-MM-dd")) - DateTime.Today) >= TimeSpan.FromDays(7))
                                                                     {
                                                                         if (((DateTime.Parse(vencimientoTarjeton.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionTarjeton.ToString("yyyy-MM-dd")).AddYears(1)) || (DateTime.Parse(vencimientoTarjeton.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionTarjeton.ToString("yyyy-MM-dd")).AddYears(2)) || (DateTime.Parse(vencimientoTarjeton.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionTarjeton.ToString("yyyy-MM-dd")).AddYears(3)) || (DateTime.Parse(vencimientoTarjeton.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionTarjeton.ToString("yyyy-MM-dd")).AddYears(4)) || (DateTime.Parse(vencimientoTarjeton.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionTarjeton.ToString("yyyy-MM-dd")).AddYears(5))) && (DateTime.Parse(vencimientoTarjeton.ToString("yyyy-MM-dd")) >= DateTime.Now))
-                                                                        {
                                                                             return false;
-                                                                        }
                                                                         else
                                                                         {
                                                                             MessageBox.Show(mayusculas("Las fechas de Tarjeton deben de tener una diferencia mínima de 1 año"), MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -743,9 +608,7 @@ namespace controlFallos
                                             if ((DateTime.Parse(vencimientoLicencia.ToString("yyyy-MM-dd")) - DateTime.Today) >= TimeSpan.FromDays(7))
                                             {
                                                 if (((DateTime.Parse(vencimientoLicencia.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionLicencia.ToString("yyyy-MM-dd")).AddYears(1)) || (DateTime.Parse(vencimientoLicencia.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionLicencia.ToString("yyyy-MM-dd")).AddYears(2)) || (DateTime.Parse(vencimientoLicencia.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionLicencia.ToString("yyyy-MM-dd")).AddYears(3)) || (DateTime.Parse(vencimientoLicencia.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionLicencia.ToString("yyyy-MM-dd")).AddYears(4)) || (DateTime.Parse(vencimientoLicencia.ToString("yyyy-MM-dd")) == DateTime.Parse(expedicionLicencia.ToString("yyyy-MM-dd")).AddYears(5))) && (DateTime.Parse(vencimientoLicencia.ToString("yyyy-MM-dd")) >= DateTime.Now))
-                                                {
                                                     return false;
-                                                }
                                                 else
                                                 {
                                                     MessageBox.Show(mayusculas("Las fechas de Licencia de conducir deben de tener una diferencia mínima de 1 año"), MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -799,15 +662,11 @@ namespace controlFallos
                         return true;
                     }
                 }
-                else
-                {
+                else 
                     return false;
-                }
-            }
+                            }
             else
-            {
                 return false;
-            }
         }
         public string Encriptar(string texto)
         {
@@ -2997,12 +2856,7 @@ namespace controlFallos
         }
         public void insert(string ver, string insertar, string consultar, string modificar, string eliminar, string nombre, int idUsuario)
         {
-<<<<<<< HEAD
-           c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver"+(short.Parse(ver) == 1 ? ",privilegios":"") +")VALUES('" + idUsuario + "','" + nombre + "','" + ver + "'" + (short.Parse(ver) == 1 ? ",'" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") +"'": "") +")");
-=======
-
             c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver"+(short.Parse(ver) == 1 ? ",privilegios":"") +")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
->>>>>>> d1a431be133306d43b7fc97ec760abcef20687e7
         }
         public bool todosFalsos(string[,] b)
         {

@@ -54,6 +54,9 @@
             this.btndelete = new System.Windows.Forms.Button();
             this.gbservicios = new System.Windows.Forms.GroupBox();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lbltitle = new System.Windows.Forms.Label();
             this.idServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.emp = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -62,9 +65,6 @@
             this.people = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.empresafkcempresas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.lbltitle = new System.Windows.Forms.Label();
             this.gbaddservice.SuspendLayout();
             this.pCancelar.SuspendLayout();
             this.pEliminarService.SuspendLayout();
@@ -389,7 +389,7 @@
             this.dataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
@@ -435,68 +435,6 @@
             this.dataGridView2.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView2_CellFormatting);
             this.dataGridView2.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridView2_ColumnAdded);
             // 
-            // idServicio
-            // 
-            this.idServicio.HeaderText = "idservicio";
-            this.idServicio.Name = "idServicio";
-            this.idServicio.ReadOnly = true;
-            this.idServicio.Visible = false;
-            // 
-            // Nombre
-            // 
-            this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Nombre.HeaderText = "NOMBRE SERVICIO";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            this.Nombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Nombre.Width = 198;
-            // 
-            // emp
-            // 
-            this.emp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.emp.HeaderText = "EMPRESA PERTENECIENTE";
-            this.emp.Name = "emp";
-            this.emp.ReadOnly = true;
-            this.emp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.emp.Width = 280;
-            // 
-            // ar
-            // 
-            this.ar.HeaderText = "ÁREA";
-            this.ar.Name = "ar";
-            this.ar.ReadOnly = true;
-            // 
-            // Clave
-            // 
-            this.Clave.FillWeight = 142.1053F;
-            this.Clave.HeaderText = "DESCRIPCIÓN";
-            this.Clave.Name = "Clave";
-            this.Clave.ReadOnly = true;
-            this.Clave.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // people
-            // 
-            this.people.FillWeight = 78.94736F;
-            this.people.HeaderText = "PERSONA QUE DIÓ DE ALTA";
-            this.people.Name = "people";
-            this.people.ReadOnly = true;
-            this.people.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Estatus
-            // 
-            this.Estatus.FillWeight = 78.94736F;
-            this.Estatus.HeaderText = "ESTATUS";
-            this.Estatus.Name = "Estatus";
-            this.Estatus.ReadOnly = true;
-            this.Estatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // empresafkcempresas
-            // 
-            this.empresafkcempresas.HeaderText = "empresafkcempresas";
-            this.empresafkcempresas.Name = "empresafkcempresas";
-            this.empresafkcempresas.ReadOnly = true;
-            this.empresafkcempresas.Visible = false;
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.Crimson;
@@ -540,6 +478,69 @@
             this.lbltitle.TabIndex = 1;
             this.lbltitle.Text = "Catálogo de Servicios";
             this.lbltitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
+            // 
+            // idServicio
+            // 
+            this.idServicio.HeaderText = "idservicio";
+            this.idServicio.Name = "idServicio";
+            this.idServicio.ReadOnly = true;
+            this.idServicio.Visible = false;
+            // 
+            // Nombre
+            // 
+            this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.Nombre.HeaderText = "NOMBRE SERVICIO";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            this.Nombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Nombre.Width = 184;
+            // 
+            // emp
+            // 
+            this.emp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.emp.HeaderText = "EMPRESA PERTENECIENTE";
+            this.emp.Name = "emp";
+            this.emp.ReadOnly = true;
+            this.emp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.emp.Width = 259;
+            // 
+            // ar
+            // 
+            this.ar.HeaderText = "ÁREA";
+            this.ar.Name = "ar";
+            this.ar.ReadOnly = true;
+            this.ar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Clave
+            // 
+            this.Clave.FillWeight = 142.1053F;
+            this.Clave.HeaderText = "DESCRIPCIÓN";
+            this.Clave.Name = "Clave";
+            this.Clave.ReadOnly = true;
+            this.Clave.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // people
+            // 
+            this.people.FillWeight = 78.94736F;
+            this.people.HeaderText = "PERSONA QUE DIÓ DE ALTA";
+            this.people.Name = "people";
+            this.people.ReadOnly = true;
+            this.people.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Estatus
+            // 
+            this.Estatus.FillWeight = 78.94736F;
+            this.Estatus.HeaderText = "ESTATUS";
+            this.Estatus.Name = "Estatus";
+            this.Estatus.ReadOnly = true;
+            this.Estatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // empresafkcempresas
+            // 
+            this.empresafkcempresas.HeaderText = "empresafkcempresas";
+            this.empresafkcempresas.Name = "empresafkcempresas";
+            this.empresafkcempresas.ReadOnly = true;
+            this.empresafkcempresas.Visible = false;
             // 
             // catServicios
             // 

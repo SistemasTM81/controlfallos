@@ -46,9 +46,8 @@ namespace controlFallos
                 lbltitle.Top = (panel1.Height - lbltitle.Size.Height) / 2;
                 CenterToParent();
                 gbadd.Dock = DockStyle.Fill;
-                string rec = v.getaData("SELECT CONCAT(Tipo,';',idmodificacion) FROM modificaciones_sistema WHERE idmodificacion= '" + id + "' and form='" + ct + "'").ToString();
-                string[] dos = rec.Split(';');
-                crear(dos[0], dos[1]);
+                string rec = v.getaData("SELECT Tipo FROM modificaciones_sistema WHERE idmodificacion= '" + id + "' and form='" + ct + "'").ToString();
+                crear(rec, id);
                 CenterToParent();
             }
         }
