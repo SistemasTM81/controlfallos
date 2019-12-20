@@ -24,12 +24,16 @@ namespace controlFallos
 
         int idUsuario, empresa, area; public Thread hilo, th;
         bool res1 = true;
-        public TRI(int idUsuario, int empresa, int area,validaciones v)
+        string consulta_gral = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'Folio', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad inner join careas as t4 on t4.idarea=t3.areafkcareas";
+        public TRI(int idUsuario, int empresa, int area, validaciones v)
         {
             this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
+            cmbPersonaEmtrego.DrawItem += v.combos_DrawItem;
+            cmbMecanicoSolicito.DrawItem += v.combos_DrawItem;
+            cmbBuscarUnidad.DrawItem += v.combos_DrawItem;
             cmbBuscarUnidad.MouseWheel += new MouseEventHandler(cmbBuscarUnidad_MouseWheel);
             cmbMes.MouseWheel += new MouseEventHandler(cmbBuscarUnidad_MouseWheel);
             cmbMecanicoSolicito.MouseWheel += new MouseEventHandler(cmbBuscarUnidad_MouseWheel);
@@ -94,15 +98,11 @@ namespace controlFallos
         }
         void Limpiar_v()
         {
-            cont = "";
-            obser_t = "";
-            fol_f = "";
-            per_d = "";
+            cont = obser_t = fol_f = per_d = "";
         }
         public void CargarDatos()// Metodo para cargar los reportes de la base de datos al datagridview y poder mostrarlos
         {
-
-            MySqlDataAdapter cargar = new MySqlDataAdapter("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'FOLIO', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'UNIDAD' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'FECHA DE SOLICITUD', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'MECÁNICO QUE SOLICITA' ,COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'FOLIO DE FACTURA' ,COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'FECHA DE ENTREGA',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'PERSONA QUE ENTREGO REFACCIÓN',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'OBSERVACIONES DE ALMACEN' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad INNER JOIN careas as  t4 on t4.idarea=t3.areafkcareas WHERE t1.StatusRefacciones='Se Requieren Refacciones' and (t1.FechaReporteM BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate()) and t1.empresa='" + empresa + "' ORDER BY t1.FechaReporteM DESC, t2.folio desc;", v.c.dbconection());
+            MySqlDataAdapter cargar = new MySqlDataAdapter(consulta_gral + " WHERE t1.StatusRefacciones='Se Requieren Refacciones' and (t1.FechaReporteM BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate()) and t1.empresa='" + empresa + "' ORDER BY t1.FechaReporteM DESC, t2.folio desc;", v.c.dbconection());
             v.c.dbcon.Close();
             DataSet ds = new DataSet();
             cargar.Fill(ds);
@@ -111,12 +111,12 @@ namespace controlFallos
         }
         public void Persona_entrego()
         {
-            v.iniCombos("SELECT DISTINCT  UPPER(CONCAT(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) AS NOMBRE, idpersona FROM sistrefaccmant.reportetri as t1 INNER JOIN cpersonal as t2 On t1.PersonaEntregafkcPersonal = t2.idpersona where t2.empresa='" + empresa + "' group by PersonaEntregafkcPersonal;", cmbPersonaEmtrego, "idpersona", "NOMBRE", "-- SELECCIONE UN ALMACENISTA --");
+            v.iniCombos("SELECT DISTINCT  idpersona,UPPER(CONCAT(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) AS NOMBRE FROM sistrefaccmant.reportetri as t1 INNER JOIN cpersonal as t2 On t1.PersonaEntregafkcPersonal = t2.idpersona where t2.empresa='" + empresa + "' group by PersonaEntregafkcPersonal;", cmbPersonaEmtrego, "idpersona", "NOMBRE", "-- SELECCIONE UN ALMACENISTA --");
 
         }
         public void Mecanico_solicito()
         {
-            v.iniCombos("SELECT DISTINCT UPPER(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres)) AS Nombre, t2.idPersona FROM reportemantenimiento as t1 INNER JOIN cpersonal as t2 ON t1.MecanicofkPersonal=t2.idpersona where t2.empresa='" + empresa + "' GROUP BY MecanicofkPersonal ORDER BY CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres) asc;", cmbMecanicoSolicito, "idPersona", "Nombre", "-- seleccione un MECáNICO --");
+            v.iniCombos("SELECT DISTINCT t2.idPersona,UPPER(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres)) AS Nombre FROM reportemantenimiento as t1 INNER JOIN cpersonal as t2 ON t1.MecanicofkPersonal=t2.idpersona where t2.empresa='" + empresa + "' GROUP BY MecanicofkPersonal ORDER BY CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres) asc;", cmbMecanicoSolicito, "idPersona", "Nombre", "-- seleccione un MECáNICO --");
 
         }
         public void AutocompletadoFolioReporte(TextBox CajaDeTexto)//Metodo para autocompletado de "Folio de porte" en caja de etxto para buscar por folio de reporte
@@ -141,7 +141,7 @@ namespace controlFallos
 
         public void cargarUnidad()//Metodo para mostrar las unidades registardas en la base de datos en el comboBox para buscar reporte por uniadad
         {
-            v.iniCombos("SELECT distinct concat(t3.identificador, LPAD(t2.consecutivo, 4, '0')) as eco, t2.idunidad   FROM reportesupervicion as t1 INNER JOIN cunidades as t2 ON t1.UnidadfkCUnidades = t2.idUnidad  INNER JOIN careas as t3 On t2.areafkcareas = t3.idarea  GROUP BY  t1.UnidadfkCUnidades ORDER BY concat(t3.identificador, LPAD(t2.consecutivo, 4, '0')) ASC ", cmbBuscarUnidad, "idunidad", "eco", "-- seleccione económico --");
+            v.iniCombos("SELECT distinct t2.idunidad ,concat(t3.identificador, LPAD(t2.consecutivo, 4, '0')) as eco  FROM reportesupervicion as t1 INNER JOIN cunidades as t2 ON t1.UnidadfkCUnidades = t2.idUnidad  INNER JOIN careas as t3 On t2.areafkcareas = t3.idarea  GROUP BY  t1.UnidadfkCUnidades ORDER BY concat(t3.identificador, LPAD(t2.consecutivo, 4, '0')) ASC ", cmbBuscarUnidad, "idunidad", "eco", "-- seleccione económico --");
         }
         public void combos_para_otros_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -181,71 +181,26 @@ namespace controlFallos
                 }
             }
         }
-        public void combos_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            ComboBox cbx = sender as ComboBox;
-            if (cbx != null)
-            {
-                // Always draw the background 
-                e.DrawBackground();
-                // Drawing one of the items? 
-                if (e.Index >= 0)
-                {
-                    // Set the string alignment. Choices are Center, Near and Far 
-                    StringFormat sf = new StringFormat();
-                    sf.LineAlignment = StringAlignment.Center;
-                    sf.Alignment = StringAlignment.Center;
-                    // Set the Brush to ComboBox ForeColor to maintain any ComboBox color settings 
-                    // Assumes Brush is solid 
-                    Brush brush = new SolidBrush(cbx.ForeColor);
-                    // If drawing highlighted selection, change brush 
-                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    {
-                        brush = SystemBrushes.HighlightText;
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, Color.Crimson);
-                        e.DrawBackground();
-                        // Draw the string 
-                        DataTable f = (DataTable)cbx.DataSource;
-                        e.Graphics.DrawString(f.Rows[e.Index].ItemArray[0].ToString(), cbx.Font, new SolidBrush(Color.White), e.Bounds, sf);
-                        e.DrawFocusRectangle();
-                    }
-                    else
-                    {
-                        // Draw the string 
-                        DataTable f = (DataTable)cbx.DataSource;
-                        e.Graphics.DrawString(f.Rows[e.Index].ItemArray[0].ToString(), cbx.Font, brush, e.Bounds, sf);
-                    }
-                }
-            }
-        }
+
         void ocultar_botones()
         {
-            btnPdf.Visible = false;
-            LblPDF.Visible = false;
-            btnEditarReg.Visible = false;
-            LblEditarR.Visible = false;
+            btnPdf.Visible = LblPDF.Visible = btnEditarReg.Visible = LblEditarR.Visible = false;
         }
         void inhanilitar_campos()
         {
-            txtFolioFactura.Enabled = false;
-            txtDispenso.Enabled = false;
-            txtObservacionesT.Enabled = false;
+            txtFolioFactura.Enabled = txtDispenso.Enabled = txtObservacionesT.Enabled = false;
         }
         void habilitar()
         {
-            txtFolioFactura.Enabled = true;
-            txtDispenso.Enabled = true;
-            txtObservacionesT.Enabled = true;
+            txtFolioFactura.Enabled = txtDispenso.Enabled = txtObservacionesT.Enabled = true;
         }
         private void TransInsumos_Load(object sender, EventArgs e)
         {
             hilo = new Thread(new ThreadStart(quitarseen));
             hilo.Start();
             inhanilitar_campos();
-            btnGuardar.Enabled = false;
+            btnGuardar.Enabled = dtpFechaDe.Enabled = dtpFechaA.Enabled = false;
             cmbMes.SelectedIndex = 0;
-            dtpFechaDe.Enabled = false;
-            dtpFechaA.Enabled = false;
             lblFecha2.Text = DateTime.Now.ToLongDateString().ToUpper();
             cargarUnidad(); // cargamos las unidades en el comboBox de busqueda por unidad
             Persona_entrego();
@@ -263,12 +218,9 @@ namespace controlFallos
                 {
                     if (frm.InvokeRequired)
                     {
-
                         validaciones.delgado dm = new validaciones.delgado(v.cerrarForm);
-
                         Invoke(dm, frm);
                     }
-
                     break;
                 }
             }
@@ -279,11 +231,7 @@ namespace controlFallos
             privilegios();
             if (pinsertar)
             {
-                GpbAlmacen.Visible = true;
-                LblNota.Visible = true;
-                LblNota1.Visible = true;
-                tbReportes.Visible = true;
-                tbRefacciones.Visible = true;
+                GpbAlmacen.Visible = LblNota.Visible = LblNota1.Visible = tbReportes.Visible = tbRefacciones.Visible = true;
                 tbRefacciones.Size = new Size(592, 360);
                 tbReportes.Size = new Size(1905, 479);
             }
@@ -294,21 +242,10 @@ namespace controlFallos
                 LblNota1.Text = "DEBE SELECCIONAR UN REPORTE DE LA TABLA PARA LLENAR LOS DATOS";
             }
             if (peditar)
-            {
-                tbReportes.Visible = true;
-                tbRefacciones.Visible = true;
-                LblNota.Visible = true;
-                LblNota1.Visible = true;
-                btnEditarReg.Visible = true;
-                LblEditarR.Visible = true;
-            }
+                tbReportes.Visible = tbRefacciones.Visible = LblNota.Visible = LblNota1.Visible = btnEditarReg.Visible = LblEditarR.Visible = true;
             if (pconsultar)
             {
-                tbReportes.Visible = true;
-                tbRefacciones.Visible = true;
-                GpbBusquedas.Visible = true;
-                LblNota.Visible = true;
-                LblNota1.Visible = true;
+                tbReportes.Visible = tbRefacciones.Visible = GpbBusquedas.Visible = LblNota.Visible = LblNota1.Visible = true;
                 tbRefacciones.Size = new Size(592, 342);
                 tbReportes.Size = new Size(1307, 479);
             }
@@ -320,8 +257,7 @@ namespace controlFallos
             }
             if (peditar && pinsertar && pconsultar)
             {
-                LblPDF.Visible = true;
-                btnPdf.Visible = true;
+                LblPDF.Visible = btnPdf.Visible = true;
                 LblNota1.Text = "PARA CONSULTAR O EDITAR LA INFORMACIÓN DE DOBLE CLIC SOBRE EL REPORTE EN LA TABLA.";
             }
         }
@@ -329,27 +265,18 @@ namespace controlFallos
         public void LimpiarBusqueda()//Metodo para limpiar todos los campos que se encuentrane en la sección de busqueda.
         {
             txtBuscFolio.Clear();
-            cmbMecanicoSolicito.SelectedIndex = 0;
-            cmbBuscarUnidad.SelectedIndex = 0;
+            cmbMecanicoSolicito.SelectedIndex = cmbBuscarUnidad.SelectedIndex = cmbPersonaEmtrego.SelectedIndex = cmbMes.SelectedIndex = 0;
             txtFolioDe.Clear();
             txtFolioA.Clear();
             dtpFechaDe.Value = DateTime.Now;
             dtpFechaA.ResetText();
-            cmbPersonaEmtrego.SelectedIndex = 0;
-            cmbMes.SelectedIndex = 0;
         }
         void realiza_busquedas()
         {
-            //COnsulta para mostrar los reportes que correspondan con los criterios de busqueda
-            string consulta = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'Folio', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad inner join careas as t4 on t4.idarea=t3.areafkcareas";
-            String F1 = "";
-            String F2 = "";
-            if (checkBox1.Checked == true)
+            if (checkBox1.Checked == true || !string.IsNullOrWhiteSpace(txtBuscFolio.Text) || cmbPersonaEmtrego.SelectedIndex > 0 || cmbMecanicoSolicito.SelectedIndex > 0 || cmbMes.SelectedIndex > 0 || cmbBuscarUnidad.SelectedIndex > 0 || (!string.IsNullOrWhiteSpace(txtFolioDe.Text) && !string.IsNullOrWhiteSpace(txtFolioA.Text)))
             {
                 //Verificar si el chechBox esta seleccionado para realizar busqueda por rango de fechas
-                F1 = dtpFechaDe.Value.ToString("yyyy-MM-dd");
-                F2 = dtpFechaA.Value.ToString("yyyy-MM-dd");
-                if (dtpFechaA.Value.Date < dtpFechaDe.Value.Date || dtpFechaA.Value.Date > DateTime.Now) //Validar que las fechas seleccionadas sean correctas, que la fecha 1 no sea mayor a la fecha 2
+                if ((dtpFechaA.Value.Date < dtpFechaDe.Value.Date || dtpFechaA.Value.Date > DateTime.Now) && checkBox1.Checked) //Validar que las fechas seleccionadas sean correctas, que la fecha 1 no sea mayor a la fecha 2
                 {
                     MessageBox.Show("Las fechas seleccionadas son incorrectas".ToUpper(), "VERIFICAR FECHAS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     dtpFechaDe.Value = DateTime.Now;
@@ -358,76 +285,27 @@ namespace controlFallos
                 else
                 {
                     string wheres = "";
-                    if (wheres == "")
-                    {
-                        wheres = " Where t1.fechaReporteM between '" + F1.ToString() + "' and '" + F2.ToString() + "'";
-                    }
-                    else
-                    {
-                        wheres += " AND t1.fechaReporteM between '" + F1.ToString() + "' and '" + F2.ToString() + "'";
-                    }
+                    if (checkBox1.Checked)
+                        wheres = (wheres == "" ? " Where t1.fechaReporteM between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'" : wheres += " AND t1.fechaReporteM between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'");
                     if (!string.IsNullOrWhiteSpace(txtBuscFolio.Text))
-                    {
-                        if (wheres == "")
-                        {
-                            wheres = " where (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'";
-                        }
-                        else
-                        {
-                            wheres += " and (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'";
-                        }
-                    }
+                        wheres = (wheres == "" ? " where (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'" : wheres += " and (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'");
                     if (cmbPersonaEmtrego.SelectedIndex > 0)
-                    {
-                        if (wheres == "")
-                        {
-                            wheres = " Where (SELECT x5.idpersona FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento)='" + cmbPersonaEmtrego.SelectedValue + "'";
-                        }
-                        else
-                        {
-                            wheres += " AND (SELECT x5.idpersona FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento)='" + cmbPersonaEmtrego.SelectedValue + "'";
-                        }
-                    }
+                        wheres = (wheres == "" ? " Where (SELECT x5.idpersona FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento)='" + cmbPersonaEmtrego.SelectedValue + "'" : wheres += " AND (SELECT x5.idpersona FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento)='" + cmbPersonaEmtrego.SelectedValue + "'");
                     if (cmbMecanicoSolicito.SelectedIndex > 0)
-                    {
-                        if (wheres == "")
-                        {
-                            wheres = " Where x1.idpersona FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)='" + cmbMecanicoSolicito.SelectedValue + "'";
-                        }
-                        else
-                        {
-                            wheres += " AND (SELECT x1.idpersona FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)='" + cmbMecanicoSolicito.SelectedValue + "'";
-                        }
-                    }
+                        wheres = (wheres == "" ? " Where(SELECT x1.idpersona FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)='" + cmbMecanicoSolicito.SelectedValue + "'" : wheres += " AND (SELECT x1.idpersona FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)='" + cmbMecanicoSolicito.SelectedValue + "'");
                     if (cmbBuscarUnidad.SelectedIndex > 0)
-                    {
-                        if (wheres == "")
-                        {
-                            wheres = " Where t3.idunidad='" + cmbBuscarUnidad.SelectedValue + "'";
-                        }
-                        else
-                        {
-                            wheres += " And t3.idunidad='" + cmbBuscarUnidad.SelectedValue + "'";
-                        }
-                    }
+                        wheres = (wheres == "" ? " Where t3.idunidad='" + cmbBuscarUnidad.SelectedValue + "'" : wheres += " And t3.idunidad='" + cmbBuscarUnidad.SelectedValue + "'");
                     if (!string.IsNullOrWhiteSpace(txtFolioDe.Text) && !string.IsNullOrWhiteSpace(txtFolioA.Text))
                     {
                         int longitud = 0;
                         longitud = txtFolioA.MaxLength;
-                        if (wheres == "")
-                        {
-                            wheres = " where substring(t2.folio,-" + longitud + "," + longitud + ") between " + Convert.ToInt32(txtFolioDe.Text) + " and " + Convert.ToInt32(txtFolioA.Text) + "";
-                        }
-                        else
-                        {
-                            wheres += " and substring(t2.folio,-" + longitud + "," + longitud + ")between " + Convert.ToInt32(txtFolioDe.Text) + " and " + Convert.ToInt32(txtFolioA.Text) + "";
-                        }
+                        wheres = (wheres == "" ? " where substring(t2.folio,-" + longitud + "," + longitud + ") between " + Convert.ToInt32(txtFolioDe.Text) + " and " + Convert.ToInt32(txtFolioA.Text) + "" : wheres += " and substring(t2.folio,-" + longitud + "," + longitud + ")between " + Convert.ToInt32(txtFolioDe.Text) + " and " + Convert.ToInt32(txtFolioA.Text) + "");
                     }
+                    if (cmbMes.SelectedIndex > 0)
+                        wheres = (wheres == "" ? " Where (select Date_format(t1.FechaReporteM,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaReporteM))=( select year(now())))" : wheres += " AND (select Date_format(t1.FechaReporteM,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaReporteM))=( select year(now())))");
                     if (wheres != "")
-                    {
                         wheres += " and t1.StatusRefacciones='Se Requieren Refacciones' and t1.empresa='" + empresa + "' and (select year(t1.FechaReporteM))=( select year(now())) order by t2.folio desc";
-                    }
-                    MySqlDataAdapter DTA = new MySqlDataAdapter(consulta + wheres, v.c.dbconection());
+                    MySqlDataAdapter DTA = new MySqlDataAdapter(consulta_gral + wheres, v.c.dbconection());
                     v.c.dbconection().Close();
                     DataSet ds = new DataSet();
                     DTA.Fill(ds);
@@ -436,8 +314,7 @@ namespace controlFallos
                     {
                         MessageBox.Show("No se encontraron reportes".ToUpper(), "NINGÚN REPORTE", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         CargarDatos();
-                        btnActualizar.Visible = false;
-                        lblactualizar.Visible = false;
+                        btnActualizar.Visible = lblactualizar.Visible = false;
                     }
                     else
                     {
@@ -449,8 +326,7 @@ namespace controlFallos
                                 btnExcel.Visible = true;
                             }
                         }
-                        btnActualizar.Visible = true;
-                        lblactualizar.Visible = true;
+                        btnActualizar.Visible = lblactualizar.Visible = true;
                     }
                     checkBox1.Checked = false;
                     LimpiarBusqueda();//LLamamos al metodo LimpiarBusqueda.
@@ -458,115 +334,8 @@ namespace controlFallos
             }
             else
             {
-                //Validamos que los campos no esten vacios en caso de no estar seleccionado el CheckBox y poder realizar una busqueda.
-                if (string.IsNullOrWhiteSpace(txtBuscFolio.Text) && cmbPersonaEmtrego.SelectedIndex == 0 && cmbMecanicoSolicito.SelectedIndex == 0 && cmbBuscarUnidad.SelectedIndex == 0 && string.IsNullOrWhiteSpace(txtFolioDe.Text) && string.IsNullOrWhiteSpace(txtFolioA.Text) && F1 == "" && F2 == "" && cmbMes.SelectedIndex == 0)
-                {
-                    //Mandamos mensaje en caso de que se encuentren vacios los campos
-                    MessageBox.Show("Seleccione un criterio de búsqueda".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-                else
-                {
-                    //si no estan vacios realizamos la busqueda con los datos ingresados o seleccionados
-                    string wheres = "";
-                    if (!string.IsNullOrWhiteSpace(txtBuscFolio.Text))
-                    {
-                        if (wheres == "")
-                        {
-                            wheres = " where (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'";
-                        }
-                        else
-                        {
-                            wheres += " and (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'";
-                        }
-                    }
-                    if (cmbPersonaEmtrego.SelectedIndex > 0)
-                    {
-                        if (wheres == "")
-                        {
-                            wheres = " Where x5.idpersona FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento)='" + cmbPersonaEmtrego.SelectedValue + "'";
-                        }
-                        else
-                        {
-                            wheres += " AND (SELECT x5.idpersona FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento)='" + cmbPersonaEmtrego.SelectedValue + "'";
-                        }
-                    }
-                    if (cmbMecanicoSolicito.SelectedIndex > 0)
-                    {
-                        if (wheres == "")
-                        {
-                            wheres = " Where (SELECT x1.idpersona FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)='" + cmbMecanicoSolicito.SelectedValue + "'";
-                        }
-                        else
-                        {
-                            wheres += " AND (SELECT x1.idpersona FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)='" + cmbMecanicoSolicito.SelectedValue + "'";
-                        }
-                    }
-                    if (cmbBuscarUnidad.SelectedIndex > 0)
-                    {
-                        if (wheres == "")
-                        {
-                            wheres = " Where t3.idunidad='" + cmbBuscarUnidad.SelectedValue + "'";
-                        }
-                        else
-                        {
-                            wheres += " And t3.idunidad='" + cmbBuscarUnidad.SelectedValue + "'";
-                        }
-                    }
-                    if (!string.IsNullOrWhiteSpace(txtFolioDe.Text) && !string.IsNullOrWhiteSpace(txtFolioA.Text))
-                    {
-                        int longitud = 0;
-                        longitud = txtFolioA.Text.Length;
-                        if (wheres == "")
-                        {
-                            wheres = " where substring(t2.folio,-" + longitud + "," + longitud + ") between " + Convert.ToInt32(txtFolioDe.Text) + " and " + Convert.ToInt32(txtFolioA.Text) + "";
-                        }
-                        else
-                        {
-                            wheres += " and substring(t2.folio,-" + longitud + "," + longitud + ")between " + Convert.ToInt32(txtFolioDe.Text) + " and " + Convert.ToInt32(txtFolioA.Text) + "";
-                        }
-                    }
-                    if (cmbMes.SelectedIndex > 0)
-                    {
-                        if (wheres == "")
-                        {
-                            wheres = " Where (select Date_format(t1.FechaReporteM,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaReporteM))=( select year(now())))";
-                        }
-                        else
-                        {
-                            wheres += " AND (select Date_format(t1.FechaReporteM,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaReporteM))=( select year(now())))";
-                        }
-                    }
-                    if (wheres != "")
-                    {
-                        wheres += " and t1.StatusRefacciones='Se Requieren Refacciones' and t1.empresa='" + empresa + "' and (select year(t1.FechaReporteM))=( select year(now())) order by t2.folio desc";
-                    }
-                    v.c.dbconection().Close();
-                    MySqlDataAdapter DTA = new MySqlDataAdapter(consulta + wheres, v.c.dbconection());
-                    DataSet ds = new DataSet();
-                    DTA.Fill(ds);
-                    tbReportes.DataSource = ds.Tables[0];
-                    if (ds.Tables[0].Rows.Count == 0)//En caso de no encontrar ningun reporte, mandamos un mensaje diciendo que no se encontraron reportes
-                    {
-                        MessageBox.Show("No se encontraron reportes".ToUpper(), "NINGÚN REPORTE", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        CargarDatos();
-                        btnActualizar.Visible = false;
-                        lblactualizar.Visible = false;
-                    }
-                    else
-                    {
-                        if (pinsertar && peditar && pconsultar)
-                        {
-                            LblExcel.Visible = true;
-                            if (!est_expor)
-                            {
-                                btnExcel.Visible = true;
-                            }
-                        }
-                        btnActualizar.Visible = true;
-                        lblactualizar.Visible = true;
-                    }
-                    LimpiarBusqueda();//volvemos a mandar llamar nuestro metodo LimpiarBusqueda
-                }
+                //Mandamos mensaje en caso de que se encuentren vacios los campos
+                MessageBox.Show("Seleccione un criterio de búsqueda".ToUpper(), "CAMPOS VACIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -585,44 +354,23 @@ namespace controlFallos
                     txtFolioDe.Focus();
                 }
                 else
-                {
                     realiza_busquedas();
-                }
             }
         }
         public void LimpiarReporteTri()//Metodo para limpiar los campos de la parte de reporte
         {
-            lblId.Text = "";
-            lblUnidad.Text = "";
-            lblFechaSolicitud.Text = "";
-            lblMecanicoSolicita.Text = "";
+            lblId.Text = lblUnidad.Text = lblFechaSolicitud.Text = lblMecanicoSolicita.Text = lblFecha2.Text = lblPersonaDis.Text = lblFolio.Text = "";
             txtFolioFactura.Clear();
-            lblFecha2.Text = "";
-            lblPersonaDis.Text = "";
             txtObservacionesT.Clear();
-            lblFolio.Text = "";
             txtDispenso.Clear();
-            //tbRefacciones.DataSource = null;
-            bandera_e = false;
-            btnGuardar.Visible = true;
-            btnGuardar.Enabled = false;
-            LblGuardar.Visible = true;
-            btnPdf.Enabled = true;
-            btnEditarReg.Enabled = true;
+            btnPdf.Enabled = btnEditarReg.Enabled = LblGuardar.Visible = btnGuardar.Visible = true;
             ocultar_botones();
-            bandera_c = false;
-            bandera_editar = false;
-            B_Doble = false;
-            res = false;
-            editar = false;
-            mensaje = false;
-            btnValidar.Visible = false;
+            res = editar = mensaje = btnValidar.Visible = B_Doble = bandera_editar = bandera_c = btnGuardar.Enabled = bandera_e = false;
             LblGuardar.Text = "GUARDAR";
             inhanilitar_campos();
             e = null;
             statusDeMantenimiento = null;
             tbRefacciones.Rows.Clear();
-            idreporS = null;
             if (pinsertar && peditar && pconsultar)
             {
                 LblExcel.Visible = false;
@@ -869,44 +617,13 @@ namespace controlFallos
         private void txtObservacionesT_KeyPress(object sender, KeyPressEventArgs e)
         {
             //Validamos que solo se permitan ingresar letras, espacio, puntos y comas en este campo
-            if (char.IsLetter(e.KeyChar) || Char.IsNumber(e.KeyChar) || Char.IsSeparator(e.KeyChar) || Char.IsControl(e.KeyChar) || (e.KeyChar == 44) || (e.KeyChar == 46) || (e.KeyChar == 249))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-                MessageBox.Show("Solo se aceptan letras, números   .   y    , en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (e.KeyChar == 13 || (char.IsControl(e.KeyChar) && e.KeyChar == 13))
-            {
-                e.Handled = true;
-            }
+            v.enGeneral(e);
         }
 
 
         public void ValidarNumero(KeyPressEventArgs e)//Metodo para que se permitan ingresar solamente números en la caja de texto
         {
-            if (Char.IsNumber(e.KeyChar) || Char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-                MessageBox.Show("Solo se aceptan números en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-        public void ValidarLetras(KeyPressEventArgs e)//Metodo para que se permitan ingresar solamente letras en la caja de texto
-        {
-            if (Char.IsLetter(e.KeyChar) || Char.IsSeparator(e.KeyChar) || Char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
+            v.Solonumeros(e);
         }
 
         private void txtBuscFolio_KeyPress(object sender, KeyPressEventArgs e)
@@ -917,15 +634,7 @@ namespace controlFallos
 
         private void txtDispenso_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar) || char.IsNumber(e.KeyChar) || char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-                MessageBox.Show("Solo se permiten letras y números en esta campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            v.letrasynumerossinespacios(e);
         }
         public void CargarRefacciones()
         {
@@ -945,7 +654,6 @@ namespace controlFallos
             dr1.Close();
         }
         string idrepor;
-        string idreporS;
         bool nuevo_reporte = false;
         string statusDeMantenimiento = "";
         public void restaurar_datos(DataGridViewCellEventArgs e)
@@ -1206,18 +914,7 @@ namespace controlFallos
                 MessageBox.Show(ex.Message);
             }
         }
-        public void Letras_Numeros(KeyPressEventArgs e)
-        {
-            if (char.IsLetter(e.KeyChar) || char.IsNumber(e.KeyChar) || char.IsControl(e.KeyChar))
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-                MessageBox.Show("Solo se aceptan letras y números en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+
         string Folio, Id_R;
         delegate void El_Delegado();
         void cargando()
@@ -1483,7 +1180,7 @@ namespace controlFallos
 
         public void Expota_PDF()
         {
-            MySqlCommand Obetener_Datos = new MySqlCommand("SET lc_time_names = 'es_ES';SELECT  UPPER(t2.Folio) AS 'Folio',UPPER(concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita' , UPPER(t1.StatusRefacciones) AS 'Estatus De Refacciones',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT(x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad INNER JOIN careas as  t4 on t4.idarea=t3.areafkcareas WHERE t1.StatusRefacciones='Se Requieren Refacciones' and t2.folio='" + lblFolio.Text + "' an t1.empresa='"+empresa+"'", v.c.dbconection());
+            MySqlCommand Obetener_Datos = new MySqlCommand("SET lc_time_names = 'es_ES';SELECT  UPPER(t2.Folio) AS 'Folio',UPPER(concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita' , UPPER(t1.StatusRefacciones) AS 'Estatus De Refacciones',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT(x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad INNER JOIN careas as  t4 on t4.idarea=t3.areafkcareas WHERE t1.StatusRefacciones='Se Requieren Refacciones' and t2.folio='" + lblFolio.Text + "' an t1.empresa='" + empresa + "'", v.c.dbconection());
             MySqlDataReader dr = Obetener_Datos.ExecuteReader();
             if (dr.Read())
             {
@@ -1748,39 +1445,10 @@ namespace controlFallos
         private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (this.tbRefacciones.Columns[e.ColumnIndex].HeaderText == "ESTATUS DE REFACCIÓN")
-            {
-                if (Convert.ToString(e.Value) == "EXISTENCIA")
-                {
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                }
-                else
-                {
-                    if (Convert.ToString(e.Value) == "SIN EXISTENCIA")
-                    {
-                        e.CellStyle.BackColor = Color.LightCoral;
-                    }
-                    else
-                    {
-                        if (e.Value.ToString() == "INCOMPLETO")
-                        {
-                            e.CellStyle.BackColor = Color.FromArgb(255, 144, 51);
-                        }
-                    }
-                }
-            }
+                e.CellStyle.BackColor = (e.Value.ToString() == "EXISTENCIA" ? Color.PaleGreen : e.Value.ToString() == "SIN EXISTENCIA" ? Color.LightCoral : Color.FromArgb(255, 144, 51));
             if (this.tbRefacciones.Columns[e.ColumnIndex].HeaderText == "CANTIDAD FALTANTE")
             {
-                if (Convert.ToDouble(e.Value) > 0)
-                {
-                    e.CellStyle.BackColor = Color.Khaki;
-                }
-                else
-                {
-                    if (Convert.ToDouble(e.Value) == 0)
-                    {
-                        e.CellStyle.BackColor = Color.PaleGreen;
-                    }
-                }
+                e.CellStyle.BackColor = (Convert.ToInt32(e.Value) == 0 ? Color.PaleGreen : Color.Khaki);
             }
         }
         //*********************************Animación de Botones************************************
@@ -1860,7 +1528,7 @@ namespace controlFallos
                         else
                         {
                             //consulta para obtener el nombre del almacenista cuando ingrese su contaseña
-                            MySqlCommand sql = new MySqlCommand("SELECT CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t2.puesto='Almacenista' AND t1.status='1' AND t2.status='1' and t1.empresa='"+empresa+"' ;", v.c.dbconection());
+                            MySqlCommand sql = new MySqlCommand("SELECT CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t2.puesto='Almacenista' AND t1.status='1' AND t2.status='1' and t1.empresa='" + empresa + "' ;", v.c.dbconection());
                             MySqlDataReader cmd = sql.ExecuteReader();
                             v.c.dbconection().Close();
                             if (!cmd.Read())
@@ -1871,7 +1539,7 @@ namespace controlFallos
                             }
                             else
                             {
-                                MySqlCommand ValidarEdiciones = new MySqlCommand("SELECT t2.folio as folio,T1.FolioFactura As Factura, (SELECT concat(X1.ApPaterno,' ',X1.ApMaterno,' ',X1.nombres) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS Dispenso, T1.ObservacionesTrans AS Obser FROM REPORTETRI AS T1 INNER JOIN reportesupervicion as t2 on idreportemfkreportemantenimiento=t2.idreportesupervicion WHERE t2.folio='" + lblFolio.Text + "' and t1.empresa='"+empresa+"';", v.c.dbconection());
+                                MySqlCommand ValidarEdiciones = new MySqlCommand("SELECT t2.folio as folio,T1.FolioFactura As Factura, (SELECT concat(X1.ApPaterno,' ',X1.ApMaterno,' ',X1.nombres) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS Dispenso, T1.ObservacionesTrans AS Obser FROM REPORTETRI AS T1 INNER JOIN reportesupervicion as t2 on idreportemfkreportemantenimiento=t2.idreportesupervicion WHERE t2.folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';", v.c.dbconection());
                                 MySqlDataReader DR = ValidarEdiciones.ExecuteReader();
                                 if (DR.Read())
                                 {
@@ -1900,7 +1568,7 @@ namespace controlFallos
                                         }
                                         else
                                         {
-                                            MySqlCommand editar_folio = new MySqlCommand("select t1.FolioFactura as folio from reportetri as t1 inner join reportesupervicion as t2 on t1.idreportemfkreportemantenimiento= t2.idreportesupervicion where t1.Foliofactura='" + txtFolioFactura.Text + "' and t1.empresa='"+empresa+"'", v.c.dbconection());
+                                            MySqlCommand editar_folio = new MySqlCommand("select t1.FolioFactura as folio from reportetri as t1 inner join reportesupervicion as t2 on t1.idreportemfkreportemantenimiento= t2.idreportesupervicion where t1.Foliofactura='" + txtFolioFactura.Text + "' and t1.empresa='" + empresa + "'", v.c.dbconection());
                                             MySqlDataReader DTR = editar_folio.ExecuteReader();
                                             if (DTR.Read())
                                             {
@@ -1932,7 +1600,7 @@ namespace controlFallos
 
         private void btnEditarReg_Click(object sender, EventArgs e)
         {
-            MySqlCommand Verificar_estatus = new MySqlCommand("SELECT UPPER(T1.Estatus) AS Estatus FROM reportemantenimiento AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='"+empresa+"';", v.c.dbconection());
+            MySqlCommand Verificar_estatus = new MySqlCommand("SELECT UPPER(T1.Estatus) AS Estatus FROM reportemantenimiento AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';", v.c.dbconection());
             MySqlDataReader DR = Verificar_estatus.ExecuteReader();
             if (DR.Read())
             {
@@ -1977,7 +1645,7 @@ namespace controlFallos
             if (pinsertar)
             {
                 //consulta para obtener el nombre del almacenista cuando ingrese su contaseña
-                MySqlCommand sql = new MySqlCommand("SELECT UPPER(CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres)) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t1.status='1' AND t2.status='1' and t1.empresa='"+empresa+"';", v.c.dbconection());
+                MySqlCommand sql = new MySqlCommand("SELECT UPPER(CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres)) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t1.status='1' AND t2.status='1' and t1.empresa='" + empresa + "';", v.c.dbconection());
                 MySqlDataReader cmd = sql.ExecuteReader();
                 v.c.dbconection().Close();
                 if (cmd.Read())
@@ -1998,29 +1666,23 @@ namespace controlFallos
 
         private void txtFolioDe_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Letras_Numeros(e);
+            v.letrasynumerossinespacios(e);
         }
 
         private void txtFolioA_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Letras_Numeros(e);
+            v.letrasynumerossinespacios(e);
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             if (checkBox1.Checked == true)
             {
-                dtpFechaA.Enabled = true;
-                dtpFechaDe.Enabled = true;
-                cmbMes.Enabled = false;
+                cmbMes.Enabled = !(dtpFechaA.Enabled = dtpFechaDe.Enabled = true);
                 cmbMes.SelectedIndex = 0;
             }
             else
-            {
-                dtpFechaDe.Enabled = false;
-                dtpFechaA.Enabled = false;
-                cmbMes.Enabled = true;
-            }
+                cmbMes.Enabled = !(dtpFechaDe.Enabled = dtpFechaA.Enabled = false);
         }
     }
 }

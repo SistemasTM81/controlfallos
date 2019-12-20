@@ -271,7 +271,6 @@
             this.cmbMecanicoSolicito.Name = "cmbMecanicoSolicito";
             this.cmbMecanicoSolicito.Size = new System.Drawing.Size(333, 25);
             this.cmbMecanicoSolicito.TabIndex = 149;
-            this.cmbMecanicoSolicito.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.combos_DrawItem);
             // 
             // cmbPersonaEmtrego
             // 
@@ -288,7 +287,6 @@
             this.cmbPersonaEmtrego.Name = "cmbPersonaEmtrego";
             this.cmbPersonaEmtrego.Size = new System.Drawing.Size(333, 25);
             this.cmbPersonaEmtrego.TabIndex = 148;
-            this.cmbPersonaEmtrego.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.combos_DrawItem);
             // 
             // LblExcel
             // 
@@ -474,7 +472,6 @@
             this.cmbBuscarUnidad.Name = "cmbBuscarUnidad";
             this.cmbBuscarUnidad.Size = new System.Drawing.Size(333, 25);
             this.cmbBuscarUnidad.TabIndex = 13;
-            this.cmbBuscarUnidad.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.combos_DrawItem);
             // 
             // label29
             // 
