@@ -214,7 +214,7 @@ namespace controlFallos
                 while (Folio.Length < 7)
                     Folio = "0" + Folio;
             lblFolio.Text = "TRA" + Folio.ToString();
-            v.c.dbconection();
+            v.c.dbconection().Close();
         }
         public void cargarDAtos()//Metodo para cargar los reportes que se encuentra en la base de datos en el datagridview y para generar el folio de reporte autoincrementable
         {
@@ -290,7 +290,7 @@ namespace controlFallos
                         }
                         btnActualizar.Visible = LblActTabla.Visible = true;
                     }
-                    v.c.dbconection();
+                    v.c.dbconection().Close();
                     limpiarbusqueda();
                     checkBox1.Checked = false;
                 }
@@ -515,7 +515,7 @@ namespace controlFallos
                 cmbUnidad.SelectedValue = unidadAnterior = Convert.ToInt32(datos[0]);
                 lblFechaReporte.Text = fechaAnterior = datos[1];
                 lblSupervisor.Text = v.getaData("select concat(appaterno,' ',apmaterno,' ',nombres) from cpersonal where idpersona='" + (supervisorAnterior = Convert.ToInt32(datos[3])) + "'").ToString();
-                txtConductor.Text = v.getaData("select credencial from cpersonal where idpersona='" + (idconductor = conductorAnterior = Convert.ToInt32(datos[2])) + "'").ToString();
+                txtConductor.Text = v.getaData("select coalesce(credencial,'0') from cpersonal where idpersona='" + (idconductor = conductorAnterior = Convert.ToInt32(datos[2])) + "'").ToString();
                 if (Convert.ToInt32(v.getaData("select status from cunidades where idunidad='" + unidadAnterior + "';")) == 0)
                     v.iniCombos("SELECT t1.idunidad,concat(t2.identificador,LPAD(consecutivo,4,'0')) as ECo FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea where t1.status='1' or t1.idunidad='" + unidadAnterior + "' order by eco", cmbUnidad, "idunidad", "eco", "--SELECCIONE ECONÓMICO");
                 if (Convert.ToInt32(v.getaData("select status from cservicios where idservicio='" + datos[4] + "';")) == 0)
@@ -541,7 +541,7 @@ namespace controlFallos
                     v.iniCombos("select idFalloGral as id,upper(nombreFalloGral) as n from cfallosgrales where status='1' or idFalloGral='" + grupoFalloAnterior + "' order by nombreFalloGral;", cbgrupo, "id", "n", "--SELECCIONE GRUPO--");
                 if (Convert.ToInt32(v.getaData("select status from cdescfallo where iddescfallo='" + datos[7] + "';")) == 0)
                     v.iniCombos("select iddescfallo as id,upper(descfallo) as d from cdescfallo as t1 inner join cfallosgrales as t2 on t2.idfallogral=t1.falloGralfkcfallosgrales where t2.idfallogral='" + cbgrupo.SelectedValue + "' and t1.status='1' or(t1.iddescfallo='" + datos[7] +"') order by descfallo;", cbSubGrupo, "id", "d", "--SELECCIONE SUBGRUPO--");
-                if (Convert.ToInt32("select status from catcategorias where idcategoria='" + (categoriaAnterior = Convert.ToInt32(v.getaData("select coalesce(idcategoria,0) from catcategorias where subgrupofkcdescfallo='" + datos[7]) + "';")) + "';") == 0)
+                if (Convert.ToInt32(v.getaData("select status from catcategorias where idcategoria='" + (categoriaAnterior = Convert.ToInt32(v.getaData("select coalesce(idcategoria,0) from catcategorias where subgrupofkcdescfallo='" + datos[7] + "';"))) + "'")) == 0)
                     v.iniCombos("select t3.idcategoria as id ,upper(t3.categoria) as c from cdescfallo as t1 inner join catcategorias as t3 on t3.subgrupofkcdescfallo=t1.iddescfallo where iddescfallo='" + Convert.ToInt32(datos[7]) + "' order by categoria;", cbcategoria, "id", "c", "--SELECCIONE CATEGORIA--");
                 if (Convert.ToInt32(v.getaData("select status from cfallosesp where idfalloEsp='" + (codigoAnterior = Convert.ToInt32(datos[8])) + "';")) == 0)
                     v.iniCombos("select t1.idfalloEsp as id,upper(t1.codfallo)as c from cfallosesp as t1 inner join catcategorias as t2 on t2.idcategoria=t1.descfallofkcdescfallo inner join cdescfallo as t3 on t2.subgrupofkcdescfallo=t3.iddescfallo inner join cfallosgrales as t4 on t3.falloGralfkcfallosgrales=t4.idFalloGral where t2.idcategoria='" + categoriaAnterior+ "';", cmbCodFallo, "id", "c", "--SELECCIONE CÓDIGO");

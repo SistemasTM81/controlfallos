@@ -1,6 +1,7 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -69,8 +70,8 @@ namespace controlFallos
                 initializeDirections();
                 initializeCompanies();
                 initializeSupervisors();
-                DTPgetDate.MinDate = DateTime.Today.Subtract(TimeSpan.FromDays(2));
-                DTPgetDate.MaxDate = DateTime.Today;
+                DTPgetDate.MinDate = DateTime.Now.Subtract(TimeSpan.FromDays(2));
+                DTPgetDate.MaxDate = DateTime.Now;
                 generaFolio();
             }
             if (pconsultar)
@@ -79,10 +80,10 @@ namespace controlFallos
                 initializeECOSBusq();
                 initializeConductorsBusq();
                 initializeReports("WHERE DATE_FORMAT(t1.fechaHoraAccidente, '%m') = " + DateTime.Today.ToString("MM"));
-                string res = v.getaData("SELECT DATE(MIN(fechaHoraAccidente)) FROM reportepercance").ToString();
+                string res = v.getaData("SELECT MIN(fechaHoraAccidente) FROM reportepercance").ToString();
                 string str = ((res == "" ? null : res) ?? DateTime.Today.Subtract(TimeSpan.FromDays(2)).ToString());
                 dtpFechaA.MinDate = dtpFechaDe.MinDate = DateTime.Parse(str);
-                dtpFechaA.MaxDate = dtpFechaDe.MaxDate = DateTime.Today;
+                dtpFechaA.MaxDate = dtpFechaDe.MaxDate = DateTime.Now;
             }
             resetPixels();
         }
@@ -511,22 +512,30 @@ namespace controlFallos
         }
         Bitmap ediciionBitmap(Bitmap bmp, List<Point> img)
         {
+            Point[] coordenadas = img.ToArray();
             if (img.Count > 0)
             {
-                foreach (var elem in img)
+                Pen blackPen = new Pen(Color.Blue, 3);
+                for (int i = 0; i < img.Count; i++)
                 {
-                    try
+                    using (Graphics gr = Graphics.FromImage(bmp))
                     {
-                        bmp.SetPixel(elem.X, elem.Y, Color.Blue);
-                        bmp.SetPixel(elem.X - 1, elem.Y, Color.Blue);
-                        bmp.SetPixel(elem.X - 1, elem.Y - 1, Color.Blue);
-                        bmp.SetPixel(elem.X, elem.Y - 1, Color.Blue);
-                        bmp.SetPixel(elem.X + 1, elem.Y, Color.Blue);
-                        bmp.SetPixel(elem.X - 1, elem.Y + 1, Color.Blue);
-                        bmp.SetPixel(elem.X, elem.Y + 1, Color.Blue);
-                        bmp.SetPixel(elem.X + 1, elem.Y + 1, Color.Blue);
+                        if (coordenadas.Length == 1)
+                        {
+                            var r = new System.Drawing.Rectangle(new Point(coordenadas[i].X, coordenadas[i].Y), new Size(2, 2));
+                            gr.DrawRectangle(blackPen, r);
+                        }
+                        else
+                        {
+                            if (coordenadas[i].X == -1 || coordenadas[i].Y == -1 || i == coordenadas.Length - 1) { }
+                            else
+                            {
+                                gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                                gr.DrawLine(blackPen, coordenadas[i].X, coordenadas[i].Y, (coordenadas[i + 1].X == -1 ? coordenadas[i].X : coordenadas[i + 1].X), (coordenadas[i + 1].Y == -1 ? coordenadas[i].Y : coordenadas[i + 1].Y));
+                            }
+                        }
                     }
-                    catch { continue; }
+
                 }
             }
             return bmp;
@@ -602,7 +611,7 @@ namespace controlFallos
                     if (ress)
                     {
                         object usuariofinalizo = null;
-                        FormContraFinal fc = new FormContraFinal(empresa: 1, area: 1, F: this,v:v);
+                        FormContraFinal fc = new FormContraFinal(empresa: 1, area: 1, F: this, v: v);
                         fc.LabelTitulo.Text = "Introduzca Su Contraseña Para Finalizar\nEl Reporte ";
                         if (fc.ShowDialog() == DialogResult.OK)
                         {
@@ -760,6 +769,7 @@ namespace controlFallos
                 }
             }
             th.Abort();
+            panel1.Enabled = panel2.Enabled = panel3.Enabled = panel4.Enabled = false;
         }
         private void p2_Paint(object sender, PaintEventArgs e) { }
 
@@ -823,9 +833,10 @@ namespace controlFallos
 
         private void cbxgeteco_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbxgeteco.SelectedIndex > 0)
+            if (cbxgeteco.SelectedIndex > 0 && cbxgeteco.DataSource != null)
             {
                 pbdibujar.BackgroundImage = null;
+                panel1.Enabled = panel2.Enabled = panel3.Enabled = panel4.Enabled = true;
                 string modelo = v.getaData("select modelofkcmodelos from cunidades where idunidad='" + cbxgeteco.SelectedValue + "';").ToString();
                 if (Convert.ToInt32(modelo) == 1)
                 {
@@ -841,6 +852,11 @@ namespace controlFallos
                     panel3.BackgroundImage = controlFallos.Properties.Resources.t_izquierdo;
                     panel4.BackgroundImage = controlFallos.Properties.Resources.t_trasero;
                 }
+            }
+            else
+            {
+                panel1.Enabled = panel2.Enabled = panel3.Enabled = panel4.Enabled = false;
+                panel1.BackgroundImage = panel2.BackgroundImage = panel3.BackgroundImage = panel4.BackgroundImage = null;
             }
         }
         private void btnHDConductor_Click(object sender, EventArgs e)
@@ -990,59 +1006,57 @@ namespace controlFallos
         }
         bool dibujarPuntitos()
         {
-            if (cbxgeteco.DataSource != null)
+
+            Bitmap m = null;
+            switch (imagenActual)
             {
-                if (cbxgeteco.SelectedIndex > 0)
+                case 0:
+                    m = new Bitmap(panel1.BackgroundImage);
+                    break;
+                case 1:
+                    m = new Bitmap(panel2.BackgroundImage);
+                    break;
+                case 2:
+                    m = new Bitmap(panel3.BackgroundImage);
+                    break;
+                case 3:
+                    m = new Bitmap(panel4.BackgroundImage);
+                    break;
+            }
+            pbdibujar.BackgroundImage = m;
+            Point[] coordenadas = imagenes[imagenActual].ToArray();
+            if (imagenes[imagenActual].Count > 0)
+            {
+                Pen blackPen = new Pen(Color.Blue, 2);
+                for (int i = 0; i < imagenes[imagenActual].Count; i++)
                 {
-                    Bitmap m = null;
-                    switch (imagenActual)
+                    using (Graphics gr = Graphics.FromImage(m))
                     {
-                        case 0:
-                            m = new Bitmap(panel1.BackgroundImage);
-                            break;
-                        case 1:
-                            m = new Bitmap(panel2.BackgroundImage);
-                            break;
-                        case 2:
-                            m = new Bitmap(panel3.BackgroundImage);
-                            break;
-                        case 3:
-                            m = new Bitmap(panel4.BackgroundImage);
-                            break;
-                    }
-                    pbdibujar.BackgroundImage = m;
-                    if (imagenes[imagenActual].Count > 0)
-                    {
-                        foreach (var elem in imagenes[imagenActual])
+                        if (coordenadas.Length == 1)
                         {
-                            try
-                            {
-                                m.SetPixel(elem.X, elem.Y, Color.Blue);
-                                m.SetPixel(elem.X - 1, elem.Y, Color.Blue);
-                                m.SetPixel(elem.X - 1, elem.Y - 1, Color.Blue);
-                                m.SetPixel(elem.X, elem.Y - 1, Color.Blue);
-                                m.SetPixel(elem.X + 1, elem.Y, Color.Blue);
-                                m.SetPixel(elem.X - 1, elem.Y + 1, Color.Blue);
-                                m.SetPixel(elem.X, elem.Y + 1, Color.Blue);
-                                m.SetPixel(elem.X + 1, elem.Y + 1, Color.Blue);
-                            }
-                            catch
-                            { continue; }
+                            var r = new System.Drawing.Rectangle(new Point(coordenadas[i].X, coordenadas[i].Y), new Size(2, 2));
+                            gr.DrawRectangle(blackPen, r);
                         }
-                        pbdibujar.BackgroundImage = m;
-                        pbdibujar.Size = pbdibujar.BackgroundImage.Size;
-                        pbdibujar.Top = (pContains.Height - pbdibujar.Height) / 2;
-                        pbdibujar.Left = (pContains.Width - pbdibujar.Width) / 2;
-                        return true;
+                        else
+                        {
+                            if (coordenadas[i].X == -1 || coordenadas[i].Y == -1 || i == coordenadas.Length - 1) { }
+                            else
+                            {
+                                gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                                gr.DrawLine(blackPen, coordenadas[i].X, coordenadas[i].Y, (coordenadas[i + 1].X == -1 ? coordenadas[i].X : coordenadas[i + 1].X), (coordenadas[i + 1].Y == -1 ? coordenadas[i].Y : coordenadas[i + 1].Y));
+                            }
+                        }
                     }
 
-                    else return false;
                 }
-                else
-                    return false;
+                pbdibujar.BackgroundImage = m;
+                pbdibujar.Size = pbdibujar.BackgroundImage.Size;
+                pbdibujar.Top = (pContains.Height - pbdibujar.Height) / 2;
+                pbdibujar.Left = (pContains.Width - pbdibujar.Width) / 2;
+                return true;
             }
-            else
-                return false;
+
+            else return false;
         }
         private void panel1_MouseHover(object sender, EventArgs e) { Control p = sender as Control; p.Size = new Size(105, 105); }
         private void panel1_MouseLeave(object sender, EventArgs e)
@@ -1095,32 +1109,34 @@ namespace controlFallos
         int imagenActual;
         private void panel1_Click(object sender, EventArgs e)
         {
-            if ((sender as Panel).BackgroundImage !=null) {
-                switch (((Panel)sender).Name)
-                {
-                    case "panel1":
-                        imagenActual = 0;
-                        break;
-                    case "panel2":
-                        imagenActual = 1;
-                        break;
-                    case "panel3":
-                        imagenActual = 2;
-                        break;
-                    case "panel4":
-                        imagenActual = 3;
-                        break;
-                }
-                if (!dibujarPuntitos())
-                    pbdibujar.BackgroundImage = ((Panel)sender).BackgroundImage;
-                pbdibujar.Size = pbdibujar.BackgroundImage.Size;
-                pbdibujar.Top = (pContains.Height - pbdibujar.Height) / 2;
-                pbdibujar.Left = (pContains.Width - pbdibujar.Width) / 2;
+            switch (((Panel)sender).Name)
+            {
+                case "panel1":
+                    imagenActual = 0;
+                    break;
+                case "panel2":
+                    imagenActual = 1;
+                    break;
+                case "panel3":
+                    imagenActual = 2;
+                    break;
+                case "panel4":
+                    imagenActual = 3;
+                    break;
             }
+            if (!dibujarPuntitos())
+                pbdibujar.BackgroundImage = ((Panel)sender).BackgroundImage;
+            pbdibujar.Size = pbdibujar.BackgroundImage.Size;
+            pbdibujar.Top = (pContains.Height - pbdibujar.Height) / 2;
+            pbdibujar.Left = (pContains.Width - pbdibujar.Width) / 2;
         }
         bool drawing;
         Graphics grphcs;
-        private void pbdibujar_MouseDown(object sender, MouseEventArgs e) { drawing = true; trazosimagenActual.Add(imagenes[imagenActual].Count); }
+        private void pbdibujar_MouseDown(object sender, MouseEventArgs e)
+        {
+            //imagenes[imagenActual].Add(new Point(e.X, e.Y));
+            drawing = true; trazosimagenActual.Add(imagenes[imagenActual].Count);
+        }
         private void button8_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(binarizedPDF) /*&& dibujoExportado == 0*/)
@@ -1235,19 +1251,30 @@ namespace controlFallos
             {
                 if (pbdibujar.BackgroundImage != null && imagenesAnterior[0].Count == 0 && imagenesAnterior[1].Count == 0 && imagenesAnterior[2].Count == 0 && imagenesAnterior[3].Count == 0 && (editar ? idReporteTemp > 0 : true))
                 {
-                    var r = new System.Drawing.RectangleF(new Point(e.X, e.Y), new Size(2, 2));
+                    var r = new System.Drawing.Rectangle(new Point(e.X, e.Y), new Size(2, 2));
                     grphcs = pbdibujar.CreateGraphics();
                     grphcs.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
                     grphcs.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                    Pen lapiz = new Pen(Color.Blue, 1);
-                    grphcs.DrawEllipse(lapiz, r);
-                    imagenes[imagenActual].Add(new Point(e.X, e.Y));
+                    Pen lapiz = new Pen(Color.Blue, 2);
+                    imagenes[imagenActual].Add(new Point(e.X + 2, e.Y + 2));
+                    Point[] puntos = imagenes[imagenActual].ToArray();
+                    if (imagenes[imagenActual].Count == 1)
+                        grphcs.DrawRectangle(lapiz, r);
+                    else
+                    {
+                        if (puntos[puntos.Length - 2].X != -1)
+                            grphcs.DrawLine(lapiz, puntos[puntos.Length - 2].X, puntos[puntos.Length - 2].Y, e.X, e.Y);
+                    }
                     grphcs.Dispose();
                     getCambios(null, e);
                 }
             }
         }
-        private void pbdibujar_MouseUp(object sender, MouseEventArgs e) { drawing = false; trazosimagenActual.Add(imagenes[imagenActual].Count); }
+        private void pbdibujar_MouseUp(object sender, MouseEventArgs e)
+        {
+            imagenes[imagenActual].Add(new Point(-1, -1));
+            drawing = false; trazosimagenActual.Add(imagenes[imagenActual].Count);
+        }
         private void cgetare_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbxgetarea.SelectedIndex > 0)
@@ -1414,7 +1441,7 @@ namespace controlFallos
             txtgetSintesis.Clear();
             imagenes[0].Clear();
             dibujoExportado = 0;
-            cbxgetarea.Enabled = cbxgeteco.Enabled = pnEvidencias.Visible=pEvidencias.Visible = false;
+            cbxgetarea.Enabled = cbxgeteco.Enabled = pnEvidencias.Visible = pEvidencias.Visible = false;
             imagenes[1].Clear();
             imagenes[2].Clear();
             imagenes[3].Clear();
@@ -1441,14 +1468,14 @@ namespace controlFallos
             txtgetMedico.Clear();
             txtgetNameMedico.Clear();
             txtgetMedicalesionados.Clear();
-            pbdibujar.BackgroundImage=pEvidencia1.Image=pEvidencia2.Image=pEvidencia3.Image=pEvidencia4.Image = null;
+            pbdibujar.BackgroundImage = pEvidencia1.Image = pEvidencia2.Image = pEvidencia3.Image = pEvidencia4.Image = null;
             lblshowconductor.Text = binarizedPDF = lblnameFile.Text = lblsizeFile.Text = null;
             DTPgetDate.MinDate = DateTime.Today.Subtract(TimeSpan.FromDays(2));
             DTPgetDate.Value = DateTime.Today;
             txtgetComentarios.Clear();
             btnsave.BackgroundImage = Properties.Resources.save;
             conductorFinalizar = supervisorFinalizar = 0; idconductor = 0; economicoAnterior = 0; idconductorAnterior = 0; servicioenLaborAnterior = 0; direccionAnterior = 0; estacion1 = 0; estacion2 = 0; estacion3 = 0; estacion4 = 0; numSeguroTransmasivoAnterior = 0; economicoRecupAnterior = 0; numActaExtraAnterior = 0; estacionAnterior = 0; supervisorAsistenciaPercanceAnterior = 0; unidadAsistenciaMedicaAnterior = 0; statusFinalizado = 0; fechaAccidenteAnterior = DateTime.Now; horaAccidenteAnterior = DateTime.Now; horaOtorgnumSegAnterior = DateTime.Now; horaajustLlegaSiniestro = DateTime.Now; pdfFOREDIT = null; resetPixels(); lugarAccidenteAnterior = null; sintesisOcurridoAnterior = null; descripcionAnterior = null; marcaTerceroAnterior = null; yearTerceroAnterior = null; placasTerceroAnterior = null; nombreCTerceroAnterior = null; telefonoTerceroAnterior = null; domicilioTerceroAnterior = null; nombreAjustadorAnterior = null; solucionAnterior = null; pertenecienteaAsistenciaMedicaAnterior = null; responsabeUnidadAsistenciaMedicaAnterior = null; encasoLesionadosAnteriorAnterior = null; comentariosAnterior = null; yaAparecioMensaje = false;
-            cbxgetempresa.Enabled = DTPgetDate.Enabled = DTPgetTIMEaccident.Enabled = cbxgetdireccion.Enabled = pbdibujar.Enabled = DTPgetplaceTIME.Enabled = DTPgetTimeSeguro.Enabled = cbxgetEXTsupervisor.Enabled = panel1.Enabled = panel2.Enabled = panel3.Enabled = panel4.Enabled = btnHDConductor.Enabled = btnHDSupervisor.Enabled = !(txtgetcredencial.ReadOnly = txtgetPlaceAccident.ReadOnly = txtgetSintesis.ReadOnly = txtgetDescripcion.ReadOnly = txtgetmarcaVThird.ReadOnly = txtgetyearVThird.ReadOnly = txtgetplacasVThird.ReadOnly = txtgetNameCThird.ReadOnly = txtgetaddressCThird.ReadOnly = txtgetphoneCThird.ReadOnly = txtgetNumSeguro.ReadOnly = txtgetajustadorname.ReadOnly = txtgetEXTsolucion.ReadOnly = txtgetEXTnumActa.ReadOnly = txtgetMedicoUnidad.ReadOnly = txtgetMedico.ReadOnly = txtgetNameMedico.ReadOnly = txtgetMedicalesionados.ReadOnly = txtgetComentarios.ReadOnly = false);
+            cbxgetempresa.Enabled = DTPgetDate.Enabled = DTPgetTIMEaccident.Enabled = cbxgetdireccion.Enabled = pbdibujar.Enabled = DTPgetplaceTIME.Enabled = DTPgetTimeSeguro.Enabled = cbxgetEXTsupervisor.Enabled = btnHDConductor.Enabled = btnHDSupervisor.Enabled = !(txtgetcredencial.ReadOnly = txtgetPlaceAccident.ReadOnly = txtgetSintesis.ReadOnly = txtgetDescripcion.ReadOnly = txtgetmarcaVThird.ReadOnly = txtgetyearVThird.ReadOnly = txtgetplacasVThird.ReadOnly = txtgetNameCThird.ReadOnly = txtgetaddressCThird.ReadOnly = txtgetphoneCThird.ReadOnly = txtgetNumSeguro.ReadOnly = txtgetajustadorname.ReadOnly = txtgetEXTsolucion.ReadOnly = txtgetEXTnumActa.ReadOnly = txtgetMedicoUnidad.ReadOnly = txtgetMedico.ReadOnly = txtgetNameMedico.ReadOnly = txtgetMedicalesionados.ReadOnly = txtgetComentarios.ReadOnly = panel1.Enabled = panel2.Enabled = panel3.Enabled = panel4.Enabled = false);
         }
         void generaFolio()
         {
@@ -1485,8 +1512,9 @@ namespace controlFallos
             return coordenadas;
         }
         bool getCambios()
+
         {
-            return (statusFinalizado == 0 && (cbxgeteco.SelectedIndex > 0 && idconductor > 0) && (economicoAnterior != Convert.ToInt32(cbxgeteco.SelectedValue) || idconductorAnterior != idconductor || fechaAccidenteAnterior.ToString("yyyy-MM-dd") != DTPgetDate.Value.ToString("yyyy-MM-dd") || DTPgetTIMEaccident.Value.ToString("HH:mm") != horaAccidenteAnterior.ToString("HH:mm") || servicioenLaborAnterior != Convert.ToInt32(cbxgetServicio.SelectedValue) || !(lugarAccidenteAnterior ?? "").Equals(v.mayusculas(txtgetPlaceAccident.Text.Trim().ToLower())) || direccionAnterior != Convert.ToInt32(cbxgetdireccion.SelectedValue) || estacion1 != Convert.ToInt32(cbxgetestacion1.SelectedValue) || estacion2 != Convert.ToInt32(cbxgetestacion2.SelectedValue) || estacion3 != Convert.ToInt32(cbxgetestacion3.SelectedValue) || estacion4 != Convert.ToInt32(cbxgetestacion4.SelectedValue) || economicoRecupAnterior != Convert.ToInt32(cbxgetecorecup.SelectedValue) || estacionAnterior != Convert.ToInt32(cbxgetestacion.SelectedValue) || !(sintesisOcurridoAnterior ?? "").Equals(v.mayusculas(txtgetSintesis.Text.Trim().ToLower())) || imagenesAnterior[0].Count != imagenes[0].Count || imagenesAnterior[1].Count != imagenes[1].Count || imagenesAnterior[2].Count != imagenes[2].Count || imagenesAnterior[3].Count != imagenes[3].Count || !(descripcionAnterior ?? "").Equals(v.mayusculas(txtgetDescripcion.Text.Trim().ToLower())) || !(marcaTerceroAnterior ?? "").Equals(v.mayusculas(txtgetmarcaVThird.Text.Trim().ToLower())) || !(yearTerceroAnterior ?? "").Equals(txtgetyearVThird.Text.Trim()) || !(placasTerceroAnterior ?? "").Equals(v.mayusculas(txtgetplacasVThird.Text.Trim().ToLower())) || !(nombreCTerceroAnterior ?? "").Equals(v.mayusculas(txtgetNameCThird.Text.Trim().ToLower())) || !(telefonoTerceroAnterior ?? "").Equals(v.mayusculas(txtgetphoneCThird.Text.Trim().ToLower())) || !(domicilioTerceroAnterior ?? "").Equals(v.mayusculas(txtgetaddressCThird.Text.Trim().ToLower())) || numSeguroTransmasivoAnterior != Convert.ToInt32((txtgetNumSeguro.Text.Trim() == "" ? "0" : txtgetNumSeguro.Text.Trim())) || DTPgetTimeSeguro.Value.ToString("HH:mm") != horaOtorgnumSegAnterior.ToString("HH:mm") || DTPgetplaceTIME.Value.ToString("HH:mm") != horaajustLlegaSiniestro.ToString("HH:mm") || !(nombreAjustadorAnterior ?? "").Equals(v.mayusculas(txtgetajustadorname.Text.Trim().ToLower())) || !(solucionAnterior ?? "").Equals(v.mayusculas(txtgetEXTsolucion.Text.Trim().ToLower())) || numActaExtraAnterior != Convert.ToInt32((txtgetEXTnumActa.Text.Trim() == "" ? "0" : txtgetEXTnumActa.Text.Trim())) || supervisorAsistenciaPercanceAnterior != Convert.ToInt32(cbxgetEXTsupervisor.SelectedValue) || unidadAsistenciaMedicaAnterior != Convert.ToInt32((txtgetMedicoUnidad.Text.Trim() == "" ? "0" : txtgetMedicoUnidad.Text.Trim())) || !(pertenecienteaAsistenciaMedicaAnterior ?? "").Equals(v.mayusculas(txtgetMedico.Text.Trim().ToLower())) || !(responsabeUnidadAsistenciaMedicaAnterior ?? "").Equals(v.mayusculas(txtgetNameMedico.Text.Trim().ToLower())) || !(encasoLesionadosAnteriorAnterior ?? "").Equals(v.mayusculas(txtgetMedicalesionados.Text.Trim().ToLower())) || !string.IsNullOrWhiteSpace(binarizedPDF) || !(comentariosAnterior ?? "").Equals(v.mayusculas(txtgetComentarios.Text.Trim().ToLower()))));
+            return (statusFinalizado == 0 && (cbxgeteco.SelectedIndex > 0 && idconductor > 0) && (economicoAnterior != Convert.ToInt32(cbxgeteco.SelectedValue) || idconductorAnterior != idconductor || fechaAccidenteAnterior.ToString("yyyy-MM-dd") != DTPgetDate.Value.ToString("yyyy-MM-dd") || DTPgetTIMEaccident.Value.ToString("HH:mm") != horaAccidenteAnterior.ToString("HH:mm") || servicioenLaborAnterior != Convert.ToInt32(cbxgetServicio.SelectedValue) || !(lugarAccidenteAnterior ?? "").Equals(v.mayusculas(txtgetPlaceAccident.Text.Trim().ToLower())) || direccionAnterior != Convert.ToInt32(cbxgetdireccion.SelectedValue) || (estacion1 != Convert.ToInt32(cbxgetestacion1.SelectedValue) && cbxgetestacion1.DataSource != null) || (estacion2 != Convert.ToInt32(cbxgetestacion2.SelectedValue) && cbxgetestacion2.DataSource != null) || (estacion3 != Convert.ToInt32(cbxgetestacion3.SelectedValue) && cbxgetestacion3.DataSource != null) || (estacion4 != Convert.ToInt32(cbxgetestacion4.SelectedValue) && cbxgetestacion4.DataSource != null) || (economicoRecupAnterior != Convert.ToInt32(cbxgetecorecup.SelectedValue) && cbxgetecorecup.DataSource != null) || (estacionAnterior != Convert.ToInt32(cbxgetestacion.SelectedValue) && cbxgetestacion.DataSource != null) || !(sintesisOcurridoAnterior ?? "").Equals(v.mayusculas(txtgetSintesis.Text.Trim().ToLower())) || imagenesAnterior[0].Count != imagenes[0].Count || imagenesAnterior[1].Count != imagenes[1].Count || imagenesAnterior[2].Count != imagenes[2].Count || imagenesAnterior[3].Count != imagenes[3].Count || !(descripcionAnterior ?? "").Equals(v.mayusculas(txtgetDescripcion.Text.Trim().ToLower())) || !(marcaTerceroAnterior ?? "").Equals(v.mayusculas(txtgetmarcaVThird.Text.Trim().ToLower())) || !(yearTerceroAnterior ?? "").Equals(txtgetyearVThird.Text.Trim()) || !(placasTerceroAnterior ?? "").Equals(v.mayusculas(txtgetplacasVThird.Text.Trim().ToLower())) || !(nombreCTerceroAnterior ?? "").Equals(v.mayusculas(txtgetNameCThird.Text.Trim().ToLower())) || !(telefonoTerceroAnterior ?? "").Equals(v.mayusculas(txtgetphoneCThird.Text.Trim().ToLower())) || !(domicilioTerceroAnterior ?? "").Equals(v.mayusculas(txtgetaddressCThird.Text.Trim().ToLower())) || numSeguroTransmasivoAnterior != Convert.ToInt32((txtgetNumSeguro.Text.Trim() == "" ? "0" : txtgetNumSeguro.Text.Trim())) || DTPgetTimeSeguro.Value.ToString("HH:mm") != horaOtorgnumSegAnterior.ToString("HH:mm") || DTPgetplaceTIME.Value.ToString("HH:mm") != horaajustLlegaSiniestro.ToString("HH:mm") || !(nombreAjustadorAnterior ?? "").Equals(v.mayusculas(txtgetajustadorname.Text.Trim().ToLower())) || !(solucionAnterior ?? "").Equals(v.mayusculas(txtgetEXTsolucion.Text.Trim().ToLower())) || numActaExtraAnterior != Convert.ToInt32((txtgetEXTnumActa.Text.Trim() == "" ? "0" : txtgetEXTnumActa.Text.Trim())) || supervisorAsistenciaPercanceAnterior != Convert.ToInt32(cbxgetEXTsupervisor.SelectedValue) || unidadAsistenciaMedicaAnterior != Convert.ToInt32((txtgetMedicoUnidad.Text.Trim() == "" ? "0" : txtgetMedicoUnidad.Text.Trim())) || !(pertenecienteaAsistenciaMedicaAnterior ?? "").Equals(v.mayusculas(txtgetMedico.Text.Trim().ToLower())) || !(responsabeUnidadAsistenciaMedicaAnterior ?? "").Equals(v.mayusculas(txtgetNameMedico.Text.Trim().ToLower())) || !(encasoLesionadosAnteriorAnterior ?? "").Equals(v.mayusculas(txtgetMedicalesionados.Text.Trim().ToLower())) || !string.IsNullOrWhiteSpace(binarizedPDF) || !(comentariosAnterior ?? "").Equals(v.mayusculas(txtgetComentarios.Text.Trim().ToLower()))));
         }
         private void dgvpercances_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1550,24 +1578,24 @@ namespace controlFallos
                     } /*imagenActual = i; dibujarPuntitos();*/
                 }
             }
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[17])) txtgetDescripcion.Text = descripcionAnterior = datosEspecificosReporte[17];
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[18])) txtgetmarcaVThird.Text = marcaTerceroAnterior = datosEspecificosReporte[18];
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[19])) txtgetyearVThird.Text = yearTerceroAnterior = datosEspecificosReporte[19];
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[20])) txtgetplacasVThird.Text = placasTerceroAnterior = datosEspecificosReporte[20];
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[21])) txtgetNameCThird.Text = nombreCTerceroAnterior = datosEspecificosReporte[21];
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[17])) txtgetDescripcion.Text = descripcionAnterior = v.mayusculas(datosEspecificosReporte[17].ToLower());
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[18])) txtgetmarcaVThird.Text = marcaTerceroAnterior = v.mayusculas(datosEspecificosReporte[18].ToLower());
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[19])) txtgetyearVThird.Text = yearTerceroAnterior = v.mayusculas(datosEspecificosReporte[19].ToLower());
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[20])) txtgetplacasVThird.Text = placasTerceroAnterior = v.mayusculas(datosEspecificosReporte[20].ToLower());
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[21])) txtgetNameCThird.Text = nombreCTerceroAnterior = v.mayusculas(datosEspecificosReporte[21].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[22])) txtgetphoneCThird.Text = telefonoTerceroAnterior = datosEspecificosReporte[22];
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[23])) txtgetaddressCThird.Text = domicilioTerceroAnterior = v.mayusculas(datosEspecificosReporte[23].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[24])) txtgetNumSeguro.Text = (numSeguroTransmasivoAnterior = Convert.ToInt32(datosEspecificosReporte[24])).ToString();
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[25])) DTPgetTimeSeguro.Value = horaOtorgnumSegAnterior = DateTime.Parse(datosEspecificosReporte[25]);
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[26])) DTPgetplaceTIME.Value = horaajustLlegaSiniestro = DateTime.Parse(datosEspecificosReporte[26]);
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[27])) txtgetajustadorname.Text = nombreAjustadorAnterior = datosEspecificosReporte[27];
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[28])) txtgetEXTsolucion.Text = solucionAnterior = datosEspecificosReporte[28];
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[27])) txtgetajustadorname.Text = nombreAjustadorAnterior = v.mayusculas(datosEspecificosReporte[27].ToLower());
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[28])) txtgetEXTsolucion.Text = solucionAnterior = v.mayusculas(datosEspecificosReporte[28].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[29])) txtgetEXTnumActa.Text = (numActaExtraAnterior = Convert.ToInt32(datosEspecificosReporte[29])).ToString();
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[30])) cbxgetEXTsupervisor.SelectedValue = supervisorAsistenciaPercanceAnterior = Convert.ToInt32(datosEspecificosReporte[30]);
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[31])) txtgetMedicoUnidad.Text = (unidadAsistenciaMedicaAnterior = Convert.ToInt32(datosEspecificosReporte[31])).ToString();
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[32])) txtgetMedico.Text = pertenecienteaAsistenciaMedicaAnterior = datosEspecificosReporte[32];
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[33])) txtgetNameMedico.Text = responsabeUnidadAsistenciaMedicaAnterior = datosEspecificosReporte[33];
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[34])) txtgetMedicalesionados.Text = encasoLesionadosAnteriorAnterior = datosEspecificosReporte[34];
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[32])) txtgetMedico.Text = pertenecienteaAsistenciaMedicaAnterior = v.mayusculas(datosEspecificosReporte[32].ToLower());
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[33])) txtgetNameMedico.Text = responsabeUnidadAsistenciaMedicaAnterior = v.mayusculas(datosEspecificosReporte[33].ToLower());
+            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[34])) txtgetMedicalesionados.Text = encasoLesionadosAnteriorAnterior = v.mayusculas(datosEspecificosReporte[34].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[35])) { byte[] prueba = Convert.FromBase64String(datosEspecificosReporte[35]); pdfFOREDIT = new MemoryStream(prueba); button8.Visible = label60.Visible = button9.Visible = label67.Visible = !(pVisualizar.Visible = true); }
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[36])) txtgetComentarios.Text = comentariosAnterior = datosEspecificosReporte[36];
             dibujoExportado = Convert.ToInt32(datosEspecificosReporte[38]);
