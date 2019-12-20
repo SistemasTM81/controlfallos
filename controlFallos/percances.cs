@@ -16,6 +16,8 @@ namespace controlFallos
     {
         int idReporteTemp, idconductor, idUsuario, folio, economicoAnterior, idconductorAnterior, servicioenLaborAnterior, direccionAnterior, estacion1, estacion2, estacion3, estacion4, numSeguroTransmasivoAnterior, economicoRecupAnterior, numActaExtraAnterior, estacionAnterior, supervisorAsistenciaPercanceAnterior, unidadAsistenciaMedicaAnterior, statusFinalizado, supervisorFinalizar, conductorFinalizar, dibujoExportado;
         DateTime fechaAccidenteAnterior, horaAccidenteAnterior, horaOtorgnumSegAnterior, horaajustLlegaSiniestro;
+        int? initX = null;
+        int? initY = null;
         public object usuariofinalizo;
         bool pinsertar { set; get; }
         Thread th;
@@ -1246,7 +1248,7 @@ namespace controlFallos
         }
         private void pbdibujar_MouseMove(object sender, MouseEventArgs e)
         {
-            pDeshacer.Visible = trazosimagenActual.Count > 0;
+            pDeshacer.Visible = (trazosimagenActual.Count > 0);
             if (drawing)
             {
                 if (pbdibujar.BackgroundImage != null && imagenesAnterior[0].Count == 0 && imagenesAnterior[1].Count == 0 && imagenesAnterior[2].Count == 0 && imagenesAnterior[3].Count == 0 && (editar ? idReporteTemp > 0 : true))
@@ -1256,15 +1258,11 @@ namespace controlFallos
                     grphcs.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.High;
                     grphcs.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                     Pen lapiz = new Pen(Color.Blue, 2);
-                    imagenes[imagenActual].Add(new Point(e.X + 2, e.Y + 2));
+                    imagenes[imagenActual].Add(new Point(e.X, e.Y));
                     Point[] puntos = imagenes[imagenActual].ToArray();
-                    if (imagenes[imagenActual].Count == 1)
-                        grphcs.DrawRectangle(lapiz, r);
-                    else
-                    {
-                        if (puntos[puntos.Length - 2].X != -1)
-                            grphcs.DrawLine(lapiz, puntos[puntos.Length - 2].X, puntos[puntos.Length - 2].Y, e.X, e.Y);
-                    }
+                    grphcs.DrawLine(lapiz, new Point(initX ?? e.X, initY ?? e.Y), new Point(e.X, e.Y));
+                    initX = e.X;
+                    initY = e.Y;
                     grphcs.Dispose();
                     getCambios(null, e);
                 }
@@ -1273,6 +1271,7 @@ namespace controlFallos
         private void pbdibujar_MouseUp(object sender, MouseEventArgs e)
         {
             imagenes[imagenActual].Add(new Point(-1, -1));
+            initX = initY = null;
             drawing = false; trazosimagenActual.Add(imagenes[imagenActual].Count);
         }
         private void cgetare_SelectedIndexChanged(object sender, EventArgs e)

@@ -453,7 +453,7 @@ namespace controlFallos
             int x = 40;
             int y = y1 ?? 40;
             if (scroll)
-                y = -20;
+                y = 20;
             for (int i = 0; i < arreglo.Length / 2; i++)
             {
 
@@ -2388,8 +2388,8 @@ namespace controlFallos
                         percances[2] = UPPER("Fecha/Hora de Accidente: " + percances[2]);
                         percances[3] = UPPER("Servicio: " + v.getaData("SELECT CONCAT(z4.nombre, ' ', z4.Descripcion) FROM cservicios AS z4 WHERE z4.idservicio = '" + percances[3] + "'")).ToString();
                         percances[4] = UPPER("Lugar del Accidente: " + percances[4]);
-                        if (Convert.ToInt32(percances[5]) == 0)
-                            percances[5] = "";
+                        if (!string.IsNullOrWhiteSpace(percances[5]))
+                            percances[5] =(Convert.ToInt32(percances[5])==1?"NORTE":"SUR");
                         percances[5] = UPPER("Dirección: " + percances[5]);
                         percances[6] = UPPER("De estación: " + v.getaData("SELECT z5.estacion FROM cestaciones AS z5 WHERE z5.idestacion = '" + percances[6] + "'")).ToString();
                         percances[7] = UPPER("A estación: " + v.getaData("SELECT z6.estacion FROM cestaciones AS z6 WHERE z6.idestacion = '" + percances[7] + "'")).ToString();

@@ -41,12 +41,12 @@ namespace controlFallos
                 tbmodif.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             for (int i = 0; i < numFilas; i++)
             {
-
                 tbmodif.Rows.Add(dt.Rows[i].ItemArray);
             }
             for (int i = 0; i < numFilas; i++)
             {
                 tbmodif.Rows[i].Cells[3].Value = v.mayusculas(tbmodif.Rows[i].Cells[3].Value.ToString());
+
             }
             tbmodif.ClearSelection();
         }
@@ -79,9 +79,7 @@ namespace controlFallos
                 {
                     if (frm.InvokeRequired)
                     {
-
                         validaciones.delgado dm = new validaciones.delgado(v.cerrarForm);
-
                         Invoke(dm, frm);
                     }
 
@@ -226,41 +224,11 @@ namespace controlFallos
                         string sql = "SET lc_time_names='es_ES';SELECT t1.idmodificacion, t1.idregistro,(SELECT UPPER(t1.form)) as form,{0},upper(Tipo) as ultima,UPPER(Concat('Mostrar Más Información')) as m, if((SELECT COUNT(*) FROM modificaciones_sistema WHERE idregistro=t1.idregistro and upper(form)=t1.form)>1,'MOSTRAR HISTORIAL','')  FROM modificaciones_sistema as t1";
                         string wheres = "";
                         if (cbapartado.SelectedIndex > 0)
-                        {
-                            if (wheres == "")
-                            {
-                                wheres = " WHERE t1.form LIKE '" + cbapartado.Text + "%' ";
-                            }
-                            else
-                            {
-                                wheres += "AND t1.form LIKE '" + cbapartado.Text + "%' ";
-                            }
-                        }
-
+                            wheres = (wheres == "" ? " WHERE t1.form LIKE '" + cbapartado.Text + "%' " : wheres += "AND t1.form LIKE '" + cbapartado.Text + "%' ");
                         if (cbtipo.SelectedIndex > 0)
-                        {
-                            if (wheres == "")
-                            {
-                                wheres = " WHERE t1.Tipo LIKE '" + cbtipo.Text + "%' ";
-                            }
-                            else
-                            {
-                                wheres += "AND t1.Tipo LIKE '" + cbtipo.Text + "%' ";
-                            }
-                        }
-
+                            wheres = (wheres == "" ? " WHERE t1.Tipo LIKE '" + cbtipo.Text + "%' " : wheres += "AND t1.Tipo LIKE '" + cbtipo.Text + "%' ");
                         if (cbusuario.SelectedIndex > 0)
-                        {
-                            if (wheres == "")
-                            {
-                                wheres = " WHERE t1.usuariofkcpersonal LIKE '" + cbusuario.SelectedValue + "%' ";
-                            }
-                            else
-                            {
-                                wheres += "AND t1.usuariofkcpersonal LIKE '" + cbusuario.SelectedValue + "%' ";
-                            }
-
-                        }
+                            wheres = (wheres == "" ? " WHERE t1.usuariofkcpersonal LIKE '" + cbusuario.SelectedValue + "%' " : wheres += "AND t1.usuariofkcpersonal LIKE '" + cbusuario.SelectedValue + "%' ");
                         if (cbmes.SelectedIndex > 0)
                         {
                             if (wheres == "")
@@ -364,7 +332,7 @@ namespace controlFallos
                 bool historial = (e.ColumnIndex == 6);
                 string id;
                 if (e.ColumnIndex == 5) { id = v.mayusculas(tbmodif.Rows[e.RowIndex].Cells[0].Value.ToString()); } else { id = v.mayusculas(tbmodif.Rows[e.RowIndex].Cells[1].Value.ToString()); }
-                moreinfo m = new moreinfo(id, v.mayusculas(tbmodif.Rows[e.RowIndex].Cells[2].Value.ToString().ToLower()), empresa, area, historial,v);
+                moreinfo m = new moreinfo(id, v.mayusculas(tbmodif.Rows[e.RowIndex].Cells[2].Value.ToString().ToLower()), empresa, area, historial, v);
                 tbmodif.ClearSelection();
                 m.Owner = this;
                 m.ShowDialog();
@@ -511,8 +479,6 @@ namespace controlFallos
                     dt.Rows.Add(row);
                 }
             }
-
-
             cbtipo.ValueMember = "id";
             cbtipo.DisplayMember = "Nombre";
             cbtipo.DataSource = dt;
