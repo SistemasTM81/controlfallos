@@ -1008,57 +1008,61 @@ namespace controlFallos
         }
         bool dibujarPuntitos()
         {
+            if (cbxgeteco.SelectedIndex>0)
+            {
 
-            Bitmap m = null;
-            switch (imagenActual)
-            {
-                case 0:
-                    m = new Bitmap(panel1.BackgroundImage);
-                    break;
-                case 1:
-                    m = new Bitmap(panel2.BackgroundImage);
-                    break;
-                case 2:
-                    m = new Bitmap(panel3.BackgroundImage);
-                    break;
-                case 3:
-                    m = new Bitmap(panel4.BackgroundImage);
-                    break;
-            }
-            pbdibujar.BackgroundImage = m;
-            Point[] coordenadas = imagenes[imagenActual].ToArray();
-            if (imagenes[imagenActual].Count > 0)
-            {
-                Pen blackPen = new Pen(Color.Blue, 2);
-                for (int i = 0; i < imagenes[imagenActual].Count; i++)
+
+                Bitmap m = null;
+                switch (imagenActual)
                 {
-                    using (Graphics gr = Graphics.FromImage(m))
-                    {
-                        if (coordenadas.Length == 1)
-                        {
-                            var r = new System.Drawing.Rectangle(new Point(coordenadas[i].X, coordenadas[i].Y), new Size(2, 2));
-                            gr.DrawRectangle(blackPen, r);
-                        }
-                        else
-                        {
-                            if (coordenadas[i].X == -1 || coordenadas[i].Y == -1 || i == coordenadas.Length - 1) { }
-                            else
-                            {
-                                gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-                                gr.DrawLine(blackPen, coordenadas[i].X, coordenadas[i].Y, (coordenadas[i + 1].X == -1 ? coordenadas[i].X : coordenadas[i + 1].X), (coordenadas[i + 1].Y == -1 ? coordenadas[i].Y : coordenadas[i + 1].Y));
-                            }
-                        }
-                    }
-
+                    case 0:
+                        m = new Bitmap(panel1.BackgroundImage);
+                        break;
+                    case 1:
+                        m = new Bitmap(panel2.BackgroundImage);
+                        break;
+                    case 2:
+                        m = new Bitmap(panel3.BackgroundImage);
+                        break;
+                    case 3:
+                        m = new Bitmap(panel4.BackgroundImage);
+                        break;
                 }
                 pbdibujar.BackgroundImage = m;
-                pbdibujar.Size = pbdibujar.BackgroundImage.Size;
-                pbdibujar.Top = (pContains.Height - pbdibujar.Height) / 2;
-                pbdibujar.Left = (pContains.Width - pbdibujar.Width) / 2;
-                return true;
-            }
+                Point[] coordenadas = imagenes[imagenActual].ToArray();
+                if (imagenes[imagenActual].Count > 0)
+                {
+                    Pen blackPen = new Pen(Color.Blue, 2);
+                    for (int i = 0; i < imagenes[imagenActual].Count; i++)
+                    {
+                        using (Graphics gr = Graphics.FromImage(m))
+                        {
+                            if (coordenadas.Length == 1)
+                            {
+                                var r = new System.Drawing.Rectangle(new Point(coordenadas[i].X, coordenadas[i].Y), new Size(2, 2));
+                                gr.DrawRectangle(blackPen, r);
+                            }
+                            else
+                            {
+                                if (coordenadas[i].X == -1 || coordenadas[i].Y == -1 || i == coordenadas.Length - 1) { }
+                                else
+                                {
+                                    gr.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+                                    gr.DrawLine(blackPen, coordenadas[i].X, coordenadas[i].Y, (coordenadas[i + 1].X == -1 ? coordenadas[i].X : coordenadas[i + 1].X), (coordenadas[i + 1].Y == -1 ? coordenadas[i].Y : coordenadas[i + 1].Y));
+                                }
+                            }
+                        }
 
-            else return false;
+                    }
+                    pbdibujar.BackgroundImage = m;
+                    pbdibujar.Size = pbdibujar.BackgroundImage.Size;
+                    pbdibujar.Top = (pContains.Height - pbdibujar.Height) / 2;
+                    pbdibujar.Left = (pContains.Width - pbdibujar.Width) / 2;
+                    return true;
+                }
+
+                else return false;
+            } else return false;
         }
         private void panel1_MouseHover(object sender, EventArgs e) { Control p = sender as Control; p.Size = new Size(105, 105); }
         private void panel1_MouseLeave(object sender, EventArgs e)
@@ -1511,15 +1515,8 @@ namespace controlFallos
             return coordenadas;
         }
         bool getCambios()
-<<<<<<< HEAD
         { 
           return   (statusFinalizado == 0 && (cbxgeteco.SelectedIndex > 0 && idconductor > 0) && (economicoAnterior != Convert.ToInt32(cbxgeteco.SelectedValue) || idconductorAnterior != idconductor || fechaAccidenteAnterior.ToString("yyyy-MM-dd") != DTPgetDate.Value.ToString("yyyy-MM-dd") || DTPgetTIMEaccident.Value.ToString("HH:mm") != horaAccidenteAnterior.ToString("HH:mm") || servicioenLaborAnterior != Convert.ToInt32(cbxgetServicio.SelectedValue) || !(lugarAccidenteAnterior ?? "").Equals(v.mayusculas(txtgetPlaceAccident.Text.Trim().ToLower())) || direccionAnterior != Convert.ToInt32(cbxgetdireccion.SelectedValue) || estacion1 != Convert.ToInt32(cbxgetestacion1.SelectedValue) || estacion2 != Convert.ToInt32(cbxgetestacion2.SelectedValue) || estacion3 != Convert.ToInt32(cbxgetestacion3.SelectedValue) || estacion4 != Convert.ToInt32(cbxgetestacion4.SelectedValue) || economicoRecupAnterior != Convert.ToInt32(cbxgetecorecup.SelectedValue) || estacionAnterior != Convert.ToInt32(cbxgetestacion.SelectedValue) || !(sintesisOcurridoAnterior ?? "").Equals(v.mayusculas(txtgetSintesis.Text.Trim().ToLower())) || imagenesAnterior[0].Count != imagenes[0].Count || imagenesAnterior[1].Count != imagenes[1].Count || imagenesAnterior[2].Count != imagenes[2].Count || imagenesAnterior[3].Count != imagenes[3].Count || !(descripcionAnterior ?? "").Equals(v.mayusculas(txtgetDescripcion.Text.Trim().ToLower())) || !(marcaTerceroAnterior ?? "").Equals(v.mayusculas(txtgetmarcaVThird.Text.Trim().ToLower())) || !(yearTerceroAnterior ?? "").Equals(txtgetyearVThird.Text.Trim()) || !(placasTerceroAnterior ?? "").Equals(v.mayusculas(txtgetplacasVThird.Text.Trim().ToLower())) || !(nombreCTerceroAnterior ?? "").Equals(v.mayusculas(txtgetNameCThird.Text.Trim().ToLower())) || !(telefonoTerceroAnterior ?? "").Equals(v.mayusculas(txtgetphoneCThird.Text.Trim().ToLower())) || !(domicilioTerceroAnterior ?? "").Equals(v.mayusculas(txtgetaddressCThird.Text.Trim().ToLower())) || numSeguroTransmasivoAnterior != Convert.ToInt32((txtgetNumSeguro.Text.Trim() == "" ? "0" : txtgetNumSeguro.Text.Trim())) || DTPgetTimeSeguro.Value.ToString("HH:mm") != horaOtorgnumSegAnterior.ToString("HH:mm") || DTPgetplaceTIME.Value.ToString("HH:mm") != horaajustLlegaSiniestro.ToString("HH:mm") || !(nombreAjustadorAnterior ?? "").Equals(v.mayusculas(txtgetajustadorname.Text.Trim().ToLower())) || !(solucionAnterior ?? "").Equals(v.mayusculas(txtgetEXTsolucion.Text.Trim().ToLower())) || numActaExtraAnterior != Convert.ToInt32((txtgetEXTnumActa.Text.Trim() == "" ? "0" : txtgetEXTnumActa.Text.Trim())) || supervisorAsistenciaPercanceAnterior != Convert.ToInt32(cbxgetEXTsupervisor.SelectedValue) || unidadAsistenciaMedicaAnterior != Convert.ToInt32((txtgetMedicoUnidad.Text.Trim() == "" ? "0" : txtgetMedicoUnidad.Text.Trim())) || !(pertenecienteaAsistenciaMedicaAnterior ?? "").Equals(v.mayusculas(txtgetMedico.Text.Trim().ToLower())) || !(responsabeUnidadAsistenciaMedicaAnterior ?? "").Equals(v.mayusculas(txtgetNameMedico.Text.Trim().ToLower())) || !(encasoLesionadosAnteriorAnterior ?? "").Equals(v.mayusculas(txtgetMedicalesionados.Text.Trim().ToLower())) || !string.IsNullOrWhiteSpace(binarizedPDF) || !(comentariosAnterior ?? "").Equals(v.mayusculas(txtgetComentarios.Text.Trim().ToLower()))));
-
-=======
-
-        {
-            return (statusFinalizado == 0 && (cbxgeteco.SelectedIndex > 0 && idconductor > 0) && (economicoAnterior != Convert.ToInt32(cbxgeteco.SelectedValue) || idconductorAnterior != idconductor || fechaAccidenteAnterior.ToString("yyyy-MM-dd") != DTPgetDate.Value.ToString("yyyy-MM-dd") || DTPgetTIMEaccident.Value.ToString("HH:mm") != horaAccidenteAnterior.ToString("HH:mm") || servicioenLaborAnterior != Convert.ToInt32(cbxgetServicio.SelectedValue) || !(lugarAccidenteAnterior ?? "").Equals(v.mayusculas(txtgetPlaceAccident.Text.Trim().ToLower())) || direccionAnterior != Convert.ToInt32(cbxgetdireccion.SelectedValue) || (estacion1 != Convert.ToInt32(cbxgetestacion1.SelectedValue) && cbxgetestacion1.DataSource != null) || (estacion2 != Convert.ToInt32(cbxgetestacion2.SelectedValue) && cbxgetestacion2.DataSource != null) || (estacion3 != Convert.ToInt32(cbxgetestacion3.SelectedValue) && cbxgetestacion3.DataSource != null) || (estacion4 != Convert.ToInt32(cbxgetestacion4.SelectedValue) && cbxgetestacion4.DataSource != null) || (economicoRecupAnterior != Convert.ToInt32(cbxgetecorecup.SelectedValue) && cbxgetecorecup.DataSource != null) || (estacionAnterior != Convert.ToInt32(cbxgetestacion.SelectedValue) && cbxgetestacion.DataSource != null) || !(sintesisOcurridoAnterior ?? "").Equals(v.mayusculas(txtgetSintesis.Text.Trim().ToLower())) || imagenesAnterior[0].Count != imagenes[0].Count || imagenesAnterior[1].Count != imagenes[1].Count || imagenesAnterior[2].Count != imagenes[2].Count || imagenesAnterior[3].Count != imagenes[3].Count || !(descripcionAnterior ?? "").Equals(v.mayusculas(txtgetDescripcion.Text.Trim().ToLower())) || !(marcaTerceroAnterior ?? "").Equals(v.mayusculas(txtgetmarcaVThird.Text.Trim().ToLower())) || !(yearTerceroAnterior ?? "").Equals(txtgetyearVThird.Text.Trim()) || !(placasTerceroAnterior ?? "").Equals(v.mayusculas(txtgetplacasVThird.Text.Trim().ToLower())) || !(nombreCTerceroAnterior ?? "").Equals(v.mayusculas(txtgetNameCThird.Text.Trim().ToLower())) || !(telefonoTerceroAnterior ?? "").Equals(v.mayusculas(txtgetphoneCThird.Text.Trim().ToLower())) || !(domicilioTerceroAnterior ?? "").Equals(v.mayusculas(txtgetaddressCThird.Text.Trim().ToLower())) || numSeguroTransmasivoAnterior != Convert.ToInt32((txtgetNumSeguro.Text.Trim() == "" ? "0" : txtgetNumSeguro.Text.Trim())) || DTPgetTimeSeguro.Value.ToString("HH:mm") != horaOtorgnumSegAnterior.ToString("HH:mm") || DTPgetplaceTIME.Value.ToString("HH:mm") != horaajustLlegaSiniestro.ToString("HH:mm") || !(nombreAjustadorAnterior ?? "").Equals(v.mayusculas(txtgetajustadorname.Text.Trim().ToLower())) || !(solucionAnterior ?? "").Equals(v.mayusculas(txtgetEXTsolucion.Text.Trim().ToLower())) || numActaExtraAnterior != Convert.ToInt32((txtgetEXTnumActa.Text.Trim() == "" ? "0" : txtgetEXTnumActa.Text.Trim())) || supervisorAsistenciaPercanceAnterior != Convert.ToInt32(cbxgetEXTsupervisor.SelectedValue) || unidadAsistenciaMedicaAnterior != Convert.ToInt32((txtgetMedicoUnidad.Text.Trim() == "" ? "0" : txtgetMedicoUnidad.Text.Trim())) || !(pertenecienteaAsistenciaMedicaAnterior ?? "").Equals(v.mayusculas(txtgetMedico.Text.Trim().ToLower())) || !(responsabeUnidadAsistenciaMedicaAnterior ?? "").Equals(v.mayusculas(txtgetNameMedico.Text.Trim().ToLower())) || !(encasoLesionadosAnteriorAnterior ?? "").Equals(v.mayusculas(txtgetMedicalesionados.Text.Trim().ToLower())) || !string.IsNullOrWhiteSpace(binarizedPDF) || !(comentariosAnterior ?? "").Equals(v.mayusculas(txtgetComentarios.Text.Trim().ToLower()))));
->>>>>>> ebc9bd80588c5d22a1af6ae7747124ad52965384
         }
         private void dgvpercances_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -1585,15 +1582,9 @@ namespace controlFallos
             }
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[17])) txtgetDescripcion.Text = descripcionAnterior = v.mayusculas(datosEspecificosReporte[17].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[18])) txtgetmarcaVThird.Text = marcaTerceroAnterior = v.mayusculas(datosEspecificosReporte[18].ToLower());
-<<<<<<< HEAD
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[19])) txtgetyearVThird.Text = yearTerceroAnterior = datosEspecificosReporte[19];
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[20])) txtgetplacasVThird.Text = placasTerceroAnterior = datosEspecificosReporte[20];
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[21])) txtgetNameCThird.Text = nombreCTerceroAnterior = datosEspecificosReporte[21];
-=======
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[19])) txtgetyearVThird.Text = yearTerceroAnterior = v.mayusculas(datosEspecificosReporte[19].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[20])) txtgetplacasVThird.Text = placasTerceroAnterior = v.mayusculas(datosEspecificosReporte[20].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[21])) txtgetNameCThird.Text = nombreCTerceroAnterior = v.mayusculas(datosEspecificosReporte[21].ToLower());
->>>>>>> ebc9bd80588c5d22a1af6ae7747124ad52965384
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[22])) txtgetphoneCThird.Text = telefonoTerceroAnterior = datosEspecificosReporte[22];
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[23])) txtgetaddressCThird.Text = domicilioTerceroAnterior = v.mayusculas(datosEspecificosReporte[23].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[24])) txtgetNumSeguro.Text = (numSeguroTransmasivoAnterior = Convert.ToInt32(datosEspecificosReporte[24])).ToString();
@@ -1604,11 +1595,7 @@ namespace controlFallos
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[29])) txtgetEXTnumActa.Text = (numActaExtraAnterior = Convert.ToInt32(datosEspecificosReporte[29])).ToString();
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[30])) cbxgetEXTsupervisor.SelectedValue = supervisorAsistenciaPercanceAnterior = Convert.ToInt32(datosEspecificosReporte[30]);
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[31])) txtgetMedicoUnidad.Text = (unidadAsistenciaMedicaAnterior = Convert.ToInt32(datosEspecificosReporte[31])).ToString();
-<<<<<<< HEAD
-            if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[32])) txtgetMedico.Text = pertenecienteaAsistenciaMedicaAnterior = datosEspecificosReporte[32];
-=======
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[32])) txtgetMedico.Text = pertenecienteaAsistenciaMedicaAnterior = v.mayusculas(datosEspecificosReporte[32].ToLower());
->>>>>>> ebc9bd80588c5d22a1af6ae7747124ad52965384
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[33])) txtgetNameMedico.Text = responsabeUnidadAsistenciaMedicaAnterior = v.mayusculas(datosEspecificosReporte[33].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[34])) txtgetMedicalesionados.Text = encasoLesionadosAnteriorAnterior = v.mayusculas(datosEspecificosReporte[34].ToLower());
             if (!string.IsNullOrWhiteSpace(datosEspecificosReporte[35])) { byte[] prueba = Convert.FromBase64String(datosEspecificosReporte[35]); pdfFOREDIT = new MemoryStream(prueba); button8.Visible = label60.Visible = button9.Visible = label67.Visible = !(pVisualizar.Visible = true); }
