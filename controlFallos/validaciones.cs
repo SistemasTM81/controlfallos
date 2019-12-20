@@ -13,15 +13,14 @@ using System.Drawing;
 using System.IO;
 using System.Drawing.Drawing2D;
 using System.Reflection;
-using System.Threading;
 using iTextSharp.text.pdf;
-
 namespace controlFallos
 {
     public class validaciones
     {
         public string folio = "";
-        public conexion c = new conexion();
+        public conexion c;
+        public validaciones(){c = new conexion(this);}
         public void Sololetras(KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsSeparator(e.KeyChar))e.Handled = false;
@@ -3214,16 +3213,12 @@ namespace controlFallos
                 return true;
             }
             else
-            {
                 return false;
-            }
         }
         public bool NombreFamilia(string familia)
         {
             if (!string.IsNullOrWhiteSpace(familia))
-            {
                 return true;
-            }
             else
             {
                 MessageBox.Show("El Campo Familia No Puede Quedar Vacio", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -3238,9 +3233,7 @@ namespace controlFallos
                 return true;
             }
             else
-            {
                 return false;
-            }
         }
         public bool camposVaciosCatMarcas(int familia, int descfamilia, string marca)
         {
@@ -3249,9 +3242,7 @@ namespace controlFallos
                 if (descfamilia > 0)
                 {
                     if (!string.IsNullOrWhiteSpace(marca))
-                    {
                         return false;
-                    }
                     else
                     {
                         MessageBox.Show("El Campo \"Marca\" No Puede Estar Vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -3284,9 +3275,7 @@ namespace controlFallos
                     if (!transmision.Contains("N/A") && !transmision.Contains("APLICA"))
                         restransmision = !(Convert.ToInt32(getaData("select COUNT(idunidad) from cunidades as t1 inner join careas as t2 ON t1.areafkcareas = t2.idarea where ntransmision='" + transmision + "' and t1.idunidad!='" + id + "'")) == 0);
                     if (!restransmision)
-                    {
                         return false;
-                    }
                     else
                     {
                         MessageBox.Show("El N° de serie de transmisión ingresado ya se encuentra registrado en el sistema", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -3376,9 +3365,7 @@ namespace controlFallos
             if (!string.IsNullOrWhiteSpace(nombre))
             {
                 if (!string.IsNullOrWhiteSpace(descripcion))
-                {
                     return false;
-                }
                 else
                 {
                     MessageBox.Show("El Campo \"Descripción\" No Puede Estar Vacío", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -3412,9 +3399,7 @@ namespace controlFallos
             if (refaccion > 0 || !string.IsNullOrWhiteSpace(nombreRefaccion))
             {
                 if (cantidad > 0)
-                {
                     return false;
-                }
                 else
                 {
                     MessageBox.Show("La Cantidad No Puede Estar Vacía y Debe ser Mayor a 0", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -3431,17 +3416,11 @@ namespace controlFallos
         {
             bool res = false;
             if (string.IsNullOrWhiteSpace(nombreRefaccion.ToString()))
-            {
                 res = Convert.ToInt32(getaData("SELECT COUNT(*) FROM refaccionescomparativa WHERE comparativafkcomparativas='" + comparativa + "' AND refaccionfkcrefacciones='" + refaccion + "'")) > 0;
-            }
             else
-            {
                 res = Convert.ToInt32(getaData("SELECT COUNT(*) FROM refaccionescomparativa WHERE comparativafkcomparativas='" + comparativa + "' AND nombreRefaccion='" + nombreRefaccion + "'")) > 0;
-            }
             if (!res)
-            {
                 return false;
-            }
             else
             {
                 MessageBox.Show("Ya Existe la Refacción en la Comparativa. Puede Aumentar la Cantidad de la Refacción Existente", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -3620,9 +3599,7 @@ namespace controlFallos
         public void giro_empresa(KeyPressEventArgs e)
         {
             if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsSeparator(e.KeyChar) || e.KeyChar == 45 || e.KeyChar == 44 || e.KeyChar == 46 || e.KeyChar == 40 || e.KeyChar == 41)
-            {
                 e.Handled = false;
-            }
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras y Estos simbolos [\",\" \".\" \"-\"] En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -3638,9 +3615,7 @@ namespace controlFallos
                     if (eco > 0)
                     {
                         if (conductor > 0)
-                        {
                             return false;
-                        }
                         else
                         {
                             if (!string.IsNullOrWhiteSpace(txtconductor))
@@ -4068,16 +4043,10 @@ namespace controlFallos
         }
         public void Splash()
         {
-            try
-            {
-                Application.Run(new SplashScreen());
-            }
-            catch (ThreadAbortException ex)
-            {
-            }
+            try{Application.Run(new SplashScreen());}
+            catch{}
         }
         public delegate void delgado(Form frm);
-
         public void cerrarForm(Form frm) { frm.Close(); }
         public void creatItemsPersonalizadosCombobox(ComboBox cbx, string[] items, string titulo)
         {

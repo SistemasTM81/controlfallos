@@ -26,6 +26,6 @@ namespace controlFallos
                 frm.Close();
             Application.Exit();
         }
-        static void Splash(){try{if (new conexion().conexionOriginal()) { var clonarTable = new databaseLocalClone(v); }}catch { }}
+        static void Splash(){try{if (new  conexion(v).conexionOriginal()) { var clonarTable = new databaseLocalClone(v); }}catch { }}
     }
 }

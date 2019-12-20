@@ -595,9 +595,9 @@ namespace controlFallos
                     var form4 = Application.OpenForms.OfType<catRefacciones>().FirstOrDefault();
                     catRefacciones hijo;
                     if (!string.IsNullOrWhiteSpace(idref))
-                        hijo = form4 ?? new catRefacciones(newimg, this.idUsuario, idref.ToString());
+                        hijo = form4 ?? new catRefacciones(newimg, this.idUsuario, idref.ToString(),v);
                     else
-                        hijo = form4 ?? new catRefacciones(newimg, this.idUsuario, empresa, area);
+                        hijo = form4 ?? new catRefacciones(newimg, this.idUsuario, empresa, area,v);
                     AddFormInPanel(hijo);
                 }
             }
@@ -783,7 +783,7 @@ namespace controlFallos
                 lbltitle.Location = new Point(1591, 13);
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<percances>().FirstOrDefault();
-                percances hijo = form1 ?? new percances(idUsuario/*, empresa, area*/);
+                percances hijo = form1 ?? new percances(idUsuario,v/*, empresa, area*/);
                 AddFormInPanel(hijo);
             }
         }

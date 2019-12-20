@@ -20,8 +20,7 @@ namespace controlFallos
         Point LocationNoActualTitulo = new Point(941, 12);
         Point LocationActualAtributos = new Point(143, 13);
         Point LocationNoActualAtributos = new Point(650, 13);
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         int idUsuario;
         public string idRefaccionAbast, codref, modref, nomref, marca, charola, observaciones;
         int empresa, area;
@@ -29,16 +28,18 @@ namespace controlFallos
         DateTime proximpAbastecimiento;
         Font actual = new Font("Garamond", 14, FontStyle.Bold);
         Font noActual = new Font("Garamond", 14, FontStyle.Regular);
-        public catRefacciones(Image logo, int idUsuario, int empresa, int area)
+        public catRefacciones(Image logo, int idUsuario, int empresa, int area, validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             pblogo.BackgroundImage = logo;
             this.idUsuario = idUsuario;
             this.empresa = empresa;
             this.area = area;
         }
-        public catRefacciones(Image logo, int idUsuario, string idefaccion)
+        public catRefacciones(Image logo, int idUsuario, string idefaccion, validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             pblogo.BackgroundImage = logo;
             this.idUsuario = idUsuario;

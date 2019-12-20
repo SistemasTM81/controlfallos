@@ -13,8 +13,7 @@ namespace controlFallos
 {
     public partial class requisicionRefacciones : Form
     {
-        conexion c = new conexion();
-        validaciones v = new validaciones();
+        validaciones v;
         Point arreglar = new Point(33, 273);
         Point locationInitial = new Point(348, 6);
         Size initialSize = new Size(800, 397);
@@ -23,8 +22,9 @@ namespace controlFallos
         bool editar;
         int idReporte;
         int RowDataRefaccionesASolicitar;
-        public requisicionRefacciones(int idReporte)
+        public requisicionRefacciones(int idReporte, validaciones v)
         {
+            this.v = v;
             InitializeComponent();
             this.idReporte = idReporte;
             cbxFamilia.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);

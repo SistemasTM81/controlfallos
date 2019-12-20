@@ -20,15 +20,15 @@ namespace controlFallos
         Thread th;
         bool pconsultar { set; get; }
         bool peditar { set; get; }
-        validaciones v = new validaciones();
+        validaciones v;
         MemoryStream pdfFOREDIT;
-        conexion c = new conexion();
         List<int> trazosimagenActual = new List<int>();
         List<Point>[] imagenes = new List<Point>[4], imagenesAnterior = new List<Point>[4];
         string binarizedPDF, lugarAccidenteAnterior, sintesisOcurridoAnterior, descripcionAnterior, marcaTerceroAnterior, yearTerceroAnterior, placasTerceroAnterior, nombreCTerceroAnterior, telefonoTerceroAnterior, domicilioTerceroAnterior, nombreAjustadorAnterior, solucionAnterior, pertenecienteaAsistenciaMedicaAnterior, responsabeUnidadAsistenciaMedicaAnterior, encasoLesionadosAnteriorAnterior, comentariosAnterior;
         bool editar, yaAparecioMensaje;
-        public percances(int idUsuario)
+        public percances(int idUsuario,validaciones v)
         {
+            this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
