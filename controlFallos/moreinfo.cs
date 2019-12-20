@@ -2405,19 +2405,13 @@ namespace controlFallos
                         percances[17] = UPPER("Nombre del conductor: " + percances[17]);
                         percances[18] = UPPER("Teléfono del conductor: " + percances[18]);
                         percances[19] = UPPER("Domicilio del conductor: " + percances[19]);
-                        if (Convert.ToInt32(percances[20]) == 0)
-                            percances[20] = percances[21] = percances[22] = "";
                         percances[20] = UPPER("Número de reporte del seguro: " + percances[20]);
                         percances[21] = UPPER("Hora de otorgamiento: " + percances[21]);
                         percances[22] = UPPER("Hora de llegada del seguro: " + percances[22]);
                         percances[23] = UPPER("Nombre del ajustador: " + percances[23]);
                         percances[24] = UPPER("Solución: " + percances[24]);
-                        if (Convert.ToInt32(percances[25]) == 0)
-                            percances[25] = "";
                         percances[25] = UPPER("Número de acta: " + percances[25]);
                         percances[26] = UPPER("Supervisor: " + v.getaData("SELECT CONCAT(z12.ApPaterno, ' ', z12.ApMaterno, ' ', z12.nombres) FROM cpersonal AS z12 WHERE z12.idPersona = '" + percances[26] + "'")).ToString();
-                        if (Convert.ToInt32(percances[27]) == 0)
-                            percances[27] = "";
                         percances[27] = UPPER("Unidad de asistencia médica: " + percances[27]);
                         percances[28] = UPPER("Perteneciente de asistencia médica: " + percances[28]);
                         percances[29] = UPPER("Nombre del responsable médico: " + percances[29]);
