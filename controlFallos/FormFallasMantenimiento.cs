@@ -54,7 +54,6 @@ namespace controlFallos
         /* VARIABLES PDF */
 
         string foliopdf, unidadpdf, kilometrajepdf, codigofallopdf, fechahorapdf, descripcionfallopdf, descripcionfallonocodificadopdf, supervisorpdf, observacionesmantenimientopdf, grupofallopdf, estatuspdf, mecanicopdf, mapoyopdf, supervisopdf, tiempoesperapdf, horainicioterminopdf, diferenciapdf, trabajorealizadopdf, observacionesupervisionpdf, vinpdf, marcamodelopdf, nmotorpdf, ntransmisionpdf;
-        string extensionarchivo = "", nombrearchivo = "", nombrearchivosinextension = "";
 
         void quitarseen()
         {
@@ -464,45 +463,6 @@ namespace controlFallos
                 comboBoxReqRefacc.Enabled = false;
             validacioneditar();
         }
-
-        public void combos_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            ComboBox cbx = sender as ComboBox;
-            if (cbx != null)
-            {
-                e.DrawBackground();
-                if (e.Index >= -1)
-                {
-                    StringFormat sf = new StringFormat();
-                    sf.LineAlignment = StringAlignment.Center;
-                    sf.Alignment = StringAlignment.Center;
-                    Brush brush = new SolidBrush(cbx.ForeColor);
-
-                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    {
-                        brush = SystemBrushes.HighlightText;
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, Color.Crimson);
-                        e.DrawBackground();
-                        DataTable f = (DataTable)cbx.DataSource;
-                        if (e.Index == -1)
-                            e.Graphics.DrawString("", cbx.Font, brush, e.Bounds, sf);
-                        else
-                            e.Graphics.DrawString(f.Rows[e.Index].ItemArray[1].ToString(), cbx.Font, new SolidBrush(Color.White), e.Bounds, sf);
-                        e.DrawFocusRectangle();
-                    }
-                    else
-                    {
-                        DataTable f = (DataTable)cbx.DataSource;
-                        if (e.Index == -1)
-                            e.Graphics.DrawString("", cbx.Font, brush, e.Bounds, sf);
-                        else
-                            e.Graphics.DrawString(f.Rows[e.Index].ItemArray[1].ToString(), cbx.Font, brush, e.Bounds, sf);
-                        e.DrawFocusRectangle();
-                    }
-                }
-            }
-        }
-
         public void validarstatusfallagral(string cdf)
         {
             if (string.IsNullOrWhiteSpace(cdf))
@@ -535,22 +495,6 @@ namespace controlFallos
                 valorfallogeneral = 1;
             }
         }
-
-        public void exportacionpdf1()
-        {
-            MySqlCommand cmd = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo, empresa, area) VALUES('Reporte de Mantenimiento', '" + idreportesupervision + "', 'Exportación de reporte de la unidad en archivo pdf', '" + idUsuario +
-               "', NOW(), 'Exportación a PDF de reporte en Mantenimiento', '" + empresa + "', '" + area + "')", v.c.dbconection());
-            cmd.ExecuteNonQuery();
-            v.c.dbcon.Close();
-        }
-
-        public void exportacionpdf2()
-        {
-            MySqlCommand cmd = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo, empresa, area) VALUES('Reporte de Mantenimiento', '" + idreportesupervision + "', 'Exportación de reporte de fallo en archivo pdf', '" + idUsuario + "', NOW(), 'Exportación a PDF de reporte en Mantenimiento', '" + empresa + "', '" + area + "')", v.c.dbconection());
-            cmd.ExecuteNonQuery();
-            v.c.dbcon.Close();
-        }
-
         public void valida_refacciones()
         {
             int contador = 0;
@@ -583,53 +527,10 @@ namespace controlFallos
             }
 
         }
-        public void validarrefacciones()
-        {
-            int crefacc;
-            cantidadtotalrefacciones = conteorefacciones = totalfaltante = faltante = validacionexistenciarefacciones = 0;
-            string refacc;
-            MySqlCommand cmd0 = new MySqlCommand("SELECT coalesce(MAX(NumRefacc), 0) AS NumRefacc, coalesce((NumRefacc), 0) AS NumRefacc1 FROM pedidosrefaccion WHERE FolioPedfkSupervicion = '" + idreportesupervision + "'", v.c.dbconection());
-            MySqlDataReader dr = cmd0.ExecuteReader();
-            if (dr.Read())
-            {
-                totalrefacciones = Convert.ToInt32(dr.GetString("NumRefacc"));
-                conteorefacciones = Convert.ToInt32(dr.GetString("NumRefacc1"));
-            }
-            else
-                totalrefacciones = 0;
-            dr.Close();
-            v.c.dbcon.Close();
-            for (crefacc = 1; crefacc <= totalrefacciones; crefacc++)
-            {
-                refacc = "";
-                MySqlCommand cmd1 = new MySqlCommand("SELECT coalesce((EstatusRefaccion), '') AS EstatusRefaccion, coalesce((Cantidad - CantidadEntregada), 0) AS Faltante FROM pedidosrefaccion WHERE NumRefacc = '" + conteorefacciones + "' AND FolioPedfkSupervicion = '" + idreportesupervision + "'", v.c.dbconection());
-                MySqlDataReader dr1 = cmd1.ExecuteReader();
-                if (dr1.Read())
-                {
-                    refacc = Convert.ToString(dr1.GetString("EstatusRefaccion"));
-                    faltante = Convert.ToInt32(dr1.GetString("Faltante"));
-                }
-                else
-                    refacc = "";
-                dr1.Close();
-                v.c.dbcon.Close();
-                if ((refacc.Equals("EXISTENCIA")) || (refacc.Equals("SIN EXISTENCIA")) || (refacc.Equals("INCOMPLETO")))
-                {
-                    if (refacc.Equals("EXISTENCIA"))
-                        validacionexistenciarefacciones = validacionexistenciarefacciones + 1;
-                    totalfaltante = totalfaltante + faltante;
-                    cantidadtotalrefacciones = cantidadtotalrefacciones + 1;
-                }
-                else
-                    cantidadtotalrefacciones = cantidadtotalrefacciones + 0;
-                conteorefacciones = conteorefacciones + 1;
-            }
-        }
-
         public void privilegios()
         {
             string sql = "SELECT privilegios as privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuario + "' and namform = 'Mantenimiento'";
-            string[] privilegios = getaData(sql).ToString().Split('/');
+            string[] privilegios = v.getaData(sql).ToString().Split('/');
             pinsertar = getBoolFromInt(Convert.ToInt32(privilegios[0]));
             pconsultar = getBoolFromInt(Convert.ToInt32(privilegios[1]));
             peditar = getBoolFromInt(Convert.ToInt32(privilegios[2]));
@@ -640,15 +541,6 @@ namespace controlFallos
         {
             return i == 1;
         }
-
-        public object getaData(string sql)
-        {
-            MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
-            var res = cm.ExecuteScalar();
-            v.c.dbconection();
-            return res;
-        }
-
         public void AutoCompletado(TextBox cajaTexto) //Metodo De AutoCompletado
         {
             AutoCompleteStringCollection nColl = new AutoCompleteStringCollection();
@@ -680,7 +572,6 @@ namespace controlFallos
                 buttonAgregar.Visible = label39.Visible = false;
             labelHoraTerminoM.Text = textBoxTerminoMan.Text = "";
         }
-
         public void validar2()
         {
             if (conteorefaccionesverificadas == 2)
@@ -759,7 +650,6 @@ namespace controlFallos
                 }
             }
         }
-
         public void limpiarcampos() //Metodo Para Limpiar Los Campos
         {
             comboBoxFalloGral.SelectedIndex = comboBoxExisRefacc.SelectedIndex = comboBoxReqRefacc.SelectedIndex = comboBoxEstatusMant.SelectedIndex = 0;
@@ -769,27 +659,23 @@ namespace controlFallos
             labelNomSuperviso.Text = "...";
             mensaje = false;
         }
-
         public void limpiarcamposbus() //Metodo Para Limpiar Los Campos
         {
             textBoxFolioB.Text = "";
             comboBoxUnidadB.SelectedIndex = comboBoxMecanicoB.SelectedIndex = comboBoxEstatusMB.SelectedIndex = comboBoxDescpFalloB.SelectedIndex = comboBoxMesB.SelectedIndex = 0;
             dateTimePickerIni.Value = dateTimePickerFin.Value = DateTime.Now;
         }
-
         public void limpiarrefacc() //Metodo Para Limpiar Los Campos
         {
             comboBoxFamilia.SelectedIndex = 0;
             comboBoxFRefaccion.DataSource = null;
             textBoxCantidad.Text = textBoxUM.Text = "";
         }
-
         public void limpiarstring()
         {
             idfgeneralanterior = cantidadrefacciones = valorfallogeneral = idreportesupervision = 0;
             fgeneralanterior = mecanicoanterior = mecanicoapoanterior = supervisoanterior = exisrefaccionanterior = reqrefanterior = trabrealizadoanterior = folfacturanterior = estatusmantanterior = observacionesmantanterior = "";
         }
-
         public void notcalcul() //Hace La Validacion Si La Unidad Esta Liberada
         {
             String temp = "";
@@ -804,44 +690,6 @@ namespace controlFallos
             dr.Close();
             v.c.dbcon.Close();
         }
-
-        public void metodobtnfinalizarsref()
-        {
-            FormContraFinal FCF = new FormContraFinal(empresa, area, this,v);
-            var res = FCF.ShowDialog();
-            if (res == DialogResult.OK)
-            {
-                labelidFinal.Text = FCF.id;
-                if (string.IsNullOrWhiteSpace(labelidFinal.Text))
-                {
-                    labelHoraTerminoM.Text = textBoxTerminoMan.Text = "";
-                    validar();
-                    buttonFinalizar.Visible = label37.Visible = false;
-                    buttonGuardar.Visible = label24.Visible = true;
-                }
-                else if (labelidFinal.Text != "")
-                {
-                    MySqlCommand cmd = new MySqlCommand("UPDATE reportemantenimiento SET PersonaFinal = '" + labelidFinal.Text + "' WHERE FoliofkSupervicion = '" + idreportesupervision + "'", v.c.dbconection());
-                    cmd.ExecuteNonQuery();
-                    v.c.dbcon.Close();
-                    metodoActualizar();
-                    metodoCarga();
-                    conteo();
-                    MessageBox.Show("El Reporte Se Ha Finalizado Exitosamente", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    limpiarcampos();
-                    buttonGuardar.Visible = label24.Visible = buttonFinalizar.Visible = label37.Visible = false;
-                    ocultarexcel();
-                    if (pinsertar && pconsultar && peditar)
-                        buttonPDF.Visible = label36.Visible = radioButtonGeneral.Visible = radioButtonUnidad.Visible = true;
-                    else
-                        buttonPDF.Visible = label36.Visible = radioButtonGeneral.Visible = radioButtonUnidad.Visible = false;
-                    buttonAgregar.Visible = label39.Visible = false;
-                }
-                timer2.Start();
-                groupBoxBusqueda.Enabled = true;
-            }
-        }
-
         public bool metodotxtchref() // checar
         {
             if (dgvPMantenimiento.Rows.Count == 0)
@@ -849,10 +697,9 @@ namespace controlFallos
             else
                 return false;
         }
-
         public void metodobtnfinalizarcref()
         {
-            FormContraFinal FCF = new FormContraFinal(empresa, area, this,v);
+            FormContraFinal FCF = new FormContraFinal(empresa, area, this, v);
             FCF.Owner = this;
             FCF.ShowDialog();
             labelidFinal.Text = FCF.id;
@@ -887,7 +734,6 @@ namespace controlFallos
             }
             timer2.Start();
         }
-
         public void metodobtnguardar()
         {
             if ((labelNomSuperviso.Text == "...") && (comboBoxEstatusMant.Text.Equals("LIBERADA")))
@@ -983,7 +829,6 @@ namespace controlFallos
                 comboBoxEstatusMant.SelectedIndex = 0;
             }
         }
-
         public void llamadadatos()
         {
             label1.Visible = groupBoxRefacciones.Visible = buttonAgregar.Visible = label39.Visible = false;
@@ -1283,7 +1128,6 @@ namespace controlFallos
                     varliberada += " AND b2.Folio = '" + textBoxFolioB.Text + "' AND (SELECT (select empresaMantenimiento FROM cmodelos WHERe idmodelo = modelofkcmodelos) ='" + empresa + "' FROM cunidades WHERE idunidad = b2.unidadfkcunidades)";
                 }
             }
-
             if (comboBoxUnidadB.SelectedIndex > 0)
             {
                 if (varproceso == "")
@@ -1407,7 +1251,6 @@ namespace controlFallos
             dr.Close();
             v.c.dbcon.Close();
         }
-
         public void conteoiniref() //Realiza Un Conteo Inicial Para Saber Si No Hubo Algun Cambio En El GridView
         {
             MySqlCommand cmd = new MySqlCommand("SELECT COUNT(FolioPedfkSupervicion) AS Folio FROM pedidosrefaccion WHERE FolioPedfkSupervicion = '" + idreportesupervision + "'", v.c.dbconection());
@@ -1417,7 +1260,6 @@ namespace controlFallos
             dr.Close();
             v.c.dbcon.Close();
         }
-
         public void conteofinref() //Realiza Un Conteo Final Para Saber Si No Hubo Algun Cambio En El GridView
         {
             MySqlCommand cmd = new MySqlCommand("SELECT COUNT(FolioPedfkSupervicion) AS Folio FROM pedidosrefaccion WHERE FolioPedfkSupervicion = '" + idreportesupervision + "'", v.c.dbconection());
@@ -1427,7 +1269,6 @@ namespace controlFallos
             dr.Close();
             v.c.dbcon.Close();
         }
-
         public void ncontrefini() //Realiza Un Conteo Inicial Para Saber Si No Hubo Algun Cambio En El GridView
         {
             MySqlCommand cmd = new MySqlCommand("SELECT COUNT(FolioPedfkSupervicion) AS Folio FROM pedidosrefaccion WHERE FolioPedfkSupervicion = '" + idreportesupervision + "'", v.c.dbconection());
@@ -1437,7 +1278,6 @@ namespace controlFallos
             dr.Close();
             v.c.dbcon.Close();
         }
-
         public void ncontreffin() //Realiza Un Conteo Final Para Saber Si No Hubo Algun Cambio En El GridView
         {
             MySqlCommand cmd = new MySqlCommand("SELECT COUNT(FolioPedfkSupervicion) AS Folio FROM pedidosrefaccion WHERE FolioPedfkSupervicion = '" + idreportesupervision + "'", v.c.dbconection());
@@ -1447,7 +1287,6 @@ namespace controlFallos
             dr.Close();
             v.c.dbcon.Close();
         }
-
         private void escribirFichero(string texto)
         {
             string rutaFichero = Application.StartupPath; ;
@@ -1462,7 +1301,6 @@ namespace controlFallos
                 MessageBox.Show("Ha habido un error al intentar " + "crear el fichero temporal:" + Environment.NewLine + Environment.NewLine + rutaFichero + Environment.NewLine + Environment.NewLine + errorC.Message, "Error al crear fichero temporal", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-
         public void topdfconunidades()
         {
             MySqlCommand unidades = new MySqlCommand("SET lc_time_names = 'es_ES'; SELECT COALESCE((SELECT CONCAT(b2.identificador, LPAD(b1.consecutivo, 4, '0')) FROM cunidades AS b1 INNER JOIN careas AS b2 ON b1.areafkcareas = b2.idarea WHERE b1.idunidad = t1.unidadfkcunidades))AS 'Unidad', COALESCE((SELECT b3.bin FROM cunidades AS b3 WHERE b3.idunidad = t1.unidadfkcunidades), '') AS 'Vin', COALESCE((SELECT UPPER(b4.estatus) FROM reportemantenimiento AS b4 WHERE b4.FoliofkSupervicion = t1.idReporteSupervicion ), '') AS 'Estatus', UPPER(CONCAT(COALESCE((SELECT b5.marca FROM cunidades AS b5 WHERE b5.idunidad = t1.unidadfkcunidades), ''), ' / ', COALESCE((SELECT b6.modelo FROM cunidades AS b6 WHERE b6.idunidad = t1.unidadfkcunidades), ''))) AS 'Marca / Modelo', COALESCE((SELECT b7.nmotor FROM cunidades AS b7 WHERE b7.idunidad = t1.unidadfkcunidades), '') AS 'Núm. Motor', COALESCE((SELECT b8.ntransmision FROM cunidades AS b8 WHERE b8.idunidad = t1.unidadfkcunidades), '') AS 'Núm. Transmisión', COALESCE(UPPER((SELECT b9.trabajorealizado FROM reportemantenimiento AS b9 WHERE t1.idReporteSupervicion = b9.FoliofkSupervicion)), '') AS 'Trabajo Realizado' FROM reportesupervicion AS t1 WHERE t1.idReporteSupervicion = '" + idgeneral + "'", v.c.dbconection());
@@ -2325,56 +2163,11 @@ namespace controlFallos
                         {
                             h.Range rng = (h.Range)sheet.Cells[i + 2, j + 1];
                             sheet.Cells[i + 2, j + 1] = dtexcel.Rows[i][j].ToString();
-                            rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.FromArgb(231, 230, 230));
                             rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
                             rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
                             rng.Font.FontStyle = "Calibri";
                             rng.Font.Size = 11;
-                            if (dtexcel.Rows[i][j].ToString() == "EN PROCESO".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.Khaki);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dtexcel.Rows[i][j].ToString() == "LIBERADA".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.PaleGreen);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dtexcel.Rows[i][j].ToString() == "REPROGRAMADA".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.LightCoral);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dtexcel.Rows[i][j].ToString() == "CORRECTIVO".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.Khaki);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dtexcel.Rows[i][j].ToString() == "PREVENTIVO".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.PaleGreen);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dtexcel.Rows[i][j].ToString() == "REITERATIVO".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.LightCoral);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dtexcel.Rows[i][j].ToString() == "REPROGRAMADO".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.LightBlue);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dtexcel.Rows[i][j].ToString() == "SEGUIMIENTO".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.FromArgb(246, 106, 77));
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                            if (dtexcel.Rows[i][j].ToString() == "INCOMPLETO".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.FromArgb(255, 144, 51));
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
+                            rng.Interior.Color = (dtexcel.Rows[i][j].ToString() == "EN PROCESO".ToString() ? System.Drawing.ColorTranslator.ToOle(Color.Khaki) : dtexcel.Rows[i][j].ToString() == "LIBERADA".ToString() ? System.Drawing.ColorTranslator.ToOle(Color.PaleGreen) : dtexcel.Rows[i][j].ToString() == "REPROGRAMADA".ToString() ? rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.LightCoral) : dtexcel.Rows[i][j].ToString() == "CORRECTIVO".ToString() ? System.Drawing.ColorTranslator.ToOle(Color.Khaki) : dtexcel.Rows[i][j].ToString() == "PREVENTIVO".ToString() ? System.Drawing.ColorTranslator.ToOle(Color.PaleGreen) : dtexcel.Rows[i][j].ToString() == "REITERATIVO".ToString() ? System.Drawing.ColorTranslator.ToOle(Color.LightCoral) : dtexcel.Rows[i][j].ToString() == "REPROGRAMADO".ToString() ? System.Drawing.ColorTranslator.ToOle(Color.LightBlue) : dtexcel.Rows[i][j].ToString() == "SEGUIMIENTO".ToString() ? System.Drawing.ColorTranslator.ToOle(Color.FromArgb(246, 106, 77)) : dtexcel.Rows[i][j].ToString() == "INCOMPLETO".ToString() ? System.Drawing.ColorTranslator.ToOle(Color.FromArgb(255, 144, 51)) : System.Drawing.ColorTranslator.ToOle(Color.FromArgb(231, 230, 230)));
                         }
                         catch (System.NullReferenceException)
                         {
@@ -3775,46 +3568,19 @@ namespace controlFallos
         private void dataGridViewMantenimiento_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (this.dgvMantenimiento.Columns[e.ColumnIndex].Name == "ESTATUS DEL MANTENIMIENTO")
-                if (Convert.ToString(e.Value) == "EN PROCESO")
-                    e.CellStyle.BackColor = Color.Khaki;
-                else if (Convert.ToString(e.Value) == "LIBERADA")
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                else if (Convert.ToString(e.Value) == "REPROGRAMADA")
-                    e.CellStyle.BackColor = Color.LightCoral;
+                e.CellStyle.BackColor = (e.Value.ToString() == "EN PROCESO" ? Color.Khaki : e.Value.ToString() == "LIBERADA" ? Color.PaleGreen : Color.LightCoral);
             if (this.dgvMantenimiento.Columns[e.ColumnIndex].Name == "TIPO DE FALLO")
-                if (Convert.ToString(e.Value) == "CORRECTIVO")
-                    e.CellStyle.BackColor = Color.Khaki;
-                else if (Convert.ToString(e.Value) == "PREVENTIVO")
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                else if (Convert.ToString(e.Value) == "REITERATIVO")
-                    e.CellStyle.BackColor = Color.LightCoral;
-                else if (Convert.ToString(e.Value) == "REPROGRAMADO")
-                    e.CellStyle.BackColor = Color.LightBlue;
-                else if (Convert.ToString(e.Value) == "SEGUIMIENTO")
-                    e.CellStyle.BackColor = Color.FromArgb(246, 144, 123);
+                e.CellStyle.BackColor = (e.Value.ToString() == "CORRECTIVO" ? Color.Khaki : e.Value.ToString() == "PREVENTIVO" ? Color.PaleGreen : e.Value.ToString() == "REPROGRAMADO" ? Color.LightBlue : Color.FromArgb(246, 144, 123));
             if (this.dgvMantenimiento.Columns[e.ColumnIndex].Name == "ESTATUS DE REFACCIONES")
-                if (Convert.ToString(e.Value) == "SE REQUIEREN REFACCIONES")
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                else if (Convert.ToString(e.Value) == "NO SE REQUIEREN REFACCIONES")
-                    e.CellStyle.BackColor = Color.LightCoral;
+                e.CellStyle.BackColor = (e.Value.ToString() == "SE REQUIEREN REFACCIONES" ? Color.PaleGreen : Color.LightCoral);
             if (this.dgvMantenimiento.Columns[e.ColumnIndex].Name == "EXISTENCIA DE REFACCIONES EN ALMACEN")
-                if (Convert.ToString(e.Value) == "EXISTENCIA DE REFACCIONES")
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                else if (Convert.ToString(e.Value) == "EN ESPERA DE LA REFACCIÓN")
-                    e.CellStyle.BackColor = Color.Khaki;
-                else if (Convert.ToString(e.Value) == "SIN REFACCIONES")
-                    e.CellStyle.BackColor = Color.LightCoral;
+                e.CellStyle.BackColor = (e.Value.ToString() == "EXISTENCIA DE REFACCIONES" ? Color.PaleGreen : e.Value.ToString() == "EN ESPERA DE LA REFACCIÓN" ? Color.Khaki : Color.LightCoral);
         }
 
         private void dataGridViewMRefaccion_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (this.dgvPMantenimiento.Columns[e.ColumnIndex].Name == "ESTATUS DE LA REFACCION")
-                if (Convert.ToString(e.Value) == "EXISTENCIA")
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                else if (Convert.ToString(e.Value) == "SIN EXISTENCIA")
-                    e.CellStyle.BackColor = Color.LightCoral;
-                else if (Convert.ToString(e.Value) == "INCOMPLETO")
-                    e.CellStyle.BackColor = Color.FromArgb(255, 144, 51);
+                e.CellStyle.BackColor = (e.Value.ToString() == "EXISTENCIA" ? Color.PaleGreen : e.Value.ToString() == "SIN EXISTENCIA" ? Color.LightCoral : Color.FromArgb(255, 144, 51));
             if (this.dgvPMantenimiento.Columns[e.ColumnIndex].Name == "CANTIDAD POR ENTREGAR")
                 if (Convert.ToString(e.Value) != "0")
                     e.CellStyle.BackColor = Color.Khaki;
@@ -3822,50 +3588,36 @@ namespace controlFallos
 
         private void comboBoxEstatusMant_DrawItem(object sender, DrawItemEventArgs e)
         {
-            ComboBox cbx = sender as ComboBox;
+            Color c = Color.BlueViolet;
+            Color color_fuente = Color.FromArgb(75, 44, 52);
+            Color color = Color.FromArgb(246, 144, 123);
+            SolidBrush s = new SolidBrush(color);
+            Color fondo = Color.FromArgb(200, 200, 200);
             StringFormat sf = new StringFormat();
             sf.LineAlignment = StringAlignment.Center;
             sf.Alignment = StringAlignment.Center;
-            Color color_fuente = Color.FromArgb(75, 44, 52);
-            Color fondo = Color.FromArgb(200, 200, 200);
+            switch (e.Index)
+            {
+                case 0:
+                    e.Graphics.FillRectangle(new SolidBrush(fondo), e.Bounds);
+                    break;
+                case 1:
+                    e.Graphics.FillRectangle(Brushes.Khaki, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
+                    break;
+                case 2:
+                    e.Graphics.FillRectangle(Brushes.PaleGreen, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
+                    break;
+                case 3:
+                    e.Graphics.FillRectangle(Brushes.LightCoral, e.Bounds);
+                    break;
+            }
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
             {
                 e.Graphics.FillRectangle(Brushes.Crimson, e.Bounds);
-                if (e.Index == -1)
-                    e.Graphics.DrawString("", e.Font, new SolidBrush(color_fuente), e.Bounds, sf);
-                else
-                    e.Graphics.DrawString(cbx.Items[e.Index].ToString(), e.Font, new SolidBrush(Color.White), e.Bounds, sf);
+                e.Graphics.DrawString(comboBoxEstatusMant.Items[e.Index].ToString(), e.Font, new SolidBrush(Color.White), e.Bounds, sf);
             }
             else
-            {
-                if (e.Index == -1)
-                    e.Graphics.DrawString("", e.Font, new SolidBrush(color_fuente), e.Bounds, sf);
-                else
-                {
-                    switch (e.Index)
-                    {
-                        case 0:
-                            e.Graphics.FillRectangle(new SolidBrush(fondo), e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
-                            e.Graphics.DrawString(cbx.Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor), e.Bounds, sf);
-                            break;
-
-                        case 1:
-                            e.Graphics.FillRectangle(Brushes.Khaki, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
-                            e.Graphics.DrawString(cbx.Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor), e.Bounds, sf);
-                            break;
-
-                        case 2:
-                            e.Graphics.FillRectangle(Brushes.LightCoral, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
-                            e.Graphics.DrawString(cbx.Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor), e.Bounds, sf);
-                            break;
-
-                        case 3:
-                            e.Graphics.FillRectangle(Brushes.PaleGreen, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
-                            e.Graphics.DrawString(cbx.Items[e.Index].ToString(), e.Font, new SolidBrush(e.ForeColor), e.Bounds, sf);
-                            break;
-                    }
-                }
-            }
+                e.Graphics.DrawString(comboBoxEstatusMant.Items[e.Index].ToString(), e.Font, new SolidBrush(color_fuente), e.Bounds, sf);
         }
 
         private void comboBoxReqRefacc_DrawItem(object sender, DrawItemEventArgs e)

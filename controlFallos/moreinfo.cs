@@ -13,7 +13,7 @@ namespace controlFallos
         int empresa, area;
         string sqlFolio;
         bool historial;
-        public moreinfo(string id, string ct, int empresa, int area, bool historial,validaciones v)
+        public moreinfo(string id, string ct, int empresa, int area, bool historial, validaciones v)
         {
             this.v = v;
             InitializeComponent();
@@ -62,8 +62,8 @@ namespace controlFallos
             lbltitle.Left = (panel1.Width - lbltitle.Width) / 2;
             lbltitle.Top = (panel1.Height - lbltitle.Height) / 2;
         }
-        
-        private void panel2_Paint(object sender, PaintEventArgs e){}
+
+        private void panel2_Paint(object sender, PaintEventArgs e) { }
         void crearListBox(string[] data, string texto)
         {
             cerrar();
@@ -110,7 +110,7 @@ namespace controlFallos
             list.Name = "listfolios";
             list.DrawItem += new DrawItemEventHandler(v.listbox_DrawItem);
             list.ItemHeight = 25;
-            for (int i = 0; i < folio.Length; i++)list.Items.Add(folio[i]);
+            for (int i = 0; i < folio.Length; i++) list.Items.Add(folio[i]);
             gbadd.Controls.Add(list);
 
         }
@@ -118,7 +118,7 @@ namespace controlFallos
         private void MostrarDatosEspecificosListBox(object sender, EventArgs e)
         {
             var res = ((ListBox)sender).SelectedItem;
-            mostrarFolio m = new mostrarFolio(res.ToString(), empresa, area,v);
+            mostrarFolio m = new mostrarFolio(res.ToString(), empresa, area, v);
             m.Owner = this;
             m.ShowDialog();
 
@@ -196,6 +196,21 @@ namespace controlFallos
             tbrefacciones.ClearSelection();
 
         }
+        void imagenes(string[] evidencias)
+        {
+            Point[] locations = new Point[] { new Point(20, 140), new Point(375, 140), new Point(20, 335), new Point(375, 335), new Point(765, 140), new Point(1120, 140), new Point(765, 335), new Point(1120, 335) };
+            for (int i = 0; i < evidencias.Length; i++)
+            {
+                PictureBox p = new PictureBox();
+                p.BorderStyle = BorderStyle.Fixed3D;
+                p.SizeMode = PictureBoxSizeMode.StretchImage;
+                p.Width = 350;
+                p.Height = 180;
+                p.Location = new Point(locations[i].X, locations[i].Y);
+                p.Image = (!string.IsNullOrWhiteSpace(evidencias[i]) ? v.StringToImage(evidencias[i]) : null);
+                gbadd.Controls.Add(p);
+            }
+        }
         void CrearAntesDespuesLabels()
         {
             FontFamily fontFamily = new FontFamily("Garamond");
@@ -203,13 +218,13 @@ namespace controlFallos
             lbl.Font = new Font(fontFamily, 16, FontStyle.Bold);
             lbl.Text = v.mayusculas("Anterior").ToUpper();
             lbl.AutoSize = true;
-            lbl.Location = new Point(150, y1 ?? 40);
+            lbl.Location = new Point((this.Width - lbl.Width) / 4, y1 ?? 40);
             lbl.Name = "lblAntes";
             gbadd.Controls.Add(lbl);
             Label l1 = new Label();
             l1.Text = v.mayusculas("Actual").ToUpper();
             l1.AutoSize = true;
-            l1.Location = new Point(750, y1 ?? 40);
+            l1.Location = new Point(((this.Width - lbltitle.Width) / 4) + ((this.Width - l1.Width) / 2), y1 ?? 40);
             l1.Font = new Font(fontFamily, 16, FontStyle.Bold);
             l1.Name = "lblActual";
             gbadd.Controls.Add(l1);
@@ -422,7 +437,6 @@ namespace controlFallos
                 l.Name = "lbl" + i;
                 gbadd.Controls.Add(l);
             }
-
         }
         void mitad1mitad2(string[] arreglo)
         {
@@ -438,8 +452,7 @@ namespace controlFallos
             int x = 40;
             int y = y1 ?? 40;
             if (scroll)
-                y = -20;
-
+                y = 20;
             for (int i = 0; i < arreglo.Length / 2; i++)
             {
 
@@ -470,7 +483,6 @@ namespace controlFallos
                             j--;
                             c += 20;
                         }
-
                     }
                     if (temp != null)
                     {
@@ -496,9 +508,7 @@ namespace controlFallos
                     gbadd.Controls.Add(l);
 
             }
-
-
-            x = 700;
+            x = (this.Width / 2) + 40;
             y = y1 ?? 40;
             if (scroll)
                 y = -20;
@@ -568,7 +578,7 @@ namespace controlFallos
                 Label l = new Label();
                 l.UseMnemonic = false;
                 if (arreglo[i].Length > 65)
-                {                   
+                {
                     string temp2 = "";
                     string temp = "";
                     string[] temp4 = arreglo[i].Split(' ');
@@ -576,7 +586,7 @@ namespace controlFallos
                     {
                         if ((temp + " " + temp4[j]).Length < 65)
                         {
-                            temp += " " + temp4[j];                          
+                            temp += " " + temp4[j];
                         }
                         else
                         {
@@ -607,7 +617,7 @@ namespace controlFallos
                 gbadd.Controls.Add(l);
                 l.Left = (this.gbadd.Width - l.Size.Width) / 2;
             }
-            y1= y+28+ contador;
+            y1 = y + 28 + contador;
         }
         void paralabelsImpares(string[] arreglo)
         {
@@ -1279,17 +1289,17 @@ namespace controlFallos
                         CenterToParent();
                         crearCatalogoPuesto(v.getaData("SET lc_time_names='es_ES';SELECT UPPER(CONCAT('motivo de actualización: ',t1.motivoActualizacion,';Tipo: ',t1.Tipo,';Folio: ',t2.folio))FROM modificaciones_sistema as t1 INNER JOIN reportesupervicion as t2 ON t1.idregistro=t2.idreportesupervicion where t1.idmodificacion='" + id + "'").ToString().Split(';'));
 
-                        string[] reporte = v.getaData("SET lc_time_names='es_ES';SELECT UPPER(CONCAT(t1.ultimamodificacion,coalesce((select concat(';Persona Que Modificó: ',x3.nombres,' ',x3.ApPaterno,' ',x3.apMaterno,';Fecha/Hora: ',date_format(x4.fechaHora,'%W, %d de %M del %Y'),'/',time(x4.fechahora)) from cpersonal as x3 inner join modificaciones_sistema as x4 on x4.usuariofkcpersonal=x3.idpersona WHERE x4.Tipo='Actualización de Reporte de Supervisión' and x4.idregistro=t2.idreportesupervicion and (x4.idmodificacion between '1' and '" + id + "')  order by x4.idmodificacion desc limit 1,1),(concat(';Usuario que inserto: ',(select concat(p1.appaterno,' ',p1.apmaterno,' ',p1.nombres) from cpersonal as p1 where p1.idpersona=t2.SupervisorfkCPersonal),';Fecha/Hora: ',date_format(t2.FechaReporte,'%W, %d de %M del %Y'),'/',(t2.HoraEntrada)))),';Unidad: ',(select concat(x11.identificador,LPAD(x10.consecutivo,4,'0')) from cunidades as x10 inner join careas as x11 on x11.idarea=x10.areafkcareas where x10.idunidad=t2.UnidadfkCUnidades),';Supervisor: ',(select concat(x1.apPaterno,' ',x1.apMaterno,' ',x1.nombres) from cpersonal as x1 where x1.idpersona=t2.SupervisorfkCPersonal),';credencial de conductor: ',t3.credencial,';Servicio: ',(select if(t2.Serviciofkcservicios='1','SIN SERVICIO',(select upper(concat(x13.Nombre,' ',x13.Descripcion)) from cservicios as x13 where x13.idservicio=t2.Serviciofkcservicios))),';Kilometraje: ',t2.KmEntrada,';tipo de fallo: ',t2.TipoFallo,if(t2.DescrFallofkcdescfallo is null,concat(';Fallo no códificado: ',t2.DescFalloNoCod),concat(';Descripción: ',(select descfallo from cdescfallo as x14 where x14.iddescfallo=t2.DescrFallofkcdescfallo),';código: ',(select codfallo from cfallosesp as x15 where x15.idfalloEsp=t2.CodFallofkcfallosesp))),'; Observaciones: ',t2.ObservacionesSupervision,';Persona Que Modifica: ',(SELECT CONCAT(nombres,' ',apPaterno,' ',apMaterno) FROM cpersonal WHERE idpersona = t1.usuariofkcpersonal),';fecha/hora: ',date_format(t1.fechaHora,'%W, %d de %M del %Y'),'/',time(t1.fechahora)))FROM modificaciones_sistema as t1 INNER JOIN reportesupervicion as t2 ON t1.idregistro=t2.idreportesupervicion inner join cpersonal as t3 on t3.idpersona=t2.CredencialConductorfkCPersonal where t1.idmodificacion='" + id + "';").ToString().Split(';');
-                        reporte[0] = ("unidad: " + reporte[0]).ToUpper();
-                        reporte[1] = ("SUpervisor: " + reporte[1]).ToUpper();
-                        reporte[2] = ("credencial de conductor: " + reporte[2]).ToUpper();
-                        reporte[3] = ("Servicio: " + reporte[3]).ToUpper();
+                        string[] reporte = v.getaData("SET lc_time_names='es_ES';SELECT UPPER(CONCAT(t1.ultimamodificacion,coalesce((select concat(';Persona Que Modificó: ',x3.nombres,' ',x3.ApPaterno,' ',x3.apMaterno,';Fecha/Hora: ',date_format(x4.fechaHora,'%W, %d de %M del %Y'),'/',time(x4.fechahora)) from cpersonal as x3 inner join modificaciones_sistema as x4 on x4.usuariofkcpersonal=x3.idpersona WHERE x4.Tipo='Actualización de Reporte de Supervisión' and x4.idregistro=t2.idreportesupervicion and (x4.idmodificacion between '1' and '" + id + "')  order by x4.idmodificacion desc limit 1,1),(concat(';Usuario que inserto: ',(select concat(p1.appaterno,' ',p1.apmaterno,' ',p1.nombres) from cpersonal as p1 where p1.idpersona=t2.SupervisorfkCPersonal),';Fecha/Hora: ',date_format(t2.FechaReporte,'%W, %d de %M del %Y'),'/',(t2.HoraEntrada)))),';Unidad: ',(select concat(x11.identificador,LPAD(x10.consecutivo,4,'0')) from cunidades as x10 inner join careas as x11 on x11.idarea=x10.areafkcareas where x10.idunidad=t2.UnidadfkCUnidades),';Supervisor: ',(select concat(x1.apPaterno,' ',x1.apMaterno,' ',x1.nombres) from cpersonal as x1 where x1.idpersona=t2.SupervisorfkCPersonal),';credencial de conductor: ',t3.credencial,';Servicio: ',(select if(t2.Serviciofkcservicios='1','SIN SERVICIO',(select upper(concat(x13.Nombre,' ',x13.Descripcion)) from cservicios as x13 where x13.idservicio=t2.Serviciofkcservicios))),';Kilometraje: ',t2.KmEntrada,';tipo de fallo: ',if(t2.TipoFallo='1','correctivo',(if(t2.tipofallo='2','preventivo',(if(t2.tipofallo='3','reiterativo',(if(t2.tipofallo='4','reprogramado','Seguimiento'))))))),if(t2.DescrFallofkcdescfallo is null,concat(';Fallo no códificado: ',t2.DescFalloNoCod),concat(';Descripción: ',(select descfallo from cdescfallo as x14 where x14.iddescfallo=t2.DescrFallofkcdescfallo),';código: ',(select codfallo from cfallosesp as x15 where x15.idfalloEsp=t2.CodFallofkcfallosesp))),'; Observaciones: ',t2.ObservacionesSupervision,';Persona Que Modifica: ',(SELECT CONCAT(nombres,' ',apPaterno,' ',apMaterno) FROM cpersonal WHERE idpersona = t1.usuariofkcpersonal),';fecha/hora: ',date_format(t1.fechaHora,'%W, %d de %M del %Y'),'/',time(t1.fechahora)))FROM modificaciones_sistema as t1 INNER JOIN reportesupervicion as t2 ON t1.idregistro=t2.idreportesupervicion inner join cpersonal as t3 on t3.idpersona=t2.CredencialConductorfkCPersonal where t1.idmodificacion='" + id + "';").ToString().Split(';');
+                        reporte[0] = ("unidad: " + v.getaData("select concat(x11.identificador,LPAD(x10.consecutivo,4,'0')) from cunidades as x10 inner join careas as x11 on x11.idarea=x10.areafkcareas where x10.idunidad='" + reporte[0] + "';")).ToUpper();
+                        reporte[1] = ("SUpervisor: " + v.getaData("select concat(appaterno,' ',apmaterno,' ',nombres) from cpersonal where idpersona='" + reporte[1] + "';")).ToUpper();
+                        reporte[2] = ("credencial de conductor: " + v.getaData("select credencial from cpersonal where idpersona='" + reporte[2] + "'")).ToUpper();
+                        reporte[3] = ("Servicio: " + v.getaData("select concat(nombre,' ', descripcion) from cservicios where idservicio='" + reporte[3] + "';")).ToUpper();
                         reporte[4] = ("Kilometraje: " + reporte[4]).ToUpper();
-                        reporte[5] = ("Tipo de fallo: " + reporte[5]).ToUpper();
+                        reporte[5] = ("Tipo de fallo: " + (reporte[5] == "1" ? "correctivo" : reporte[5] == "2" ? "preventivo" : reporte[5] == "3" ? "reiterativo" : reporte[5] == "4" ? "reprogramado" : "seguimiento")).ToUpper();
                         if (reporte.Length == 22)
                         {
-                            reporte[6] = ("Descripción: " + reporte[6]).ToUpper();
-                            reporte[7] = ("Código: " + reporte[7]).ToUpper();
+                            reporte[6] = ("Descripción: " + v.getaData("select descfallo from cdescfallo where iddescfallo='" + reporte[6] + "';")).ToUpper();
+                            reporte[7] = ("Código: " + v.getaData("select codfallo from cfallosesp where idfalloEsp='" + reporte[7] + "';")).ToUpper();
                             reporte[8] = ("Observaciones: " + reporte[8]).ToUpper();
                             reporte[9] = ("" + reporte[9]).ToUpper();
                             reporte[10] = ("" + reporte[10]).ToUpper();
@@ -1322,7 +1332,6 @@ namespace controlFallos
                             reporte[18] = ("" + reporte[18]).ToUpper();
                             reporte[19] = ("" + reporte[19]).ToUpper();
                         }
-
                         y1 = 165;
                         CrearAntesDespuesLabels();
                         mitad1mitad2(reporte);
@@ -2349,20 +2358,37 @@ namespace controlFallos
                         CenterToParent();
                         y1 = null;
                         break;
+                    case "Actualización de Evidencias en Reporte de Percance":
+                        if (this.Size == new Size(1496, 855) || this.Size == new Size(1496, 715))
+                        {
+                            this.Size = new Size(1496, 900);
+                            gbadd.Size = new Size(1431, 600);
+                            CenterToParent();
+                        }
+                        else this.Size = new Size(1496, 715);
+                        crearCatalogoPuesto(v.getaData("SELECT UPPER(CONCAT('Motivo De Modificación: ', COALESCE(t1.motivoActualizacion, ''), ';Tipo: ', t1.Tipo)) FROM modificaciones_sistema AS t1 INNER JOIN reportepercance AS t2 ON t2.idreportePercance = t1.idregistro WHERE t1.idmodificacion = '" + id + "';").ToString().Split(';'));
+                        string[] evidencias = v.getaData("SET lc_time_names='es_ES';SELECT CONVERT(CONCAT(ultimaModificacion,'|',coalesce(t2.evidencia1,''),'|',coalesce(t2.evidencia2,''),'|',coalesce(t2.evidencia3,''),'|',coalesce(t2.evidencia4,''))using utf8) AS m FROM modificaciones_sistema as t1 INNER JOIN reportepercance as t2 on t2.idreportepercance=t1.idregistro WHERE idmodificacion = '" + id + "';").ToString().Split('|');
+
+                        string[] dates = v.getaData("SET lc_time_names='es_ES';SELECT UPPER(CONCAT(coalesce((select concat('Persona Que Modificó: ',x3.nombres,' ',x3.ApPaterno,' ',x3.apMaterno,'|Fecha: ',date_format(x4.fechaHora,'%W, %d de %M del %Y'),'|Hora: ',time(x4.fechahora)) from cpersonal as x3 inner join modificaciones_sistema as x4 on x4.usuariofkcpersonal=x3.idpersona WHERE x4.Tipo='Actualización de Evidencias en Reporte de Percance' and x4.idregistro=t2.idreportepercance and (x4.idmodificacion between '1' and '" + id + "') order by x4.idmodificacion desc limit 1,1),(select concat('Persona Que Inserto: ',x5.appaterno,' ',x5.apmaterno,' ',x5.nombres,'|Fecha: ',date_format(t2.fechaHoraInsercion,'%W, %d de %M del %Y'),'|Hora: ',time(t2.fechaHoraInsercion)) from cpersonal as x5 where x5.idpersona=t2.usuarioinsertofkcpersonal)),'|Persona que modificá: ',(select concat(coalesce(p1.appaterno,''),' ',coalesce(p1.apmaterno,''),' ',p1.nombres) from cpersonal as p1 where p1.idpersona=t1.usuariofkcpersonal),'|Fecha: ',date_format(t1.fechaHora,'%W, %d de %M del %Y'),'|Hora: ',time(t1.fechaHora))) AS m FROM modificaciones_sistema as t1 INNER JOIN reportepercance as t2 on t2.idreportepercance=t1.idregistro WHERE idmodificacion = '" + id + "';").ToString().Split('|');
+                        CrearAntesDespuesLabels();
+                        imagenes(evidencias);
+                        y1 = 500;
+                        mitad1mitad2(dates);
+                        break;
                     case "Actualización de Reporte de Percance":
                         scroll = true;
                         this.Size = new Size(1296, 1050);
                         gbadd.Size = new Size(1231, 750);
                         CenterToParent();
                         crearCatalogoPuesto(v.getaData("SELECT UPPER(CONCAT('Motivo De Modificación: ', COALESCE(t1.motivoActualizacion, ''), ';Tipo: ', t1.Tipo)) FROM modificaciones_sistema AS t1 INNER JOIN reportepercance AS t2 ON t2.idreportePercance = t1.idregistro WHERE t1.idmodificacion = '" + id + "';").ToString().Split(';'));
-                        string[] percances = v.getaData("SET lc_time_names = 'es_ES'; SELECT UPPER(CONCAT(ultimaModificacion, COALESCE((SELECT CONCAT('|Persona Que Modificó: ', x3.nombres, ' ', x3.ApPaterno, ' ', x3.apMaterno, '|Fecha/Hora: ', DATE_FORMAT(x4.fechaHora, '%W, %d de %M del %Y'), '/', TIME(x4.fechahora)) FROM cpersonal AS x3 INNER JOIN modificaciones_sistema AS x4 ON x4.usuariofkcpersonal = x3.idpersona WHERE x4.Tipo = 'Actualización de Reporte de Percance' AND x4.idregistro = t2.idreportepercance AND (x4.idmodificacion BETWEEN '1' AND '"+id+"') ORDER BY x4.idmodificacion DESC LIMIT 1,1), (SELECT CONCAT('|Persona Que Inserto: ', x5.appaterno, ' ', x5.apmaterno, ' ', x5.nombres, '|Fecha/Hora: ', DATE_FORMAT(t2.fechaHoraInsercion, '%W, %d de %M del %Y'), '/', TIME(t2.fechaHoraInsercion)) FROM cpersonal AS x5 WHERE x5.idpersona = t2.usuarioinsertofkcpersonal)),  '|Económico: ', COALESCE((SELECT CONCAT(z2.identificador, LPAD(z1.consecutivo, 4, '0')) FROM cunidades AS z1 INNER JOIN careas AS z2 ON z1.areafkcareas = z2.idarea WHERE z1.idunidad = t2.ecofkcunidades), ''), (SELECT CONCAT('|Conductor: ', z3.ApPaterno, ' ', z3.ApMaterno, ' ', z3.nombres) FROM cpersonal AS z3 WHERE z3.idPersona = t2.Conductorfkcpersonal), '|Fecha/Hora de Accidente: ', COALESCE(t2.fechaHoraAccidente, ''), '|Servicio: ', COALESCE((SELECT CONCAT(z4.nombre, ' ', z4.Descripcion) FROM cservicios AS z4 WHERE z4.idservicio = t2.servicioenlaborfkcservicios), ''), '|Lugar del Accidente: ', COALESCE(t2.lugaraccidente, ''), '|Dirección: ', IF(t2.direccion != 0, IF(t2.direccion != 2, 'NORTE', 'SUR'), ''), '|De estación: ', COALESCE((SELECT z5.estacion FROM cestaciones AS z5 WHERE z5.idestacion = t2.estacion1fkcestaciones), ''), '|A estación: ', COALESCE((SELECT z6.estacion FROM cestaciones AS z6 WHERE z6.idestacion = t2.estacion2fkcestaciones), ''), '|De estación: ', COALESCE((SELECT z7.estacion FROM cestaciones AS z7 WHERE z7.idestacion = t2.estacion3fkcestaciones), ''), '|A estación: ', COALESCE((SELECT z8.estacion FROM cestaciones AS z8 WHERE z8.idestacion = t2.estacion4fkcestaciones), ''), '|Económico recuperado: ', COALESCE((SELECT CONCAT(z10.identificador, LPAD(z9.consecutivo, 4, '0')) FROM cunidades AS z9 INNER JOIN careas AS z10 ON z9.areafkcareas = z10.idarea WHERE z9.idunidad = t2.ecorecuperacionfkcunidades), ''), '|Estación: ', COALESCE((SELECT z11.estacion FROM cestaciones AS z11 WHERE z11.idestacion = t2.estacionfkcestaciones), ''), '|Síntesis de lo ocurrido: ', COALESCE(t2.sintesisocurrido, ''), '|Descripción: ', COALESCE(t2.descripcion, ''), '|Marca de vehículo: ', COALESCE(t2.marcavehiculotercero, ''), '|Año de vehículo: ', COALESCE(t2.yearvehiculotercero, ''), '|Placas de vehículo: ', COALESCE(t2.placasvehiculotercero, ''), '|Nombre del conductor: ', COALESCE(t2.nombreconductortercero, ''), '|Teléfono del conductor: ', COALESCE(t2.telefonoconductortercero, ''), '|Domicilio del conductor: ', COALESCE(t2.domicilioconductortercero, ''), '|Número de reporte del seguro: ', COALESCE(t2.numreporteseguro, ''), '|Hora de otorgamiento: ', COALESCE(t2.horaotorgamiento, ''), '|Hora de llegada del seguro: ', COALESCE(t2.horallegadaseguro, ''), '|Nombre del ajustador: ', COALESCE(t2.nombreajustador, ''), '|Solución: ', COALESCE(t2.solucion, ''), '|Número de acta: ', COALESCE(t2.numacta, ''), '|Supervisor: ', COALESCE((SELECT CONCAT( z12.ApPaterno, ' ', z12.ApMaterno, ' ', z12.nombres) FROM cpersonal AS z12 WHERE z12.idPersona = t2.supervisorkcpersonal), ''), '|Unidad de asistencia médica: ', COALESCE(t2.unidadmedica, ''), '|Perteneciente de asistencia médica: ', COALESCE(t2.perteneceunidad, ''), '|Nombre del responsable médico: ', COALESCE(t2.nombreResponsableunidad, ''), '|En caso de lesionados: ', COALESCE(t2.encasolesionados, ''), '|Comentarios: ', COALESCE(t2.comentarios, ''), (SELECT CONCAT('|Persona Que Modifica: ', nombres, ' ', apPaterno,' ', apMaterno, '|Fecha/hora: ', DATE_FORMAT(t1.fechaHora,'%W, %d de %M del %Y'),'/', TIME(t1.fechahora)) FROM cpersonal WHERE idpersona = t1.usuariofkcpersonal))) AS m FROM modificaciones_sistema AS t1 INNER JOIN reportepercance AS t2 ON t1.idregistro = t2.idreportepercance WHERE t1.idmodificacion = '"+id+"';").ToString().Split('|');
+                        string[] percances = v.getaData("SET lc_time_names = 'es_ES'; SELECT UPPER(CONCAT(ultimaModificacion, COALESCE((SELECT CONCAT('|Persona Que Modificó: ', x3.nombres, ' ', x3.ApPaterno, ' ', x3.apMaterno, '|Fecha/Hora: ', DATE_FORMAT(x4.fechaHora, '%W, %d de %M del %Y'), '/', TIME(x4.fechahora)) FROM cpersonal AS x3 INNER JOIN modificaciones_sistema AS x4 ON x4.usuariofkcpersonal = x3.idpersona WHERE x4.Tipo = 'Actualización de Reporte de Percance' AND x4.idregistro = t2.idreportepercance AND (x4.idmodificacion BETWEEN '1' AND '" + id + "') ORDER BY x4.idmodificacion DESC LIMIT 1,1), (SELECT CONCAT('|Persona Que Inserto: ', x5.appaterno, ' ', x5.apmaterno, ' ', x5.nombres, '|Fecha/Hora: ', DATE_FORMAT(t2.fechaHoraInsercion, '%W, %d de %M del %Y'), '/', TIME(t2.fechaHoraInsercion)) FROM cpersonal AS x5 WHERE x5.idpersona = t2.usuarioinsertofkcpersonal)),  '|Económico: ', COALESCE((SELECT CONCAT(z2.identificador, LPAD(z1.consecutivo, 4, '0')) FROM cunidades AS z1 INNER JOIN careas AS z2 ON z1.areafkcareas = z2.idarea WHERE z1.idunidad = t2.ecofkcunidades), ''), (SELECT CONCAT('|Conductor: ', z3.ApPaterno, ' ', z3.ApMaterno, ' ', z3.nombres) FROM cpersonal AS z3 WHERE z3.idPersona = t2.Conductorfkcpersonal), '|Fecha/Hora de Accidente: ', COALESCE(t2.fechaHoraAccidente, ''), '|Servicio: ', COALESCE((SELECT CONCAT(z4.nombre, ' ', z4.Descripcion) FROM cservicios AS z4 WHERE z4.idservicio = t2.servicioenlaborfkcservicios), ''), '|Lugar del Accidente: ', COALESCE(t2.lugaraccidente, ''), '|Dirección: ', IF(t2.direccion != 0, IF(t2.direccion != 2, 'NORTE', 'SUR'), ''), '|De estación: ', COALESCE((SELECT z5.estacion FROM cestaciones AS z5 WHERE z5.idestacion = t2.estacion1fkcestaciones), ''), '|A estación: ', COALESCE((SELECT z6.estacion FROM cestaciones AS z6 WHERE z6.idestacion = t2.estacion2fkcestaciones), ''), '|De estación: ', COALESCE((SELECT z7.estacion FROM cestaciones AS z7 WHERE z7.idestacion = t2.estacion3fkcestaciones), ''), '|A estación: ', COALESCE((SELECT z8.estacion FROM cestaciones AS z8 WHERE z8.idestacion = t2.estacion4fkcestaciones), ''), '|Económico recuperado: ', COALESCE((SELECT CONCAT(z10.identificador, LPAD(z9.consecutivo, 4, '0')) FROM cunidades AS z9 INNER JOIN careas AS z10 ON z9.areafkcareas = z10.idarea WHERE z9.idunidad = t2.ecorecuperacionfkcunidades), ''), '|Estación: ', COALESCE((SELECT z11.estacion FROM cestaciones AS z11 WHERE z11.idestacion = t2.estacionfkcestaciones), ''), '|Síntesis de lo ocurrido: ', COALESCE(t2.sintesisocurrido, ''), '|Descripción: ', COALESCE(t2.descripcion, ''), '|Marca de vehículo: ', COALESCE(t2.marcavehiculotercero, ''), '|Año de vehículo: ', COALESCE(t2.yearvehiculotercero, ''), '|Placas de vehículo: ', COALESCE(t2.placasvehiculotercero, ''), '|Nombre del conductor: ', COALESCE(t2.nombreconductortercero, ''), '|Teléfono del conductor: ', COALESCE(t2.telefonoconductortercero, ''), '|Domicilio del conductor: ', COALESCE(t2.domicilioconductortercero, ''), '|Número de reporte del seguro: ', COALESCE(t2.numreporteseguro, '0'), '|Hora de otorgamiento: ', COALESCE(t2.horaotorgamiento, ''), '|Hora de llegada del seguro: ', COALESCE(t2.horallegadaseguro, ''), '|Nombre del ajustador: ', COALESCE(t2.nombreajustador, ''), '|Solución: ', COALESCE(t2.solucion, ''), '|Número de acta: ', COALESCE(t2.numacta, ''), '|Supervisor: ', COALESCE((SELECT CONCAT( z12.ApPaterno, ' ', z12.ApMaterno, ' ', z12.nombres) FROM cpersonal AS z12 WHERE z12.idPersona = t2.supervisorkcpersonal), ''), '|Unidad de asistencia médica: ', COALESCE(t2.unidadmedica, ''), '|Perteneciente de asistencia médica: ', COALESCE(t2.perteneceunidad, ''), '|Nombre del responsable médico: ', COALESCE(t2.nombreResponsableunidad, ''), '|En caso de lesionados: ', COALESCE(t2.encasolesionados, ''), '|Comentarios: ', COALESCE(t2.comentarios, ''), (SELECT CONCAT('|Persona Que Modifica: ', nombres, ' ', apPaterno,' ', apMaterno, '|Fecha/hora: ', DATE_FORMAT(t1.fechaHora,'%W, %d de %M del %Y'),'/', TIME(t1.fechahora)) FROM cpersonal WHERE idpersona = t1.usuariofkcpersonal))) AS m FROM modificaciones_sistema AS t1 INNER JOIN reportepercance AS t2 ON t1.idregistro = t2.idreportepercance WHERE t1.idmodificacion = '" + id + "';").ToString().Split('|');
                         percances[0] = UPPER("Económico: " + v.getaData("SELECT CONCAT(z2.identificador, LPAD(z1.consecutivo, 4, '0')) FROM cunidades AS z1 INNER JOIN careas AS z2 ON z1.areafkcareas = z2.idarea WHERE z1.idunidad = '" + percances[0] + "'")).ToString();
                         percances[1] = UPPER("Conductor: " + v.getaData("SELECT CONCAT(z3.ApPaterno, ' ', z3.ApMaterno, ' ', z3.nombres) FROM cpersonal AS z3 WHERE z3.idPersona = '" + percances[1] + "'")).ToString();
                         percances[2] = UPPER("Fecha/Hora de Accidente: " + percances[2]);
                         percances[3] = UPPER("Servicio: " + v.getaData("SELECT CONCAT(z4.nombre, ' ', z4.Descripcion) FROM cservicios AS z4 WHERE z4.idservicio = '" + percances[3] + "'")).ToString();
                         percances[4] = UPPER("Lugar del Accidente: " + percances[4]);
-                        if (Convert.ToInt32(percances[5]) == 0)
-                            percances[5] = "";
+                        if (!string.IsNullOrWhiteSpace(percances[5]))
+                            percances[5] =(Convert.ToInt32(percances[5])==1?"NORTE":"SUR");
                         percances[5] = UPPER("Dirección: " + percances[5]);
                         percances[6] = UPPER("De estación: " + v.getaData("SELECT z5.estacion FROM cestaciones AS z5 WHERE z5.idestacion = '" + percances[6] + "'")).ToString();
                         percances[7] = UPPER("A estación: " + v.getaData("SELECT z6.estacion FROM cestaciones AS z6 WHERE z6.idestacion = '" + percances[7] + "'")).ToString();
@@ -2378,19 +2404,13 @@ namespace controlFallos
                         percances[17] = UPPER("Nombre del conductor: " + percances[17]);
                         percances[18] = UPPER("Teléfono del conductor: " + percances[18]);
                         percances[19] = UPPER("Domicilio del conductor: " + percances[19]);
-                        if (Convert.ToInt32(percances[20]) == 0)
-                            percances[20] = percances[21] = percances[22] = "";
                         percances[20] = UPPER("Número de reporte del seguro: " + percances[20]);
                         percances[21] = UPPER("Hora de otorgamiento: " + percances[21]);
                         percances[22] = UPPER("Hora de llegada del seguro: " + percances[22]);
                         percances[23] = UPPER("Nombre del ajustador: " + percances[23]);
                         percances[24] = UPPER("Solución: " + percances[24]);
-                        if (Convert.ToInt32(percances[25]) == 0)
-                            percances[25] = "";
                         percances[25] = UPPER("Número de acta: " + percances[25]);
                         percances[26] = UPPER("Supervisor: " + v.getaData("SELECT CONCAT(z12.ApPaterno, ' ', z12.ApMaterno, ' ', z12.nombres) FROM cpersonal AS z12 WHERE z12.idPersona = '" + percances[26] + "'")).ToString();
-                        if (Convert.ToInt32(percances[27]) == 0)
-                            percances[27] = "";
                         percances[27] = UPPER("Unidad de asistencia médica: " + percances[27]);
                         percances[28] = UPPER("Perteneciente de asistencia médica: " + percances[28]);
                         percances[29] = UPPER("Nombre del responsable médico: " + percances[29]);
