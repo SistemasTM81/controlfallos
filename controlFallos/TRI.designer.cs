@@ -78,7 +78,7 @@
             this.LblEditarR = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.lblId = new System.Windows.Forms.Label();
-            this.lblFecha2 = new System.Windows.Forms.Label();
+            this.lblFechaEntrega = new System.Windows.Forms.Label();
             this.lblMecanicoSolicita = new System.Windows.Forms.Label();
             this.lblFechaSolicitud = new System.Windows.Forms.Label();
             this.lblFolio = new System.Windows.Forms.Label();
@@ -609,7 +609,7 @@
             this.GpbAlmacen.Controls.Add(this.LblEditarR);
             this.GpbAlmacen.Controls.Add(this.label35);
             this.GpbAlmacen.Controls.Add(this.lblId);
-            this.GpbAlmacen.Controls.Add(this.lblFecha2);
+            this.GpbAlmacen.Controls.Add(this.lblFechaEntrega);
             this.GpbAlmacen.Controls.Add(this.lblMecanicoSolicita);
             this.GpbAlmacen.Controls.Add(this.lblFechaSolicitud);
             this.GpbAlmacen.Controls.Add(this.lblFolio);
@@ -733,15 +733,15 @@
             this.lblId.TabIndex = 148;
             this.lblId.Visible = false;
             // 
-            // lblFecha2
+            // lblFechaEntrega
             // 
-            this.lblFecha2.AutoSize = true;
-            this.lblFecha2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFecha2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblFecha2.Location = new System.Drawing.Point(909, 36);
-            this.lblFecha2.Name = "lblFecha2";
-            this.lblFecha2.Size = new System.Drawing.Size(0, 18);
-            this.lblFecha2.TabIndex = 133;
+            this.lblFechaEntrega.AutoSize = true;
+            this.lblFechaEntrega.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFechaEntrega.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lblFechaEntrega.Location = new System.Drawing.Point(909, 36);
+            this.lblFechaEntrega.Name = "lblFechaEntrega";
+            this.lblFechaEntrega.Size = new System.Drawing.Size(0, 18);
+            this.lblFechaEntrega.TabIndex = 133;
             // 
             // lblMecanicoSolicita
             // 
@@ -1317,7 +1317,7 @@
         private System.Windows.Forms.GroupBox GpbAlmacen;
         private System.Windows.Forms.Label lblFechaSolicitud;
         private System.Windows.Forms.Label lblPersonaDis;
-        private System.Windows.Forms.Label lblFecha2;
+        private System.Windows.Forms.Label lblFechaEntrega;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TextBox txtObservacionesT;
         private System.Windows.Forms.TextBox txtDispenso;

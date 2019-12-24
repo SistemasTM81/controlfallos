@@ -20,10 +20,10 @@ namespace controlFallos
     {
         public string folio = "";
         public conexion c;
-        public validaciones(){c = new conexion(this);}
+        public validaciones() { c = new conexion(this); }
         public void Sololetras(KeyPressEventArgs e)
         {
-            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsSeparator(e.KeyChar))e.Handled = false;
+            if (char.IsLetter(e.KeyChar) || char.IsControl(e.KeyChar) || char.IsSeparator(e.KeyChar)) e.Handled = false;
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -113,7 +113,7 @@ namespace controlFallos
         }
         public void letrasynumeros(KeyPressEventArgs pE)
         {
-            if (Char.IsLetter(pE.KeyChar) || Char.IsDigit(pE.KeyChar) || Char.IsControl(pE.KeyChar) || Char.IsSeparator(pE.KeyChar))pE.Handled = false;
+            if (Char.IsLetter(pE.KeyChar) || Char.IsDigit(pE.KeyChar) || Char.IsControl(pE.KeyChar) || Char.IsSeparator(pE.KeyChar)) pE.Handled = false;
             else
             {
                 MessageBox.Show("Sólo se Aceptan Letras y Números En Este Campo", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -129,7 +129,7 @@ namespace controlFallos
         }
         public void letrasynumerossinespacios(KeyPressEventArgs pE)
         {
-            if (char.IsLetter(pE.KeyChar) || char.IsDigit(pE.KeyChar) || char.IsControl(pE.KeyChar)) 
+            if (char.IsLetter(pE.KeyChar) || char.IsDigit(pE.KeyChar) || char.IsControl(pE.KeyChar))
                 pE.Handled = false;
             else
             {
@@ -661,9 +661,9 @@ namespace controlFallos
                         return true;
                     }
                 }
-                else 
+                else
                     return false;
-                            }
+            }
             else
                 return false;
         }
@@ -2855,7 +2855,7 @@ namespace controlFallos
         }
         public void insert(string ver, string insertar, string consultar, string modificar, string eliminar, string nombre, int idUsuario)
         {
-            c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver"+(short.Parse(ver) == 1 ? ",privilegios":"") +")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
+            c.insertar(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver" + (short.Parse(ver) == 1 ? ",privilegios" : "") + ")VALUES('" + idUsuario + "','" + nombre + "'" + (short.Parse(ver) == 1 ? ",'" + ver + "','" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") : "") + "')");
         }
         public bool todosFalsos(string[,] b)
         {
@@ -4043,8 +4043,8 @@ namespace controlFallos
         }
         public void Splash()
         {
-            try{Application.Run(new SplashScreen());}
-            catch{}
+            try { Application.Run(new SplashScreen()); }
+            catch { }
         }
         public delegate void delgado(Form frm);
         public void cerrarForm(Form frm) { frm.Close(); }
@@ -4184,6 +4184,46 @@ namespace controlFallos
             else
             {
                 MessageBox.Show("El campo \"folio\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
+        public bool camposAlmacen(string folioF, string contraseña, string fecha, int empresa, int area, string idreporte)
+        {
+            if (!string.IsNullOrWhiteSpace(folioF))
+                if (Convert.ToInt32(folioF) > 0)
+                    if (Convert.ToInt32(getaData("select count(*) from reportetri where FolioFactura='" + folioF + "' and idReporteTransinsumos!='" + idreporte + "';")) == 0)
+                        if (!string.IsNullOrWhiteSpace(contraseña))
+                            if (Convert.ToInt32(getaData("select count(*) from datosistema as t1 inner join cpersonal as t2 on t2.idPersona=t1.usuariofkcpersonal where password='" + Encriptar(contraseña) + "' and t2.area='" + area + "' and t2.empresa='" + empresa + "'")) > 0)
+                                if (!string.IsNullOrWhiteSpace(fecha))
+                                    return true;
+                                else
+                                {
+                                    MessageBox.Show("El campo \"Fecha de entrega\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return false;
+                                }
+                            else
+                            {
+                                MessageBox.Show("contraseña incorrecta".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return false;
+                            }
+                        else
+                        {
+                            MessageBox.Show("El campo \" contraseña de usuario del almacén\" se encuentra vacío".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+                    else
+                    {
+                        MessageBox.Show("El folio de factura ya se encuentra registrado en el sistema".ToUpper(), "FOLIO DUPLICADO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                else
+                {
+                    MessageBox.Show("El folio de factura debe ser mayor a 0".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            else
+            {
+                MessageBox.Show("El campo \"folio de factura\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
         }

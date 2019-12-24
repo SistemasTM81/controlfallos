@@ -136,7 +136,7 @@ namespace controlFallos
             int descfamilia = 0; if (cbdesc.DataSource != null) descfamilia = Convert.ToInt32(cbdesc.SelectedValue);
             if (!v.camposVaciosCatMarcas(familia, descfamilia, marca) && !v.existeMarca(descfamilia, marca, empresa))
             {
-                if (v.c.insertar("INSERT INTO cmarcas(descripcionfkcfamilias,marca,personafkcpersonal) VALUES('" + descfamilia + "',LTRIM(RTRIM('" + marca + "')),'" + this.idUsuario + "')"))
+                if (v.c.insertar("INSERT INTO cmarcas(descripcionfkcfamilias,marca,personafkcpersonal,empresa) VALUES('" + descfamilia + "',LTRIM(RTRIM('" + marca + "')),'" + this.idUsuario + "','"+empresa+"')"))
                 {
                     var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Catálogo de Refacciones - Marcas',(SELECT idmarca FROM cmarcas WHERE descripcionfkcfamilias='" + descfamilia + "' AND marca='" + marca + "'),'" + descfamilia + "," + marca + "','" + idUsuario + "',NOW(),'Inserción de Marca','" + empresa + "','" + area + "')");
                     Owner.marca = v.getaData("SELECT idmarca FROM cmarcas WHERE descripcionfkcfamilias='" + descfamilia + "' AND marca='" + marca + "'").ToString();
