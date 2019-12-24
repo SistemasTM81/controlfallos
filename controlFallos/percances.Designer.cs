@@ -2336,7 +2336,6 @@
             this.pActualizar.Name = "pActualizar";
             this.pActualizar.Size = new System.Drawing.Size(111, 69);
             this.pActualizar.TabIndex = 84;
-            this.pActualizar.Visible = false;
             // 
             // button6
             // 

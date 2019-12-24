@@ -880,13 +880,19 @@ namespace controlFallos
 
         private void button3_Click(object sender, EventArgs e)
         {
-            int posicioninicial = trazosimagenActual[trazosimagenActual.Count - 2], posicionFinal = trazosimagenActual[trazosimagenActual.Count - 1];
-            trazosimagenActual.RemoveAt(trazosimagenActual.Count - 1);
-            trazosimagenActual.RemoveAt(trazosimagenActual.Count - 1);
-            for (int i = posicionFinal - 1; i >= posicioninicial; i--)
-                imagenes[imagenActual].RemoveAt(posicioninicial);
-            pDeshacer.Visible = trazosimagenActual.Count > 0;
-            dibujarPuntitos();
+            if (pbdibujar.BackgroundImage!=null) {
+                try
+                {
+                    int posicioninicial = trazosimagenActual[trazosimagenActual.Count - 2], posicionFinal = trazosimagenActual[trazosimagenActual.Count - 1];
+                    trazosimagenActual.RemoveAt(trazosimagenActual.Count - 1);
+                    trazosimagenActual.RemoveAt(trazosimagenActual.Count - 1);
+                    for (int i = posicionFinal - 1; i >= posicioninicial; i--)
+                        imagenes[imagenActual].RemoveAt(posicioninicial);
+                    pDeshacer.Visible = trazosimagenActual.Count > 0;
+                    dibujarPuntitos();
+                }
+                catch{pDeshacer.Visible = false;}
+            }
         }
 
 
@@ -909,7 +915,7 @@ namespace controlFallos
             if (pconsultar) initializeReports("WHERE DATE_FORMAT(t1.fechaHoraAccidente, '%m') = " + DateTime.Today.ToString("MM"));
             LblExcel.Text = "Exportar";
         }
-        private void button6_Click(object sender, EventArgs e) { if (!est_expor) initializeReports("WHERE DATE_FORMAT(t1.fechaHoraAccidente, '%m') = " + DateTime.Today.ToString("MM")); pActualizar.Visible = false; if (!est_expor) btnExcel.Visible = LblExcel.Visible = false; else inhabilitar = true; }
+        private void button6_Click(object sender, EventArgs e) { if (!est_expor) initializeReports("WHERE DATE_FORMAT(t1.fechaHoraAccidente, '%m') = " + DateTime.Today.ToString("MM"));   if (!est_expor) btnExcel.Visible = LblExcel.Visible = false; else inhabilitar = true; }
         private void button7_Click(object sender, EventArgs e)
         {
             if (cbxgetexoBusq.SelectedIndex > 0 || cbxgetconductor.SelectedIndex > 0 || checkBox1.Checked || cbmes.SelectedIndex > 0)
