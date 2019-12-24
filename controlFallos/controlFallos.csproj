@@ -448,6 +448,12 @@
     <Compile Include="requisicionRefacciones.Designer.cs">
       <DependentUpon>requisicionRefacciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="rolUnidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="rolUnidades.Designer.cs">
+      <DependentUpon>rolUnidades.cs</DependentUpon>
+    </Compile>
     <Compile Include="SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -662,6 +668,9 @@
     <EmbeddedResource Include="requisicionRefacciones.resx">
       <DependentUpon>requisicionRefacciones.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="rolUnidades.resx">
+      <DependentUpon>rolUnidades.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -787,6 +796,9 @@
     <Content Include="Resources\deshacer.png" />
     <None Include="Resources\document-edit_icon-icons.com_52428.png" />
     <Content Include="Resources\DocumentEdit_40924.png" />
+    <None Include="Resources\driver.png" />
+    <None Include="Resources\driver %281%29.png" />
+    <None Include="Resources\driver %282%29.png" />
     <Content Include="Resources\edit.png" />
     <None Include="Resources\edit1.png" />
     <Content Include="Resources\enterprise.png" />
