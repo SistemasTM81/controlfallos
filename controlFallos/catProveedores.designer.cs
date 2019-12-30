@@ -288,7 +288,7 @@
             // 
             // btnExcel
             // 
-            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.sobresalir;
+            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
             this.btnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExcel.FlatAppearance.BorderSize = 0;

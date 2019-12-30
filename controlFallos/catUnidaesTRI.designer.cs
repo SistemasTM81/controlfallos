@@ -891,7 +891,7 @@
             // 
             this.buttonExcel.AutoSize = true;
             this.buttonExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonExcel.BackgroundImage = global::controlFallos.Properties.Resources.sobresalir;
+            this.buttonExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
             this.buttonExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonExcel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonExcel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1003,7 +1003,7 @@
             // 
             // buttonGuardar
             // 
-            this.buttonGuardar.BackgroundImage = global::controlFallos.Properties.Resources.guardar__6_;
+            this.buttonGuardar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
             this.buttonGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonGuardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.buttonGuardar.FlatAppearance.BorderSize = 0;

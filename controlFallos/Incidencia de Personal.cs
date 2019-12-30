@@ -1296,7 +1296,7 @@ namespace controlFallos
             _editar = _nuevo = res = incidencia_personal = _incompletos = _completos = _mensaje = false;
             pPdf.Visible = pFInalizar.Visible = false;
             incidencias();
-            if (pinsertar) { Habilita_botones(); pGuardar.Visible = gbfirmas.Enabled = true; btnGuardar.BackgroundImage = controlFallos.Properties.Resources.guardar__6_; genera_consecutivo(); mostrar_datos(); }
+            if (pinsertar) { Habilita_botones(); pGuardar.Visible = gbfirmas.Enabled = true; btnGuardar.BackgroundImage = controlFallos.Properties.Resources.save1; genera_consecutivo(); mostrar_datos(); }
         }
         public void limpiar_busqueda()
         {

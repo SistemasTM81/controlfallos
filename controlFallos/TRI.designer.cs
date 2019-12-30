@@ -392,7 +392,7 @@
             // btnExcel
             // 
             this.btnExcel.BackColor = System.Drawing.Color.Transparent;
-            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.sobresalir;
+            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
             this.btnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExcel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1064,7 +1064,7 @@
             // btnGuardar
             // 
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnGuardar.BackgroundImage = global::controlFallos.Properties.Resources.guardar__6_;
+            this.btnGuardar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
             this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnGuardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnGuardar.FlatAppearance.BorderSize = 0;
@@ -1256,7 +1256,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::controlFallos.Properties.Resources.logo;
+            this.pictureBox1.Image = global::controlFallos.Properties.Resources.Imagen2;
             this.pictureBox1.Location = new System.Drawing.Point(1686, 4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(222, 81);

@@ -14,8 +14,8 @@ namespace controlFallos
         static void Main()
         {
              v = new validaciones();
-            Thread th = new Thread(new ThreadStart(Splash));
-            th.Start();                        
+            //Thread th = new Thread(new ThreadStart(Splash));
+            //th.Start();                        
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new login(v));

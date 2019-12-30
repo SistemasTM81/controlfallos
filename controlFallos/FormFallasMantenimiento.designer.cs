@@ -338,7 +338,7 @@
             // 
             this.buttonAgregarMasPed.AutoSize = true;
             this.buttonAgregarMasPed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonAgregarMasPed.BackgroundImage = global::controlFallos.Properties.Resources.settings1;
+            this.buttonAgregarMasPed.BackgroundImage = global::controlFallos.Properties.Resources.settings;
             this.buttonAgregarMasPed.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonAgregarMasPed.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonAgregarMasPed.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1124,7 +1124,7 @@
             // 
             this.buttonAgregar.AutoSize = true;
             this.buttonAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonAgregar.BackgroundImage = global::controlFallos.Properties.Resources.menos_add1;
+            this.buttonAgregar.BackgroundImage = global::controlFallos.Properties.Resources.menos_add;
             this.buttonAgregar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonAgregar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -2158,7 +2158,7 @@
             // 
             this.buttonExcel.AutoSize = true;
             this.buttonExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonExcel.BackgroundImage = global::controlFallos.Properties.Resources.sobresalir;
+            this.buttonExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
             this.buttonExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonExcel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonExcel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -2462,7 +2462,7 @@
             // 
             this.buttonFinalizar.AutoSize = true;
             this.buttonFinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonFinalizar.BackgroundImage = global::controlFallos.Properties.Resources.racing;
+            this.buttonFinalizar.BackgroundImage = global::controlFallos.Properties.Resources.test;
             this.buttonFinalizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonFinalizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonFinalizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
@@ -2537,7 +2537,7 @@
             // 
             this.buttonGuardar.AutoSize = true;
             this.buttonGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonGuardar.BackgroundImage = global::controlFallos.Properties.Resources.guardar__6_;
+            this.buttonGuardar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
             this.buttonGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonGuardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));

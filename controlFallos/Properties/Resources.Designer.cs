@@ -63,29 +63,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _1_02_512 {
-            get {
-                object obj = ResourceManager.GetObject("1-02-512", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap _1491313940_repeat_82991 {
             get {
                 object obj = ResourceManager.GetObject("_1491313940_repeat_82991", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _20 {
-            get {
-                object obj = ResourceManager.GetObject("20", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,16 +83,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _lock {
-            get {
-                object obj = ResourceManager.GetObject("lock", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap add {
             get {
                 object obj = ResourceManager.GetObject("add", resourceCulture);
@@ -123,19 +93,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap add1 {
+        internal static System.Drawing.Bitmap addition {
             get {
-                object obj = ResourceManager.GetObject("add1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ajax_spinner {
-            get {
-                object obj = ResourceManager.GetObject("ajax-spinner", resourceCulture);
+                object obj = ResourceManager.GetObject("addition", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -146,16 +106,6 @@ namespace controlFallos.Properties {
         internal static System.Drawing.Bitmap ajustes {
             get {
                 object obj = ResourceManager.GetObject("ajustes", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ajustes1 {
-            get {
-                object obj = ResourceManager.GetObject("ajustes1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -243,29 +193,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap bx_loader {
+        internal static System.Drawing.Bitmap busstop {
             get {
-                object obj = ResourceManager.GetObject("bx_loader", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap calendar {
-            get {
-                object obj = ResourceManager.GetObject("calendar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap cancel {
-            get {
-                object obj = ResourceManager.GetObject("cancel", resourceCulture);
+                object obj = ResourceManager.GetObject("busstop", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -343,16 +273,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap complete {
-            get {
-                object obj = ResourceManager.GetObject("complete", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap comprobar {
             get {
                 object obj = ResourceManager.GetObject("comprobar", resourceCulture);
@@ -363,39 +283,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap computer {
-            get {
-                object obj = ResourceManager.GetObject("computer", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap construction {
             get {
                 object obj = ResourceManager.GetObject("construction", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap copy {
-            get {
-                object obj = ResourceManager.GetObject("copy", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap correct {
-            get {
-                object obj = ResourceManager.GetObject("correct", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -443,16 +333,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap delete__1_ {
-            get {
-                object obj = ResourceManager.GetObject("delete (1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap delete__4_ {
             get {
                 object obj = ResourceManager.GetObject("delete__4_", resourceCulture);
@@ -476,26 +356,6 @@ namespace controlFallos.Properties {
         internal static System.Drawing.Bitmap DERECHO_SOMBRA {
             get {
                 object obj = ResourceManager.GetObject("DERECHO_SOMBRA", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap desactivate {
-            get {
-                object obj = ResourceManager.GetObject("desactivate", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap descargar_pdf {
-            get {
-                object obj = ResourceManager.GetObject("descargar-pdf", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -533,39 +393,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap DocumentEdit_40924 {
-            get {
-                object obj = ResourceManager.GetObject("DocumentEdit_40924", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap driver {
             get {
                 object obj = ResourceManager.GetObject("driver", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap driver__1_ {
-            get {
-                object obj = ResourceManager.GetObject("driver (1)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap driver__2_ {
-            get {
-                object obj = ResourceManager.GetObject("driver (2)", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -583,26 +413,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap enterprise {
-            get {
-                object obj = ResourceManager.GetObject("enterprise", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap enviar {
-            get {
-                object obj = ResourceManager.GetObject("enviar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap eraser {
             get {
                 object obj = ResourceManager.GetObject("eraser", resourceCulture);
@@ -613,9 +423,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap eraser1 {
+        internal static System.Drawing.Bitmap excel {
             get {
-                object obj = ResourceManager.GetObject("eraser1", resourceCulture);
+                object obj = ResourceManager.GetObject("excel", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -653,16 +463,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap file1 {
-            get {
-                object obj = ResourceManager.GetObject("file1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap fingerprint {
             get {
                 object obj = ResourceManager.GetObject("fingerprint", resourceCulture);
@@ -673,49 +473,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap fingerprint_scanning {
-            get {
-                object obj = ResourceManager.GetObject("fingerprint-scanning", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap fingerprint_transparent_gif_14 {
-            get {
-                object obj = ResourceManager.GetObject("fingerprint-transparent-gif-14", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap fingerprint_transparent_gif_141 {
-            get {
-                object obj = ResourceManager.GetObject("fingerprint-transparent-gif-141", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap fingerprint1 {
             get {
                 object obj = ResourceManager.GetObject("fingerprint1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap fingerprint2 {
-            get {
-                object obj = ResourceManager.GetObject("fingerprint2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -773,16 +533,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap guardar__6_ {
-            get {
-                object obj = ResourceManager.GetObject("guardar__6_", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap house {
             get {
                 object obj = ResourceManager.GetObject("house", resourceCulture);
@@ -796,16 +546,6 @@ namespace controlFallos.Properties {
         internal static System.Drawing.Bitmap huella_dactilar {
             get {
                 object obj = ResourceManager.GetObject("huella_dactilar", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap ICN_scan_fp {
-            get {
-                object obj = ResourceManager.GetObject("ICN_scan_fp", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -893,9 +633,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap KindheartedSimpleAppaloosa_size_restricted {
+        internal static System.Drawing.Bitmap LATERALDERECHO {
             get {
-                object obj = ResourceManager.GetObject("KindheartedSimpleAppaloosa-size_restricted", resourceCulture);
+                object obj = ResourceManager.GetObject("LATERALDERECHO", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -903,9 +643,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LATERAL_DERECHO {
+        internal static System.Drawing.Bitmap LATERALIZQUIERDO {
             get {
-                object obj = ResourceManager.GetObject("LATERAL DERECHO", resourceCulture);
+                object obj = ResourceManager.GetObject("LATERALIZQUIERDO", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -913,9 +653,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap LATERAL_IZQUIERDO {
+        internal static System.Drawing.Bitmap list {
             get {
-                object obj = ResourceManager.GetObject("LATERAL IZQUIERDO", resourceCulture);
+                object obj = ResourceManager.GetObject("list", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -933,9 +673,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap login {
+        internal static System.Drawing.Bitmap locker {
             get {
-                object obj = ResourceManager.GetObject("login", resourceCulture);
+                object obj = ResourceManager.GetObject("locker", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -943,9 +683,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap logo {
+        internal static System.Drawing.Bitmap login {
             get {
-                object obj = ResourceManager.GetObject("logo", resourceCulture);
+                object obj = ResourceManager.GetObject("login", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1003,16 +743,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap mas {
-            get {
-                object obj = ResourceManager.GetObject("mas", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap menos_add {
             get {
                 object obj = ResourceManager.GetObject("menos_add", resourceCulture);
@@ -1023,19 +753,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap menos_add1 {
+        internal static System.Drawing.Bitmap mexibus {
             get {
-                object obj = ResourceManager.GetObject("menos_add1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap menu {
-            get {
-                object obj = ResourceManager.GetObject("menu", resourceCulture);
+                object obj = ResourceManager.GetObject("mexibus", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1073,9 +793,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap notification {
+        internal static System.Drawing.Bitmap next {
             get {
-                object obj = ResourceManager.GetObject("notification", resourceCulture);
+                object obj = ResourceManager.GetObject("next", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1103,39 +823,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap notification1 {
-            get {
-                object obj = ResourceManager.GetObject("notification1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap nut {
             get {
                 object obj = ResourceManager.GetObject("nut", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap original {
-            get {
-                object obj = ResourceManager.GetObject("original", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap password {
-            get {
-                object obj = ResourceManager.GetObject("password", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1153,9 +843,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pdf_folder_upload_storage_transfer_512 {
+        internal static System.Drawing.Bitmap pdffolder {
             get {
-                object obj = ResourceManager.GetObject("pdf-folder-upload-storage-transfer-512", resourceCulture);
+                object obj = ResourceManager.GetObject("pdffolder", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1193,26 +883,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Preloader1 {
-            get {
-                object obj = ResourceManager.GetObject("Preloader1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Preloader2 {
-            get {
-                object obj = ResourceManager.GetObject("Preloader2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap presentation {
             get {
                 object obj = ResourceManager.GetObject("presentation", resourceCulture);
@@ -1223,19 +893,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap previous__2_ {
+        internal static System.Drawing.Bitmap previous {
             get {
-                object obj = ResourceManager.GetObject("previous (2)", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap previous__3_ {
-            get {
-                object obj = ResourceManager.GetObject("previous (3)", resourceCulture);
+                object obj = ResourceManager.GetObject("previous", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1256,36 +916,6 @@ namespace controlFallos.Properties {
         internal static System.Drawing.Bitmap pushpin {
             get {
                 object obj = ResourceManager.GetObject("pushpin", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap racing {
-            get {
-                object obj = ResourceManager.GetObject("racing", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap rec {
-            get {
-                object obj = ResourceManager.GetObject("rec", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap refresh {
-            get {
-                object obj = ResourceManager.GetObject("refresh", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1333,9 +963,29 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap save1 {
+            get {
+                object obj = ResourceManager.GetObject("save1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap search {
             get {
                 object obj = ResourceManager.GetObject("search", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap selection {
+            get {
+                object obj = ResourceManager.GetObject("selection", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1353,29 +1003,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap settings1 {
-            get {
-                object obj = ResourceManager.GetObject("settings1", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap shopping_cart {
             get {
                 object obj = ResourceManager.GetObject("shopping_cart", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap sobresalir {
-            get {
-                object obj = ResourceManager.GetObject("sobresalir", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -1483,16 +1113,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap timer_transparent_css_6 {
-            get {
-                object obj = ResourceManager.GetObject("timer-transparent-css-6", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap transmasivo {
             get {
                 object obj = ResourceManager.GetObject("transmasivo", resourceCulture);
@@ -1553,16 +1173,6 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap unfriend {
-            get {
-                object obj = ResourceManager.GetObject("unfriend", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap up {
             get {
                 object obj = ResourceManager.GetObject("up", resourceCulture);
@@ -1573,29 +1183,9 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap user {
-            get {
-                object obj = ResourceManager.GetObject("user", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap virus {
             get {
                 object obj = ResourceManager.GetObject("virus", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap w4bdgpvly079wsjlcndo {
-            get {
-                object obj = ResourceManager.GetObject("w4bdgpvly079wsjlcndo", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

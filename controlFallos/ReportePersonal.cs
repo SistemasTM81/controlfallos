@@ -194,7 +194,7 @@ namespace controlFallos
             txtKilometraje.Text = "0";
             ptbxResponsable.Image = ptbxCoordinador.Image = null;
             btnHDResponsable.Enabled = btnHDCoordinador.Enabled = chbxVehiculo.Enabled = true;
-            btnNuevo.BackgroundImage = Properties.Resources.eraser1;
+            btnNuevo.BackgroundImage = Properties.Resources.eraser;
             label15.Text = "LIMPIAR CAMPOS";
             dtpFecha.Value = DateTime.Now;
             dtpTime.Text = "00:00";
@@ -296,7 +296,7 @@ namespace controlFallos
                     lblNombresResponsable.Text = dr.GetString("RESNOMBRES");
                     lblPaternoResponsable.Text = dr.GetString("RESPATERNO");
                     lblMaternoResponsable.Text = dr.GetString("RESMATERNO");
-                    ptbxResponsable.Image = Properties.Resources.correct;
+                    ptbxResponsable.Image = Properties.Resources.comprobar;
                     btnHDResponsable.Enabled = false;
                 }
                 else
@@ -310,7 +310,7 @@ namespace controlFallos
                     lblNombresCoordinador.Text = dr.GetString("COONOMBRES");
                     lblPaternoCoordinador.Text = dr.GetString("COOPATERNO");
                     lblMaternoCoordinador.Text = dr.GetString("COOMATERNO");
-                    ptbxCoordinador.Image = Properties.Resources.correct;
+                    ptbxCoordinador.Image = Properties.Resources.comprobar;
                     btnHDCoordinador.Enabled = false;
                 }
                 else
@@ -387,7 +387,7 @@ namespace controlFallos
                 btnPDF.Visible = label31.Visible = true;
             else if (btnHDResponsable.Enabled && btnHDCoordinador.Enabled && peditar)
                 btnPDF.Visible = label31.Visible = false;
-            btnGuardar.BackgroundImage = Properties.Resources.guardar__6_;
+            btnGuardar.BackgroundImage = Properties.Resources.save1;
             label24.Text = "GUARDAR";
             btnNuevo.BackgroundImage = Properties.Resources.test;
             label15.Text = "NUEVO REPORTE";
@@ -400,13 +400,13 @@ namespace controlFallos
             consultageneral();
             if (pinsertar)
             {
-                btnGuardar.BackgroundImage = Properties.Resources.guardar__6_;
+                btnGuardar.BackgroundImage = Properties.Resources.save1;
                 btnGuardar.Visible = label24.Visible = true;
                 btnGuardar.Location = new Point(531, 553);
             }
 
             btnPDF.Visible = label31.Visible = btnFinalizar.Visible = label26.Visible = false;
-            btnNuevo.BackgroundImage = Properties.Resources.eraser1;
+            btnNuevo.BackgroundImage = Properties.Resources.eraser;
             label24.Text = "GUARDAR";
             label15.Text = "LIMPIAR CAMPOS";
             txtCredencial.Enabled = dtpFecha.Enabled = dtpTime.Enabled = txtLugarIncidente.Enabled = txtTipoVehiculo.Enabled = txtKilometraje.Enabled = txtObservaciones.Enabled = true;
@@ -1029,9 +1029,9 @@ namespace controlFallos
             {
                 MessageBox.Show("Sin cambios", "INFOMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 consultageneral();
-                btnGuardar.BackgroundImage = Properties.Resources.guardar__6_;
+                btnGuardar.BackgroundImage = Properties.Resources.save1;
                 label24.Text = "GUARDAR";
-                btnNuevo.BackgroundImage = Properties.Resources.eraser1;
+                btnNuevo.BackgroundImage = Properties.Resources.eraser;
                 label15.Text = "LIMPIAR CAMPOS";
                 limpiar();
                 limpiarvariablesanteriores();
@@ -1107,10 +1107,10 @@ namespace controlFallos
                             v.c.dbconection().Close();
                             limpiar();
                             consultageneral();
-                            btnGuardar.BackgroundImage = Properties.Resources.guardar__6_;
+                            btnGuardar.BackgroundImage = Properties.Resources.save1;
                             label24.Text = "GUARDAR";
                             btnGuardar.Location = new Point(531, 553);
-                            btnNuevo.BackgroundImage = Properties.Resources.eraser1;
+                            btnNuevo.BackgroundImage = Properties.Resources.eraser;
                             label15.Text = "LIMPIAR CAMPOS";
                             limpiarvariablesanteriores();
                             banderaeditar = false;
@@ -1394,7 +1394,7 @@ namespace controlFallos
                     lblMaternoResponsable.Text = lh.tiporeporte3;
                 }
                 if (hresponsable != 0)
-                    ptbxResponsable.Image = Properties.Resources.correct;
+                    ptbxResponsable.Image = Properties.Resources.comprobar;
                 else
                     ptbxResponsable.Image = Properties.Resources.incorrect;
             }
@@ -1417,7 +1417,7 @@ namespace controlFallos
                     lblMaternoCoordinador.Text = lh.tiporeporte3;
                 }
                 if (hcoordinador != 0)
-                    ptbxCoordinador.Image = Properties.Resources.correct;
+                    ptbxCoordinador.Image = Properties.Resources.comprobar;
                 else
                     ptbxCoordinador.Image = Properties.Resources.incorrect;
             }
@@ -1577,7 +1577,7 @@ namespace controlFallos
                             btnFinalizar.Visible = label26.Visible = btnPDF.Visible = label31.Visible = false;
                             btnGuardar.Visible = label24.Visible = txtCredencial.Enabled = dtpFecha.Enabled = dtpTime.Enabled = txtLugarIncidente.Enabled = txtTipoVehiculo.Enabled =  true;
                             label24.Text = "GUARDAR";
-                            btnGuardar.BackgroundImage = Properties.Resources.guardar__6_;
+                            btnGuardar.BackgroundImage = Properties.Resources.save1;
                             limpiar();
                             consultageneral();
                             limpiarvariablesanteriores();

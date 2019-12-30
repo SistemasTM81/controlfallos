@@ -509,7 +509,7 @@
             // btnLimpiar
             // 
             this.btnLimpiar.BackColor = System.Drawing.Color.Transparent;
-            this.btnLimpiar.BackgroundImage = global::controlFallos.Properties.Resources.eraser1;
+            this.btnLimpiar.BackgroundImage = global::controlFallos.Properties.Resources.eraser;
             this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnLimpiar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));

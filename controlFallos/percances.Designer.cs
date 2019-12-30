@@ -961,7 +961,7 @@
             // 
             // button1
             // 
-            this.button1.BackgroundImage = global::controlFallos.Properties.Resources.previous__3_;
+            this.button1.BackgroundImage = global::controlFallos.Properties.Resources.next;
             this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1068,7 +1068,7 @@
             // 
             // panel3
             // 
-            this.panel3.BackgroundImage = global::controlFallos.Properties.Resources.LATERAL_IZQUIERDO;
+            this.panel3.BackgroundImage = global::controlFallos.Properties.Resources.LATERALIZQUIERDO;
             this.panel3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel3.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1082,7 +1082,7 @@
             // 
             // panel2
             // 
-            this.panel2.BackgroundImage = global::controlFallos.Properties.Resources.LATERAL_DERECHO;
+            this.panel2.BackgroundImage = global::controlFallos.Properties.Resources.LATERALDERECHO;
             this.panel2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -1141,7 +1141,7 @@
             // 
             // button4
             // 
-            this.button4.BackgroundImage = global::controlFallos.Properties.Resources.previous__3_;
+            this.button4.BackgroundImage = global::controlFallos.Properties.Resources.next;
             this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1326,7 +1326,7 @@
             // 
             // button2
             // 
-            this.button2.BackgroundImage = global::controlFallos.Properties.Resources.previous__2_;
+            this.button2.BackgroundImage = global::controlFallos.Properties.Resources.previous;
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button2.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1906,7 +1906,7 @@
             // 
             // button9
             // 
-            this.button9.BackgroundImage = global::controlFallos.Properties.Resources.pdf_folder_upload_storage_transfer_512;
+            this.button9.BackgroundImage = global::controlFallos.Properties.Resources.pdffolder;
             this.button9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button9.FlatAppearance.BorderSize = 0;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -1930,7 +1930,7 @@
             // 
             // button8
             // 
-            this.button8.BackgroundImage = global::controlFallos.Properties.Resources._1_02_512;
+            this.button8.BackgroundImage = global::controlFallos.Properties.Resources.pdf;
             this.button8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button8.FlatAppearance.BorderSize = 0;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -2414,7 +2414,7 @@
             // 
             // btnExcel
             // 
-            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.sobresalir;
+            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
             this.btnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExcel.FlatAppearance.BorderSize = 0;
@@ -2494,7 +2494,7 @@
             // button11
             // 
             this.button11.BackColor = System.Drawing.Color.Transparent;
-            this.button11.BackgroundImage = global::controlFallos.Properties.Resources._lock;
+            this.button11.BackgroundImage = global::controlFallos.Properties.Resources.locker;
             this.button11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button11.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button11.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -2565,7 +2565,7 @@
             // btnsave
             // 
             this.btnsave.BackColor = System.Drawing.Color.Transparent;
-            this.btnsave.BackgroundImage = global::controlFallos.Properties.Resources.guardar__6_;
+            this.btnsave.BackgroundImage = global::controlFallos.Properties.Resources.save1;
             this.btnsave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnsave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnsave.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -2594,9 +2594,9 @@
             // 
             // pEvidencias
             // 
-            this.pEvidencias.Controls.Add(this.groupBox8);
             this.pEvidencias.Controls.Add(this.button10);
             this.pEvidencias.Controls.Add(this.label64);
+            this.pEvidencias.Controls.Add(this.groupBox8);
             this.pEvidencias.Location = new System.Drawing.Point(0, 0);
             this.pEvidencias.Name = "pEvidencias";
             this.pEvidencias.Size = new System.Drawing.Size(1920, 548);
@@ -2655,7 +2655,7 @@
             // 
             // button10
             // 
-            this.button10.BackgroundImage = global::controlFallos.Properties.Resources.previous__2_;
+            this.button10.BackgroundImage = global::controlFallos.Properties.Resources.previous;
             this.button10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button10.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button10.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -2700,9 +2700,9 @@
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.dgvpercances);
             this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.p2);
             this.Controls.Add(this.p1);
             this.Controls.Add(this.pEvidencias);
-            this.Controls.Add(this.p2);
             this.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

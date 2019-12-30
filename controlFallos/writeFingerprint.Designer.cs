@@ -91,7 +91,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::controlFallos.Properties.Resources.fingerprint2;
+            this.pictureBox1.BackgroundImage = global::controlFallos.Properties.Resources.fingerprint;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.pictureBox1.Location = new System.Drawing.Point(270, 78);
             this.pictureBox1.Name = "pictureBox1";

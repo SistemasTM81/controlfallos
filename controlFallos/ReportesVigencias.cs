@@ -318,7 +318,7 @@ namespace controlFallos
             v.c.dbconection().Close();
             if (string.IsNullOrWhiteSpace(nombreanterior) && string.IsNullOrWhiteSpace(codigoanterior) && string.IsNullOrWhiteSpace(fechaAnterior) && string.IsNullOrWhiteSpace(revisionanterior))
             {
-                btnEditar.BackgroundImage = Properties.Resources.guardar__6_;
+                btnEditar.BackgroundImage = Properties.Resources.save1;
                 label9.Location = new Point(472, 319);
                 label9.Text = "GUARDAR";
             }

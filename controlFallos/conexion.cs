@@ -89,7 +89,7 @@ namespace controlFallos
             }
             return dbcon;
         }
-        public bool insertar(String sql)
+        public bool insertar(string sql)
         {
             try
             {

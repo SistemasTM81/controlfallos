@@ -3556,13 +3556,13 @@ namespace controlFallos
         private void btnadd_MouseMove(object sender, MouseEventArgs e)
         {
             Button btnadd = sender as Button;
-            btnadd.BackgroundImage = Properties.Resources.add1;
+            btnadd.BackgroundImage = Properties.Resources.menos_add;
         }
 
         private void btnadd_MouseLeave(object sender, EventArgs e)
         {
             Button btnadd = sender as Button;
-            btnadd.BackgroundImage = Properties.Resources.menos_add1;
+            btnadd.BackgroundImage = Properties.Resources.menos_add;
         }
 
         private void dataGridViewMantenimiento_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
