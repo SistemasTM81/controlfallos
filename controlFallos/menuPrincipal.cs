@@ -826,5 +826,37 @@ namespace controlFallos
             reporteDeIndicenciaToolStripMenuItem.Enabled = (sender == reporteDeIndicenciaToolStripMenuItem ? false : true);
             ordenesDeCompraToolStripMenuItem.Enabled = (sender == ordenesDeCompraToolStripMenuItem ? false : true);
         }
+
+        private void cátalogoDeRolesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cerrar())
+            {
+                lblnumnotificaciones.BackgroundImage = null;
+                lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
+                lbltitle.Text = nombre + "Catálogo de Roles";
+                this.Text = lbltitle.Text;
+                lbltitle.Location = new Point(1591, 13);
+                Deshabilitar(sender as ToolStripMenuItem);
+                var form1 = Application.OpenForms.OfType<CatRoles>().FirstOrDefault();
+                CatRoles hijo = form1 ?? new CatRoles(idUsuario, empresa, area, v);
+                AddFormInPanel(hijo);
+            }
+        }
+
+        private void asistencíaDelDíaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cerrar())
+            {
+                lblnumnotificaciones.BackgroundImage = null;
+                lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
+                lbltitle.Text = nombre + "Asistencía del Día";
+                this.Text = lbltitle.Text;
+                lbltitle.Location = new Point(1591, 13);
+                Deshabilitar(sender as ToolStripMenuItem);
+                var form1 = Application.OpenForms.OfType<Asistencia>().FirstOrDefault();
+                Asistencia hijo = form1 ?? new Asistencia();
+                AddFormInPanel(hijo);
+            }
+        }
     }
 }

@@ -51,6 +51,7 @@
             this.catálogoDeFallosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actualizaciónDeIVAToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.actualizaciónDeEncabezadosDeReportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cátalogoDeRolesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteSupervicionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteDeSupervisiónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteDePercancesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,6 +59,7 @@
             this.reporteDeIncidentesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteDeIndicenciaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rolesDeServiciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.asistencíaDelDíaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteMantenimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteAlmacenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.requisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -244,7 +246,8 @@
             this.catálogoDeRefaccionesToolStripMenuItem,
             this.catálogoDeFallosToolStripMenuItem,
             this.actualizaciónDeIVAToolStripMenuItem,
-            this.actualizaciónDeEncabezadosDeReportesToolStripMenuItem});
+            this.actualizaciónDeEncabezadosDeReportesToolStripMenuItem,
+            this.cátalogoDeRolesToolStripMenuItem});
             this.catálogosToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.catálogosToolStripMenuItem.Image = global::controlFallos.Properties.Resources.catalog__1_;
             this.catálogosToolStripMenuItem.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -360,13 +363,25 @@
             this.actualizaciónDeEncabezadosDeReportesToolStripMenuItem.Visible = false;
             this.actualizaciónDeEncabezadosDeReportesToolStripMenuItem.Click += new System.EventHandler(this.actualizaciónDeEncabezadosDeReportesToolStripMenuItem_Click);
             // 
+            // cátalogoDeRolesToolStripMenuItem
+            // 
+            this.cátalogoDeRolesToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.cátalogoDeRolesToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.cátalogoDeRolesToolStripMenuItem.Image = global::controlFallos.Properties.Resources.delivery_truck;
+            this.cátalogoDeRolesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.cátalogoDeRolesToolStripMenuItem.Name = "cátalogoDeRolesToolStripMenuItem";
+            this.cátalogoDeRolesToolStripMenuItem.Size = new System.Drawing.Size(349, 38);
+            this.cátalogoDeRolesToolStripMenuItem.Text = "Catálogo de Roles";
+            this.cátalogoDeRolesToolStripMenuItem.Click += new System.EventHandler(this.cátalogoDeRolesToolStripMenuItem_Click);
+            // 
             // reporteSupervicionToolStripMenuItem
             // 
             this.reporteSupervicionToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.reporteDeSupervisiónToolStripMenuItem,
             this.reporteDePercancesToolStripMenuItem,
             this.reporteDePersonalToolStripMenuItem,
-            this.rolesDeServiciosToolStripMenuItem});
+            this.rolesDeServiciosToolStripMenuItem,
+            this.asistencíaDelDíaToolStripMenuItem});
             this.reporteSupervicionToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.reporteSupervicionToolStripMenuItem.Image = global::controlFallos.Properties.Resources.manager;
             this.reporteSupervicionToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -453,6 +468,17 @@
             this.rolesDeServiciosToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 1, 0, 10);
             this.rolesDeServiciosToolStripMenuItem.Size = new System.Drawing.Size(289, 47);
             this.rolesDeServiciosToolStripMenuItem.Text = "Roles de Servicios";
+            // 
+            // asistencíaDelDíaToolStripMenuItem
+            // 
+            this.asistencíaDelDíaToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.asistencíaDelDíaToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.asistencíaDelDíaToolStripMenuItem.Image = global::controlFallos.Properties.Resources.calendar__1_;
+            this.asistencíaDelDíaToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.asistencíaDelDíaToolStripMenuItem.Name = "asistencíaDelDíaToolStripMenuItem";
+            this.asistencíaDelDíaToolStripMenuItem.Size = new System.Drawing.Size(289, 38);
+            this.asistencíaDelDíaToolStripMenuItem.Text = "Asistencía del Día";
+            this.asistencíaDelDíaToolStripMenuItem.Click += new System.EventHandler(this.asistencíaDelDíaToolStripMenuItem_Click);
             // 
             // reporteMantenimientoToolStripMenuItem
             // 
@@ -617,5 +643,7 @@
         private System.Windows.Forms.ToolStripMenuItem reporteDeIndicenciaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem actualizaciónDeEncabezadosDeReportesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem rolesDeServiciosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cátalogoDeRolesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem asistencíaDelDíaToolStripMenuItem;
     }
 }

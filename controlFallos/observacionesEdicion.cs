@@ -54,5 +54,11 @@ namespace controlFallos
         {
             v.mover(sender, e, this);
         }
+
+        private void observacionesEdicion_Load(object sender, EventArgs e)
+        {
+            lbltitle.Left = (this.Width - lbltitle.Width) / 2;
+            lblinfo.Left = (this.Width - lblinfo.Width) / 2;
+        }
     }
 }

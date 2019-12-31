@@ -114,6 +114,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Asistencia.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Asistencia.Designer.cs">
+      <DependentUpon>Asistencia.cs</DependentUpon>
+    </Compile>
     <Compile Include="bloqueoLogin.cs" />
     <Compile Include="catAnaqueles.cs">
       <SubType>Form</SubType>
@@ -222,6 +228,12 @@
     </Compile>
     <Compile Include="catRefacciones.designer.cs">
       <DependentUpon>catRefacciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatRoles.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatRoles.Designer.cs">
+      <DependentUpon>CatRoles.cs</DependentUpon>
     </Compile>
     <Compile Include="catServicios.cs">
       <SubType>Form</SubType>
@@ -497,6 +509,9 @@
     <Compile Include="writeFingerprint.Designer.cs">
       <DependentUpon>writeFingerprint.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Asistencia.resx">
+      <DependentUpon>Asistencia.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="catAnaqueles.resx">
       <DependentUpon>catAnaqueles.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -554,6 +569,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="catRefacciones.resx">
       <DependentUpon>catRefacciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatRoles.resx">
+      <DependentUpon>CatRoles.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="catServicios.resx">
       <DependentUpon>catServicios.cs</DependentUpon>
@@ -740,6 +758,7 @@
     <Content Include="Resources\ajustes1.png" />
     <None Include="Resources\antique-building.png" />
     <None Include="Resources\archive.png" />
+    <None Include="Resources\asistance.png" />
     <Content Include="Resources\back.png" />
     <Content Include="Resources\bell %281%29.png" />
     <Content Include="Resources\boton-guardar-archivo.png" />
@@ -756,6 +775,8 @@
     <None Include="Resources\businessman__4_.png" />
     <None Include="Resources\calendar.png" />
     <None Include="Resources\bx_loader.gif" />
+    <None Include="Resources\calendar1.png" />
+    <None Include="Resources\calendar %281%29.png" />
     <Content Include="Resources\cancel.png" />
     <None Include="Resources\canvas.png" />
     <Content Include="Resources\car %281%29.png" />
@@ -905,6 +926,7 @@
     <Content Include="Resources\report.png" />
     <None Include="Resources\robber_silhouette_trying_to_steal_car_part__1_.png" />
     <Content Include="Resources\save.png" />
+    <None Include="Resources\schedule.png" />
     <Content Include="Resources\search.png" />
     <Content Include="Resources\settings.png" />
     <None Include="Resources\settings1.png" />

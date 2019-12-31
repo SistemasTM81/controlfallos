@@ -2250,6 +2250,16 @@ namespace controlFallos
                         CenterToParent();
                         y1 = null;
                         break;
+                    case "Inserción de Encabezado de Reporte":
+                        if (this.Size == new Size(1296, 905) || this.Size == new Size(1296, 750))
+                        {
+                            this.Size = new Size(1296, 750);
+                            gbadd.Size = new Size(1231, 450);
+                            CenterToParent();
+                        }
+                        else this.Size = new Size(1296, 450);
+                        crearCatalogoPuesto(v.getaData("SET lc_time_names = 'es_ES';select upper(concat('Nombre de reporte: ',t2.nombrereporte,';Código de reporte: ',t2.codigoreporte,'; vigencia: ',date_format(t2.vigencia,'%M del %Y'),';Revisión: ',revision,';Usuario: ',(select concat(coalesce(x1.apPaterno,''),' ',coalesce(x1.apMaterno,''),' ',x1.nombres) from cpersonal as x1 where x1.idpersona=t1.usuariofkcpersonal),';fecha/hora: ',date_format(fechaHora,'%W %d de %M del %Y'),'/',date_format(fechahora,'%H:%i'))) as r from modificaciones_sistema as t1 inner join encabezadoreportes as t2 on t2.idencabezadoreportes=t1.idregistro where idmodificacion='" + id + "';").ToString().Split(';'));
+                        break;
                     case "Actualización de Encabezado de Reportes":
                         if (this.Size == new Size(1296, 905) || this.Size == new Size(1296, 750))
                         {
@@ -2388,7 +2398,7 @@ namespace controlFallos
                         percances[3] = UPPER("Servicio: " + v.getaData("SELECT CONCAT(z4.nombre, ' ', z4.Descripcion) FROM cservicios AS z4 WHERE z4.idservicio = '" + percances[3] + "'")).ToString();
                         percances[4] = UPPER("Lugar del Accidente: " + percances[4]);
                         if (!string.IsNullOrWhiteSpace(percances[5]))
-                            percances[5] =(Convert.ToInt32(percances[5])==1?"NORTE":"SUR");
+                            percances[5] = (Convert.ToInt32(percances[5]) == 1 ? "NORTE" : "SUR");
                         percances[5] = UPPER("Dirección: " + percances[5]);
                         percances[6] = UPPER("De estación: " + v.getaData("SELECT z5.estacion FROM cestaciones AS z5 WHERE z5.idestacion = '" + percances[6] + "'")).ToString();
                         percances[7] = UPPER("A estación: " + v.getaData("SELECT z6.estacion FROM cestaciones AS z6 WHERE z6.idestacion = '" + percances[7] + "'")).ToString();
@@ -2421,6 +2431,31 @@ namespace controlFallos
                         CrearAntesDespuesLabels();
                         mitad1mitad2(percances);
                         CenterToParent();
+                        y1 = null;
+                        break;
+                    case "Inserción de Rol":
+                        crearCatalogoPuesto(v.getaData("SET lc_time_names = 'es_ES';select upper(concat('Empresa: ',(select concat(nombreEmpresa,';Área: ',x2.nombreArea,';servicio: ',x3.Nombre,' - ',x3.Descripcion) from cempresas as x1 inner join careas as x2 on x1.idempresa=x2.empresafkcempresas inner join cservicios as x3 on x2.idarea=x3.AreafkCareas where x3.idservicio=t2.serviciofkcservicios),';cantidad de ciclos: ',t2.nciclos,';cantidad de unidades: ',t2.necos,';hora de incorporo: ',date_format(horaincorporo,'%H:%i'),';diferencia entre ciclos: ',diffciclos,' minutos.;usuario: ',(select concat(coalesce(x4.apPaterno,''),' ',coalesce(x4.apmaterno,''),' ',x4.nombres) from cpersonal as x4 where x4.idpersona=t1.usuariofkcpersonal),';Fecha / Hora: ',date_format(fechahora,'%W %d de %M del %Y'),' / ',date_format(fechahora,'%H:%i'))) as r from modificaciones_sistema as t1 inner join croles as t2 on t2.idrol=t1.idregistro where t1.idmodificacion='" + id + "';").ToString().Split(';'));
+                        break;
+                    case "Actualización de Rol":
+                        crearCatalogoPuesto(v.getaData("select upper(concat('Motivo: ',motivoactualizacion,';tipo: ',tipo)) as r from modificaciones_sistema where idmodificacion='" + id + "';").ToString().Split(';'));
+                        string[] drol = v.getaData("SET lc_time_names = 'es_ES'; SELECT UPPER(CONCAT(t1.ultimamodificacion,';usuario que modifico: ',(select concat(x3.nombres,' ',x3.ApPaterno,' ',x3.apMaterno,';Fecha/hora: ',date_format(x4.fechaHora,'%W, %d de %M del %Y'),'/',time(x4.fechahora)) from cpersonal as x3 inner join modificaciones_sistema as x4 on x4.usuariofkcpersonal=x3.idpersona WHERE (x4.Tipo='Actualización de Rol' or x4.Tipo='Inserción de Rol') and x4.idregistro=t2.idrol and (x4.idmodificacion between '1' and '" + id + "')  order by x4.idmodificacion desc limit 1,1),';servicio: ',(select concat(x5.nombre,' - ',x5.descripcion) from cservicios as x5 where x5.idservicio=t2.serviciofkcservicios),';cantidad de ciclos: ',t2.nciclos,';cantidad de unidades: ',t2.necos,';hora de incorporo: ',date_format(horaincorporo,'%H:%i'),';diferencia entre cilos: ',t2.diffciclos,' minutos;Usuario que modificó: ',(select concat(x2.nombres,' ',x2.apPaterno,' ',x2.apMaterno) from cpersonal as x2 where t1.usuariofkcpersonal=x2.idPersona),';fecha/hora: ',date_format(t1.fechaHora,'%W, %d de %M del %Y'),'/',time(t1.fechahora))) as r FROM modificaciones_sistema AS t1 INNER JOIN croles as t2 on t2.idrol=t1.idregistro WHERE t1.idmodificacion = '" + id + "'").ToString().Split(';');
+                        drol[0] = ("Servicio: " + v.getaData("select upper(concat(nombre,' - ',descripcion)) from cservicios where idservicio='" + drol[0] + "';")).ToUpper();
+                        drol[1] = ("Cantidad de ciclos: " + drol[1]).ToUpper();
+                        drol[2] = ("cantidad de unidades: " + drol[2]).ToUpper();
+                        drol[3] = ("hora de incorporo: " + drol[3]).ToUpper();
+                        drol[4] = ("diferencia entre ciclos: " + drol[4] + " minutos").ToUpper();
+                        y1 = 120;
+                        CrearAntesDespuesLabels();
+                        mitad1mitad2(drol);
+                        y1 = null;
+                        break;
+                    case "Desactivación de Rol":
+                    case "Reactivación de Rol":
+                        crearCatalogoPuesto(v.getaData("select upper(concat('Tipo: ',t1.tipo,';motivo: ',t1.motivoactualizacion,';rol: ',(select concat(x1.nombreempresa,'>> ',x2.nombrearea,'>> ',x3.nombre,' - ',x3.descripcion) from cempresas as x1 inner join careas as x2 on x1.idempresa=x2.empresafkcempresas inner join cservicios as x3 on x2.idarea=x3.areafkcareas where x3.idservicio=t2.serviciofkcservicios))) from modificaciones_sistema as t1 inner join croles as t2 on t2.idrol=t1.idregistro where t1.idmodificacion='" + id + "';").ToString().Split(';'));
+                        string[] derol = v.getaData("SET lc_time_names='es_ES';SELECT UPPER(CONCAT((select concat(if(x4.tipo='Inserción de Rol','Usuario que activo: ',if(x4.tipo='Reactivación de Rol','Usuario que reactivo: ','usuario que desactivo: ')),x3.nombres,' ',x3.ApPaterno,' ',x3.apMaterno,';fecha/hora: ',date_format(x4.fechaHora,'%W, %d de %M del %Y'),'/',time(x4.fechahora),';Tipo: ',if(x4.tipo='Inserción de Rol','Activación de Rol',x4.tipo)) from cpersonal as x3 inner join modificaciones_sistema as x4 on x4.usuariofkcpersonal=x3.idpersona WHERE ((x4.Tipo='Desactivación de Rol') or (x4.Tipo='Reactivación de Rol') or (x4.Tipo='Inserción de Rol')) and (x4.idregistro=t2.idrol) and (x4.idmodificacion between '1' and '" + id + "')  order by x4.idmodificacion desc limit 1,1),if(t1.tipo='Reactivación de Rol',';Usuario que reactivo: ',';usuario que desactivo: '),(select concat(x2.nombres,' ',x2.apPaterno,' ',x2.apMaterno) from cpersonal as x2 where x2.idpersona=t1.usuariofkcpersonal),';fecha/hora: ',date_format(t1.fechaHora,'%W, %d de %M del %Y'),'/',time(t1.fechahora),';tipo: ',t1.tipo)) as r FROM modificaciones_sistema as t1 INNER join croles as t2 on t2.idrol=t1.idregistro WHERE idmodificacion = '" + id + "';").ToString().Split(';');
+                        y1 = 170;
+                        CrearAntesDespuesLabels();
+                        mitad1mitad2(derol);
                         y1 = null;
                         break;
                     default:

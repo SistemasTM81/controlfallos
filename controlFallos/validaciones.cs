@@ -4227,5 +4227,120 @@ namespace controlFallos
                 return false;
             }
         }
+        public bool existeRol(int idservicio, int idRol)
+        {
+            if (Convert.ToInt32(getaData("select count(*) from croles where serviciofkcservicios='" + idservicio + "' and idrol!='" + idRol + "';")) > 0)
+            {
+                MessageBox.Show("El servicio seleccionado ya pertenece a un rol registrado en el sistema", MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return true;
+            }
+            else
+                return false;
+        }
+        public bool camposRol(int idempresa, int idarea, int idservicio, string nciclos, string necos, DateTime horai/**, string[] difecos**/, int lciclos)
+        {
+            if (idempresa > 0)
+                if (idarea > 0)
+                    if (idservicio > 0)
+                        if (!string.IsNullOrWhiteSpace(nciclos))
+                            if (Convert.ToInt32(nciclos) > 0)
+                                if (!string.IsNullOrWhiteSpace(necos))
+                                    if (Convert.ToUInt32(necos) > 0)
+                                        if (horai.Hour >= 4 && horai.Hour <= 7)
+                                            if (lciclos > 0)
+                                                return true;
+                                            else
+                                            {
+                                                MessageBox.Show("el lapso entre ciclos debe ser mayor a 0".ToUpper(), "DATO INCORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                return false;
+                                            }
+                                        else
+                                        {
+                                            MessageBox.Show("La hora seleccionada no es valida".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            return false;
+                                        }
+                                    else
+                                    {
+                                        MessageBox.Show("La canitdad de economicos debe ser mayor a 0".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return false;
+                                    }
+                                else
+                                {
+                                    MessageBox.Show("El campo \"cantidad de economicos\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return false;
+                                }
+                            else
+                            {
+                                MessageBox.Show("La cantidad de ciclos debe ser mayor a 0".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return false;
+                            }
+                        else
+                        {
+                            MessageBox.Show("El campo \"cantidad de ciclos\" se encuentra vacio".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+                    else
+                    {
+                        MessageBox.Show("Seleccione un servicio de la lista desplegable".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                else
+                {
+                    MessageBox.Show("Seleccione un área de la lista desplegable".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            else
+            {
+                MessageBox.Show("Seleccione una empresa de la lista desplegable".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+        }
+        public bool datosencabezados(string nombre, string codigo, DateTime vigencia, string revision, string contraseña)
+        {
+            if (!string.IsNullOrWhiteSpace(nombre))
+                if (!string.IsNullOrWhiteSpace(codigo))
+                    if (vigencia > DateTime.Today)
+                        if (!string.IsNullOrWhiteSpace(revision))
+                            if (Convert.ToInt32(revision) > 0)
+                                if (!string.IsNullOrWhiteSpace(contraseña))
+                                    if (Convert.ToInt32(getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + Encriptar(contraseña) + "' and t1.status='1'")) > 0)
+                                        return true;
+                                    else
+                                    {
+                                        MessageBox.Show("La contraseña es incorrecta", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        return false;
+                                    }
+                                else
+                                {
+                                    MessageBox.Show("El campo \"contraseña de usuario\" se encuentra vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return false;
+                                }
+                            else
+                            {
+                                MessageBox.Show("El número de revisión debe ser mayor a 0", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return false;
+                            }
+                        else
+                        {
+                            MessageBox.Show("El campo \"revisión\" se encuentra vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+                    else
+                    {
+                        MessageBox.Show("La fecha seleccionada es incorrecta", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                else
+                {
+                    MessageBox.Show("El campo \"código\" se encuentra vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            else
+            {
+                MessageBox.Show("El campo \"nombre\" se encuentra vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
     }
 }

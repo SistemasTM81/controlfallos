@@ -21,7 +21,7 @@ namespace controlFallos
         int idUsuario, empresa, area, idtipo, status;
         string tipoAnterior, descrAnterior;
         bool editar = false, mensaje = false;
-        public CatTipos(int idUsuario, int empresa, int area,validaciones v)
+        public CatTipos(int idUsuario, int empresa, int area, validaciones v)
         {
             this.v = v;
             this.idUsuario = idUsuario;
@@ -57,7 +57,6 @@ namespace controlFallos
             string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, this.Name)).ToString().Split('/');
             if (privilegiosTemp.Length > 0)
             {
-
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
