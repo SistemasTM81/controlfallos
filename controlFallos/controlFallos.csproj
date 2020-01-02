@@ -321,12 +321,6 @@
     <Compile Include="leerHost.Designer.cs">
       <DependentUpon>leerHost.cs</DependentUpon>
     </Compile>
-    <Compile Include="Mantenimiento.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Mantenimiento.Designer.cs">
-      <DependentUpon>Mantenimiento.cs</DependentUpon>
-    </Compile>
     <Compile Include="marcas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -635,9 +629,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="leerHost.resx">
       <DependentUpon>leerHost.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Mantenimiento.resx">
-      <DependentUpon>Mantenimiento.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="marcas.resx">
       <DependentUpon>marcas.cs</DependentUpon>
@@ -971,11 +962,8 @@
     <Content Include="Resources\report.png" />
     <None Include="Resources\robber_silhouette_trying_to_steal_car_part__1_.png" />
     <Content Include="Resources\save.png" />
-<<<<<<< HEAD
     <None Include="Resources\schedule.png" />
-=======
     <None Include="Resources\save1.png" />
->>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
     <Content Include="Resources\search.png" />
     <Content Include="Resources\settings.png" />
     <None Include="Resources\settings1.png" />

@@ -404,19 +404,13 @@ namespace controlFallos
                         mostrarNotificacion = new Thread(new ThreadStart(MostrarNotificacion));
                         mostrarNotificacion.Start();
                     }
-<<<<<<< HEAD
-                }
-                catch (Exception ex) { MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error); }
-=======
-                
->>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
                 Thread.Sleep(5000);
             }
         }
         Thread mostrarNotificacion;
         void MostrarNotificacion()
         {
-<<<<<<< HEAD
+//<<<<<<< HEAD
             /** MySqlConnection dbcon = null;
              if (v.c.conexionOriginal())
                  dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
@@ -697,14 +691,7 @@ namespace controlFallos
         public void cambiarstatus(object i)
         {
             v.c.insertar("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'");
-<<<<<<< HEAD
-            try
-            {
-                MySqlConnection localConnection = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " database = sistrefaccmant ;port=" + v.c.portLocal);
-=======
-
                 MySqlConnection localConnection = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + "; database = sistrefaccmant ;port=" + v.c.portLocal);
->>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
                 localConnection.Open();
                 if (localConnection.State != ConnectionState.Open) localConnection.Open();
                 MySqlCommand cmd = new MySqlCommand("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'", localConnection);

@@ -689,7 +689,7 @@
             // btnExcel
             // 
             this.btnExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.sobresalir;
+            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
             this.btnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnExcel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnExcel.FlatAppearance.BorderSize = 0;

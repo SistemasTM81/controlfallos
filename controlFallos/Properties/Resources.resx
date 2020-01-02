@@ -118,7 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-<<<<<<< HEAD
   <data name="uncheck" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\uncheck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -172,11 +171,10 @@
   </data>
   <data name="newspaper" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\newspaper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="test" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\test.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
-  </data>
+ </data>
   <data name="Dbkel_CXkAE43aG" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Dbkel_CXkAE43aG.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -246,16 +244,14 @@
   <data name="customer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\customer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
   <data name="incorrect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\incorrect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="file1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\file1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
-  <data name="up" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  </data>
+    <data name="up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
   </data>
   <data name="Preloader" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Preloader.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -374,16 +370,14 @@
   <data name="undo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\undo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
   <data name="driver (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\driver (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="FRENTE" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FRENTE.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
-  <data name="virus" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  </data>
+<data name="virus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\virus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
   </data>
   <data name="asistance" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\asistance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -493,17 +487,14 @@
   <data name="mexibus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\mexibus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
   <data name="schedule" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\schedule.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="delete (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delete (1)1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+</data>
   <data name="pdf" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\pdf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
-  </data>
+    <value>..\Resources\pdf.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value></data>
   <data name="_goto" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\_goto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -546,12 +537,11 @@
   <data name="Imagen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Imagen2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
+
   <data name="calendar (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendar (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
-  <data name="file2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+</data>
+<data name="file2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\file3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
   </data>
 </root>
