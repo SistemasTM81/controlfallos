@@ -114,15 +114,6 @@ namespace controlFallos
             gbadd.Controls.Add(list);
 
         }
-
-        private void MostrarDatosEspecificosListBox(object sender, EventArgs e)
-        {
-            var res = ((ListBox)sender).SelectedItem;
-            mostrarFolio m = new mostrarFolio(res.ToString(), empresa, area, v);
-            m.Owner = this;
-            m.ShowDialog();
-
-        }
         private void tbmodif_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             var row = e.RowIndex;
@@ -390,8 +381,6 @@ namespace controlFallos
                     l.Left = (gbadd.Width - l.Size.Width) / 2;
                 }
             }
-
-
             x = 600;
             y = y1 ?? 40;
             for (int i = (arreglo.Length / 2); i < arreglo.Length; i++)

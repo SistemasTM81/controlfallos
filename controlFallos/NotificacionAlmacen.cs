@@ -96,7 +96,7 @@ namespace controlFallos
             }
             else
             {
-                MySqlConnection dbcon = new MySqlConnection("Server = 192.168.1.108; user=UPT; password = UPT2018; database =sistrefaccmant;port=3306");
+                MySqlConnection dbcon = new MySqlConnection("Server = 192.168.1.108; user=controlFallos; password = controlFallos; database =sistrefaccmant;port=3306");
                 dbcon.Open();
                 MySqlCommand cm = new MySqlCommand("SELECT COUNT(*) FROM reportemantenimiento as t1 INNER JOIN reportesupervicion as t2 ON t1.FoliofkSupervicion= t2.idReporteSupervicion INNER JOIN cunidades as t3 ON t2.UnidadfkCUnidades = t3.idunidad INNER JOIN cpersonal AS t4 ON t1.MecanicofkPersonal = t4.idPersona INNER JOIN careas as t5 ON t3.areafkcareas=t5.idarea  WHERE StatusRefacciones = 'Se Requieren Refacciones' and t1.seenAlmacen=0 AND t2.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();", dbcon);
                 var res = cm.ExecuteScalar();

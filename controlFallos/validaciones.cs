@@ -4256,12 +4256,12 @@ namespace controlFallos
                                             }
                                         else
                                         {
-                                            MessageBox.Show("La hora seleccionada no es valida".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                            MessageBox.Show("La hora de incorporo se debe encontrar entre las 04:00 y 07:00".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                             return false;
                                         }
                                     else
                                     {
-                                        MessageBox.Show("La canitdad de economicos debe ser mayor a 0".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                        MessageBox.Show("La cantidad de economicos debe ser mayor a 0".ToUpper(), "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                         return false;
                                     }
                                 else

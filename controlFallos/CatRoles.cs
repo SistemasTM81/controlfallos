@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Threading;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,9 @@ namespace controlFallos
         validaciones v;
         int idUsuario, idRol, empresaAnterior, areaArenterior, servicioAnterior, ciclosAnterior, ecosAnterior, lapsoAnterior, statusAnterior;
         DateTime horaAnterior;
+        delegate void empre();
+        Thread hempresas;
+
         bool editar = false, nuevo;
 
 
@@ -31,13 +35,20 @@ namespace controlFallos
             cmbarea.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cmbservicio.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
         }
-        public void mostrarEmpresas()
+        void mostrarEmpresas()
         {
+            if (this.InvokeRequired)
+            {
+                empre e = new empre(mostrarEmpresas);
+                this.Invoke(e);
+            }
             v.iniCombos("select idempresa as id, upper(nombreEmpresa)as nombre from cempresas where status='1' order by nombreEmpresa;", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
+            hempresas.Abort();
         }
         private void CatRoles_Load(object sender, EventArgs e)
         {
-            mostrarEmpresas();
+            hempresas = new Thread(new ThreadStart(mostrarEmpresas));
+            hempresas.Start();
             cargarroles();
         }
         void cargarroles()
@@ -125,7 +136,7 @@ namespace controlFallos
                 if (v.c.insertar("update croles set status='" + (statusAnterior == 1 ? 0 : 1) + "' where idrol='" + idRol + "'"))
                     if (v.c.insertar("insert into modificaciones_sistema(form,idregistro,usuariofkcpersonal,fechaHora,Tipo,motivoActualizacion,empresa,area) values('Catálogo de Roles','" + idRol + "','" + idUsuario + "',now(),'" + (statusAnterior == 1 ? "Desactivación" : "Reactivación") + " de Rol','" + v.mayusculas(motivo) + "','1','1')"))
                     {
-                        MessageBox.Show("El servicio se ha " + (statusAnterior == 1 ? "desactivo" : "reactivo") + " correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("El servicio se ha " + (statusAnterior == 1 ? "desactivado" : "reactivado") + " correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         limpiar();
                         cargarroles();
                     }
@@ -156,7 +167,7 @@ namespace controlFallos
             {
                 if (empresaAnterior == 0 || areaArenterior == 0 || servicioAnterior == 0 || ciclosAnterior == 0 || ecosAnterior == 0 || horaAnterior.Hour == 0 || lapsoAnterior == 0)
                     nuevo = true;
-                if (cmbempresa.SelectedIndex > 0 && cmbarea.SelectedIndex > 0 && cmbservicio.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtciclos.Text) && !string.IsNullOrWhiteSpace(txtecos.Text))
+                if (cmbempresa.SelectedIndex > 0 && cmbarea.SelectedIndex > 0 && cmbservicio.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtciclos.Text) && !string.IsNullOrWhiteSpace(txtecos.Text) && statusAnterior > 0)
                     res = true;
                 return res;
             }
@@ -206,6 +217,8 @@ namespace controlFallos
             lblstatus.Text = ((statusAnterior = Convert.ToInt32(datosrol[5])) == 1 ? "Desactivar" : "Reactivar");
             btnstatus.BackgroundImage = (statusAnterior == 1 ? controlFallos.Properties.Resources.delete__4_ : controlFallos.Properties.Resources.up);
             btnguardar.BackgroundImage = controlFallos.Properties.Resources.pencil;
+            if (statusAnterior == 0)
+                MessageBox.Show("Para editar el registro es necesario reactivar primero el rol", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }

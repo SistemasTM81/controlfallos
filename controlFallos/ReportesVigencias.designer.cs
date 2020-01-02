@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.gbxEdicion = new System.Windows.Forms.GroupBox();
+            this.lblusuario = new System.Windows.Forms.Label();
+            this.plimpiar = new System.Windows.Forms.Panel();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.pguardar = new System.Windows.Forms.Panel();
             this.btnEditar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -47,8 +51,6 @@
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.labelidMecanicoApo = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btnLimpiar = new System.Windows.Forms.Button();
             this.rbincidencia = new System.Windows.Forms.RadioButton();
             this.rbreportep = new System.Windows.Forms.RadioButton();
             this.rbpercances = new System.Windows.Forms.RadioButton();
@@ -56,13 +58,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.lbltitle = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.plimpiar = new System.Windows.Forms.Panel();
-            this.lblusuario = new System.Windows.Forms.Label();
             this.gbxEdicion.SuspendLayout();
+            this.plimpiar.SuspendLayout();
             this.pguardar.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.plimpiar.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbxEdicion
@@ -95,6 +95,56 @@
             this.gbxEdicion.TabIndex = 0;
             this.gbxEdicion.TabStop = false;
             this.gbxEdicion.Paint += new System.Windows.Forms.PaintEventHandler(this.gbxall_Painting);
+            // 
+            // lblusuario
+            // 
+            this.lblusuario.AutoSize = true;
+            this.lblusuario.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblusuario.Location = new System.Drawing.Point(276, 178);
+            this.lblusuario.Name = "lblusuario";
+            this.lblusuario.Size = new System.Drawing.Size(0, 18);
+            this.lblusuario.TabIndex = 272;
+            this.lblusuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // plimpiar
+            // 
+            this.plimpiar.Controls.Add(this.btnLimpiar);
+            this.plimpiar.Controls.Add(this.label3);
+            this.plimpiar.Location = new System.Drawing.Point(675, 118);
+            this.plimpiar.Name = "plimpiar";
+            this.plimpiar.Size = new System.Drawing.Size(130, 80);
+            this.plimpiar.TabIndex = 271;
+            this.plimpiar.Visible = false;
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.BackColor = System.Drawing.Color.Transparent;
+            this.btnLimpiar.BackgroundImage = global::controlFallos.Properties.Resources.eraser1;
+            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLimpiar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnLimpiar.FlatAppearance.BorderSize = 0;
+            this.btnLimpiar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnLimpiar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiar.Location = new System.Drawing.Point(46, 4);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(45, 45);
+            this.btnLimpiar.TabIndex = 18;
+            this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label3.Location = new System.Drawing.Point(3, 55);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(124, 18);
+            this.label3.TabIndex = 232;
+            this.label3.Text = "Limpiar Campos";
             // 
             // pguardar
             // 
@@ -256,6 +306,7 @@
             this.txtCodigoReporte.TabIndex = 267;
             this.txtCodigoReporte.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtCodigoReporte.TextChanged += new System.EventHandler(this.txtnombre_TextChanged);
+            this.txtCodigoReporte.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodigoReporte_KeyPress);
             // 
             // label5
             // 
@@ -293,6 +344,7 @@
             this.txtnombre.TabIndex = 264;
             this.txtnombre.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.txtnombre.TextChanged += new System.EventHandler(this.txtnombre_TextChanged);
+            this.txtnombre.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtCodigoReporte_KeyPress);
             // 
             // label11
             // 
@@ -324,36 +376,6 @@
             this.labelidMecanicoApo.Name = "labelidMecanicoApo";
             this.labelidMecanicoApo.Size = new System.Drawing.Size(0, 24);
             this.labelidMecanicoApo.TabIndex = 230;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label3.Location = new System.Drawing.Point(3, 55);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(124, 18);
-            this.label3.TabIndex = 232;
-            this.label3.Text = "Limpiar Campos";
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.BackColor = System.Drawing.Color.Transparent;
-            this.btnLimpiar.BackgroundImage = global::controlFallos.Properties.Resources.eraser1;
-            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLimpiar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnLimpiar.FlatAppearance.BorderSize = 0;
-            this.btnLimpiar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnLimpiar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiar.Location = new System.Drawing.Point(46, 4);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(45, 45);
-            this.btnLimpiar.TabIndex = 18;
-            this.btnLimpiar.UseVisualStyleBackColor = false;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
             // 
             // rbincidencia
             // 
@@ -454,26 +476,6 @@
             this.groupBox5.TabStop = false;
             this.groupBox5.Paint += new System.Windows.Forms.PaintEventHandler(this.gbxall_Painting);
             // 
-            // plimpiar
-            // 
-            this.plimpiar.Controls.Add(this.btnLimpiar);
-            this.plimpiar.Controls.Add(this.label3);
-            this.plimpiar.Location = new System.Drawing.Point(675, 118);
-            this.plimpiar.Name = "plimpiar";
-            this.plimpiar.Size = new System.Drawing.Size(130, 80);
-            this.plimpiar.TabIndex = 271;
-            this.plimpiar.Visible = false;
-            // 
-            // lblusuario
-            // 
-            this.lblusuario.AutoSize = true;
-            this.lblusuario.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblusuario.Location = new System.Drawing.Point(276, 178);
-            this.lblusuario.Name = "lblusuario";
-            this.lblusuario.Size = new System.Drawing.Size(0, 18);
-            this.lblusuario.TabIndex = 272;
-            this.lblusuario.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // ReportesVigencias
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -489,14 +491,14 @@
             this.Load += new System.EventHandler(this.ReportesVigencias_Load);
             this.gbxEdicion.ResumeLayout(false);
             this.gbxEdicion.PerformLayout();
+            this.plimpiar.ResumeLayout(false);
+            this.plimpiar.PerformLayout();
             this.pguardar.ResumeLayout(false);
             this.pguardar.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            this.plimpiar.ResumeLayout(false);
-            this.plimpiar.PerformLayout();
             this.ResumeLayout(false);
 
         }

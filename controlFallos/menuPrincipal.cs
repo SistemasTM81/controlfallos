@@ -10,7 +10,7 @@ namespace controlFallos
 {
     public partial class menuPrincipal : Form
     {
-   
+
         string idFolio = "";
         string consultaReportes = "";
         int tipoArea;
@@ -33,7 +33,7 @@ namespace controlFallos
         Thread hiloMuestraNotificacion;
         int totalAnteriorPedidos;
         new login Owner;
-        public menuPrincipal(int idUsuario, int empresa, int area, Form fh,validaciones v)
+        public menuPrincipal(int idUsuario, int empresa, int area, Form fh, validaciones v)
         {
             InitializeComponent();
             this.idUsuario = idUsuario;
@@ -109,7 +109,7 @@ namespace controlFallos
                 DialogResult res;
                 if ((empresa == 1 && area == 1) || (empresa == 2 && area == 1))
                 {
-                    NotificacionSupervision n = new NotificacionSupervision(empresa, area,v);
+                    NotificacionSupervision n = new NotificacionSupervision(empresa, area, v);
                     n.Owner = this;
                     res = n.ShowDialog();
                 }
@@ -190,7 +190,7 @@ namespace controlFallos
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<catfallosGrales>().FirstOrDefault();
-                catfallosGrales hijo = form ?? new catfallosGrales(idUsuario, empresa, area, this,newimg, v);
+                catfallosGrales hijo = form ?? new catfallosGrales(idUsuario, empresa, area, this, newimg, v);
                 AddFormInPanel(hijo);
             }
         }
@@ -206,7 +206,7 @@ namespace controlFallos
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(catálogoDePersonalToolStripMenuItem);
                 var form = Application.OpenForms.OfType<catPersonal>().FirstOrDefault();
-                catPersonal hijo = form ?? new catPersonal(this.idUsuario, this.empresa, this.area, newimg, this,v);
+                catPersonal hijo = form ?? new catPersonal(this.idUsuario, this.empresa, this.area, newimg, this, v);
                 AddFormInPanel(hijo);
             }
         }
@@ -226,7 +226,7 @@ namespace controlFallos
                     catUnidades hijo = form ?? new catUnidades(this.idUsuario, empresa, area, v);
                     AddFormInPanel(hijo);
                 }
-                else if (empresa == 2 || empresa ==3)
+                else if (empresa == 2 || empresa == 3)
                 {
                     var form = Application.OpenForms.OfType<catUnidaesTRI>().FirstOrDefault();
                     catUnidaesTRI hijo = form ?? new catUnidaesTRI(this.idUsuario, newimg, empresa, area, v);
@@ -250,7 +250,7 @@ namespace controlFallos
                     lbltitle.Location = new Point(1591, 13);
                     Deshabilitar(reporteDeSupervisiónToolStripMenuItem);
                     var form1 = Application.OpenForms.OfType<Supervisión>().FirstOrDefault();
-                    Supervisión hijo = form1 ?? new Supervisión(this.idUsuario, empresa, area,v);
+                    Supervisión hijo = form1 ?? new Supervisión(this.idUsuario, empresa, area, v);
                     AddFormInPanel(hijo);
                 }
             }
@@ -278,7 +278,7 @@ namespace controlFallos
                     lbltitle.Location = new Point(1575, 13);
                     Deshabilitar(reporteAlmacenToolStripMenuItem1);
                     var form2 = Application.OpenForms.OfType<TRI>().FirstOrDefault();
-                    TRI hijo = form2 ?? new TRI(this.idUsuario, empresa, area,v);
+                    TRI hijo = form2 ?? new TRI(this.idUsuario, empresa, area, v);
                     AddFormInPanel(hijo);
                 }
             }
@@ -305,23 +305,23 @@ namespace controlFallos
                     lbltitle.Location = new Point(1575, 13);
                     Deshabilitar(reporteMantenimientoToolStripMenuItem);
                     var form3 = Application.OpenForms.OfType<FormFallasMantenimiento>().FirstOrDefault();
-                    FormFallasMantenimiento hijo = form3 ?? new FormFallasMantenimiento(idUsuario, empresa, area,newimg,v);
+                    FormFallasMantenimiento hijo = form3 ?? new FormFallasMantenimiento(idUsuario, empresa, area, newimg, v);
                     AddFormInPanel(hijo);
                 }
             }
             else
             {
                 FormFallasMantenimiento m = (FormFallasMantenimiento)form;
-                m.metodoCarga();
+                // m.metodoCarga();
             }
         }
         private void button2_Click(object sender, EventArgs e) { this.Close(); }
         private void menuPrincipal_Load(object sender, EventArgs e)
         {
-            lblnumnotificaciones.BackgroundImage = newimg = (empresa == 1?Properties.Resources.Dbkel_CXkAE43aG:(empresa == 2 ? Properties.Resources.Imagen2:(empresa==3?Properties.Resources.TSD:null)));
+            lblnumnotificaciones.BackgroundImage = newimg = (empresa == 1 ? Properties.Resources.Dbkel_CXkAE43aG : (empresa == 2 ? Properties.Resources.Imagen2 : (empresa == 3 ? Properties.Resources.TSD : null)));
             v.c.referencia(idUsuario);
             var consultaPrivilegios = v.getaData("SELECT GROUP_CONCAT(namForm SEPARATOR ';') FROM privilegios WHERE usuariofkcpersonal= '" + this.idUsuario + "' and ver > 0").ToString().Split(';');
-            foreach(string namForm in consultaPrivilegios)
+            foreach (string namForm in consultaPrivilegios)
                 PrivilegiosVisibles(namForm);
             obtenerconsulta();
             cambiarstatus(1);
@@ -329,7 +329,7 @@ namespace controlFallos
             hilo = new Thread(delegado);
             hilo.Start();
             timer1.Start();
-            if ((empresa == 2 || empresa== 3) && area == 1)
+            if ((empresa == 2 || empresa == 3) && area == 1)
             {
                 BuscarValidaciones = new Thread(new ThreadStart(buscaValidar));
                 BuscarValidaciones.Start();
@@ -354,7 +354,7 @@ namespace controlFallos
                             v.c.insertarGlobal();
                     }
                     else
-                        dbcon = new MySqlConnection("Server =  "+v.c.hostLocal+"; user="+ v.c.userLocal +"; password = "+ v.c.passwordLocal +" ;database = sistrefaccmant ;port="+ v.c.portLocal);
+                        dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
                     dbcon.Open();
                     string sql = "SELECT statusiniciosesion FROM datosistema WHERE usuariofkcpersonal='" + idUsuario + "'";
                     MySqlCommand cmd = new MySqlCommand(sql, dbcon);
@@ -388,10 +388,10 @@ namespace controlFallos
                     if (v.c.conexionOriginal())
                         dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
                     else
-                        dbcon = new MySqlConnection("Server =  "+v.c.hostLocal+"; user="+ v.c.userLocal +"; password = "+ v.c.passwordLocal +" ;database = sistrefaccmant ;port="+ v.c.portLocal);
+                        dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
                     dbcon.Open();
 
-                    string sql = "SELECT COUNT(t1.idestatusValidado) FROM estatusvalidado AS t1 INNER JOIN reportesupervicion as t4 ON t1.idreportefkreportesupervicion = t4.idReporteSupervicion INNER JOIN cunidades as t2 ON t4.UnidadfkCUnidades= t2.idunidad INNER JOIN cmodelos as t3 ON t2.modelofkcmodelos = t3.idmodelo WHERE t1.seen = 0 AND t3.empresaMantenimiento ='"+empresa+"'";
+                    string sql = "SELECT COUNT(t1.idestatusValidado) FROM estatusvalidado AS t1 INNER JOIN reportesupervicion as t4 ON t1.idreportefkreportesupervicion = t4.idReporteSupervicion INNER JOIN cunidades as t2 ON t4.UnidadfkCUnidades= t2.idunidad INNER JOIN cmodelos as t3 ON t2.modelofkcmodelos = t3.idmodelo WHERE t1.seen = 0 AND t3.empresaMantenimiento ='" + empresa + "'";
                     MySqlCommand cmd = new MySqlCommand(sql, dbcon);
                     int res2 = Convert.ToInt32(cmd.ExecuteScalar());
                     dbcon.Close();
@@ -403,52 +403,55 @@ namespace controlFallos
                         mostrarNotificacion.Start();
                     }
                 }
-                catch (Exception ex){MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
+                catch (Exception ex) { MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error); }
                 Thread.Sleep(5000);
             }
         }
         Thread mostrarNotificacion;
         void MostrarNotificacion()
         {
-            MySqlConnection dbcon = null;
-            if (v.c.conexionOriginal())
-                dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
-            else
-                dbcon = new MySqlConnection("Server =  "+v.c.hostLocal+"; user="+ v.c.userLocal +"; password = "+ v.c.passwordLocal +" ;database = sistrefaccmant ;port="+ v.c.portLocal);
-            dbcon.Open();
-            string cadena = "";
-            string sql = "SELECT t2.folio FROM estatusValidado as t1 INNER JOIN reportesupervicion as t2 On t1.idreportefkreportesupervicion = t2.idReporteSupervicion INNER JOIN cunidades as t3 ON t2.UnidadfkCUnidades= t3.idunidad INNER JOIN cmodelos as t4 ON t2.modelofkcmodelos = t4.idmodelo WHERE t1.seen = 0 AND t4.idempresa ='" + empresa + "'";
-            MySqlCommand cm = new MySqlCommand(sql, dbcon);
-            MySqlDataReader dr = cm.ExecuteReader();
+            /** MySqlConnection dbcon = null;
+             if (v.c.conexionOriginal())
+                 dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
+             else
+                 dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
+             dbcon.Open();
+             string cadena = "";
+             string sql = "SELECT t2.folio FROM estatusValidado as t1 INNER JOIN reportesupervicion as t2 On t1.idreportefkreportesupervicion = t2.idReporteSupervicion WHERE t1.seen='0'";
+             MySqlCommand cm = new MySqlCommand(sql, dbcon);
+             MySqlDataReader dr = cm.ExecuteReader();
 
-            while (dr.Read())
-            {
-                cadena = cadena + "\n" + dr.GetString("folio");
-            }
-            dr.Close();
-            dbcon.Close();
-            dbcon.Dispose();
-            dbcon = null;
-            notifyIcon1.BalloonTipText = "Se Han Validado Las Refacciones de Los Reportes: " + cadena;
-            notifyIcon1.ShowBalloonTip(5000);
+             while (dr.Read())
+             {
+                 cadena = cadena + "\n" + dr.GetString("folio");
+             }
+             dr.Close();
+             dbcon.Close();
+             dbcon.Dispose();
+             dbcon = null;
+             notifyIcon1.BalloonTipText = "Se Han Validado Las Refacciones de Los Reportes: " + cadena;
+             notifyIcon1.ShowBalloonTip(5000);**/
 
         }
         void obtenerconsulta()
         {
-            if(empresa ==1 && area == 1)
+            if (empresa == 1 && area == 1)
             {
                 consultaReportes = "SELECT (COUNT(t1.idReporte)+(SELECT COUNT(idvigencia) FROM vigencias_supervision AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona WHERE t1.empresa='" + empresa + "' AND t1.area='" + area + "' AND (DATEDIFF(t1.fechaVencimientoConducir, curdate()) <= 7 or DATEDIFF(t1.fechaVencimientoTarjeton, curdate()) <= 7))) as cuenta FROM reportemantenimiento as t1 INNER JOIN cpersonal as t2 ON t1.mecanicofkPersonal = t2.idpersona INNER JOIN reportesupervicion as t3 ON t1.FoliofkSupervicion = t3.idReporteSupervicion INNER JOIN cunidades as t4 ON t3.UnidadfkCUnidades= t4.idunidad WHERE t1.seen = 0 and (t1.Estatus='Liberada' or t1.Estatus='Reprogramada') AND t3.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();";
                 tipoArea = 1;
-            }else if(empresa==2 || empresa ==3)
+            }
+            else if (empresa == 2 || empresa == 3)
             {
-                if (area == 1) {
-                    consultaReportes = "SELECT (count(idReporteSupervicion)+(SELECT COUNT(*) FROM vigencias_supervision  WHERE empresa='" + empresa + "' and area='" + area + "' AND  DATEDIFF(fechaVencimientoConducir, curdate()) <= 7)) as cuenta FROM reportesupervicion WHERE seen = 0 and (SELECT (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) from cunidades WHERE idunidad = UnidadfkCUnidades) = '"+empresa+"' AND FechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate() ";
+                if (area == 1)
+                {
+                    consultaReportes = "SELECT (count(idReporteSupervicion)+(SELECT COUNT(*) FROM vigencias_supervision  WHERE empresa='" + empresa + "' and area='" + area + "' AND  DATEDIFF(fechaVencimientoConducir, curdate()) <= 7)) as cuenta FROM reportesupervicion WHERE seen = 0 and (SELECT (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) from cunidades WHERE idunidad = UnidadfkCUnidades) = '" + empresa + "' AND FechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate() ";
                     tipoArea = 2;
-                }else if(area == 2)
+                }
+                else if (area == 2)
                 {
                     consultaReportes = "SELECT (count(IdReporte)+(SELECT count(idrefaccion) as cuenta FROM crefacciones  WHERE existencias <=media OR existencias<= abastecimiento OR datediff(proximoAbastecimiento,curdate()) <=20 and status=1)+(SELECT COUNT(*) FROM vigencias_supervision  WHERE empresa='" + empresa + "' and area='" + area + "' and DATEDIFF(fechaVencimientoConducir, curdate()) <= 7)) as cuenta FROM reportemantenimiento as t1 INNER JOIN reportesupervicion as t2 ON t1.foliofkSupervicion= t2.idReporteSupervicion  WHERE StatusRefacciones = 'Se Requieren Refacciones' and seenAlmacen=0 AND (SELECT (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) from cunidades WHERE idunidad = T2.UnidadfkCUnidades) = '" + empresa + "' AND t2.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();";
                     tipoArea = 3;
-                } 
+                }
             }
         }
 
@@ -459,7 +462,7 @@ namespace controlFallos
             if (v.c.conexionOriginal())
                 dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
             else
-                dbcon = new MySqlConnection("Server =  "+v.c.hostLocal+"; user="+ v.c.userLocal +"; password = "+ v.c.passwordLocal +" ;database = sistrefaccmant ;port="+ v.c.portLocal);
+                dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
             dbcon.Open();
             MySqlCommand cm = new MySqlCommand(consultaReportes, dbcon);
             res = Convert.ToInt32(cm.ExecuteScalar());
@@ -508,13 +511,13 @@ namespace controlFallos
                     catálogosToolStripMenuItem.Visible = true;
                 catálogoDeFallosToolStripMenuItem.Visible = true;
             }
-           else if (nombreForm == "catpersonal" || nombreForm == "catpuestos" || nombreForm == "CatTipos")
+            else if (nombreForm == "catpersonal" || nombreForm == "catpuestos" || nombreForm == "CatTipos")
             {
                 if (!catálogosToolStripMenuItem.Visible)
                     catálogosToolStripMenuItem.Visible = true;
                 catálogoDePersonalToolStripMenuItem.Visible = true;
             }
-            else if (nombreForm == "catunidades" || nombreForm == "catservicios" || nombreForm == "catempresas" || nombreForm=="catestaciones" || nombreForm=="catmodelos")
+            else if (nombreForm == "catunidades" || nombreForm == "catservicios" || nombreForm == "catempresas" || nombreForm == "catestaciones" || nombreForm == "catmodelos")
             {
                 if (area == 1)
                 {
@@ -528,9 +531,9 @@ namespace controlFallos
                 if (!reporteSupervicionToolStripMenuItem.Visible) reporteSupervicionToolStripMenuItem.Visible = true;
                 reporteDeSupervisiónToolStripMenuItem.Visible = true;
             }
-            else if(nombreForm == "mantenimiento")
+            else if (nombreForm == "mantenimiento")
                 reporteMantenimientoToolStripMenuItem.Visible = true;
-            else if(nombreForm == "almacen")
+            else if (nombreForm == "almacen")
                 reporteAlmacenToolStripMenuItem1.Visible = true;
             else if (nombreForm == "catrefacciones")
             {
@@ -595,9 +598,9 @@ namespace controlFallos
                     var form4 = Application.OpenForms.OfType<catRefacciones>().FirstOrDefault();
                     catRefacciones hijo;
                     if (!string.IsNullOrWhiteSpace(idref))
-                        hijo = form4 ?? new catRefacciones(newimg, this.idUsuario, idref.ToString(),v);
+                        hijo = form4 ?? new catRefacciones(newimg, this.idUsuario, idref.ToString(), v);
                     else
-                        hijo = form4 ?? new catRefacciones(newimg, this.idUsuario, empresa, area,v);
+                        hijo = form4 ?? new catRefacciones(newimg, this.idUsuario, empresa, area, v);
                     AddFormInPanel(hijo);
                 }
             }
@@ -618,7 +621,7 @@ namespace controlFallos
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<catProveedores>().FirstOrDefault();
-                catProveedores hijo = form ?? new catProveedores(this.idUsuario, newimg, empresa, area,v);
+                catProveedores hijo = form ?? new catProveedores(this.idUsuario, newimg, empresa, area, v);
                 AddFormInPanel(hijo);
             }
         }
@@ -674,10 +677,10 @@ namespace controlFallos
 
         public void cambiarstatus(object i)
         {
-           v.c.insertar("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'");
+            v.c.insertar("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'");
             try
             {
-                MySqlConnection localConnection = new MySqlConnection("Server =  "+v.c.hostLocal+"; user="+ v.c.userLocal +"; password = "+ v.c.passwordLocal +" database = sistrefaccmant ;port="+ v.c.portLocal);
+                MySqlConnection localConnection = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " database = sistrefaccmant ;port=" + v.c.portLocal);
                 localConnection.Open();
                 if (localConnection.State != ConnectionState.Open) localConnection.Open();
                 MySqlCommand cmd = new MySqlCommand("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'", localConnection);
@@ -707,7 +710,7 @@ namespace controlFallos
 
         private void lbltitle_DoubleClick(object sender, EventArgs e) { CenterToScreen(); }
         private void catálogosToolStripMenuItem_MouseLeave(object sender, EventArgs e) { ((ToolStripMenuItem)sender).BackColor = Color.Crimson; }
-        private void catálogosToolStripMenuItem_MouseHover(object sender, EventArgs e){}
+        private void catálogosToolStripMenuItem_MouseHover(object sender, EventArgs e) { }
         private void actualizaciónDeIVAToolStripMenuItem_Click(object sender, EventArgs e) { iraIva(); }
         public void iraIva()
         {
@@ -715,7 +718,7 @@ namespace controlFallos
             cat.Owner = this;
             cat.ShowDialog();
         }
-        private void notifyIcon1_Click(object sender, MouseEventArgs e){}
+        private void notifyIcon1_Click(object sender, MouseEventArgs e) { }
 
         private void menuPrincipal_Resize(object sender, EventArgs e)
         {
@@ -723,7 +726,7 @@ namespace controlFallos
             lblnumnotificaciones.Top = (this.Height - lblnumnotificaciones.Height) / 2;
         }
 
-        private void pictureBox1_Click(object sender, EventArgs e){WindowState = FormWindowState.Minimized;}
+        private void pictureBox1_Click(object sender, EventArgs e) { WindowState = FormWindowState.Minimized; }
         private void ordenesDeCompraToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (cerrar())
@@ -734,7 +737,7 @@ namespace controlFallos
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<OrdenDeCompra>().FirstOrDefault();
-                OrdenDeCompra hijo = form ?? new OrdenDeCompra(idUsuario, empresa, area, this,newimg, v);
+                OrdenDeCompra hijo = form ?? new OrdenDeCompra(idUsuario, empresa, area, this, newimg, v);
                 AddFormInPanel(hijo);
             }
         }
@@ -749,12 +752,12 @@ namespace controlFallos
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<datosGeneralesComparativa>().FirstOrDefault();
-                datosGeneralesComparativa hijo = form ?? new datosGeneralesComparativa(idUsuario, empresa, area,newimg, v);
+                datosGeneralesComparativa hijo = form ?? new datosGeneralesComparativa(idUsuario, empresa, area, newimg, v);
                 AddFormInPanel(hijo);
             }
         }
 
-        private void reporteDeSupervisiónToolStripMenuItem_Click(object sender, EventArgs e){abrirReporte();}
+        private void reporteDeSupervisiónToolStripMenuItem_Click(object sender, EventArgs e) { abrirReporte(); }
 
         private void reporteDeIndicenciaToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -783,7 +786,7 @@ namespace controlFallos
                 lbltitle.Location = new Point(1591, 13);
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<percances>().FirstOrDefault();
-                percances hijo = form1 ?? new percances(idUsuario,v/*, empresa, area*/);
+                percances hijo = form1 ?? new percances(idUsuario, v/*, empresa, area*/);
                 AddFormInPanel(hijo);
             }
         }
@@ -798,13 +801,13 @@ namespace controlFallos
                 lbltitle.Location = new Point(1591, 13);
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<ReportePersonal>().FirstOrDefault();
-                ReportePersonal hijo = form1 ?? new ReportePersonal(idUsuario, empresa, area,v);
+                ReportePersonal hijo = form1 ?? new ReportePersonal(idUsuario, empresa, area, v);
                 AddFormInPanel(hijo);
             }
         }
         private void actualizaciónDeEncabezadosDeReportesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ReportesVigencias rp = new ReportesVigencias(empresa, area, idUsuario,v);
+            ReportesVigencias rp = new ReportesVigencias(empresa, area, idUsuario, v);
             rp.Owner = this;
             rp.ShowDialog();
         }

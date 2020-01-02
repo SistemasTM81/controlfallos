@@ -32,6 +32,9 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbaddpasillo = new System.Windows.Forms.GroupBox();
+            this.pstatus = new System.Windows.Forms.Panel();
+            this.lblstatus = new System.Windows.Forms.Label();
+            this.btnstatus = new System.Windows.Forms.Button();
             this.plogo = new System.Windows.Forms.PictureBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.gbpasillos = new System.Windows.Forms.GroupBox();
@@ -48,12 +51,8 @@
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.punidades = new System.Windows.Forms.Panel();
             this.pTranscarrier = new System.Windows.Forms.PictureBox();
             this.gbRol = new System.Windows.Forms.GroupBox();
-            this.pstatus = new System.Windows.Forms.Panel();
-            this.lblstatus = new System.Windows.Forms.Label();
-            this.btnstatus = new System.Windows.Forms.Button();
             this.psave = new System.Windows.Forms.Panel();
             this.btnguardar = new System.Windows.Forms.Button();
             this.lblsavemp = new System.Windows.Forms.Label();
@@ -78,14 +77,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelEmpresa = new System.Windows.Forms.Button();
             this.gbaddpasillo.SuspendLayout();
+            this.pstatus.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plogo)).BeginInit();
             this.panel2.SuspendLayout();
             this.gbpasillos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvroles)).BeginInit();
-            this.punidades.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pTranscarrier)).BeginInit();
             this.gbRol.SuspendLayout();
-            this.pstatus.SuspendLayout();
             this.psave.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudlapso)).BeginInit();
             this.pnuevo.SuspendLayout();
@@ -94,12 +92,12 @@
             // gbaddpasillo
             // 
             this.gbaddpasillo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.gbaddpasillo.Controls.Add(this.pTranscarrier);
             this.gbaddpasillo.Controls.Add(this.pstatus);
             this.gbaddpasillo.Controls.Add(this.plogo);
             this.gbaddpasillo.Controls.Add(this.panel2);
             this.gbaddpasillo.Controls.Add(this.label2);
             this.gbaddpasillo.Controls.Add(this.label23);
-            this.gbaddpasillo.Controls.Add(this.punidades);
             this.gbaddpasillo.Controls.Add(this.gbRol);
             this.gbaddpasillo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbaddpasillo.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -109,6 +107,41 @@
             this.gbaddpasillo.Size = new System.Drawing.Size(1908, 937);
             this.gbaddpasillo.TabIndex = 33;
             this.gbaddpasillo.TabStop = false;
+            // 
+            // pstatus
+            // 
+            this.pstatus.Controls.Add(this.lblstatus);
+            this.pstatus.Controls.Add(this.btnstatus);
+            this.pstatus.Location = new System.Drawing.Point(1191, 445);
+            this.pstatus.Name = "pstatus";
+            this.pstatus.Size = new System.Drawing.Size(108, 85);
+            this.pstatus.TabIndex = 84;
+            this.pstatus.Visible = false;
+            // 
+            // lblstatus
+            // 
+            this.lblstatus.AutoSize = true;
+            this.lblstatus.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblstatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lblstatus.Location = new System.Drawing.Point(4, 55);
+            this.lblstatus.Name = "lblstatus";
+            this.lblstatus.Size = new System.Drawing.Size(98, 24);
+            this.lblstatus.TabIndex = 0;
+            this.lblstatus.Text = "Desactivar";
+            // 
+            // btnstatus
+            // 
+            this.btnstatus.BackgroundImage = global::controlFallos.Properties.Resources.delete__4_;
+            this.btnstatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnstatus.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnstatus.FlatAppearance.BorderSize = 0;
+            this.btnstatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnstatus.Location = new System.Drawing.Point(27, 6);
+            this.btnstatus.Name = "btnstatus";
+            this.btnstatus.Size = new System.Drawing.Size(45, 45);
+            this.btnstatus.TabIndex = 0;
+            this.btnstatus.UseVisualStyleBackColor = true;
+            this.btnstatus.Click += new System.EventHandler(this.btnstatus_Click);
             // 
             // plogo
             // 
@@ -305,18 +338,10 @@
             this.label23.TabIndex = 65;
             this.label23.Text = " Para Actualizar la Información de Doble Clic sobre el registro de la Tabla";
             // 
-            // punidades
-            // 
-            this.punidades.Controls.Add(this.pTranscarrier);
-            this.punidades.Location = new System.Drawing.Point(1382, 92);
-            this.punidades.Name = "punidades";
-            this.punidades.Size = new System.Drawing.Size(486, 376);
-            this.punidades.TabIndex = 84;
-            // 
             // pTranscarrier
             // 
             this.pTranscarrier.Image = global::controlFallos.Properties.Resources.t_frente;
-            this.pTranscarrier.Location = new System.Drawing.Point(138, 49);
+            this.pTranscarrier.Location = new System.Drawing.Point(1550, 163);
             this.pTranscarrier.Name = "pTranscarrier";
             this.pTranscarrier.Size = new System.Drawing.Size(225, 279);
             this.pTranscarrier.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -353,41 +378,6 @@
             this.gbRol.TabIndex = 82;
             this.gbRol.TabStop = false;
             this.gbRol.Text = "Nuevo Rol de Servicio";
-            // 
-            // pstatus
-            // 
-            this.pstatus.Controls.Add(this.lblstatus);
-            this.pstatus.Controls.Add(this.btnstatus);
-            this.pstatus.Location = new System.Drawing.Point(1191, 445);
-            this.pstatus.Name = "pstatus";
-            this.pstatus.Size = new System.Drawing.Size(108, 85);
-            this.pstatus.TabIndex = 84;
-            this.pstatus.Visible = false;
-            // 
-            // lblstatus
-            // 
-            this.lblstatus.AutoSize = true;
-            this.lblstatus.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblstatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblstatus.Location = new System.Drawing.Point(4, 55);
-            this.lblstatus.Name = "lblstatus";
-            this.lblstatus.Size = new System.Drawing.Size(98, 24);
-            this.lblstatus.TabIndex = 0;
-            this.lblstatus.Text = "Desactivar";
-            // 
-            // btnstatus
-            // 
-            this.btnstatus.BackgroundImage = global::controlFallos.Properties.Resources.delete__4_;
-            this.btnstatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnstatus.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnstatus.FlatAppearance.BorderSize = 0;
-            this.btnstatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnstatus.Location = new System.Drawing.Point(27, 3);
-            this.btnstatus.Name = "btnstatus";
-            this.btnstatus.Size = new System.Drawing.Size(45, 45);
-            this.btnstatus.TabIndex = 0;
-            this.btnstatus.UseVisualStyleBackColor = true;
-            this.btnstatus.Click += new System.EventHandler(this.btnstatus_Click);
             // 
             // psave
             // 
@@ -678,16 +668,15 @@
             this.Load += new System.EventHandler(this.CatRoles_Load);
             this.gbaddpasillo.ResumeLayout(false);
             this.gbaddpasillo.PerformLayout();
+            this.pstatus.ResumeLayout(false);
+            this.pstatus.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.plogo)).EndInit();
             this.panel2.ResumeLayout(false);
             this.gbpasillos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvroles)).EndInit();
-            this.punidades.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pTranscarrier)).EndInit();
             this.gbRol.ResumeLayout(false);
             this.gbRol.PerformLayout();
-            this.pstatus.ResumeLayout(false);
-            this.pstatus.PerformLayout();
             this.psave.ResumeLayout(false);
             this.psave.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudlapso)).EndInit();
@@ -729,7 +718,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown nudlapso;
         private System.Windows.Forms.PictureBox pTranscarrier;
-        private System.Windows.Forms.Panel punidades;
         private System.Windows.Forms.Panel psave;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn idempresa;

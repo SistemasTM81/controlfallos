@@ -203,6 +203,8 @@ namespace controlFallos
             btnGuardar.Enabled = dtpFechaDe.Enabled = dtpFechaA.Enabled = false;
             cmbMes.SelectedIndex = 0;
             lblFechaEntrega.Text = DateTime.Now.ToLongDateString().ToUpper();
+            dtpFechaDe.MinDate = dtpFechaA.MinDate = Convert.ToDateTime(v.getaData("select FechaReporteM from reportemantenimiento where StatusRefacciones='SE REQUIEREN REFACCIONES' order by FechaReporteM limit 1;") ?? DateTime.Today);
+            dtpFechaDe.MaxDate = dtpFechaA.MaxDate = Convert.ToDateTime(v.getaData("select FechaReporteM from reportemantenimiento where StatusRefacciones='SE REQUIEREN REFACCIONES' order by FechaReporteM asc limit 1;") ?? DateTime.Today);
             cargarUnidad(); // cargamos las unidades en el comboBox de busqueda por unidad
             Persona_entrego();
             Mecanico_solicito();

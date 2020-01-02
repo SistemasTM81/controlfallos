@@ -51,7 +51,11 @@ namespace controlFallos
         }
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
-            limpiarbtn();
+            if (cambios())
+                if (MessageBox.Show("¿Desea guardar las modificaciones?", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes) { }
+                else
+                    limpiarbtn();
+            else limpiarbtn();
         }
         private void rbpercances_CheckedChanged(object sender, EventArgs e)
         {
@@ -117,6 +121,12 @@ namespace controlFallos
                 habilitado(false);
             }
         }
+
+        private void txtCodigoReporte_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            v.enGeneral(e);
+        }
+
         private void txtPassUsuario_Leave(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtPassUsuario.Text))
