@@ -672,7 +672,7 @@
             // buttonFinalizar
             // 
             this.buttonFinalizar.BackColor = System.Drawing.Color.Transparent;
-            this.buttonFinalizar.BackgroundImage = global::controlFallos.Properties.Resources.racing;
+            this.buttonFinalizar.BackgroundImage = global::controlFallos.Properties.Resources.test;
             this.buttonFinalizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonFinalizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonFinalizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -703,7 +703,7 @@
             // buttonAgregarMas
             // 
             this.buttonAgregarMas.BackColor = System.Drawing.Color.Transparent;
-            this.buttonAgregarMas.BackgroundImage = global::controlFallos.Properties.Resources.settings1;
+            this.buttonAgregarMas.BackgroundImage = global::controlFallos.Properties.Resources.settings;
             this.buttonAgregarMas.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonAgregarMas.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonAgregarMas.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1164,7 +1164,7 @@
             // buttonExcel
             // 
             this.buttonExcel.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExcel.BackgroundImage = global::controlFallos.Properties.Resources.sobresalir;
+            this.buttonExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
             this.buttonExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.buttonExcel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.buttonExcel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));

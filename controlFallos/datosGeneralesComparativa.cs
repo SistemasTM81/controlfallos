@@ -159,7 +159,7 @@ namespace controlFallos
             yaAparecioMensaje = false;
             iniComparativas();
             btnsave.Visible = lblsave.Visible = true;
-            btnsave.BackgroundImage = Properties.Resources.guardar__6_;
+            btnsave.BackgroundImage = Properties.Resources.save1;
         }
 
         private void buttonAgregar_Click(object sender, EventArgs e)
@@ -391,7 +391,7 @@ namespace controlFallos
             btnnewrefacc.BackgroundImage = Properties.Resources.ajustes;
             lblnewrefacc.Text = "NUEVA\nREFACCIÓN";
             btnsave.Visible = lblsave.Visible = true;
-            btnsave.BackgroundImage = Properties.Resources.guardar__6_;
+            btnsave.BackgroundImage = Properties.Resources.save1;
             nombreComparativaAnterior = null;
             DescripcionComparativaAnterior = null;
             observacionesComparativaAnterior = null;

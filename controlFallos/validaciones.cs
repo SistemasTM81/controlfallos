@@ -16,7 +16,7 @@ using System.Reflection;
 using iTextSharp.text.pdf;
 namespace controlFallos
 {
-    public class validaciones
+    public class validaciones 
     {
         public string folio = "";
         public conexion c;
@@ -2922,7 +2922,8 @@ namespace controlFallos
         {
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected) e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, Color.White, Color.Crimson);
             e.DrawBackground();
-            e.Graphics.DrawString(((ListBox)sender).Items[e.Index].ToString(), ((ListBox)sender).Font, new SolidBrush(e.ForeColor), e.Bounds.Left + 8, e.Bounds.Top + 2);
+           
+            e.Graphics.DrawString(((DataTable)((ListBox)sender).DataSource).Rows[e.Index].ItemArray[1].ToString(), ((ListBox)sender).Font, new SolidBrush(e.ForeColor), e.Bounds.Left + 8, e.Bounds.Top + 2);
             e.DrawFocusRectangle();
 
         }
@@ -3086,9 +3087,12 @@ namespace controlFallos
             X.Rows.AutoFit();
             X.Visible = true;
         }
-        public void iniCombos(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial)
+        delegate void iniCombosProgreso(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial);
+        public void iniCombos(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial, Form fh)
         {
-            cbx.DataSource = null;
+            if (fh.InvokeRequired)
+                fh.Invoke(new iniCombosProgreso(iniCombos),new object[] {sql,cbx,ValueMember,DisplayMember,TextoInicial,fh});
+                cbx.DataSource = null;
             DataTable dt = (DataTable)getData(sql);
             DataRow nuevaFila = dt.NewRow();
             nuevaFila[ValueMember] = 0;
@@ -3098,9 +3102,17 @@ namespace controlFallos
             cbx.DisplayMember = DisplayMember;
             cbx.DataSource = dt;
         }
-        public void desactivados(string sql, ComboBox cbx, string ValueMember, string DisplayMember)
+        public void iniCombos(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial)
         {
+             cbx.DataSource = null;
             DataTable dt = (DataTable)getData(sql);
+            DataRow nuevaFila = dt.NewRow();
+            nuevaFila[ValueMember] = 0;
+            nuevaFila[DisplayMember] = TextoInicial.ToUpper();
+            dt.Rows.InsertAt(nuevaFila, 0);
+            cbx.ValueMember = ValueMember;
+            cbx.DisplayMember = DisplayMember;
+            cbx.DataSource = dt;
         }
         public bool formularioNiveles(int pasillo, string nivel)
         {

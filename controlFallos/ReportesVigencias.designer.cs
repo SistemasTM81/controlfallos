@@ -377,6 +377,7 @@
             this.labelidMecanicoApo.Size = new System.Drawing.Size(0, 24);
             this.labelidMecanicoApo.TabIndex = 230;
             // 
+<<<<<<< HEAD
             // rbincidencia
             // 
             this.rbincidencia.AutoSize = true;
@@ -415,6 +416,41 @@
             this.rbpercances.Text = "Hoja de Percances";
             this.rbpercances.UseVisualStyleBackColor = true;
             this.rbpercances.CheckedChanged += new System.EventHandler(this.rbpercances_CheckedChanged);
+=======
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label3.Location = new System.Drawing.Point(91, 318);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(149, 18);
+            this.label3.TabIndex = 232;
+            this.label3.Text = "LIMPIAR CAMPOS";
+            this.label3.Visible = false;
+            // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.BackColor = System.Drawing.Color.Transparent;
+            this.btnLimpiar.BackgroundImage = global::controlFallos.Properties.Resources.eraser;
+            this.btnLimpiar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnLimpiar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnLimpiar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnLimpiar.FlatAppearance.BorderSize = 0;
+            this.btnLimpiar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnLimpiar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiar.Location = new System.Drawing.Point(132, 259);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(54, 54);
+            this.btnLimpiar.TabIndex = 18;
+            this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.Visible = false;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            this.btnLimpiar.MouseLeave += new System.EventHandler(this.btnall_MouseLeave);
+            this.btnLimpiar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnall_MouseMove);
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
             // 
             // panel1
             // 

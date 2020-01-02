@@ -131,8 +131,39 @@ namespace controlFallos
         {
             if (!string.IsNullOrWhiteSpace(txtPassUsuario.Text))
             {
+<<<<<<< HEAD
                 idsupervisor = Convert.ToInt32(v.getaData("select idPersona from cpersonal as t1 inner join datosistema as t2 on t1.idPersona=t2.usuariofkcpersonal where password='" + v.Encriptar(txtPassUsuario.Text) + "' and t1.status='1';"));
                 lblusuario.Text = (idsupervisor > 0 ? v.getaData("select concat(coalesce(apPaterno,''),' ',coalesce(apMaterno,''),' ',nombres) from cpersonal where idpersona='" + idsupervisor + "';").ToString() : "");
+=======
+                idencabezadoreporte = 0;
+                nombreanterior = codigoanterior = fechaAnterior = revisionanterior = "";
+            }
+            dr.Close();
+            v.c.dbconection().Close();
+            if (string.IsNullOrWhiteSpace(nombreanterior) && string.IsNullOrWhiteSpace(codigoanterior) && string.IsNullOrWhiteSpace(fechaAnterior) && string.IsNullOrWhiteSpace(revisionanterior))
+            {
+                btnEditar.BackgroundImage = Properties.Resources.save1;
+                label9.Location = new Point(472, 319);
+                label9.Text = "GUARDAR";
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(nombreanterior))
+                    gbxNombre.Text = "NOMBRE: \"" + nombreanterior + "\"";
+
+                if (!string.IsNullOrWhiteSpace(codigoanterior))
+                    gbxCodigo.Text = "CÓDIGO: \"" + codigoanterior + "\"";
+
+                if (!string.IsNullOrWhiteSpace(fechaAnterior))
+                    gbxVigencia.Text = "VIGENCIA: \"" + fechaAnterior + "\"";
+
+                if (!string.IsNullOrWhiteSpace(revisionanterior))
+                    gbxRevision.Text = "REVISIÓN: \"" + revisionanterior + "\"";
+
+                btnEditar.BackgroundImage = Properties.Resources.document_edit_icon_icons_com_52428;
+                label9.Location = new Point(477, 319);
+                label9.Text = "EDITAR";
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
             }
         }
         public void habilitado(bool caracteristica) { txtnombre.Enabled = txtCodigoReporte.Enabled = dtpVigencia.Enabled = txtRevisionReporte.Enabled = txtPassUsuario.Enabled = caracteristica; }

@@ -100,9 +100,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -112,6 +115,9 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Asistencia.cs">
@@ -186,6 +192,12 @@
     </Compile>
     <Compile Include="catIVA.designer.cs">
       <DependentUpon>catIVA.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catjourneys.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catjourneys.Designer.cs">
+      <DependentUpon>catjourneys.cs</DependentUpon>
     </Compile>
     <Compile Include="CatModelos.cs">
       <SubType>Form</SubType>
@@ -509,6 +521,12 @@
       <DependentUpon>updateStock.cs</DependentUpon>
     </Compile>
     <Compile Include="validaciones.cs" />
+    <Compile Include="viewDriver.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="viewDriver.Designer.cs">
+      <DependentUpon>viewDriver.cs</DependentUpon>
+    </Compile>
     <Compile Include="writeFingerprint.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -554,6 +572,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="catIVA.resx">
       <DependentUpon>catIVA.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catjourneys.resx">
+      <DependentUpon>catjourneys.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CatModelos.resx">
       <DependentUpon>CatModelos.cs</DependentUpon>
@@ -716,6 +737,9 @@
     <EmbeddedResource Include="updateStock.resx">
       <DependentUpon>updateStock.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="viewDriver.resx">
+      <DependentUpon>viewDriver.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="writeFingerprint.resx">
       <DependentUpon>writeFingerprint.cs</DependentUpon>
     </EmbeddedResource>
@@ -763,6 +787,7 @@
     <Content Include="Resources\add.png" />
     <None Include="Resources\add1.png" />
     <None Include="Resources\ajax-spinner.gif" />
+    <None Include="Resources\addition.png" />
     <Content Include="Resources\ajustes.png" />
     <Content Include="Resources\ajustes1.png" />
     <None Include="Resources\antique-building.png" />
@@ -774,6 +799,7 @@
     <Content Include="Resources\box.png" />
     <None Include="Resources\bug__1_.png" />
     <Content Include="Resources\bus %281%29.png" />
+    <None Include="Resources\bus-stop.png" />
     <Content Include="Resources\bus.png" />
     <None Include="Resources\bus1.png" />
     <Content Include="Resources\buscar-en-carpeta %281%29.png" />
@@ -837,6 +863,11 @@
     <None Include="Resources\exchange.png" />
     <None Include="Resources\eye__2_.png" />
     <None Include="Resources\eraser1.png" />
+    <None Include="Resources\excel.png" />
+    <None Include="Resources\excel1.png" />
+    <None Include="Resources\excel2.png" />
+    <None Include="Resources\excel3.png" />
+    <None Include="Resources\excel4.png" />
     <Content Include="Resources\file.png" />
     <None Include="Resources\fingerprint-scanning.png" />
     <None Include="Resources\fingerprint-transparent-gif-14.gif" />
@@ -845,6 +876,8 @@
     <None Include="Resources\fingerprint2.png" />
     <None Include="Resources\file1.png" />
     <None Include="Resources\fingerprint-transparent-gif-141.gif" />
+    <None Include="Resources\file2.png" />
+    <None Include="Resources\file3.png" />
     <Content Include="Resources\folder %281%29.png" />
     <Content Include="Resources\folder %282%29.png" />
     <Content Include="Resources\folder %283%29.png" />
@@ -879,7 +912,9 @@
     <Content Include="Resources\list-button.png" />
     <None Include="Resources\loader.gif" />
     <None Include="Resources\lock.png" />
-    <Content Include="Resources\login.png" />
+    <None Include="Resources\login.png" />
+    <None Include="Resources\list.png" />
+    <None Include="Resources\list1.png" />
     <Content Include="Resources\Logo TRI_curvas.jpg" />
     <Content Include="Resources\logo.png" />
     <Content Include="Resources\logout.png" />
@@ -902,6 +937,7 @@
     <Content Include="Resources\menu-button.png" />
     <Content Include="Resources\menu.png" />
     <None Include="Resources\minimazar.png" />
+    <None Include="Resources\mexibus.png" />
     <Content Include="Resources\mirror.png" />
     <Content Include="Resources\navigate-up-arrow.png" />
     <Content Include="Resources\newspaper.png" />
@@ -910,9 +946,9 @@
     <Content Include="Resources\notification %282%29.png" />
     <Content Include="Resources\notification.png" />
     <Content Include="Resources\notification1.png" />
-    <None Include="Resources\nut.png" />
     <None Include="Resources\notification__4_.png" />
     <None Include="Resources\notification__3_1.png" />
+    <None Include="Resources\nut.png" />
     <Content Include="Resources\original.png" />
     <Content Include="Resources\password.png" />
     <None Include="Resources\pdf-folder-upload-storage-transfer-512.png" />
@@ -935,7 +971,11 @@
     <Content Include="Resources\report.png" />
     <None Include="Resources\robber_silhouette_trying_to_steal_car_part__1_.png" />
     <Content Include="Resources\save.png" />
+<<<<<<< HEAD
     <None Include="Resources\schedule.png" />
+=======
+    <None Include="Resources\save1.png" />
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
     <Content Include="Resources\search.png" />
     <Content Include="Resources\settings.png" />
     <None Include="Resources\settings1.png" />
@@ -949,10 +989,10 @@
     <Content Include="Resources\square.png" />
     <Content Include="Resources\support %281%29.png" />
     <Content Include="Resources\support.png" />
-    <None Include="Resources\team.png" />
     <None Include="Resources\sync.png" />
     <None Include="Resources\test.png" />
     <None Include="Resources\timer-transparent-css-6.gif" />
+    <None Include="Resources\team.png" />
     <Content Include="Resources\transmasivo %281%29.ico" />
     <Content Include="Resources\transmasivo.png" />
     <None Include="Resources\TSD.png" />
@@ -968,6 +1008,9 @@
     <Content Include="Resources\user-login-button %281%29.png" />
     <Content Include="Resources\user-login-button.png" />
     <Content Include="Resources\user.png" />
+    <None Include="Resources\vehicles.png" />
+    <None Include="Resources\view-list-button.png" />
+    <None Include="Resources\view-list-button1.png" />
     <Content Include="Resources\virus.png" />
     <Content Include="Resources\visibility-button.png" />
     <None Include="Resources\weight-balance.png" />

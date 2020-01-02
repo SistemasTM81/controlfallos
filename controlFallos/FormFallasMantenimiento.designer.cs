@@ -123,6 +123,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
+<<<<<<< HEAD
             // gbsupervision
             // 
             this.gbsupervision.BackColor = System.Drawing.Color.Transparent;
@@ -179,6 +180,251 @@
             this.label70.Size = new System.Drawing.Size(218, 18);
             this.label70.TabIndex = 146;
             this.label70.Text = "Observaciones de Supervisión:";
+=======
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // groupBoxRefacciones
+            // 
+            this.groupBoxRefacciones.BackColor = System.Drawing.Color.Transparent;
+            this.groupBoxRefacciones.Controls.Add(this.textBoxUM);
+            this.groupBoxRefacciones.Controls.Add(this.label63);
+            this.groupBoxRefacciones.Controls.Add(this.label62);
+            this.groupBoxRefacciones.Controls.Add(this.label57);
+            this.groupBoxRefacciones.Controls.Add(this.label56);
+            this.groupBoxRefacciones.Controls.Add(this.label29);
+            this.groupBoxRefacciones.Controls.Add(this.buttonAgregarMasPed);
+            this.groupBoxRefacciones.Controls.Add(this.comboBoxFRefaccion);
+            this.groupBoxRefacciones.Controls.Add(this.labelCerrarHerr);
+            this.groupBoxRefacciones.Controls.Add(this.buttonActualizarPed);
+            this.groupBoxRefacciones.Controls.Add(this.label3);
+            this.groupBoxRefacciones.Controls.Add(this.textBoxCantidad);
+            this.groupBoxRefacciones.Controls.Add(this.label20);
+            this.groupBoxRefacciones.Controls.Add(this.label30);
+            this.groupBoxRefacciones.Controls.Add(this.label31);
+            this.groupBoxRefacciones.Controls.Add(this.label33);
+            this.groupBoxRefacciones.Controls.Add(this.buttonAgregaPed);
+            this.groupBoxRefacciones.Controls.Add(this.comboBoxFamilia);
+            this.groupBoxRefacciones.Controls.Add(this.label21);
+            this.groupBoxRefacciones.Controls.Add(this.panel1);
+            this.groupBoxRefacciones.Controls.Add(this.labelreffin);
+            this.groupBoxRefacciones.Controls.Add(this.labelrefini);
+            this.groupBoxRefacciones.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxRefacciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.groupBoxRefacciones.Location = new System.Drawing.Point(807, 99);
+            this.groupBoxRefacciones.Name = "groupBoxRefacciones";
+            this.groupBoxRefacciones.Size = new System.Drawing.Size(1102, 411);
+            this.groupBoxRefacciones.TabIndex = 156;
+            this.groupBoxRefacciones.TabStop = false;
+            this.groupBoxRefacciones.Visible = false;
+            this.groupBoxRefacciones.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBoxAll_Paint);
+            // 
+            // textBoxUM
+            // 
+            this.textBoxUM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBoxUM.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxUM.Enabled = false;
+            this.textBoxUM.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxUM.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBoxUM.Location = new System.Drawing.Point(116, 140);
+            this.textBoxUM.MaxLength = 3;
+            this.textBoxUM.Name = "textBoxUM";
+            this.textBoxUM.Size = new System.Drawing.Size(231, 18);
+            this.textBoxUM.TabIndex = 164;
+            this.textBoxUM.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label63
+            // 
+            this.label63.AutoSize = true;
+            this.label63.BackColor = System.Drawing.Color.Transparent;
+            this.label63.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label63.ForeColor = System.Drawing.Color.Crimson;
+            this.label63.Location = new System.Drawing.Point(417, 370);
+            this.label63.Name = "label63";
+            this.label63.Size = new System.Drawing.Size(680, 34);
+            this.label63.TabIndex = 167;
+            this.label63.Text = "PARA USAR LA EDICIÓN ES NECESARIO DARLE DOBLE CLIC SOBRE LA REFACCIÓN QUE\r\nDESEE " +
+    "EDITAR";
+            this.label63.Visible = false;
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.BackColor = System.Drawing.Color.Transparent;
+            this.label62.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label62.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label62.Location = new System.Drawing.Point(359, 369);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(58, 17);
+            this.label62.TabIndex = 166;
+            this.label62.Text = "NOTA:";
+            this.label62.Visible = false;
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.BackColor = System.Drawing.Color.Transparent;
+            this.label57.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label57.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label57.Location = new System.Drawing.Point(114, 151);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(237, 9);
+            this.label57.TabIndex = 165;
+            this.label57.Text = "__________________________________________________________";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label56.Location = new System.Drawing.Point(6, 141);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(101, 18);
+            this.label56.TabIndex = 163;
+            this.label56.Text = "U. MEDIDA:";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.BackColor = System.Drawing.Color.Transparent;
+            this.label29.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label29.Location = new System.Drawing.Point(217, 364);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(127, 34);
+            this.label29.TabIndex = 159;
+            this.label29.Text = "SOLICITAR MÁS\r\n REFACCIONES";
+            this.label29.Visible = false;
+            // 
+            // buttonAgregarMasPed
+            // 
+            this.buttonAgregarMasPed.AutoSize = true;
+            this.buttonAgregarMasPed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregarMasPed.BackgroundImage = global::controlFallos.Properties.Resources.settings;
+            this.buttonAgregarMasPed.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonAgregarMasPed.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonAgregarMasPed.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregarMasPed.FlatAppearance.BorderSize = 0;
+            this.buttonAgregarMasPed.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregarMasPed.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregarMasPed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAgregarMasPed.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAgregarMasPed.Location = new System.Drawing.Point(252, 304);
+            this.buttonAgregarMasPed.Name = "buttonAgregarMasPed";
+            this.buttonAgregarMasPed.Size = new System.Drawing.Size(55, 55);
+            this.buttonAgregarMasPed.TabIndex = 158;
+            this.buttonAgregarMasPed.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.buttonAgregarMasPed.UseVisualStyleBackColor = false;
+            this.buttonAgregarMasPed.Visible = false;
+            this.buttonAgregarMasPed.Click += new System.EventHandler(this.buttonAgregarMasPed_Click);
+            this.buttonAgregarMasPed.MouseLeave += new System.EventHandler(this.btnall_MouseLeave);
+            this.buttonAgregarMasPed.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
+            // 
+            // comboBoxFRefaccion
+            // 
+            this.comboBoxFRefaccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.comboBoxFRefaccion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.comboBoxFRefaccion.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawVariable;
+            this.comboBoxFRefaccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxFRefaccion.Enabled = false;
+            this.comboBoxFRefaccion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.comboBoxFRefaccion.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxFRefaccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.comboBoxFRefaccion.FormattingEnabled = true;
+            this.comboBoxFRefaccion.Location = new System.Drawing.Point(116, 84);
+            this.comboBoxFRefaccion.Name = "comboBoxFRefaccion";
+            this.comboBoxFRefaccion.Size = new System.Drawing.Size(231, 26);
+            this.comboBoxFRefaccion.TabIndex = 145;
+            this.comboBoxFRefaccion.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.combo_DrawItem);
+            this.comboBoxFRefaccion.SelectedIndexChanged += new System.EventHandler(this.comboBoxFRefaccion_SelectedIndexChanged);
+            this.comboBoxFRefaccion.SelectedValueChanged += new System.EventHandler(this.comboBoxFRefaccion_SelectedValueChanged);
+            // 
+            // labelCerrarHerr
+            // 
+            this.labelCerrarHerr.AutoSize = true;
+            this.labelCerrarHerr.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.labelCerrarHerr.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCerrarHerr.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.labelCerrarHerr.Location = new System.Drawing.Point(1075, 5);
+            this.labelCerrarHerr.Name = "labelCerrarHerr";
+            this.labelCerrarHerr.Size = new System.Drawing.Size(24, 24);
+            this.labelCerrarHerr.TabIndex = 144;
+            this.labelCerrarHerr.Text = "X";
+            this.labelCerrarHerr.Click += new System.EventHandler(this.labelCerrarHerr_Click);
+            this.labelCerrarHerr.MouseDown += new System.Windows.Forms.MouseEventHandler(this.labelCerrarHerr_MouseDown);
+            this.labelCerrarHerr.MouseLeave += new System.EventHandler(this.labelCerrarHerr_MouseLeave);
+            // 
+            // buttonActualizarPed
+            // 
+            this.buttonActualizarPed.AutoSize = true;
+            this.buttonActualizarPed.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonActualizarPed.BackgroundImage = global::controlFallos.Properties.Resources.document_edit_icon_icons_com_52428;
+            this.buttonActualizarPed.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonActualizarPed.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonActualizarPed.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonActualizarPed.FlatAppearance.BorderSize = 0;
+            this.buttonActualizarPed.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonActualizarPed.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonActualizarPed.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonActualizarPed.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonActualizarPed.Location = new System.Drawing.Point(18, 318);
+            this.buttonActualizarPed.Name = "buttonActualizarPed";
+            this.buttonActualizarPed.Size = new System.Drawing.Size(55, 55);
+            this.buttonActualizarPed.TabIndex = 142;
+            this.buttonActualizarPed.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.buttonActualizarPed.UseVisualStyleBackColor = false;
+            this.buttonActualizarPed.Visible = false;
+            this.buttonActualizarPed.Click += new System.EventHandler(this.buttonActualizarPed_Click);
+            this.buttonActualizarPed.MouseLeave += new System.EventHandler(this.btnall_MouseLeave);
+            this.buttonActualizarPed.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label3.Location = new System.Drawing.Point(11, 380);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(67, 17);
+            this.label3.TabIndex = 141;
+            this.label3.Text = "EDITAR";
+            this.label3.Visible = false;
+            // 
+            // textBoxCantidad
+            // 
+            this.textBoxCantidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBoxCantidad.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxCantidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxCantidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBoxCantidad.Location = new System.Drawing.Point(116, 196);
+            this.textBoxCantidad.MaxLength = 3;
+            this.textBoxCantidad.Name = "textBoxCantidad";
+            this.textBoxCantidad.Size = new System.Drawing.Size(231, 18);
+            this.textBoxCantidad.TabIndex = 135;
+            this.textBoxCantidad.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.textBoxCantidad.TextChanged += new System.EventHandler(this.textBoxCantidad_TextChanged);
+            this.textBoxCantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxCantidad_KeyPress);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.BackColor = System.Drawing.Color.Transparent;
+            this.label20.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label20.Location = new System.Drawing.Point(114, 207);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(237, 9);
+            this.label20.TabIndex = 136;
+            this.label20.Text = "__________________________________________________________";
+            // 
+            // label30
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
             // 
             // label27
             // 
@@ -530,6 +776,7 @@
             // 
             // lbltiempoe
             // 
+<<<<<<< HEAD
             this.lbltiempoe.AutoSize = true;
             this.lbltiempoe.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltiempoe.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
@@ -538,6 +785,120 @@
             this.lbltiempoe.Size = new System.Drawing.Size(44, 18);
             this.lbltiempoe.TabIndex = 184;
             this.lbltiempoe.Text = "13:20";
+=======
+            this.label42.AutoSize = true;
+            this.label42.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label42.Location = new System.Drawing.Point(524, 378);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(192, 36);
+            this.label42.TabIndex = 128;
+            this.label42.Text = "TOTAL DE TIEMPO \r\nDE MANTENIMIENTO:";
+            this.label42.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // buttonAgregar
+            // 
+            this.buttonAgregar.AutoSize = true;
+            this.buttonAgregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregar.BackgroundImage = global::controlFallos.Properties.Resources.menos_add;
+            this.buttonAgregar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonAgregar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregar.FlatAppearance.BorderSize = 0;
+            this.buttonAgregar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAgregar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonAgregar.Location = new System.Drawing.Point(1051, 114);
+            this.buttonAgregar.Name = "buttonAgregar";
+            this.buttonAgregar.Size = new System.Drawing.Size(27, 27);
+            this.buttonAgregar.TabIndex = 157;
+            this.buttonAgregar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.buttonAgregar.UseVisualStyleBackColor = false;
+            this.buttonAgregar.Visible = false;
+            this.buttonAgregar.Click += new System.EventHandler(this.buttonAgregar_Click);
+            this.buttonAgregar.MouseLeave += new System.EventHandler(this.btnadd_MouseLeave);
+            this.buttonAgregar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnadd_MouseMove);
+            // 
+            // groupBoxObsM
+            // 
+            this.groupBoxObsM.BackColor = System.Drawing.Color.Transparent;
+            this.groupBoxObsM.Controls.Add(this.textBoxObsMan);
+            this.groupBoxObsM.Controls.Add(this.dateTimePicker1);
+            this.groupBoxObsM.Controls.Add(this.dateTimePicker2);
+            this.groupBoxObsM.Controls.Add(this.dateTimePicker5);
+            this.groupBoxObsM.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxObsM.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.groupBoxObsM.Location = new System.Drawing.Point(527, 248);
+            this.groupBoxObsM.Name = "groupBoxObsM";
+            this.groupBoxObsM.Size = new System.Drawing.Size(574, 76);
+            this.groupBoxObsM.TabIndex = 140;
+            this.groupBoxObsM.TabStop = false;
+            this.groupBoxObsM.Text = "OBSERVACIONES DEL MANTENIMIENTO:";
+            this.groupBoxObsM.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBoxAll_Paint);
+            // 
+            // textBoxObsMan
+            // 
+            this.textBoxObsMan.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBoxObsMan.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBoxObsMan.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.textBoxObsMan.Enabled = false;
+            this.textBoxObsMan.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxObsMan.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBoxObsMan.Location = new System.Drawing.Point(5, 18);
+            this.textBoxObsMan.MaxLength = 120;
+            this.textBoxObsMan.Multiline = true;
+            this.textBoxObsMan.Name = "textBoxObsMan";
+            this.textBoxObsMan.ShortcutsEnabled = false;
+            this.textBoxObsMan.Size = new System.Drawing.Size(564, 52);
+            this.textBoxObsMan.TabIndex = 10;
+            this.textBoxObsMan.TextChanged += new System.EventHandler(this.textBox_TextChanged);
+            this.textBoxObsMan.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxLargo_KeyPress);
+            this.textBoxObsMan.Validating += new System.ComponentModel.CancelEventHandler(this.textBoxTrabajoRealizado_Validating);
+            this.textBoxObsMan.Validated += new System.EventHandler(this.textBoxAll_Validated);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.CalendarMonthBackground = System.Drawing.Color.Gray;
+            this.dateTimePicker1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dateTimePicker1.DropDownAlign = System.Windows.Forms.LeftRightAlignment.Right;
+            this.dateTimePicker1.Enabled = false;
+            this.dateTimePicker1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker1.Location = new System.Drawing.Point(5, 20);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.ShowUpDown = true;
+            this.dateTimePicker1.Size = new System.Drawing.Size(144, 29);
+            this.dateTimePicker1.TabIndex = 78;
+            this.dateTimePicker1.Value = new System.DateTime(2018, 9, 17, 10, 8, 0, 0);
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.CalendarMonthBackground = System.Drawing.Color.Gray;
+            this.dateTimePicker2.Enabled = false;
+            this.dateTimePicker2.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker2.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker2.Location = new System.Drawing.Point(148, 20);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.ShowUpDown = true;
+            this.dateTimePicker2.Size = new System.Drawing.Size(144, 29);
+            this.dateTimePicker2.TabIndex = 79;
+            this.dateTimePicker2.Value = new System.DateTime(2018, 9, 13, 13, 5, 0, 0);
+            // 
+            // dateTimePicker5
+            // 
+            this.dateTimePicker5.CalendarMonthBackground = System.Drawing.Color.Gray;
+            this.dateTimePicker5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dateTimePicker5.Enabled = false;
+            this.dateTimePicker5.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker5.Format = System.Windows.Forms.DateTimePickerFormat.Time;
+            this.dateTimePicker5.Location = new System.Drawing.Point(290, 20);
+            this.dateTimePicker5.Name = "dateTimePicker5";
+            this.dateTimePicker5.ShowUpDown = true;
+            this.dateTimePicker5.Size = new System.Drawing.Size(144, 29);
+            this.dateTimePicker5.TabIndex = 139;
+            this.dateTimePicker5.Value = new System.DateTime(2018, 9, 12, 10, 8, 24, 0);
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
             // 
             // label46
             // 
@@ -1128,6 +1489,7 @@
             // 
             // label42
             // 
+<<<<<<< HEAD
             this.label42.AutoSize = true;
             this.label42.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
@@ -1136,6 +1498,50 @@
             this.label42.Size = new System.Drawing.Size(33, 18);
             this.label42.TabIndex = 198;
             this.label42.Text = "De:";
+=======
+            this.label35.AutoSize = true;
+            this.label35.BackColor = System.Drawing.Color.Transparent;
+            this.label35.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label35.Location = new System.Drawing.Point(1279, 99);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(91, 17);
+            this.label35.TabIndex = 131;
+            this.label35.Text = "EXPORTAR";
+            this.label35.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // buttonExcel
+            // 
+            this.buttonExcel.AutoSize = true;
+            this.buttonExcel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
+            this.buttonExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonExcel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonExcel.FlatAppearance.BorderSize = 0;
+            this.buttonExcel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExcel.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonExcel.Location = new System.Drawing.Point(1305, 58);
+            this.buttonExcel.Name = "buttonExcel";
+            this.buttonExcel.Size = new System.Drawing.Size(35, 35);
+            this.buttonExcel.TabIndex = 128;
+            this.buttonExcel.UseVisualStyleBackColor = false;
+            this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
+            this.buttonExcel.MouseLeave += new System.EventHandler(this.btnallbusq_MouseLeave);
+            this.buttonExcel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnallbusq_MouseMove);
+            // 
+            // pictureBoxExcelLoad
+            // 
+            this.pictureBoxExcelLoad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBoxExcelLoad.Location = new System.Drawing.Point(1305, 58);
+            this.pictureBoxExcelLoad.Name = "pictureBoxExcelLoad";
+            this.pictureBoxExcelLoad.Size = new System.Drawing.Size(35, 35);
+            this.pictureBoxExcelLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxExcelLoad.TabIndex = 226;
+            this.pictureBoxExcelLoad.TabStop = false;
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
             // 
             // label43
             // 
@@ -1290,6 +1696,7 @@
             this.label54.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label54.Location = new System.Drawing.Point(1330, 94);
             this.label54.Name = "label54";
+<<<<<<< HEAD
             this.label54.Size = new System.Drawing.Size(91, 17);
             this.label54.TabIndex = 232;
             this.label54.Text = "EXPORTAR";
@@ -1323,6 +1730,294 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 233;
             this.pictureBox1.TabStop = false;
+=======
+            this.label54.Size = new System.Drawing.Size(160, 18);
+            this.label54.TabIndex = 159;
+            this.label54.Text = "REPROGRAMADAS:";
+            // 
+            // radioButtonGeneral
+            // 
+            this.radioButtonGeneral.AutoSize = true;
+            this.radioButtonGeneral.Checked = true;
+            this.radioButtonGeneral.Font = new System.Drawing.Font("Garamond", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonGeneral.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.radioButtonGeneral.Location = new System.Drawing.Point(1419, 598);
+            this.radioButtonGeneral.Name = "radioButtonGeneral";
+            this.radioButtonGeneral.Size = new System.Drawing.Size(114, 14);
+            this.radioButtonGeneral.TabIndex = 160;
+            this.radioButtonGeneral.TabStop = true;
+            this.radioButtonGeneral.Text = "REPORTE DE FALLO";
+            this.radioButtonGeneral.UseVisualStyleBackColor = true;
+            this.radioButtonGeneral.Visible = false;
+            // 
+            // radioButtonUnidad
+            // 
+            this.radioButtonUnidad.AutoSize = true;
+            this.radioButtonUnidad.Font = new System.Drawing.Font("Garamond", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButtonUnidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.radioButtonUnidad.Location = new System.Drawing.Point(1419, 615);
+            this.radioButtonUnidad.Name = "radioButtonUnidad";
+            this.radioButtonUnidad.Size = new System.Drawing.Size(122, 14);
+            this.radioButtonUnidad.TabIndex = 161;
+            this.radioButtonUnidad.Text = "DATOS DE LA UNIDAD";
+            this.radioButtonUnidad.UseVisualStyleBackColor = true;
+            this.radioButtonUnidad.Visible = false;
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label45.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label45.Location = new System.Drawing.Point(883, 882);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(58, 17);
+            this.label45.TabIndex = 224;
+            this.label45.Text = "NOTA:";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label55.ForeColor = System.Drawing.Color.Crimson;
+            this.label55.Location = new System.Drawing.Point(936, 882);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(889, 17);
+            this.label55.TabIndex = 225;
+            this.label55.Text = "PARA SELECCIONAR UN REPORTE ES NECESARIO DAR DOBLE CLIC SOBRE EL ELEMENTO QUE SE " +
+    "DESEE LLENAR";
+            // 
+            // groupBoxRefacc
+            // 
+            this.groupBoxRefacc.AutoSize = true;
+            this.groupBoxRefacc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.groupBoxRefacc.Controls.Add(this.lblCancelar);
+            this.groupBoxRefacc.Controls.Add(this.label61);
+            this.groupBoxRefacc.Controls.Add(this.label54);
+            this.groupBoxRefacc.Controls.Add(this.label53);
+            this.groupBoxRefacc.Controls.Add(this.label51);
+            this.groupBoxRefacc.Controls.Add(this.label50);
+            this.groupBoxRefacc.Controls.Add(this.textBoxReprogramados);
+            this.groupBoxRefacc.Controls.Add(this.textBoxEnEspera);
+            this.groupBoxRefacc.Controls.Add(this.textBoxEnProceso);
+            this.groupBoxRefacc.Controls.Add(this.textBoxLiberadas);
+            this.groupBoxRefacc.Controls.Add(this.label59);
+            this.groupBoxRefacc.Controls.Add(this.groupBoxBusqueda);
+            this.groupBoxRefacc.Controls.Add(this.label37);
+            this.groupBoxRefacc.Controls.Add(this.buttonPDF);
+            this.groupBoxRefacc.Controls.Add(this.groupBoxSupervision);
+            this.groupBoxRefacc.Controls.Add(this.label64);
+            this.groupBoxRefacc.Controls.Add(this.label65);
+            this.groupBoxRefacc.Controls.Add(this.label66);
+            this.groupBoxRefacc.Controls.Add(this.label67);
+            this.groupBoxRefacc.Controls.Add(this.dgvMantenimiento);
+            this.groupBoxRefacc.Controls.Add(this.buttonFinalizar);
+            this.groupBoxRefacc.Controls.Add(this.label55);
+            this.groupBoxRefacc.Controls.Add(this.label45);
+            this.groupBoxRefacc.Controls.Add(this.label60);
+            this.groupBoxRefacc.Controls.Add(this.radioButtonUnidad);
+            this.groupBoxRefacc.Controls.Add(this.radioButtonGeneral);
+            this.groupBoxRefacc.Controls.Add(this.label36);
+            this.groupBoxRefacc.Controls.Add(this.label1);
+            this.groupBoxRefacc.Controls.Add(this.ptbxLogo);
+            this.groupBoxRefacc.Controls.Add(this.btnCancelar);
+            this.groupBoxRefacc.Controls.Add(this.pictureBox2);
+            this.groupBoxRefacc.Controls.Add(this.label24);
+            this.groupBoxRefacc.Controls.Add(this.buttonGuardar);
+            this.groupBoxRefacc.Controls.Add(this.buttonEditar);
+            this.groupBoxRefacc.Controls.Add(this.label58);
+            this.groupBoxRefacc.Controls.Add(this.gbxMantenimiento);
+            this.groupBoxRefacc.Controls.Add(this.groupBoxRefacciones);
+            this.groupBoxRefacc.ForeColor = System.Drawing.Color.Coral;
+            this.groupBoxRefacc.Location = new System.Drawing.Point(-1, -4);
+            this.groupBoxRefacc.Name = "groupBoxRefacc";
+            this.groupBoxRefacc.Size = new System.Drawing.Size(1932, 949);
+            this.groupBoxRefacc.TabIndex = 133;
+            this.groupBoxRefacc.TabStop = false;
+            this.groupBoxRefacc.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBoxAll_Paint);
+            // 
+            // lblCancelar
+            // 
+            this.lblCancelar.AutoSize = true;
+            this.lblCancelar.BackColor = System.Drawing.Color.Transparent;
+            this.lblCancelar.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lblCancelar.Location = new System.Drawing.Point(1804, 600);
+            this.lblCancelar.Name = "lblCancelar";
+            this.lblCancelar.Size = new System.Drawing.Size(98, 18);
+            this.lblCancelar.TabIndex = 231;
+            this.lblCancelar.Text = "CANCELAR";
+            this.lblCancelar.Visible = false;
+            // 
+            // label61
+            // 
+            this.label61.AutoSize = true;
+            this.label61.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label61.ForeColor = System.Drawing.Color.Crimson;
+            this.label61.Location = new System.Drawing.Point(897, 899);
+            this.label61.Name = "label61";
+            this.label61.Size = new System.Drawing.Size(1029, 34);
+            this.label61.TabIndex = 229;
+            this.label61.Text = "PARA LA EDICIÓN DE UN REPORTE DEBE DAR CLIC EN EL DATO QUE DESEE, DAR CLIC DERECH" +
+    "O SOBRE EL DATO Y SELECCIONAR \r\nLA OPCION DE \"EDITAR\"";
+            // 
+            // buttonPDF
+            // 
+            this.buttonPDF.AutoSize = true;
+            this.buttonPDF.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonPDF.BackgroundImage = global::controlFallos.Properties.Resources.pdf;
+            this.buttonPDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonPDF.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonPDF.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonPDF.FlatAppearance.BorderSize = 0;
+            this.buttonPDF.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonPDF.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPDF.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPDF.Location = new System.Drawing.Point(1448, 515);
+            this.buttonPDF.Name = "buttonPDF";
+            this.buttonPDF.Size = new System.Drawing.Size(55, 55);
+            this.buttonPDF.TabIndex = 129;
+            this.buttonPDF.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.buttonPDF.UseVisualStyleBackColor = false;
+            this.buttonPDF.Visible = false;
+            this.buttonPDF.Click += new System.EventHandler(this.buttonPDF_Click);
+            this.buttonPDF.MouseLeave += new System.EventHandler(this.btnall_MouseLeave);
+            this.buttonPDF.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
+            // 
+            // buttonFinalizar
+            // 
+            this.buttonFinalizar.AutoSize = true;
+            this.buttonFinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonFinalizar.BackgroundImage = global::controlFallos.Properties.Resources.test;
+            this.buttonFinalizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonFinalizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonFinalizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.buttonFinalizar.FlatAppearance.BorderSize = 0;
+            this.buttonFinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonFinalizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonFinalizar.Location = new System.Drawing.Point(1694, 537);
+            this.buttonFinalizar.Name = "buttonFinalizar";
+            this.buttonFinalizar.Size = new System.Drawing.Size(55, 55);
+            this.buttonFinalizar.TabIndex = 134;
+            this.buttonFinalizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.buttonFinalizar.UseVisualStyleBackColor = false;
+            this.buttonFinalizar.Visible = false;
+            this.buttonFinalizar.Click += new System.EventHandler(this.buttonFinalizar_Click);
+            this.buttonFinalizar.MouseLeave += new System.EventHandler(this.btnall_MouseLeave);
+            this.buttonFinalizar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
+            // 
+            // label60
+            // 
+            this.label60.AutoSize = true;
+            this.label60.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label60.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label60.Location = new System.Drawing.Point(884, 901);
+            this.label60.Name = "label60";
+            this.label60.Size = new System.Drawing.Size(15, 17);
+            this.label60.TabIndex = 228;
+            this.label60.Text = "*";
+            // 
+            // ptbxLogo
+            // 
+            this.ptbxLogo.Location = new System.Drawing.Point(1713, 12);
+            this.ptbxLogo.Name = "ptbxLogo";
+            this.ptbxLogo.Size = new System.Drawing.Size(196, 81);
+            this.ptbxLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ptbxLogo.TabIndex = 135;
+            this.ptbxLogo.TabStop = false;
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.AutoSize = true;
+            this.btnCancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelar.BackgroundImage = global::controlFallos.Properties.Resources.cross;
+            this.btnCancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Location = new System.Drawing.Point(1822, 538);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(55, 55);
+            this.btnCancelar.TabIndex = 230;
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Visible = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            this.btnCancelar.MouseLeave += new System.EventHandler(this.btnall_MouseLeave);
+            this.btnCancelar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox2.Location = new System.Drawing.Point(1822, 538);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(55, 55);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox2.TabIndex = 232;
+            this.pictureBox2.TabStop = false;
+            // 
+            // buttonGuardar
+            // 
+            this.buttonGuardar.AutoSize = true;
+            this.buttonGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonGuardar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
+            this.buttonGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonGuardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonGuardar.FlatAppearance.BorderSize = 0;
+            this.buttonGuardar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonGuardar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonGuardar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonGuardar.Location = new System.Drawing.Point(1572, 539);
+            this.buttonGuardar.Name = "buttonGuardar";
+            this.buttonGuardar.Size = new System.Drawing.Size(55, 55);
+            this.buttonGuardar.TabIndex = 11;
+            this.buttonGuardar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.buttonGuardar.UseVisualStyleBackColor = false;
+            this.buttonGuardar.Visible = false;
+            this.buttonGuardar.Click += new System.EventHandler(this.buttonGuardar_Click);
+            this.buttonGuardar.MouseLeave += new System.EventHandler(this.btnall_MouseLeave);
+            this.buttonGuardar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
+            // 
+            // buttonEditar
+            // 
+            this.buttonEditar.AutoSize = true;
+            this.buttonEditar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonEditar.BackgroundImage = global::controlFallos.Properties.Resources.document_edit_icon_icons_com_52428;
+            this.buttonEditar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonEditar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonEditar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonEditar.FlatAppearance.BorderSize = 0;
+            this.buttonEditar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonEditar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonEditar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEditar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonEditar.Location = new System.Drawing.Point(1571, 539);
+            this.buttonEditar.Name = "buttonEditar";
+            this.buttonEditar.Size = new System.Drawing.Size(55, 55);
+            this.buttonEditar.TabIndex = 227;
+            this.buttonEditar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.buttonEditar.UseVisualStyleBackColor = false;
+            this.buttonEditar.Visible = false;
+            this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
+            // 
+            // label58
+            // 
+            this.label58.AutoSize = true;
+            this.label58.BackColor = System.Drawing.Color.Transparent;
+            this.label58.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label58.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label58.Location = new System.Drawing.Point(1564, 600);
+            this.label58.Name = "label58";
+            this.label58.Size = new System.Drawing.Size(71, 18);
+            this.label58.TabIndex = 166;
+            this.label58.Text = "EDITAR";
+            this.label58.Visible = false;
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
             // 
             // FormFallasMantenimiento
             // 

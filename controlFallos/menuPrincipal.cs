@@ -20,9 +20,9 @@ namespace controlFallos
         int tipo;
         Point defaultLocation = new Point(1560, 13);
         public Image newimg;
-        validaciones v;
-        int empresa;
-        int area;
+       public validaciones v;
+        public int empresa { get; protected internal set; }
+        public int area { get; protected internal set; }
         bool res = true;
         public int resAnterior = 0;
         Thread BuscarValidaciones;
@@ -47,8 +47,11 @@ namespace controlFallos
                 this.Close();
             }
             paraTipo();
-            menuStrip1.Renderer = new MyRenderer();
+            MyRenderer temp = new MyRenderer();
+            temp.RoundedEdges = true;
+            menuStrip1.Renderer = temp;
         }
+        
         void paraTipo()
         {
             if (empresa == 1)
@@ -63,6 +66,7 @@ namespace controlFallos
                     tipo = 3;
             }
         }
+          public void sendUser(string Message, validaciones.MessageBoxTitle type) => MessageBox.Show(Message,type.ToString(), MessageBoxButtons.OK,(type == validaciones.MessageBoxTitle.Advertencia?MessageBoxIcon.Exclamation:(type == validaciones.MessageBoxTitle.Error?MessageBoxIcon.Error:MessageBoxIcon.Information)));
         public void irArefacciones(string idRefaccion)
         {
             if (Convert.ToInt32(v.getaData("SELECT ver FROM privilegios WHERE namform='catRefacciones' AND usuariofkcpersonal='" + idUsuario + "'")) == 1)
@@ -382,8 +386,6 @@ namespace controlFallos
         {
             while (res)
             {
-                try
-                {
                     MySqlConnection dbcon = null;
                     if (v.c.conexionOriginal())
                         dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
@@ -402,14 +404,19 @@ namespace controlFallos
                         mostrarNotificacion = new Thread(new ThreadStart(MostrarNotificacion));
                         mostrarNotificacion.Start();
                     }
+<<<<<<< HEAD
                 }
                 catch (Exception ex) { MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error); }
+=======
+                
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
                 Thread.Sleep(5000);
             }
         }
         Thread mostrarNotificacion;
         void MostrarNotificacion()
         {
+<<<<<<< HEAD
             /** MySqlConnection dbcon = null;
              if (v.c.conexionOriginal())
                  dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
@@ -420,6 +427,18 @@ namespace controlFallos
              string sql = "SELECT t2.folio FROM estatusValidado as t1 INNER JOIN reportesupervicion as t2 On t1.idreportefkreportesupervicion = t2.idReporteSupervicion WHERE t1.seen='0'";
              MySqlCommand cm = new MySqlCommand(sql, dbcon);
              MySqlDataReader dr = cm.ExecuteReader();
+=======
+            MySqlConnection dbcon = null;
+            if (v.c.conexionOriginal())
+                dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
+            else
+                dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
+            dbcon.Open();
+            string cadena = "";
+            string sql = "SELECT t2.folio FROM estatusValidado as t1 INNER JOIN reportesupervicion as t2 On t1.idreportefkreportesupervicion = t2.idReporteSupervicion";
+            MySqlCommand cm = new MySqlCommand(sql, dbcon);
+            MySqlDataReader dr = cm.ExecuteReader();
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
 
              while (dr.Read())
              {
@@ -678,9 +697,14 @@ namespace controlFallos
         public void cambiarstatus(object i)
         {
             v.c.insertar("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'");
+<<<<<<< HEAD
             try
             {
                 MySqlConnection localConnection = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " database = sistrefaccmant ;port=" + v.c.portLocal);
+=======
+
+                MySqlConnection localConnection = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + "; database = sistrefaccmant ;port=" + v.c.portLocal);
+>>>>>>> 289438355dcf9ce0a48126f327236d2313a9d884
                 localConnection.Open();
                 if (localConnection.State != ConnectionState.Open) localConnection.Open();
                 MySqlCommand cmd = new MySqlCommand("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'", localConnection);
@@ -688,8 +712,7 @@ namespace controlFallos
                 localConnection.Close();
                 localConnection.Dispose();
                 localConnection = null;
-            }
-            catch { }
+            
         }
 
         private void catálogoDePersonalToolStripMenuItem_EnabledChanged(object sender, EventArgs e) { ((ToolStripMenuItem)sender).ForeColor = Color.White; }
@@ -828,6 +851,24 @@ namespace controlFallos
             reporteDeIncidentesToolStripMenuItem.Enabled = (sender == reporteDeIncidentesToolStripMenuItem ? false : true);
             reporteDeIndicenciaToolStripMenuItem.Enabled = (sender == reporteDeIndicenciaToolStripMenuItem ? false : true);
             ordenesDeCompraToolStripMenuItem.Enabled = (sender == ordenesDeCompraToolStripMenuItem ? false : true);
+            rolesDeServiciosToolStripMenuItem.Enabled = (sender == rolesDeServiciosToolStripMenuItem ? false : true);
+        }
+
+        private void rolesDeServiciosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cerrar())
+            {
+                lblnumnotificaciones.BackgroundImage = null;
+                lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
+                lbltitle.Text = nombre + "Roles de Servicios";
+                this.Text = "Roles de Servicios";
+                lbltitle.Location = defaultLocation;
+                Deshabilitar(sender as ToolStripMenuItem);
+                var form = Application.OpenForms.OfType<rolUnidades>().FirstOrDefault();
+                rolUnidades hijo = form ?? new rolUnidades(this);
+                AddFormInPanel(hijo);
+
+            }
         }
 
         private void cátalogoDeRolesToolStripMenuItem_Click(object sender, EventArgs e)

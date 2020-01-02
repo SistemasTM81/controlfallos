@@ -476,7 +476,7 @@
             // btnsave
             // 
             this.btnsave.BackColor = System.Drawing.Color.Transparent;
-            this.btnsave.BackgroundImage = global::controlFallos.Properties.Resources.guardar__6_;
+            this.btnsave.BackgroundImage = global::controlFallos.Properties.Resources.save1;
             this.btnsave.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnsave.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnsave.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1496,7 +1496,7 @@
             // 
             // btnExcel
             // 
-            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.sobresalir;
+            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
             this.btnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExcel.FlatAppearance.BorderSize = 0;

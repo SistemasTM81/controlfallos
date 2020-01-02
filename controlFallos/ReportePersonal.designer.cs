@@ -1036,7 +1036,7 @@
             // 
             // btnExcel
             // 
-            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.sobresalir;
+            this.btnExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
             this.btnExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnExcel.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnExcel.FlatAppearance.BorderSize = 0;
@@ -1187,7 +1187,7 @@
             // 
             this.btnFinalizar.AutoSize = true;
             this.btnFinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFinalizar.BackgroundImage = global::controlFallos.Properties.Resources.complete;
+            this.btnFinalizar.BackgroundImage = global::controlFallos.Properties.Resources.comprobar;
             this.btnFinalizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnFinalizar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnFinalizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1211,7 +1211,7 @@
             // 
             this.btnNuevo.AutoSize = true;
             this.btnNuevo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnNuevo.BackgroundImage = global::controlFallos.Properties.Resources.eraser1;
+            this.btnNuevo.BackgroundImage = global::controlFallos.Properties.Resources.eraser;
             this.btnNuevo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnNuevo.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnNuevo.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1234,7 +1234,7 @@
             // 
             this.btnGuardar.AutoSize = true;
             this.btnGuardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnGuardar.BackgroundImage = global::controlFallos.Properties.Resources.guardar__6_;
+            this.btnGuardar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
             this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnGuardar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnGuardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
