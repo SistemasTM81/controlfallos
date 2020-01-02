@@ -27,7 +27,7 @@ namespace controlFallos
             if (!File.Exists(path))
             {
                 StreamWriter sw = new StreamWriter(path, true, Encoding.ASCII);
-                sw.Write("0yLCd4LvwPo9xeMPa3Xo60R8ubmf9ZS4hs58llM/Lovd0yqGbDjTyz2KnbCOiM+bcf37rsKzAOWK1oy54Z7Zng4ZOiXbUAwqvWJXAPV18ec=");
+                sw.Write("0yLCd4LvwPo9xeMPa3Xo60R8ubmf9ZS4hs58llM/Lovd0yqGbDjTyz2KnbCOiM+bcf37rsKzAOUAU0rVJ8p3MJc4c6X+gGpk39iuKOx48Va645A5bRjQnefB1JmW3H+a");
                 sw.Close();
             }
             StreamReader lector = new StreamReader(path);
@@ -91,11 +91,31 @@ namespace controlFallos
         }
         public bool insertar(string sql)
         {
-            try
-            {
                 MySqlCommand cmd = new MySqlCommand(sql, dbconection());
                 int i = cmd.ExecuteNonQuery();
-                /*   if (conexionOriginal())
+                //if (conexionOriginal())
+                //{
+                //    if (localConnection.State != System.Data.ConnectionState.Open) localConnection.Open();
+                //    cmd = new MySqlCommand(sql, localConnection);
+                //    i = cmd.ExecuteNonQuery();
+                //    localConnection.Close();
+                //    localConnection.Dispose();
+                //}
+                dbcon.Close();
+                dbcon.Dispose();
+            if (!conexionOriginal())
+                WriteLocalSequence(sql);
+            if (i >= 0) return true;
+                else return false;
+            
+            
+        }
+        public object setData(string sql)
+        {
+            
+                MySqlCommand cmd = new MySqlCommand(sql, dbconection());
+                int i = cmd.ExecuteNonQuery();
+               /** if (conexionOriginal())
                    {
                        if (localConnection.State != System.Data.ConnectionState.Open) localConnection.Open();
                        cmd = new MySqlCommand(sql, localConnection);
@@ -105,19 +125,10 @@ namespace controlFallos
                    }*/
                 dbcon.Close();
                 dbcon.Dispose();
-                if (!conexionOriginal())
-                    WriteLocalSequence(sql);
-
-                if (i >= 0) return true;
-                else return false;
-            }
-            catch (Exception ex)
-            {
-                dbcon.Close();
-                dbcon.Dispose();
-                MessageBox.Show(ex.HResult + ": " + ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            if (!conexionOriginal())
+                WriteLocalSequence(sql);
+            return cmd.LastInsertedId;
+            
         }
         public void referencia(int idUsuario)
         {

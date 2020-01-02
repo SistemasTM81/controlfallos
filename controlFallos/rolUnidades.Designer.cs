@@ -35,11 +35,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.gbxCiclo = new System.Windows.Forms.GroupBox();
+            this.dtpinitialhour = new System.Windows.Forms.DateTimePicker();
             this.button3 = new System.Windows.Forms.Button();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.cmbxjourney = new System.Windows.Forms.ComboBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
+            this.lbldriverSelected = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.label13 = new System.Windows.Forms.Label();
             this.button9 = new System.Windows.Forms.Button();
@@ -51,18 +52,18 @@
             this.panel6 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
-            this.pnewreport = new System.Windows.Forms.Panel();
-            this.buttonNuevoOC = new System.Windows.Forms.Button();
-            this.label53 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.lblinitialhour = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lblinitialcyle = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbxeco = new System.Windows.Forms.ComboBox();
+            this.cmbxEco = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.backgroundpanel = new System.Windows.Forms.Panel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pfinalize = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.label9 = new System.Windows.Forms.Label();
             this.lblfinaldate = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
@@ -70,11 +71,11 @@
             this.cmbxTimeperiod = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.cbmes = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.cbxgetconductor = new System.Windows.Forms.ComboBox();
-            this.gbxFechas = new System.Windows.Forms.GroupBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cmbxmonthBusq = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cmbxdriverBusq = new System.Windows.Forms.ComboBox();
+            this.gbxFechas = new System.Windows.Forms.GroupBox();
             this.dtpFechaDe = new System.Windows.Forms.DateTimePicker();
             this.dtpFechaA = new System.Windows.Forms.DateTimePicker();
             this.label54 = new System.Windows.Forms.Label();
@@ -85,9 +86,9 @@
             this.label57 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.label61 = new System.Windows.Forms.Label();
-            this.cbxgetexoBusq = new System.Windows.Forms.ComboBox();
+            this.cmbxEcoBusq = new System.Windows.Forms.ComboBox();
             this.label59 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.cmbxTimeperiodBusq = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -98,18 +99,20 @@
             this._dgvdatetimereg = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this._usufkcpersonal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.pRoles = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.gbxCiclo.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel6.SuspendLayout();
-            this.pnewreport.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.pfinalize.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.gbxFechas.SuspendLayout();
             this.pActualizar.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.pRoles.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -136,41 +139,55 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Left;
             this.dataGridView1.EnableHeadersVisualStyles = false;
             this.dataGridView1.GridColor = System.Drawing.Color.Crimson;
-            this.dataGridView1.Location = new System.Drawing.Point(0, 400);
+            this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            this.dataGridView1.Size = new System.Drawing.Size(1424, 506);
+            this.dataGridView1.Size = new System.Drawing.Size(1446, 538);
             this.dataGridView1.TabIndex = 0;
             // 
-            // groupBox1
+            // gbxCiclo
             // 
-            this.groupBox1.Controls.Add(this.button3);
-            this.groupBox1.Controls.Add(this.comboBox2);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label14);
-            this.groupBox1.Controls.Add(this.panel8);
-            this.groupBox1.Controls.Add(this.button8);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.panel7);
-            this.groupBox1.Controls.Add(this.panel6);
-            this.groupBox1.Controls.Add(this.pnewreport);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.lblinitialcyle);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.cmbxeco);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.groupBox1.Location = new System.Drawing.Point(1430, 400);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(484, 506);
-            this.groupBox1.TabIndex = 1;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Agregar Ciclo";
+            this.gbxCiclo.Controls.Add(this.dtpinitialhour);
+            this.gbxCiclo.Controls.Add(this.button3);
+            this.gbxCiclo.Controls.Add(this.cmbxjourney);
+            this.gbxCiclo.Controls.Add(this.label5);
+            this.gbxCiclo.Controls.Add(this.lbldriverSelected);
+            this.gbxCiclo.Controls.Add(this.panel8);
+            this.gbxCiclo.Controls.Add(this.button8);
+            this.gbxCiclo.Controls.Add(this.label12);
+            this.gbxCiclo.Controls.Add(this.panel7);
+            this.gbxCiclo.Controls.Add(this.panel6);
+            this.gbxCiclo.Controls.Add(this.label4);
+            this.gbxCiclo.Controls.Add(this.lblinitialhour);
+            this.gbxCiclo.Controls.Add(this.label3);
+            this.gbxCiclo.Controls.Add(this.lblinitialcyle);
+            this.gbxCiclo.Controls.Add(this.label1);
+            this.gbxCiclo.Controls.Add(this.cmbxEco);
+            this.gbxCiclo.Controls.Add(this.label6);
+            this.gbxCiclo.Dock = System.Windows.Forms.DockStyle.Right;
+            this.gbxCiclo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.gbxCiclo.Location = new System.Drawing.Point(1452, 0);
+            this.gbxCiclo.Name = "gbxCiclo";
+            this.gbxCiclo.Size = new System.Drawing.Size(464, 538);
+            this.gbxCiclo.TabIndex = 1;
+            this.gbxCiclo.TabStop = false;
+            this.gbxCiclo.Text = "Agregar Ciclo";
+            // 
+            // dtpinitialhour
+            // 
+            this.dtpinitialhour.CalendarFont = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpinitialhour.CustomFormat = "HH:mm";
+            this.dtpinitialhour.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpinitialhour.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpinitialhour.Location = new System.Drawing.Point(135, 309);
+            this.dtpinitialhour.Name = "dtpinitialhour";
+            this.dtpinitialhour.ShowUpDown = true;
+            this.dtpinitialhour.Size = new System.Drawing.Size(73, 25);
+            this.dtpinitialhour.TabIndex = 61;
             // 
             // button3
             // 
@@ -182,7 +199,7 @@
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(417, 104);
+            this.button3.Location = new System.Drawing.Point(395, 129);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(40, 40);
             this.button3.TabIndex = 0;
@@ -190,43 +207,43 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // comboBox2
+            // cmbxjourney
             // 
-            this.comboBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.comboBox2.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox2.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(135, 113);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(250, 23);
-            this.comboBox2.TabIndex = 59;
+            this.cmbxjourney.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbxjourney.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbxjourney.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbxjourney.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbxjourney.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbxjourney.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbxjourney.FormattingEnabled = true;
+            this.cmbxjourney.Location = new System.Drawing.Point(135, 138);
+            this.cmbxjourney.Name = "cmbxjourney";
+            this.cmbxjourney.Size = new System.Drawing.Size(250, 23);
+            this.cmbxjourney.TabIndex = 59;
+            this.cmbxjourney.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbxTimeperiodBusq_DrawItem);
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(20, 114);
+            this.label5.Location = new System.Drawing.Point(20, 139);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 21);
             this.label5.TabIndex = 60;
             this.label5.Text = "Jornada:";
             // 
-            // label14
+            // lbldriverSelected
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(135, 184);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(136, 21);
-            this.label14.TabIndex = 58;
-            this.label14.Text = "No Seleccionado";
+            this.lbldriverSelected.Location = new System.Drawing.Point(135, 209);
+            this.lbldriverSelected.Name = "lbldriverSelected";
+            this.lbldriverSelected.Size = new System.Drawing.Size(250, 21);
+            this.lbldriverSelected.TabIndex = 58;
+            this.lbldriverSelected.Text = "No Seleccionado";
             // 
             // panel8
             // 
             this.panel8.Controls.Add(this.label13);
             this.panel8.Controls.Add(this.button9);
-            this.panel8.Location = new System.Drawing.Point(389, 168);
+            this.panel8.Location = new System.Drawing.Point(367, 193);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(97, 57);
             this.panel8.TabIndex = 57;
@@ -268,12 +285,13 @@
             this.button8.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Image = ((System.Drawing.Image)(resources.GetObject("button8.Image")));
-            this.button8.Location = new System.Drawing.Point(183, 396);
+            this.button8.Location = new System.Drawing.Point(204, 445);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(54, 55);
             this.button8.TabIndex = 53;
             this.button8.TabStop = false;
             this.button8.UseVisualStyleBackColor = false;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // label12
             // 
@@ -281,7 +299,7 @@
             this.label12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label12.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label12.Location = new System.Drawing.Point(176, 450);
+            this.label12.Location = new System.Drawing.Point(197, 499);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(66, 18);
             this.label12.TabIndex = 54;
@@ -291,7 +309,7 @@
             // 
             this.panel7.Controls.Add(this.button7);
             this.panel7.Controls.Add(this.label11);
-            this.panel7.Location = new System.Drawing.Point(340, 396);
+            this.panel7.Location = new System.Drawing.Point(361, 445);
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(91, 72);
             this.panel7.TabIndex = 55;
@@ -333,7 +351,7 @@
             // 
             this.panel6.Controls.Add(this.button6);
             this.panel6.Controls.Add(this.label10);
-            this.panel6.Location = new System.Drawing.Point(22, 396);
+            this.panel6.Location = new System.Drawing.Point(43, 445);
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(69, 72);
             this.panel6.TabIndex = 56;
@@ -371,69 +389,28 @@
             this.label10.Text = "Nuevo";
             this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // pnewreport
-            // 
-            this.pnewreport.Controls.Add(this.buttonNuevoOC);
-            this.pnewreport.Controls.Add(this.label53);
-            this.pnewreport.Location = new System.Drawing.Point(-179, 390);
-            this.pnewreport.Name = "pnewreport";
-            this.pnewreport.Size = new System.Drawing.Size(59, 81);
-            this.pnewreport.TabIndex = 56;
-            this.pnewreport.Visible = false;
-            // 
-            // buttonNuevoOC
-            // 
-            this.buttonNuevoOC.BackColor = System.Drawing.Color.Transparent;
-            this.buttonNuevoOC.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonNuevoOC.BackgroundImage")));
-            this.buttonNuevoOC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonNuevoOC.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonNuevoOC.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonNuevoOC.FlatAppearance.BorderSize = 0;
-            this.buttonNuevoOC.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonNuevoOC.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonNuevoOC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonNuevoOC.Location = new System.Drawing.Point(6, 6);
-            this.buttonNuevoOC.Name = "buttonNuevoOC";
-            this.buttonNuevoOC.Size = new System.Drawing.Size(50, 50);
-            this.buttonNuevoOC.TabIndex = 0;
-            this.buttonNuevoOC.UseVisualStyleBackColor = false;
-            // 
-            // label53
-            // 
-            this.label53.AutoSize = true;
-            this.label53.BackColor = System.Drawing.Color.Transparent;
-            this.label53.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label53.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label53.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label53.Location = new System.Drawing.Point(4, 61);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(54, 18);
-            this.label53.TabIndex = 0;
-            this.label53.Text = "Nuevo";
-            this.label53.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 184);
+            this.label4.Location = new System.Drawing.Point(20, 209);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 21);
             this.label4.TabIndex = 52;
             this.label4.Text = "Conductor:";
             // 
-            // label2
+            // lblinitialhour
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(131, 290);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 18);
-            this.label2.TabIndex = 50;
+            this.lblinitialhour.AutoSize = true;
+            this.lblinitialhour.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblinitialhour.Location = new System.Drawing.Point(132, 348);
+            this.lblinitialhour.Name = "lblinitialhour";
+            this.lblinitialhour.Size = new System.Drawing.Size(0, 18);
+            this.lblinitialhour.TabIndex = 50;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(20, 287);
+            this.label3.Location = new System.Drawing.Point(20, 312);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(101, 21);
             this.label3.TabIndex = 49;
@@ -443,7 +420,7 @@
             // 
             this.lblinitialcyle.AutoSize = true;
             this.lblinitialcyle.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblinitialcyle.Location = new System.Drawing.Point(131, 248);
+            this.lblinitialcyle.Location = new System.Drawing.Point(131, 273);
             this.lblinitialcyle.Name = "lblinitialcyle";
             this.lblinitialcyle.Size = new System.Drawing.Size(0, 18);
             this.lblinitialcyle.TabIndex = 48;
@@ -451,30 +428,32 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(20, 245);
+            this.label1.Location = new System.Drawing.Point(20, 270);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 21);
             this.label1.TabIndex = 13;
             this.label1.Text = "Ciclo Inicial:";
             // 
-            // cmbxeco
+            // cmbxEco
             // 
-            this.cmbxeco.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbxeco.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbxeco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbxeco.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cmbxeco.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbxeco.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbxeco.FormattingEnabled = true;
-            this.cmbxeco.Location = new System.Drawing.Point(135, 48);
-            this.cmbxeco.Name = "cmbxeco";
-            this.cmbxeco.Size = new System.Drawing.Size(250, 23);
-            this.cmbxeco.TabIndex = 11;
+            this.cmbxEco.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbxEco.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbxEco.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbxEco.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbxEco.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbxEco.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbxEco.FormattingEnabled = true;
+            this.cmbxEco.Location = new System.Drawing.Point(135, 73);
+            this.cmbxEco.Name = "cmbxEco";
+            this.cmbxEco.Size = new System.Drawing.Size(250, 23);
+            this.cmbxEco.TabIndex = 11;
+            this.cmbxEco.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbxTimeperiodBusq_DrawItem);
+            this.cmbxEco.SelectedValueChanged += new System.EventHandler(this.cmbxEco_SelectedValueChanged);
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(20, 49);
+            this.label6.Location = new System.Drawing.Point(20, 74);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(101, 21);
             this.label6.TabIndex = 12;
@@ -484,13 +463,16 @@
             // 
             this.backgroundpanel.AutoScroll = true;
             this.backgroundpanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.backgroundpanel.Enabled = false;
             this.backgroundpanel.Location = new System.Drawing.Point(1, 276);
             this.backgroundpanel.Name = "backgroundpanel";
             this.backgroundpanel.Size = new System.Drawing.Size(1913, 117);
             this.backgroundpanel.TabIndex = 2;
+            this.backgroundpanel.EnabledChanged += new System.EventHandler(this.backgroundpanel_EnabledChanged);
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.pfinalize);
             this.groupBox2.Controls.Add(this.lblfinaldate);
             this.groupBox2.Controls.Add(this.label17);
             this.groupBox2.Controls.Add(this.label16);
@@ -498,17 +480,60 @@
             this.groupBox2.Controls.Add(this.cmbxTimeperiod);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.groupBox2.Location = new System.Drawing.Point(0, 181);
+            this.groupBox2.Location = new System.Drawing.Point(0, 159);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1100, 95);
+            this.groupBox2.Size = new System.Drawing.Size(1051, 117);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Registro de Roles";
             // 
+            // pfinalize
+            // 
+            this.pfinalize.Controls.Add(this.button4);
+            this.pfinalize.Controls.Add(this.label9);
+            this.pfinalize.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pfinalize.Location = new System.Drawing.Point(979, 25);
+            this.pfinalize.Name = "pfinalize";
+            this.pfinalize.Size = new System.Drawing.Size(69, 89);
+            this.pfinalize.TabIndex = 57;
+            this.pfinalize.Visible = false;
+            // 
+            // button4
+            // 
+            this.button4.BackColor = System.Drawing.Color.Transparent;
+            this.button4.BackgroundImage = global::controlFallos.Properties.Resources.test;
+            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.button4.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Location = new System.Drawing.Point(0, 0);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(69, 68);
+            this.button4.TabIndex = 0;
+            this.button4.UseVisualStyleBackColor = false;
+            // 
+            // label9
+            // 
+            this.label9.BackColor = System.Drawing.Color.Transparent;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label9.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label9.Location = new System.Drawing.Point(0, 71);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(69, 18);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Finalizar";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // lblfinaldate
             // 
             this.lblfinaldate.AutoSize = true;
-            this.lblfinaldate.Location = new System.Drawing.Point(760, 35);
+            this.lblfinaldate.Location = new System.Drawing.Point(699, 35);
             this.lblfinaldate.Name = "lblfinaldate";
             this.lblfinaldate.Size = new System.Drawing.Size(177, 21);
             this.lblfinaldate.TabIndex = 19;
@@ -517,7 +542,7 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(724, 35);
+            this.label17.Location = new System.Drawing.Point(663, 35);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(27, 21);
             this.label17.TabIndex = 18;
@@ -526,7 +551,7 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(480, 35);
+            this.label16.Location = new System.Drawing.Point(419, 35);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(37, 21);
             this.label16.TabIndex = 16;
@@ -536,7 +561,7 @@
             // 
             this.dtpinitialDate.CustomFormat = "dd/MMMM/yyyy";
             this.dtpinitialDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpinitialDate.Location = new System.Drawing.Point(520, 32);
+            this.dtpinitialDate.Location = new System.Drawing.Point(459, 32);
             this.dtpinitialDate.Name = "dtpinitialDate";
             this.dtpinitialDate.Size = new System.Drawing.Size(201, 29);
             this.dtpinitialDate.TabIndex = 15;
@@ -559,6 +584,7 @@
             this.cmbxTimeperiod.Name = "cmbxTimeperiod";
             this.cmbxTimeperiod.Size = new System.Drawing.Size(200, 23);
             this.cmbxTimeperiod.TabIndex = 13;
+            this.cmbxTimeperiod.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbxTimeperiodBusq_DrawItem);
             this.cmbxTimeperiod.SelectedValueChanged += new System.EventHandler(this.cmbxTimeperiod_SelectedValueChanged);
             // 
             // label15
@@ -572,72 +598,85 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.cbmes);
+            this.groupBox3.Controls.Add(this.checkBox1);
+            this.groupBox3.Controls.Add(this.cmbxmonthBusq);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.cbxgetconductor);
+            this.groupBox3.Controls.Add(this.cmbxdriverBusq);
             this.groupBox3.Controls.Add(this.gbxFechas);
             this.groupBox3.Controls.Add(this.pActualizar);
             this.groupBox3.Controls.Add(this.label57);
             this.groupBox3.Controls.Add(this.button2);
             this.groupBox3.Controls.Add(this.label61);
-            this.groupBox3.Controls.Add(this.cbxgetexoBusq);
+            this.groupBox3.Controls.Add(this.cmbxEcoBusq);
             this.groupBox3.Controls.Add(this.label59);
-            this.groupBox3.Controls.Add(this.comboBox1);
+            this.groupBox3.Controls.Add(this.cmbxTimeperiodBusq);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.groupBox3.Location = new System.Drawing.Point(1, 1);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(1099, 174);
+            this.groupBox3.Size = new System.Drawing.Size(1050, 159);
             this.groupBox3.TabIndex = 4;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Búsqueda de Roles";
             // 
-            // cbmes
+            // checkBox1
             // 
-            this.cbmes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cbmes.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbmes.DropDownHeight = 180;
-            this.cbmes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbmes.DropDownWidth = 224;
-            this.cbmes.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbmes.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbmes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cbmes.FormattingEnabled = true;
-            this.cbmes.IntegralHeight = false;
-            this.cbmes.Location = new System.Drawing.Point(163, 98);
-            this.cbmes.Name = "cbmes";
-            this.cbmes.Size = new System.Drawing.Size(200, 23);
-            this.cbmes.TabIndex = 102;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox1.Location = new System.Drawing.Point(529, 67);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(15, 14);
+            this.checkBox1.TabIndex = 36;
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // cmbxmonthBusq
+            // 
+            this.cmbxmonthBusq.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbxmonthBusq.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbxmonthBusq.DropDownHeight = 180;
+            this.cmbxmonthBusq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbxmonthBusq.DropDownWidth = 224;
+            this.cmbxmonthBusq.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbxmonthBusq.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbxmonthBusq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbxmonthBusq.FormattingEnabled = true;
+            this.cmbxmonthBusq.IntegralHeight = false;
+            this.cmbxmonthBusq.Location = new System.Drawing.Point(163, 86);
+            this.cmbxmonthBusq.Name = "cmbxmonthBusq";
+            this.cmbxmonthBusq.Size = new System.Drawing.Size(200, 23);
+            this.cmbxmonthBusq.TabIndex = 102;
+            this.cmbxmonthBusq.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbxTimeperiodBusq_DrawItem);
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(0, 102);
+            this.label8.Location = new System.Drawing.Point(0, 90);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(45, 21);
             this.label8.TabIndex = 101;
             this.label8.Text = "Mes:";
             // 
-            // cbxgetconductor
+            // cmbxdriverBusq
             // 
-            this.cbxgetconductor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cbxgetconductor.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbxgetconductor.DropDownHeight = 180;
-            this.cbxgetconductor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxgetconductor.DropDownWidth = 250;
-            this.cbxgetconductor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbxgetconductor.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxgetconductor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cbxgetconductor.FormattingEnabled = true;
-            this.cbxgetconductor.IntegralHeight = false;
-            this.cbxgetconductor.Location = new System.Drawing.Point(774, 35);
-            this.cbxgetconductor.Name = "cbxgetconductor";
-            this.cbxgetconductor.Size = new System.Drawing.Size(200, 23);
-            this.cbxgetconductor.TabIndex = 100;
+            this.cmbxdriverBusq.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbxdriverBusq.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbxdriverBusq.DropDownHeight = 180;
+            this.cmbxdriverBusq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbxdriverBusq.DropDownWidth = 250;
+            this.cmbxdriverBusq.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbxdriverBusq.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbxdriverBusq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbxdriverBusq.FormattingEnabled = true;
+            this.cmbxdriverBusq.IntegralHeight = false;
+            this.cmbxdriverBusq.Location = new System.Drawing.Point(774, 23);
+            this.cmbxdriverBusq.Name = "cmbxdriverBusq";
+            this.cmbxdriverBusq.Size = new System.Drawing.Size(200, 23);
+            this.cmbxdriverBusq.TabIndex = 100;
+            this.cmbxdriverBusq.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbxTimeperiodBusq_DrawItem);
             // 
             // gbxFechas
             // 
-            this.gbxFechas.Controls.Add(this.checkBox1);
             this.gbxFechas.Controls.Add(this.dtpFechaDe);
             this.gbxFechas.Controls.Add(this.dtpFechaA);
             this.gbxFechas.Controls.Add(this.label54);
@@ -645,41 +684,33 @@
             this.gbxFechas.Enabled = false;
             this.gbxFechas.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxFechas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbxFechas.Location = new System.Drawing.Point(365, 75);
+            this.gbxFechas.Location = new System.Drawing.Point(365, 63);
             this.gbxFechas.Name = "gbxFechas";
-            this.gbxFechas.Size = new System.Drawing.Size(576, 73);
+            this.gbxFechas.Size = new System.Drawing.Size(471, 73);
             this.gbxFechas.TabIndex = 92;
             this.gbxFechas.TabStop = false;
             this.gbxFechas.Text = "Rango de Fechas:   ";
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.Location = new System.Drawing.Point(165, 6);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(15, 14);
-            this.checkBox1.TabIndex = 36;
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // dtpFechaDe
             // 
             this.dtpFechaDe.CalendarFont = new System.Drawing.Font("Garamond", 12F);
             this.dtpFechaDe.CustomFormat = "dd/MMMM/yyyy";
-            this.dtpFechaDe.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaDe.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFechaDe.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpFechaDe.Location = new System.Drawing.Point(39, 31);
             this.dtpFechaDe.Name = "dtpFechaDe";
-            this.dtpFechaDe.Size = new System.Drawing.Size(194, 29);
+            this.dtpFechaDe.Size = new System.Drawing.Size(194, 25);
             this.dtpFechaDe.TabIndex = 34;
             // 
             // dtpFechaA
             // 
             this.dtpFechaA.CalendarFont = new System.Drawing.Font("Garamond", 12F);
+            this.dtpFechaA.CustomFormat = "dd/MMMM/yyyy";
             this.dtpFechaA.Font = new System.Drawing.Font("Garamond", 12F);
+            this.dtpFechaA.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dtpFechaA.Location = new System.Drawing.Point(275, 30);
             this.dtpFechaA.Name = "dtpFechaA";
-            this.dtpFechaA.Size = new System.Drawing.Size(278, 25);
+            this.dtpFechaA.Size = new System.Drawing.Size(184, 25);
             this.dtpFechaA.TabIndex = 35;
             // 
             // label54
@@ -710,9 +741,9 @@
             // 
             this.pActualizar.Controls.Add(this.button1);
             this.pActualizar.Controls.Add(this.label56);
-            this.pActualizar.Location = new System.Drawing.Point(969, 98);
+            this.pActualizar.Location = new System.Drawing.Point(919, 69);
             this.pActualizar.Name = "pActualizar";
-            this.pActualizar.Size = new System.Drawing.Size(111, 69);
+            this.pActualizar.Size = new System.Drawing.Size(124, 69);
             this.pActualizar.TabIndex = 97;
             // 
             // button1
@@ -722,7 +753,7 @@
             this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(32, 4);
+            this.button1.Location = new System.Drawing.Point(38, 4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(42, 42);
             this.button1.TabIndex = 55;
@@ -730,17 +761,17 @@
             // 
             // label56
             // 
-            this.label56.AutoSize = true;
-            this.label56.Location = new System.Drawing.Point(3, 49);
+            this.label56.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label56.Location = new System.Drawing.Point(0, 48);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(116, 21);
+            this.label56.Size = new System.Drawing.Size(124, 21);
             this.label56.TabIndex = 56;
             this.label56.Text = "Mostrar Todo";
             // 
             // label57
             // 
             this.label57.AutoSize = true;
-            this.label57.Location = new System.Drawing.Point(997, 67);
+            this.label57.Location = new System.Drawing.Point(852, 116);
             this.label57.Name = "label57";
             this.label57.Size = new System.Drawing.Size(60, 21);
             this.label57.TabIndex = 96;
@@ -752,7 +783,7 @@
             this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.button2.FlatAppearance.BorderSize = 0;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Location = new System.Drawing.Point(1003, 24);
+            this.button2.Location = new System.Drawing.Point(858, 73);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(42, 42);
             this.button2.TabIndex = 95;
@@ -763,61 +794,63 @@
             // 
             this.label61.AutoSize = true;
             this.label61.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label61.Location = new System.Drawing.Point(675, 35);
+            this.label61.Location = new System.Drawing.Point(675, 23);
             this.label61.Name = "label61";
             this.label61.Size = new System.Drawing.Size(95, 21);
             this.label61.TabIndex = 93;
             this.label61.Text = "Conductor:";
             // 
-            // cbxgetexoBusq
+            // cmbxEcoBusq
             // 
-            this.cbxgetexoBusq.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cbxgetexoBusq.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbxgetexoBusq.DropDownHeight = 180;
-            this.cbxgetexoBusq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxgetexoBusq.DropDownWidth = 250;
-            this.cbxgetexoBusq.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbxgetexoBusq.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxgetexoBusq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cbxgetexoBusq.FormattingEnabled = true;
-            this.cbxgetexoBusq.IntegralHeight = false;
-            this.cbxgetexoBusq.Location = new System.Drawing.Point(471, 35);
-            this.cbxgetexoBusq.Name = "cbxgetexoBusq";
-            this.cbxgetexoBusq.Size = new System.Drawing.Size(200, 23);
-            this.cbxgetexoBusq.TabIndex = 90;
+            this.cmbxEcoBusq.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbxEcoBusq.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbxEcoBusq.DropDownHeight = 180;
+            this.cmbxEcoBusq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbxEcoBusq.DropDownWidth = 250;
+            this.cmbxEcoBusq.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbxEcoBusq.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbxEcoBusq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbxEcoBusq.FormattingEnabled = true;
+            this.cmbxEcoBusq.IntegralHeight = false;
+            this.cmbxEcoBusq.Location = new System.Drawing.Point(471, 23);
+            this.cmbxEcoBusq.Name = "cmbxEcoBusq";
+            this.cmbxEcoBusq.Size = new System.Drawing.Size(200, 23);
+            this.cmbxEcoBusq.TabIndex = 90;
+            this.cmbxEcoBusq.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbxTimeperiodBusq_DrawItem);
             // 
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Location = new System.Drawing.Point(367, 35);
+            this.label59.Location = new System.Drawing.Point(367, 23);
             this.label59.Name = "label59";
             this.label59.Size = new System.Drawing.Size(101, 21);
             this.label59.TabIndex = 89;
             this.label59.Text = "Económico:";
             // 
-            // comboBox1
+            // cmbxTimeperiodBusq
             // 
-            this.comboBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.comboBox1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.comboBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.cmbxTimeperiodBusq.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbxTimeperiodBusq.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbxTimeperiodBusq.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbxTimeperiodBusq.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbxTimeperiodBusq.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbxTimeperiodBusq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbxTimeperiodBusq.FormattingEnabled = true;
+            this.cmbxTimeperiodBusq.Items.AddRange(new object[] {
             "--SELECCIONE RANGO--",
             "DÍA",
             "SEMANA",
             "QUINCENA"});
-            this.comboBox1.Location = new System.Drawing.Point(163, 35);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(200, 23);
-            this.comboBox1.TabIndex = 15;
+            this.cmbxTimeperiodBusq.Location = new System.Drawing.Point(163, 23);
+            this.cmbxTimeperiodBusq.Name = "cmbxTimeperiodBusq";
+            this.cmbxTimeperiodBusq.Size = new System.Drawing.Size(200, 23);
+            this.cmbxTimeperiodBusq.TabIndex = 15;
+            this.cmbxTimeperiodBusq.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbxTimeperiodBusq_DrawItem);
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(0, 35);
+            this.label7.Location = new System.Drawing.Point(0, 23);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(160, 21);
             this.label7.TabIndex = 16;
@@ -826,9 +859,10 @@
             // panel1
             // 
             this.panel1.Controls.Add(this.dataGridView2);
-            this.panel1.Location = new System.Drawing.Point(1106, 1);
+            this.panel1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(1057, 1);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(808, 269);
+            this.panel1.Size = new System.Drawing.Size(857, 275);
             this.panel1.TabIndex = 5;
             // 
             // dataGridView2
@@ -842,7 +876,7 @@
             this.dataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenHorizontal;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -858,7 +892,7 @@
             this._usufkcpersonal});
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
@@ -872,7 +906,7 @@
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.Size = new System.Drawing.Size(808, 269);
+            this.dataGridView2.Size = new System.Drawing.Size(857, 275);
             this.dataGridView2.TabIndex = 1;
             // 
             // Column1
@@ -917,18 +951,27 @@
             this._usufkcpersonal.ReadOnly = true;
             this._usufkcpersonal.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
+            // pRoles
+            // 
+            this.pRoles.Controls.Add(this.dataGridView1);
+            this.pRoles.Controls.Add(this.gbxCiclo);
+            this.pRoles.Location = new System.Drawing.Point(0, 399);
+            this.pRoles.Name = "pRoles";
+            this.pRoles.Size = new System.Drawing.Size(1916, 538);
+            this.pRoles.TabIndex = 6;
+            this.pRoles.Visible = false;
+            // 
             // rolUnidades
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1916, 937);
+            this.Controls.Add(this.pRoles);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.backgroundpanel);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.dataGridView1);
             this.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -936,34 +979,96 @@
             this.Name = "rolUnidades";
             this.Text = "rolUnidades";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.gbxCiclo.ResumeLayout(false);
+            this.gbxCiclo.PerformLayout();
             this.panel8.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
-            this.pnewreport.ResumeLayout(false);
-            this.pnewreport.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.pfinalize.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.gbxFechas.ResumeLayout(false);
             this.gbxFechas.PerformLayout();
             this.pActualizar.ResumeLayout(false);
-            this.pActualizar.PerformLayout();
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.pRoles.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
+        #region Events From Control
+        private void cmbxTimeperiodBusq_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e) => Owner.v.combos_DrawItem(sender, e);
+        /// <summary>
+        ///Method that allow get the perod of time that will last the role
+        ///sender ==1 => 1 day
+        ///sender ==2 => 5 days
+        ///sender == 3 => 13 days
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void cmbxTimeperiod_SelectedValueChanged(object sender, System.EventArgs e)
+        {
+            if (cmbxTimeperiod.SelectedIndex <= 0) { backgroundpanel.Enabled = false;backgroundpanel.Controls.Clear(); lblfinaldate.Text = string.Empty; return; }
+           backgroundpanel.Enabled = true;
+            lblfinaldate.Text = (cmbxTimeperiod.SelectedIndex == 1 ? dtpinitialDate.Value.ToString("dd/MMMM/yyyy") : (cmbxTimeperiod.SelectedIndex == 2 ? dtpinitialDate.Value.AddDays(5).ToString("dd/MMMM/yyyy") : dtpinitialDate.Value.AddDays(13).ToString("dd/MMMM/yyyy")));
+            LoadDataCrontrols(false, false, false, false, true,false);
+        }
+        private void checkBox1_CheckedChanged(object sender, System.EventArgs e) => gbxFechas.Enabled = checkBox1.Checked;
+        private void backgroundpanel_EnabledChanged(object sender, System.EventArgs e) => pRoles.Visible = (backgroundpanel.Enabled && cmbxTimeperiod.SelectedIndex>0 && rolfkCRoles.HasValue);
+        private void button8_Click(object sender, System.EventArgs e)
+        {
+            string returnsvaildation = causesValidation();
+            if (string.IsNullOrEmpty(returnsvaildation)) {
+                var dataRol = Owner.v.getaData(string.Format("SELECT CONCAT_WS('|',nciclos,necos,diffciclos) FROM croles WHERE idrol='{0}'", rolfkCRoles)).ToString().Split('|');
+                if (editar)
+                    return;
+                else
+                {
+                    int nciclos = System.Convert.ToInt32(dataRol[0]), necos = System.Convert.ToInt32(dataRol[1]), diffciclos = System.Convert.ToInt32(dataRol[2]);
+                    long periodID =(long) Owner.v.c.setData(string.Format("INSERT INTO roltimeperiod (periodRange, initialDate,userfkcpersonal) VALUES('{0}','{1}','{2}')", new object[] { cmbxTimeperiod.SelectedValue,dtpinitialDate.Value.ToString("yyyy-MM-dd"),Owner.idUsuario}));
+                    long service = (long)Owner.v.c.setData(string.Format("INSERT INTO rolservices(rolfkcroles, periodfkctimeperiod, backuprol, userfkcpersonal) VALUES('{0}','{1}','{2}','{3}')", new object[] {  rolfkCRoles, periodID,Owner.v.getaData("SELECT CONCAT_WS('|',serviciofkcservicios, nciclos, necos, horaincorporo, diffciclos)  FROM croles where idrol='"+rolfkCRoles+"';") ,Owner.idUsuario}));
+                    long ecosServe = (long)Owner.v.c.setData(string.Format("INSERT INTO rolecosbyservices(servicefkrolservices, unidadfkcunidades, userfkcpersonal) VALUES('{0}','{1}','{2}')", new object[] { service, cmbxEco.SelectedValue, Owner.idUsuario }));
+                    
+                    if (periodID > 0)
+                        Owner.sendUser("Pediodo Agregado ID: " + periodID, validaciones.MessageBoxTitle.Información);
+                   
+
+                }
+                    } else Owner.sendUser("Error: "+returnsvaildation,validaciones.MessageBoxTitle.Error);
+
+
+        }
+        private void button9_Click(object sender, System.EventArgs e)
+        {
+            viewDriver view = new viewDriver(this);
+            view.Owner = this;
+            if (view.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                driverID = view.buttonSelected.Name.Split('|')[1];
+                lbldriverSelected.Text = view.buttonSelected.Text;
+                lbldriverSelected.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            }
+        }
+        private void cmbxEco_SelectedValueChanged(object sender, System.EventArgs e)
+        {
+            if (cmbxEco.SelectedIndex <= 0) { lblinitialcyle.Text = lblinitialhour.Text = string.Empty; return; }
+            var datalastCycle = Owner.v.getaData("SELECT if(count(hour)>0,CONCAT(cycle,'|',hour),(SELECT CONCAT('1','|',horaincorporo) from croles WHERE idrol='" + rolfkCRoles + "')) as Resultado FROM rolcycles WHERE ecorolfkrolecosbyservices ='" + cmbxEco.SelectedValue + "' ORDER BY idcycle DESC limit 1").ToString().Split('|');
+            lblinitialcyle.Text = datalastCycle[0];
+            lblinitialhour.Visible = dtpinitialhour.Visible = int.Parse(datalastCycle[0]) == 1;
+            if (dtpinitialhour.Visible) dtpinitialhour.Value = System.Convert.ToDateTime(datalastCycle[1]);else lblinitialhour.Text = System.Convert.ToDateTime(datalastCycle[1]).ToString("HH:mm");
+        }
+        #endregion
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox gbxCiclo;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblinitialhour;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblinitialcyle;
         private System.Windows.Forms.Label label4;
@@ -976,29 +1081,23 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Panel pnewreport;
-        private System.Windows.Forms.Button buttonNuevoOC;
-        private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Button button9;
-        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lbldriverSelected;
         private System.Windows.Forms.GroupBox groupBox2;
-        public System.Windows.Forms.ComboBox cmbxTimeperiod;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.DateTimePicker dtpinitialDate;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.ComboBox cmbxeco;
-        private System.Windows.Forms.Label lblfinaldate;
+        private System.Windows.Forms.ComboBox cmbxEco;
         private System.Windows.Forms.GroupBox groupBox3;
-        public System.Windows.Forms.ComboBox comboBox1;
+        public System.Windows.Forms.ComboBox cmbxTimeperiodBusq;
         private System.Windows.Forms.Label label7;
-        public System.Windows.Forms.ComboBox cbxgetexoBusq;
+        public System.Windows.Forms.ComboBox cmbxEcoBusq;
         private System.Windows.Forms.Label label59;
-        public System.Windows.Forms.ComboBox cbmes;
+        public System.Windows.Forms.ComboBox cmbxmonthBusq;
         private System.Windows.Forms.Label label8;
-        public System.Windows.Forms.ComboBox cbxgetconductor;
+        public System.Windows.Forms.ComboBox cmbxdriverBusq;
         private System.Windows.Forms.GroupBox gbxFechas;
         private System.Windows.Forms.DateTimePicker dtpFechaDe;
         private System.Windows.Forms.DateTimePicker dtpFechaA;
@@ -1019,9 +1118,17 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn _statusdgv;
         private System.Windows.Forms.DataGridViewTextBoxColumn _dgvdatetimereg;
         private System.Windows.Forms.DataGridViewTextBoxColumn _usufkcpersonal;
-        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.ComboBox cmbxjourney;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Panel pRoles;
+        private System.Windows.Forms.Panel pfinalize;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label9;
+        public System.Windows.Forms.DateTimePicker dtpinitialDate;
+        private System.Windows.Forms.ComboBox cmbxTimeperiod;
+        public System.Windows.Forms.Label lblfinaldate;
+        public System.Windows.Forms.DateTimePicker dtpinitialhour;
     }
 }

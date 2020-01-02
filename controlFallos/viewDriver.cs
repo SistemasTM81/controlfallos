@@ -16,11 +16,12 @@ namespace controlFallos
         Thread th;
         new rolUnidades Owner;
         delegate void dataLoad();
+        public Button buttonSelected;
+        int x = 5, y = 10;
         public viewDriver(rolUnidades Owner)
         {
             this.Owner = Owner;
             InitializeComponent();
-            lstbxDrivers.DrawItem += Owner.Owner.v.listbox_DrawItem;
             th = new Thread(dataLoader);
             th.IsBackground = true;
             th.Start();
@@ -29,17 +30,38 @@ namespace controlFallos
 
         private void dataLoader()
         {
-            if (lstbxDrivers.InvokeRequired)
-            {
+            if (InvokeRequired)
                 Invoke(new dataLoad(dataLoader));
-            }
             else
             {
-                lstbxDrivers.ValueMember = "id";
-                lstbxDrivers.DisplayMember = "Nombre";
-                lstbxDrivers.DataSource = Owner.Owner.v.getData("select idPersona as id, t1.credencial as Nombre from cpersonal as t1 inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos where t1.status='1'   AND t2.status='1' and t1.empresa='1' and t1.area='1';");
+                DataTable dt = (DataTable)Owner.Owner.v.getData("select idPersona as id, t1.credencial as Nombre from cpersonal as t1 inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos where t1.status='1'   AND t2.status='1' and t1.empresa='1' and t1.area='1';");
+                foreach (DataRow roe in dt.Rows)
+                    createControlDriver(roe.ItemArray[0], roe.ItemArray[1]);
                 th.Abort();
             }
+        }
+
+        private void createControlDriver(object driverID, object driverCRED)
+        {
+            Button btn = new Button();
+            btn.FlatStyle = FlatStyle.Flat;
+            btn.Text = driverCRED.ToString();
+            btn.UseMnemonic = false;
+            btn.Name = "Button|" + driverID;
+            btn.TextAlign = ContentAlignment.MiddleCenter;
+            btn.Size = new Size(50, 30);
+            btn.Location = new Point(x, y);
+            btn.Cursor = Cursors.Hand;
+            btn.Click += Btn_DoubleClick;
+            backgroundPanel.Controls.Add(btn);
+            x += 50;
+            if (x + 50 >= backgroundPanel.Size.Width){x = 5; y = y+30;}
+        }
+
+        private void Btn_DoubleClick(object sender, EventArgs e)
+        {
+            buttonSelected = ((Button)sender);
+            DialogResult = DialogResult.OK;
         }
     }
 }

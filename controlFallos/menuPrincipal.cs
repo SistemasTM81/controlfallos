@@ -47,8 +47,11 @@ namespace controlFallos
                 this.Close();
             }
             paraTipo();
-            menuStrip1.Renderer = new MyRenderer();
+            MyRenderer temp = new MyRenderer();
+            temp.RoundedEdges = true;
+            menuStrip1.Renderer = temp;
         }
+        
         void paraTipo()
         {
             if (empresa == 1)
@@ -383,8 +386,6 @@ namespace controlFallos
         {
             while (res)
             {
-                try
-                {
                     MySqlConnection dbcon = null;
                     if (v.c.conexionOriginal())
                         dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
@@ -403,8 +404,7 @@ namespace controlFallos
                         mostrarNotificacion = new Thread(new ThreadStart(MostrarNotificacion));
                         mostrarNotificacion.Start();
                     }
-                }
-                catch (Exception ex) { MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                
                 Thread.Sleep(5000);
             }
         }
@@ -418,7 +418,7 @@ namespace controlFallos
                 dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
             dbcon.Open();
             string cadena = "";
-            string sql = "SELECT t2.folio FROM estatusValidado as t1 INNER JOIN reportesupervicion as t2 On t1.idreportefkreportesupervicion = t2.idReporteSupervicion INNER JOIN cunidades as t3 ON t2.UnidadfkCUnidades= t3.idunidad INNER JOIN cmodelos as t4 ON t2.modelofkcmodelos = t4.idmodelo WHERE t1.seen = 0 AND t4.idempresa ='" + empresa + "'";
+            string sql = "SELECT t2.folio FROM estatusValidado as t1 INNER JOIN reportesupervicion as t2 On t1.idreportefkreportesupervicion = t2.idReporteSupervicion";
             MySqlCommand cm = new MySqlCommand(sql, dbcon);
             MySqlDataReader dr = cm.ExecuteReader();
 
@@ -679,9 +679,8 @@ namespace controlFallos
         public void cambiarstatus(object i)
         {
             v.c.insertar("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'");
-            try
-            {
-                MySqlConnection localConnection = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " database = sistrefaccmant ;port=" + v.c.portLocal);
+
+                MySqlConnection localConnection = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + "; database = sistrefaccmant ;port=" + v.c.portLocal);
                 localConnection.Open();
                 if (localConnection.State != ConnectionState.Open) localConnection.Open();
                 MySqlCommand cmd = new MySqlCommand("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'", localConnection);
@@ -689,8 +688,7 @@ namespace controlFallos
                 localConnection.Close();
                 localConnection.Dispose();
                 localConnection = null;
-            }
-            catch { }
+            
         }
 
         private void catálogoDePersonalToolStripMenuItem_EnabledChanged(object sender, EventArgs e) { ((ToolStripMenuItem)sender).ForeColor = Color.White; }

@@ -846,6 +846,8 @@
     <None Include="Resources\fingerprint2.png" />
     <None Include="Resources\file1.png" />
     <None Include="Resources\fingerprint-transparent-gif-141.gif" />
+    <None Include="Resources\file2.png" />
+    <None Include="Resources\file3.png" />
     <Content Include="Resources\folder %281%29.png" />
     <Content Include="Resources\folder %282%29.png" />
     <Content Include="Resources\folder %283%29.png" />
