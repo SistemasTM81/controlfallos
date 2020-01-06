@@ -411,6 +411,12 @@
     <Compile Include="percances.designer.cs">
       <DependentUpon>percances.cs</DependentUpon>
     </Compile>
+    <Compile Include="previewRol.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="previewRol.Designer.cs">
+      <DependentUpon>previewRol.cs</DependentUpon>
+    </Compile>
     <Compile Include="privilegiosAlmacen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -674,6 +680,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="percances.resx">
       <DependentUpon>percances.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="previewRol.resx">
+      <DependentUpon>previewRol.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="privilegiosAlmacen.resx">
       <DependentUpon>privilegiosAlmacen.cs</DependentUpon>

@@ -13,20 +13,20 @@ namespace controlFallos
         object driverID;
         protected internal delegate void delegater(object Loaders);
         Thread th;
-        int? positionX = null,rolfkCRoles;
-        long? periodID;
+        int? positionX = null, rolfkCRoles;
+public long? periodID,serviceID,ecoID;
         bool editar;
         public rolUnidades(menuPrincipal Owner)
         {
             this.Owner = Owner;
             InitializeComponent();
-            LoadDataCrontrols(true, true, true, true,false,false);
+            LoadDataCrontrols(true, true, true, true,false,false,false);
         }
-        private void LoadDataCrontrols(bool initialData, bool ECObusq, bool driversBusq, bool LoadGridView,bool LoadServices,bool LoadecoService)
+        private void LoadDataCrontrols(bool initialData, bool ECObusq, bool driversBusq, bool LoadGridView,bool LoadServices,bool LoadecoService,bool Loadroles)
         {
             th = new Thread(dataLoader);
             th.IsBackground = true;
-            th.Start(new object[] { initialData, ECObusq, driversBusq, LoadGridView,LoadServices,LoadecoService});
+            th.Start(new object[] { initialData, ECObusq, driversBusq, LoadGridView,LoadServices,LoadecoService,Loadroles});
             //    th.Join();
         }
         /// <summary>
@@ -56,6 +56,10 @@ namespace controlFallos
                 {
                     Owner.v.iniCombos("SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea WHERE t1.status =1 AND t2.idarea= (SELECT Areafkcareas FROM cservicios WHERE idservicio=(SELECT serviciofkcservicios FROM croles WHERE idrol='" + rolfkCRoles + "'))", cmbxEco, "idunidad", "eco", "--SELECCIONE ECONÓMICO--", this);
                     Owner.v.iniCombos("SELECT journeyID AS id, UPPER(journeyname) as name FROM cjourneys WHERE status=1 ORDER BY journeyname ASC;", cmbxjourney,"id","name","--SELECCIONE JORNADA--",this);
+                }
+                if(Loader[6])
+                {
+                    
                 }
                 th.Abort();
             }
@@ -104,10 +108,15 @@ namespace controlFallos
         private void Services_OnClick(object sender, EventArgs e)
         {
             rolfkCRoles = Convert.ToInt32((sender as Button).Name.Split('|')[1]);
-            gbxCiclo.Text = "Agregar Ciclo Para Servicio: "+backgroundpanel.Controls.Find("Label" + rolfkCRoles, true)[0].Text;
+            gbxCiclo.Text = "Agregar Ciclo Para Servicio: " + backgroundpanel.Controls.Find("Label" + rolfkCRoles, true)[0].Text;
+            if (periodID.HasValue)
+            {
+                var res = Owner.v.getaData("SELECT idservice FROM sistrefaccmant.rolservices WHERE rolfkcroles = '" + rolfkCRoles + "' AND periodfkctimeperiod = '" + periodID + "'");
+                if(res!=null)serviceID = Convert.ToInt64(res);
+            }
             pRoles.Visible = true;
             cloarControls();
-            LoadDataCrontrols(false, false, false, false, false, true);
+            LoadDataCrontrols(false, false, false, false, false, true,true);
         }
         void cloarControls()
         {

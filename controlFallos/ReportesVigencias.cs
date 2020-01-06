@@ -395,36 +395,6 @@ namespace controlFallos
             gbxVigencia.Text = "VIGENCIA";
             gbxRevision.Text = "REVISIÓN";
         }
-
-        // DISEÑO
-
-        public void combos_para_otros_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            ComboBox cbx = sender as ComboBox;
-            if (cbx != null)
-            {
-                e.DrawBackground();
-                if (e.Index >= 0)
-                {
-                    StringFormat sf = new StringFormat();
-                    sf.LineAlignment = StringAlignment.Center;
-                    sf.Alignment = StringAlignment.Center;
-                    Brush brush = new SolidBrush(cbx.ForeColor);
-                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    {
-                        brush = SystemBrushes.HighlightText;
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, Color.Crimson);
-                        e.DrawBackground();
-
-                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, new SolidBrush(Color.White), e.Bounds, sf);
-                        e.DrawFocusRectangle();
-                    }
-                    else
-                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, brush, e.Bounds, sf);
-                }
-            }
-        }
-
         private void panel1_MouseDown(object sender, MouseEventArgs e)
         {
             v.mover(sender, e, this);

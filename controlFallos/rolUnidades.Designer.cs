@@ -199,7 +199,7 @@
             this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(395, 129);
+            this.button3.Location = new System.Drawing.Point(395, 128);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(40, 40);
             this.button3.TabIndex = 0;
@@ -216,7 +216,7 @@
             this.cmbxjourney.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbxjourney.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbxjourney.FormattingEnabled = true;
-            this.cmbxjourney.Location = new System.Drawing.Point(135, 138);
+            this.cmbxjourney.Location = new System.Drawing.Point(135, 137);
             this.cmbxjourney.Name = "cmbxjourney";
             this.cmbxjourney.Size = new System.Drawing.Size(250, 23);
             this.cmbxjourney.TabIndex = 59;
@@ -225,7 +225,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(20, 139);
+            this.label5.Location = new System.Drawing.Point(20, 138);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(71, 21);
             this.label5.TabIndex = 60;
@@ -233,7 +233,7 @@
             // 
             // lbldriverSelected
             // 
-            this.lbldriverSelected.Location = new System.Drawing.Point(135, 209);
+            this.lbldriverSelected.Location = new System.Drawing.Point(135, 210);
             this.lbldriverSelected.Name = "lbldriverSelected";
             this.lbldriverSelected.Size = new System.Drawing.Size(250, 21);
             this.lbldriverSelected.TabIndex = 58;
@@ -243,7 +243,7 @@
             // 
             this.panel8.Controls.Add(this.label13);
             this.panel8.Controls.Add(this.button9);
-            this.panel8.Location = new System.Drawing.Point(367, 193);
+            this.panel8.Location = new System.Drawing.Point(367, 194);
             this.panel8.Name = "panel8";
             this.panel8.Size = new System.Drawing.Size(97, 57);
             this.panel8.TabIndex = 57;
@@ -392,7 +392,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(20, 209);
+            this.label4.Location = new System.Drawing.Point(20, 210);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(95, 21);
             this.label4.TabIndex = 52;
@@ -443,7 +443,7 @@
             this.cmbxEco.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbxEco.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbxEco.FormattingEnabled = true;
-            this.cmbxEco.Location = new System.Drawing.Point(135, 73);
+            this.cmbxEco.Location = new System.Drawing.Point(135, 72);
             this.cmbxEco.Name = "cmbxEco";
             this.cmbxEco.Size = new System.Drawing.Size(250, 23);
             this.cmbxEco.TabIndex = 11;
@@ -453,7 +453,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(20, 74);
+            this.label6.Location = new System.Drawing.Point(20, 73);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(101, 21);
             this.label6.TabIndex = 12;
@@ -1017,7 +1017,7 @@
             if (cmbxTimeperiod.SelectedIndex <= 0) { backgroundpanel.Enabled = false;backgroundpanel.Controls.Clear(); lblfinaldate.Text = string.Empty; return; }
            backgroundpanel.Enabled = true;
             lblfinaldate.Text = (cmbxTimeperiod.SelectedIndex == 1 ? dtpinitialDate.Value.ToString("dd/MMMM/yyyy") : (cmbxTimeperiod.SelectedIndex == 2 ? dtpinitialDate.Value.AddDays(5).ToString("dd/MMMM/yyyy") : dtpinitialDate.Value.AddDays(13).ToString("dd/MMMM/yyyy")));
-            LoadDataCrontrols(false, false, false, false, true,false);
+            LoadDataCrontrols(false, false, false, false, true,false,false);
         }
         private void checkBox1_CheckedChanged(object sender, System.EventArgs e) => gbxFechas.Enabled = checkBox1.Checked;
         private void backgroundpanel_EnabledChanged(object sender, System.EventArgs e) => pRoles.Visible = (backgroundpanel.Enabled && cmbxTimeperiod.SelectedIndex>0 && rolfkCRoles.HasValue);
@@ -1030,15 +1030,22 @@
                     return;
                 else
                 {
-                    int nciclos = System.Convert.ToInt32(dataRol[0]), necos = System.Convert.ToInt32(dataRol[1]), diffciclos = System.Convert.ToInt32(dataRol[2]);
-                    long periodID =(long) Owner.v.c.setData(string.Format("INSERT INTO roltimeperiod (periodRange, initialDate,userfkcpersonal) VALUES('{0}','{1}','{2}')", new object[] { cmbxTimeperiod.SelectedValue,dtpinitialDate.Value.ToString("yyyy-MM-dd"),Owner.idUsuario}));
-                    long service = (long)Owner.v.c.setData(string.Format("INSERT INTO rolservices(rolfkcroles, periodfkctimeperiod, backuprol, userfkcpersonal) VALUES('{0}','{1}','{2}','{3}')", new object[] {  rolfkCRoles, periodID,Owner.v.getaData("SELECT CONCAT_WS('|',serviciofkcservicios, nciclos, necos, horaincorporo, diffciclos)  FROM croles where idrol='"+rolfkCRoles+"';") ,Owner.idUsuario}));
-                    long ecosServe = (long)Owner.v.c.setData(string.Format("INSERT INTO rolecosbyservices(servicefkrolservices, unidadfkcunidades, userfkcpersonal) VALUES('{0}','{1}','{2}')", new object[] { service, cmbxEco.SelectedValue, Owner.idUsuario }));
-                    
-                    if (periodID > 0)
-                        Owner.sendUser("Pediodo Agregado ID: " + periodID, validaciones.MessageBoxTitle.Información);
-                   
-
+                    int nciclos = System.Convert.ToInt32(dataRol[0]), necos = System.Convert.ToInt32(dataRol[1]), diffciclos = System.Convert.ToInt32(dataRol[2]),lastCycle = System.Convert.ToInt32(Owner.v.getaData("SELECT  if(COUNT(idcycle)>0,(COUNT(idcycle)+1),'2') FROM rolcycles as t1 INNER JOIN rolecosbyservices as t2 ON t1.ecorolfkrolecosbyservices = t2.ideco INNER JOIN rolservices as t3 On t2.servicefkrolservices = t3.idservice INNER JOIN roltimeperiod as t4 On t3.periodfkctimeperiod = t4.idperiod WHERE t2.ideco ='1' AND t3.idservice ='1' AND t4.idperiod='1' ORDER BY idcycle DESC"));
+                    System.TimeSpan durationJourney = (System.TimeSpan)Owner.v.getaData("SELECT TIME(duration) FROM sistrefaccmant.cjourneys WHERE journeyID ='"+cmbxjourney.SelectedValue+"';"), initialTime = System.Convert.ToDateTime((dtpinitialhour.Visible?dtpinitialhour.Value.ToString("HH:mm"): lblinitialhour.Text)).TimeOfDay;
+                    if(!periodID.HasValue) periodID =(long?) Owner.v.c.setData(string.Format("INSERT INTO roltimeperiod (periodRange, initialDate,userfkcpersonal) VALUES('{0}','{1}','{2}')", new object[] { cmbxTimeperiod.SelectedValue,dtpinitialDate.Value.ToString("yyyy-MM-dd"),Owner.idUsuario}));
+                    if (!serviceID.HasValue) serviceID = (long?)Owner.v.c.setData(string.Format("INSERT INTO rolservices(rolfkcroles, periodfkctimeperiod, backuprol, userfkcpersonal) VALUES('{0}','{1}','{2}','{3}')", new object[] {  rolfkCRoles, periodID,Owner.v.getaData("SELECT CONCAT_WS('|',serviciofkcservicios, nciclos, necos, horaincorporo, diffciclos)  FROM croles where idrol='"+rolfkCRoles+"';") ,Owner.idUsuario}));
+                    if (!ecoID.HasValue) ecoID = (long?)Owner.v.c.setData(string.Format("INSERT INTO rolecosbyservices(servicefkrolservices, unidadfkcunidades, userfkcpersonal) VALUES('{0}','{1}','{2}')", new object[] { serviceID, cmbxEco.SelectedValue, Owner.idUsuario }));
+                    System.Collections.ArrayList cycles = new System.Collections.ArrayList();
+                    int index = cycles.Add(initialTime);
+                    Owner.v.c.insertar(string.Format("INSERT INTO rolcycles(ecorolfkrolecosbyservices, conductorfkcpersonal, hourcycle, userfkcpersonal) VALUES('{0}','{1}','{2}','{3}')", new object[] { ecoID, driverID, cycles[index],Owner.idUsuario}));
+                    for (int i = lastCycle; i<= nciclos; i++)
+                    {
+                        if (durationJourney.TotalMinutes < diffciclos) break;
+                        //index = cycles.Add((initialTime = initialTime.Add(System.TimeSpan.FromMinutes(diffciclos))));
+                        durationJourney = durationJourney.Subtract(System.TimeSpan.FromMinutes(diffciclos));
+                        Owner.v.c.insertar(string.Format("INSERT INTO rolcycles(ecorolfkrolecosbyservices, conductorfkcpersonal, hourcycle, userfkcpersonal) VALUES('{0}','{1}','{2}','{3}')", new object[] { ecoID, driverID, (initialTime = initialTime.Add(System.TimeSpan.FromMinutes(diffciclos))), Owner.idUsuario }));
+                    }
+                    Owner.sendUser("Jornada Agregada Correctamente", validaciones.MessageBoxTitle.Información);
                 }
                     } else Owner.sendUser("Error: "+returnsvaildation,validaciones.MessageBoxTitle.Error);
 
@@ -1058,9 +1065,16 @@
         private void cmbxEco_SelectedValueChanged(object sender, System.EventArgs e)
         {
             if (cmbxEco.SelectedIndex <= 0) { lblinitialcyle.Text = lblinitialhour.Text = string.Empty; return; }
-            var datalastCycle = Owner.v.getaData("SELECT if(count(hour)>0,CONCAT(cycle,'|',hour),(SELECT CONCAT('1','|',horaincorporo) from croles WHERE idrol='" + rolfkCRoles + "')) as Resultado FROM rolcycles WHERE ecorolfkrolecosbyservices ='" + cmbxEco.SelectedValue + "' ORDER BY idcycle DESC limit 1").ToString().Split('|');
+
+            if (serviceID.HasValue)
+            {
+                object res = Owner.v.getaData("SELECT ideco FROM sistrefaccmant.rolecosbyservices where unidadfkcunidades='" + cmbxEco.SelectedValue + "' AND servicefkrolservices='" + serviceID + "'");
+             if(res!=null)   ecoID =  System.Convert.ToInt64(res);
+            }
+            var datalastCycle = Owner.v.getaData(string.Format("select if((SELECT coalesce(max(idcycle), 'x') FROM rolcycles WHERE {0}) != 'x',(SELECT concat(COUNT(*), '|', max(hourcycle)) FROM rolcycles WHERE {0}),(SELECT concat('1|', horaincorporo) from croles WHERE idrol = '"+rolfkCRoles+"')) as resultado", "ecorolfkrolecosbyservices ='" + ecoID + "' ")).ToString().Split('|');
+          
             lblinitialcyle.Text = datalastCycle[0];
-            lblinitialhour.Visible = dtpinitialhour.Visible = int.Parse(datalastCycle[0]) == 1;
+            lblinitialhour.Visible = !(dtpinitialhour.Visible = int.Parse(datalastCycle[0]) == 1);
             if (dtpinitialhour.Visible) dtpinitialhour.Value = System.Convert.ToDateTime(datalastCycle[1]);else lblinitialhour.Text = System.Convert.ToDateTime(datalastCycle[1]).ToString("HH:mm");
         }
         #endregion
@@ -1089,7 +1103,6 @@
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.ComboBox cmbxEco;
         private System.Windows.Forms.GroupBox groupBox3;
         public System.Windows.Forms.ComboBox cmbxTimeperiodBusq;
         private System.Windows.Forms.Label label7;
@@ -1130,5 +1143,6 @@
         private System.Windows.Forms.ComboBox cmbxTimeperiod;
         public System.Windows.Forms.Label lblfinaldate;
         public System.Windows.Forms.DateTimePicker dtpinitialhour;
+        public System.Windows.Forms.ComboBox cmbxEco;
     }
 }
