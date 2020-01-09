@@ -4370,7 +4370,7 @@ namespace controlFallos
                         if (!string.IsNullOrWhiteSpace(revision))
                             if (Convert.ToInt32(revision) > 0)
                                 if (!string.IsNullOrWhiteSpace(contraseña))
-                                    if (Convert.ToInt32(getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + Encriptar(contraseña) + "' and t1.status='1'")) > 0)
+                                    if (Convert.ToInt32(getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + Encriptar(contraseña) + "' and t1.status='1' and empresa='1'")) > 0)
                                         return true;
                                     else
                                     {
@@ -4408,25 +4408,26 @@ namespace controlFallos
                 return false;
             }
         }
-        public bool camposmant(string contraseñam, int idgrupo, int idarea, int refacciones, string trabajo, int estatus)
+        public bool camposmant(string contraseñam, int idgrupo, int idarea, int refacciones, int estatus, string foliof, int idreporte, int statusAnterior)
         {
-            if (!string.IsNullOrWhiteSpace(contraseñam))
-                if (Convert.ToInt32(getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t2.usuariofkcpersonal=t1.idPersona where t1.area='" + idarea + "' and t2.password='" + Encriptar(contraseñam) + "';")) > 0)
+            if (!string.IsNullOrWhiteSpace(contraseñam) || statusAnterior == 3)
+                if (Convert.ToInt32(getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t2.usuariofkcpersonal=t1.idPersona where t1.area='" + idarea + "' and t2.password='" + Encriptar(contraseñam) + "';")) > 0 || statusAnterior == 3)
                     if (idgrupo > 0)
                         if (refacciones > 0)
-                            if (!string.IsNullOrWhiteSpace(trabajo))
-                                if (estatus > 0)
+                            if (estatus > 0)
+                                if (string.IsNullOrWhiteSpace(foliof) || (Convert.ToInt32(getaData("select count(*) from reportemantenimiento where FolioFactura='" + foliof + "' and IdReporte!='" + idreporte + "';")) == 0 && Convert.ToInt32(foliof) > 0))
                                     return true;
                                 else
                                 {
-                                    MessageBox.Show("Seleccione un estatus de la lista desplegable", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    MessageBox.Show((Convert.ToInt32(foliof) == 0 ? "El folio de factura debe ser mayor a 0" : "El folio ya se enceuntra registrado en el sistema"), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                     return false;
                                 }
                             else
                             {
-                                MessageBox.Show("EL trabajo realizado se encuentra vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                MessageBox.Show("Seleccione un estatus de la lista desplegable", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                 return false;
                             }
+
                         else
                         {
                             MessageBox.Show("Seleccione una opción en la lista desplegable \"se requieren refacciones\"", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbsupervision = new System.Windows.Forms.GroupBox();
             this.lblobservacioness = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -62,7 +62,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
-            this.gbmantenimiento = new System.Windows.Forms.GroupBox();
+            this.lblexportar = new System.Windows.Forms.GroupBox();
+            this.lblsupmant = new System.Windows.Forms.Label();
+            this.btnrefacciones = new System.Windows.Forms.Button();
             this.lblmapoyo = new System.Windows.Forms.Label();
             this.lblmecanico = new System.Windows.Forms.Label();
             this.lbltiempototal = new System.Windows.Forms.Label();
@@ -87,8 +89,6 @@
             this.txtfoliof = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
-            this.cmbexistencia = new System.Windows.Forms.ComboBox();
-            this.label40 = new System.Windows.Forms.Label();
             this.txttrabajo = new System.Windows.Forms.TextBox();
             this.label38 = new System.Windows.Forms.Label();
             this.cmbrefacciones = new System.Windows.Forms.ComboBox();
@@ -102,19 +102,23 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.gbbusqueda = new System.Windows.Forms.GroupBox();
-            this.label60 = new System.Windows.Forms.Label();
-            this.label57 = new System.Windows.Forms.Label();
+            this.pexcel = new System.Windows.Forms.Panel();
+            this.lblexcel = new System.Windows.Forms.Label();
             this.btnexportar = new System.Windows.Forms.Button();
+            this.pbgif = new System.Windows.Forms.PictureBox();
+            this.pactualizar = new System.Windows.Forms.Panel();
             this.btnactualizar = new System.Windows.Forms.Button();
-            this.label54 = new System.Windows.Forms.Label();
+            this.label57 = new System.Windows.Forms.Label();
+            this.pbuscar = new System.Windows.Forms.Panel();
             this.btnbuscar = new System.Windows.Forms.Button();
+            this.label54 = new System.Windows.Forms.Label();
             this.cmbgrupob = new System.Windows.Forms.ComboBox();
             this.label43 = new System.Windows.Forms.Label();
-            this.detpfechaa = new System.Windows.Forms.DateTimePicker();
+            this.dtpfechaa = new System.Windows.Forms.DateTimePicker();
             this.label42 = new System.Windows.Forms.Label();
             this.dtpfechade = new System.Windows.Forms.DateTimePicker();
             this.label39 = new System.Windows.Forms.Label();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.cbrango = new System.Windows.Forms.CheckBox();
             this.cmbmesb = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.cmbestatusb = new System.Windows.Forms.ComboBox();
@@ -123,10 +127,9 @@
             this.label27 = new System.Windows.Forms.Label();
             this.cmbunidadb = new System.Windows.Forms.ComboBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.txtfoliob = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.pbgif = new System.Windows.Forms.PictureBox();
             this.lblCancelar = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnpdf = new System.Windows.Forms.Button();
@@ -154,8 +157,10 @@
             this.dgvreportes = new System.Windows.Forms.DataGridView();
             this.pguardar = new System.Windows.Forms.Panel();
             this.pcancelar = new System.Windows.Forms.Panel();
-            this.btnrefacciones = new System.Windows.Forms.Button();
             this.gbrefacciones = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnregresar = new System.Windows.Forms.Button();
+            this.label62 = new System.Windows.Forms.Label();
             this.pagregar = new System.Windows.Forms.Panel();
             this.btnagregar = new System.Windows.Forms.Button();
             this.label61 = new System.Windows.Forms.Label();
@@ -168,20 +173,25 @@
             this.label11 = new System.Windows.Forms.Label();
             this.cmbrefaccion = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnregresar = new System.Windows.Forms.Button();
-            this.label62 = new System.Windows.Forms.Label();
+            this.pfinalizar = new System.Windows.Forms.Panel();
+            this.label64 = new System.Windows.Forms.Label();
+            this.pPdf = new System.Windows.Forms.Panel();
             this.gbsupervision.SuspendLayout();
-            this.gbmantenimiento.SuspendLayout();
+            this.lblexportar.SuspendLayout();
             this.gbbusqueda.SuspendLayout();
+            this.pexcel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbgif)).BeginInit();
+            this.pactualizar.SuspendLayout();
+            this.pbuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvreportes)).BeginInit();
             this.pguardar.SuspendLayout();
             this.pcancelar.SuspendLayout();
             this.gbrefacciones.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.pagregar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvrefacciones)).BeginInit();
-            this.panel1.SuspendLayout();
+            this.pfinalizar.SuspendLayout();
+            this.pPdf.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbsupervision
@@ -223,7 +233,7 @@
             // 
             this.lblobservacioness.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblobservacioness.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblobservacioness.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblobservacioness.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblobservacioness.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblobservacioness.Location = new System.Drawing.Point(6, 256);
             this.lblobservacioness.Name = "lblobservacioness";
@@ -245,11 +255,11 @@
             // 
             this.lblhorar.AutoSize = true;
             this.lblhorar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblhorar.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblhorar.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblhorar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblhorar.Location = new System.Drawing.Point(655, 68);
             this.lblhorar.Name = "lblhorar";
-            this.lblhorar.Size = new System.Drawing.Size(0, 18);
+            this.lblhorar.Size = new System.Drawing.Size(0, 17);
             this.lblhorar.TabIndex = 157;
             // 
             // label31
@@ -268,11 +278,11 @@
             // 
             this.lblfechas.AutoSize = true;
             this.lblfechas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblfechas.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblfechas.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblfechas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblfechas.Location = new System.Drawing.Point(158, 110);
             this.lblfechas.Name = "lblfechas";
-            this.lblfechas.Size = new System.Drawing.Size(0, 18);
+            this.lblfechas.Size = new System.Drawing.Size(0, 17);
             this.lblfechas.TabIndex = 153;
             // 
             // label29
@@ -291,11 +301,11 @@
             // 
             this.lblkilometraje.AutoSize = true;
             this.lblkilometraje.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblkilometraje.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblkilometraje.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblkilometraje.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblkilometraje.Location = new System.Drawing.Point(648, 30);
             this.lblkilometraje.Name = "lblkilometraje";
-            this.lblkilometraje.Size = new System.Drawing.Size(0, 18);
+            this.lblkilometraje.Size = new System.Drawing.Size(0, 17);
             this.lblkilometraje.TabIndex = 150;
             // 
             // label24
@@ -314,11 +324,11 @@
             // 
             this.lblsupervisor.AutoSize = true;
             this.lblsupervisor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblsupervisor.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblsupervisor.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblsupervisor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblsupervisor.Location = new System.Drawing.Point(156, 68);
             this.lblsupervisor.Name = "lblsupervisor";
-            this.lblsupervisor.Size = new System.Drawing.Size(0, 18);
+            this.lblsupervisor.Size = new System.Drawing.Size(0, 17);
             this.lblsupervisor.TabIndex = 146;
             // 
             // label22
@@ -337,11 +347,11 @@
             // 
             this.lblcodigo.AutoSize = true;
             this.lblcodigo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblcodigo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblcodigo.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblcodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblcodigo.Location = new System.Drawing.Point(157, 155);
             this.lblcodigo.Name = "lblcodigo";
-            this.lblcodigo.Size = new System.Drawing.Size(0, 18);
+            this.lblcodigo.Size = new System.Drawing.Size(0, 17);
             this.lblcodigo.TabIndex = 143;
             // 
             // label20
@@ -360,11 +370,11 @@
             // 
             this.lblunidad.AutoSize = true;
             this.lblunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblunidad.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblunidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblunidad.Location = new System.Drawing.Point(313, 25);
             this.lblunidad.Name = "lblunidad";
-            this.lblunidad.Size = new System.Drawing.Size(0, 18);
+            this.lblunidad.Size = new System.Drawing.Size(0, 17);
             this.lblunidad.TabIndex = 140;
             // 
             // label19
@@ -427,11 +437,11 @@
             // 
             this.lblfolio.AutoSize = true;
             this.lblfolio.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblfolio.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblfolio.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblfolio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblfolio.Location = new System.Drawing.Point(54, 26);
             this.lblfolio.Name = "lblfolio";
-            this.lblfolio.Size = new System.Drawing.Size(0, 18);
+            this.lblfolio.Size = new System.Drawing.Size(0, 17);
             this.lblfolio.TabIndex = 138;
             // 
             // label16
@@ -479,90 +489,121 @@
             this.label25.TabIndex = 139;
             this.label25.Text = "____________________________";
             // 
-            // gbmantenimiento
+            // lblexportar
             // 
-            this.gbmantenimiento.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.gbmantenimiento.Controls.Add(this.btnrefacciones);
-            this.gbmantenimiento.Controls.Add(this.lblmapoyo);
-            this.gbmantenimiento.Controls.Add(this.lblmecanico);
-            this.gbmantenimiento.Controls.Add(this.lbltiempototal);
-            this.gbmantenimiento.Controls.Add(this.label58);
-            this.gbmantenimiento.Controls.Add(this.label59);
-            this.gbmantenimiento.Controls.Add(this.lbltiempoespera);
-            this.gbmantenimiento.Controls.Add(this.label55);
-            this.gbmantenimiento.Controls.Add(this.label56);
-            this.gbmantenimiento.Controls.Add(this.lblhtmant);
-            this.gbmantenimiento.Controls.Add(this.label52);
-            this.gbmantenimiento.Controls.Add(this.label53);
-            this.gbmantenimiento.Controls.Add(this.lblhimant);
-            this.gbmantenimiento.Controls.Add(this.label50);
-            this.gbmantenimiento.Controls.Add(this.label51);
-            this.gbmantenimiento.Controls.Add(this.txtsupervisor);
-            this.gbmantenimiento.Controls.Add(this.label47);
-            this.gbmantenimiento.Controls.Add(this.label48);
-            this.gbmantenimiento.Controls.Add(this.txtobservacionesm);
-            this.gbmantenimiento.Controls.Add(this.label46);
-            this.gbmantenimiento.Controls.Add(this.cmbestatus);
-            this.gbmantenimiento.Controls.Add(this.label45);
-            this.gbmantenimiento.Controls.Add(this.txtfoliof);
-            this.gbmantenimiento.Controls.Add(this.label41);
-            this.gbmantenimiento.Controls.Add(this.label44);
-            this.gbmantenimiento.Controls.Add(this.cmbexistencia);
-            this.gbmantenimiento.Controls.Add(this.label40);
-            this.gbmantenimiento.Controls.Add(this.txttrabajo);
-            this.gbmantenimiento.Controls.Add(this.label38);
-            this.gbmantenimiento.Controls.Add(this.cmbrefacciones);
-            this.gbmantenimiento.Controls.Add(this.label37);
-            this.gbmantenimiento.Controls.Add(this.txtmecanicoapoyo);
-            this.gbmantenimiento.Controls.Add(this.label35);
-            this.gbmantenimiento.Controls.Add(this.label36);
-            this.gbmantenimiento.Controls.Add(this.cmbgrupo);
-            this.gbmantenimiento.Controls.Add(this.label33);
-            this.gbmantenimiento.Controls.Add(this.txtmecanico);
-            this.gbmantenimiento.Controls.Add(this.label32);
-            this.gbmantenimiento.Controls.Add(this.label30);
-            this.gbmantenimiento.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbmantenimiento.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbmantenimiento.Location = new System.Drawing.Point(818, 12);
-            this.gbmantenimiento.Name = "gbmantenimiento";
-            this.gbmantenimiento.Size = new System.Drawing.Size(1090, 368);
-            this.gbmantenimiento.TabIndex = 158;
-            this.gbmantenimiento.TabStop = false;
-            this.gbmantenimiento.Text = "Mantenimiento";
+            this.lblexportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.lblexportar.Controls.Add(this.lblsupmant);
+            this.lblexportar.Controls.Add(this.btnrefacciones);
+            this.lblexportar.Controls.Add(this.lblmapoyo);
+            this.lblexportar.Controls.Add(this.lblmecanico);
+            this.lblexportar.Controls.Add(this.lbltiempototal);
+            this.lblexportar.Controls.Add(this.label58);
+            this.lblexportar.Controls.Add(this.label59);
+            this.lblexportar.Controls.Add(this.lbltiempoespera);
+            this.lblexportar.Controls.Add(this.label55);
+            this.lblexportar.Controls.Add(this.label56);
+            this.lblexportar.Controls.Add(this.lblhtmant);
+            this.lblexportar.Controls.Add(this.label52);
+            this.lblexportar.Controls.Add(this.label53);
+            this.lblexportar.Controls.Add(this.lblhimant);
+            this.lblexportar.Controls.Add(this.label50);
+            this.lblexportar.Controls.Add(this.label51);
+            this.lblexportar.Controls.Add(this.txtsupervisor);
+            this.lblexportar.Controls.Add(this.label47);
+            this.lblexportar.Controls.Add(this.label48);
+            this.lblexportar.Controls.Add(this.txtobservacionesm);
+            this.lblexportar.Controls.Add(this.label46);
+            this.lblexportar.Controls.Add(this.cmbestatus);
+            this.lblexportar.Controls.Add(this.label45);
+            this.lblexportar.Controls.Add(this.txtfoliof);
+            this.lblexportar.Controls.Add(this.label41);
+            this.lblexportar.Controls.Add(this.label44);
+            this.lblexportar.Controls.Add(this.txttrabajo);
+            this.lblexportar.Controls.Add(this.label38);
+            this.lblexportar.Controls.Add(this.cmbrefacciones);
+            this.lblexportar.Controls.Add(this.label37);
+            this.lblexportar.Controls.Add(this.txtmecanicoapoyo);
+            this.lblexportar.Controls.Add(this.label35);
+            this.lblexportar.Controls.Add(this.label36);
+            this.lblexportar.Controls.Add(this.cmbgrupo);
+            this.lblexportar.Controls.Add(this.label33);
+            this.lblexportar.Controls.Add(this.txtmecanico);
+            this.lblexportar.Controls.Add(this.label32);
+            this.lblexportar.Controls.Add(this.label30);
+            this.lblexportar.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblexportar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lblexportar.Location = new System.Drawing.Point(818, 12);
+            this.lblexportar.Name = "lblexportar";
+            this.lblexportar.Size = new System.Drawing.Size(1090, 368);
+            this.lblexportar.TabIndex = 158;
+            this.lblexportar.TabStop = false;
+            this.lblexportar.Text = "Mantenimiento";
+            // 
+            // lblsupmant
+            // 
+            this.lblsupmant.AutoSize = true;
+            this.lblsupmant.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblsupmant.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblsupmant.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lblsupmant.Location = new System.Drawing.Point(192, 285);
+            this.lblsupmant.Name = "lblsupmant";
+            this.lblsupmant.Size = new System.Drawing.Size(0, 13);
+            this.lblsupmant.TabIndex = 234;
+            // 
+            // btnrefacciones
+            // 
+            this.btnrefacciones.AutoSize = true;
+            this.btnrefacciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.BackgroundImage = global::controlFallos.Properties.Resources.add;
+            this.btnrefacciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnrefacciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatAppearance.BorderSize = 0;
+            this.btnrefacciones.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnrefacciones.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnrefacciones.Location = new System.Drawing.Point(1051, 61);
+            this.btnrefacciones.Name = "btnrefacciones";
+            this.btnrefacciones.Size = new System.Drawing.Size(30, 30);
+            this.btnrefacciones.TabIndex = 233;
+            this.btnrefacciones.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnrefacciones.UseVisualStyleBackColor = false;
+            this.btnrefacciones.Visible = false;
+            this.btnrefacciones.Click += new System.EventHandler(this.btnrefacciones_Click);
             // 
             // lblmapoyo
             // 
             this.lblmapoyo.AutoSize = true;
             this.lblmapoyo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblmapoyo.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblmapoyo.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblmapoyo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblmapoyo.Location = new System.Drawing.Point(191, 89);
             this.lblmapoyo.Name = "lblmapoyo";
-            this.lblmapoyo.Size = new System.Drawing.Size(0, 17);
+            this.lblmapoyo.Size = new System.Drawing.Size(0, 13);
             this.lblmapoyo.TabIndex = 172;
             // 
             // lblmecanico
             // 
             this.lblmecanico.AutoSize = true;
             this.lblmecanico.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblmecanico.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblmecanico.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblmecanico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblmecanico.Location = new System.Drawing.Point(190, 49);
             this.lblmecanico.Name = "lblmecanico";
-            this.lblmecanico.Size = new System.Drawing.Size(0, 17);
+            this.lblmecanico.Size = new System.Drawing.Size(0, 13);
             this.lblmecanico.TabIndex = 171;
             // 
             // lbltiempototal
             // 
             this.lbltiempototal.AutoSize = true;
             this.lbltiempototal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltiempototal.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltiempototal.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltiempototal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lbltiempototal.Location = new System.Drawing.Point(840, 334);
+            this.lbltiempototal.Location = new System.Drawing.Point(816, 308);
             this.lbltiempototal.Name = "lbltiempototal";
-            this.lbltiempototal.Size = new System.Drawing.Size(95, 18);
+            this.lbltiempototal.Size = new System.Drawing.Size(0, 17);
             this.lbltiempototal.TabIndex = 169;
-            this.lbltiempototal.Text = "TRA0000001";
             // 
             // label58
             // 
@@ -570,20 +611,20 @@
             this.label58.BackColor = System.Drawing.Color.Transparent;
             this.label58.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label58.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label58.Location = new System.Drawing.Point(834, 345);
+            this.label58.Location = new System.Drawing.Point(810, 319);
             this.label58.Name = "label58";
-            this.label58.Size = new System.Drawing.Size(117, 9);
+            this.label58.Size = new System.Drawing.Size(213, 9);
             this.label58.TabIndex = 170;
-            this.label58.Text = "____________________________";
+            this.label58.Text = "____________________________________________________";
             // 
             // label59
             // 
             this.label59.AutoSize = true;
-            this.label59.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label59.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label59.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label59.Location = new System.Drawing.Point(543, 338);
+            this.label59.Location = new System.Drawing.Point(538, 313);
             this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(237, 18);
+            this.label59.Size = new System.Drawing.Size(219, 17);
             this.label59.TabIndex = 168;
             this.label59.Text = "Tiempo Total de Mantenimiento:";
             // 
@@ -591,13 +632,12 @@
             // 
             this.lbltiempoespera.AutoSize = true;
             this.lbltiempoespera.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltiempoespera.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltiempoespera.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltiempoespera.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lbltiempoespera.Location = new System.Drawing.Point(835, 294);
+            this.lbltiempoespera.Location = new System.Drawing.Point(811, 268);
             this.lbltiempoespera.Name = "lbltiempoespera";
-            this.lbltiempoespera.Size = new System.Drawing.Size(95, 18);
+            this.lbltiempoespera.Size = new System.Drawing.Size(0, 17);
             this.lbltiempoespera.TabIndex = 166;
-            this.lbltiempoespera.Text = "TRA0000001";
             // 
             // label55
             // 
@@ -605,20 +645,20 @@
             this.label55.BackColor = System.Drawing.Color.Transparent;
             this.label55.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label55.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label55.Location = new System.Drawing.Point(829, 305);
+            this.label55.Location = new System.Drawing.Point(805, 279);
             this.label55.Name = "label55";
-            this.label55.Size = new System.Drawing.Size(117, 9);
+            this.label55.Size = new System.Drawing.Size(213, 9);
             this.label55.TabIndex = 167;
-            this.label55.Text = "____________________________";
+            this.label55.Text = "____________________________________________________";
             // 
             // label56
             // 
             this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label56.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label56.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label56.Location = new System.Drawing.Point(538, 298);
+            this.label56.Location = new System.Drawing.Point(538, 272);
             this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(285, 18);
+            this.label56.Size = new System.Drawing.Size(260, 17);
             this.label56.TabIndex = 165;
             this.label56.Text = "Tiempo en Espera para Mantenimiento:";
             // 
@@ -626,13 +666,12 @@
             // 
             this.lblhtmant.AutoSize = true;
             this.lblhtmant.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblhtmant.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblhtmant.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblhtmant.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblhtmant.Location = new System.Drawing.Point(289, 338);
+            this.lblhtmant.Location = new System.Drawing.Point(314, 342);
             this.lblhtmant.Name = "lblhtmant";
-            this.lblhtmant.Size = new System.Drawing.Size(95, 18);
+            this.lblhtmant.Size = new System.Drawing.Size(0, 17);
             this.lblhtmant.TabIndex = 163;
-            this.lblhtmant.Text = "TRA0000001";
             // 
             // label52
             // 
@@ -640,34 +679,33 @@
             this.label52.BackColor = System.Drawing.Color.Transparent;
             this.label52.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label52.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label52.Location = new System.Drawing.Point(283, 349);
+            this.label52.Location = new System.Drawing.Point(308, 353);
             this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(117, 9);
+            this.label52.Size = new System.Drawing.Size(173, 9);
             this.label52.TabIndex = 164;
-            this.label52.Text = "____________________________";
+            this.label52.Text = "__________________________________________";
             // 
             // label53
             // 
             this.label53.AutoSize = true;
-            this.label53.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label53.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label53.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label53.Location = new System.Drawing.Point(13, 342);
+            this.label53.Location = new System.Drawing.Point(13, 346);
             this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(264, 18);
+            this.label53.Size = new System.Drawing.Size(288, 17);
             this.label53.TabIndex = 162;
-            this.label53.Text = "Hora de Termino de Mantenimiento:";
+            this.label53.Text = "Fecha/Hora de Termino de Mantenimiento:";
             // 
             // lblhimant
             // 
             this.lblhimant.AutoSize = true;
             this.lblhimant.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblhimant.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblhimant.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblhimant.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblhimant.Location = new System.Drawing.Point(289, 299);
+            this.lblhimant.Location = new System.Drawing.Point(289, 307);
             this.lblhimant.Name = "lblhimant";
-            this.lblhimant.Size = new System.Drawing.Size(95, 18);
+            this.lblhimant.Size = new System.Drawing.Size(0, 17);
             this.lblhimant.TabIndex = 160;
-            this.lblhimant.Text = "TRA0000001";
             // 
             // label50
             // 
@@ -675,22 +713,22 @@
             this.label50.BackColor = System.Drawing.Color.Transparent;
             this.label50.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label50.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label50.Location = new System.Drawing.Point(283, 310);
+            this.label50.Location = new System.Drawing.Point(283, 318);
             this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(117, 9);
+            this.label50.Size = new System.Drawing.Size(193, 9);
             this.label50.TabIndex = 161;
-            this.label50.Text = "____________________________";
+            this.label50.Text = "_______________________________________________";
             // 
             // label51
             // 
             this.label51.AutoSize = true;
-            this.label51.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label51.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label51.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label51.Location = new System.Drawing.Point(13, 303);
+            this.label51.Location = new System.Drawing.Point(13, 311);
             this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(241, 18);
+            this.label51.Size = new System.Drawing.Size(269, 17);
             this.label51.TabIndex = 159;
-            this.label51.Text = "Hora de inicio de Mantenimiento:";
+            this.label51.Text = "Fecha/Hora de inicio de Mantenimiento:";
             // 
             // txtsupervisor
             // 
@@ -707,6 +745,7 @@
             this.txtsupervisor.Size = new System.Drawing.Size(281, 18);
             this.txtsupervisor.TabIndex = 129;
             this.txtsupervisor.TextChanged += new System.EventHandler(this.txtmecanico_TextChanged);
+            this.txtsupervisor.Validated += new System.EventHandler(this.txtsupervisor_Validated);
             // 
             // label47
             // 
@@ -723,11 +762,11 @@
             // label48
             // 
             this.label48.AutoSize = true;
-            this.label48.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label48.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label48.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label48.Location = new System.Drawing.Point(13, 263);
             this.label48.Name = "label48";
-            this.label48.Size = new System.Drawing.Size(167, 18);
+            this.label48.Size = new System.Drawing.Size(153, 17);
             this.label48.TabIndex = 128;
             this.label48.Text = "Contraseña Supervisor:";
             // 
@@ -739,23 +778,24 @@
             this.txtobservacionesm.Enabled = false;
             this.txtobservacionesm.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtobservacionesm.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtobservacionesm.Location = new System.Drawing.Point(541, 209);
-            this.txtobservacionesm.MaxLength = 18;
+            this.txtobservacionesm.Location = new System.Drawing.Point(541, 174);
+            this.txtobservacionesm.MaxLength = 150;
             this.txtobservacionesm.Multiline = true;
             this.txtobservacionesm.Name = "txtobservacionesm";
             this.txtobservacionesm.ShortcutsEnabled = false;
             this.txtobservacionesm.Size = new System.Drawing.Size(499, 73);
             this.txtobservacionesm.TabIndex = 127;
             this.txtobservacionesm.TextChanged += new System.EventHandler(this.txtmecanico_TextChanged);
+            this.txtobservacionesm.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txttrabajo_KeyPress);
             // 
             // label46
             // 
             this.label46.AutoSize = true;
-            this.label46.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label46.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label46.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label46.Location = new System.Drawing.Point(538, 188);
+            this.label46.Location = new System.Drawing.Point(538, 153);
             this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(245, 18);
+            this.label46.Size = new System.Drawing.Size(225, 17);
             this.label46.TabIndex = 126;
             this.label46.Text = "Observaciones de Mantenimiento:";
             // 
@@ -767,27 +807,28 @@
             this.cmbestatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbestatus.Enabled = false;
             this.cmbestatus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbestatus.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbestatus.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbestatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbestatus.FormattingEnabled = true;
             this.cmbestatus.Items.AddRange(new object[] {
             "Sistema eléctrico"});
             this.cmbestatus.Location = new System.Drawing.Point(214, 212);
             this.cmbestatus.Name = "cmbestatus";
-            this.cmbestatus.Size = new System.Drawing.Size(258, 25);
+            this.cmbestatus.Size = new System.Drawing.Size(258, 23);
             this.cmbestatus.TabIndex = 125;
+            this.cmbestatus.SelectedIndexChanged += new System.EventHandler(this.cmbestatus_SelectedIndexChanged);
             this.cmbestatus.SelectedValueChanged += new System.EventHandler(this.txtmecanico_TextChanged);
             // 
             // label45
             // 
             this.label45.AutoSize = true;
-            this.label45.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label45.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label45.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label45.Location = new System.Drawing.Point(13, 219);
             this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(195, 18);
+            this.label45.Size = new System.Drawing.Size(187, 17);
             this.label45.TabIndex = 124;
-            this.label45.Text = "Estatus de Mantenimiento:";
+            this.label45.Text = "*Estatus de Mantenimiento:";
             // 
             // txtfoliof
             // 
@@ -796,13 +837,14 @@
             this.txtfoliof.Enabled = false;
             this.txtfoliof.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtfoliof.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtfoliof.Location = new System.Drawing.Point(742, 148);
-            this.txtfoliof.MaxLength = 18;
+            this.txtfoliof.Location = new System.Drawing.Point(742, 113);
+            this.txtfoliof.MaxLength = 10;
             this.txtfoliof.Name = "txtfoliof";
             this.txtfoliof.ShortcutsEnabled = false;
             this.txtfoliof.Size = new System.Drawing.Size(281, 18);
             this.txtfoliof.TabIndex = 122;
             this.txtfoliof.TextChanged += new System.EventHandler(this.txtmecanico_TextChanged);
+            this.txtfoliof.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtcantidad_KeyPress);
             // 
             // label41
             // 
@@ -810,7 +852,7 @@
             this.label41.BackColor = System.Drawing.Color.Transparent;
             this.label41.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label41.Location = new System.Drawing.Point(740, 159);
+            this.label41.Location = new System.Drawing.Point(740, 124);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(285, 9);
             this.label41.TabIndex = 123;
@@ -819,43 +861,13 @@
             // label44
             // 
             this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label44.Location = new System.Drawing.Point(538, 148);
+            this.label44.Location = new System.Drawing.Point(538, 113);
             this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(125, 18);
+            this.label44.Size = new System.Drawing.Size(116, 17);
             this.label44.TabIndex = 121;
             this.label44.Text = "Folio de Factura:";
-            // 
-            // cmbexistencia
-            // 
-            this.cmbexistencia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbexistencia.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbexistencia.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbexistencia.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbexistencia.Enabled = false;
-            this.cmbexistencia.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbexistencia.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbexistencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbexistencia.FormattingEnabled = true;
-            this.cmbexistencia.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbexistencia.Location = new System.Drawing.Point(737, 101);
-            this.cmbexistencia.Name = "cmbexistencia";
-            this.cmbexistencia.Size = new System.Drawing.Size(303, 25);
-            this.cmbexistencia.TabIndex = 120;
-            this.cmbexistencia.SelectedValueChanged += new System.EventHandler(this.txtmecanico_TextChanged);
-            // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label40.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label40.Location = new System.Drawing.Point(538, 106);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(192, 18);
-            this.label40.TabIndex = 119;
-            this.label40.Text = "Existencia de Refacciones:";
             // 
             // txttrabajo
             // 
@@ -866,22 +878,23 @@
             this.txttrabajo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txttrabajo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.txttrabajo.Location = new System.Drawing.Point(16, 127);
-            this.txttrabajo.MaxLength = 18;
+            this.txttrabajo.MaxLength = 150;
             this.txttrabajo.Multiline = true;
             this.txttrabajo.Name = "txttrabajo";
             this.txttrabajo.ShortcutsEnabled = false;
             this.txttrabajo.Size = new System.Drawing.Size(452, 73);
             this.txttrabajo.TabIndex = 118;
             this.txttrabajo.TextChanged += new System.EventHandler(this.txtmecanico_TextChanged);
+            this.txttrabajo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txttrabajo_KeyPress);
             // 
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label38.Location = new System.Drawing.Point(13, 106);
             this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(138, 18);
+            this.label38.Size = new System.Drawing.Size(127, 17);
             this.label38.TabIndex = 117;
             this.label38.Text = "Trabajo Realizado:";
             // 
@@ -893,14 +906,14 @@
             this.cmbrefacciones.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbrefacciones.Enabled = false;
             this.cmbrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbrefacciones.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbrefacciones.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbrefacciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbrefacciones.FormattingEnabled = true;
             this.cmbrefacciones.Items.AddRange(new object[] {
             "Sistema eléctrico"});
             this.cmbrefacciones.Location = new System.Drawing.Point(737, 62);
             this.cmbrefacciones.Name = "cmbrefacciones";
-            this.cmbrefacciones.Size = new System.Drawing.Size(303, 25);
+            this.cmbrefacciones.Size = new System.Drawing.Size(303, 23);
             this.cmbrefacciones.TabIndex = 116;
             this.cmbrefacciones.SelectedIndexChanged += new System.EventHandler(this.cmbrefacciones_SelectedIndexChanged);
             this.cmbrefacciones.SelectedValueChanged += new System.EventHandler(this.txtmecanico_TextChanged);
@@ -908,13 +921,13 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label37.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label37.Location = new System.Drawing.Point(534, 72);
             this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(191, 18);
+            this.label37.Size = new System.Drawing.Size(182, 17);
             this.label37.TabIndex = 115;
-            this.label37.Text = "Se Requieren Refacciones:";
+            this.label37.Text = "*Se Requieren Refacciones:";
             // 
             // txtmecanicoapoyo
             // 
@@ -948,11 +961,11 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label36.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label36.Location = new System.Drawing.Point(11, 67);
             this.label36.Name = "label36";
-            this.label36.Size = new System.Drawing.Size(163, 18);
+            this.label36.Size = new System.Drawing.Size(149, 17);
             this.label36.TabIndex = 112;
             this.label36.Text = "Contraseña Mecánico:";
             // 
@@ -964,27 +977,27 @@
             this.cmbgrupo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbgrupo.Enabled = false;
             this.cmbgrupo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbgrupo.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbgrupo.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbgrupo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbgrupo.FormattingEnabled = true;
             this.cmbgrupo.Items.AddRange(new object[] {
             "Sistema eléctrico"});
             this.cmbgrupo.Location = new System.Drawing.Point(737, 23);
             this.cmbgrupo.Name = "cmbgrupo";
-            this.cmbgrupo.Size = new System.Drawing.Size(303, 25);
+            this.cmbgrupo.Size = new System.Drawing.Size(303, 23);
             this.cmbgrupo.TabIndex = 111;
             this.cmbgrupo.SelectedIndexChanged += new System.EventHandler(this.txtmecanico_TextChanged);
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label33.Location = new System.Drawing.Point(534, 26);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(115, 18);
+            this.label33.Size = new System.Drawing.Size(114, 17);
             this.label33.TabIndex = 110;
-            this.label33.Text = "Grupo de Fallo:";
+            this.label33.Text = "*Grupo de Fallo:";
             // 
             // txtmecanico
             // 
@@ -1018,30 +1031,27 @@
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label30.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label30.Location = new System.Drawing.Point(13, 26);
             this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(163, 18);
+            this.label30.Size = new System.Drawing.Size(156, 17);
             this.label30.TabIndex = 107;
-            this.label30.Text = "Contraseña Mecánico:";
+            this.label30.Text = "*Contraseña Mecánico:";
             // 
             // gbbusqueda
             // 
             this.gbbusqueda.BackColor = System.Drawing.Color.Transparent;
-            this.gbbusqueda.Controls.Add(this.label60);
-            this.gbbusqueda.Controls.Add(this.label57);
-            this.gbbusqueda.Controls.Add(this.btnexportar);
-            this.gbbusqueda.Controls.Add(this.btnactualizar);
-            this.gbbusqueda.Controls.Add(this.label54);
-            this.gbbusqueda.Controls.Add(this.btnbuscar);
+            this.gbbusqueda.Controls.Add(this.pexcel);
+            this.gbbusqueda.Controls.Add(this.pactualizar);
+            this.gbbusqueda.Controls.Add(this.pbuscar);
             this.gbbusqueda.Controls.Add(this.cmbgrupob);
             this.gbbusqueda.Controls.Add(this.label43);
-            this.gbbusqueda.Controls.Add(this.detpfechaa);
+            this.gbbusqueda.Controls.Add(this.dtpfechaa);
             this.gbbusqueda.Controls.Add(this.label42);
             this.gbbusqueda.Controls.Add(this.dtpfechade);
             this.gbbusqueda.Controls.Add(this.label39);
-            this.gbbusqueda.Controls.Add(this.checkBox1);
+            this.gbbusqueda.Controls.Add(this.cbrango);
             this.gbbusqueda.Controls.Add(this.cmbmesb);
             this.gbbusqueda.Controls.Add(this.label34);
             this.gbbusqueda.Controls.Add(this.cmbestatusb);
@@ -1050,10 +1060,9 @@
             this.gbbusqueda.Controls.Add(this.label27);
             this.gbbusqueda.Controls.Add(this.cmbunidadb);
             this.gbbusqueda.Controls.Add(this.label21);
-            this.gbbusqueda.Controls.Add(this.textBox2);
+            this.gbbusqueda.Controls.Add(this.txtfoliob);
             this.gbbusqueda.Controls.Add(this.label7);
             this.gbbusqueda.Controls.Add(this.label15);
-            this.gbbusqueda.Controls.Add(this.pbgif);
             this.gbbusqueda.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbbusqueda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.gbbusqueda.Location = new System.Drawing.Point(12, 380);
@@ -1063,27 +1072,27 @@
             this.gbbusqueda.TabStop = false;
             this.gbbusqueda.Text = "Búsqueda";
             // 
-            // label60
+            // pexcel
             // 
-            this.label60.AutoSize = true;
-            this.label60.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label60.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label60.Location = new System.Drawing.Point(1276, 93);
-            this.label60.Name = "label60";
-            this.label60.Size = new System.Drawing.Size(69, 18);
-            this.label60.TabIndex = 154;
-            this.label60.Text = "Exportar";
+            this.pexcel.Controls.Add(this.lblexcel);
+            this.pexcel.Controls.Add(this.btnexportar);
+            this.pexcel.Controls.Add(this.pbgif);
+            this.pexcel.Location = new System.Drawing.Point(1144, 51);
+            this.pexcel.Name = "pexcel";
+            this.pexcel.Size = new System.Drawing.Size(91, 60);
+            this.pexcel.TabIndex = 230;
+            this.pexcel.Visible = false;
             // 
-            // label57
+            // lblexcel
             // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label57.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label57.Location = new System.Drawing.Point(1126, 93);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(79, 18);
-            this.label57.TabIndex = 153;
-            this.label57.Text = "Actualizar";
+            this.lblexcel.AutoSize = true;
+            this.lblexcel.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblexcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lblexcel.Location = new System.Drawing.Point(4, 39);
+            this.lblexcel.Name = "lblexcel";
+            this.lblexcel.Size = new System.Drawing.Size(69, 18);
+            this.lblexcel.TabIndex = 154;
+            this.lblexcel.Text = "Exportar";
             // 
             // btnexportar
             // 
@@ -1098,11 +1107,34 @@
             this.btnexportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnexportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnexportar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnexportar.Location = new System.Drawing.Point(1293, 60);
+            this.btnexportar.Location = new System.Drawing.Point(19, 3);
             this.btnexportar.Name = "btnexportar";
             this.btnexportar.Size = new System.Drawing.Size(35, 35);
             this.btnexportar.TabIndex = 152;
             this.btnexportar.UseVisualStyleBackColor = false;
+            this.btnexportar.Click += new System.EventHandler(this.btnexportar_Click);
+            // 
+            // pbgif
+            // 
+            this.pbgif.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbgif.Image = global::controlFallos.Properties.Resources.loader;
+            this.pbgif.Location = new System.Drawing.Point(29, 5);
+            this.pbgif.Name = "pbgif";
+            this.pbgif.Size = new System.Drawing.Size(35, 35);
+            this.pbgif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbgif.TabIndex = 227;
+            this.pbgif.TabStop = false;
+            this.pbgif.Visible = false;
+            // 
+            // pactualizar
+            // 
+            this.pactualizar.Controls.Add(this.btnactualizar);
+            this.pactualizar.Controls.Add(this.label57);
+            this.pactualizar.Location = new System.Drawing.Point(1020, 52);
+            this.pactualizar.Name = "pactualizar";
+            this.pactualizar.Size = new System.Drawing.Size(82, 62);
+            this.pactualizar.TabIndex = 229;
+            this.pactualizar.Visible = false;
             // 
             // btnactualizar
             // 
@@ -1117,23 +1149,33 @@
             this.btnactualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnactualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnactualizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnactualizar.Location = new System.Drawing.Point(1148, 60);
+            this.btnactualizar.Location = new System.Drawing.Point(24, 5);
             this.btnactualizar.Name = "btnactualizar";
             this.btnactualizar.Size = new System.Drawing.Size(35, 35);
             this.btnactualizar.TabIndex = 151;
             this.btnactualizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.btnactualizar.UseVisualStyleBackColor = false;
+            this.btnactualizar.Click += new System.EventHandler(this.btnactualizar_Click);
             // 
-            // label54
+            // label57
             // 
-            this.label54.AutoSize = true;
-            this.label54.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label54.Location = new System.Drawing.Point(1023, 93);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(57, 18);
-            this.label54.TabIndex = 150;
-            this.label54.Text = "Buscar";
+            this.label57.AutoSize = true;
+            this.label57.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label57.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label57.Location = new System.Drawing.Point(2, 41);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(79, 18);
+            this.label57.TabIndex = 153;
+            this.label57.Text = "Actualizar";
+            // 
+            // pbuscar
+            // 
+            this.pbuscar.Controls.Add(this.btnbuscar);
+            this.pbuscar.Controls.Add(this.label54);
+            this.pbuscar.Location = new System.Drawing.Point(898, 52);
+            this.pbuscar.Name = "pbuscar";
+            this.pbuscar.Size = new System.Drawing.Size(61, 62);
+            this.pbuscar.TabIndex = 228;
             // 
             // btnbuscar
             // 
@@ -1148,12 +1190,24 @@
             this.btnbuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnbuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnbuscar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnbuscar.Location = new System.Drawing.Point(1026, 60);
+            this.btnbuscar.Location = new System.Drawing.Point(10, 7);
             this.btnbuscar.Name = "btnbuscar";
             this.btnbuscar.Size = new System.Drawing.Size(35, 35);
             this.btnbuscar.TabIndex = 149;
             this.btnbuscar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.btnbuscar.UseVisualStyleBackColor = false;
+            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label54.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label54.Location = new System.Drawing.Point(1, 40);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(57, 18);
+            this.label54.TabIndex = 150;
+            this.label54.Text = "Buscar";
             // 
             // cmbgrupob
             // 
@@ -1162,14 +1216,14 @@
             this.cmbgrupob.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbgrupob.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbgrupob.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbgrupob.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbgrupob.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbgrupob.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbgrupob.FormattingEnabled = true;
             this.cmbgrupob.Items.AddRange(new object[] {
             "Sistema eléctrico"});
             this.cmbgrupob.Location = new System.Drawing.Point(483, 71);
             this.cmbgrupob.Name = "cmbgrupob";
-            this.cmbgrupob.Size = new System.Drawing.Size(293, 25);
+            this.cmbgrupob.Size = new System.Drawing.Size(293, 23);
             this.cmbgrupob.TabIndex = 148;
             // 
             // label43
@@ -1183,18 +1237,18 @@
             this.label43.TabIndex = 147;
             this.label43.Text = "Grupo de Fallo:";
             // 
-            // detpfechaa
+            // dtpfechaa
             // 
-            this.detpfechaa.CalendarMonthBackground = System.Drawing.Color.Gray;
-            this.detpfechaa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.detpfechaa.Enabled = false;
-            this.detpfechaa.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.detpfechaa.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.detpfechaa.Location = new System.Drawing.Point(229, 72);
-            this.detpfechaa.Name = "detpfechaa";
-            this.detpfechaa.Size = new System.Drawing.Size(104, 24);
-            this.detpfechaa.TabIndex = 146;
-            this.detpfechaa.Value = new System.DateTime(2018, 10, 22, 0, 0, 0, 0);
+            this.dtpfechaa.CalendarMonthBackground = System.Drawing.Color.Gray;
+            this.dtpfechaa.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dtpfechaa.Enabled = false;
+            this.dtpfechaa.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpfechaa.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpfechaa.Location = new System.Drawing.Point(229, 72);
+            this.dtpfechaa.Name = "dtpfechaa";
+            this.dtpfechaa.Size = new System.Drawing.Size(104, 24);
+            this.dtpfechaa.TabIndex = 146;
+            this.dtpfechaa.Value = new System.DateTime(2018, 10, 22, 0, 0, 0, 0);
             // 
             // label42
             // 
@@ -1231,19 +1285,20 @@
             this.label39.TabIndex = 143;
             this.label39.Text = "De:";
             // 
-            // checkBox1
+            // cbrango
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.checkBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.checkBox1.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.checkBox1.Location = new System.Drawing.Point(129, 52);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(116, 18);
-            this.checkBox1.TabIndex = 142;
-            this.checkBox1.Text = "Rango de Fechas";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.cbrango.AutoSize = true;
+            this.cbrango.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cbrango.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cbrango.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbrango.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cbrango.Location = new System.Drawing.Point(129, 52);
+            this.cbrango.Name = "cbrango";
+            this.cbrango.Size = new System.Drawing.Size(116, 18);
+            this.cbrango.TabIndex = 142;
+            this.cbrango.Text = "Rango de Fechas";
+            this.cbrango.UseVisualStyleBackColor = true;
+            this.cbrango.CheckedChanged += new System.EventHandler(this.cbrango_CheckedChanged);
             // 
             // cmbmesb
             // 
@@ -1252,14 +1307,14 @@
             this.cmbmesb.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbmesb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbmesb.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbmesb.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbmesb.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbmesb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbmesb.FormattingEnabled = true;
             this.cmbmesb.Items.AddRange(new object[] {
             "Sistema eléctrico"});
             this.cmbmesb.Location = new System.Drawing.Point(1213, 26);
             this.cmbmesb.Name = "cmbmesb";
-            this.cmbmesb.Size = new System.Drawing.Size(189, 25);
+            this.cmbmesb.Size = new System.Drawing.Size(189, 23);
             this.cmbmesb.TabIndex = 141;
             // 
             // label34
@@ -1280,14 +1335,14 @@
             this.cmbestatusb.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbestatusb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbestatusb.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbestatusb.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbestatusb.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbestatusb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbestatusb.FormattingEnabled = true;
             this.cmbestatusb.Items.AddRange(new object[] {
             "Sistema eléctrico"});
             this.cmbestatusb.Location = new System.Drawing.Point(953, 26);
             this.cmbestatusb.Name = "cmbestatusb";
-            this.cmbestatusb.Size = new System.Drawing.Size(189, 25);
+            this.cmbestatusb.Size = new System.Drawing.Size(189, 23);
             this.cmbestatusb.TabIndex = 139;
             // 
             // label28
@@ -1308,14 +1363,14 @@
             this.cmbmecanicob.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbmecanicob.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbmecanicob.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbmecanicob.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbmecanicob.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbmecanicob.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbmecanicob.FormattingEnabled = true;
             this.cmbmecanicob.Items.AddRange(new object[] {
             "Sistema eléctrico"});
             this.cmbmecanicob.Location = new System.Drawing.Point(578, 26);
             this.cmbmecanicob.Name = "cmbmecanicob";
-            this.cmbmecanicob.Size = new System.Drawing.Size(293, 25);
+            this.cmbmecanicob.Size = new System.Drawing.Size(293, 23);
             this.cmbmecanicob.TabIndex = 137;
             // 
             // label27
@@ -1336,14 +1391,14 @@
             this.cmbunidadb.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbunidadb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbunidadb.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbunidadb.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbunidadb.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbunidadb.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbunidadb.FormattingEnabled = true;
             this.cmbunidadb.Items.AddRange(new object[] {
             "Sistema eléctrico"});
             this.cmbunidadb.Location = new System.Drawing.Point(276, 26);
             this.cmbunidadb.Name = "cmbunidadb";
-            this.cmbunidadb.Size = new System.Drawing.Size(213, 25);
+            this.cmbunidadb.Size = new System.Drawing.Size(213, 23);
             this.cmbunidadb.TabIndex = 135;
             // 
             // label21
@@ -1357,19 +1412,20 @@
             this.label21.TabIndex = 134;
             this.label21.Text = "Unidad:";
             // 
-            // textBox2
+            // txtfoliob
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.textBox2.Location = new System.Drawing.Point(53, 28);
-            this.textBox2.MaxLength = 18;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.PasswordChar = '*';
-            this.textBox2.ShortcutsEnabled = false;
-            this.textBox2.Size = new System.Drawing.Size(127, 18);
-            this.textBox2.TabIndex = 132;
+            this.txtfoliob.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtfoliob.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtfoliob.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtfoliob.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtfoliob.Location = new System.Drawing.Point(53, 28);
+            this.txtfoliob.MaxLength = 18;
+            this.txtfoliob.Name = "txtfoliob";
+            this.txtfoliob.PasswordChar = '*';
+            this.txtfoliob.ShortcutsEnabled = false;
+            this.txtfoliob.Size = new System.Drawing.Size(127, 18);
+            this.txtfoliob.TabIndex = 132;
+            this.txtfoliob.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtfoliob_KeyPress);
             // 
             // label7
             // 
@@ -1394,23 +1450,13 @@
             this.label15.TabIndex = 131;
             this.label15.Text = "Folio:";
             // 
-            // pbgif
-            // 
-            this.pbgif.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbgif.Location = new System.Drawing.Point(1293, 62);
-            this.pbgif.Name = "pbgif";
-            this.pbgif.Size = new System.Drawing.Size(35, 35);
-            this.pbgif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbgif.TabIndex = 227;
-            this.pbgif.TabStop = false;
-            // 
             // lblCancelar
             // 
             this.lblCancelar.AutoSize = true;
             this.lblCancelar.BackColor = System.Drawing.Color.Transparent;
             this.lblCancelar.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblCancelar.Location = new System.Drawing.Point(8, 51);
+            this.lblCancelar.Location = new System.Drawing.Point(3, 51);
             this.lblCancelar.Name = "lblCancelar";
             this.lblCancelar.Size = new System.Drawing.Size(70, 18);
             this.lblCancelar.TabIndex = 244;
@@ -1421,12 +1467,11 @@
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label4.Location = new System.Drawing.Point(1700, 443);
+            this.label4.Location = new System.Drawing.Point(2, 51);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(69, 18);
             this.label4.TabIndex = 237;
             this.label4.Text = "Finalizar";
-            this.label4.Visible = false;
             // 
             // btnpdf
             // 
@@ -1441,13 +1486,13 @@
             this.btnpdf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnpdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnpdf.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnpdf.Location = new System.Drawing.Point(1469, 395);
+            this.btnpdf.Location = new System.Drawing.Point(37, 3);
             this.btnpdf.Name = "btnpdf";
             this.btnpdf.Size = new System.Drawing.Size(45, 45);
             this.btnpdf.TabIndex = 235;
             this.btnpdf.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.btnpdf.UseVisualStyleBackColor = false;
-            this.btnpdf.Visible = false;
+            this.btnpdf.Click += new System.EventHandler(this.btnpdf_Click);
             // 
             // btnfinalizar
             // 
@@ -1460,26 +1505,25 @@
             this.btnfinalizar.FlatAppearance.BorderSize = 0;
             this.btnfinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnfinalizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnfinalizar.Location = new System.Drawing.Point(1711, 395);
+            this.btnfinalizar.Location = new System.Drawing.Point(13, 3);
             this.btnfinalizar.Name = "btnfinalizar";
             this.btnfinalizar.Size = new System.Drawing.Size(45, 45);
             this.btnfinalizar.TabIndex = 238;
             this.btnfinalizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.btnfinalizar.UseVisualStyleBackColor = false;
-            this.btnfinalizar.Visible = false;
+            this.btnfinalizar.Click += new System.EventHandler(this.btnfinalizar_Click);
             // 
             // rbnunidad
             // 
             this.rbnunidad.AutoSize = true;
             this.rbnunidad.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbnunidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.rbnunidad.Location = new System.Drawing.Point(1434, 484);
+            this.rbnunidad.Location = new System.Drawing.Point(2, 92);
             this.rbnunidad.Name = "rbnunidad";
             this.rbnunidad.Size = new System.Drawing.Size(123, 18);
             this.rbnunidad.TabIndex = 240;
             this.rbnunidad.Text = "Datos de la Unidad";
             this.rbnunidad.UseVisualStyleBackColor = true;
-            this.rbnunidad.Visible = false;
             // 
             // rbngeneral
             // 
@@ -1487,26 +1531,24 @@
             this.rbngeneral.Checked = true;
             this.rbngeneral.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbngeneral.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.rbngeneral.Location = new System.Drawing.Point(1434, 464);
+            this.rbngeneral.Location = new System.Drawing.Point(2, 72);
             this.rbngeneral.Name = "rbngeneral";
             this.rbngeneral.Size = new System.Drawing.Size(108, 18);
             this.rbngeneral.TabIndex = 239;
             this.rbngeneral.TabStop = true;
             this.rbngeneral.Text = "Reporte de Fallo";
             this.rbngeneral.UseVisualStyleBackColor = true;
-            this.rbngeneral.Visible = false;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label5.Location = new System.Drawing.Point(1466, 443);
+            this.label5.Location = new System.Drawing.Point(34, 51);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(69, 18);
             this.label5.TabIndex = 236;
             this.label5.Text = "Exportar";
-            this.label5.Visible = false;
             // 
             // btncancelar
             // 
@@ -1521,7 +1563,7 @@
             this.btncancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btncancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btncancelar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btncancelar.Location = new System.Drawing.Point(18, 3);
+            this.btncancelar.Location = new System.Drawing.Point(13, 3);
             this.btncancelar.Name = "btncancelar";
             this.btncancelar.Size = new System.Drawing.Size(45, 45);
             this.btncancelar.TabIndex = 243;
@@ -1569,10 +1611,10 @@
             this.label14.ForeColor = System.Drawing.Color.Crimson;
             this.label14.Location = new System.Drawing.Point(1004, 899);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(889, 17);
+            this.label14.Size = new System.Drawing.Size(571, 17);
             this.label14.TabIndex = 258;
-            this.label14.Text = "PARA SELECCIONAR UN REPORTE ES NECESARIO DAR DOBLE CLIC SOBRE EL ELEMENTO QUE SE " +
-    "DESEE LLENAR";
+            this.label14.Text = "Para seleccionar o editar un reporte es necesario dar doble clic sobre el reporte" +
+    " en la tabla";
             // 
             // label49
             // 
@@ -1594,9 +1636,8 @@
             this.lblliberadas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblliberadas.Location = new System.Drawing.Point(116, 897);
             this.lblliberadas.Name = "lblliberadas";
-            this.lblliberadas.Size = new System.Drawing.Size(24, 18);
+            this.lblliberadas.Size = new System.Drawing.Size(0, 18);
             this.lblliberadas.TabIndex = 261;
-            this.lblliberadas.Text = "15";
             // 
             // label63
             // 
@@ -1619,9 +1660,8 @@
             this.lblenproceso.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblenproceso.Location = new System.Drawing.Point(307, 897);
             this.lblenproceso.Name = "lblenproceso";
-            this.lblenproceso.Size = new System.Drawing.Size(24, 18);
+            this.lblenproceso.Size = new System.Drawing.Size(0, 18);
             this.lblenproceso.TabIndex = 264;
-            this.lblenproceso.Text = "15";
             // 
             // label68
             // 
@@ -1666,9 +1706,8 @@
             this.lblreprogramadas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblreprogramadas.Location = new System.Drawing.Point(519, 897);
             this.lblreprogramadas.Name = "lblreprogramadas";
-            this.lblreprogramadas.Size = new System.Drawing.Size(24, 18);
+            this.lblreprogramadas.Size = new System.Drawing.Size(0, 18);
             this.lblreprogramadas.TabIndex = 267;
-            this.lblreprogramadas.Text = "15";
             // 
             // label72
             // 
@@ -1702,9 +1741,8 @@
             this.lblenesepera.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lblenesepera.Location = new System.Drawing.Point(872, 897);
             this.lblenesepera.Name = "lblenesepera";
-            this.lblenesepera.Size = new System.Drawing.Size(24, 18);
+            this.lblenesepera.Size = new System.Drawing.Size(0, 18);
             this.lblenesepera.TabIndex = 270;
-            this.lblenesepera.Text = "15";
             // 
             // label75
             // 
@@ -1721,11 +1759,11 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label8.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label8.Location = new System.Drawing.Point(929, 896);
+            this.label8.Location = new System.Drawing.Point(945, 898);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(69, 21);
+            this.label8.Size = new System.Drawing.Size(59, 18);
             this.label8.TabIndex = 272;
             this.label8.Text = "Nota**";
             // 
@@ -1735,61 +1773,63 @@
             this.dgvreportes.AllowUserToDeleteRows = false;
             this.dgvreportes.AllowUserToResizeColumns = false;
             this.dgvreportes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvreportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvreportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvreportes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvreportes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvreportes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvreportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvreportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvreportes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvreportes.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Coral;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvreportes.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Coral;
+            dataGridViewCellStyle13.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvreportes.DefaultCellStyle = dataGridViewCellStyle13;
             this.dgvreportes.EnableHeadersVisualStyles = false;
             this.dgvreportes.GridColor = System.Drawing.Color.Gray;
             this.dgvreportes.Location = new System.Drawing.Point(12, 505);
             this.dgvreportes.Name = "dgvreportes";
             this.dgvreportes.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvreportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvreportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dgvreportes.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvreportes.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvreportes.RowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dgvreportes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvreportes.Size = new System.Drawing.Size(1894, 388);
             this.dgvreportes.TabIndex = 273;
             this.dgvreportes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvreportes_CellDoubleClick);
+            this.dgvreportes.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvreportes_CellFormatting);
+            this.dgvreportes.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvreportes_ColumnAdded);
             // 
             // pguardar
             // 
@@ -1807,31 +1847,9 @@
             this.pcancelar.Controls.Add(this.lblCancelar);
             this.pcancelar.Location = new System.Drawing.Point(1820, 386);
             this.pcancelar.Name = "pcancelar";
-            this.pcancelar.Size = new System.Drawing.Size(86, 80);
+            this.pcancelar.Size = new System.Drawing.Size(79, 76);
             this.pcancelar.TabIndex = 275;
             this.pcancelar.Visible = false;
-            // 
-            // btnrefacciones
-            // 
-            this.btnrefacciones.AutoSize = true;
-            this.btnrefacciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.BackgroundImage = global::controlFallos.Properties.Resources.add;
-            this.btnrefacciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnrefacciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatAppearance.BorderSize = 0;
-            this.btnrefacciones.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnrefacciones.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnrefacciones.Location = new System.Drawing.Point(1051, 61);
-            this.btnrefacciones.Name = "btnrefacciones";
-            this.btnrefacciones.Size = new System.Drawing.Size(30, 30);
-            this.btnrefacciones.TabIndex = 233;
-            this.btnrefacciones.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnrefacciones.UseVisualStyleBackColor = false;
-            this.btnrefacciones.Visible = false;
-            this.btnrefacciones.Click += new System.EventHandler(this.btnrefacciones_Click);
             // 
             // gbrefacciones
             // 
@@ -1847,7 +1865,7 @@
             this.gbrefacciones.Controls.Add(this.label11);
             this.gbrefacciones.Controls.Add(this.cmbrefaccion);
             this.gbrefacciones.Controls.Add(this.label9);
-            this.gbrefacciones.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbrefacciones.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbrefacciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.gbrefacciones.Location = new System.Drawing.Point(817, 12);
             this.gbrefacciones.Name = "gbrefacciones";
@@ -1856,6 +1874,49 @@
             this.gbrefacciones.TabStop = false;
             this.gbrefacciones.Text = "Refacciones";
             this.gbrefacciones.Visible = false;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnregresar);
+            this.panel1.Controls.Add(this.label62);
+            this.panel1.Location = new System.Drawing.Point(15, 286);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(76, 72);
+            this.panel1.TabIndex = 276;
+            // 
+            // btnregresar
+            // 
+            this.btnregresar.AutoSize = true;
+            this.btnregresar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnregresar.BackgroundImage = global::controlFallos.Properties.Resources.chevron_sign_left;
+            this.btnregresar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnregresar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnregresar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnregresar.FlatAppearance.BorderSize = 0;
+            this.btnregresar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnregresar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnregresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnregresar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnregresar.Location = new System.Drawing.Point(16, 3);
+            this.btnregresar.Name = "btnregresar";
+            this.btnregresar.Size = new System.Drawing.Size(45, 45);
+            this.btnregresar.TabIndex = 233;
+            this.btnregresar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnregresar.UseVisualStyleBackColor = false;
+            this.btnregresar.Click += new System.EventHandler(this.btnregresar_Click);
+            // 
+            // label62
+            // 
+            this.label62.AutoSize = true;
+            this.label62.BackColor = System.Drawing.Color.Transparent;
+            this.label62.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label62.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label62.Location = new System.Drawing.Point(3, 51);
+            this.label62.Name = "label62";
+            this.label62.Size = new System.Drawing.Size(71, 18);
+            this.label62.TabIndex = 234;
+            this.label62.Text = "Regresar";
+            this.label62.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pagregar
             // 
@@ -1895,9 +1956,9 @@
             this.label61.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label61.Location = new System.Drawing.Point(3, 51);
             this.label61.Name = "label61";
-            this.label61.Size = new System.Drawing.Size(65, 18);
+            this.label61.Size = new System.Drawing.Size(66, 18);
             this.label61.TabIndex = 234;
-            this.label61.Text = "Agregar";
+            this.label61.Text = "Guardar";
             this.label61.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dgvrefacciones
@@ -1906,61 +1967,63 @@
             this.dgvrefacciones.AllowUserToDeleteRows = false;
             this.dgvrefacciones.AllowUserToResizeColumns = false;
             this.dgvrefacciones.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvrefacciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvrefacciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
             this.dgvrefacciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvrefacciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvrefacciones.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvrefacciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle17.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvrefacciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dgvrefacciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvrefacciones.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle18.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvrefacciones.DefaultCellStyle = dataGridViewCellStyle18;
             this.dgvrefacciones.EnableHeadersVisualStyles = false;
             this.dgvrefacciones.GridColor = System.Drawing.Color.Gray;
             this.dgvrefacciones.Location = new System.Drawing.Point(391, 29);
             this.dgvrefacciones.Name = "dgvrefacciones";
             this.dgvrefacciones.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvrefacciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvrefacciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dgvrefacciones.RowHeadersVisible = false;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvrefacciones.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvrefacciones.RowsDefaultCellStyle = dataGridViewCellStyle20;
             this.dgvrefacciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvrefacciones.Size = new System.Drawing.Size(692, 293);
             this.dgvrefacciones.TabIndex = 274;
             this.dgvrefacciones.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvrefacciones_CellDoubleClick);
+            this.dgvrefacciones.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvrefacciones_CellFormatting);
+            this.dgvrefacciones.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvrefacciones_ColumnAdded);
             // 
             // txtcantidad
             // 
@@ -1974,6 +2037,8 @@
             this.txtcantidad.ShortcutsEnabled = false;
             this.txtcantidad.Size = new System.Drawing.Size(127, 18);
             this.txtcantidad.TabIndex = 233;
+            this.txtcantidad.TextChanged += new System.EventHandler(this.txtcantidad_TextChanged);
+            this.txtcantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtcantidad_KeyPress);
             // 
             // label13
             // 
@@ -2048,6 +2113,7 @@
             this.cmbrefaccion.Name = "cmbrefaccion";
             this.cmbrefaccion.Size = new System.Drawing.Size(221, 25);
             this.cmbrefaccion.TabIndex = 228;
+            this.cmbrefaccion.SelectedIndexChanged += new System.EventHandler(this.txtcantidad_TextChanged);
             this.cmbrefaccion.SelectedValueChanged += new System.EventHandler(this.cmbrefaccion_SelectedValueChanged);
             // 
             // label9
@@ -2061,48 +2127,38 @@
             this.label9.TabIndex = 139;
             this.label9.Text = "Refacción:";
             // 
-            // panel1
+            // pfinalizar
             // 
-            this.panel1.Controls.Add(this.btnregresar);
-            this.panel1.Controls.Add(this.label62);
-            this.panel1.Location = new System.Drawing.Point(15, 286);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(76, 72);
-            this.panel1.TabIndex = 276;
+            this.pfinalizar.Controls.Add(this.btnfinalizar);
+            this.pfinalizar.Controls.Add(this.label4);
+            this.pfinalizar.Location = new System.Drawing.Point(1708, 390);
+            this.pfinalizar.Name = "pfinalizar";
+            this.pfinalizar.Size = new System.Drawing.Size(74, 72);
+            this.pfinalizar.TabIndex = 277;
+            this.pfinalizar.Visible = false;
             // 
-            // btnregresar
+            // label64
             // 
-            this.btnregresar.AutoSize = true;
-            this.btnregresar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnregresar.BackgroundImage = global::controlFallos.Properties.Resources.chevron_sign_left;
-            this.btnregresar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnregresar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnregresar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnregresar.FlatAppearance.BorderSize = 0;
-            this.btnregresar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnregresar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnregresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnregresar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnregresar.Location = new System.Drawing.Point(16, 3);
-            this.btnregresar.Name = "btnregresar";
-            this.btnregresar.Size = new System.Drawing.Size(45, 45);
-            this.btnregresar.TabIndex = 233;
-            this.btnregresar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnregresar.UseVisualStyleBackColor = false;
-            this.btnregresar.Click += new System.EventHandler(this.btnregresar_Click);
+            this.label64.AutoSize = true;
+            this.label64.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label64.ForeColor = System.Drawing.Color.Crimson;
+            this.label64.Location = new System.Drawing.Point(1008, 916);
+            this.label64.Name = "label64";
+            this.label64.Size = new System.Drawing.Size(145, 17);
+            this.label64.TabIndex = 278;
+            this.label64.Text = "*Campos obligatorios";
             // 
-            // label62
+            // pPdf
             // 
-            this.label62.AutoSize = true;
-            this.label62.BackColor = System.Drawing.Color.Transparent;
-            this.label62.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label62.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label62.Location = new System.Drawing.Point(3, 51);
-            this.label62.Name = "label62";
-            this.label62.Size = new System.Drawing.Size(71, 18);
-            this.label62.TabIndex = 234;
-            this.label62.Text = "Regresar";
-            this.label62.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.pPdf.Controls.Add(this.btnpdf);
+            this.pPdf.Controls.Add(this.label5);
+            this.pPdf.Controls.Add(this.rbngeneral);
+            this.pPdf.Controls.Add(this.rbnunidad);
+            this.pPdf.Location = new System.Drawing.Point(1426, 386);
+            this.pPdf.Name = "pPdf";
+            this.pPdf.Size = new System.Drawing.Size(133, 112);
+            this.pPdf.TabIndex = 279;
+            this.pPdf.Visible = false;
             // 
             // Mantenimiento
             // 
@@ -2110,6 +2166,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1920, 937);
+            this.Controls.Add(this.pPdf);
+            this.Controls.Add(this.label64);
+            this.Controls.Add(this.pfinalizar);
             this.Controls.Add(this.pcancelar);
             this.Controls.Add(this.pguardar);
             this.Controls.Add(this.dgvreportes);
@@ -2127,28 +2186,29 @@
             this.Controls.Add(this.label63);
             this.Controls.Add(this.label49);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.btnpdf);
-            this.Controls.Add(this.btnfinalizar);
-            this.Controls.Add(this.rbnunidad);
-            this.Controls.Add(this.rbngeneral);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.gbbusqueda);
             this.Controls.Add(this.gbsupervision);
+            this.Controls.Add(this.lblexportar);
             this.Controls.Add(this.gbrefacciones);
-            this.Controls.Add(this.gbmantenimiento);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Mantenimiento";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Mantenimiento";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Mantenimiento_FormClosing);
             this.Load += new System.EventHandler(this.Mantenimiento_Load);
             this.gbsupervision.ResumeLayout(false);
             this.gbsupervision.PerformLayout();
-            this.gbmantenimiento.ResumeLayout(false);
-            this.gbmantenimiento.PerformLayout();
+            this.lblexportar.ResumeLayout(false);
+            this.lblexportar.PerformLayout();
             this.gbbusqueda.ResumeLayout(false);
             this.gbbusqueda.PerformLayout();
+            this.pexcel.ResumeLayout(false);
+            this.pexcel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbgif)).EndInit();
+            this.pactualizar.ResumeLayout(false);
+            this.pactualizar.PerformLayout();
+            this.pbuscar.ResumeLayout(false);
+            this.pbuscar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvreportes)).EndInit();
             this.pguardar.ResumeLayout(false);
             this.pguardar.PerformLayout();
@@ -2156,11 +2216,15 @@
             this.pcancelar.PerformLayout();
             this.gbrefacciones.ResumeLayout(false);
             this.gbrefacciones.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.pagregar.ResumeLayout(false);
             this.pagregar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvrefacciones)).EndInit();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pfinalizar.ResumeLayout(false);
+            this.pfinalizar.PerformLayout();
+            this.pPdf.ResumeLayout(false);
+            this.pPdf.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2191,7 +2255,7 @@
         private System.Windows.Forms.Label lblunidad;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.GroupBox gbmantenimiento;
+        private System.Windows.Forms.GroupBox lblexportar;
         private System.Windows.Forms.Label lbltiempototal;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
@@ -2214,8 +2278,6 @@
         private System.Windows.Forms.TextBox txtfoliof;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.ComboBox cmbexistencia;
-        private System.Windows.Forms.Label label40;
         private System.Windows.Forms.TextBox txttrabajo;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.ComboBox cmbrefacciones;
@@ -2229,7 +2291,7 @@
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.GroupBox gbbusqueda;
-        private System.Windows.Forms.Label label60;
+        private System.Windows.Forms.Label lblexcel;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Button btnexportar;
         private System.Windows.Forms.Button btnactualizar;
@@ -2237,11 +2299,11 @@
         private System.Windows.Forms.Button btnbuscar;
         private System.Windows.Forms.ComboBox cmbgrupob;
         private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.DateTimePicker detpfechaa;
+        private System.Windows.Forms.DateTimePicker dtpfechaa;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.DateTimePicker dtpfechade;
         private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox cbrango;
         private System.Windows.Forms.ComboBox cmbmesb;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.ComboBox cmbestatusb;
@@ -2250,7 +2312,7 @@
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.ComboBox cmbunidadb;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox txtfoliob;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.PictureBox pbgif;
@@ -2300,5 +2362,12 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnregresar;
         private System.Windows.Forms.Label label62;
+        private System.Windows.Forms.Panel pfinalizar;
+        private System.Windows.Forms.Label label64;
+        private System.Windows.Forms.Panel pbuscar;
+        private System.Windows.Forms.Panel pexcel;
+        private System.Windows.Forms.Panel pactualizar;
+        private System.Windows.Forms.Panel pPdf;
+        private System.Windows.Forms.Label lblsupmant;
     }
 }
