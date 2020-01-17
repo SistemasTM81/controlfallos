@@ -16,7 +16,7 @@ using System.Reflection;
 using iTextSharp.text.pdf;
 namespace controlFallos
 {
-    public class validaciones 
+    public class validaciones
     {
         public string folio = "";
         public conexion c;
@@ -2760,48 +2760,32 @@ namespace controlFallos
         /// </summary>
         public enum MessageBoxTitle { Información, Advertencia, Error, Confirmar };
         public string ImageToString(Image im)
-
         {
             MemoryStream ms = new MemoryStream();
-
             im.Save(ms, im.RawFormat);
-
             byte[] array = ms.ToArray();
-
             return Convert.ToString(Convert.ToBase64String(array));
-
         }
         public byte[] ImageToString(Bitmap im)
-
         {
             MemoryStream ms = new MemoryStream();
-
             im.Save(ms, im.RawFormat);
-
             byte[] array = ms.ToArray();
-
             return ms.ToArray();
 
         }
         public string SerializarImg(Image im)
-
         {
             MemoryStream ms = new MemoryStream();
-
             im.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-
             byte[] array = ms.ToArray();
-
             return Convert.ToString(Convert.ToBase64String(array));
 
         }
         public Image StringToImage(string imageString)
-
         {
-
             if (imageString == null)
             {
-
                 throw new ArgumentNullException("imageString");
             }
             else
@@ -2922,7 +2906,7 @@ namespace controlFallos
         {
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected) e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, Color.White, Color.Crimson);
             e.DrawBackground();
-           
+
             e.Graphics.DrawString(((DataTable)((ListBox)sender).DataSource).Rows[e.Index].ItemArray[1].ToString(), ((ListBox)sender).Font, new SolidBrush(e.ForeColor), e.Bounds.Left + 8, e.Bounds.Top + 2);
             e.DrawFocusRectangle();
 
@@ -3091,8 +3075,8 @@ namespace controlFallos
         public void iniCombos(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial, Form fh)
         {
             if (fh.InvokeRequired)
-                fh.Invoke(new iniCombosProgreso(iniCombos),new object[] {sql,cbx,ValueMember,DisplayMember,TextoInicial,fh});
-                cbx.DataSource = null;
+                fh.Invoke(new iniCombosProgreso(iniCombos), new object[] { sql, cbx, ValueMember, DisplayMember, TextoInicial, fh });
+            cbx.DataSource = null;
             DataTable dt = (DataTable)getData(sql);
             DataRow nuevaFila = dt.NewRow();
             nuevaFila[ValueMember] = 0;
@@ -3102,9 +3086,22 @@ namespace controlFallos
             cbx.DisplayMember = DisplayMember;
             cbx.DataSource = dt;
         }
+        public void iniCombos(DataTable dt, ComboBox cbx, string TextoInicial, Form fh)
+        {
+            if (fh.InvokeRequired)
+                fh.Invoke(new iniCombosProgreso(iniCombos), new object[] { dt, cbx, TextoInicial, fh });
+            cbx.DataSource = null;
+            DataRow nuevaFila = dt.NewRow();
+            nuevaFila[dt.Columns[0]] = 0;
+            nuevaFila[dt.Columns[1]] = TextoInicial.ToUpper();
+            dt.Rows.InsertAt(nuevaFila, 0);
+            cbx.ValueMember = dt.Columns[0].ColumnName;
+            cbx.DisplayMember = dt.Columns[1].ColumnName;
+            cbx.DataSource = dt;
+        }
         public void iniCombos(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial)
         {
-             cbx.DataSource = null;
+            cbx.DataSource = null;
             DataTable dt = (DataTable)getData(sql);
             DataRow nuevaFila = dt.NewRow();
             nuevaFila[ValueMember] = 0;
@@ -4060,8 +4057,9 @@ namespace controlFallos
         }
         public delegate void delgado(Form frm);
         public void cerrarForm(Form frm) { frm.Close(); }
-        public void creatItemsPersonalizadosCombobox(ComboBox cbx, string[] items, string titulo)
+        public void creatItemsPersonalizadosCombobox(ComboBox cbx, string[] items, string titulo, int? index)
         {
+            if (!index.HasValue) index = 1;
             DataTable dt = new DataTable();
             dt.Columns.Add("id");
             dt.Columns.Add("Nombre");
@@ -4072,7 +4070,7 @@ namespace controlFallos
             for (int i = 0; i < items.Length; i++)
             {
                 row = dt.NewRow();
-                row["id"] = i + 2;
+                row["id"] = i + index;
                 row["Nombre"] = items[i];
                 dt.Rows.Add(row);
             }
@@ -4352,6 +4350,53 @@ namespace controlFallos
             {
                 MessageBox.Show("El campo \"nombre\" se encuentra vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
+            }
+        }
+        public DataTable JoinDataTables(DataTable t1, DataTable t2)
+        {
+            DataTable result = new DataTable();
+            foreach (DataColumn col in t1.Columns)
+                AddTableColumn(result,new StringBuilder(col.ColumnName),col.DataType);
+            foreach (DataColumn col in t2.Columns)
+                AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
+            for (int i =0;i< (t1.Rows.Count > t2.Rows.Count ? t1.Rows.Count : t2.Rows.Count); i++)
+                {
+                    DataRow rowT1 = null, rowT2 = null,insertRow = result.NewRow();;
+                try { rowT1 = t1.Rows[i]; } catch { }
+                try { rowT2 = t2.Rows[i]; } catch { }
+                    foreach (DataColumn col1 in t1.Columns)
+                           insertRow[col1.ColumnName] = (rowT1!=null ? rowT1[col1.ColumnName]:(!col1.ColumnName.Equals("CICLO")?  string.Empty:(i+1).ToString()));
+                        foreach (DataColumn col2 in t2.Columns)
+                            insertRow[col2.ColumnName] = (rowT2 != null ? rowT2[col2.ColumnName] : string.Empty);
+                    result.Rows.Add(insertRow);
+                }
+            return result;
+        }
+
+        public  void AddTableColumn(DataTable resultsTable, StringBuilder ColumnName)
+        {
+            try
+            {
+                DataColumn tableCol = new DataColumn(ColumnName.ToString());
+                resultsTable.Columns.Add(tableCol);
+            }
+            catch (DuplicateNameException)
+            {
+                ColumnName.Append(" ");
+                AddTableColumn(resultsTable, ColumnName);
+            }
+        }
+        private void AddTableColumn(DataTable resultsTable, StringBuilder ColumnName, Type type)
+        {
+            try
+            {
+                DataColumn tableCol = new DataColumn(ColumnName.ToString(),type);
+                resultsTable.Columns.Add(tableCol);
+            }
+            catch (DuplicateNameException)
+            {
+                ColumnName.Append(" ");
+                AddTableColumn(resultsTable, ColumnName,type);
             }
         }
     }

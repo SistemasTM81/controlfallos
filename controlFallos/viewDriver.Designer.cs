@@ -47,6 +47,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(765, 27);
             this.panel1.TabIndex = 69;
+            this.panel1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
             // button1
             // 
@@ -68,15 +69,17 @@
             // 
             // lbltitle
             // 
-            this.lbltitle.AutoSize = true;
             this.lbltitle.BackColor = System.Drawing.Color.Crimson;
+            this.lbltitle.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lbltitle.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbltitle.ForeColor = System.Drawing.Color.White;
-            this.lbltitle.Location = new System.Drawing.Point(271, 0);
+            this.lbltitle.Location = new System.Drawing.Point(0, 0);
             this.lbltitle.Name = "lbltitle";
-            this.lbltitle.Size = new System.Drawing.Size(191, 24);
+            this.lbltitle.Size = new System.Drawing.Size(765, 27);
             this.lbltitle.TabIndex = 1;
             this.lbltitle.Text = "Seleccione Conductor";
+            this.lbltitle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lbltitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
             // backgroundPanel
             // 
@@ -97,7 +100,6 @@
             this.label22.Size = new System.Drawing.Size(47, 18);
             this.label22.TabIndex = 72;
             this.label22.Text = "Nota:";
-            this.label22.Visible = false;
             // 
             // label23
             // 
@@ -110,7 +112,6 @@
             this.label23.Size = new System.Drawing.Size(417, 18);
             this.label23.TabIndex = 71;
             this.label23.Text = " Para Seleccionar al Conductor de Doble Clic sobre la Credencial";
-            this.label23.Visible = false;
             // 
             // viewDriver
             // 
@@ -133,14 +134,15 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "viewDriver";
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
+        #region Events From Contro
+        private void panel1_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e) => Owner.Owner.v.mover(sender,e,this);
+        #endregion
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.Label lbltitle;

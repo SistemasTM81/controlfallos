@@ -851,10 +851,9 @@ namespace controlFallos
                 this.Text = "Roles de Servicios";
                 lbltitle.Location = defaultLocation;
                 Deshabilitar(sender as ToolStripMenuItem);
-                var form = Application.OpenForms.OfType<rolUnidades>().FirstOrDefault();
-                rolUnidades hijo = form ?? new rolUnidades(this);
+                var form = Application.OpenForms.OfType<workdays>().FirstOrDefault();
+                workdays hijo = form ?? new workdays(this);
                 AddFormInPanel(hijo);
-
             }
         }
 

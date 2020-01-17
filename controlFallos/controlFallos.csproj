@@ -484,6 +484,12 @@
     <Compile Include="rolUnidades.Designer.cs">
       <DependentUpon>rolUnidades.cs</DependentUpon>
     </Compile>
+    <Compile Include="searchworkday.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="searchworkday.Designer.cs">
+      <DependentUpon>searchworkday.cs</DependentUpon>
+    </Compile>
     <Compile Include="SplashScreen.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -526,6 +532,12 @@
     </Compile>
     <Compile Include="viewDriver.Designer.cs">
       <DependentUpon>viewDriver.cs</DependentUpon>
+    </Compile>
+    <Compile Include="workdays.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="workdays.Designer.cs">
+      <DependentUpon>workdays.cs</DependentUpon>
     </Compile>
     <Compile Include="writeFingerprint.cs">
       <SubType>Form</SubType>
@@ -719,6 +731,9 @@
     <EmbeddedResource Include="rolUnidades.resx">
       <DependentUpon>rolUnidades.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="searchworkday.resx">
+      <DependentUpon>searchworkday.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>
     </EmbeddedResource>
@@ -739,6 +754,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="viewDriver.resx">
       <DependentUpon>viewDriver.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="workdays.resx">
+      <DependentUpon>workdays.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="writeFingerprint.resx">
       <DependentUpon>writeFingerprint.cs</DependentUpon>
@@ -788,6 +806,7 @@
     <None Include="Resources\add1.png" />
     <None Include="Resources\ajax-spinner.gif" />
     <None Include="Resources\addition.png" />
+    <None Include="Resources\addrow.png" />
     <Content Include="Resources\ajustes.png" />
     <Content Include="Resources\ajustes1.png" />
     <None Include="Resources\antique-building.png" />
@@ -826,6 +845,7 @@
     <None Include="Resources\chevron-sign-to-right.png" />
     <None Include="Resources\check.png" />
     <None Include="Resources\complete.png" />
+    <None Include="Resources\compass.png" />
     <Content Include="Resources\comprobar.png" />
     <Content Include="Resources\computer %281%29.png" />
     <Content Include="Resources\computer.png" />
@@ -857,6 +877,7 @@
     <None Include="Resources\driver %282%29.png" />
     <Content Include="Resources\edit.png" />
     <None Include="Resources\edit1.png" />
+    <None Include="Resources\editrow.png" />
     <Content Include="Resources\enterprise.png" />
     <Content Include="Resources\enviar.png" />
     <Content Include="Resources\eraser.png" />
@@ -940,6 +961,7 @@
     <None Include="Resources\mexibus.png" />
     <Content Include="Resources\mirror.png" />
     <Content Include="Resources\navigate-up-arrow.png" />
+    <None Include="Resources\new.png" />
     <Content Include="Resources\newspaper.png" />
     <Content Include="Resources\no-waiting.png" />
     <Content Include="Resources\notification %281%29.png" />
@@ -968,10 +990,13 @@
     <Content Include="Resources\refresh-arrows-symbol-of-interface.png" />
     <None Include="Resources\refresh-page-option.png" />
     <Content Include="Resources\refresh.png" />
+    <None Include="Resources\refresh1.png" />
     <Content Include="Resources\report.png" />
     <None Include="Resources\robber_silhouette_trying_to_steal_car_part__1_.png" />
     <Content Include="Resources\save.png" />
     <None Include="Resources\schedule.png" />
+    <None Include="Resources\scroll.png" />
+    <None Include="Resources\save2.png" />
     <None Include="Resources\save1.png" />
     <Content Include="Resources\search.png" />
     <Content Include="Resources\settings.png" />
