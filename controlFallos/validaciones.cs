@@ -4471,5 +4471,16 @@ namespace controlFallos
                 return false;
             }
         }
+        public string timetowait(DateTime initialdate, DateTime finaldate)
+        {
+            TimeSpan ts = finaldate.Subtract(initialdate);
+            return (ts.Days + " días, " + ts.Hours + " horas, " + ts.Minutes + " minutos").ToUpper();
+
+        }
+        public string changestatus(int status)
+        {
+            string estatus = (status == 0 ? "" : status == 1 ? "EN PROCESO" : status == 2 ? "REPROGRAMADA" : "LIBERADA");
+            return estatus;
+        }
     }
 }

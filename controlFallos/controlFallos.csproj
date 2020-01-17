@@ -285,6 +285,12 @@
     <Compile Include="datosGeneralesComparativa.designer.cs">
       <DependentUpon>datosGeneralesComparativa.cs</DependentUpon>
     </Compile>
+    <Compile Include="diferenciaecos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="diferenciaecos.Designer.cs">
+      <DependentUpon>diferenciaecos.cs</DependentUpon>
+    </Compile>
     <Compile Include="familias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -618,6 +624,9 @@
     <EmbeddedResource Include="datosGeneralesComparativa.resx">
       <DependentUpon>datosGeneralesComparativa.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="diferenciaecos.resx">
+      <DependentUpon>diferenciaecos.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="familias.resx">
       <DependentUpon>familias.cs</DependentUpon>
     </EmbeddedResource>
@@ -899,6 +908,7 @@
     <Content Include="Resources\icon.ico" />
     <None Include="Resources\icons8-tornillo-480.png" />
     <None Include="Resources\icon_image.png" />
+    <None Include="Resources\icons8-watch-100.png" />
     <Content Include="Resources\idea.png" />
     <None Include="Resources\image.png" />
     <Content Include="Resources\Imagen2.png" />

@@ -15,25 +15,52 @@ namespace controlFallos
     public partial class CatRoles : Form
     {
         validaciones v;
-        int idUsuario, idRol, empresaAnterior, areaArenterior, servicioAnterior, ciclosAnterior, ecosAnterior, lapsoAnterior, statusAnterior;
+        int idUsuario, idRol, empresaAnterior, areaArenterior, servicioAnterior, ciclosAnterior, ecosAnterior, lapsoAnterior, statusAnterior, x = 5, y = 5;
         DateTime horaAnterior;
         delegate void empre();
-        Thread hempresas;
-
-        bool editar = false, nuevo;
+        Thread hempresas, th;
+        bool pinsertar { get; set; }
+        bool pconsultar { get; set; }
+        bool peditar { get; set; }
+        bool pdesactivar { get; set; }
+        public bool editar = false, nuevo;
 
 
         public CatRoles(int idUsuario, int empresa, int area, validaciones v)
         {
+            th = new Thread(new ThreadStart(v.Splash));
+            th.Start();
             this.v = v;
             this.idUsuario = idUsuario;
             InitializeComponent();
             cmbempresa.DrawItem += v.combos_DrawItem;
             cmbarea.DrawItem += v.combos_DrawItem;
             cmbservicio.DrawItem += v.combos_DrawItem;
+            cmbdescanso.DrawItem += v.combos_DrawItem;
             cmbempresa.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cmbarea.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cmbservicio.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
+            cmbdescanso.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
+        }
+        bool getboolfromint(int i)
+        {
+            return i == 1;
+        }
+        public void privilegios()
+        {
+            string sql = "SELECT privilegios as privilegios FROM privilegios where usuariofkcpersonal='" + idUsuario + "' and namform='CatRoles'";
+            string[] privilegios = v.getaData(sql).ToString().Split('/');
+            pinsertar = getboolfromint(Convert.ToInt32(privilegios[0]));
+            pconsultar = getboolfromint(Convert.ToInt32(privilegios[1]));
+            peditar = getboolfromint(Convert.ToInt32(privilegios[2]));
+            pdesactivar = getboolfromint(Convert.ToInt32(privilegios[3]));
+        }
+        void mostrar()
+        {
+            privilegios();
+            ptabla.Visible = (pconsultar ? true : false);
+            gbRol.Visible = (pinsertar || peditar ? true : false);
+            psave.Visible = (pinsertar ? true : false);
         }
         void mostrarEmpresas()
         {
@@ -42,14 +69,54 @@ namespace controlFallos
                 empre e = new empre(mostrarEmpresas);
                 this.Invoke(e);
             }
-            v.iniCombos("select idempresa as id, upper(nombreEmpresa)as nombre from cempresas where status='1' order by nombreEmpresa;", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
+            v.iniCombos("call sistrefaccmant.companieswithstatus();", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
+            v.comboswithuot(cmbdescanso, new string[] { "--seleccione--", "si", "no" });
             hempresas.Abort();
+        }
+        void pecos()
+        {
+            DataTable dt = (DataTable)v.getData("SELECT * FROM sistrefaccmant.getecos;");
+            foreach (DataRow item in dt.Rows)
+            {
+                createcontrols(item.ItemArray[0], item.ItemArray[1]);
+            }
+        }
+        void createcontrols(object id, object text)
+        {
+            Label l = new Label();
+            l.FlatStyle = FlatStyle.Flat;
+            l.AutoSize = false;
+            l.BackColor = Color.PaleGreen;
+            l.BorderStyle = BorderStyle.Fixed3D;
+            l.ForeColor = Color.FromArgb(75, 44, 52);
+            l.Size = new Size(103, 24);
+            l.Location = new Point(x, y);
+            x += 107;
+            y = (x >= paddeco.Size.Width ? y += 29 : y);
+            x = (x >= paddeco.Size.Width ? 5 : x);
+            l.Text = text.ToString();
+            paddeco.Controls.Add(l);
         }
         private void CatRoles_Load(object sender, EventArgs e)
         {
             hempresas = new Thread(new ThreadStart(mostrarEmpresas));
             hempresas.Start();
+            pecos();
             cargarroles();
+            mostrar();
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm.GetType() == typeof(SplashScreen))
+                {
+                    if (frm.InvokeRequired)
+                    {
+                        validaciones.delgado dm = new validaciones.delgado(v.cerrarForm);
+                        Invoke(dm, frm);
+                    }
+                    break;
+                }
+            }
+            th.Abort();
         }
         void cargarroles()
         {
@@ -79,6 +146,23 @@ namespace controlFallos
             cmbservicio.Enabled = (cmbarea.SelectedIndex > 0 ? true : false);
         }
 
+        private void cmbdescanso_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbdescanso.SelectedIndex > 0)
+                pdescansos.Visible = (Convert.ToInt32(cmbdescanso.SelectedIndex) == 1 ? true : false);
+            else
+                pdescansos.Visible = false;
+        }
+
+        private void btntime_Click(object sender, EventArgs e)
+        {
+            diferenciaecos d = new diferenciaecos(v);
+            d.Owner = this;
+            d.cecos = Convert.ToInt32(txtecos.Text) - 1;
+            d.diferen = new string[d.cecos];
+            d.ShowDialog();
+        }
+
         private void txtciclos_KeyPress(object sender, KeyPressEventArgs e)
         {
             v.Solonumeros(e);
@@ -86,8 +170,11 @@ namespace controlFallos
 
         private void cmbempresa_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (editar)
+            if (editar && peditar)
                 psave.Visible = (cambios() ? true : false);
+            if (!string.IsNullOrWhiteSpace(txtecos.Text))
+                ptime.Visible = (Convert.ToInt32(txtecos.Text) > 0 ? true : false);
+            else ptime.Visible = false;
         }
 
         private void btnguardar_Click(object sender, EventArgs e)
@@ -183,6 +270,7 @@ namespace controlFallos
             btnguardar.BackgroundImage = controlFallos.Properties.Resources.save;
             pnuevo.Visible = pstatus.Visible = editar = nuevo = !(psave.Visible = true);
             dgvroles.ClearSelection();
+            psave.Visible = (pinsertar ? true : false);
         }
 
         private void dgvroles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -213,12 +301,13 @@ namespace controlFallos
             txtecos.Text = (ecosAnterior = Convert.ToInt32(datosrol[2])).ToString();
             dtpincorporo.Value = horaAnterior = DateTime.Parse(datosrol[3]);
             nudlapso.Value = lapsoAnterior = Convert.ToInt32(datosrol[4]);
-            pnuevo.Visible = pstatus.Visible = editar = !(psave.Visible = false);
+            pnuevo.Visible = editar = !(psave.Visible = false);
             lblstatus.Text = ((statusAnterior = Convert.ToInt32(datosrol[5])) == 1 ? "Desactivar" : "Reactivar");
             btnstatus.BackgroundImage = (statusAnterior == 1 ? controlFallos.Properties.Resources.delete__4_ : controlFallos.Properties.Resources.up);
             btnguardar.BackgroundImage = controlFallos.Properties.Resources.pencil;
-            if (statusAnterior == 0)
+            if (statusAnterior == 0 && peditar && pdesactivar)
                 MessageBox.Show("Para editar el registro es necesario reactivar primero el rol", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            pstatus.Visible = (pdesactivar ? true : false);
         }
     }
 }

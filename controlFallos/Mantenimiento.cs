@@ -62,7 +62,7 @@ namespace controlFallos
         }
         void obtenerReportes()
         {
-            string[] estatus = v.getaData("select concat(count(*),'|',(select count(*) from reportemantenimiento as t3 where t3.estatus='2'),'|',(select count(*) from reportemantenimiento as t5 where t5.estatus='3'),'|',(select count(*) from reportesupervicion as t5 left join reportemantenimiento as t1 on t5.idReporteSupervicion=t1.FoliofkSupervicion where t1.estatus is null))as r from reportemantenimiento as t1 inner join reportesupervicion as t2 on t1.FoliofkSupervicion=t2.idReporteSupervicion where t1.estatus='1';").ToString().Split('|');
+            string[] estatus = v.getaData("select concat(count(*),'|',(select count(*) from reportemantenimiento as t3 where t3." + v.c.fieldsreportemantenimiento[10] + "='2'),'|',(select count(*) from reportemantenimiento as t5 where t5." + v.c.fieldsreportemantenimiento[10] + "='3'),'|',(select count(*) from reportesupervicion as t5 left join reportemantenimiento as t1 on t5." + v.c.fieldsreportesupervicion[0] + "=t1." + v.c.fieldsreportemantenimiento[1] + " where t1." + v.c.fieldsreportemantenimiento[10] + " is null))as r from reportemantenimiento as t1 inner join reportesupervicion as t2 on t1." + v.c.fieldsreportemantenimiento[1] + "=t2." + v.c.fieldsreportesupervicion[0] + " where t1." + v.c.fieldsreportemantenimiento[10] + "='1';").ToString().Split('|');
             lblenproceso.Text = estatus[0];
             lblreprogramadas.Text = estatus[1];
             lblliberadas.Text = estatus[2];
@@ -103,22 +103,18 @@ namespace controlFallos
         private void btncancelar_Click(object sender, EventArgs e)
         {
             if (!cambios())
-            {
-                remove();
-                limpiar();
-                combos();
-                cargardatos();
-            }
+                cancelar();
             else if (MessageBox.Show("Desea " + (editar ? "guardar los cambios" : "concluir con el registro"), validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-            {
-                remove();
-                limpiar();
-                combos();
-                cargardatos();
-            }
+                cancelar();
 
         }
-
+        void cancelar()
+        {
+            remove();
+            limpiar();
+            combos();
+            cargardatos();
+        }
         private void txtmecanico_TextChanged(object sender, EventArgs e)
         {
             if (txtsupervisor.Focused)
@@ -144,7 +140,7 @@ namespace controlFallos
         }
         void cargarrefacciones()
         {
-            MySqlDataAdapter r = new MySqlDataAdapter("select t1.idPedRef, t1.NumRefacc as 'NÚMERO',upper(t2.nombreRefaccion)as 'REFACCIÓN',t1.Cantidad as 'CANTIDAD', t1.EstatusRefaccion as 'EXISTENCIA',t1.CantidadEntregada as 'CANTIDAD ENTREGADA' from pedidosrefaccion as t1 inner join crefacciones as t2 on t1.RefaccionfkCRefaccion=t2.idrefaccion where FolioPedfkSupervicion='" + idreporte + "';", v.c.dbconection());
+            MySqlDataAdapter r = new MySqlDataAdapter("select t1." + v.c.fieldspedidosrefaccion[0] + ", t1." + v.c.fieldspedidosrefaccion[2] + " as 'NÚMERO',upper(t2." + v.c.fieldscrefacciones[2] + ")as 'REFACCIÓN',t1." + v.c.fieldspedidosrefaccion[5] + " as 'CANTIDAD', t1." + v.c.fieldspedidosrefaccion[6] + " as 'EXISTENCIA',t1." + v.c.fieldspedidosrefaccion[7] + " as 'CANTIDAD ENTREGADA' from pedidosrefaccion as t1 inner join crefacciones as t2 on t1." + v.c.fieldspedidosrefaccion[3] + "=t2." + v.c.fieldscrefacciones[0] + " where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "';", v.c.dbconection());
             DataSet ds = new DataSet();
             r.Fill(ds);
             dgvrefacciones.DataSource = ds.Tables[0];
@@ -156,13 +152,13 @@ namespace controlFallos
         private void btnrefacciones_Click(object sender, EventArgs e)
         {
             lblexportar.Visible = !(gbrefacciones.Visible = true);
-            v.iniCombos("select idrefaccion as id,upper(nombreRefaccion) as nombre from crefacciones where status='1';", cmbrefaccion, "id", "nombre", "--seleccione--");
+            v.iniCombos("select " + v.c.fieldscrefacciones[0] + " as id,upper(" + v.c.fieldscrefacciones[2] + ") as nombre from crefacciones where " + v.c.fieldscrefacciones[13] + "='1';", cmbrefaccion, "id", "nombre", "--seleccione--");
         }
 
         private void btnregresar_Click(object sender, EventArgs e)
         {
             gbrefacciones.Visible = !(lblexportar.Visible = true);
-            cmbrefacciones.Enabled = (Convert.ToInt32(v.getaData("select count(*)  from pedidosrefaccion where FolioPedfkSupervicion='" + idreporte + "';")) == 0 ? true : false);
+            cmbrefacciones.Enabled = (Convert.ToInt32(v.getaData("select count(*)  from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "';")) == 0 ? true : false);
             limpiarRefaccion();
         }
 
@@ -170,10 +166,10 @@ namespace controlFallos
         {
             if (!editarRefaccion)
             {
-                int n = Convert.ToInt32(v.getaData("select count(numrefacc) from pedidosrefaccion where FolioPedfkSupervicion='" + idreporte + "';"));
+                int n = Convert.ToInt32(v.getaData("select count(" + v.c.fieldspedidosrefaccion[2] + ") from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "';"));
                 n++;
                 if (v.validarefacicion(Convert.ToInt32(cmbrefaccion.SelectedValue), txtcantidad.Text))
-                    if (v.c.insertar("insert into pedidosrefaccion (FolioPedfkSupervicion,NumRefacc,RefaccionfkCRefaccion,fechaHoraPedido,Cantidad,usuariofkcpersonal)values('" + idreporte + "','" + n + "','" + cmbrefaccion.SelectedValue + "',now(),'" + txtcantidad.Text + "','" + idUsuario + "')"))
+                    if (v.c.insertar("insert into pedidosrefaccion (" + v.c.fieldspedidosrefaccion[1] + "," + v.c.fieldspedidosrefaccion[2] + "," + v.c.fieldspedidosrefaccion[3] + "," + v.c.fieldspedidosrefaccion[4] + "," + v.c.fieldspedidosrefaccion[5] + "," + v.c.fieldspedidosrefaccion[8] + ")values('" + idreporte + "','" + n + "','" + cmbrefaccion.SelectedValue + "',now(),'" + txtcantidad.Text + "','" + idUsuario + "')"))
                     {
                         MessageBox.Show("Refacción agregada de manera correcta", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         limpiarRefaccion();
@@ -181,7 +177,7 @@ namespace controlFallos
             }
             else
             {
-                if (v.c.insertar("update pedidosrefaccion set RefaccionfkCRefaccion='" + cmbrefaccion.SelectedValue + "', Cantidad='" + txtcantidad.Text + "' where idPedRef='" + idref + "';"))
+                if (v.c.insertar("update pedidosrefaccion set " + v.c.fieldspedidosrefaccion[3] + "='" + cmbrefaccion.SelectedValue + "', " + v.c.fieldspedidosrefaccion[5] + "='" + txtcantidad.Text + "' where " + v.c.fieldspedidosrefaccion[0] + "='" + idref + "';"))
                 {
                     MessageBox.Show("Los datos de actualizaron de manera correcta", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     limpiarRefaccion();
@@ -199,12 +195,7 @@ namespace controlFallos
         {
             v.numerosDecimales(e);
         }
-        string timetowait(DateTime initialdate, DateTime finaldate)
-        {
-            TimeSpan ts = finaldate.Subtract(initialdate);
-            return (ts.Days + " días, " + ts.Hours + " horas, " + ts.Minutes + " minutos").ToUpper();
 
-        }
         private void txttrabajo_KeyPress(object sender, KeyPressEventArgs e)
         {
             v.enGeneral(e);
@@ -216,7 +207,7 @@ namespace controlFallos
         }
         bool validarefacciones()
         {
-            if (cmbrefacciones.SelectedIndex == 2 || (cmbrefacciones.SelectedIndex == 1 && Convert.ToInt32(v.getaData("select count(*) from pedidosrefaccion where FolioPedfkSupervicion='" + idreporte + "';")) > 0))
+            if (cmbrefacciones.SelectedIndex == 2 || (cmbrefacciones.SelectedIndex == 1 && Convert.ToInt32(v.getaData("select count(*) from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "';")) > 0))
                 return true;
             else
             {
@@ -228,12 +219,12 @@ namespace controlFallos
         {
             if (validarefacciones())
             {
-                if (Convert.ToInt32(v.getaData("select count(*) from pedidosrefaccion where FolioPedfkSupervicion='" + idreporte + "';")) == 0 || Convert.ToInt32(v.getaData("select count(*) from pedidosrefaccion where FolioPedfkSupervicion='" + idreporte + "' and Cantidad!=CantidadEntregada;")) == 0)
+                if (Convert.ToInt32(v.getaData("select count(*) from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "';")) == 0 || Convert.ToInt32(v.getaData("select count(*) from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "' and " + v.c.fieldspedidosrefaccion[5] + "!=" + v.c.fieldspedidosrefaccion[7] + ";")) == 0)
                 {
                     FormContraFinal o = new FormContraFinal(empresa, area, this, v);
                     o.Owner = this;
                     if (o.ShowDialog() == DialogResult.OK)
-                        if (v.c.insertar("update reportemantenimiento set Estatus='3',PersonaFinal='" + o.id + "', FechaHoraT=now() where FoliofkSupervicion='" + idreporte + "';"))
+                        if (v.c.insertar("update reportemantenimiento set " + v.c.fieldsreportemantenimiento[10] + "='3'," + v.c.fieldsreportemantenimiento[8] + "='" + o.id + "', " + v.c.fieldsreportemantenimiento[7] + "=now() where " + v.c.fieldsreportemantenimiento[1] + "='" + idreporte + "';"))
                         {
                             MessageBox.Show("El reporte se finalizo de manera correcta", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                             limpiar();
@@ -276,17 +267,17 @@ namespace controlFallos
             {
                 string wheres = "";
                 if (cbrango.Checked)
-                    wheres = (wheres == "" ? " where t1.FechaReporte between '" + dtpfechade.Value.ToString("yyyy-MM-dd") + "' and '" + dtpfechaa.Value.ToString("yyyy-MM-dd") + "'" : " and (t1.FechaReporte between '" + dtpfechade.Value.ToString("yyyy-MM-dd") + "' and '" + dtpfechaa.Value.ToString("yyyy-MM-dd") + "')");
+                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreportesupervicion[3] + " between '" + dtpfechade.Value.ToString("yyyy-MM-dd") + "' and '" + dtpfechaa.Value.ToString("yyyy-MM-dd") + "'" : " and (t1." + v.c.fieldsreportesupervicion[3] + " between '" + dtpfechade.Value.ToString("yyyy-MM-dd") + "' and '" + dtpfechaa.Value.ToString("yyyy-MM-dd") + "')");
                 if (cmbunidadb.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where t1.UnidadfkCUnidades='" + cmbunidadb.SelectedValue + "'" : " and t1.UnidadfkCUnidades='" + cmbunidadb.SelectedValue + "'");
+                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreportesupervicion[2] + "='" + cmbunidadb.SelectedValue + "'" : " and t1." + v.c.fieldsreportesupervicion[2] + "='" + cmbunidadb.SelectedValue + "'");
                 if (cmbmecanicob.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where t2.MecanicofkPersonal='" + cmbmecanicob.SelectedValue + "'" : " and MecanicofkPersonal='´" + cmbmecanicob.SelectedValue + "'");
+                    wheres = (wheres == "" ? " where t2." + v.c.fieldsreportemantenimiento[4] + "='" + cmbmecanicob.SelectedValue + "'" : " and " + v.c.fieldsreportemantenimiento[4] + "='´" + cmbmecanicob.SelectedValue + "'");
                 if (cmbestatusb.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where t2.Estatus='" + cmbestatusb.SelectedValue + "'" : " and t2.Estatus='" + cmbestatusb.SelectedValue + "'");
+                    wheres = (wheres == "" ? " where t2." + v.c.fieldsreportemantenimiento[10] + "='" + cmbestatusb.SelectedValue + "'" : " and t2." + v.c.fieldsreportemantenimiento[10] + "='" + cmbestatusb.SelectedValue + "'");
                 if (cmbgrupob.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where (select t1.idFalloGral from cfallosgrales as t1 inner join cdescfallo as t2 on t1.idFalloGral=t2.falloGralfkcfallosgrales inner join catcategorias as t3 on t2.iddescfallo=t3.subgrupofkcdescfallo inner join cfallosesp as t4 on t3.idcategoria=t4.descfallofkcdescfallo where t1.CodFallofkcfallosesp=t4.idfalloEsp)='" + cmbgrupob.SelectedValue + "'" : " and (select t1.idFalloGral from cfallosgrales as t1 inner join cdescfallo as t2 on t1.idFalloGral=t2.falloGralfkcfallosgrales inner join catcategorias as t3 on t2.iddescfallo=t3.subgrupofkcdescfallo inner join cfallosesp as t4 on t3.idcategoria=t4.descfallofkcdescfallo where t1.CodFallofkcfallosesp=t4.idfalloEsp)='" + cmbgrupob.SelectedValue + "'");
+                    wheres = (wheres == "" ? " where t2." + v.c.fieldsreportemantenimiento[2] + "='" + cmbgrupob.SelectedValue + "'" : " and t2." + v.c.fieldsreportemantenimiento[2] + "='" + cmbgrupob.SelectedValue + "'");
                 if (cmbmesb.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where date_format(t1.FechaReporte,'%c')='" + cmbmesb.SelectedValue + "' and date_format(t1.FechaReporte,'%Y')=date_format(now(),'%Y')" : "");
+                    wheres = (wheres == "" ? " where date_format(t1." + v.c.fieldsreportesupervicion[3] + ",'%c')='" + cmbmesb.SelectedValue + "' and date_format(t1." + v.c.fieldsreportesupervicion[3] + ",'%Y')=date_format(now(),'%Y')" : "");
                 MySqlDataAdapter da = new MySqlDataAdapter(consultagral + wheres, v.c.dbconection());
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -335,8 +326,8 @@ namespace controlFallos
 
         void remove()
         {
-            if (Convert.ToInt32(v.getaData("select count(*) from reportemantenimiento where FoliofkSupervicion='" + idreporte + "';")) == 0)
-                v.getaData("delete from pedidosrefaccion where FolioPedfkSupervicion='" + idreporte + "'");
+            if (Convert.ToInt32(v.getaData("select count(*) from reportemantenimiento where " + v.c.fieldsreportemantenimiento[1] + "='" + idreporte + "';")) == 0)
+                v.getaData("delete from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "'");
         }
 
         private void btnexportar_Click(object sender, EventArgs e)
@@ -351,9 +342,12 @@ namespace controlFallos
         }
         void termino()
         {
-            pbgif.Visible = isexporting = false;
             lblexcel.Text = "Exportar";
-            pexcel.Visible = (aux ? false : true);
+            if (!aux)
+                btnexportar.Visible = true;
+            else
+                pexcel.Visible = false;
+            pbgif.Visible = isexporting = aux = false;
         }
         void exportar_excel()
         {
@@ -474,7 +468,7 @@ namespace controlFallos
         }
         PdfPTable general()
         {
-            string[] datos = v.getaData("SET lc_time_names = 'es_ES';select upper(concat(t1.Folio,'|',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))),'|',t1.KmEntrada,'|',date_format(t1.FechaReporte,'%W %d de %M del %Y'),'/',t1.HoraEntrada,'|',if(t1.DescFalloNoCod is not null,t1.DescFalloNoCod,(select concat(x3.descfallo,'|',x1.codfallo) from cfallosesp as x1 inner join catcategorias as x2 on x2.idcategoria=x1.descfallofkcdescfallo inner join cdescfallo as x3 on x2.subgrupofkcdescfallo=x3.iddescfallo where x1.idfalloEsp=t1.CodFallofkcfallosesp)),'|',(select concat(coalesce(x6.appaterno,''),' ',coalesce(x6.apmaterno,''),' ',x6.nombres) from cpersonal as x6 where x6.idpersona=t1.SupervisorfkCPersonal),'|',coalesce(t1.ObservacionesSupervision,''),'|',coalesce((select x7.nombreFalloGral from cfallosgrales as x7 where x7.idFalloGral=t2.FalloGralfkFallosGenerales),''),'|',coalesce(t2.estatus,0),'|',coalesce((select concat(coalesce(x8.appaterno,''),' ',coalesce(x8.apmaterno,''),' ',x8.nombres) from cpersonal as x8 where x8.idpersona=t2.MecanicofkPersonal),''),'|',coalesce((select concat(coalesce(x9.appaterno,''),' ',coalesce(x9.apmaterno,''),' ',x9.nombres) from cpersonal as x9 where x9.idpersona=t2.MecanicoApoyofkPersonal),''),'|',coalesce(t2.FechaHoraI,'00:00:00'),' / ',coalesce(t2.FechaHoraT,'00:00:00'),'|',coalesce(t2.TrabajoRealizado,''),'|',coalesce(t2.ObservacionesM,''))) as r from reportesupervicion as t1 left join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion inner join cunidades as t3 on t1.UnidadfkCUnidades=t3.idunidad  INNER JOIN careas AS t4 on t4.idarea=t3.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas where idReporteSupervicion='" + idreporte + "';").ToString().Split('|');
+            string[] datos = v.getaData("SET lc_time_names = 'es_ES';select upper(concat(t1." + v.c.fieldsreportesupervicion[1] + ",'|',(select concat(t4." + v.c.fieldscareas[2] + ",LPAD(" + v.c.fieldscunidades[1] + ",4,'0'))),'|',t1." + v.c.fieldsreportesupervicion[8] + ",'|',date_format(t1." + v.c.fieldsreportesupervicion[3] + ",'%W %d de %M del %Y'),'/',t1." + v.c.fieldsreportesupervicion[7] + ",'|',if(t1." + v.c.fieldsreportesupervicion[12] + " is not null,t1." + v.c.fieldsreportesupervicion[12] + ",(select concat(x3." + v.c.fieldscdescfallo[2] + ",'|',x1." + v.c.fieldscfallosesp[2] + ") from cfallosesp as x1 inner join catcategorias as x2 on x2." + v.c.fieldscatcategorias[0] + "=x1." + v.c.fieldscfallosesp[1] + " inner join cdescfallo as x3 on x2." + v.c.fieldscatcategorias[1] + "=x3." + v.c.fieldscdescfallo[0] + " where x1." + v.c.fieldscfallosesp[0] + "=t1." + v.c.fieldsreportesupervicion[11] + ")),'|',(select concat(coalesce(x6." + v.c.fieldscpersonal[2] + ",''),' ',coalesce(x6." + v.c.fieldscpersonal[3] + ",''),' ',x6." + v.c.fieldscpersonal[4] + ") from cpersonal as x6 where x6." + v.c.fieldscpersonal[0] + "=t1." + v.c.fieldsreportesupervicion[4] + "),'|',coalesce(t1." + v.c.fieldsreportesupervicion[13] + ",''),'|',coalesce((select x7." + v.c.fieldsfallosgrales[1] + " from cfallosgrales as x7 where x7." + v.c.fieldsfallosgrales[0] + "=t2." + v.c.fieldsreportemantenimiento[2] + "),''),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[10] + ",0),'|',coalesce((select concat(coalesce(x8." + v.c.fieldscpersonal[2] + ",''),' ',coalesce(x8." + v.c.fieldscpersonal[3] + ",''),' ',x8." + v.c.fieldscpersonal[4] + ") from cpersonal as x8 where x8." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsreportemantenimiento[4] + "),''),'|',coalesce((select concat(coalesce(x9." + v.c.fieldscpersonal[2] + ",''),' ',coalesce(x9." + v.c.fieldscpersonal[3] + ",''),' ',x9." + v.c.fieldscpersonal[4] + ") from cpersonal as x9 where x9." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsreportemantenimiento[5] + "),''),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[6] + ",'00:00:00'),' / ',coalesce(t2." + v.c.fieldsreportemantenimiento[7] + ",'00:00:00'),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[3] + ",''),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[13] + ",''))) as r from reportesupervicion as t1 left join reportemantenimiento as t2 on t1." + v.c.fieldsreportesupervicion[0] + "=t2." + v.c.fieldsreportemantenimiento[1] + " inner join cunidades as t3 on t1." + v.c.fieldsreportesupervicion[2] + "=t3." + v.c.fieldscunidades[0] + "  INNER JOIN careas AS t4 on t4." + v.c.fieldscareas[0] + "=t3." + v.c.fieldscunidades[3] + " inner join cempresas as T5 on T5." + v.c.fieldscempresas[0] + "=T4." + v.c.fieldscareas[1] + " where t1." + v.c.fieldsreportesupervicion[0] + "='" + idreporte + "';").ToString().Split('|');
             PdfPTable tabla = new PdfPTable(20);
             tabla.WidthPercentage = 100;
             bool havecode = datos.Length > 14;
@@ -517,7 +511,7 @@ namespace controlFallos
             tabla.AddCell(v.valorCampo((havecode ? datos[8] : datos[7]), 4, 1, 1, arial));
             tabla.AddCell(v.valorCampo("", 2, 0, 0, arial));
             tabla.AddCell(v.valorCampo("ESTATUS DE MANTENIMIENTO: ", 6, 0, 0, arial2));
-            tabla.AddCell(v.valorCampo(changestatus(havecode ? Convert.ToInt32(datos[9]) : Convert.ToInt32(datos[8])), 4, 1, 1, arial));
+            tabla.AddCell(v.valorCampo(v.changestatus(havecode ? Convert.ToInt32(datos[9]) : Convert.ToInt32(datos[8])), 4, 1, 1, arial));
             tabla.AddCell(v.valorCampo("\n", 20, 0, 0, arial));
             tabla.AddCell(v.valorCampo("MECÁNICO: ", 3, 0, 0, arial2));
             tabla.AddCell(v.valorCampo((havecode ? datos[10] : datos[9]), 8, 1, 1, arial));
@@ -528,7 +522,7 @@ namespace controlFallos
             tabla.AddCell(v.valorCampo("", 7, 0, 0, arial));
             tabla.AddCell(v.valorCampo("\n", 20, 0, 0, arial));
             tabla.AddCell(v.valorCampo("TIEMPO DE ESPERA: ", 4, 0, 0, arial2));
-            tabla.AddCell(v.valorCampo(timetowait(DateTime.Parse(v.getaData("select concat(FechaReporte,' ',HoraEntrada) from reportesupervicion where idReporteSupervicion='" + idreporte + "'").ToString()), DateTime.Parse(v.getaData("select concat(FechaHoraI) from reportemantenimiento where FoliofkSupervicion='" + idreporte + "'").ToString())), 8, 1, 1, arial));
+            tabla.AddCell(v.valorCampo(v.timetowait(DateTime.Parse(v.getaData("select concat(" + v.c.fieldsreportesupervicion[3] + ",' '," + v.c.fieldsreportesupervicion[7] + ") from reportesupervicion where " + v.c.fieldsreportesupervicion[0] + "='" + idreporte + "'").ToString()), DateTime.Parse(v.getaData("select concat(" + v.c.fieldsreportemantenimiento[6] + ") from reportemantenimiento where " + v.c.fieldsreportemantenimiento[1] + "='" + idreporte + "'").ToString())), 8, 1, 1, arial));
             tabla.AddCell(v.valorCampo("", 8, 0, 0, arial));
             tabla.AddCell(v.valorCampo("\n", 20, 0, 0, arial));
             tabla.AddCell(v.valorCampo("FECHA / HORA INICIO - TERMINO: ", 6, 0, 0, arial2));
@@ -539,7 +533,7 @@ namespace controlFallos
         }
         PdfPTable unidad()
         {
-            string[] datos = v.getaData("select concat(identificador,LPAD(consecutivo,4,'0'),'|',coalesce(t1.bin,''),'|',coalesce(t1.marca,''),'|',coalesce(t1.nmotor,''),'|',coalesce(t1.ntransmision,''),'|',coalesce(t4.TrabajoRealizado,''),'|',coalesce(t4.estatus,'0')) from cunidades as t1 inner join reportesupervicion as t2 on t2.UnidadfkCUnidades=t1.idunidad inner join careas as t3 on t3.idarea=t1.areafkcareas left join reportemantenimiento as t4 on t4.FoliofkSupervicion=t2.idReporteSupervicion where t2.idReporteSupervicion='" + idreporte + "';").ToString().Split('|');
+            string[] datos = v.getaData("select concat(t3." + v.c.fieldscareas[2] + ",LPAD(t1." + v.c.fieldscunidades[1] + ",4,'0'),'|',coalesce(t1." + v.c.fieldscunidades[7] + ",''),'|',coalesce(t1." + v.c.fieldscunidades[11] + ",''),'|',coalesce(t1." + v.c.fieldscunidades[8] + ",''),'|',coalesce(t1." + v.c.fieldscunidades[9] + ",''),'|',coalesce(t4." + v.c.fieldsreportemantenimiento[3] + ",''),'|',coalesce(t4." + v.c.fieldsreportemantenimiento[10] + ",'0'),'|',coalesce(" + v.c.fieldscunidades[10] + ",'')) from cunidades as t1 inner join reportesupervicion as t2 on t2.UnidadfkCUnidades=t1." + v.c.fieldscunidades[0] + " inner join careas as t3 on t3." + v.c.fieldscareas[0] + "=t1." + v.c.fieldscunidades[3] + " left join reportemantenimiento as t4 on t4." + v.c.fieldsreportemantenimiento[1] + "=t2." + v.c.fieldsreportesupervicion[0] + " where t2." + v.c.fieldsreportesupervicion[0] + "='" + idreporte + "';").ToString().Split('|');
             PdfPTable tabla = new PdfPTable(20);
             tabla.WidthPercentage = 100;
             tabla.AddCell(v.valorCampo("\n", 20, 0, 0, arial2));
@@ -549,8 +543,12 @@ namespace controlFallos
             tabla.AddCell(v.valorCampo("BIN: ", 2, 0, 0, arial2));
             tabla.AddCell(v.valorCampo(datos[1], 4, 1, 1, arial));
             tabla.AddCell(v.valorCampo("", 1, 0, 0, arial));
+            tabla.AddCell(v.valorCampo("MODELO: ", 2, 0, 0, arial2));
+            tabla.AddCell(v.valorCampo(datos[6], 4, 1, 1, arial));
+            tabla.AddCell(v.valorCampo("\n", 20, 0, 0, arial));
             tabla.AddCell(v.valorCampo("MARCA: ", 2, 0, 0, arial2));
             tabla.AddCell(v.valorCampo(datos[2], 4, 1, 1, arial));
+            tabla.AddCell(v.valorCampo("", 14, 0, 0, arial));
             tabla.AddCell(v.valorCampo("\n", 20, 0, 0, arial));
             tabla.AddCell(v.valorCampo("N° DE SERIE DE MOTOR: ", 6, 0, 0, arial2));
             tabla.AddCell(v.valorCampo(datos[3], 8, 1, 1, arial));
@@ -561,7 +559,7 @@ namespace controlFallos
             tabla.AddCell(v.valorCampo("", 6, 0, 0, arial));
             tabla.AddCell(v.valorCampo("\n", 20, 0, 0, arial));
             tabla.AddCell(v.valorCampo("ESTATUS: ", 2, 0, 0, arial2));
-            tabla.AddCell(v.valorCampo(changestatus(Convert.ToInt32(datos[6])), 5, 1, 1, arial));
+            tabla.AddCell(v.valorCampo(v.changestatus(Convert.ToInt32(datos[6])), 5, 1, 1, arial));
             tabla.AddCell(v.valorCampo("", 13, 0, 0, arial));
             tabla.AddCell(v.valorCampo("\n", 20, 0, 0, arial));
             tabla.AddCell(v.valorCampo("TRABAJO REALIZADO: ", 5, 0, 0, arial2));
@@ -603,8 +601,8 @@ namespace controlFallos
 
         private void txtsupervisor_Validated(object sender, EventArgs e)
         {
-            lblsupmant.Text = (Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtsupervisor.Text.Trim()) + "';")) == 0 ? "" : v.getaData("select upper(concat(coalesce(t1.appaterno,''),' ',coalesce(t1.apmaterno,''),' ',t1.nombres)) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtsupervisor.Text.Trim()) + "';").ToString());
-            idsupervisor = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtsupervisor.Text.Trim()) + "';")) == 0 ? 0 : Convert.ToInt32(v.getaData("select t1.idpersona from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtsupervisor.Text.Trim()) + "';"))));
+            lblsupmant.Text = (Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtsupervisor.Text.Trim()) + "';")) == 0 ? "" : v.getaData("select upper(concat(coalesce(t1." + v.c.fieldscpersonal[2] + ",''),' ',coalesce(t1." + v.c.fieldscpersonal[3] + ",''),' ',t1." + v.c.fieldscpersonal[4] + ")) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtsupervisor.Text.Trim()) + "';").ToString());
+            idsupervisor = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtsupervisor.Text.Trim()) + "';")) == 0 ? 0 : Convert.ToInt32(v.getaData("select t1." + v.c.fieldscpersonal[0] + " from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtsupervisor.Text.Trim()) + "';"))));
             mecanicosiguales(txtsupervisor, lblsupmant);
         }
 
@@ -620,11 +618,7 @@ namespace controlFallos
                 e.CellStyle.BackColor = (e.Value.ToString() == "EN PROCESO" ? Color.Khaki : e.Value.ToString() == "LIBERADA" ? Color.PaleGreen : e.Value.ToString() == "REPROGRAMADA" ? Color.LightCoral : Color.LightBlue);
         }
 
-        public string changestatus(int status)
-        {
-            string estatus = (status == 0 ? "" : status == 1 ? "EN PROCESO" : status == 2 ? "REPROGRAMADA" : "LIBERADA");
-            return estatus;
-        }
+
         private void dgvreportes_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
@@ -644,13 +638,13 @@ namespace controlFallos
         }
         private void cmbrefaccion_SelectedValueChanged(object sender, EventArgs e)
         {
-            lblum.Text = (cmbrefaccion.SelectedIndex > 0 ? v.getaData("select coalesce(upper(Nombre),'') from crefacciones as t1 inner join cmarcas as t2 on t1.marcafkcmarcas=t2.idmarca inner join cfamilias as t3 on t2.descripcionfkcfamilias=t3.idfamilia inner join cunidadmedida as t4 on t3.umfkcunidadmedida=t4.idunidadmedida where t1.idrefaccion='" + cmbrefaccion.SelectedValue + "'").ToString() : "");
+            lblum.Text = (cmbrefaccion.SelectedIndex > 0 ? v.getaData("select coalesce(upper(t4." + v.c.fieldscunidadmedida[1] + "),'') from crefacciones as t1 inner join cmarcas as t2 on t1." + v.c.fieldscrefacciones[7] + "=t2." + v.c.fieldscmarcas[0] + " inner join cfamilias as t3 on t2." + v.c.fieldscmarcas[1] + "=t3." + v.c.fieldscfamilias[0] + " inner join cunidadmedida as t4 on t3." + v.c.fieldscfamilias[5] + " = t4." + v.c.fieldscunidadmedida[0] + " where t1." + v.c.fieldscrefacciones[0] + " = '" + cmbrefaccion.SelectedValue + "'").ToString() : "");
         }
 
         private void dgvrefacciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            string[] drefaccion = v.getaData("select concat(RefaccionfkCRefaccion,'|',Cantidad) from pedidosrefaccion where idPedRef='" + (idref = Convert.ToInt32(dgvrefacciones.Rows[e.RowIndex].Cells[0].Value)) + "';").ToString().Split('|');
-            if (Convert.ToInt32(v.getaData("select if(cantidad=cantidadentregada,1,0)as r from pedidosrefaccion where idPedRef='" + idref + "';")) == 0)
+            string[] drefaccion = v.getaData("select concat(" + v.c.fieldspedidosrefaccion[3] + ",'|'," + v.c.fieldspedidosrefaccion[5] + ") from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[0] + "='" + (idref = Convert.ToInt32(dgvrefacciones.Rows[e.RowIndex].Cells[0].Value)) + "';").ToString().Split('|');
+            if (Convert.ToInt32(v.getaData("select if(" + v.c.fieldspedidosrefaccion[5] + "=" + v.c.fieldspedidosrefaccion[7] + ",1,0)as r from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[0] + "='" + idref + "';")) == 0)
             {
                 cmbrefaccion.SelectedValue = idrefaccionAnterior = Convert.ToInt32(drefaccion[0]);
                 txtcantidad.Text = (cantidadAnterior = Convert.ToInt32(drefaccion[1])).ToString();
@@ -666,8 +660,9 @@ namespace controlFallos
 
         private void txtmecanicoapoyo_Validated(object sender, EventArgs e)
         {
-            lblmapoyo.Text = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtmecanicoapoyo.Text.Trim()) + "';")) == 0 ? "" : v.getaData("select upper(concat(coalesce(t1.appaterno,''),' ',coalesce(t1.apmaterno,''),' ',t1.nombres)) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtmecanicoapoyo.Text.Trim()) + "';").ToString()));
-            idmecanicoApoyo = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtmecanicoapoyo.Text.Trim()) + "';")) == 0 ? 0 : Convert.ToInt32(v.getaData("select t1.idpersona from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtmecanicoapoyo.Text.Trim()) + "';"))));
+            lblmapoyo.Text = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtmecanicoapoyo.Text.Trim()) + "';")) == 0 ? "" : v.getaData("select upper(concat(coalesce(t1." + v.c.fieldscpersonal[2] + ",''),' ',coalesce(t1." + v.c.fieldscpersonal[3] + ",''),' ',t1." + v.c.fieldscpersonal[4] + ")) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtmecanicoapoyo.Text.Trim()) + "';").ToString()));
+
+            idmecanicoApoyo = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtmecanicoapoyo.Text.Trim()) + "';")) == 0 ? 0 : Convert.ToInt32(v.getaData("select t1." + v.c.fieldscpersonal[0] + " from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + " = t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + " = '" + v.Encriptar(txtmecanicoapoyo.Text.Trim()) + "'; "))));
             mecanicosiguales(txtmecanicoapoyo, lblmapoyo);
         }
 
@@ -694,7 +689,7 @@ namespace controlFallos
             if (v.camposmant(txtmecanico.Text, Convert.ToInt32(cmbgrupo.SelectedValue), area, Convert.ToInt32(cmbrefacciones.SelectedValue), Convert.ToInt32(cmbestatus.SelectedValue), txtfoliof.Text, idreporte, EstatusAnterior))
                 if (!editar)
                 {
-                    if (v.c.insertar("Insert Into reportemantenimiento (FoliofkSupervicion,FalloGralfkFallosGenerales,TrabajoRealizado,MecanicofkPersonal,FechaHoraI,Estatus,empresa,StatusRefacciones)values('" + idreporte + "','" + cmbgrupo.SelectedValue + "','" + txttrabajo.Text.Trim() + "','" + idmecanico + "',now(),'" + cmbestatus.SelectedValue + "','" + empresa + "','" + cmbrefacciones.SelectedValue + "')"))
+                    if (v.c.insertar("Insert Into reportemantenimiento (" + v.c.fieldsreportemantenimiento[1] + "," + v.c.fieldsreportemantenimiento[2] + "," + v.c.fieldsreportemantenimiento[3] + "," + v.c.fieldsreportemantenimiento[4] + "," + v.c.fieldsreportemantenimiento[6] + "," + v.c.fieldsreportemantenimiento[10] + "," + v.c.fieldsreportemantenimiento[16] + "," + v.c.fieldsreportemantenimiento[12] + ")values('" + idreporte + "','" + cmbgrupo.SelectedValue + "','" + txttrabajo.Text.Trim() + "','" + idmecanico + "',now(),'" + cmbestatus.SelectedValue + "','" + empresa + "','" + cmbrefacciones.SelectedValue + "')"))
                     {
                         MessageBox.Show("Se insertaron los datos de manera correcta", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         limpiar();
@@ -708,7 +703,7 @@ namespace controlFallos
                     o.Owner = this;
                     if (!add)
                         aux = o.ShowDialog() == DialogResult.OK;
-                    if (v.c.insertar("update reportemantenimiento set FalloGralfkFallosGenerales='" + cmbgrupo.SelectedValue + "',TrabajoRealizado='" + txttrabajo.Text.Trim() + "',Estatus='" + cmbestatus.SelectedValue + "',StatusRefacciones='" + cmbrefacciones.SelectedValue + "',FolioFactura='" + txtfoliof.Text + "',ObservacionesM='" + txtobservacionesm.Text.Trim() + "',SupervisofkPersonal='" + idsupervisor + "' where FoliofkSupervicion='" + idreporte + "'"))
+                    if (v.c.insertar("update reportemantenimiento set " + v.c.fieldsreportemantenimiento[2] + "='" + cmbgrupo.SelectedValue + "'," + v.c.fieldsreportemantenimiento[3] + "='" + txttrabajo.Text.Trim() + "'," + v.c.fieldsreportemantenimiento[10] + "='" + cmbestatus.SelectedValue + "'," + v.c.fieldsreportemantenimiento[12] + "='" + cmbrefacciones.SelectedValue + "'," + v.c.fieldsreportemantenimiento[9] + "='" + txtfoliof.Text + "'," + v.c.fieldsreportemantenimiento[13] + "='" + txtobservacionesm.Text.Trim() + "'," + v.c.fieldsreportemantenimiento[11] + "='" + idsupervisor + "' where " + v.c.fieldsreportemantenimiento[1] + "='" + idreporte + "'"))
                         MessageBox.Show("La información se " + (add ? "agrego" : "modifico") + " de manera correcta", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     limpiar();
                     cargardatos();
@@ -731,15 +726,15 @@ namespace controlFallos
         {
             if (((idmecanico > 0 && (idmecanicoApoyo > 0 || idsupervisor > 0)) || (idmecanicoApoyo > 0 && idsupervisor > 0)) && (idmecanicoApoyo == idmecanico || idmecanico == idsupervisor || idsupervisor == idmecanicoApoyo))
             {
+                MessageBox.Show("El" + (idmecanico == idmecanicoApoyo ? " mecánico y mecánico de apoyo" : idmecanico == idsupervisor ? " mecánico y supervisor" : idmecanicoApoyo == idsupervisor ? " mecanico de apoyo y supervisor" : "") + " no pueden ser la misma persona", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txt.Clear();
                 lbl.Text = "";
-                MessageBox.Show("El" + (idmecanico == idmecanicoApoyo ? " mecánico y mecánico de apoyo" : idmecanico == idsupervisor ? " mecánico y supervisor" : " mecanico de apoyo y supervisor") + " no pueden ser la misma persona", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void txtmecanico_Validated(object sender, EventArgs e)
         {
-            lblmecanico.Text = (Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtmecanico.Text.Trim()) + "';")) == 0 ? "" : v.getaData("select upper(concat(coalesce(t1.appaterno,''),' ',coalesce(t1.apmaterno,''),' ',t1.nombres)) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtmecanico.Text.Trim()) + "';").ToString());
-            idmecanico = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtmecanico.Text.Trim()) + "';")) == 0 ? 0 : Convert.ToInt32(v.getaData("select t1.idpersona from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtmecanico.Text.Trim()) + "';"))));
+            lblmecanico.Text = (Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtmecanico.Text.Trim()) + "';")) == 0 ? "" : v.getaData("select upper(concat(coalesce(t1." + v.c.fieldscpersonal[2] + ",''),' ',coalesce(t1." + v.c.fieldscpersonal[3] + ",''),' ',t1." + v.c.fieldscpersonal[4] + ")) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtmecanico.Text.Trim()) + "';").ToString());
+            idmecanico = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtmecanico.Text.Trim()) + "';")) == 0 ? 0 : Convert.ToInt32(v.getaData("select t1." + v.c.fieldscpersonal[0] + " from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtmecanico.Text.Trim()) + "';"))));
             mecanicosiguales(txtmecanico, lblmecanico);
         }
         bool finaliza()
@@ -758,9 +753,9 @@ namespace controlFallos
         }
         void doblegridview(DataGridViewCellEventArgs e)
         {
-            string[] datos = v.getaData("SET lc_time_names = 'es_ES';select upper(concat(t1.folio,'|',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))),'|',date_format(t1.fechareporte,'%W %d de %M del %Y'),'|',(select concat(coalesce(x1.appaterno,''),' ',coalesce(x1.apmaterno,''),' ',x1.nombres) from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCPersonal),'|',t1.KmEntrada,'|',coalesce(t1.CodFallofkcfallosesp,0),'|',coalesce(t1.DescFalloNoCod,''),'|',coalesce(t1.ObservacionesSupervision,''),'|',t1.HoraEntrada,'|',coalesce(t2.MecanicofkPersonal,0),'|',coalesce(t2.MecanicoApoyofkPersonal,0),'|',coalesce(t2.FalloGralfkFallosGenerales,0),'|',coalesce(t2.StatusRefacciones,0),'|',coalesce(t2.TrabajoRealizado,''),'|',coalesce(t2.Estatus,0),'|',coalesce(t2.FechaHoraI,''),'|',coalesce(t2.FechaHoraT,''),'|',coalesce(t2.ObservacionesM,''),'|',coalesce(t2.FolioFactura,''),'|',coalesce(t2.SupervisofkPersonal,0)))as r from reportesupervicion as t1 left join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion inner join cunidades as t3 on t1.UnidadfkCUnidades=t3.idunidad  INNER JOIN careas AS t4 on t4.idarea=t3.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas where t1.idReporteSupervicion='" + (idreporte = Convert.ToInt32(dgvreportes.Rows[e.RowIndex].Cells[0].Value)) + "';").ToString().Split('|');
+            string[] datos = v.getaData("SET lc_time_names = 'es_ES';select upper(concat(t1." + v.c.fieldsreportesupervicion[1] + ",'|',(select concat(t4." + v.c.fieldscareas[2] + ",LPAD(t3." + v.c.fieldscunidades[1] + ",4,'0'))),'|',date_format(t1." + v.c.fieldsreportesupervicion[3] + ",'%W %d de %M del %Y'),'|',(select concat(coalesce(x1." + v.c.fieldscpersonal[2] + ",''),' ',coalesce(x1." + v.c.fieldscpersonal[3] + ",''),' ',x1." + v.c.fieldscpersonal[4] + ") from cpersonal as x1 where x1." + v.c.fieldscpersonal[0] + "=t1." + v.c.fieldsreportesupervicion[4] + "),'|',t1." + v.c.fieldsreportesupervicion[8] + ",'|',coalesce(t1." + v.c.fieldsreportesupervicion[11] + ",0),'|',coalesce(t1." + v.c.fieldsreportesupervicion[12] + ",''),'|',coalesce(t1." + v.c.fieldsreportesupervicion[13] + ",''),'|',t1." + v.c.fieldsreportesupervicion[7] + ",'|',coalesce(t2." + v.c.fieldsreportemantenimiento[4] + ",0),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[5] + ",0),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[2] + ",0),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[12] + ",0),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[3] + ",''),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[10] + ",0),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[6] + ",''),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[7] + ",''),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[13] + ",''),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[9] + ",''),'|',coalesce(t2." + v.c.fieldsreportemantenimiento[11] + ",0)))as r from reportesupervicion as t1 left join reportemantenimiento as t2 on t1." + v.c.fieldsreportesupervicion[0] + "=t2." + v.c.fieldsreportemantenimiento[1] + " inner join cunidades as t3 on t1." + v.c.fieldsreportesupervicion[2] + "=t3." + v.c.fieldscunidades[0] + "  INNER JOIN careas AS t4 on t4." + v.c.fieldscareas[0] + "=t3." + v.c.fieldscunidades[3] + " inner join cempresas as T5 on T5." + v.c.fieldscempresas[0] + "=T4." + v.c.fieldscareas[1] + " where t1." + v.c.fieldsreportesupervicion[0] + "='" + (idreporte = Convert.ToInt32(dgvreportes.Rows[e.RowIndex].Cells[0].Value)) + "';").ToString().Split('|');
             status(pcancelar.Visible = true);
-            if (Convert.ToInt32(v.getaData("select count(*) from reportemantenimiento where FoliofkSupervicion='" + idreporte + "';")) == 0 || Convert.ToInt32(datos[14]) == 2)
+            if (Convert.ToInt32(v.getaData("select count(*) from reportemantenimiento where " + v.c.fieldsreportemantenimiento[1] + "='" + idreporte + "';")) == 0 || Convert.ToInt32(datos[14]) == 2)
             {
                 v.comboswithuot(cmbestatus, new string[] { "--seleccione un estatus--", "en proceso", "reprogramada" });
                 editar = false;
@@ -778,20 +773,20 @@ namespace controlFallos
             lblkilometraje.Text = datos[4];
             lblobservacioness.Text = datos[7];
             lblhorar.Text = datos[8];
-            lblmecanico.Text = ((idmecaniAnterior = idmecanico = Convert.ToInt32(datos[9])) > 0 ? v.getaData("select upper(concat(coalesce(appaterno,''),' ',coalesce(apmaterno,''),' ',nombres)) from cpersonal where idpersona='" + idmecanico + "'").ToString() : "");
-            lblmapoyo.Text = ((idmecanicoapoyoAnterior = idmecanicoApoyo = Convert.ToInt32(datos[10])) > 0 ? v.getaData("select upper(concat(coalesce(appaterno,''),' ',coalesce(apmaterno,''),' ',nombres)) from cpersonal where idpersona='" + idmecanicoApoyo + "'").ToString() : "");
+            lblmecanico.Text = ((idmecaniAnterior = idmecanico = Convert.ToInt32(datos[9])) > 0 ? v.getaData("select upper(concat(coalesce(" + v.c.fieldscpersonal[2] + ",''),' ',coalesce(" + v.c.fieldscpersonal[3] + ",''),' '," + v.c.fieldscpersonal[4] + ")) from cpersonal where " + v.c.fieldscpersonal[0] + "='" + idmecanico + "'").ToString() : "");
+            lblmapoyo.Text = ((idmecanicoapoyoAnterior = idmecanicoApoyo = Convert.ToInt32(datos[10])) > 0 ? v.getaData("select upper(concat(coalesce(" + v.c.fieldscpersonal[2] + ",''),' ',coalesce(" + v.c.fieldscpersonal[3] + ",''),' '," + v.c.fieldscpersonal[4] + ")) from cpersonal where " + v.c.fieldscpersonal[0] + "='" + idmecanicoApoyo + "'").ToString() : "");
             cmbgrupo.SelectedValue = grupoAnterior = Convert.ToInt32(datos[11]);
             cmbrefacciones.SelectedValue = RefaccionesAnterior = Convert.ToInt32(datos[12]);
             txttrabajo.Text = trabajoAnterior = datos[13];
             cmbestatus.SelectedValue = EstatusAnterior = Convert.ToInt32(datos[14]);
             lblhimant.Text = (string.IsNullOrWhiteSpace(datos[15]) ? DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") : datos[15]);
             lblhtmant.Text = datos[16];
-            lbltiempoespera.Text = timetowait(DateTime.Parse(v.getaData("select concat(t2.FechaReporte,' ',t2.HoraEntrada) from reportesupervicion as t2 where t2.idReporteSupervicion='" + idreporte + "';").ToString()), (string.IsNullOrWhiteSpace(datos[15]) ? DateTime.Now : DateTime.Parse(datos[15])));
-            lbltiempototal.Text = (string.IsNullOrWhiteSpace(datos[16]) ? "" : timetowait(DateTime.Parse(v.getaData("select concat(t2.FechaReporte,' ',t2.HoraEntrada) from reportesupervicion as t2 where t2.idReporteSupervicion='" + idreporte + "';").ToString()), DateTime.Parse(v.getaData("select FechaHoraT from reportemantenimiento where FoliofkSupervicion='" + idreporte + "';").ToString())));
+            lbltiempoespera.Text = v.timetowait(DateTime.Parse(v.getaData("select concat(t2." + v.c.fieldsreportesupervicion[3] + ",' ',t2." + v.c.fieldsreportesupervicion[7] + ") from reportesupervicion as t2 where t2." + v.c.fieldsreportesupervicion[0] + "='" + idreporte + "';").ToString()), (string.IsNullOrWhiteSpace(datos[15]) ? DateTime.Now : DateTime.Parse(datos[15])));
+            lbltiempototal.Text = (string.IsNullOrWhiteSpace(datos[16]) ? "" : v.timetowait(DateTime.Parse(v.getaData("select concat(t2." + v.c.fieldsreportesupervicion[3] + ",' ',t2." + v.c.fieldsreportesupervicion[7] + ") from reportesupervicion as t2 where t2." + v.c.fieldsreportesupervicion[0] + "='" + idreporte + "';").ToString()), DateTime.Parse(v.getaData("select " + v.c.fieldsreportemantenimiento[7] + " from reportemantenimiento where " + v.c.fieldsreportemantenimiento[1] + "='" + idreporte + "';").ToString())));
             txtobservacionesm.Text = observacionesAnterior = datos[17];
             txtfoliof.Text = folioAnterior = datos[18];
-            lblsupmant.Text = ((idsupervisorAnterior = idsupervisor = Convert.ToInt32(datos[19])) == 0 ? "" : v.getaData("select upper(concat(coalesce(appaterno,''),' ',coalesce(apmaterno,''),' ',nombres)) from cpersonal where idpersona='" + idsupervisor + "'").ToString());
-            pguardar.Visible = (Convert.ToInt32(v.getaData("select count(*) from reportemantenimiento where FoliofkSupervicion='" + idreporte + "';")) == 0 ? true : false);
+            lblsupmant.Text = ((idsupervisorAnterior = idsupervisor = Convert.ToInt32(datos[19])) == 0 ? "" : v.getaData("select upper(concat(coalesce(" + v.c.fieldscpersonal[2] + ",''),' ',coalesce(" + v.c.fieldscpersonal[3] + ",''),' '," + v.c.fieldscpersonal[4] + ")) from cpersonal where " + v.c.fieldscpersonal[0] + "='" + idsupervisor + "'").ToString());
+            pguardar.Visible = (Convert.ToInt32(v.getaData("select count(*) from reportemantenimiento where " + v.c.fieldsreportemantenimiento[1] + "='" + idreporte + "';")) == 0 ? true : false);
             if (EstatusAnterior == 3)
                 status(btnrefacciones.Visible = !(pPdf.Visible = true));
             txtsupervisor.Enabled = (Convert.ToInt32(datos[19]) == 0 ? true : false);
@@ -809,14 +804,13 @@ namespace controlFallos
 
         public void privilegios()
         {
-            string sql = "SELECT privilegios as privilegios FROM privilegios where usuariofkcpersonal = '" + idUsuario + "' and namform = 'Mantenimiento'";
+            string sql = "SELECT " + v.c.fieldsprivilegios[4] + "  FROM privilegios where " + v.c.fieldsprivilegios[1] + " = '" + idUsuario + "' and " + v.c.fieldsprivilegios[2] + " = 'Mantenimiento'";
             string[] privilegios = v.getaData(sql).ToString().Split('/');
             pinsertar = getBoolFromInt(Convert.ToInt32(privilegios[0]));
             pconsultar = getBoolFromInt(Convert.ToInt32(privilegios[1]));
             peditar = getBoolFromInt(Convert.ToInt32(privilegios[2]));
             pdesactivar = getBoolFromInt(Convert.ToInt32(privilegios[3]));
         }
-
         private void Mantenimiento_Load(object sender, EventArgs e)
         {
             privilegios();

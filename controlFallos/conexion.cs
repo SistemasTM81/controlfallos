@@ -19,34 +19,11 @@ namespace controlFallos
         public string passwordLocal { protected internal set; get; }
         public string portLocal { protected internal set; get; }
         public MySqlConnection dbcon;
+        public bool wait = false;
         MySqlConnection localConnection;
         public conexion(validaciones v)
         {
-            this.v = v;
-            string path = Application.StartupPath + @"\conexion.txt";
-            if (!File.Exists(path))
-            {
-                StreamWriter sw = new StreamWriter(path, true, Encoding.ASCII);
-                sw.Write("0yLCd4LvwPo9xeMPa3Xo60R8ubmf9ZS4hs58llM/Lovd0yqGbDjTyz2KnbCOiM+bcf37rsKzAOUAU0rVJ8p3MJc4c6X+gGpk39iuKOx48Va645A5bRjQnefB1JmW3H+a");
-                sw.Close();
-            }
-            StreamReader lector = new StreamReader(path);
-            var res = lector.ReadLine();
-            lector.Close();
-            try
-            {
-                string[] arreglo = Desencriptar(res).Split(';');
-                this.host = arreglo[0];
-                this.user = arreglo[1];
-                this.password = arreglo[2];
-                this.port = arreglo[3];
-                this.hostLocal = arreglo[4];
-                this.userLocal = arreglo[5];
-                this.passwordLocal = arreglo[6];
-                this.portLocal = arreglo[7];
-                localConnection = new MySqlConnection("Server = " + hostLocal + "; user=" + userLocal + "; password = " + passwordLocal + " ; database = sistrefaccmant ;port=" + portLocal);
-            }
-            catch { }
+            localConnection = new MySqlConnection("Server = 127.0.0.1; user=UPT; password = UPT2018; database = sistrefaccmant ;port=3306");
         }
         public string Desencriptar(string textoEncriptado)
         {
@@ -72,61 +49,41 @@ namespace controlFallos
         }
         public MySqlConnection dbconection()
         {
-            try
-            {
-                if (conexionOriginal())
-                    dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { host, user, password, port }));
-                else
-                    dbcon = new MySqlConnection("Server = " + hostLocal + "; user=" + userLocal + "; password = " + passwordLocal + "; database = sistrefaccmant ;port=" + portLocal);
-                if (dbcon.State != System.Data.ConnectionState.Open) dbcon.Open();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                foreach (Form frm in Application.OpenForms)
-                    frm.Close();
-                Application.Exit();
-            }
+            dbcon = new MySqlConnection("Server = 127.0.0.1; user=UPT; password = UPT2018; database = sistrefaccmant ;port=3306");
+            if (dbcon.State != System.Data.ConnectionState.Open) dbcon.Open();
             return dbcon;
+        }
+        public bool inserttoglobal(string sql)
+        {
+            MySqlConnection global = new MySqlConnection("Server=192.168.1.108;user=sistrefaccmant;password=sistrefaccmant; database = sistrefaccmant;port=3306");
+            global.Open();
+            MySqlCommand cmd = new MySqlCommand(sql, global);
+            int i = cmd.ExecuteNonQuery();
+            global.Close();
+            global.Dispose();
+            if (i >= 0) return true;
+            else return false;
         }
         public bool insertar(string sql)
         {
             MySqlCommand cmd = new MySqlCommand(sql, dbconection());
             int i = cmd.ExecuteNonQuery();
-            //if (conexionOriginal())
-            //{
-            //    if (localConnection.State != System.Data.ConnectionState.Open) localConnection.Open();
-            //    cmd = new MySqlCommand(sql, localConnection);
-            //    i = cmd.ExecuteNonQuery();
-            //    localConnection.Close();
-            //    localConnection.Dispose();
-            //}
             dbcon.Close();
             dbcon.Dispose();
-            if (!conexionOriginal())
-                WriteLocalSequence(sql);
+            /**if (!conexionOriginal())
+                WriteLocalSequence(sql);**/
             if (i >= 0) return true;
             else return false;
-
-
         }
         public object setData(string sql)
         {
 
             MySqlCommand cmd = new MySqlCommand(sql, dbconection());
             int i = cmd.ExecuteNonQuery();
-            /** if (conexionOriginal())
-                {
-                    if (localConnection.State != System.Data.ConnectionState.Open) localConnection.Open();
-                    cmd = new MySqlCommand(sql, localConnection);
-                    i = cmd.ExecuteNonQuery();
-                    localConnection.Close();
-                    localConnection.Dispose();
-                }*/
             dbcon.Close();
             dbcon.Dispose();
-            if (!conexionOriginal())
-                WriteLocalSequence(sql);
+            /**  if (!conexionOriginal())
+                  WriteLocalSequence(sql);**/
             return cmd.LastInsertedId;
 
         }
@@ -160,6 +117,45 @@ namespace controlFallos
                 return (p.Send(host).Status == IPStatus.Success);
             }
             catch { return false; }
+        }
+        bool exist()
+        {
+            return (File.Exists(Application.StartupPath + @"\querys.txt"));
+        }
+        void crearFichero()
+        {
+            if (!exist())
+            {
+                StreamWriter sw = new StreamWriter(Path.Combine(Application.StartupPath + @"\querys.txt"), true, Encoding.ASCII);
+                sw.Close();
+            }
+
+        }
+        public void eliminar()
+        {
+            File.Delete(Application.StartupPath + @"\querys.txt");
+        }
+        public string readtofile()
+        {
+            string line = "";
+            if (exist())
+            {
+                StreamReader archivo = new StreamReader(Application.StartupPath + @"\querys.txt");
+                line = archivo.ReadToEnd();
+                archivo.Close();
+            }
+            return line;
+        }
+        public void writemodification(string sql)
+        {
+            wait = true;
+            string line = readtofile();
+            crearFichero();
+            line = (string.IsNullOrWhiteSpace(line) ? sql : (line + "|" + sql));
+            StreamWriter file = new StreamWriter(Application.StartupPath + @"\querys.txt");
+            file.Write(line);
+            file.Close();
+            wait = false;
         }
         protected internal void WriteLocalSequence(string seq)
         {
@@ -208,7 +204,7 @@ namespace controlFallos
         public string[] fieldsmodificaciones_sistema = new string[] { "idmodificacion", "form", "idregistro", "ultimaModificacion", "usuariofkcpersonal", "fechaHora", "Tipo", "motivoActualizacion", "empresa", "area" };
         public string[] fieldsnombresoc = new string[] { "idnombresOC", "Almacen", "Autoriza", "personafkcpersonal" };
         public string[] fieldsordencompra = new string[] { "idOrdCompra", "FolioOrdCompra", "ProveedorfkCProveedores", "FacturadafkCEmpresas", "FechaOCompra", "FechaEntregaOCompra", "Subtotal", "IVA", "Total", "Estatus", "PersonaFinal", "usuariofkcpersonal", "ObservacionesOC", "ComparativaFKComparativas", "empresa" };
-        public string[] fieldspedidosrefaccion = new string[] { "idPedRef", "FolioPedfkSupervicion", "NumRefacc", "RefaccionfkCRefaccion", "fechaHoraPedido", "FechaPedido", "Horapedido", "Cantidad", "EstatusRefaccion", "CantidadEntregada", "usuariofkcpersonal", "estatus" };
+        public string[] fieldspedidosrefaccion = new string[] { "idPedRef", "FolioPedfkSupervicion", "NumRefacc", "RefaccionfkCRefaccion", "fechaHoraPedido", "Cantidad", "EstatusRefaccion", "CantidadEntregada", "usuariofkcpersonal", "estatus" };
         public string[] fieldsprivilegios = new string[] { "idprivilegio", "usuariofkcpersonal", "namform", "ver", "privilegios" };
         public string[] fieldsproveedorescomparativa = new string[] { "idproveedorComparativa", "refaccionfkrefaccionesComparativa", "proveedorfkcproveedores", "precioUnitario", "observaciones", "mejorOpcion", "usuariofkcpersonal", "empresa" };
         public string[] fieldspuestos = new string[] { "idpuesto", "puesto", "empresa", "area", "usuariofkcpersonal", "status" };
@@ -221,15 +217,5 @@ namespace controlFallos
         public string[] fieldsreportetri = new string[] { "idReporteTransinsumos", "idreportemfkreportemantenimiento", "FolioFactura", "FechaEntrega", "PersonaEntregafkcPersonal", "ObservacionesTrans", "empresa" };
         public string[] fieldssepomex = new string[] { "id", "idEstado", "estado", "idMunicipio", "municipio", "ciudad", "zona", "cp", "asentamiento", "tipo" };
         public string[] fieldsvigencias_supervision = new string[] { "idvigencia", "usuariofkcpersonal", "fechaEmisionTarjeton", "fechaVencimientoTarjeton", "tipolicenciafkcattipos", "fechaEmisionConducir", "fechaVencimientoConducir", "empresa", "area" };
-
-
-
-
-
-
-
-
-
-
     }
 }

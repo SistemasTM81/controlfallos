@@ -35,6 +35,7 @@ namespace controlFallos
             cmbPersonaEmtrego.DrawItem += v.combos_DrawItem;
             cmbMecanicoSolicito.DrawItem += v.combos_DrawItem;
             cmbBuscarUnidad.DrawItem += v.combos_DrawItem;
+            cmbMes.DrawItem += v.combos_DrawItem;
             cmbBuscarUnidad.MouseWheel += new MouseEventHandler(cmbBuscarUnidad_MouseWheel);
             cmbMes.MouseWheel += new MouseEventHandler(cmbBuscarUnidad_MouseWheel);
             cmbMecanicoSolicito.MouseWheel += new MouseEventHandler(cmbBuscarUnidad_MouseWheel);
@@ -118,6 +119,7 @@ namespace controlFallos
         public void Mecanico_solicito()
         {
             v.iniCombos("SELECT DISTINCT t2.idPersona,UPPER(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres)) AS Nombre FROM reportemantenimiento as t1 INNER JOIN cpersonal as t2 ON t1.MecanicofkPersonal=t2.idpersona where t2.empresa='" + empresa + "' GROUP BY MecanicofkPersonal ORDER BY CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres) asc;", cmbMecanicoSolicito, "idPersona", "Nombre", "-- seleccione un MECáNICO --");
+            v.comboswithuot(cmbMes, new string[] { "--seleccione mes--", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" });
 
         }
         public void AutocompletadoFolioReporte(TextBox CajaDeTexto)//Metodo para autocompletado de "Folio de porte" en caja de etxto para buscar por folio de reporte
@@ -144,45 +146,6 @@ namespace controlFallos
         {
             v.iniCombos("SELECT distinct t2.idunidad ,concat(t3.identificador, LPAD(t2.consecutivo, 4, '0')) as eco  FROM reportesupervicion as t1 INNER JOIN cunidades as t2 ON t1.UnidadfkCUnidades = t2.idUnidad  INNER JOIN careas as t3 On t2.areafkcareas = t3.idarea  GROUP BY  t1.UnidadfkCUnidades ORDER BY concat(t3.identificador, LPAD(t2.consecutivo, 4, '0')) ASC ", cmbBuscarUnidad, "idunidad", "eco", "-- seleccione económico --");
         }
-        public void combos_para_otros_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            ComboBox cbx = sender as ComboBox;
-            if (cbx != null)
-            {
-                // Always draw the background 
-                e.DrawBackground();
-
-                // Drawing one of the items? 
-                if (e.Index >= 0)
-                {
-                    // Set the string alignment. Choices are Center, Near and Far 
-                    StringFormat sf = new StringFormat();
-                    sf.LineAlignment = StringAlignment.Center;
-                    sf.Alignment = StringAlignment.Center;
-
-                    // Set the Brush to ComboBox ForeColor to maintain any ComboBox color settings 
-                    // Assumes Brush is solid 
-                    Brush brush = new SolidBrush(cbx.ForeColor);
-
-                    // If drawing highlighted selection, change brush 
-                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    {
-                        brush = SystemBrushes.HighlightText;
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, Color.Crimson);
-                        e.DrawBackground();
-                        // Draw the string 
-                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, new SolidBrush(Color.White), e.Bounds, sf);
-                        e.DrawFocusRectangle();
-                    }
-                    else
-                    {
-                        // Draw the string 
-                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, brush, e.Bounds, sf);
-                    }
-                }
-            }
-        }
-
         void ocultar_botones()
         {
             btnPdf.Visible = LblPDF.Visible = btnEditarReg.Visible = LblEditarR.Visible = false;
@@ -201,7 +164,6 @@ namespace controlFallos
             hilo.Start();
             inhanilitar_campos();
             btnGuardar.Enabled = dtpFechaDe.Enabled = dtpFechaA.Enabled = false;
-            cmbMes.SelectedIndex = 0;
             lblFechaEntrega.Text = DateTime.Now.ToLongDateString().ToUpper();
             dtpFechaDe.MinDate = dtpFechaA.MinDate = Convert.ToDateTime(v.getaData("select min(FechaHoraI) from reportemantenimiento where StatusRefacciones='1' ") ?? DateTime.Today);
             dtpFechaDe.MaxDate = dtpFechaA.MaxDate = Convert.ToDateTime(v.getaData("select max(FechaHoraI) from reportemantenimiento where StatusRefacciones='1'") ?? DateTime.Today);
@@ -271,8 +233,7 @@ namespace controlFallos
             cmbMecanicoSolicito.SelectedIndex = cmbBuscarUnidad.SelectedIndex = cmbPersonaEmtrego.SelectedIndex = cmbMes.SelectedIndex = 0;
             txtFolioDe.Clear();
             txtFolioA.Clear();
-            dtpFechaDe.Value = DateTime.Today;
-            dtpFechaA.ResetText();
+            dtpFechaDe.Value = dtpFechaA.Value = dtpFechaDe.MaxDate;
         }
         void realiza_busquedas()
         {
@@ -289,7 +250,7 @@ namespace controlFallos
                 {
                     string wheres = "";
                     if (checkBox1.Checked)
-                        wheres = (wheres == "" ? " Where t1.FechaHoraI between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'" : wheres += " AND t1.FechaHoraI between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'");
+                        wheres = (wheres == "" ? " Where date_format(t1.FechaHoraI,'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'" : wheres += " AND date_format(t1.FechaHoraI,'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'");
                     if (!string.IsNullOrWhiteSpace(txtBuscFolio.Text))
                         wheres = (wheres == "" ? " where (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'" : wheres += " and (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'");
                     if (cmbPersonaEmtrego.SelectedIndex > 0)
@@ -307,7 +268,7 @@ namespace controlFallos
                     if (cmbMes.SelectedIndex > 0)
                         wheres = (wheres == "" ? " Where (select Date_format(t1.FechaHoraI,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaHoraI))=( select year(now())))" : wheres += " AND (select Date_format(t1.FechaHoraI,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaHoraI))=( select year(now())))");
                     if (wheres != "")
-                        wheres += " and t1.StatusRefacciones='Se Requieren Refacciones' and t1.empresa='" + empresa + "' and (select year(t1.FechaHoraI))=( select year(now())) order by t2.folio desc";
+                        wheres += " and t1.StatusRefacciones=1 and t1.empresa='" + empresa + "' and (select year(t1.FechaHoraI))=( select year(now())) order by t2.folio desc";
                     MySqlDataAdapter DTA = new MySqlDataAdapter(consulta_gral + wheres, v.c.dbconection());
                     v.c.dbconection().Close();
                     DataSet ds = new DataSet();
@@ -936,7 +897,7 @@ namespace controlFallos
         }
         private void tbRefacciones_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            if (statusDeMantenimiento == "EN PROCESO")
+            if (statusDeMantenimiento == "1")
             {
                 try
                 {
@@ -1269,11 +1230,11 @@ namespace controlFallos
                         MessageBox.Show("Registro actualizado exitosamente ".ToUpper() + DateTime.Now.ToString().ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+                LimpiarReporteTri();
+                CargarDatos();
+                btnGuardar.Enabled = false;
+                v.c.dbconection().Close();
             }
-            LimpiarReporteTri();
-            CargarDatos();
-            btnGuardar.Enabled = false;
-            v.c.dbconection().Close();
         }
 
         private void btnEditarReg_MouseMove(object sender, MouseEventArgs e)
@@ -1393,7 +1354,7 @@ namespace controlFallos
 
         private void btnEditarReg_Click(object sender, EventArgs e)
         {
-            if (v.getaData("SELECT UPPER(T1.Estatus) AS Estatus FROM reportemantenimiento AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';").ToString() == "LIBERADA" && (pinsertar && peditar && pconsultar))
+            if (Convert.ToInt32(v.getaData("SELECT UPPER(T1.Estatus) AS Estatus FROM reportemantenimiento AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';")) == 3 && (pinsertar && peditar && pconsultar))
             {
                 MessageBox.Show("La unidad ya se encuentra liberada, ya no es posible realizar modificaciones".ToUpper(), "ALERTA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 LimpiarReporteTri();
