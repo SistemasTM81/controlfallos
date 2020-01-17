@@ -3111,6 +3111,7 @@ namespace controlFallos
             cbx.DisplayMember = DisplayMember;
             cbx.DataSource = dt;
         }
+
         public bool formularioNiveles(int pasillo, string nivel)
         {
             if (pasillo > 0)
@@ -3347,15 +3348,49 @@ namespace controlFallos
             {
                 case 0:
                     e.Graphics.FillRectangle(new SolidBrush(fondo), e.Bounds);
-                    e.Graphics.DrawString(dt.Rows[e.Index].ItemArray[1].ToString(), e.Font, new SolidBrush(Color.White), e.Bounds, sf);
                     break;
                 case 1:
                     e.Graphics.FillRectangle(Brushes.PaleGreen, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
-                    e.Graphics.DrawString(dt.Rows[e.Index].ItemArray[1].ToString(), e.Font, new SolidBrush(color_fuente), e.Bounds, sf);
                     break;
                 case 2:
                     e.Graphics.FillRectangle(Brushes.LightCoral, e.Bounds);
+                    break;
+            }
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e.Graphics.FillRectangle(Brushes.Crimson, e.Bounds);
+                e.Graphics.DrawString(dt.Rows[e.Index].ItemArray[1].ToString(), e.Font, new SolidBrush(Color.White), e.Bounds, sf);
+            }
+            else
+            {
+                if (dt != null)
                     e.Graphics.DrawString(dt.Rows[e.Index].ItemArray[1].ToString(), e.Font, new SolidBrush(color_fuente), e.Bounds, sf);
+            }
+        }
+        public void comboBoxEstatusr_DrwaItem(object sender, DrawItemEventArgs e)
+        {
+            Color c = Color.BlueViolet;
+            Color color_fuente = Color.FromArgb(75, 44, 52);
+            Color color = Color.FromArgb(246, 144, 123);
+            SolidBrush s = new SolidBrush(color);
+            Color fondo = Color.FromArgb(200, 200, 200);
+            StringFormat sf = new StringFormat();
+            sf.LineAlignment = StringAlignment.Center;
+            sf.Alignment = StringAlignment.Center;
+            DataTable dt = (DataTable)(sender as ComboBox).DataSource;
+            switch (e.Index)
+            {
+                case 0:
+                    e.Graphics.FillRectangle(new SolidBrush(fondo), e.Bounds);
+                    break;
+                case 1:
+                    e.Graphics.FillRectangle(Brushes.Khaki, e.Bounds.X, e.Bounds.Y, e.Bounds.Width, e.Bounds.Height);
+                    break;
+                case 2:
+                    e.Graphics.FillRectangle(Brushes.LightCoral, e.Bounds);
+                    break;
+                case 3:
+                    e.Graphics.FillRectangle(Brushes.PaleGreen, e.Bounds);
                     break;
             }
             if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
@@ -3499,6 +3534,25 @@ namespace controlFallos
                 MessageBox.Show("El número de incidencia ya existe registrada en el sistema", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return true;
             }
+        }
+        public void comboswithuot(ComboBox cmb, string[] datos)
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("id");
+            dt.Columns.Add("texto");
+            DataRow row = dt.NewRow();
+            for (int i = 0; i < datos.Length; i++)
+            {
+                row["id"] = i;
+                row["texto"] = datos[i].ToUpper();
+                dt.Rows.Add(row);
+                if (i < datos.Length - 1)
+                    row = dt.NewRow();
+            }
+            cmb.ValueMember = "id";
+            cmb.DisplayMember = "texto";
+            cmb.DataSource = dt;
+            cmb.SelectedIndex = 0;
         }
         public void inimeses(ComboBox cbmes)
         {
@@ -4314,7 +4368,7 @@ namespace controlFallos
                         if (!string.IsNullOrWhiteSpace(revision))
                             if (Convert.ToInt32(revision) > 0)
                                 if (!string.IsNullOrWhiteSpace(contraseña))
-                                    if (Convert.ToInt32(getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + Encriptar(contraseña) + "' and t1.status='1'")) > 0)
+                                    if (Convert.ToInt32(getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + Encriptar(contraseña) + "' and t1.status='1' and empresa='1'")) > 0)
                                         return true;
                                     else
                                     {
@@ -4352,6 +4406,7 @@ namespace controlFallos
                 return false;
             }
         }
+<<<<<<< HEAD
         public DataTable JoinDataTables(DataTable t1, DataTable t2)
         {
             DataTable result = new DataTable();
@@ -4397,6 +4452,69 @@ namespace controlFallos
             {
                 ColumnName.Append(" ");
                 AddTableColumn(resultsTable, ColumnName,type);
+=======
+        public bool camposmant(string contraseñam, int idgrupo, int idarea, int refacciones, int estatus, string foliof, int idreporte, int statusAnterior)
+        {
+            if (!string.IsNullOrWhiteSpace(contraseñam) || statusAnterior == 3)
+                if (Convert.ToInt32(getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t2.usuariofkcpersonal=t1.idPersona where t1.area='" + idarea + "' and t2.password='" + Encriptar(contraseñam) + "';")) > 0 || statusAnterior == 3)
+                    if (idgrupo > 0)
+                        if (refacciones > 0)
+                            if (estatus > 0)
+                                if (string.IsNullOrWhiteSpace(foliof) || (Convert.ToInt32(getaData("select count(*) from reportemantenimiento where FolioFactura='" + foliof + "' and IdReporte!='" + idreporte + "';")) == 0 && Convert.ToInt32(foliof) > 0))
+                                    return true;
+                                else
+                                {
+                                    MessageBox.Show((Convert.ToInt32(foliof) == 0 ? "El folio de factura debe ser mayor a 0" : "El folio ya se enceuntra registrado en el sistema"), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return false;
+                                }
+                            else
+                            {
+                                MessageBox.Show("Seleccione un estatus de la lista desplegable", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return false;
+                            }
+
+                        else
+                        {
+                            MessageBox.Show("Seleccione una opción en la lista desplegable \"se requieren refacciones\"", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return false;
+                        }
+                    else
+                    {
+                        MessageBox.Show("Seleccione un grupo de la lista desplegable", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                else
+                {
+                    MessageBox.Show("Contraseña incorrecta", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            else
+            {
+                MessageBox.Show("El campo \"contraseña de mecánico\" se encuentra vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+        }
+        public bool validarefacicion(int idrefaccion, string cantidad)
+        {
+            if (idrefaccion > 0)
+                if (!string.IsNullOrWhiteSpace(cantidad))
+                    if (Convert.ToInt32(cantidad) > 0)
+                        return true;
+                    else
+                    {
+                        MessageBox.Show("La cantidad debe ser mayor a 0", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                else
+                {
+                    MessageBox.Show("El campo cantidad se encuentra vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return false;
+                }
+            else
+            {
+                MessageBox.Show("Seleccione una refacción de la lista desplegable", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+>>>>>>> 8e23821c8b3f436f36e5336706d7b1a7a28fc84e
             }
         }
     }

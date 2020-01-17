@@ -24,7 +24,7 @@ namespace controlFallos
 
         int idUsuario, idusuarioAnterior, empresa, area; public Thread hilo, th;
         bool res1 = true;
-        string consulta_gral = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'Folio', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaReporteM,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad inner join careas as t4 on t4.idarea=t3.areafkcareas";
+        string consulta_gral = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'Folio', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaHoraI,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad inner join careas as t4 on t4.idarea=t3.areafkcareas";
         string folioAnterior, Observacionesanterior;
         public TRI(int idUsuario, int empresa, int area, validaciones v)
         {
@@ -103,7 +103,7 @@ namespace controlFallos
         }
         public void CargarDatos()// Metodo para cargar los reportes de la base de datos al datagridview y poder mostrarlos
         {
-            MySqlDataAdapter cargar = new MySqlDataAdapter(consulta_gral + " WHERE t1.StatusRefacciones='Se Requieren Refacciones' and (t1.FechaReporteM BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate()) and t1.empresa='" + empresa + "' ORDER BY t1.FechaReporteM DESC, t2.folio desc;", v.c.dbconection());
+            MySqlDataAdapter cargar = new MySqlDataAdapter(consulta_gral + " WHERE t1.StatusRefacciones='1' and(date_format(t1.FechaHoraI,'%Y-%m-%d') BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate()) and t1.empresa='" + empresa + "' ORDER BY t1.FechaHoraI DESC, t2.folio desc;", v.c.dbconection());
             v.c.dbcon.Close();
             DataSet ds = new DataSet();
             cargar.Fill(ds);
@@ -203,8 +203,8 @@ namespace controlFallos
             btnGuardar.Enabled = dtpFechaDe.Enabled = dtpFechaA.Enabled = false;
             cmbMes.SelectedIndex = 0;
             lblFechaEntrega.Text = DateTime.Now.ToLongDateString().ToUpper();
-            dtpFechaDe.MinDate = dtpFechaA.MinDate = Convert.ToDateTime(v.getaData("select FechaReporteM from reportemantenimiento where StatusRefacciones='SE REQUIEREN REFACCIONES' order by FechaReporteM limit 1;") ?? DateTime.Today);
-            dtpFechaDe.MaxDate = dtpFechaA.MaxDate = Convert.ToDateTime(v.getaData("select FechaReporteM from reportemantenimiento where StatusRefacciones='SE REQUIEREN REFACCIONES' order by FechaReporteM asc limit 1;") ?? DateTime.Today);
+            dtpFechaDe.MinDate = dtpFechaA.MinDate = Convert.ToDateTime(v.getaData("select min(FechaHoraI) from reportemantenimiento where StatusRefacciones='1' ") ?? DateTime.Today);
+            dtpFechaDe.MaxDate = dtpFechaA.MaxDate = Convert.ToDateTime(v.getaData("select max(FechaHoraI) from reportemantenimiento where StatusRefacciones='1'") ?? DateTime.Today);
             cargarUnidad(); // cargamos las unidades en el comboBox de busqueda por unidad
             Persona_entrego();
             Mecanico_solicito();
@@ -271,7 +271,7 @@ namespace controlFallos
             cmbMecanicoSolicito.SelectedIndex = cmbBuscarUnidad.SelectedIndex = cmbPersonaEmtrego.SelectedIndex = cmbMes.SelectedIndex = 0;
             txtFolioDe.Clear();
             txtFolioA.Clear();
-            dtpFechaDe.Value = DateTime.Now;
+            dtpFechaDe.Value = DateTime.Today;
             dtpFechaA.ResetText();
         }
         void realiza_busquedas()
@@ -289,7 +289,7 @@ namespace controlFallos
                 {
                     string wheres = "";
                     if (checkBox1.Checked)
-                        wheres = (wheres == "" ? " Where t1.fechaReporteM between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'" : wheres += " AND t1.fechaReporteM between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'");
+                        wheres = (wheres == "" ? " Where t1.FechaHoraI between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'" : wheres += " AND t1.FechaHoraI between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'");
                     if (!string.IsNullOrWhiteSpace(txtBuscFolio.Text))
                         wheres = (wheres == "" ? " where (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'" : wheres += " and (SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento)='" + txtBuscFolio.Text + "'");
                     if (cmbPersonaEmtrego.SelectedIndex > 0)
@@ -305,9 +305,9 @@ namespace controlFallos
                         wheres = (wheres == "" ? " where substring(t2.folio,-" + longitud + "," + longitud + ") between " + Convert.ToInt32(txtFolioDe.Text) + " and " + Convert.ToInt32(txtFolioA.Text) + "" : wheres += " and substring(t2.folio,-" + longitud + "," + longitud + ")between " + Convert.ToInt32(txtFolioDe.Text) + " and " + Convert.ToInt32(txtFolioA.Text) + "");
                     }
                     if (cmbMes.SelectedIndex > 0)
-                        wheres = (wheres == "" ? " Where (select Date_format(t1.FechaReporteM,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaReporteM))=( select year(now())))" : wheres += " AND (select Date_format(t1.FechaReporteM,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaReporteM))=( select year(now())))");
+                        wheres = (wheres == "" ? " Where (select Date_format(t1.FechaHoraI,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaHoraI))=( select year(now())))" : wheres += " AND (select Date_format(t1.FechaHoraI,'%W %d %M %Y') like '%" + cmbMes.Text + "%' and (select year(t1.FechaHoraI))=( select year(now())))");
                     if (wheres != "")
-                        wheres += " and t1.StatusRefacciones='Se Requieren Refacciones' and t1.empresa='" + empresa + "' and (select year(t1.FechaReporteM))=( select year(now())) order by t2.folio desc";
+                        wheres += " and t1.StatusRefacciones='Se Requieren Refacciones' and t1.empresa='" + empresa + "' and (select year(t1.FechaHoraI))=( select year(now())) order by t2.folio desc";
                     MySqlDataAdapter DTA = new MySqlDataAdapter(consulta_gral + wheres, v.c.dbconection());
                     v.c.dbconection().Close();
                     DataSet ds = new DataSet();
@@ -1053,7 +1053,7 @@ namespace controlFallos
 
         public void Expota_PDF()
         {
-            string[] datos = v.getaData(" select upper(concat(t1.Folio,'|',(select concat(x2.identificador,LPAD(consecutivo,4,'0')) from cunidades as x1 inner join careas as x2 on x2.idarea=x1.areafkcareas where x1.idunidad=t1.UnidadfkCUnidades),'|',date_format(t2.FechareporteM,'%W %d de %M del %Y'),'|',(select concat(coalesce(x3.ApPaterno,''),' ',coalesce(x3.ApMaterno,' '),' ',nombres) from cpersonal as x3 where x3.idpersona=t2.MecanicofkPersonal),'|',t3.FolioFactura,'|',date_format(FechaEntrega,'%W %d de %M del %Y'),'|',(select concat(coalesce(x4.ApPaterno,''),' ',coalesce(x4.ApMaterno,' '),' ',x4.nombres) from cpersonal as x4 where x4.idpersona=t3.PersonaEntregafkcPersonal),'|',t3.ObservacionesTrans)) as r from reportesupervicion as t1 inner join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion inner join reportetri as t3 on t3.idreportemfkreportemantenimiento=t1.idReporteSupervicion where t1.Folio='" + lblFolio.Text + "' and t2.empresa='" + empresa + "'").ToString().Split('|');
+            string[] datos = v.getaData(" select upper(concat(t1.Folio,'|',(select concat(x2.identificador,LPAD(consecutivo,4,'0')) from cunidades as x1 inner join careas as x2 on x2.idarea=x1.areafkcareas where x1.idunidad=t1.UnidadfkCUnidades),'|',date_format(t2.FechaHoraI,'%W %d de %M del %Y'),'|',(select concat(coalesce(x3.ApPaterno,''),' ',coalesce(x3.ApMaterno,' '),' ',nombres) from cpersonal as x3 where x3.idpersona=t2.MecanicofkPersonal),'|',t3.FolioFactura,'|',date_format(FechaEntrega,'%W %d de %M del %Y'),'|',(select concat(coalesce(x4.ApPaterno,''),' ',coalesce(x4.ApMaterno,' '),' ',x4.nombres) from cpersonal as x4 where x4.idpersona=t3.PersonaEntregafkcPersonal),'|',t3.ObservacionesTrans)) as r from reportesupervicion as t1 inner join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion inner join reportetri as t3 on t3.idreportemfkreportemantenimiento=t1.idReporteSupervicion where t1.Folio='" + lblFolio.Text + "' and t2.empresa='" + empresa + "'").ToString().Split('|');
             //Código para generación de archivo pdf
             Document doc = new Document(PageSize.LETTER);
             doc.SetMargins(20f, 20f, 10f, 10f);

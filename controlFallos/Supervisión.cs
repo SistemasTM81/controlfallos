@@ -67,7 +67,7 @@ namespace controlFallos
                 else
                     dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
                 dbcon.Open();
-                MySqlCommand cmd = new MySqlCommand("UPDATE reportemantenimiento SET seen = 1 WHERE seen  = 0 AND (Estatus='LIBERADA' || Estatus='REPROGRAMADA')", dbcon);
+                MySqlCommand cmd = new MySqlCommand("UPDATE reportemantenimiento SET seen = 1 WHERE seen  = 0 AND (Estatus='2' || Estatus='3')", dbcon);
                 cmd.ExecuteNonQuery();
                 dbcon.Close();
                 dbcon.Dispose();

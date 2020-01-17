@@ -308,14 +308,14 @@ namespace controlFallos
                     this.Text = lbltitle.Text;
                     lbltitle.Location = new Point(1575, 13);
                     Deshabilitar(reporteMantenimientoToolStripMenuItem);
-                    var form3 = Application.OpenForms.OfType<FormFallasMantenimiento>().FirstOrDefault();
-                    FormFallasMantenimiento hijo = form3 ?? new FormFallasMantenimiento(idUsuario, empresa, area, newimg, v);
+                    var form3 = Application.OpenForms.OfType<Mantenimiento>().FirstOrDefault();
+                    Mantenimiento hijo = form3 ?? new Mantenimiento(idUsuario, empresa, area, newimg, v);
                     AddFormInPanel(hijo);
                 }
             }
             else
             {
-                FormFallasMantenimiento m = (FormFallasMantenimiento)form;
+                Mantenimiento m = (Mantenimiento)form;
                 // m.metodoCarga();
             }
         }
