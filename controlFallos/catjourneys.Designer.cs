@@ -493,8 +493,9 @@ namespace controlFallos
                 if (obs.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
 
-                    if (Owner.Owner.v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Jornadas','" + journeyIDTemp + "','" + _journeyName + "','" + _journeyDuration + "',NOW(),'Actualización de Jornada','" + Owner.Owner.v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower()) + "','" + Owner.Owner.empresa + "','" + Owner.Owner.area + "')"))
+                    if (Owner.Owner.v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Jornadas','" + journeyIDTemp + "','" + _journeyName + ";" + _journeyDuration + "','"+Owner.Owner.idUsuario+"',NOW(),'Actualización de Jornada','" + Owner.Owner.v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower()) + "','" + Owner.Owner.empresa + "','" + Owner.Owner.area + "')"))
                         res = Owner.Owner.v.c.insertar("UPDATE cjourneys SET " + getCambiosString() + " WHERE journeyID = '" + journeyIDTemp.ToString() + "'");
+                    Owner.LoadDataCrontrols(false, false, false, false, false, true, true);
                 }
             }
             else res = Owner.Owner.v.c.insertar(string.Format("INSERT INTO cjourneys(journeyname, duration, userfkcpersonal) VALUES('{0}',TIME('{1}'),'{2}')", new object[] { Owner.Owner.v.mayusculas(txtjourneyname.Text.Trim().ToLower()), txtjourneyduration.Text.Trim(), Owner.Owner.idUsuario }));
@@ -502,6 +503,7 @@ namespace controlFallos
             {
                 if (!AlreadyshowsMessage) Owner.Owner.sendUser("Información " + (editar ? "Actualizada" : "Agregada") + " Exitosamente", validaciones.MessageBoxTitle.Información);
                 LoadData();
+                Owner.LoadDataCrontrols(false, false, false, false, false, true, true);
                 clearControls();
             }
         }

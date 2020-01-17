@@ -50,7 +50,7 @@ namespace controlFallos
             InitializeComponent();
             this.idUsuario = idUsuario;
             cbEmpresa.DrawItem += v.combos_DrawItem;
-            v.creatItemsPersonalizadosCombobox(cbEmpresa, new string[] { "TRI VEHICULOS FUNCIONALES S. A DE C. V.", "TECNOSISTEMAS DIESEL S. A. DE C. V." }, "-- SELECCIONE UNA EMPRESA --");
+            v.creatItemsPersonalizadosCombobox(cbEmpresa, new string[] { "TRI VEHICULOS FUNCIONALES S. A DE C. V.", "TECNOSISTEMAS DIESEL S. A. DE C. V." }, "-- SELECCIONE UNA EMPRESA --",null);
         }
         void mostrar()
         {

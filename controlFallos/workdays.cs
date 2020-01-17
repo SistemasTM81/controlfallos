@@ -5,40 +5,40 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace controlFallos
 {
-    public partial class viewDriver : Form
+    public partial class workdays : Form
     {
-        Thread th;
-        new rolUnidades Owner;
+        public long? periodID { protected internal set; get; }
+        public long? rolfkCRoles { protected internal set; get; }
+        public long? serviceID { protected internal set; get; }
+        new public menuPrincipal Owner { protected internal set; get; }
         delegate void dataLoad();
-        public Button buttonSelected;
-        int x = 5, y = 10;
-        public viewDriver(rolUnidades Owner)
+        int x = 0, y = 0;
+        System.Threading.Thread th;
+        public workdays(menuPrincipal Owner)
         {
             this.Owner = Owner;
             InitializeComponent();
-            th = new Thread(dataLoader);
+            th = new System.Threading.Thread(dataLoader);
             th.IsBackground = true;
             th.Start();
             th.Join();
+            Owner.v.creatItemsPersonalizadosCombobox(cmbxTimeperiod, new string[] { "DÍA", "SEMANA", "QUINCENA" }, "-- SELECCIONE RANGO --", 1);
         }
-
         private void dataLoader()
         {
             if (InvokeRequired)
                 Invoke(new dataLoad(dataLoader));
             else
             {
-                DataTable dt = (DataTable)Owner.Owner.v.getData("select idPersona as id, t1.credencial as Nombre from cpersonal as t1 inner join puestos as t2 on t2.idpuesto=t1.cargofkcargos where t1.status='1'   AND t2.status='1' and t1.empresa='1' and t1.area='1';");
+                DataTable dt = (DataTable)Owner.v.getData("SELECT * FROM getdriversrol");
                 string[] ocupados = { };
-                if (Owner.periodID.HasValue)
-                    ocupados = Owner.Owner.v.getaData("CALL getAllDrivers(" + Owner.periodID.Value + ");").ToString().Split('|');
-                backgroundPanel.Controls.Clear();
+                if (periodID.HasValue)
+                    ocupados = Owner.v.getaData("CALL getAllDrivers(" + periodID.Value + ");").ToString().Split('|');
                 foreach (DataRow roe in dt.Rows)
                 {
                     int index = Array.IndexOf(ocupados, roe.ItemArray[0].ToString());
@@ -59,9 +59,10 @@ namespace controlFallos
                 btn.FlatStyle = FlatStyle.Flat;
                 btn.Name = "Button|" + driverID;
                 btn.TextAlign = ContentAlignment.MiddleCenter;
-                btn.Cursor = Cursors.Hand; 
+                btn.Cursor = Cursors.Hand;
                 btn.UseMnemonic = false;
-                btn.Click += Btn_DoubleClick;
+                //    btn.Click += Btn_DoubleClick;
+                btn.MouseDown += Btn_MouseDown;
                 backgroundPanel.Controls.Add(addContol(btn, canIBuild, driverCRED.ToString()));
             }
             else
@@ -77,9 +78,12 @@ namespace controlFallos
                 backgroundPanel.Controls.Add(addContol(lbl, canIBuild, driverCRED.ToString()));
             }
             x += 50;
-            if (x + 50 >= backgroundPanel.Size.Width) { x = 5; y = y + 30; }
+            if (x + 50 >= backgroundPanel.Size.Width) { x = 0; y+= 30; }
 
         }
+
+  
+
         Control addContol(Control control, bool existe, string Text)
         {
             control.Size = new Size(50, 30);
@@ -89,12 +93,5 @@ namespace controlFallos
             return control;
         }
 
-
-
-        private void Btn_DoubleClick(object sender, EventArgs e)
-        {
-            buttonSelected = ((Button)sender);
-            DialogResult = DialogResult.OK;
-        }
     }
 }

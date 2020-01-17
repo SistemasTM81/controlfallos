@@ -2760,48 +2760,32 @@ namespace controlFallos
         /// </summary>
         public enum MessageBoxTitle { Información, Advertencia, Error, Confirmar };
         public string ImageToString(Image im)
-
         {
             MemoryStream ms = new MemoryStream();
-
             im.Save(ms, im.RawFormat);
-
             byte[] array = ms.ToArray();
-
             return Convert.ToString(Convert.ToBase64String(array));
-
         }
         public byte[] ImageToString(Bitmap im)
-
         {
             MemoryStream ms = new MemoryStream();
-
             im.Save(ms, im.RawFormat);
-
             byte[] array = ms.ToArray();
-
             return ms.ToArray();
 
         }
         public string SerializarImg(Image im)
-
         {
             MemoryStream ms = new MemoryStream();
-
             im.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
-
             byte[] array = ms.ToArray();
-
             return Convert.ToString(Convert.ToBase64String(array));
 
         }
         public Image StringToImage(string imageString)
-
         {
-
             if (imageString == null)
             {
-
                 throw new ArgumentNullException("imageString");
             }
             else
@@ -3100,6 +3084,19 @@ namespace controlFallos
             dt.Rows.InsertAt(nuevaFila, 0);
             cbx.ValueMember = ValueMember;
             cbx.DisplayMember = DisplayMember;
+            cbx.DataSource = dt;
+        }
+        public void iniCombos(DataTable dt, ComboBox cbx, string TextoInicial, Form fh)
+        {
+            if (fh.InvokeRequired)
+                fh.Invoke(new iniCombosProgreso(iniCombos), new object[] { dt, cbx, TextoInicial, fh });
+            cbx.DataSource = null;
+            DataRow nuevaFila = dt.NewRow();
+            nuevaFila[dt.Columns[0]] = 0;
+            nuevaFila[dt.Columns[1]] = TextoInicial.ToUpper();
+            dt.Rows.InsertAt(nuevaFila, 0);
+            cbx.ValueMember = dt.Columns[0].ColumnName;
+            cbx.DisplayMember = dt.Columns[1].ColumnName;
             cbx.DataSource = dt;
         }
         public void iniCombos(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial)
@@ -4114,8 +4111,9 @@ namespace controlFallos
         }
         public delegate void delgado(Form frm);
         public void cerrarForm(Form frm) { frm.Close(); }
-        public void creatItemsPersonalizadosCombobox(ComboBox cbx, string[] items, string titulo)
+        public void creatItemsPersonalizadosCombobox(ComboBox cbx, string[] items, string titulo, int? index)
         {
+            if (!index.HasValue) index = 1;
             DataTable dt = new DataTable();
             dt.Columns.Add("id");
             dt.Columns.Add("Nombre");
@@ -4126,7 +4124,7 @@ namespace controlFallos
             for (int i = 0; i < items.Length; i++)
             {
                 row = dt.NewRow();
-                row["id"] = i + 2;
+                row["id"] = i + index;
                 row["Nombre"] = items[i];
                 dt.Rows.Add(row);
             }
@@ -4408,6 +4406,53 @@ namespace controlFallos
                 return false;
             }
         }
+<<<<<<< HEAD
+        public DataTable JoinDataTables(DataTable t1, DataTable t2)
+        {
+            DataTable result = new DataTable();
+            foreach (DataColumn col in t1.Columns)
+                AddTableColumn(result,new StringBuilder(col.ColumnName),col.DataType);
+            foreach (DataColumn col in t2.Columns)
+                AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
+            for (int i =0;i< (t1.Rows.Count > t2.Rows.Count ? t1.Rows.Count : t2.Rows.Count); i++)
+                {
+                    DataRow rowT1 = null, rowT2 = null,insertRow = result.NewRow();;
+                try { rowT1 = t1.Rows[i]; } catch { }
+                try { rowT2 = t2.Rows[i]; } catch { }
+                    foreach (DataColumn col1 in t1.Columns)
+                           insertRow[col1.ColumnName] = (rowT1!=null ? rowT1[col1.ColumnName]:(!col1.ColumnName.Equals("CICLO")?  string.Empty:(i+1).ToString()));
+                        foreach (DataColumn col2 in t2.Columns)
+                            insertRow[col2.ColumnName] = (rowT2 != null ? rowT2[col2.ColumnName] : string.Empty);
+                    result.Rows.Add(insertRow);
+                }
+            return result;
+        }
+
+        public  void AddTableColumn(DataTable resultsTable, StringBuilder ColumnName)
+        {
+            try
+            {
+                DataColumn tableCol = new DataColumn(ColumnName.ToString());
+                resultsTable.Columns.Add(tableCol);
+            }
+            catch (DuplicateNameException)
+            {
+                ColumnName.Append(" ");
+                AddTableColumn(resultsTable, ColumnName);
+            }
+        }
+        private void AddTableColumn(DataTable resultsTable, StringBuilder ColumnName, Type type)
+        {
+            try
+            {
+                DataColumn tableCol = new DataColumn(ColumnName.ToString(),type);
+                resultsTable.Columns.Add(tableCol);
+            }
+            catch (DuplicateNameException)
+            {
+                ColumnName.Append(" ");
+                AddTableColumn(resultsTable, ColumnName,type);
+=======
         public bool camposmant(string contraseñam, int idgrupo, int idarea, int refacciones, int estatus, string foliof, int idreporte, int statusAnterior)
         {
             if (!string.IsNullOrWhiteSpace(contraseñam) || statusAnterior == 3)
@@ -4469,6 +4514,7 @@ namespace controlFallos
             {
                 MessageBox.Show("Seleccione una refacción de la lista desplegable", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
+>>>>>>> 8e23821c8b3f436f36e5336706d7b1a7a28fc84e
             }
         }
         public string timetowait(DateTime initialdate, DateTime finaldate)
