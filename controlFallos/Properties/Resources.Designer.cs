@@ -203,6 +203,16 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bus2 {
+            get {
+                object obj = ResourceManager.GetObject("bus2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap businessman {
             get {
                 object obj = ResourceManager.GetObject("businessman", resourceCulture);
@@ -696,6 +706,16 @@ namespace controlFallos.Properties {
         internal static System.Drawing.Bitmap icons8_tornillo_480 {
             get {
                 object obj = ResourceManager.GetObject("icons8_tornillo_480", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_watch_100 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-watch-100", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

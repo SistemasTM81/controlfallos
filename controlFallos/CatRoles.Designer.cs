@@ -32,11 +32,27 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbaddpasillo = new System.Windows.Forms.GroupBox();
+            this.pblogo = new System.Windows.Forms.PictureBox();
+            this.gbxdiferencia = new System.Windows.Forms.GroupBox();
+            this.padd = new System.Windows.Forms.Panel();
+            this.btnadd = new System.Windows.Forms.Button();
+            this.lbxdiferencias = new System.Windows.Forms.ListBox();
+            this.pdatos = new System.Windows.Forms.Panel();
+            this.txtdiferencia = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.lbltexto = new System.Windows.Forms.Label();
+            this.gbecos = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblunidades = new System.Windows.Forms.Label();
+            this.paddeco = new System.Windows.Forms.Panel();
             this.pstatus = new System.Windows.Forms.Panel();
             this.lblstatus = new System.Windows.Forms.Label();
             this.btnstatus = new System.Windows.Forms.Button();
-            this.plogo = new System.Windows.Forms.PictureBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.ptabla = new System.Windows.Forms.Panel();
             this.gbpasillos = new System.Windows.Forms.GroupBox();
             this.dgvroles = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -51,8 +67,23 @@
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label2 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
-            this.pTranscarrier = new System.Windows.Forms.PictureBox();
             this.gbRol = new System.Windows.Forms.GroupBox();
+            this.pselectecos = new System.Windows.Forms.Panel();
+            this.lblecos = new System.Windows.Forms.Label();
+            this.btnecos = new System.Windows.Forms.Button();
+            this.ptime = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.btntime = new System.Windows.Forms.Button();
+            this.label16 = new System.Windows.Forms.Label();
+            this.pdescansos = new System.Windows.Forms.Panel();
+            this.txtcicloa = new System.Windows.Forms.TextBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.txtciclode = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.cmbdescanso = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.psave = new System.Windows.Forms.Panel();
             this.btnguardar = new System.Windows.Forms.Button();
             this.lblsavemp = new System.Windows.Forms.Label();
@@ -77,13 +108,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelEmpresa = new System.Windows.Forms.Button();
             this.gbaddpasillo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pblogo)).BeginInit();
+            this.gbxdiferencia.SuspendLayout();
+            this.padd.SuspendLayout();
+            this.pdatos.SuspendLayout();
+            this.gbecos.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.pstatus.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.plogo)).BeginInit();
-            this.panel2.SuspendLayout();
+            this.ptabla.SuspendLayout();
             this.gbpasillos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvroles)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pTranscarrier)).BeginInit();
             this.gbRol.SuspendLayout();
+            this.pselectecos.SuspendLayout();
+            this.ptime.SuspendLayout();
+            this.pdescansos.SuspendLayout();
             this.psave.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudlapso)).BeginInit();
             this.pnuevo.SuspendLayout();
@@ -92,10 +130,11 @@
             // gbaddpasillo
             // 
             this.gbaddpasillo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.gbaddpasillo.Controls.Add(this.pTranscarrier);
+            this.gbaddpasillo.Controls.Add(this.pblogo);
+            this.gbaddpasillo.Controls.Add(this.gbxdiferencia);
+            this.gbaddpasillo.Controls.Add(this.gbecos);
             this.gbaddpasillo.Controls.Add(this.pstatus);
-            this.gbaddpasillo.Controls.Add(this.plogo);
-            this.gbaddpasillo.Controls.Add(this.panel2);
+            this.gbaddpasillo.Controls.Add(this.ptabla);
             this.gbaddpasillo.Controls.Add(this.label2);
             this.gbaddpasillo.Controls.Add(this.label23);
             this.gbaddpasillo.Controls.Add(this.gbRol);
@@ -108,13 +147,202 @@
             this.gbaddpasillo.TabIndex = 33;
             this.gbaddpasillo.TabStop = false;
             // 
+            // pblogo
+            // 
+            this.pblogo.BackgroundImage = global::controlFallos.Properties.Resources.Dbkel_CXkAE43aG;
+            this.pblogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pblogo.Location = new System.Drawing.Point(1427, 350);
+            this.pblogo.Name = "pblogo";
+            this.pblogo.Size = new System.Drawing.Size(469, 187);
+            this.pblogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pblogo.TabIndex = 87;
+            this.pblogo.TabStop = false;
+            // 
+            // gbxdiferencia
+            // 
+            this.gbxdiferencia.Controls.Add(this.padd);
+            this.gbxdiferencia.Controls.Add(this.lbxdiferencias);
+            this.gbxdiferencia.Controls.Add(this.pdatos);
+            this.gbxdiferencia.Enabled = false;
+            this.gbxdiferencia.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbxdiferencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.gbxdiferencia.Location = new System.Drawing.Point(832, 291);
+            this.gbxdiferencia.Name = "gbxdiferencia";
+            this.gbxdiferencia.Size = new System.Drawing.Size(570, 315);
+            this.gbxdiferencia.TabIndex = 86;
+            this.gbxdiferencia.TabStop = false;
+            this.gbxdiferencia.Text = "Diferencia de tiempo entre unidades";
+            // 
+            // padd
+            // 
+            this.padd.Controls.Add(this.btnadd);
+            this.padd.Location = new System.Drawing.Point(504, 40);
+            this.padd.Name = "padd";
+            this.padd.Size = new System.Drawing.Size(38, 39);
+            this.padd.TabIndex = 90;
+            this.padd.Visible = false;
+            // 
+            // btnadd
+            // 
+            this.btnadd.BackgroundImage = global::controlFallos.Properties.Resources.add;
+            this.btnadd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnadd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnadd.FlatAppearance.BorderSize = 0;
+            this.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnadd.Location = new System.Drawing.Point(6, 7);
+            this.btnadd.Name = "btnadd";
+            this.btnadd.Size = new System.Drawing.Size(25, 25);
+            this.btnadd.TabIndex = 1;
+            this.btnadd.UseVisualStyleBackColor = true;
+            this.btnadd.Click += new System.EventHandler(this.btnadd_Click);
+            // 
+            // lbxdiferencias
+            // 
+            this.lbxdiferencias.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.lbxdiferencias.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbxdiferencias.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbxdiferencias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lbxdiferencias.FormattingEnabled = true;
+            this.lbxdiferencias.ItemHeight = 18;
+            this.lbxdiferencias.Location = new System.Drawing.Point(13, 93);
+            this.lbxdiferencias.Name = "lbxdiferencias";
+            this.lbxdiferencias.Size = new System.Drawing.Size(529, 200);
+            this.lbxdiferencias.TabIndex = 88;
+            this.lbxdiferencias.DoubleClick += new System.EventHandler(this.lbxdiferencias_DoubleClick);
+            // 
+            // pdatos
+            // 
+            this.pdatos.Controls.Add(this.txtdiferencia);
+            this.pdatos.Controls.Add(this.label27);
+            this.pdatos.Controls.Add(this.lbltexto);
+            this.pdatos.Location = new System.Drawing.Point(13, 40);
+            this.pdatos.Name = "pdatos";
+            this.pdatos.Size = new System.Drawing.Size(481, 38);
+            this.pdatos.TabIndex = 87;
+            this.pdatos.Visible = false;
+            // 
+            // txtdiferencia
+            // 
+            this.txtdiferencia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtdiferencia.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtdiferencia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtdiferencia.Font = new System.Drawing.Font("Garamond", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtdiferencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtdiferencia.Location = new System.Drawing.Point(353, 5);
+            this.txtdiferencia.MaxLength = 2;
+            this.txtdiferencia.Name = "txtdiferencia";
+            this.txtdiferencia.ShortcutsEnabled = false;
+            this.txtdiferencia.Size = new System.Drawing.Size(58, 20);
+            this.txtdiferencia.TabIndex = 86;
+            this.txtdiferencia.TextChanged += new System.EventHandler(this.txtdiferencia_TextChanged);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(351, 19);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(61, 9);
+            this.label27.TabIndex = 87;
+            this.label27.Text = "______________";
+            // 
+            // lbltexto
+            // 
+            this.lbltexto.AutoSize = true;
+            this.lbltexto.Location = new System.Drawing.Point(4, 7);
+            this.lbltexto.Name = "lbltexto";
+            this.lbltexto.Size = new System.Drawing.Size(332, 24);
+            this.lbltexto.TabIndex = 85;
+            this.lbltexto.Text = "Diferencia de tiempo entre unida 1 y 2:";
+            // 
+            // gbecos
+            // 
+            this.gbecos.Controls.Add(this.label24);
+            this.gbecos.Controls.Add(this.label20);
+            this.gbecos.Controls.Add(this.label19);
+            this.gbecos.Controls.Add(this.label18);
+            this.gbecos.Controls.Add(this.panel1);
+            this.gbecos.Controls.Add(this.paddeco);
+            this.gbecos.Enabled = false;
+            this.gbecos.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbecos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.gbecos.Location = new System.Drawing.Point(829, 19);
+            this.gbecos.Name = "gbecos";
+            this.gbecos.Size = new System.Drawing.Size(1071, 257);
+            this.gbecos.TabIndex = 85;
+            this.gbecos.TabStop = false;
+            this.gbecos.Text = "Seleccionar ecos";
+            // 
+            // label24
+            // 
+            this.label24.BackColor = System.Drawing.Color.Khaki;
+            this.label24.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(1032, 171);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(18, 18);
+            this.label24.TabIndex = 86;
+            // 
+            // label20
+            // 
+            this.label20.BackColor = System.Drawing.Color.PaleGreen;
+            this.label20.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(860, 170);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(18, 18);
+            this.label20.TabIndex = 85;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(896, 171);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(130, 18);
+            this.label19.TabIndex = 84;
+            this.label19.Text = "Unidades ocupadas";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(717, 170);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(142, 18);
+            this.label18.TabIndex = 83;
+            this.label18.Text = "Unidades disponibles";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblunidades);
+            this.panel1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(7, 192);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1058, 61);
+            this.panel1.TabIndex = 1;
+            // 
+            // lblunidades
+            // 
+            this.lblunidades.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblunidades.Location = new System.Drawing.Point(3, 7);
+            this.lblunidades.Margin = new System.Windows.Forms.Padding(0);
+            this.lblunidades.Name = "lblunidades";
+            this.lblunidades.Size = new System.Drawing.Size(1049, 49);
+            this.lblunidades.TabIndex = 86;
+            // 
+            // paddeco
+            // 
+            this.paddeco.Location = new System.Drawing.Point(6, 30);
+            this.paddeco.Name = "paddeco";
+            this.paddeco.Size = new System.Drawing.Size(1061, 138);
+            this.paddeco.TabIndex = 0;
+            // 
             // pstatus
             // 
             this.pstatus.Controls.Add(this.lblstatus);
             this.pstatus.Controls.Add(this.btnstatus);
-            this.pstatus.Location = new System.Drawing.Point(1191, 445);
+            this.pstatus.Location = new System.Drawing.Point(686, 518);
             this.pstatus.Name = "pstatus";
-            this.pstatus.Size = new System.Drawing.Size(108, 85);
+            this.pstatus.Size = new System.Drawing.Size(105, 80);
             this.pstatus.TabIndex = 84;
             this.pstatus.Visible = false;
             // 
@@ -131,36 +359,27 @@
             // 
             // btnstatus
             // 
-            this.btnstatus.BackgroundImage = global::controlFallos.Properties.Resources.delete__4_;
+            this.btnstatus.BackgroundImage = global::controlFallos.Properties.Resources.delete;
             this.btnstatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnstatus.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnstatus.FlatAppearance.BorderSize = 0;
             this.btnstatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnstatus.Location = new System.Drawing.Point(27, 6);
+            this.btnstatus.Location = new System.Drawing.Point(31, 6);
             this.btnstatus.Name = "btnstatus";
             this.btnstatus.Size = new System.Drawing.Size(45, 45);
             this.btnstatus.TabIndex = 0;
             this.btnstatus.UseVisualStyleBackColor = true;
             this.btnstatus.Click += new System.EventHandler(this.btnstatus_Click);
             // 
-            // plogo
+            // ptabla
             // 
-            this.plogo.Image = global::controlFallos.Properties.Resources.transmasivo;
-            this.plogo.Location = new System.Drawing.Point(6, 238);
-            this.plogo.Name = "plogo";
-            this.plogo.Size = new System.Drawing.Size(539, 143);
-            this.plogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.plogo.TabIndex = 0;
-            this.plogo.TabStop = false;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.gbpasillos);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(3, 647);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1902, 287);
-            this.panel2.TabIndex = 67;
+            this.ptabla.Controls.Add(this.gbpasillos);
+            this.ptabla.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.ptabla.Location = new System.Drawing.Point(3, 647);
+            this.ptabla.Name = "ptabla";
+            this.ptabla.Size = new System.Drawing.Size(1902, 287);
+            this.ptabla.TabIndex = 67;
+            this.ptabla.Visible = false;
             // 
             // gbpasillos
             // 
@@ -168,9 +387,9 @@
             this.gbpasillos.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbpasillos.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbpasillos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbpasillos.Location = new System.Drawing.Point(0, 3);
+            this.gbpasillos.Location = new System.Drawing.Point(0, 11);
             this.gbpasillos.Name = "gbpasillos";
-            this.gbpasillos.Size = new System.Drawing.Size(1902, 284);
+            this.gbpasillos.Size = new System.Drawing.Size(1902, 276);
             this.gbpasillos.TabIndex = 33;
             this.gbpasillos.TabStop = false;
             this.gbpasillos.Text = "Consulta de Roles";
@@ -237,7 +456,7 @@
             this.dgvroles.ShowCellToolTips = false;
             this.dgvroles.ShowEditingIcon = false;
             this.dgvroles.ShowRowErrors = false;
-            this.dgvroles.Size = new System.Drawing.Size(1896, 256);
+            this.dgvroles.Size = new System.Drawing.Size(1896, 248);
             this.dgvroles.TabIndex = 0;
             this.dgvroles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvroles_CellDoubleClick);
             this.dgvroles.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvroles_CellFormatting);
@@ -338,19 +557,14 @@
             this.label23.TabIndex = 65;
             this.label23.Text = " Para Actualizar la Información de Doble Clic sobre el registro de la Tabla";
             // 
-            // pTranscarrier
-            // 
-            this.pTranscarrier.Image = global::controlFallos.Properties.Resources.t_frente;
-            this.pTranscarrier.Location = new System.Drawing.Point(1550, 163);
-            this.pTranscarrier.Name = "pTranscarrier";
-            this.pTranscarrier.Size = new System.Drawing.Size(225, 279);
-            this.pTranscarrier.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pTranscarrier.TabIndex = 83;
-            this.pTranscarrier.TabStop = false;
-            // 
             // gbRol
             // 
-            this.gbRol.AutoSize = true;
+            this.gbRol.Controls.Add(this.pselectecos);
+            this.gbRol.Controls.Add(this.ptime);
+            this.gbRol.Controls.Add(this.label16);
+            this.gbRol.Controls.Add(this.pdescansos);
+            this.gbRol.Controls.Add(this.cmbdescanso);
+            this.gbRol.Controls.Add(this.label11);
             this.gbRol.Controls.Add(this.psave);
             this.gbRol.Controls.Add(this.txtecos);
             this.gbRol.Controls.Add(this.txtciclos);
@@ -372,20 +586,204 @@
             this.gbRol.Controls.Add(this.pnuevo);
             this.gbRol.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbRol.Location = new System.Drawing.Point(557, 23);
+            this.gbRol.Location = new System.Drawing.Point(21, 18);
             this.gbRol.Name = "gbRol";
-            this.gbRol.Size = new System.Drawing.Size(801, 590);
+            this.gbRol.Size = new System.Drawing.Size(802, 588);
             this.gbRol.TabIndex = 82;
             this.gbRol.TabStop = false;
             this.gbRol.Text = "Nuevo Rol de Servicio";
+            this.gbRol.Visible = false;
+            // 
+            // pselectecos
+            // 
+            this.pselectecos.Controls.Add(this.lblecos);
+            this.pselectecos.Controls.Add(this.btnecos);
+            this.pselectecos.Location = new System.Drawing.Point(389, 219);
+            this.pselectecos.Name = "pselectecos";
+            this.pselectecos.Size = new System.Drawing.Size(176, 39);
+            this.pselectecos.TabIndex = 89;
+            this.pselectecos.Visible = false;
+            // 
+            // lblecos
+            // 
+            this.lblecos.AutoSize = true;
+            this.lblecos.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblecos.Location = new System.Drawing.Point(37, 9);
+            this.lblecos.Name = "lblecos";
+            this.lblecos.Size = new System.Drawing.Size(128, 21);
+            this.lblecos.TabIndex = 90;
+            this.lblecos.Text = "seleccionar ecos";
+            // 
+            // btnecos
+            // 
+            this.btnecos.BackgroundImage = global::controlFallos.Properties.Resources.bus2;
+            this.btnecos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnecos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnecos.FlatAppearance.BorderSize = 0;
+            this.btnecos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnecos.Location = new System.Drawing.Point(6, 7);
+            this.btnecos.Name = "btnecos";
+            this.btnecos.Size = new System.Drawing.Size(25, 25);
+            this.btnecos.TabIndex = 1;
+            this.btnecos.UseVisualStyleBackColor = true;
+            this.btnecos.Click += new System.EventHandler(this.btnecos_Click);
+            // 
+            // ptime
+            // 
+            this.ptime.Controls.Add(this.label25);
+            this.ptime.Controls.Add(this.btntime);
+            this.ptime.Location = new System.Drawing.Point(319, 348);
+            this.ptime.Name = "ptime";
+            this.ptime.Size = new System.Drawing.Size(294, 39);
+            this.ptime.TabIndex = 88;
+            this.ptime.Visible = false;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(48, 9);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(247, 21);
+            this.label25.TabIndex = 91;
+            this.label25.Text = "esteblecer diferencias de tiempo";
+            // 
+            // btntime
+            // 
+            this.btntime.BackgroundImage = global::controlFallos.Properties.Resources.icons8_watch_100;
+            this.btntime.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btntime.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btntime.FlatAppearance.BorderSize = 0;
+            this.btntime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btntime.Location = new System.Drawing.Point(6, 7);
+            this.btntime.Name = "btntime";
+            this.btntime.Size = new System.Drawing.Size(25, 25);
+            this.btntime.TabIndex = 1;
+            this.btntime.UseVisualStyleBackColor = true;
+            this.btntime.Click += new System.EventHandler(this.btntime_Click);
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(34, 356);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(279, 24);
+            this.label16.TabIndex = 87;
+            this.label16.Text = "Diferencia de tiempo entre ecos:";
+            // 
+            // pdescansos
+            // 
+            this.pdescansos.Controls.Add(this.txtcicloa);
+            this.pdescansos.Controls.Add(this.label15);
+            this.pdescansos.Controls.Add(this.label14);
+            this.pdescansos.Controls.Add(this.txtciclode);
+            this.pdescansos.Controls.Add(this.label13);
+            this.pdescansos.Controls.Add(this.label12);
+            this.pdescansos.Location = new System.Drawing.Point(472, 387);
+            this.pdescansos.Name = "pdescansos";
+            this.pdescansos.Size = new System.Drawing.Size(323, 35);
+            this.pdescansos.TabIndex = 86;
+            this.pdescansos.Visible = false;
+            // 
+            // txtcicloa
+            // 
+            this.txtcicloa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtcicloa.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtcicloa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtcicloa.Font = new System.Drawing.Font("Garamond", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtcicloa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtcicloa.Location = new System.Drawing.Point(252, 6);
+            this.txtcicloa.MaxLength = 2;
+            this.txtcicloa.Name = "txtcicloa";
+            this.txtcicloa.ShortcutsEnabled = false;
+            this.txtcicloa.Size = new System.Drawing.Size(58, 20);
+            this.txtcicloa.TabIndex = 89;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(250, 20);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(61, 9);
+            this.label15.TabIndex = 90;
+            this.label15.Text = "______________";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(168, 6);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(73, 24);
+            this.label14.TabIndex = 88;
+            this.label14.Text = "al ciclo:";
+            // 
+            // txtciclode
+            // 
+            this.txtciclode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtciclode.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtciclode.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtciclode.Font = new System.Drawing.Font("Garamond", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtciclode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtciclode.Location = new System.Drawing.Point(98, 6);
+            this.txtciclode.MaxLength = 2;
+            this.txtciclode.Name = "txtciclode";
+            this.txtciclode.ShortcutsEnabled = false;
+            this.txtciclode.Size = new System.Drawing.Size(58, 20);
+            this.txtciclode.TabIndex = 86;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(96, 20);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(61, 9);
+            this.label13.TabIndex = 87;
+            this.label13.Text = "______________";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(4, 7);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(89, 24);
+            this.label12.TabIndex = 85;
+            this.label12.Text = "Del ciclo:";
+            // 
+            // cmbdescanso
+            // 
+            this.cmbdescanso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbdescanso.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbdescanso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbdescanso.DropDownWidth = 160;
+            this.cmbdescanso.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbdescanso.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbdescanso.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbdescanso.FormattingEnabled = true;
+            this.cmbdescanso.Location = new System.Drawing.Point(294, 390);
+            this.cmbdescanso.Name = "cmbdescanso";
+            this.cmbdescanso.Size = new System.Drawing.Size(160, 25);
+            this.cmbdescanso.TabIndex = 85;
+            this.cmbdescanso.SelectedIndexChanged += new System.EventHandler(this.cmbdescanso_SelectedIndexChanged);
+            this.cmbdescanso.SelectedValueChanged += new System.EventHandler(this.cmbdescanso_SelectedValueChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(34, 394);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(195, 24);
+            this.label11.TabIndex = 84;
+            this.label11.Text = "Descanso entre ciclos:";
             // 
             // psave
             // 
             this.psave.Controls.Add(this.btnguardar);
             this.psave.Controls.Add(this.lblsavemp);
-            this.psave.Location = new System.Drawing.Point(370, 425);
+            this.psave.Location = new System.Drawing.Point(374, 501);
             this.psave.Name = "psave";
-            this.psave.Size = new System.Drawing.Size(86, 84);
+            this.psave.Size = new System.Drawing.Size(85, 80);
             this.psave.TabIndex = 83;
             // 
             // btnguardar
@@ -407,7 +805,7 @@
             // 
             this.lblsavemp.AutoSize = true;
             this.lblsavemp.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblsavemp.Location = new System.Drawing.Point(6, 55);
+            this.lblsavemp.Location = new System.Drawing.Point(2, 55);
             this.lblsavemp.Name = "lblsavemp";
             this.lblsavemp.Size = new System.Drawing.Size(79, 24);
             this.lblsavemp.TabIndex = 13;
@@ -420,7 +818,7 @@
             this.txtecos.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtecos.Font = new System.Drawing.Font("Garamond", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtecos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtecos.Location = new System.Drawing.Point(328, 249);
+            this.txtecos.Location = new System.Drawing.Point(294, 232);
             this.txtecos.MaxLength = 2;
             this.txtecos.Name = "txtecos";
             this.txtecos.ShortcutsEnabled = false;
@@ -436,7 +834,7 @@
             this.txtciclos.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtciclos.Font = new System.Drawing.Font("Garamond", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtciclos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtciclos.Location = new System.Drawing.Point(328, 192);
+            this.txtciclos.Location = new System.Drawing.Point(294, 192);
             this.txtciclos.MaxLength = 2;
             this.txtciclos.Name = "txtciclos";
             this.txtciclos.ShortcutsEnabled = false;
@@ -448,7 +846,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(419, 360);
+            this.label10.Location = new System.Drawing.Point(385, 310);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(77, 24);
             this.label10.TabIndex = 82;
@@ -457,7 +855,7 @@
             // nudlapso
             // 
             this.nudlapso.Font = new System.Drawing.Font("Garamond", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudlapso.Location = new System.Drawing.Point(328, 358);
+            this.nudlapso.Location = new System.Drawing.Point(294, 308);
             this.nudlapso.Maximum = new decimal(new int[] {
             90,
             0,
@@ -489,11 +887,12 @@
             this.cmbservicio.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbservicio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbservicio.FormattingEnabled = true;
-            this.cmbservicio.Location = new System.Drawing.Point(321, 140);
+            this.cmbservicio.Location = new System.Drawing.Point(287, 140);
             this.cmbservicio.Name = "cmbservicio";
-            this.cmbservicio.Size = new System.Drawing.Size(311, 25);
+            this.cmbservicio.Size = new System.Drawing.Size(257, 25);
             this.cmbservicio.TabIndex = 3;
             this.cmbservicio.SelectedIndexChanged += new System.EventHandler(this.cmbempresa_SelectedValueChanged);
+            this.cmbservicio.SelectedValueChanged += new System.EventHandler(this.cmbservicio_SelectedValueChanged);
             // 
             // label9
             // 
@@ -507,7 +906,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(34, 363);
+            this.label6.Location = new System.Drawing.Point(34, 313);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(253, 24);
             this.label6.TabIndex = 73;
@@ -529,7 +928,7 @@
             this.dtpincorporo.CustomFormat = "HH:mm";
             this.dtpincorporo.Font = new System.Drawing.Font("Garamond", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpincorporo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpincorporo.Location = new System.Drawing.Point(328, 305);
+            this.dtpincorporo.Location = new System.Drawing.Point(294, 268);
             this.dtpincorporo.Name = "dtpincorporo";
             this.dtpincorporo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.dtpincorporo.ShowUpDown = true;
@@ -549,9 +948,9 @@
             this.cmbarea.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbarea.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbarea.FormattingEnabled = true;
-            this.cmbarea.Location = new System.Drawing.Point(321, 97);
+            this.cmbarea.Location = new System.Drawing.Point(287, 97);
             this.cmbarea.Name = "cmbarea";
-            this.cmbarea.Size = new System.Drawing.Size(311, 25);
+            this.cmbarea.Size = new System.Drawing.Size(257, 25);
             this.cmbarea.TabIndex = 2;
             this.cmbarea.SelectedIndexChanged += new System.EventHandler(this.cmbarea_SelectedIndexChanged);
             this.cmbarea.SelectedValueChanged += new System.EventHandler(this.cmbempresa_SelectedValueChanged);
@@ -559,11 +958,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(29, 310);
+            this.label5.Location = new System.Drawing.Point(29, 273);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(171, 24);
+            this.label5.Size = new System.Drawing.Size(112, 24);
             this.label5.TabIndex = 71;
-            this.label5.Text = "Hora de incorporo:";
+            this.label5.Text = "Hora inicial:";
             // 
             // cmbempresa
             // 
@@ -575,9 +974,9 @@
             this.cmbempresa.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbempresa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbempresa.FormattingEnabled = true;
-            this.cmbempresa.Location = new System.Drawing.Point(321, 56);
+            this.cmbempresa.Location = new System.Drawing.Point(287, 56);
             this.cmbempresa.Name = "cmbempresa";
-            this.cmbempresa.Size = new System.Drawing.Size(311, 25);
+            this.cmbempresa.Size = new System.Drawing.Size(257, 25);
             this.cmbempresa.TabIndex = 1;
             this.cmbempresa.SelectedIndexChanged += new System.EventHandler(this.cmbempresa_SelectedIndexChanged);
             this.cmbempresa.SelectedValueChanged += new System.EventHandler(this.cmbempresa_SelectedValueChanged);
@@ -595,7 +994,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(326, 263);
+            this.label4.Location = new System.Drawing.Point(292, 246);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(77, 9);
             this.label4.TabIndex = 70;
@@ -605,7 +1004,7 @@
             // 
             this.label22.AutoSize = true;
             this.label22.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label22.Location = new System.Drawing.Point(326, 206);
+            this.label22.Location = new System.Drawing.Point(292, 206);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(77, 9);
             this.label22.TabIndex = 1;
@@ -614,7 +1013,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(29, 250);
+            this.label3.Location = new System.Drawing.Point(29, 233);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(220, 24);
             this.label3.TabIndex = 68;
@@ -624,9 +1023,9 @@
             // 
             this.pnuevo.Controls.Add(this.label1);
             this.pnuevo.Controls.Add(this.btnCancelEmpresa);
-            this.pnuevo.Location = new System.Drawing.Point(65, 425);
+            this.pnuevo.Location = new System.Drawing.Point(58, 501);
             this.pnuevo.Name = "pnuevo";
-            this.pnuevo.Size = new System.Drawing.Size(83, 81);
+            this.pnuevo.Size = new System.Drawing.Size(80, 80);
             this.pnuevo.TabIndex = 0;
             this.pnuevo.Visible = false;
             // 
@@ -635,7 +1034,7 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label1.Location = new System.Drawing.Point(13, 55);
+            this.label1.Location = new System.Drawing.Point(7, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(66, 24);
             this.label1.TabIndex = 0;
@@ -668,15 +1067,27 @@
             this.Load += new System.EventHandler(this.CatRoles_Load);
             this.gbaddpasillo.ResumeLayout(false);
             this.gbaddpasillo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pblogo)).EndInit();
+            this.gbxdiferencia.ResumeLayout(false);
+            this.padd.ResumeLayout(false);
+            this.pdatos.ResumeLayout(false);
+            this.pdatos.PerformLayout();
+            this.gbecos.ResumeLayout(false);
+            this.gbecos.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.pstatus.ResumeLayout(false);
             this.pstatus.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.plogo)).EndInit();
-            this.panel2.ResumeLayout(false);
+            this.ptabla.ResumeLayout(false);
             this.gbpasillos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvroles)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pTranscarrier)).EndInit();
             this.gbRol.ResumeLayout(false);
             this.gbRol.PerformLayout();
+            this.pselectecos.ResumeLayout(false);
+            this.pselectecos.PerformLayout();
+            this.ptime.ResumeLayout(false);
+            this.ptime.PerformLayout();
+            this.pdescansos.ResumeLayout(false);
+            this.pdescansos.PerformLayout();
             this.psave.ResumeLayout(false);
             this.psave.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudlapso)).EndInit();
@@ -692,7 +1103,7 @@
         private System.Windows.Forms.TextBox txtecos;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Panel ptabla;
         private System.Windows.Forms.GroupBox gbpasillos;
         private System.Windows.Forms.DataGridView dgvroles;
         private System.Windows.Forms.Label label2;
@@ -713,11 +1124,9 @@
         private System.Windows.Forms.ComboBox cmbarea;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox cmbempresa;
-        private System.Windows.Forms.PictureBox plogo;
         private System.Windows.Forms.GroupBox gbRol;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown nudlapso;
-        private System.Windows.Forms.PictureBox pTranscarrier;
         private System.Windows.Forms.Panel psave;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn idempresa;
@@ -732,5 +1141,38 @@
         private System.Windows.Forms.Panel pstatus;
         private System.Windows.Forms.Label lblstatus;
         private System.Windows.Forms.Button btnstatus;
+        private System.Windows.Forms.ComboBox cmbdescanso;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Panel pdescansos;
+        private System.Windows.Forms.TextBox txtcicloa;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox txtciclode;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Panel ptime;
+        private System.Windows.Forms.Button btntime;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.GroupBox gbecos;
+        private System.Windows.Forms.Panel paddeco;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblunidades;
+        private System.Windows.Forms.Panel pselectecos;
+        private System.Windows.Forms.Label lblecos;
+        private System.Windows.Forms.Button btnecos;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.GroupBox gbxdiferencia;
+        private System.Windows.Forms.PictureBox pblogo;
+        private System.Windows.Forms.Panel pdatos;
+        private System.Windows.Forms.TextBox txtdiferencia;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label lbltexto;
+        private System.Windows.Forms.ListBox lbxdiferencias;
+        private System.Windows.Forms.Panel padd;
+        private System.Windows.Forms.Button btnadd;
+        private System.Windows.Forms.Label label25;
     }
 }

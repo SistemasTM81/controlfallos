@@ -4406,7 +4406,11 @@ namespace controlFallos
                 return false;
             }
         }
+<<<<<<< HEAD
         public DataTable JoinDataTables(DataTable t1, DataTable t2)
+=======
+      public DataTable JoinDataTables(DataTable t1, DataTable t2)
+>>>>>>> 8a1dd2d983f899741520e420f8cdf4b5fdc25ab3
         {
             DataTable result = new DataTable();
             foreach (DataColumn col in t1.Columns)
@@ -4515,6 +4519,17 @@ namespace controlFallos
                 MessageBox.Show("Seleccione una refacción de la lista desplegable", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
+        }
+        public string timetowait(DateTime initialdate, DateTime finaldate)
+        {
+            TimeSpan ts = finaldate.Subtract(initialdate);
+            return (ts.Days + " días, " + ts.Hours + " horas, " + ts.Minutes + " minutos").ToUpper();
+
+        }
+        public string changestatus(int status)
+        {
+            string estatus = (status == 0 ? "" : status == 1 ? "EN PROCESO" : status == 2 ? "REPROGRAMADA" : "LIBERADA");
+            return estatus;
         }
     }
 }

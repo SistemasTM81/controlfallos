@@ -20,13 +20,14 @@ namespace controlFallos
         int tipo;
         Point defaultLocation = new Point(1560, 13);
         public Image newimg;
-       public validaciones v;
+        public validaciones v;
         public int empresa { get; protected internal set; }
         public int area { get; protected internal set; }
         bool res = true;
         public int resAnterior = 0;
         Thread BuscarValidaciones;
         Thread session;
+        Thread updates;
         delegate void obtenerNotificacionesD();
         delegate void sesioncaducada();
         Thread hilo;
@@ -51,7 +52,7 @@ namespace controlFallos
             temp.RoundedEdges = true;
             menuStrip1.Renderer = temp;
         }
-        
+
         void paraTipo()
         {
             if (empresa == 1)
@@ -66,7 +67,7 @@ namespace controlFallos
                     tipo = 3;
             }
         }
-          public void sendUser(string Message, validaciones.MessageBoxTitle type) => MessageBox.Show(Message,type.ToString(), MessageBoxButtons.OK,(type == validaciones.MessageBoxTitle.Advertencia?MessageBoxIcon.Exclamation:(type == validaciones.MessageBoxTitle.Error?MessageBoxIcon.Error:MessageBoxIcon.Information)));
+        public void sendUser(string Message, validaciones.MessageBoxTitle type) => MessageBox.Show(Message, type.ToString(), MessageBoxButtons.OK, (type == validaciones.MessageBoxTitle.Advertencia ? MessageBoxIcon.Exclamation : (type == validaciones.MessageBoxTitle.Error ? MessageBoxIcon.Error : MessageBoxIcon.Information)));
         public void irArefacciones(string idRefaccion)
         {
             if (Convert.ToInt32(v.getaData("SELECT ver FROM privilegios WHERE namform='catRefacciones' AND usuariofkcpersonal='" + idUsuario + "'")) == 1)
@@ -343,7 +344,28 @@ namespace controlFallos
             ThreadStart delegatse = new ThreadStart(sesion);
             session = new Thread(delegatse);
             session.Start();
+            /*  updates = new Thread(new ThreadStart(inserttoglobal));
+              updates.Start();*/
         }
+        /**    void inserttoglobal()
+        {
+              while (res)
+              {
+                  if (!v.c.wait)
+                  {
+                      string[] querys = v.c.readtofile().Split('|');
+                      if (querys.Length > 0)
+                      {
+                          for (int i = 0; i < querys.Length; i++)
+                          {
+                              if (!string.IsNullOrWhiteSpace(querys[i]))
+                                  v.c.inserttoglobal(v.Desencriptar(querys[i]));
+                          }
+                          v.c.eliminar();
+                      }
+                  }
+              }
+          }*/
         void sesion()
         {
             while (res)
@@ -351,14 +373,7 @@ namespace controlFallos
                 if (this.InvokeRequired)
                 {
                     MySqlConnection dbcon = null;
-                    if (v.c.conexionOriginal())
-                    {
-                        dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
-                        if (File.Exists(Application.StartupPath + "/updates.srf"))
-                            v.c.insertarGlobal();
-                    }
-                    else
-                        dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
+                    dbcon = new MySqlConnection("Server = 127.0.0.1; user=UPT; password = UPT2018; database = sistrefaccmant ;port=3306");
                     dbcon.Open();
                     string sql = "SELECT statusiniciosesion FROM datosistema WHERE usuariofkcpersonal='" + idUsuario + "'";
                     MySqlCommand cmd = new MySqlCommand(sql, dbcon);
@@ -386,31 +401,31 @@ namespace controlFallos
         {
             while (res)
             {
-                    MySqlConnection dbcon = null;
-                    if (v.c.conexionOriginal())
-                        dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
-                    else
-                        dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
-                    dbcon.Open();
+                MySqlConnection dbcon = null;
+                if (v.c.conexionOriginal())
+                    dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
+                else
+                    dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
+                dbcon.Open();
 
-                    string sql = "SELECT COUNT(t1.idestatusValidado) FROM estatusvalidado AS t1 INNER JOIN reportesupervicion as t4 ON t1.idreportefkreportesupervicion = t4.idReporteSupervicion INNER JOIN cunidades as t2 ON t4.UnidadfkCUnidades= t2.idunidad INNER JOIN cmodelos as t3 ON t2.modelofkcmodelos = t3.idmodelo WHERE t1.seen = 0 AND t3.empresaMantenimiento ='" + empresa + "'";
-                    MySqlCommand cmd = new MySqlCommand(sql, dbcon);
-                    int res2 = Convert.ToInt32(cmd.ExecuteScalar());
-                    dbcon.Close();
-                    dbcon.Dispose();
-                    dbcon = null;
-                    if (res2 != totalAnteriorPedidos)
-                    {
-                        mostrarNotificacion = new Thread(new ThreadStart(MostrarNotificacion));
-                        mostrarNotificacion.Start();
-                    }
+                string sql = "SELECT COUNT(t1.idestatusValidado) FROM estatusvalidado AS t1 INNER JOIN reportesupervicion as t4 ON t1.idreportefkreportesupervicion = t4.idReporteSupervicion INNER JOIN cunidades as t2 ON t4.UnidadfkCUnidades= t2.idunidad INNER JOIN cmodelos as t3 ON t2.modelofkcmodelos = t3.idmodelo WHERE t1.seen = 0 AND t3.empresaMantenimiento ='" + empresa + "'";
+                MySqlCommand cmd = new MySqlCommand(sql, dbcon);
+                int res2 = Convert.ToInt32(cmd.ExecuteScalar());
+                dbcon.Close();
+                dbcon.Dispose();
+                dbcon = null;
+                if (res2 != totalAnteriorPedidos)
+                {
+                    mostrarNotificacion = new Thread(new ThreadStart(MostrarNotificacion));
+                    mostrarNotificacion.Start();
+                }
                 Thread.Sleep(5000);
             }
         }
         Thread mostrarNotificacion;
         void MostrarNotificacion()
         {
-//<<<<<<< HEAD
+            //<<<<<<< HEAD
             /** MySqlConnection dbcon = null;
              if (v.c.conexionOriginal())
                  dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
@@ -475,7 +490,7 @@ namespace controlFallos
             if (v.c.conexionOriginal())
                 dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
             else
-                dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
+                dbcon = new MySqlConnection("Server = 127.0.0.1; user=UPT; password = UPT2018; database = sistrefaccmant ;port=3306");
             dbcon.Open();
             MySqlCommand cm = new MySqlCommand(consultaReportes, dbcon);
             res = Convert.ToInt32(cm.ExecuteScalar());
@@ -691,15 +706,14 @@ namespace controlFallos
         public void cambiarstatus(object i)
         {
             v.c.insertar("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'");
-                MySqlConnection localConnection = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + "; database = sistrefaccmant ;port=" + v.c.portLocal);
-                localConnection.Open();
-                if (localConnection.State != ConnectionState.Open) localConnection.Open();
-                MySqlCommand cmd = new MySqlCommand("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'", localConnection);
-                int p = cmd.ExecuteNonQuery();
-                localConnection.Close();
-                localConnection.Dispose();
-                localConnection = null;
-            
+            MySqlConnection localConnection = new MySqlConnection("Server = 127.0.0.1; user=UPT; password = UPT2018; database = sistrefaccmant ;port=3306");
+            localConnection.Open();
+            if (localConnection.State != ConnectionState.Open) localConnection.Open();
+            MySqlCommand cmd = new MySqlCommand("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'", localConnection);
+            int p = cmd.ExecuteNonQuery();
+            localConnection.Close();
+            localConnection.Dispose();
+            localConnection = null;
         }
 
         private void catálogoDePersonalToolStripMenuItem_EnabledChanged(object sender, EventArgs e) { ((ToolStripMenuItem)sender).ForeColor = Color.White; }

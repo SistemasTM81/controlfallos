@@ -15,7 +15,7 @@ namespace controlFallos
     public partial class ReportesVigencias : Form
     {
         validaciones v;
-        bool editar, newregister;
+        bool editar;
         int empresa, area, idUsuario, idRegistro, revisionAnterior, idsupervior, reporte;
         string nombreAnterior, codigoANterior;
         DateTime vigenciaAnterior;
@@ -52,7 +52,7 @@ namespace controlFallos
             }
             changeenabled(true);
         }
-        void limpiar()
+        void limpiar() /** Method to clean textbox**/
         {
             idRegistro = revisionAnterior = idsupervior = reporte = 0;
             txtnombre.Clear();
@@ -70,7 +70,7 @@ namespace controlFallos
                 if (!editar)
                 {
                     if (v.c.insertar("insert into encabezadoreportes (" + v.c.fieldsencabezadoreportes[1] + "," + v.c.fieldsencabezadoreportes[2] + "," + v.c.fieldsencabezadoreportes[3] + "," + v.c.fieldsencabezadoreportes[4] + "," + v.c.fieldsencabezadoreportes[5] + "," + v.c.fieldsencabezadoreportes[6] + "," + v.c.fieldsencabezadoreportes[7] + ") values('" + reporte + "','" + txtnombre.Text.Trim() + "','" + txtcodigo.Text.Trim() + "','" + dtpvigencia.Value.ToString("yyyy-MM-dd") + "','" + txtrevision.Text + "','" + idsupervior + "',now())"))
-                        if (v.c.insertar("insert into modificaciones_sistema (form, idregistro, usuariofkcpersonal, fechaHora, Tipo, empresa, area)values('Catálogo de Encabezados','" + v.getaData("select idencabezadoreportes from encabezadoreportes where reporte='" + reporte + "';") + "','" + idsupervior + "',now(),'Inserción de Encabezado de Reporte','" + empresa + "','" + area + "')"))
+                        if (v.c.insertar("insert into modificaciones_sistema (" + v.c.fieldsmodificaciones_sistema[1] + ", " + v.c.fieldsmodificaciones_sistema[2] + ", " + v.c.fieldsmodificaciones_sistema[4] + ", " + v.c.fieldsmodificaciones_sistema[5] + ", " + v.c.fieldsmodificaciones_sistema[6] + ", " + v.c.fieldsmodificaciones_sistema[8] + ", " + v.c.fieldsmodificaciones_sistema[9] + ")values('Catálogo de Encabezados','" + v.getaData("select " + v.c.fieldsencabezadoreportes[0] + " from encabezadoreportes where " + v.c.fieldsencabezadoreportes[1] + "='" + reporte + "';") + "','" + idsupervior + "',now(),'Inserción de Encabezado de Reporte','" + empresa + "','" + area + "')"))
                         {
                             MessageBox.Show("Registro insertado de manera correcta", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                             limpiar();
@@ -108,7 +108,7 @@ namespace controlFallos
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             if (cambios())
-                if (MessageBox.Show("'Desea " + (editar ? "guardar los cambios?" : "concluir el registro?")) == DialogResult.Yes)
+                if (MessageBox.Show("'Desea " + (editar ? "guardar los cambios?" : "concluir el registro?"), validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 { }
                 else
                 { limpiar(); todisableradios(); }
@@ -118,7 +118,7 @@ namespace controlFallos
 
         bool cambios()
         {
-            if (((txtnombre.Text.Trim() != nombreAnterior || txtcodigo.Text.Trim() != codigoANterior || revisionAnterior != Convert.ToInt32((string.IsNullOrWhiteSpace(txtrevision.Text) ? "0" : txtrevision.Text)) || vigenciaAnterior != dtpvigencia.Value) && !string.IsNullOrWhiteSpace(txtnombre.Text) && !string.IsNullOrWhiteSpace(txtcodigo.Text) && !string.IsNullOrWhiteSpace(txtrevision.Text) && !string.IsNullOrWhiteSpace(txtcontraseña.Text) && editar) || ((!string.IsNullOrWhiteSpace(txtnombre.Text) || !string.IsNullOrWhiteSpace(txtcodigo.Text) || !string.IsNullOrWhiteSpace(txtrevision.Text) || !string.IsNullOrWhiteSpace(txtcontraseña.Text) || dtpvigencia.Value > DateTime.Now) && idRegistro == 0))
+            if (((txtnombre.Text.Trim() != nombreAnterior || txtcodigo.Text.Trim() != codigoANterior || revisionAnterior != Convert.ToInt32((string.IsNullOrWhiteSpace(txtrevision.Text) ? "0" : txtrevision.Text)) || vigenciaAnterior != dtpvigencia.Value) && !string.IsNullOrWhiteSpace(txtnombre.Text) && !string.IsNullOrWhiteSpace(txtcodigo.Text) && !string.IsNullOrWhiteSpace(txtrevision.Text) && editar) || ((!string.IsNullOrWhiteSpace(txtnombre.Text) || !string.IsNullOrWhiteSpace(txtcodigo.Text) || !string.IsNullOrWhiteSpace(txtrevision.Text) || dtpvigencia.Value > DateTime.Now) && idRegistro == 0))
                 return true;
             else return false;
         }
@@ -128,8 +128,9 @@ namespace controlFallos
         {
             if (!string.IsNullOrWhiteSpace(txtcontraseña.Text))
             {
-                lblusario.Text = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtcontraseña.Text.Trim()) + "';")) == 0 ? "" : v.getaData("select upper(concat(coalesce(t1.appaterno,''),' ',coalesce(t1.apmaterno,''),' ',t1.nombres)) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtcontraseña.Text.Trim()) + "' and empresa='1';").ToString()));
-                idsupervior = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtcontraseña.Text.Trim()) + "';")) == 0 ? 0 : Convert.ToInt32(v.getaData("select t1.idpersona from cpersonal as t1 inner join datosistema as t2 on t1.idpersona=t2.usuariofkcpersonal where t2.password='" + v.Encriptar(txtcontraseña.Text.Trim()) + "' and empresa='1';"))));
+                lblusario.Text = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtcontraseña.Text.Trim()) + "';")) == 0 ? "" : v.getaData("select upper(concat(coalesce(t1." + v.c.fieldscpersonal[2] + ",''),' ',coalesce(t1." + v.c.fieldscpersonal[3] + ",''),' ',t1." + v.c.fieldscpersonal[4] + ")) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtcontraseña.Text.Trim()) + "' and " + v.c.fieldscpersonal[6] + "='1';").ToString()));
+
+                idsupervior = ((Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtcontraseña.Text.Trim()) + "';")) == 0 ? 0 : Convert.ToInt32(v.getaData("select t1." + v.c.fieldscpersonal[0] + " from cpersonal as t1 inner join datosistema as t2 on t1." + v.c.fieldscpersonal[0] + "=t2." + v.c.fieldsdatosistema[1] + " where t2." + v.c.fieldsdatosistema[3] + "='" + v.Encriptar(txtcontraseña.Text.Trim()) + "' and " + v.c.fieldscpersonal[6] + "='1';"))));
             }
         }
 

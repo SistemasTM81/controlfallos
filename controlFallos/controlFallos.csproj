@@ -659,6 +659,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="login.resx">
       <DependentUpon>login.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Nombres_Familias.resx">
       <DependentUpon>Nombres_Familias.cs</DependentUpon>
@@ -812,6 +813,7 @@
     <None Include="Resources\bus-stop.png" />
     <Content Include="Resources\bus.png" />
     <None Include="Resources\bus1.png" />
+    <None Include="Resources\bus2.png" />
     <Content Include="Resources\buscar-en-carpeta %281%29.png" />
     <Content Include="Resources\businessman %281%29.png" />
     <Content Include="Resources\businessman %282%29.png" />
@@ -911,6 +913,7 @@
     <Content Include="Resources\icon.ico" />
     <None Include="Resources\icons8-tornillo-480.png" />
     <None Include="Resources\icon_image.png" />
+    <None Include="Resources\icons8-watch-100.png" />
     <Content Include="Resources\idea.png" />
     <None Include="Resources\image.png" />
     <Content Include="Resources\Imagen2.png" />
