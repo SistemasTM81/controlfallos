@@ -221,15 +221,5 @@ namespace controlFallos
         public string[] fieldsreportetri = new string[] { "idReporteTransinsumos", "idreportemfkreportemantenimiento", "FolioFactura", "FechaEntrega", "PersonaEntregafkcPersonal", "ObservacionesTrans", "empresa" };
         public string[] fieldssepomex = new string[] { "id", "idEstado", "estado", "idMunicipio", "municipio", "ciudad", "zona", "cp", "asentamiento", "tipo" };
         public string[] fieldsvigencias_supervision = new string[] { "idvigencia", "usuariofkcpersonal", "fechaEmisionTarjeton", "fechaVencimientoTarjeton", "tipolicenciafkcattipos", "fechaEmisionConducir", "fechaVencimientoConducir", "empresa", "area" };
-
-
-
-
-
-
-
-
-
-
     }
 }
