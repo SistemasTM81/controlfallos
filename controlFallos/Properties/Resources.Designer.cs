@@ -203,6 +203,16 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap bus2 {
+            get {
+                object obj = ResourceManager.GetObject("bus2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap businessman {
             get {
                 object obj = ResourceManager.GetObject("businessman", resourceCulture);

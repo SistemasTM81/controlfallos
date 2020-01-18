@@ -285,12 +285,6 @@
     <Compile Include="datosGeneralesComparativa.designer.cs">
       <DependentUpon>datosGeneralesComparativa.cs</DependentUpon>
     </Compile>
-    <Compile Include="diferenciaecos.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="diferenciaecos.Designer.cs">
-      <DependentUpon>diferenciaecos.cs</DependentUpon>
-    </Compile>
     <Compile Include="familias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -636,9 +630,6 @@
     <EmbeddedResource Include="datosGeneralesComparativa.resx">
       <DependentUpon>datosGeneralesComparativa.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="diferenciaecos.resx">
-      <DependentUpon>diferenciaecos.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="familias.resx">
       <DependentUpon>familias.cs</DependentUpon>
     </EmbeddedResource>
@@ -677,6 +668,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="login.resx">
       <DependentUpon>login.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Nombres_Familias.resx">
       <DependentUpon>Nombres_Familias.cs</DependentUpon>
@@ -830,6 +822,7 @@
     <None Include="Resources\bus-stop.png" />
     <Content Include="Resources\bus.png" />
     <None Include="Resources\bus1.png" />
+    <None Include="Resources\bus2.png" />
     <Content Include="Resources\buscar-en-carpeta %281%29.png" />
     <Content Include="Resources\businessman %281%29.png" />
     <Content Include="Resources\businessman %282%29.png" />

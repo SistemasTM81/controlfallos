@@ -551,7 +551,7 @@ namespace controlFallos
                 consulta += " WHERE t1.Folio='" + lblFolio.Text + "';";
                 if (v.c.insertar(consulta))
                 {
-                    v.c.writemodification(v.Encriptar(consulta));
+                    // v.c.writemodification(v.Encriptar(consulta));
                     MessageBox.Show("Registro actualizado exitosamente ".ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 v.c.dbconection();
@@ -774,7 +774,7 @@ namespace controlFallos
                 valores = (cbgrupo.SelectedIndex == 0 ? valores += " ,'" + txtDescFalloNoC.Text.Trim() + "')" : valores += " ,'" + cbSubGrupo.SelectedValue + "','" + cmbCodFallo.SelectedValue + "')");
                 if (v.c.insertar(campos + " values " + valores))
                 {
-                    v.c.writemodification(campos + " values " + valores);
+                    // v.c.writemodification(campos + " values " + valores);
                     MessageBox.Show("Reporte guardado exitosamente ", "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     esta_exportando();
                     limpia_act();

@@ -344,28 +344,28 @@ namespace controlFallos
             ThreadStart delegatse = new ThreadStart(sesion);
             session = new Thread(delegatse);
             session.Start();
-            updates = new Thread(new ThreadStart(inserttoglobal));
-            updates.Start();
+            /*  updates = new Thread(new ThreadStart(inserttoglobal));
+              updates.Start();*/
         }
-        void inserttoglobal()
+        /**    void inserttoglobal()
         {
-            while (res)
-            {
-                if (!v.c.wait)
-                {
-                    string[] querys = v.c.readtofile().Split('|');
-                    if (querys.Length > 0)
-                    {
-                        for (int i = 0; i < querys.Length; i++)
-                        {
-                            if (!string.IsNullOrWhiteSpace(querys[i]))
-                                v.c.inserttoglobal(v.Desencriptar(querys[i]));
-                        }
-                        v.c.eliminar();
-                    }
-                }
-            }
-        }
+              while (res)
+              {
+                  if (!v.c.wait)
+                  {
+                      string[] querys = v.c.readtofile().Split('|');
+                      if (querys.Length > 0)
+                      {
+                          for (int i = 0; i < querys.Length; i++)
+                          {
+                              if (!string.IsNullOrWhiteSpace(querys[i]))
+                                  v.c.inserttoglobal(v.Desencriptar(querys[i]));
+                          }
+                          v.c.eliminar();
+                      }
+                  }
+              }
+          }*/
         void sesion()
         {
             while (res)

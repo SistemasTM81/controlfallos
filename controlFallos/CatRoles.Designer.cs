@@ -28,10 +28,27 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbaddpasillo = new System.Windows.Forms.GroupBox();
+            this.pblogo = new System.Windows.Forms.PictureBox();
+            this.gbxdiferencia = new System.Windows.Forms.GroupBox();
+            this.padd = new System.Windows.Forms.Panel();
+            this.btnadd = new System.Windows.Forms.Button();
+            this.lbxdiferencias = new System.Windows.Forms.ListBox();
+            this.pdatos = new System.Windows.Forms.Panel();
+            this.txtdiferencia = new System.Windows.Forms.TextBox();
+            this.label27 = new System.Windows.Forms.Label();
+            this.lbltexto = new System.Windows.Forms.Label();
+            this.gbecos = new System.Windows.Forms.GroupBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblunidades = new System.Windows.Forms.Label();
+            this.paddeco = new System.Windows.Forms.Panel();
             this.pstatus = new System.Windows.Forms.Panel();
             this.lblstatus = new System.Windows.Forms.Label();
             this.btnstatus = new System.Windows.Forms.Button();
@@ -51,8 +68,11 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.gbRol = new System.Windows.Forms.GroupBox();
-            this.lbltime = new System.Windows.Forms.Label();
+            this.pselectecos = new System.Windows.Forms.Panel();
+            this.lblecos = new System.Windows.Forms.Label();
+            this.btnecos = new System.Windows.Forms.Button();
             this.ptime = new System.Windows.Forms.Panel();
+            this.label25 = new System.Windows.Forms.Label();
             this.btntime = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.pdescansos = new System.Windows.Forms.Panel();
@@ -87,25 +107,31 @@
             this.pnuevo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelEmpresa = new System.Windows.Forms.Button();
-            this.gbecos = new System.Windows.Forms.GroupBox();
-            this.paddeco = new System.Windows.Forms.Panel();
             this.gbaddpasillo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pblogo)).BeginInit();
+            this.gbxdiferencia.SuspendLayout();
+            this.padd.SuspendLayout();
+            this.pdatos.SuspendLayout();
+            this.gbecos.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.pstatus.SuspendLayout();
             this.ptabla.SuspendLayout();
             this.gbpasillos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvroles)).BeginInit();
             this.gbRol.SuspendLayout();
+            this.pselectecos.SuspendLayout();
             this.ptime.SuspendLayout();
             this.pdescansos.SuspendLayout();
             this.psave.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudlapso)).BeginInit();
             this.pnuevo.SuspendLayout();
-            this.gbecos.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbaddpasillo
             // 
             this.gbaddpasillo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.gbaddpasillo.Controls.Add(this.pblogo);
+            this.gbaddpasillo.Controls.Add(this.gbxdiferencia);
             this.gbaddpasillo.Controls.Add(this.gbecos);
             this.gbaddpasillo.Controls.Add(this.pstatus);
             this.gbaddpasillo.Controls.Add(this.ptabla);
@@ -120,6 +146,195 @@
             this.gbaddpasillo.Size = new System.Drawing.Size(1908, 937);
             this.gbaddpasillo.TabIndex = 33;
             this.gbaddpasillo.TabStop = false;
+            // 
+            // pblogo
+            // 
+            this.pblogo.BackgroundImage = global::controlFallos.Properties.Resources.Dbkel_CXkAE43aG;
+            this.pblogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pblogo.Location = new System.Drawing.Point(1427, 350);
+            this.pblogo.Name = "pblogo";
+            this.pblogo.Size = new System.Drawing.Size(469, 187);
+            this.pblogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pblogo.TabIndex = 87;
+            this.pblogo.TabStop = false;
+            // 
+            // gbxdiferencia
+            // 
+            this.gbxdiferencia.Controls.Add(this.padd);
+            this.gbxdiferencia.Controls.Add(this.lbxdiferencias);
+            this.gbxdiferencia.Controls.Add(this.pdatos);
+            this.gbxdiferencia.Enabled = false;
+            this.gbxdiferencia.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbxdiferencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.gbxdiferencia.Location = new System.Drawing.Point(832, 291);
+            this.gbxdiferencia.Name = "gbxdiferencia";
+            this.gbxdiferencia.Size = new System.Drawing.Size(570, 315);
+            this.gbxdiferencia.TabIndex = 86;
+            this.gbxdiferencia.TabStop = false;
+            this.gbxdiferencia.Text = "Diferencia de tiempo entre unidades";
+            // 
+            // padd
+            // 
+            this.padd.Controls.Add(this.btnadd);
+            this.padd.Location = new System.Drawing.Point(504, 40);
+            this.padd.Name = "padd";
+            this.padd.Size = new System.Drawing.Size(38, 39);
+            this.padd.TabIndex = 90;
+            this.padd.Visible = false;
+            // 
+            // btnadd
+            // 
+            this.btnadd.BackgroundImage = global::controlFallos.Properties.Resources.add;
+            this.btnadd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnadd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnadd.FlatAppearance.BorderSize = 0;
+            this.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnadd.Location = new System.Drawing.Point(6, 7);
+            this.btnadd.Name = "btnadd";
+            this.btnadd.Size = new System.Drawing.Size(25, 25);
+            this.btnadd.TabIndex = 1;
+            this.btnadd.UseVisualStyleBackColor = true;
+            this.btnadd.Click += new System.EventHandler(this.btnadd_Click);
+            // 
+            // lbxdiferencias
+            // 
+            this.lbxdiferencias.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.lbxdiferencias.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lbxdiferencias.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbxdiferencias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lbxdiferencias.FormattingEnabled = true;
+            this.lbxdiferencias.ItemHeight = 18;
+            this.lbxdiferencias.Location = new System.Drawing.Point(13, 93);
+            this.lbxdiferencias.Name = "lbxdiferencias";
+            this.lbxdiferencias.Size = new System.Drawing.Size(529, 200);
+            this.lbxdiferencias.TabIndex = 88;
+            this.lbxdiferencias.DoubleClick += new System.EventHandler(this.lbxdiferencias_DoubleClick);
+            // 
+            // pdatos
+            // 
+            this.pdatos.Controls.Add(this.txtdiferencia);
+            this.pdatos.Controls.Add(this.label27);
+            this.pdatos.Controls.Add(this.lbltexto);
+            this.pdatos.Location = new System.Drawing.Point(13, 40);
+            this.pdatos.Name = "pdatos";
+            this.pdatos.Size = new System.Drawing.Size(481, 38);
+            this.pdatos.TabIndex = 87;
+            this.pdatos.Visible = false;
+            // 
+            // txtdiferencia
+            // 
+            this.txtdiferencia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtdiferencia.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtdiferencia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtdiferencia.Font = new System.Drawing.Font("Garamond", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtdiferencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtdiferencia.Location = new System.Drawing.Point(353, 5);
+            this.txtdiferencia.MaxLength = 2;
+            this.txtdiferencia.Name = "txtdiferencia";
+            this.txtdiferencia.ShortcutsEnabled = false;
+            this.txtdiferencia.Size = new System.Drawing.Size(58, 20);
+            this.txtdiferencia.TabIndex = 86;
+            this.txtdiferencia.TextChanged += new System.EventHandler(this.txtdiferencia_TextChanged);
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label27.Location = new System.Drawing.Point(351, 19);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(61, 9);
+            this.label27.TabIndex = 87;
+            this.label27.Text = "______________";
+            // 
+            // lbltexto
+            // 
+            this.lbltexto.AutoSize = true;
+            this.lbltexto.Location = new System.Drawing.Point(4, 7);
+            this.lbltexto.Name = "lbltexto";
+            this.lbltexto.Size = new System.Drawing.Size(332, 24);
+            this.lbltexto.TabIndex = 85;
+            this.lbltexto.Text = "Diferencia de tiempo entre unida 1 y 2:";
+            // 
+            // gbecos
+            // 
+            this.gbecos.Controls.Add(this.label24);
+            this.gbecos.Controls.Add(this.label20);
+            this.gbecos.Controls.Add(this.label19);
+            this.gbecos.Controls.Add(this.label18);
+            this.gbecos.Controls.Add(this.panel1);
+            this.gbecos.Controls.Add(this.paddeco);
+            this.gbecos.Enabled = false;
+            this.gbecos.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbecos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.gbecos.Location = new System.Drawing.Point(829, 19);
+            this.gbecos.Name = "gbecos";
+            this.gbecos.Size = new System.Drawing.Size(1071, 257);
+            this.gbecos.TabIndex = 85;
+            this.gbecos.TabStop = false;
+            this.gbecos.Text = "Seleccionar ecos";
+            // 
+            // label24
+            // 
+            this.label24.BackColor = System.Drawing.Color.Khaki;
+            this.label24.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(1032, 171);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(18, 18);
+            this.label24.TabIndex = 86;
+            // 
+            // label20
+            // 
+            this.label20.BackColor = System.Drawing.Color.PaleGreen;
+            this.label20.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(860, 170);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(18, 18);
+            this.label20.TabIndex = 85;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(896, 171);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(130, 18);
+            this.label19.TabIndex = 84;
+            this.label19.Text = "Unidades ocupadas";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(717, 170);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(142, 18);
+            this.label18.TabIndex = 83;
+            this.label18.Text = "Unidades disponibles";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblunidades);
+            this.panel1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(7, 192);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1058, 61);
+            this.panel1.TabIndex = 1;
+            // 
+            // lblunidades
+            // 
+            this.lblunidades.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblunidades.Location = new System.Drawing.Point(3, 7);
+            this.lblunidades.Margin = new System.Windows.Forms.Padding(0);
+            this.lblunidades.Name = "lblunidades";
+            this.lblunidades.Size = new System.Drawing.Size(1049, 49);
+            this.lblunidades.TabIndex = 86;
+            // 
+            // paddeco
+            // 
+            this.paddeco.Location = new System.Drawing.Point(6, 30);
+            this.paddeco.Name = "paddeco";
+            this.paddeco.Size = new System.Drawing.Size(1061, 138);
+            this.paddeco.TabIndex = 0;
             // 
             // pstatus
             // 
@@ -144,12 +359,12 @@
             // 
             // btnstatus
             // 
-            this.btnstatus.BackgroundImage = global::controlFallos.Properties.Resources.delete__4_;
+            this.btnstatus.BackgroundImage = global::controlFallos.Properties.Resources.delete;
             this.btnstatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnstatus.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnstatus.FlatAppearance.BorderSize = 0;
             this.btnstatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnstatus.Location = new System.Drawing.Point(32, 6);
+            this.btnstatus.Location = new System.Drawing.Point(31, 6);
             this.btnstatus.Name = "btnstatus";
             this.btnstatus.Size = new System.Drawing.Size(45, 45);
             this.btnstatus.TabIndex = 0;
@@ -185,26 +400,26 @@
             this.dgvroles.AllowUserToDeleteRows = false;
             this.dgvroles.AllowUserToResizeColumns = false;
             this.dgvroles.AllowUserToResizeRows = false;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvroles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvroles.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dgvroles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvroles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle11.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvroles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvroles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -228,13 +443,13 @@
             this.dgvroles.ReadOnly = true;
             this.dgvroles.RowHeadersVisible = false;
             this.dgvroles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvroles.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvroles.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dgvroles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvroles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvroles.ShowCellErrors = false;
@@ -344,7 +559,7 @@
             // 
             // gbRol
             // 
-            this.gbRol.Controls.Add(this.lbltime);
+            this.gbRol.Controls.Add(this.pselectecos);
             this.gbRol.Controls.Add(this.ptime);
             this.gbRol.Controls.Add(this.label16);
             this.gbRol.Controls.Add(this.pdescansos);
@@ -379,22 +594,59 @@
             this.gbRol.Text = "Nuevo Rol de Servicio";
             this.gbRol.Visible = false;
             // 
-            // lbltime
+            // pselectecos
             // 
-            this.lbltime.AutoSize = true;
-            this.lbltime.Location = new System.Drawing.Point(372, 356);
-            this.lbltime.Name = "lbltime";
-            this.lbltime.Size = new System.Drawing.Size(0, 24);
-            this.lbltime.TabIndex = 89;
+            this.pselectecos.Controls.Add(this.lblecos);
+            this.pselectecos.Controls.Add(this.btnecos);
+            this.pselectecos.Location = new System.Drawing.Point(389, 219);
+            this.pselectecos.Name = "pselectecos";
+            this.pselectecos.Size = new System.Drawing.Size(176, 39);
+            this.pselectecos.TabIndex = 89;
+            this.pselectecos.Visible = false;
+            // 
+            // lblecos
+            // 
+            this.lblecos.AutoSize = true;
+            this.lblecos.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblecos.Location = new System.Drawing.Point(37, 9);
+            this.lblecos.Name = "lblecos";
+            this.lblecos.Size = new System.Drawing.Size(128, 21);
+            this.lblecos.TabIndex = 90;
+            this.lblecos.Text = "seleccionar ecos";
+            // 
+            // btnecos
+            // 
+            this.btnecos.BackgroundImage = global::controlFallos.Properties.Resources.bus2;
+            this.btnecos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnecos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnecos.FlatAppearance.BorderSize = 0;
+            this.btnecos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnecos.Location = new System.Drawing.Point(6, 7);
+            this.btnecos.Name = "btnecos";
+            this.btnecos.Size = new System.Drawing.Size(25, 25);
+            this.btnecos.TabIndex = 1;
+            this.btnecos.UseVisualStyleBackColor = true;
+            this.btnecos.Click += new System.EventHandler(this.btnecos_Click);
             // 
             // ptime
             // 
+            this.ptime.Controls.Add(this.label25);
             this.ptime.Controls.Add(this.btntime);
             this.ptime.Location = new System.Drawing.Point(319, 348);
             this.ptime.Name = "ptime";
-            this.ptime.Size = new System.Drawing.Size(38, 39);
+            this.ptime.Size = new System.Drawing.Size(294, 39);
             this.ptime.TabIndex = 88;
             this.ptime.Visible = false;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.Location = new System.Drawing.Point(48, 9);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(247, 21);
+            this.label25.TabIndex = 91;
+            this.label25.Text = "esteblecer diferencias de tiempo";
             // 
             // btntime
             // 
@@ -514,6 +766,7 @@
             this.cmbdescanso.Size = new System.Drawing.Size(160, 25);
             this.cmbdescanso.TabIndex = 85;
             this.cmbdescanso.SelectedIndexChanged += new System.EventHandler(this.cmbdescanso_SelectedIndexChanged);
+            this.cmbdescanso.SelectedValueChanged += new System.EventHandler(this.cmbdescanso_SelectedValueChanged);
             // 
             // label11
             // 
@@ -639,6 +892,7 @@
             this.cmbservicio.Size = new System.Drawing.Size(257, 25);
             this.cmbservicio.TabIndex = 3;
             this.cmbservicio.SelectedIndexChanged += new System.EventHandler(this.cmbempresa_SelectedValueChanged);
+            this.cmbservicio.SelectedValueChanged += new System.EventHandler(this.cmbservicio_SelectedValueChanged);
             // 
             // label9
             // 
@@ -800,25 +1054,6 @@
             this.btnCancelEmpresa.UseVisualStyleBackColor = true;
             this.btnCancelEmpresa.Click += new System.EventHandler(this.btnCancelEmpresa_Click);
             // 
-            // gbecos
-            // 
-            this.gbecos.Controls.Add(this.paddeco);
-            this.gbecos.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbecos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbecos.Location = new System.Drawing.Point(829, 30);
-            this.gbecos.Name = "gbecos";
-            this.gbecos.Size = new System.Drawing.Size(1076, 186);
-            this.gbecos.TabIndex = 85;
-            this.gbecos.TabStop = false;
-            this.gbecos.Text = "Seleccionar ecos";
-            // 
-            // paddeco
-            // 
-            this.paddeco.Location = new System.Drawing.Point(6, 30);
-            this.paddeco.Name = "paddeco";
-            this.paddeco.Size = new System.Drawing.Size(1061, 152);
-            this.paddeco.TabIndex = 0;
-            // 
             // CatRoles
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -832,6 +1067,14 @@
             this.Load += new System.EventHandler(this.CatRoles_Load);
             this.gbaddpasillo.ResumeLayout(false);
             this.gbaddpasillo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pblogo)).EndInit();
+            this.gbxdiferencia.ResumeLayout(false);
+            this.padd.ResumeLayout(false);
+            this.pdatos.ResumeLayout(false);
+            this.pdatos.PerformLayout();
+            this.gbecos.ResumeLayout(false);
+            this.gbecos.PerformLayout();
+            this.panel1.ResumeLayout(false);
             this.pstatus.ResumeLayout(false);
             this.pstatus.PerformLayout();
             this.ptabla.ResumeLayout(false);
@@ -839,7 +1082,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvroles)).EndInit();
             this.gbRol.ResumeLayout(false);
             this.gbRol.PerformLayout();
+            this.pselectecos.ResumeLayout(false);
+            this.pselectecos.PerformLayout();
             this.ptime.ResumeLayout(false);
+            this.ptime.PerformLayout();
             this.pdescansos.ResumeLayout(false);
             this.pdescansos.PerformLayout();
             this.psave.ResumeLayout(false);
@@ -847,7 +1093,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudlapso)).EndInit();
             this.pnuevo.ResumeLayout(false);
             this.pnuevo.PerformLayout();
-            this.gbecos.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -908,8 +1153,26 @@
         private System.Windows.Forms.Panel ptime;
         private System.Windows.Forms.Button btntime;
         private System.Windows.Forms.Label label16;
-        public System.Windows.Forms.Label lbltime;
         private System.Windows.Forms.GroupBox gbecos;
         private System.Windows.Forms.Panel paddeco;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblunidades;
+        private System.Windows.Forms.Panel pselectecos;
+        private System.Windows.Forms.Label lblecos;
+        private System.Windows.Forms.Button btnecos;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.GroupBox gbxdiferencia;
+        private System.Windows.Forms.PictureBox pblogo;
+        private System.Windows.Forms.Panel pdatos;
+        private System.Windows.Forms.TextBox txtdiferencia;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label lbltexto;
+        private System.Windows.Forms.ListBox lbxdiferencias;
+        private System.Windows.Forms.Panel padd;
+        private System.Windows.Forms.Button btnadd;
+        private System.Windows.Forms.Label label25;
     }
 }

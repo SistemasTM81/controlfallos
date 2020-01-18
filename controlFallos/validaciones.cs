@@ -4406,8 +4406,7 @@ namespace controlFallos
                 return false;
             }
         }
-<<<<<<< HEAD
-        public DataTable JoinDataTables(DataTable t1, DataTable t2)
+      public DataTable JoinDataTables(DataTable t1, DataTable t2)
         {
             DataTable result = new DataTable();
             foreach (DataColumn col in t1.Columns)
@@ -4445,14 +4444,15 @@ namespace controlFallos
         {
             try
             {
-                DataColumn tableCol = new DataColumn(ColumnName.ToString(),type);
+                DataColumn tableCol = new DataColumn(ColumnName.ToString(), type);
                 resultsTable.Columns.Add(tableCol);
             }
             catch (DuplicateNameException)
             {
                 ColumnName.Append(" ");
-                AddTableColumn(resultsTable, ColumnName,type);
-=======
+                AddTableColumn(resultsTable, ColumnName, type);
+            }
+        }
         public bool camposmant(string contraseñam, int idgrupo, int idarea, int refacciones, int estatus, string foliof, int idreporte, int statusAnterior)
         {
             if (!string.IsNullOrWhiteSpace(contraseñam) || statusAnterior == 3)
@@ -4514,7 +4514,6 @@ namespace controlFallos
             {
                 MessageBox.Show("Seleccione una refacción de la lista desplegable", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
->>>>>>> 8e23821c8b3f436f36e5336706d7b1a7a28fc84e
             }
         }
         public string timetowait(DateTime initialdate, DateTime finaldate)
