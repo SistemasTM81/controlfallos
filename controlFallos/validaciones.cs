@@ -4406,11 +4406,7 @@ namespace controlFallos
                 return false;
             }
         }
-<<<<<<< HEAD
         public DataTable JoinDataTables(DataTable t1, DataTable t2)
-=======
-      public DataTable JoinDataTables(DataTable t1, DataTable t2)
->>>>>>> 8a1dd2d983f899741520e420f8cdf4b5fdc25ab3
         {
             DataTable result = new DataTable();
             foreach (DataColumn col in t1.Columns)
