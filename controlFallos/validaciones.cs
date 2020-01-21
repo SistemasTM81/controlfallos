@@ -4410,7 +4410,15 @@ namespace controlFallos
         {
             DataTable result = new DataTable();
             foreach (DataColumn col in t1.Columns)
-                AddTableColumn(result,new StringBuilder(col.ColumnName),col.DataType);
+            {
+                if (!col.ColumnName.Equals("CICLO"))
+                    AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
+                else
+                {
+                   result.Columns.Add(new DataColumn() { AutoIncrement = true, AutoIncrementSeed =(t1.Rows.Count+1),AutoIncrementStep = 1, ColumnName= "CICLO"});
+                }
+                
+            }
             foreach (DataColumn col in t2.Columns)
                 AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
             for (int i =0;i< (t1.Rows.Count > t2.Rows.Count ? t1.Rows.Count : t2.Rows.Count); i++)
