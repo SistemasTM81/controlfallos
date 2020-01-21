@@ -14,6 +14,8 @@ using System.IO;
 using System.Drawing.Drawing2D;
 using System.Reflection;
 using iTextSharp.text.pdf;
+using System.Collections.Generic;
+
 namespace controlFallos
 {
     public class validaciones
@@ -4301,7 +4303,7 @@ namespace controlFallos
             else
                 return false;
         }
-        public bool camposRol(int idempresa, int idarea, int idservicio, string nciclos, string necos, DateTime horai/**, string[] difecos**/, int lciclos)
+        public bool camposRol(int idempresa, int idarea, int idservicio, string nciclos, string necos, DateTime horai, int lciclos, List<int> ecos, List<string> diferencias, int descanso, string rgode, string rgoa)
         {
             if (idempresa > 0)
                 if (idarea > 0)
@@ -4312,7 +4314,43 @@ namespace controlFallos
                                     if (Convert.ToUInt32(necos) > 0)
                                         if (horai.Hour >= 4 && horai.Hour <= 7)
                                             if (lciclos > 0)
-                                                return true;
+                                                if (ecos != null)
+                                                    if (ecos.Count == Convert.ToInt32(necos))
+                                                        if (diferencias != null && diferencias.Count > 0)
+                                                            if (diferencias.Count == (Convert.ToInt32(necos) - 1))
+                                                                if (descanso > 0)
+                                                                    if (descanso == 2 || (descanso == 1 && !string.IsNullOrWhiteSpace(rgode) && !string.IsNullOrWhiteSpace(rgoa)))
+                                                                        return true;
+                                                                    else
+                                                                    {
+                                                                        MessageBox.Show("Debe llenar los campos \"del ciclo\" y \"al ciclo\"", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                        return false;
+                                                                    }
+                                                                else
+                                                                {
+                                                                    MessageBox.Show("Seleccione una opcion en la lista desplegable \"descanso\"", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                    return false;
+                                                                }
+                                                            else
+                                                            {
+                                                                MessageBox.Show("Faltan " + ((Convert.ToInt32(necos) - 1) - diferencias.Count) + " diferencias de tiempo, por establecer", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                return false;
+                                                            }
+                                                        else
+                                                        {
+                                                            MessageBox.Show("Establezca las diferencias de tiempo entre unidades", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning); ;
+                                                            return false;
+                                                        }
+                                                    else
+                                                    {
+                                                        MessageBox.Show("Faltan " + (Convert.ToInt32(necos) - ecos.Count) + " economicos por seleccionar", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                        return false;
+                                                    }
+                                                else
+                                                {
+                                                    MessageBox.Show("Seleccione las unidades", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                    return false;
+                                                }
                                             else
                                             {
                                                 MessageBox.Show("el lapso entre ciclos debe ser mayor a 0".ToUpper(), "DATO INCORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -4406,28 +4444,28 @@ namespace controlFallos
                 return false;
             }
         }
-      public DataTable JoinDataTables(DataTable t1, DataTable t2)
+        public DataTable JoinDataTables(DataTable t1, DataTable t2)
         {
             DataTable result = new DataTable();
             foreach (DataColumn col in t1.Columns)
-                AddTableColumn(result,new StringBuilder(col.ColumnName),col.DataType);
+                AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
             foreach (DataColumn col in t2.Columns)
                 AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
-            for (int i =0;i< (t1.Rows.Count > t2.Rows.Count ? t1.Rows.Count : t2.Rows.Count); i++)
-                {
-                    DataRow rowT1 = null, rowT2 = null,insertRow = result.NewRow();;
+            for (int i = 0; i < (t1.Rows.Count > t2.Rows.Count ? t1.Rows.Count : t2.Rows.Count); i++)
+            {
+                DataRow rowT1 = null, rowT2 = null, insertRow = result.NewRow(); ;
                 try { rowT1 = t1.Rows[i]; } catch { }
                 try { rowT2 = t2.Rows[i]; } catch { }
-                    foreach (DataColumn col1 in t1.Columns)
-                           insertRow[col1.ColumnName] = (rowT1!=null ? rowT1[col1.ColumnName]:(!col1.ColumnName.Equals("CICLO")?  string.Empty:(i+1).ToString()));
-                        foreach (DataColumn col2 in t2.Columns)
-                            insertRow[col2.ColumnName] = (rowT2 != null ? rowT2[col2.ColumnName] : string.Empty);
-                    result.Rows.Add(insertRow);
-                }
+                foreach (DataColumn col1 in t1.Columns)
+                    insertRow[col1.ColumnName] = (rowT1 != null ? rowT1[col1.ColumnName] : (!col1.ColumnName.Equals("CICLO") ? string.Empty : (i + 1).ToString()));
+                foreach (DataColumn col2 in t2.Columns)
+                    insertRow[col2.ColumnName] = (rowT2 != null ? rowT2[col2.ColumnName] : string.Empty);
+                result.Rows.Add(insertRow);
+            }
             return result;
         }
 
-        public  void AddTableColumn(DataTable resultsTable, StringBuilder ColumnName)
+        public void AddTableColumn(DataTable resultsTable, StringBuilder ColumnName)
         {
             try
             {

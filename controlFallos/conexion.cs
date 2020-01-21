@@ -331,7 +331,7 @@ namespace controlFallos
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(),MessageBoxButtons.OK, MessageBoxIcon.Error);
                 foreach (Form frm in Application.OpenForms)
                     frm.Close();
                 Application.Exit();
