@@ -1,4 +1,5 @@
-﻿namespace controlFallos
+﻿
+namespace controlFallos
 {
     partial class workdays
     {
@@ -33,9 +34,8 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pDias = new System.Windows.Forms.Panel();
+            this.nupDurationWorkDay = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.txtjourneyduration = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
@@ -50,6 +50,7 @@
             this.cmbxTimeperiod = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblloadrol = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -64,8 +65,10 @@
             this.label7 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
+            this.panel8 = new System.Windows.Forms.Panel();
             this.groupBox2.SuspendLayout();
             this.pDias.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nupDurationWorkDay)).BeginInit();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -73,6 +76,7 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvcycles)).BeginInit();
             this.panel5.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -85,24 +89,52 @@
             this.groupBox2.Controls.Add(this.dtpinitialDate);
             this.groupBox2.Controls.Add(this.cmbxTimeperiod);
             this.groupBox2.Controls.Add(this.label15);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Left;
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.groupBox2.Location = new System.Drawing.Point(3, 2);
+            this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1216, 76);
+            this.groupBox2.Size = new System.Drawing.Size(1216, 73);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Registro de Roles";
             // 
             // pDias
             // 
+            this.pDias.Controls.Add(this.nupDurationWorkDay);
             this.pDias.Controls.Add(this.label1);
-            this.pDias.Controls.Add(this.txtjourneyduration);
-            this.pDias.Controls.Add(this.label5);
             this.pDias.Location = new System.Drawing.Point(445, 28);
             this.pDias.Name = "pDias";
             this.pDias.Size = new System.Drawing.Size(200, 23);
             this.pDias.TabIndex = 38;
             this.pDias.Visible = false;
+            // 
+            // nupDurationWorkDay
+            // 
+            this.nupDurationWorkDay.AutoSize = true;
+            this.nupDurationWorkDay.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.nupDurationWorkDay.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.nupDurationWorkDay.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.nupDurationWorkDay.Location = new System.Drawing.Point(86, 0);
+            this.nupDurationWorkDay.Maximum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+            this.nupDurationWorkDay.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nupDurationWorkDay.Name = "nupDurationWorkDay";
+            this.nupDurationWorkDay.Size = new System.Drawing.Size(48, 21);
+            this.nupDurationWorkDay.TabIndex = 21;
+            this.nupDurationWorkDay.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.nupDurationWorkDay.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nupDurationWorkDay.ValueChanged += new System.EventHandler(this.nupDurationWorkDay_ValueChanged);
             // 
             // label1
             // 
@@ -113,30 +145,6 @@
             this.label1.Text = "Dias:";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // txtjourneyduration
-            // 
-            this.txtjourneyduration.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtjourneyduration.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtjourneyduration.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtjourneyduration.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtjourneyduration.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtjourneyduration.Location = new System.Drawing.Point(84, 2);
-            this.txtjourneyduration.MaxLength = 5;
-            this.txtjourneyduration.Name = "txtjourneyduration";
-            this.txtjourneyduration.ShortcutsEnabled = false;
-            this.txtjourneyduration.Size = new System.Drawing.Size(102, 15);
-            this.txtjourneyduration.TabIndex = 33;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(81, 12);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(109, 9);
-            this.label5.TabIndex = 34;
-            this.label5.Text = "__________________________";
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.panel3);
@@ -144,7 +152,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(1092, 21);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(121, 52);
+            this.panel2.Size = new System.Drawing.Size(121, 49);
             this.panel2.TabIndex = 37;
             // 
             // panel3
@@ -154,13 +162,13 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(54, 52);
+            this.panel3.Size = new System.Drawing.Size(54, 49);
             this.panel3.TabIndex = 37;
             // 
             // label3
             // 
             this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label3.Location = new System.Drawing.Point(0, 34);
+            this.label3.Location = new System.Drawing.Point(0, 31);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 18);
             this.label3.TabIndex = 36;
@@ -191,13 +199,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(67, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(54, 52);
+            this.panel1.Size = new System.Drawing.Size(54, 49);
             this.panel1.TabIndex = 36;
             // 
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Location = new System.Drawing.Point(0, 34);
+            this.label2.Location = new System.Drawing.Point(0, 31);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 18);
             this.label2.TabIndex = 36;
@@ -253,10 +261,11 @@
             // 
             this.dtpinitialDate.CustomFormat = "dd/MMMM/yyyy";
             this.dtpinitialDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpinitialDate.Location = new System.Drawing.Point(654, 28);
+            this.dtpinitialDate.Location = new System.Drawing.Point(654, 26);
             this.dtpinitialDate.Name = "dtpinitialDate";
             this.dtpinitialDate.Size = new System.Drawing.Size(171, 25);
             this.dtpinitialDate.TabIndex = 15;
+            this.dtpinitialDate.ValueChanged += new System.EventHandler(this.dtpinitialDate_ValueChanged);
             // 
             // cmbxTimeperiod
             // 
@@ -290,16 +299,29 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblloadrol);
             this.groupBox1.Controls.Add(this.panel4);
             this.groupBox1.Controls.Add(this.cmbxRolService);
             this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.groupBox1.Location = new System.Drawing.Point(1225, 0);
+            this.groupBox1.Location = new System.Drawing.Point(1223, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(685, 78);
+            this.groupBox1.Size = new System.Drawing.Size(685, 73);
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registro de Roles";
+            // 
+            // lblloadrol
+            // 
+            this.lblloadrol.AutoSize = true;
+            this.lblloadrol.ForeColor = System.Drawing.Color.Crimson;
+            this.lblloadrol.Location = new System.Drawing.Point(432, 31);
+            this.lblloadrol.Name = "lblloadrol";
+            this.lblloadrol.Size = new System.Drawing.Size(156, 18);
+            this.lblloadrol.TabIndex = 39;
+            this.lblloadrol.Text = "Generando Rol. Espere";
+            this.lblloadrol.Visible = false;
             // 
             // panel4
             // 
@@ -308,13 +330,13 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel4.Location = new System.Drawing.Point(619, 21);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(63, 54);
+            this.panel4.Size = new System.Drawing.Size(63, 49);
             this.panel4.TabIndex = 38;
             // 
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label4.Location = new System.Drawing.Point(0, 36);
+            this.label4.Location = new System.Drawing.Point(0, 31);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 18);
             this.label4.TabIndex = 36;
@@ -376,11 +398,12 @@
             this.dgvcycles.AllowUserToDeleteRows = false;
             this.dgvcycles.AllowUserToResizeColumns = false;
             this.dgvcycles.AllowUserToResizeRows = false;
+            this.dgvcycles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvcycles.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dgvcycles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -398,17 +421,19 @@
             this.dgvcycles.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvcycles.EnableHeadersVisualStyles = false;
             this.dgvcycles.GridColor = System.Drawing.Color.Crimson;
-            this.dgvcycles.Location = new System.Drawing.Point(0, 84);
+            this.dgvcycles.Location = new System.Drawing.Point(0, 80);
             this.dgvcycles.Name = "dgvcycles";
             this.dgvcycles.ReadOnly = true;
             this.dgvcycles.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dgvcycles.RowHeadersVisible = false;
             this.dgvcycles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dgvcycles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvcycles.Size = new System.Drawing.Size(1917, 620);
+            this.dgvcycles.Size = new System.Drawing.Size(1905, 620);
             this.dgvcycles.TabIndex = 36;
             this.dgvcycles.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragDrop);
             this.dgvcycles.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragEnter);
+            this.dgvcycles.DragOver += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragOver);
+            this.dgvcycles.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvcycles_MouseDown);
             // 
             // panel5
             // 
@@ -423,7 +448,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel5.Location = new System.Drawing.Point(0, 703);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1916, 234);
+            this.panel5.Size = new System.Drawing.Size(1908, 234);
             this.panel5.TabIndex = 37;
             // 
             // backgroundPanel
@@ -487,16 +512,25 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Posturero Matutino:";
             // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.groupBox2);
+            this.panel8.Controls.Add(this.groupBox1);
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel8.Location = new System.Drawing.Point(0, 0);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(1908, 73);
+            this.panel8.TabIndex = 38;
+            // 
             // workdays
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ClientSize = new System.Drawing.Size(1916, 937);
+            this.ClientSize = new System.Drawing.Size(1908, 937);
+            this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.dgvcycles);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.groupBox2);
             this.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -507,14 +541,17 @@
             this.groupBox2.PerformLayout();
             this.pDias.ResumeLayout(false);
             this.pDias.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nupDurationWorkDay)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvcycles)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel8.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -536,66 +573,106 @@
         }
         private void cmbxTimeperiod_SelectedValueChanged(object sender, System.EventArgs e)
         {
-            if (cmbxTimeperiod.SelectedIndex <= 0) { cmbxRolService.Enabled = false; cmbxRolService.DataSource = null; lblfinaldate.Text = string.Empty; return; }
-            cmbxRolService.Enabled = true;
+            if (cmbxTimeperiod.SelectedIndex <= 0) { dtpinitialDate.Enabled = cmbxRolService.Enabled = false; cmbxRolService.DataSource = null; lblfinaldate.Text = string.Empty; dtpinitialDate.Value = System.DateTime.Today; return; }
+            dtpinitialDate.Enabled = cmbxRolService.Enabled = true;
             pDias.Visible = cmbxTimeperiod.SelectedIndex == 1;
-            lblfinaldate.Text = (cmbxTimeperiod.SelectedIndex == 1 ? dtpinitialDate.Value.ToString("dd/MMMM/yyyy") : (cmbxTimeperiod.SelectedIndex == 2 ? dtpinitialDate.Value.AddDays(5).ToString("dd/MMMM/yyyy") : dtpinitialDate.Value.AddDays(13).ToString("dd/MMMM/yyyy")));
+            addTime();
             Owner.v.iniCombos("SELECT * FROM rolServicesActive", cmbxRolService, "idrol", "servicio", "-- SELECCIONE SERVICIO --");
         }
+        private void dtpinitialDate_ValueChanged(object sender, System.EventArgs e) => addTime();
+        private void addTime() => lblfinaldate.Text = (cmbxTimeperiod.SelectedIndex == 1 ? dtpinitialDate.Value.ToString("dd/MMMM/yyyy") : (cmbxTimeperiod.SelectedIndex == 2 ? dtpinitialDate.Value.AddDays(4).ToString("dd/MMMM/yyyy") : dtpinitialDate.Value.AddDays(12).ToString("dd/MMMM/yyyy")));
         private void cmbxRolService_SelectedValueChanged(object sender, System.EventArgs e)
         {
+            if ((sender as System.Windows.Forms.ComboBox).SelectedIndex <= 0) { dgvcycles.DataSource = null; return; }
             rolfkCRoles = System.Convert.ToInt64((sender as System.Windows.Forms.ComboBox).SelectedValue);
             if (periodID.HasValue)
             {
                 var res = Owner.v.getaData("CALL getIdServiceROL('" + rolfkCRoles + "','" + periodID + "')");
                 if (res != null) { serviceID = System.Convert.ToInt64(res); } else serviceID = null;
             }
-            //    disableService(rolfkCRoles);
-            dgvcycles.DataSource = null;
-            if (serviceID.HasValue)
-            {
-               System.Data.DataTable dt = new System.Data.DataTable("Rol De Servicio");
-                System.Data.DataColumn dc = new System.Data.DataColumn("CICLO");
-                dc.AutoIncrementSeed = 1;
-                dc.AutoIncrement = true;
-                dc.Unique = true;
-                dt.Columns.Add(dc);
+            createRol();
+            dgvcycles.Focus();
+        }
 
-                var dtECOS = Owner.v.getaData("call sistrefaccmant.getECOSCount(" + serviceID + ");").ToString().Split('¬');
+        private void createRol()
+        {
+            lblloadrol.Visible = true;
+            (thload = new System.Threading.Thread(new System.Threading.ThreadStart(rol))).Start();
+        }
+        void rol()
+        {
+            if (InvokeRequired)
+            {
+                BeginInvoke(new dataLoad(rol));
+            }
+            else
+            {
+                //    disableService(rolfkCRoles);
+                dgvcycles.DataSource = null;
+                //  if (serviceID.HasValue)
+                // {
+                System.Data.DataTable dt = new System.Data.DataTable("Rol De Servicio");
+                System.Data.DataColumn dc = new System.Data.DataColumn("CICLO", typeof(long));
+                dt.Columns.Add(dc); dc.AutoIncrementSeed = 1;
+                dc.AutoIncrement = true;
+                ///dc.Unique = true;
+                dc.AutoIncrementStep = 1;
+                var dtECOS = Owner.v.getaData("call sistrefaccmant.getECOSCount(" + rolfkCRoles + ");").ToString().Split('¬');
+                if (dtECOS.Length >= 11) dgvcycles.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() {Font = new System.Drawing.Font("Garamond",10,System.Drawing.FontStyle.Regular) };
                 foreach (string row in dtECOS)
                 {
                     System.Data.DataTable dt2 = new System.Data.DataTable();
                     var eco = row.Split('|');
                     dt2.Columns.Add(eco[0]);
                     System.Data.DataColumn columnhour = new System.Data.DataColumn();
-                    dt2.Columns.Add(eco[1] + "|" + eco[0]);
+                    dt2.Columns.Add(new System.Data.DataColumn() { ColumnName = eco[1] + "|" + eco[0] }.Caption = "HORA");
                     dt2.Columns.Add(eco[2]);
-                    var drows = Owner.v.getaData("call sistrefaccmant.getAllcycles(" + eco[0] + ");").ToString().Split('¬');
-                    foreach (var rowrol in drows)
-                        dt2.Rows.Add(rowrol.Split('|'));
+                    var rows = Owner.v.getaData("call sistrefaccmant.getAllcycles(" + eco[0] + ");");
+                    if (!string.IsNullOrWhiteSpace(rows.ToString()))
+                    {
+                        var drows = rows.ToString().Split('¬');
+                        foreach (var rowrol in drows)
+                            dt2.Rows.Add(rowrol.Split('|'));
+                    }
                     dt = Owner.v.JoinDataTables(dt, dt2);
                 }
+                for (int i = dt.Rows.Count; i < System.Convert.ToInt32(Owner.v.getaData("CALL sistrefaccmant.getMaxRoles(" + rolfkCRoles + ")")); i++)
+                {
+                    System.Data.DataRow rowsw = dt.NewRow();
+                    // rowsw.ItemArray[0] = (i+1);
+                    dt.Rows.Add(rowsw);
+                }
                 dgvcycles.DataSource = dt;
-                foreach (System.Windows.Forms.DataGridViewColumn column in dgvcycles.Columns) { if (column.HeaderText.Contains("HORA")) { column.Name = column.HeaderText.Replace("|", string.Empty); column.HeaderText = "HORA"; } }
                 for (int i = 1; i < dgvcycles.Columns.Count; i += 3) { try { dgvcycles.Columns[i].Visible = false; } catch { } }
+                dgvcycles.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter, Font = new System.Drawing.Font("Garamond", 12, System.Drawing.FontStyle.Bold) };
+                foreach (System.Windows.Forms.DataGridViewColumn column in dgvcycles.Columns)
+                    column.HeaderText = column.HeaderText.Trim();
+                lblloadrol.Visible = false;
+                thload.Abort();
             }
         }
+
         private void Btn_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            (sender as System.Windows.Forms.Button).DoDragDrop((sender as System.Windows.Forms.Button).Name.Split('|')[1], System.Windows.Forms.DragDropEffects.Copy | System.Windows.Forms.DragDropEffects.Move);
+            if (e.Button != System.Windows.Forms.MouseButtons.Right) return;
+            (sender as System.Windows.Forms.Button).DoDragDrop((sender as System.Windows.Forms.Button).Name.Split('|')[1], System.Windows.Forms.DragDropEffects.All);
         }
-
+        private void nupDurationWorkDay_ValueChanged(object sender, System.EventArgs e) => lblfinaldate.Text = dtpinitialDate.Value.AddDays((System.Convert.ToDouble(nupDurationWorkDay.Value) - 1)).ToString("dd/MMMM/yyyy");
         private void dgvcycles_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
         {
-            System.Windows.Forms.MessageBox.Show(e.Data.GetData(System.Windows.Forms.DataFormats.Text).ToString()); 
+            var res = dgvcycles.CurrentCell;
+            System.Windows.Forms.MessageBox.Show(e.Data.GetData(System.Windows.Forms.DataFormats.Text).ToString());
         }
         private void dgvcycles_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
         {
+            
             if (e.Data.GetDataPresent(System.Windows.Forms.DataFormats.Text))
                 e.Effect = System.Windows.Forms.DragDropEffects.Copy;
             else
                 e.Effect = System.Windows.Forms.DragDropEffects.None;
+
         }
+
         private void cmbxTimeperiod_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e) => Owner.v.combos_DrawItem(sender, e);
         #endregion
         private System.Windows.Forms.GroupBox groupBox2;
@@ -605,8 +682,6 @@
         private System.Windows.Forms.ComboBox cmbxTimeperiod;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox txtjourneyduration;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dtpinitialDate;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ComboBox cmbxRolService;
@@ -631,5 +706,8 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Panel backgroundPanel;
+        private System.Windows.Forms.NumericUpDown nupDurationWorkDay;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label lblloadrol;
     }
 }
