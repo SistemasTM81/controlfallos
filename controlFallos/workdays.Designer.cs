@@ -399,11 +399,12 @@ namespace controlFallos
             this.dgvcycles.AllowUserToDeleteRows = false;
             this.dgvcycles.AllowUserToResizeColumns = false;
             this.dgvcycles.AllowUserToResizeRows = false;
-            this.dgvcycles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.dgvcycles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvcycles.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dgvcycles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvcycles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.dgvcycles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvcycles.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
+            this.dgvcycles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvcycles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvcycles.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvcycles.EnableHeadersVisualStyles = false;
@@ -422,7 +423,9 @@ namespace controlFallos
             this.dgvcycles.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvcycles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvcycles.Size = new System.Drawing.Size(1904, 626);
+            this.dgvcycles.StandardTab = true;
             this.dgvcycles.TabIndex = 36;
+            this.dgvcycles.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvcycles_ColumnAdded);
             this.dgvcycles.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragDrop);
             this.dgvcycles.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragEnter);
             this.dgvcycles.DragOver += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragOver);
@@ -617,14 +620,12 @@ namespace controlFallos
                 //  if (serviceID.HasValue)
                 // {
                 System.Data.DataTable dt = new System.Data.DataTable("Rol De Servicio");
-                System.Data.DataColumn dc = new System.Data.DataColumn("CICLO", typeof(long));
-                dt.Columns.Add(dc); dc.AutoIncrementSeed = 1;
-                dc.AutoIncrement = true;
-                ///dc.Unique = true;
+                System.Data.DataColumn dc = new System.Data.DataColumn() { AutoIncrement = true, ColumnName = "CICLO", DataType = typeof(long), AutoIncrementSeed = 1 };
+                dt.Columns.Add(dc);
                 dc.AutoIncrementStep = 1;
                 var dtECOS = Owner.v.getaData("call sistrefaccmant.getECOSCount(" + rolfkCRoles + ");").ToString().Split('¬');
-                dgvcycles.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() {Font = new System.Drawing.Font("Garamond",(dtECOS.Length >= 11?8:12), System.Drawing.FontStyle.Bold),BackColor = System.Drawing.Color.FromArgb(200,200,200),ForeColor =System.Drawing.Color.FromArgb(75,44,52),Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter};
-                dgvcycles.RowsDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Font = new System.Drawing.Font("Garamond", (dtECOS.Length >= 11 ? 8 : 12), System.Drawing.FontStyle.Regular), BackColor = System.Drawing.Color.FromArgb(200, 200, 200), ForeColor = System.Drawing.Color.FromArgb(75, 44, 52), Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter, WrapMode = System.Windows.Forms.DataGridViewTriState.True,SelectionBackColor = System.Drawing.Color.Crimson, SelectionForeColor = System.Drawing.Color.White };
+                dgvcycles.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Font = new System.Drawing.Font("Garamond", (dtECOS.Length >= 11 ? 10 : 12), System.Drawing.FontStyle.Bold), BackColor = System.Drawing.Color.FromArgb(200, 200, 200), ForeColor = System.Drawing.Color.FromArgb(75, 44, 52), Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter };
+                dgvcycles.RowsDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Font = new System.Drawing.Font("Garamond", (dtECOS.Length >= 11 ? 8 : 10), System.Drawing.FontStyle.Regular), BackColor = System.Drawing.Color.FromArgb(200, 200, 200), ForeColor = System.Drawing.Color.FromArgb(75, 44, 52), Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter, WrapMode = System.Windows.Forms.DataGridViewTriState.True, SelectionBackColor = System.Drawing.Color.Crimson, SelectionForeColor = System.Drawing.Color.White };
                 foreach (string row in dtECOS)
                 {
                     System.Data.DataTable dt2 = new System.Data.DataTable();
@@ -648,10 +649,30 @@ namespace controlFallos
                     dt.Rows.Add(rowsw);
                 }
                 dgvcycles.DataSource = dt;
+                if (dtECOS.Length >= 11) {
+                    foreach (System.Windows.Forms.DataGridViewColumn col in dgvcycles.Columns)
+                        col.Width = 62;
+                    dgvcycles.Columns[0].Width = 62;
+                }
                 for (int i = 1; i < dgvcycles.Columns.Count; i += 3) { try { dgvcycles.Columns[i].Visible = false; } catch { } }
                 foreach (System.Windows.Forms.DataGridViewColumn column in dgvcycles.Columns)
                     column.HeaderText = column.HeaderText.Trim();
+
+                lblloadrol.Text = "Generando Horas. Espere";
+
+                var result = Owner.v.getaData("call sistrefaccmant.getDataRol(" + rolfkCRoles.Value + ") ").ToString().Split('|');
+                System.TimeSpan increment = System.TimeSpan.Parse(result[0]); System.TimeSpan incorporeHour = System.TimeSpan.Parse(result[0]);
+                int cyclesDiference = System.Convert.ToInt32(result[1]),cont=0;
+                int[] diferencies = System.Array.ConvertAll(result[2].Split(','), b => System.Convert.ToInt32(b));
+                for (int column = 2; column <dgvcycles.Columns.Count; column+=3)
+                {
+                   increment = increment.Add(System.TimeSpan.FromMinutes((column>2?diferencies[cont++]:0)));
+                    incorporeHour = increment;
+                    for (int row = 0; row < dgvcycles.Rows.Count; row++)
+                        dgvcycles.Rows[row].Cells[column].Value = ( incorporeHour = incorporeHour.Add(System.TimeSpan.FromMinutes((row>0?cyclesDiference:0)))).ToString(@"hh\:mm");
+                }
                 lblloadrol.Visible = false;
+                
                 thload.Abort();
             }
         }
@@ -661,7 +682,7 @@ namespace controlFallos
             if (e.Button != System.Windows.Forms.MouseButtons.Right) return;
             (sender as System.Windows.Forms.Button).DoDragDrop((sender as System.Windows.Forms.Button).Name.Split('|')[1], System.Windows.Forms.DragDropEffects.All);
         }
-        private void nupDurationWorkDay_ValueChanged(object sender, System.EventArgs e) => lblfinaldate.Text = dtpinitialDate.Value.AddDays((System.Convert.ToDouble(nupDurationWorkDay.Value) - 1)).ToString("dd/MMMM/yyyy");
+        private void nupDurationWorkDay_ValueChanged(object sender, System.EventArgs e) => lblfinaldate.Text = dtpinitialDate.Value.AddDays((System.Convert.ToDouble(nupDurationWorkDay.Value) - 1)).ToString("dd /MMMM/yyyy");
         private void dgvcycles_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
         {
             var res = dgvcycles.CurrentCell;
@@ -675,6 +696,7 @@ namespace controlFallos
                 e.Effect = System.Windows.Forms.DragDropEffects.None;
 
         }
+        private void dgvcycles_ColumnAdded(object sender, System.Windows.Forms.DataGridViewColumnEventArgs e) => Owner.v.paraDataGridViews_ColumnAdded(sender,e);
 
         private void cmbxTimeperiod_DrawItem(object sender, System.Windows.Forms.DrawItemEventArgs e) => Owner.v.combos_DrawItem(sender, e);
         #endregion
