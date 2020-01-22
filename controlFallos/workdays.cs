@@ -89,7 +89,7 @@ namespace controlFallos
 private void Btn_Click(object sender, EventArgs e)
         {
             if (dgvcycles.CurrentCell == null && dgvcycles.CurrentCell.ColumnIndex==0) return;
-          var rowSelected = (from DataGridViewCell cell in dgvcycles.SelectedCells where cell.ColumnIndex == dgvcycles.SelectedCells[0].ColumnIndex select cell);
+          var rowSelected = (from DataGridViewCell cell in dgvcycles.SelectedCells where cell.ColumnIndex ==   (from DataGridViewCell cell1 in dgvcycles.SelectedCells select cell.ColumnIndex).Min() select cell);
 
         }
 

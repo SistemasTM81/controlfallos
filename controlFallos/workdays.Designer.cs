@@ -31,7 +31,6 @@ namespace controlFallos
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(workdays));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pDias = new System.Windows.Forms.Panel();
             this.nupDurationWorkDay = new System.Windows.Forms.NumericUpDown();
@@ -66,6 +65,7 @@ namespace controlFallos
             this.panel6 = new System.Windows.Forms.Panel();
             this.label6 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
+            this.panel9 = new System.Windows.Forms.Panel();
             this.groupBox2.SuspendLayout();
             this.pDias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupDurationWorkDay)).BeginInit();
@@ -77,6 +77,7 @@ namespace controlFallos
             ((System.ComponentModel.ISupportInitialize)(this.dgvcycles)).BeginInit();
             this.panel5.SuspendLayout();
             this.panel8.SuspendLayout();
+            this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -400,35 +401,27 @@ namespace controlFallos
             this.dgvcycles.AllowUserToResizeRows = false;
             this.dgvcycles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvcycles.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.dgvcycles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvcycles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvcycles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvcycles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvcycles.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dgvcycles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvcycles.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvcycles.EnableHeadersVisualStyles = false;
             this.dgvcycles.GridColor = System.Drawing.Color.Crimson;
-            this.dgvcycles.Location = new System.Drawing.Point(0, 80);
+            this.dgvcycles.Location = new System.Drawing.Point(0, 0);
             this.dgvcycles.Name = "dgvcycles";
             this.dgvcycles.ReadOnly = true;
             this.dgvcycles.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dgvcycles.RowHeadersVisible = false;
             this.dgvcycles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
+            this.dgvcycles.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvcycles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvcycles.Size = new System.Drawing.Size(1905, 620);
+            this.dgvcycles.Size = new System.Drawing.Size(1904, 626);
             this.dgvcycles.TabIndex = 36;
             this.dgvcycles.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragDrop);
             this.dgvcycles.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragEnter);
@@ -522,15 +515,25 @@ namespace controlFallos
             this.panel8.Size = new System.Drawing.Size(1908, 73);
             this.panel8.TabIndex = 38;
             // 
+            // panel9
+            // 
+            this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel9.Controls.Add(this.dgvcycles);
+            this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel9.Location = new System.Drawing.Point(0, 73);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(1908, 630);
+            this.panel9.TabIndex = 39;
+            // 
             // workdays
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1908, 937);
+            this.Controls.Add(this.panel9);
             this.Controls.Add(this.panel8);
             this.Controls.Add(this.panel5);
-            this.Controls.Add(this.dgvcycles);
             this.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -552,6 +555,7 @@ namespace controlFallos
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.panel8.ResumeLayout(false);
+            this.panel9.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -597,7 +601,8 @@ namespace controlFallos
         private void createRol()
         {
             lblloadrol.Visible = true;
-            (thload = new System.Threading.Thread(new System.Threading.ThreadStart(rol))).Start();
+            thload = new System.Threading.Thread(new System.Threading.ThreadStart(rol)) { IsBackground = true };
+            thload.Start();
         }
         void rol()
         {
@@ -618,7 +623,8 @@ namespace controlFallos
                 ///dc.Unique = true;
                 dc.AutoIncrementStep = 1;
                 var dtECOS = Owner.v.getaData("call sistrefaccmant.getECOSCount(" + rolfkCRoles + ");").ToString().Split('¬');
-                if (dtECOS.Length >= 11) dgvcycles.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() {Font = new System.Drawing.Font("Garamond",10,System.Drawing.FontStyle.Regular) };
+                dgvcycles.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() {Font = new System.Drawing.Font("Garamond",(dtECOS.Length >= 11?8:12), System.Drawing.FontStyle.Bold),BackColor = System.Drawing.Color.FromArgb(200,200,200),ForeColor =System.Drawing.Color.FromArgb(75,44,52),Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter};
+                dgvcycles.RowsDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Font = new System.Drawing.Font("Garamond", (dtECOS.Length >= 11 ? 8 : 12), System.Drawing.FontStyle.Regular), BackColor = System.Drawing.Color.FromArgb(200, 200, 200), ForeColor = System.Drawing.Color.FromArgb(75, 44, 52), Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter, WrapMode = System.Windows.Forms.DataGridViewTriState.True,SelectionBackColor = System.Drawing.Color.Crimson, SelectionForeColor = System.Drawing.Color.White };
                 foreach (string row in dtECOS)
                 {
                     System.Data.DataTable dt2 = new System.Data.DataTable();
@@ -639,12 +645,10 @@ namespace controlFallos
                 for (int i = dt.Rows.Count; i < System.Convert.ToInt32(Owner.v.getaData("CALL sistrefaccmant.getMaxRoles(" + rolfkCRoles + ")")); i++)
                 {
                     System.Data.DataRow rowsw = dt.NewRow();
-                    // rowsw.ItemArray[0] = (i+1);
                     dt.Rows.Add(rowsw);
                 }
                 dgvcycles.DataSource = dt;
                 for (int i = 1; i < dgvcycles.Columns.Count; i += 3) { try { dgvcycles.Columns[i].Visible = false; } catch { } }
-                dgvcycles.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter, Font = new System.Drawing.Font("Garamond", 12, System.Drawing.FontStyle.Bold) };
                 foreach (System.Windows.Forms.DataGridViewColumn column in dgvcycles.Columns)
                     column.HeaderText = column.HeaderText.Trim();
                 lblloadrol.Visible = false;
@@ -709,5 +713,6 @@ namespace controlFallos
         private System.Windows.Forms.NumericUpDown nupDurationWorkDay;
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label lblloadrol;
+        private System.Windows.Forms.Panel panel9;
     }
 }
