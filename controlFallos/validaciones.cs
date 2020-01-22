@@ -4303,7 +4303,7 @@ namespace controlFallos
             else
                 return false;
         }
-        public bool camposRol(int idempresa, int idarea, int idservicio, string nciclos, string necos, DateTime horai, int lciclos, List<int> ecos, List<string> diferencias, int descanso, string rgode, string rgoa)
+        public bool camposRol(int idempresa, int idarea, int idservicio, string nciclos, string necos, DateTime horai, int lciclos, List<int> ecos, List<string> diferencias)
         {
             if (idempresa > 0)
                 if (idarea > 0)
@@ -4318,37 +4318,7 @@ namespace controlFallos
                                                     if (ecos.Count == Convert.ToInt32(necos))
                                                         if (diferencias != null && diferencias.Count > 0)
                                                             if (diferencias.Count == (Convert.ToInt32(necos) - 1))
-                                                                if (descanso > 0)
-                                                                    if (descanso == 2 || (descanso == 1 && !string.IsNullOrWhiteSpace(rgode) && !string.IsNullOrWhiteSpace(rgoa)))
-                                                                        if (descanso == 2 || (descanso == 1 && Convert.ToInt32(rgode) > 0 && Convert.ToInt32(rgoa) > 0))
-                                                                            if (descanso == 2 || (descanso == 1 && Convert.ToInt32(rgode) < Convert.ToInt32(rgoa)))
-                                                                                if (descanso == 2 || (descanso == 1 && Convert.ToInt32(rgode) < Convert.ToInt32(necos) && Convert.ToInt32(rgoa) < Convert.ToInt32(necos)))
-                                                                                    return true;
-                                                                                else
-                                                                                {
-                                                                                    MessageBox.Show("El" + (Convert.ToInt32(rgode) > Convert.ToInt32(necos) ? " rango de debe" : " rango a debe") + " ser menor al número de ecos");
-                                                                                    return false;
-                                                                                }
-                                                                            else
-                                                                            {
-                                                                                MessageBox.Show("El \"rango de\" debe ser menor al \"rango a\"", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                                                return false;
-                                                                            }
-                                                                        else
-                                                                        {
-                                                                            MessageBox.Show((Convert.ToInt32(rgode) == 0 && Convert.ToInt32(rgoa) == 0 ? "los campos de rango deben " : Convert.ToInt32(rgode) == 0 ? "El campo rango de debe" : "El campo rango a debe") + " ser mayor a 0", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                                            return false;
-                                                                        }
-                                                                    else
-                                                                    {
-                                                                        MessageBox.Show("Debe llenar los campos \"del ciclo\" y \"al ciclo\"", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                                        return false;
-                                                                    }
-                                                                else
-                                                                {
-                                                                    MessageBox.Show("Seleccione una opcion en la lista desplegable \"descanso\"", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                                                    return false;
-                                                                }
+                                                                return true;
                                                             else
                                                             {
                                                                 MessageBox.Show("Faltan " + ((Convert.ToInt32(necos) - 1) - diferencias.Count) + " diferencias de tiempo, por establecer", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
