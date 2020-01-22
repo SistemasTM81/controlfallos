@@ -88,7 +88,7 @@ namespace controlFallos
 
 private void Btn_Click(object sender, EventArgs e)
         {
-            if (dgvcycles.CurrentCell == null && dgvcycles.CurrentCell.ColumnIndex==0) return;
+            if (dgvcycles.CurrentCell == null || dgvcycles.CurrentCell.ColumnIndex==0) return;
           var rowSelected = (from DataGridViewCell cell in dgvcycles.SelectedCells where cell.ColumnIndex ==   (from DataGridViewCell cell1 in dgvcycles.SelectedCells select cell.ColumnIndex).Min() select cell);
 
         }
@@ -98,8 +98,9 @@ private void Btn_Click(object sender, EventArgs e)
             Point dscreen = new Point(e.X, e.Y);
             Point dclient = dgvcycles.PointToClient(dscreen);
             DataGridView.HitTestInfo hitTest = dgvcycles.HitTest(dclient.X, dclient.Y);
-            if ((hitTest.RowIndex) >= 0 && hitTest.ColumnIndex >= 0) dgvcycles.CurrentCell = dgvcycles.Rows[(hitTest.RowIndex)].Cells[hitTest.ColumnIndex];
+            if ((hitTest.RowIndex) >= 0 && hitTest.ColumnIndex >= 3 && !dgvcycles.Columns[hitTest.ColumnIndex].HeaderText.Equals("HORA")) dgvcycles.CurrentCell = dgvcycles.Rows[(hitTest.RowIndex)].Cells[hitTest.ColumnIndex]; else dgvcycles.CurrentCell = null;
         }
+
 
         private void dgvcycles_MouseDown(object sender, MouseEventArgs e)
         {
