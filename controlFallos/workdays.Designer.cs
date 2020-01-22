@@ -398,27 +398,10 @@
             this.dgvcycles.AllowUserToDeleteRows = false;
             this.dgvcycles.AllowUserToResizeColumns = false;
             this.dgvcycles.AllowUserToResizeRows = false;
-<<<<<<< HEAD
-            this.dgvcycles.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-
-=======
->>>>>>> e464e6dccf0ac20a780455d163369ed5d96fe9d4
             this.dgvcycles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvcycles.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dgvcycles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvcycles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-<<<<<<< HEAD
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvcycles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dgvcycles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-=======
->>>>>>> e464e6dccf0ac20a780455d163369ed5d96fe9d4
             this.dgvcycles.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.Disable;
             this.dgvcycles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgvcycles.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -441,10 +424,6 @@
             this.dgvcycles.Size = new System.Drawing.Size(1904, 626);
             this.dgvcycles.StandardTab = true;
             this.dgvcycles.TabIndex = 36;
-<<<<<<< HEAD
-            this.dgvcycles.TabStop = false;
-=======
->>>>>>> e464e6dccf0ac20a780455d163369ed5d96fe9d4
             this.dgvcycles.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvcycles_ColumnAdded);
             this.dgvcycles.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragDrop);
             this.dgvcycles.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragEnter);
@@ -639,10 +618,6 @@
                 dgvcycles.DataSource = null;
                 //  if (serviceID.HasValue)
                 // {
-<<<<<<< HEAD
-
-=======
->>>>>>> e464e6dccf0ac20a780455d163369ed5d96fe9d4
                 System.Data.DataTable dt = new System.Data.DataTable("Rol De Servicio");
                 System.Data.DataColumn dc = new System.Data.DataColumn() { AutoIncrement = true, ColumnName = "CICLO", DataType = typeof(long), AutoIncrementSeed = 1 };
                 dt.Columns.Add(dc);
@@ -707,15 +682,9 @@
             if (e.Button != System.Windows.Forms.MouseButtons.Right) return;
             (sender as System.Windows.Forms.Button).DoDragDrop((sender as System.Windows.Forms.Button).Name.Split('|')[1], System.Windows.Forms.DragDropEffects.All);
         }
-<<<<<<< HEAD
-         private void nupDurationWorkDay_ValueChanged(object sender, System.EventArgs e) => lblfinaldate.Text = dtpinitialDate.Value.AddDays((System.Convert.ToDouble(nupDurationWorkDay.Value) - 1)).ToString("dd/MMMM/yyyy");
-        private void dgvcycles_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
-      {
-=======
         private void nupDurationWorkDay_ValueChanged(object sender, System.EventArgs e) => lblfinaldate.Text = dtpinitialDate.Value.AddDays((System.Convert.ToDouble(nupDurationWorkDay.Value) - 1)).ToString("dd /MMMM/yyyy");
         private void dgvcycles_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
         {
->>>>>>> e464e6dccf0ac20a780455d163369ed5d96fe9d4
             var res = dgvcycles.CurrentCell;
             System.Windows.Forms.MessageBox.Show(e.Data.GetData(System.Windows.Forms.DataFormats.Text).ToString());
         }
