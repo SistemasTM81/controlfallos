@@ -1,5 +1,4 @@
-﻿
-namespace controlFallos
+﻿namespace controlFallos
 {
     partial class workdays
     {
