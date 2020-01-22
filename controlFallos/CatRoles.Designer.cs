@@ -28,10 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbaddpasillo = new System.Windows.Forms.GroupBox();
+            this.gbecos = new System.Windows.Forms.GroupBox();
+            this.pgif = new System.Windows.Forms.Panel();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.lblunidades = new System.Windows.Forms.Label();
             this.pblogo = new System.Windows.Forms.PictureBox();
             this.gbxdiferencia = new System.Windows.Forms.GroupBox();
             this.padd = new System.Windows.Forms.Panel();
@@ -41,14 +51,6 @@
             this.txtdiferencia = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.lbltexto = new System.Windows.Forms.Label();
-            this.gbecos = new System.Windows.Forms.GroupBox();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.lblunidades = new System.Windows.Forms.Label();
-            this.paddeco = new System.Windows.Forms.Panel();
             this.pstatus = new System.Windows.Forms.Panel();
             this.lblstatus = new System.Windows.Forms.Label();
             this.btnstatus = new System.Windows.Forms.Button();
@@ -108,12 +110,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelEmpresa = new System.Windows.Forms.Button();
             this.gbaddpasillo.SuspendLayout();
+            this.gbecos.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pblogo)).BeginInit();
             this.gbxdiferencia.SuspendLayout();
             this.padd.SuspendLayout();
             this.pdatos.SuspendLayout();
-            this.gbecos.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.pstatus.SuspendLayout();
             this.ptabla.SuspendLayout();
             this.gbpasillos.SuspendLayout();
@@ -130,9 +132,9 @@
             // gbaddpasillo
             // 
             this.gbaddpasillo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.gbaddpasillo.Controls.Add(this.gbecos);
             this.gbaddpasillo.Controls.Add(this.pblogo);
             this.gbaddpasillo.Controls.Add(this.gbxdiferencia);
-            this.gbaddpasillo.Controls.Add(this.gbecos);
             this.gbaddpasillo.Controls.Add(this.pstatus);
             this.gbaddpasillo.Controls.Add(this.ptabla);
             this.gbaddpasillo.Controls.Add(this.label2);
@@ -146,6 +148,87 @@
             this.gbaddpasillo.Size = new System.Drawing.Size(1908, 937);
             this.gbaddpasillo.TabIndex = 33;
             this.gbaddpasillo.TabStop = false;
+            // 
+            // gbecos
+            // 
+            this.gbecos.Controls.Add(this.pgif);
+            this.gbecos.Controls.Add(this.label24);
+            this.gbecos.Controls.Add(this.label20);
+            this.gbecos.Controls.Add(this.label19);
+            this.gbecos.Controls.Add(this.label18);
+            this.gbecos.Controls.Add(this.panel1);
+            this.gbecos.Enabled = false;
+            this.gbecos.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbecos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.gbecos.Location = new System.Drawing.Point(829, 18);
+            this.gbecos.Name = "gbecos";
+            this.gbecos.Size = new System.Drawing.Size(1071, 257);
+            this.gbecos.TabIndex = 85;
+            this.gbecos.TabStop = false;
+            this.gbecos.Text = "Seleccionar ecos";
+            // 
+            // pgif
+            // 
+            this.pgif.Location = new System.Drawing.Point(6, 30);
+            this.pgif.Name = "pgif";
+            this.pgif.Size = new System.Drawing.Size(1061, 138);
+            this.pgif.TabIndex = 0;
+            // 
+            // label24
+            // 
+            this.label24.BackColor = System.Drawing.Color.Khaki;
+            this.label24.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.Location = new System.Drawing.Point(1032, 171);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(18, 18);
+            this.label24.TabIndex = 86;
+            // 
+            // label20
+            // 
+            this.label20.BackColor = System.Drawing.Color.PaleGreen;
+            this.label20.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label20.Location = new System.Drawing.Point(860, 170);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(18, 18);
+            this.label20.TabIndex = 85;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.Location = new System.Drawing.Point(896, 171);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(130, 18);
+            this.label19.TabIndex = 84;
+            this.label19.Text = "Unidades ocupadas";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.Location = new System.Drawing.Point(717, 170);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(142, 18);
+            this.label18.TabIndex = 83;
+            this.label18.Text = "Unidades disponibles";
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.lblunidades);
+            this.panel1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.panel1.Location = new System.Drawing.Point(7, 192);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(1058, 61);
+            this.panel1.TabIndex = 1;
+            // 
+            // lblunidades
+            // 
+            this.lblunidades.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblunidades.Location = new System.Drawing.Point(3, 7);
+            this.lblunidades.Margin = new System.Windows.Forms.Padding(0);
+            this.lblunidades.Name = "lblunidades";
+            this.lblunidades.Size = new System.Drawing.Size(1049, 49);
+            this.lblunidades.TabIndex = 86;
             // 
             // pblogo
             // 
@@ -255,87 +338,6 @@
             this.lbltexto.TabIndex = 85;
             this.lbltexto.Text = "Diferencia de tiempo entre unida 1 y 2:";
             // 
-            // gbecos
-            // 
-            this.gbecos.Controls.Add(this.label24);
-            this.gbecos.Controls.Add(this.label20);
-            this.gbecos.Controls.Add(this.label19);
-            this.gbecos.Controls.Add(this.label18);
-            this.gbecos.Controls.Add(this.panel1);
-            this.gbecos.Controls.Add(this.paddeco);
-            this.gbecos.Enabled = false;
-            this.gbecos.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbecos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbecos.Location = new System.Drawing.Point(829, 19);
-            this.gbecos.Name = "gbecos";
-            this.gbecos.Size = new System.Drawing.Size(1071, 257);
-            this.gbecos.TabIndex = 85;
-            this.gbecos.TabStop = false;
-            this.gbecos.Text = "Seleccionar ecos";
-            // 
-            // label24
-            // 
-            this.label24.BackColor = System.Drawing.Color.Khaki;
-            this.label24.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.Location = new System.Drawing.Point(1032, 171);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(18, 18);
-            this.label24.TabIndex = 86;
-            // 
-            // label20
-            // 
-            this.label20.BackColor = System.Drawing.Color.PaleGreen;
-            this.label20.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(860, 170);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(18, 18);
-            this.label20.TabIndex = 85;
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label19.Location = new System.Drawing.Point(896, 171);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(130, 18);
-            this.label19.TabIndex = 84;
-            this.label19.Text = "Unidades ocupadas";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(717, 170);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(142, 18);
-            this.label18.TabIndex = 83;
-            this.label18.Text = "Unidades disponibles";
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.lblunidades);
-            this.panel1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.panel1.Location = new System.Drawing.Point(7, 192);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1058, 61);
-            this.panel1.TabIndex = 1;
-            // 
-            // lblunidades
-            // 
-            this.lblunidades.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblunidades.Location = new System.Drawing.Point(3, 7);
-            this.lblunidades.Margin = new System.Windows.Forms.Padding(0);
-            this.lblunidades.Name = "lblunidades";
-            this.lblunidades.Size = new System.Drawing.Size(1049, 49);
-            this.lblunidades.TabIndex = 86;
-            // 
-            // paddeco
-            // 
-            this.paddeco.Location = new System.Drawing.Point(6, 30);
-            this.paddeco.Name = "paddeco";
-            this.paddeco.Size = new System.Drawing.Size(1061, 138);
-            this.paddeco.TabIndex = 0;
-            // 
             // pstatus
             // 
             this.pstatus.Controls.Add(this.lblstatus);
@@ -400,26 +402,26 @@
             this.dgvroles.AllowUserToDeleteRows = false;
             this.dgvroles.AllowUserToResizeColumns = false;
             this.dgvroles.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle31.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle31;
             this.dgvroles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvroles.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dgvroles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvroles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle32.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle32;
             this.dgvroles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvroles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -432,6 +434,14 @@
             this.lapsoCiclos,
             this.supervisor,
             this.status});
+            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle33.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle33.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvroles.DefaultCellStyle = dataGridViewCellStyle33;
             this.dgvroles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvroles.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvroles.EnableHeadersVisualStyles = false;
@@ -441,15 +451,23 @@
             this.dgvroles.MultiSelect = false;
             this.dgvroles.Name = "dgvroles";
             this.dgvroles.ReadOnly = true;
+            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle34.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.RowHeadersDefaultCellStyle = dataGridViewCellStyle34;
             this.dgvroles.RowHeadersVisible = false;
             this.dgvroles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvroles.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle35.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvroles.RowsDefaultCellStyle = dataGridViewCellStyle35;
             this.dgvroles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvroles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvroles.ShowCellErrors = false;
@@ -521,10 +539,11 @@
             // 
             // supervisor
             // 
+            this.supervisor.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.supervisor.HeaderText = "PERSONA QUE DÍO DE ALTA";
             this.supervisor.Name = "supervisor";
             this.supervisor.ReadOnly = true;
-            this.supervisor.Width = 310;
+            this.supervisor.Width = 195;
             // 
             // status
             // 
@@ -634,7 +653,7 @@
             this.ptime.Controls.Add(this.btntime);
             this.ptime.Location = new System.Drawing.Point(319, 348);
             this.ptime.Name = "ptime";
-            this.ptime.Size = new System.Drawing.Size(294, 39);
+            this.ptime.Size = new System.Drawing.Size(297, 39);
             this.ptime.TabIndex = 88;
             this.ptime.Visible = false;
             // 
@@ -766,7 +785,7 @@
             this.cmbdescanso.Size = new System.Drawing.Size(160, 25);
             this.cmbdescanso.TabIndex = 85;
             this.cmbdescanso.SelectedIndexChanged += new System.EventHandler(this.cmbdescanso_SelectedIndexChanged);
-            this.cmbdescanso.SelectedValueChanged += new System.EventHandler(this.cmbdescanso_SelectedValueChanged);
+            this.cmbdescanso.SelectedValueChanged += new System.EventHandler(this.cmbempresa_SelectedValueChanged);
             // 
             // label11
             // 
@@ -1067,14 +1086,14 @@
             this.Load += new System.EventHandler(this.CatRoles_Load);
             this.gbaddpasillo.ResumeLayout(false);
             this.gbaddpasillo.PerformLayout();
+            this.gbecos.ResumeLayout(false);
+            this.gbecos.PerformLayout();
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pblogo)).EndInit();
             this.gbxdiferencia.ResumeLayout(false);
             this.padd.ResumeLayout(false);
             this.pdatos.ResumeLayout(false);
             this.pdatos.PerformLayout();
-            this.gbecos.ResumeLayout(false);
-            this.gbecos.PerformLayout();
-            this.panel1.ResumeLayout(false);
             this.pstatus.ResumeLayout(false);
             this.pstatus.PerformLayout();
             this.ptabla.ResumeLayout(false);
@@ -1128,16 +1147,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown nudlapso;
         private System.Windows.Forms.Panel psave;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idempresa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idarea;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idservicio;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nciclos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ecos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hincorporo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn lapsoCiclos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn supervisor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.Panel pstatus;
         private System.Windows.Forms.Label lblstatus;
         private System.Windows.Forms.Button btnstatus;
@@ -1153,17 +1162,9 @@
         private System.Windows.Forms.Panel ptime;
         private System.Windows.Forms.Button btntime;
         private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.GroupBox gbecos;
-        private System.Windows.Forms.Panel paddeco;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lblunidades;
         private System.Windows.Forms.Panel pselectecos;
         private System.Windows.Forms.Label lblecos;
         private System.Windows.Forms.Button btnecos;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label18;
         private System.Windows.Forms.GroupBox gbxdiferencia;
         private System.Windows.Forms.PictureBox pblogo;
         private System.Windows.Forms.Panel pdatos;
@@ -1174,5 +1175,23 @@
         private System.Windows.Forms.Panel padd;
         private System.Windows.Forms.Button btnadd;
         private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idempresa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idarea;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idservicio;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nciclos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ecos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn hincorporo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn lapsoCiclos;
+        private System.Windows.Forms.DataGridViewTextBoxColumn supervisor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private System.Windows.Forms.GroupBox gbecos;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label lblunidades;
+        private System.Windows.Forms.Panel pgif;
     }
 }
