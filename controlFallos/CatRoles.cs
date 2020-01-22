@@ -16,7 +16,7 @@ namespace controlFallos
     {
         validaciones v;
         Button boton;
-        int idUsuario, idRol, empresaAnterior, areaArenterior, servicioAnterior, ciclosAnterior, ecosAnterior, lapsoAnterior, statusAnterior, x = 5, y = 5, contador = 0, c = 0, diferenciaA, descansoAnterior;
+        int idUsuario, idRol, empresaAnterior, areaArenterior, servicioAnterior, ciclosAnterior, ecosAnterior, lapsoAnterior, statusAnterior, x = 5, y = 5, contador = 0, c = 0, diferenciaA;
         List<int> unidades;
         List<int> unidadesAnterior;
         List<string> diferenciaAnterior;
@@ -42,11 +42,9 @@ namespace controlFallos
             cmbempresa.DrawItem += v.combos_DrawItem;
             cmbarea.DrawItem += v.combos_DrawItem;
             cmbservicio.DrawItem += v.combos_DrawItem;
-            cmbdescanso.DrawItem += v.combos_DrawItem;
             cmbempresa.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cmbarea.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cmbservicio.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
-            cmbdescanso.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
         }
         bool getboolfromint(int i)
         {
@@ -76,7 +74,6 @@ namespace controlFallos
                 this.Invoke(e);
             }
             v.iniCombos("call sistrefaccmant.companieswithstatus();", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
-            v.comboswithuot(cmbdescanso, new string[] { "--seleccione--", "si", "no" });
             hempresas.Abort();
         }
         void pecos()
@@ -88,9 +85,7 @@ namespace controlFallos
             }
             DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbservicio.SelectedValue + "');");
             foreach (DataRow item in dt.Rows)
-            {
                 createcontrols(item.ItemArray[0], item.ItemArray[1]);
-            }
             thunidades.Abort();
         }
         void createcontrols(object id, object text)
@@ -238,7 +233,20 @@ namespace controlFallos
 
             }
         }
+        void deletefromlist()
+        {
+            if (editar)
+            {
+                if (Convert.ToInt32(txtecos.Text) != ecosAnterior)
+                    unidades = new List<int>(Convert.ToInt32(txtecos.Text));
+                for (int i = 0; i < (Convert.ToInt32(txtecos.Text) <= ecosAnterior ? Convert.ToInt32(txtecos.Text) : unidadesAnterior.Count); i++)
+                    unidades.Add(unidadesAnterior[i]);
+            }
+            else
+            {
 
+            }
+        }
         private void cmbservicio_SelectedValueChanged(object sender, EventArgs e)
         {
             if (cmbservicio.SelectedIndex > 0)
@@ -260,19 +268,6 @@ namespace controlFallos
         private void dgvroles_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
         {
             MessageBox.Show(e.ColumnIndex.ToString());
-        }
-
-        private void cmbdescanso_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbdescanso.SelectedIndex > 0)
-                pdescansos.Visible = (Convert.ToInt32(cmbdescanso.SelectedIndex) == 1 ? true : false);
-            else
-                pdescansos.Visible = false;
-            if (cmbdescanso.SelectedIndex == 2)
-            {
-                txtciclode.Clear();
-                txtcicloa.Clear();
-            }
         }
 
         private void lbxdiferencias_DoubleClick(object sender, EventArgs e)
@@ -306,7 +301,10 @@ namespace controlFallos
             gbxdiferencia.Enabled = true;
             pdatos.Visible = padd.Visible = (editar ? false : true);
             if (!editar)
-                diferencia = new List<string>(Convert.ToInt32(txtecos.Text));
+            {
+                if (diferencia == null)
+                    diferencia = new List<string>(Convert.ToInt32(txtecos.Text));
+            }
             else
             {
                 if ((Convert.ToInt32(txtecos.Text) - 1) != diferencia.Count)
@@ -350,11 +348,11 @@ namespace controlFallos
 
         private void btnguardar_Click(object sender, EventArgs e)
         {
-            if (v.camposRol(Convert.ToInt32(cmbempresa.SelectedValue), Convert.ToInt32(cmbarea.SelectedValue), Convert.ToInt32(cmbservicio.SelectedValue), txtciclos.Text, txtecos.Text, dtpincorporo.Value, Convert.ToInt32(nudlapso.Value), unidades, diferencia, cmbdescanso.SelectedIndex, txtciclode.Text, txtcicloa.Text))
+            if (v.camposRol(Convert.ToInt32(cmbempresa.SelectedValue), Convert.ToInt32(cmbarea.SelectedValue), Convert.ToInt32(cmbservicio.SelectedValue), txtciclos.Text, txtecos.Text, dtpincorporo.Value, Convert.ToInt32(nudlapso.Value), unidades, diferencia))
                 if (!v.existeRol(Convert.ToInt32(cmbservicio.SelectedValue), idRol))
                     if (!editar)
                     {
-                        if (v.c.insertar("Insert into croles(serviciofkcservicios, nciclos, necos, horaincorporo, diffciclos, descanso" + (cmbdescanso.SelectedIndex == 1 ? ",rangodescanso" : "") + ", timediference, usuariofkcpersonal) values('" + cmbservicio.SelectedValue + "', '" + Convert.ToInt32(txtciclos.Text) + "', '" + Convert.ToInt32(txtecos.Text) + "', '" + dtpincorporo.Value.ToString("HH:mm:ss") + "', '" + nudlapso.Value + "','" + cmbdescanso.SelectedValue + "'" + (cmbdescanso.SelectedIndex == 1 ? ",'" + (txtciclode.Text + "|" + txtcicloa.Text) + "'" : "") + ",'" + cadena(diferencia) + "', '" + idUsuario + "')"))
+                        if (v.c.insertar("Insert into croles(serviciofkcservicios, nciclos, necos, horaincorporo, diffciclos, timediference, usuariofkcpersonal) values('" + cmbservicio.SelectedValue + "', '" + Convert.ToInt32(txtciclos.Text) + "', '" + Convert.ToInt32(txtecos.Text) + "', '" + dtpincorporo.Value.ToString("HH:mm:ss") + "', '" + nudlapso.Value + "','" + cadena(diferencia) + "', '" + idUsuario + "')"))
                             if (insertre())
                                 if (v.c.insertar("insert into modificaciones_sistema(form,idregistro,usuariofkcpersonal,fechaHora,Tipo,empresa,area) values('Catálogo de Roles','" + v.getaData("select idrol from croles where serviciofkcservicios='" + cmbservicio.SelectedValue + "';") + "','" + idUsuario + "',now(),'Inserción de Rol','1','1')"))
                                 {
@@ -371,7 +369,7 @@ namespace controlFallos
                         if (o.ShowDialog() == DialogResult.OK)
                         {
                             string motivo = o.txtgetedicion.Text.Trim();
-                            if (v.c.insertar("update croles set serviciofkcservicios='" + cmbservicio.SelectedValue + "',nciclos='" + Convert.ToInt32(txtciclos.Text) + "',necos='" + Convert.ToInt32(txtecos.Text) + "',horaincorporo='" + dtpincorporo.Value.ToString("HH:mm:ss") + "',diffciclos='" + nudlapso.Value + "', descanso='" + cmbdescanso.SelectedValue + "'" + (cmbdescanso.SelectedIndex == 1 ? ",rangodescanso='" + (txtciclode.Text + "|" + txtcicloa.Text) + "' " : ",rangodescanso=NULL") + ",timediference='" + cadena(diferencia) + "' where idrol='" + idRol + "'"))
+                            if (v.c.insertar("update croles set serviciofkcservicios='" + cmbservicio.SelectedValue + "',nciclos='" + Convert.ToInt32(txtciclos.Text) + "',necos='" + Convert.ToInt32(txtecos.Text) + "',horaincorporo='" + dtpincorporo.Value.ToString("HH:mm:ss") + "',diffciclos='" + nudlapso.Value + "',timediference='" + cadena(diferencia) + "' where idrol='" + idRol + "'"))
                                 if (insertre())
                                     if (v.c.insertar("insert into modificaciones_sistema(form,idregistro,ultimaModificacion,usuariofkcpersonal,fechaHora,Tipo,motivoActualizacion,empresa,area) values('Catálogo de Roles','" + idRol + "','" + servicioAnterior + ";" + ciclosAnterior + ";" + ecosAnterior + ";" + horaAnterior.ToString("HH:mm") + ";" + lapsoAnterior + ";" + cadena(diferenciaAnterior) + "','" + idUsuario + "',now(),'Actualización de Rol','" + v.mayusculas(motivo) + "','1','1')"))
                                     {
@@ -435,11 +433,11 @@ namespace controlFallos
         bool cambios()
         {
             bool res = false;
-            if ((Convert.ToInt32(cmbempresa.SelectedValue) != empresaAnterior || Convert.ToInt32(cmbdescanso.SelectedValue) != descansoAnterior || Convert.ToInt32(cmbarea.SelectedValue) != areaArenterior || Convert.ToInt32(cmbservicio.SelectedValue) != servicioAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtciclos.Text) ? "0" : txtciclos.Text)) != ciclosAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtecos.Text) ? "0" : txtecos.Text)) != ecosAnterior || dtpincorporo.Value.ToString("HH:mm") != horaAnterior.ToString("HH:mm") || nudlapso.Value != lapsoAnterior || (unidadesAnterior != null && unidadesAnterior != null && diferenciaAnterior != null && diferencia != null && changesinlist())))
+            if ((Convert.ToInt32(cmbempresa.SelectedValue) != empresaAnterior || Convert.ToInt32(cmbarea.SelectedValue) != areaArenterior || Convert.ToInt32(cmbservicio.SelectedValue) != servicioAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtciclos.Text) ? "0" : txtciclos.Text)) != ciclosAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtecos.Text) ? "0" : txtecos.Text)) != ecosAnterior || dtpincorporo.Value.ToString("HH:mm") != horaAnterior.ToString("HH:mm") || nudlapso.Value != lapsoAnterior || (unidadesAnterior != null && unidadesAnterior != null && diferenciaAnterior != null && diferencia != null && changesinlist())))
             {
                 if (empresaAnterior == 0 || areaArenterior == 0 || servicioAnterior == 0 || ciclosAnterior == 0 || ecosAnterior == 0 || horaAnterior.Hour == 0 || lapsoAnterior == 0)
                     nuevo = true;
-                if (cmbempresa.SelectedIndex > 0 && cmbarea.SelectedIndex > 0 && cmbservicio.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtciclos.Text) && cmbdescanso.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtecos.Text) && statusAnterior > 0)
+                if (cmbempresa.SelectedIndex > 0 && cmbarea.SelectedIndex > 0 && cmbservicio.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtciclos.Text) && !string.IsNullOrWhiteSpace(txtecos.Text) && statusAnterior > 0)
                     res = true;
                 return res;
             }
@@ -471,7 +469,7 @@ namespace controlFallos
             }
             lblunidades.Text = "";
             mostrarEmpresas();
-            nudlapso.Value = cmbempresa.SelectedIndex = empresaAnterior = areaArenterior = servicioAnterior = ciclosAnterior = ecosAnterior = lapsoAnterior = descansoAnterior = contador = idRol = 0;
+            nudlapso.Value = cmbempresa.SelectedIndex = empresaAnterior = areaArenterior = servicioAnterior = ciclosAnterior = ecosAnterior = lapsoAnterior  = contador = idRol = 0;
             txtecos.Clear();
             txtciclos.Clear();
             lbxdiferencias.Items.Clear();
@@ -504,7 +502,7 @@ namespace controlFallos
         void cargarDatos(DataGridViewCellEventArgs e)
         {
             limpiar();
-            string[] datosrol = v.getaData("select concat(serviciofkcservicios,'|',nciclos,'|',necos,'|',date_format(horaincorporo,'%H:%i'),'|',diffciclos,'|',status,'|',timediference,'|',descanso,'|',coalesce(rangodescanso,''))  from croles where idrol='" + (idRol = Convert.ToInt32(dgvroles.Rows[e.RowIndex].Cells[0].Value)) + "'").ToString().Split('|');
+            string[] datosrol = v.getaData("select concat(serviciofkcservicios,'|',nciclos,'|',necos,'|',date_format(horaincorporo,'%H:%i'),'|',diffciclos,'|',status,'|',timediference)  from croles where idrol='" + (idRol = Convert.ToInt32(dgvroles.Rows[e.RowIndex].Cells[0].Value)) + "'").ToString().Split('|');
             empresaAnterior = Convert.ToInt32(v.getaData("select idempresa from cempresas as t1 inner join careas as t2 on t1.idempresa=t2.empresafkcempresas inner join cservicios as t3 on t2.idarea=t3.AreafkCareas where t3.idservicio='" + (servicioAnterior = Convert.ToInt32(datosrol[0])) + "';"));
             if (Convert.ToInt32(v.getaData("select status from cempresas where idempresa='" + empresaAnterior + "'")) == 0)
                 v.iniCombos("select idempresa as id, upper(nombreEmpresa)as nombre from cempresas where status='1' or idempresa='" + empresaAnterior + "' order by nombreEmpresa;", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
@@ -521,12 +519,6 @@ namespace controlFallos
             dtpincorporo.Value = horaAnterior = DateTime.Parse(datosrol[3]);
             nudlapso.Value = lapsoAnterior = Convert.ToInt32(datosrol[4]);
             lblstatus.Text = ((statusAnterior = Convert.ToInt32(datosrol[5])) == 1 ? "Desactivar" : "Reactivar");
-            cmbdescanso.SelectedValue = descansoAnterior = Convert.ToInt32(datosrol[7]);
-            if (Convert.ToInt32(datosrol[7]) == 1)
-            {
-                txtciclode.Text = datosrol[8];
-                txtcicloa.Text = datosrol[9];
-            }
             btnstatus.BackgroundImage = (statusAnterior == 1 ? controlFallos.Properties.Resources.delete__4_ : controlFallos.Properties.Resources.up);
             btnguardar.BackgroundImage = controlFallos.Properties.Resources.pencil;
             pstatus.Visible = (pdesactivar ? true : false);
