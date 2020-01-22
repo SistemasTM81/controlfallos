@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbaddpasillo = new System.Windows.Forms.GroupBox();
             this.gbecos = new System.Windows.Forms.GroupBox();
             this.pgif = new System.Windows.Forms.Panel();
@@ -74,7 +74,7 @@
             this.lblecos = new System.Windows.Forms.Label();
             this.btnecos = new System.Windows.Forms.Button();
             this.ptime = new System.Windows.Forms.Panel();
-            this.label25 = new System.Windows.Forms.Label();
+            this.lbldiff = new System.Windows.Forms.Label();
             this.btntime = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.pdescansos = new System.Windows.Forms.Panel();
@@ -162,7 +162,7 @@
             this.gbecos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.gbecos.Location = new System.Drawing.Point(829, 18);
             this.gbecos.Name = "gbecos";
-            this.gbecos.Size = new System.Drawing.Size(1071, 257);
+            this.gbecos.Size = new System.Drawing.Size(1071, 249);
             this.gbecos.TabIndex = 85;
             this.gbecos.TabStop = false;
             this.gbecos.Text = "Seleccionar ecos";
@@ -218,7 +218,7 @@
             this.panel1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.panel1.Location = new System.Drawing.Point(7, 192);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1058, 61);
+            this.panel1.Size = new System.Drawing.Size(1058, 46);
             this.panel1.TabIndex = 1;
             // 
             // lblunidades
@@ -227,7 +227,7 @@
             this.lblunidades.Location = new System.Drawing.Point(3, 7);
             this.lblunidades.Margin = new System.Windows.Forms.Padding(0);
             this.lblunidades.Name = "lblunidades";
-            this.lblunidades.Size = new System.Drawing.Size(1049, 49);
+            this.lblunidades.Size = new System.Drawing.Size(1049, 37);
             this.lblunidades.TabIndex = 86;
             // 
             // pblogo
@@ -249,9 +249,9 @@
             this.gbxdiferencia.Enabled = false;
             this.gbxdiferencia.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxdiferencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbxdiferencia.Location = new System.Drawing.Point(832, 291);
+            this.gbxdiferencia.Location = new System.Drawing.Point(832, 264);
             this.gbxdiferencia.Name = "gbxdiferencia";
-            this.gbxdiferencia.Size = new System.Drawing.Size(570, 315);
+            this.gbxdiferencia.Size = new System.Drawing.Size(570, 342);
             this.gbxdiferencia.TabIndex = 86;
             this.gbxdiferencia.TabStop = false;
             this.gbxdiferencia.Text = "Diferencia de tiempo entre unidades";
@@ -259,7 +259,7 @@
             // padd
             // 
             this.padd.Controls.Add(this.btnadd);
-            this.padd.Location = new System.Drawing.Point(504, 40);
+            this.padd.Location = new System.Drawing.Point(504, 19);
             this.padd.Name = "padd";
             this.padd.Size = new System.Drawing.Size(38, 39);
             this.padd.TabIndex = 90;
@@ -287,9 +287,9 @@
             this.lbxdiferencias.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.lbxdiferencias.FormattingEnabled = true;
             this.lbxdiferencias.ItemHeight = 18;
-            this.lbxdiferencias.Location = new System.Drawing.Point(13, 93);
+            this.lbxdiferencias.Location = new System.Drawing.Point(13, 64);
             this.lbxdiferencias.Name = "lbxdiferencias";
-            this.lbxdiferencias.Size = new System.Drawing.Size(529, 200);
+            this.lbxdiferencias.Size = new System.Drawing.Size(529, 272);
             this.lbxdiferencias.TabIndex = 88;
             this.lbxdiferencias.DoubleClick += new System.EventHandler(this.lbxdiferencias_DoubleClick);
             // 
@@ -298,9 +298,9 @@
             this.pdatos.Controls.Add(this.txtdiferencia);
             this.pdatos.Controls.Add(this.label27);
             this.pdatos.Controls.Add(this.lbltexto);
-            this.pdatos.Location = new System.Drawing.Point(13, 40);
+            this.pdatos.Location = new System.Drawing.Point(8, 27);
             this.pdatos.Name = "pdatos";
-            this.pdatos.Size = new System.Drawing.Size(481, 38);
+            this.pdatos.Size = new System.Drawing.Size(481, 30);
             this.pdatos.TabIndex = 87;
             this.pdatos.Visible = false;
             // 
@@ -311,7 +311,7 @@
             this.txtdiferencia.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtdiferencia.Font = new System.Drawing.Font("Garamond", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtdiferencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtdiferencia.Location = new System.Drawing.Point(353, 5);
+            this.txtdiferencia.Location = new System.Drawing.Point(312, 4);
             this.txtdiferencia.MaxLength = 2;
             this.txtdiferencia.Name = "txtdiferencia";
             this.txtdiferencia.ShortcutsEnabled = false;
@@ -323,7 +323,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.Location = new System.Drawing.Point(351, 19);
+            this.label27.Location = new System.Drawing.Point(310, 17);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(61, 9);
             this.label27.TabIndex = 87;
@@ -332,9 +332,10 @@
             // lbltexto
             // 
             this.lbltexto.AutoSize = true;
-            this.lbltexto.Location = new System.Drawing.Point(4, 7);
+            this.lbltexto.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltexto.Location = new System.Drawing.Point(4, 4);
             this.lbltexto.Name = "lbltexto";
-            this.lbltexto.Size = new System.Drawing.Size(332, 24);
+            this.lbltexto.Size = new System.Drawing.Size(302, 21);
             this.lbltexto.TabIndex = 85;
             this.lbltexto.Text = "Diferencia de tiempo entre unida 1 y 2:";
             // 
@@ -402,26 +403,26 @@
             this.dgvroles.AllowUserToDeleteRows = false;
             this.dgvroles.AllowUserToResizeColumns = false;
             this.dgvroles.AllowUserToResizeRows = false;
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle31.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvroles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvroles.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dgvroles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvroles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle32.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvroles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvroles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -434,14 +435,14 @@
             this.lapsoCiclos,
             this.supervisor,
             this.status});
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle33.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle33.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvroles.DefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvroles.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvroles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvroles.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvroles.EnableHeadersVisualStyles = false;
@@ -451,23 +452,23 @@
             this.dgvroles.MultiSelect = false;
             this.dgvroles.Name = "dgvroles";
             this.dgvroles.ReadOnly = true;
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle34.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle34.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle34.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle34.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle34.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.RowHeadersDefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvroles.RowHeadersVisible = false;
             this.dgvroles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle35.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle35.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle35.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle35.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvroles.RowsDefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvroles.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dgvroles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvroles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvroles.ShowCellErrors = false;
@@ -649,7 +650,7 @@
             // 
             // ptime
             // 
-            this.ptime.Controls.Add(this.label25);
+            this.ptime.Controls.Add(this.lbldiff);
             this.ptime.Controls.Add(this.btntime);
             this.ptime.Location = new System.Drawing.Point(319, 348);
             this.ptime.Name = "ptime";
@@ -657,15 +658,15 @@
             this.ptime.TabIndex = 88;
             this.ptime.Visible = false;
             // 
-            // label25
+            // lbldiff
             // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label25.Location = new System.Drawing.Point(48, 9);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(247, 21);
-            this.label25.TabIndex = 91;
-            this.label25.Text = "esteblecer diferencias de tiempo";
+            this.lbldiff.AutoSize = true;
+            this.lbldiff.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbldiff.Location = new System.Drawing.Point(48, 9);
+            this.lbldiff.Name = "lbldiff";
+            this.lbldiff.Size = new System.Drawing.Size(247, 21);
+            this.lbldiff.TabIndex = 91;
+            this.lbldiff.Text = "esteblecer diferencias de tiempo";
             // 
             // btntime
             // 
@@ -1174,7 +1175,7 @@
         private System.Windows.Forms.ListBox lbxdiferencias;
         private System.Windows.Forms.Panel padd;
         private System.Windows.Forms.Button btnadd;
-        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.Label lbldiff;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn idempresa;
         private System.Windows.Forms.DataGridViewTextBoxColumn idarea;

@@ -335,10 +335,10 @@ namespace controlFallos
                 psave.Visible = (cambios() ? true : false);
             if (!string.IsNullOrWhiteSpace(txtecos.Text))
             {
-                ptime.Visible = pselectecos.Visible = (Convert.ToInt32(txtecos.Text) > 0 ? true : false);
-                pselectecos.Visible = pselectecos.Visible = (Convert.ToInt32(txtecos.Text) > 0 ? true : false);
+                ptime.Visible = pselectecos.Visible = ((Convert.ToInt32(txtecos.Text) > 0 && (statusAnterior > 0 || !editar)) ? true : false);
+                pselectecos.Visible = pselectecos.Visible = ((Convert.ToInt32(txtecos.Text) > 0 && (statusAnterior > 0 || !editar)) ? true : false);
             }
-            else ptime.Visible = false;
+            else ptime.Visible = pselectecos.Visible = false;
         }
         public string cadena(List<string> lista)
         {
@@ -356,7 +356,7 @@ namespace controlFallos
                     {
                         if (v.c.insertar("Insert into croles(serviciofkcservicios, nciclos, necos, horaincorporo, diffciclos, descanso" + (cmbdescanso.SelectedIndex == 1 ? ",rangodescanso" : "") + ", timediference, usuariofkcpersonal) values('" + cmbservicio.SelectedValue + "', '" + Convert.ToInt32(txtciclos.Text) + "', '" + Convert.ToInt32(txtecos.Text) + "', '" + dtpincorporo.Value.ToString("HH:mm:ss") + "', '" + nudlapso.Value + "','" + cmbdescanso.SelectedValue + "'" + (cmbdescanso.SelectedIndex == 1 ? ",'" + (txtciclode.Text + "|" + txtcicloa.Text) + "'" : "") + ",'" + cadena(diferencia) + "', '" + idUsuario + "')"))
                             if (insertre())
-                                if (v.c.insertar("insert into modificaciones_sistema(form,idregistro,usuariofkcpersonal,fechaHora,Tipo,empresa,area) values('Catálogo de Roles','" + v.getaData("select idrol from croles order by idrol desc limit 1;") + "','" + idUsuario + "',now(),'Inserción de Rol','1','1')"))
+                                if (v.c.insertar("insert into modificaciones_sistema(form,idregistro,usuariofkcpersonal,fechaHora,Tipo,empresa,area) values('Catálogo de Roles','" + v.getaData("select idrol from croles where serviciofkcservicios='" + cmbservicio.SelectedValue + "';") + "','" + idUsuario + "',now(),'Inserción de Rol','1','1')"))
                                 {
                                     MessageBox.Show("Los datos se insertaron de manera correcta", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                                     limpiar();
@@ -371,7 +371,7 @@ namespace controlFallos
                         if (o.ShowDialog() == DialogResult.OK)
                         {
                             string motivo = o.txtgetedicion.Text.Trim();
-                            if (v.c.insertar("update croles set serviciofkcservicios='" + cmbservicio.SelectedValue + "',nciclos='" + Convert.ToInt32(txtciclos.Text) + "',necos='" + Convert.ToInt32(txtecos.Text) + "',horaincorporo='" + dtpincorporo.Value.ToString("HH:mm:ss") + "',diffciclos='" + nudlapso.Value + "', descanso='" + cmbdescanso.SelectedValue + "'" + (cmbdescanso.SelectedIndex == 1 ? ",rangodescanso='" + (txtciclode.Text + "|" + txtcicloa.Text) + "' " : "") + ",timediference='" + cadena(diferencia) + "' where idrol='" + idRol + "'"))
+                            if (v.c.insertar("update croles set serviciofkcservicios='" + cmbservicio.SelectedValue + "',nciclos='" + Convert.ToInt32(txtciclos.Text) + "',necos='" + Convert.ToInt32(txtecos.Text) + "',horaincorporo='" + dtpincorporo.Value.ToString("HH:mm:ss") + "',diffciclos='" + nudlapso.Value + "', descanso='" + cmbdescanso.SelectedValue + "'" + (cmbdescanso.SelectedIndex == 1 ? ",rangodescanso='" + (txtciclode.Text + "|" + txtcicloa.Text) + "' " : ",rangodescanso=NULL") + ",timediference='" + cadena(diferencia) + "' where idrol='" + idRol + "'"))
                                 if (insertre())
                                     if (v.c.insertar("insert into modificaciones_sistema(form,idregistro,ultimaModificacion,usuariofkcpersonal,fechaHora,Tipo,motivoActualizacion,empresa,area) values('Catálogo de Roles','" + idRol + "','" + servicioAnterior + ";" + ciclosAnterior + ";" + ecosAnterior + ";" + horaAnterior.ToString("HH:mm") + ";" + lapsoAnterior + ";" + cadena(diferenciaAnterior) + "','" + idUsuario + "',now(),'Actualización de Rol','" + v.mayusculas(motivo) + "','1','1')"))
                                     {
@@ -392,7 +392,7 @@ namespace controlFallos
                 editar = false;
             }
             for (int i = 0; i < Convert.ToInt32(txtecos.Text); i++)
-                if (v.c.insertar((editar ? "update rolecosbyservices set unidadfkcunidades='" + unidades[i] + "' where unidadfkcunidades='" + unidadesAnterior[i] + "'" : "call sistrefaccmant.insertecos('" + Convert.ToInt32(v.getaData("select idrol from croles order by idrol desc limit 1;")) + "', '" + unidades[i] + "', '" + idUsuario + "');")))
+                if (v.c.insertar((editar ? "update rolecosbyservices set unidadfkcunidades='" + unidades[i] + "' where unidadfkcunidades='" + unidadesAnterior[i] + "'" : "call sistrefaccmant.insertecos('" + Convert.ToInt32(v.getaData("select idrol from croles where serviciofkcservicios='" + cmbservicio.SelectedValue + "';")) + "', '" + unidades[i] + "', '" + idUsuario + "');")))
                     res = true;
             return res;
         }
@@ -469,7 +469,6 @@ namespace controlFallos
                 diferencia.Clear();
                 diferenciaAnterior.Clear();
             }
-            pnuevo.Visible = pstatus.Visible = pselectecos.Visible = gbecos.Enabled = editar = editardif = editareco = nuevo = !(psave.Visible = true);
             lblunidades.Text = "";
             mostrarEmpresas();
             nudlapso.Value = cmbempresa.SelectedIndex = empresaAnterior = areaArenterior = servicioAnterior = ciclosAnterior = ecosAnterior = lapsoAnterior = descansoAnterior = contador = idRol = 0;
@@ -480,7 +479,9 @@ namespace controlFallos
             btnguardar.BackgroundImage = controlFallos.Properties.Resources.save;
             dgvroles.ClearSelection();
             lblecos.Text = "seleccionar ecos";
+            lbldiff.Text = "establecer diferencias de tiempo";
             psave.Visible = (pinsertar ? true : false);
+            pnuevo.Visible = pstatus.Visible = pselectecos.Visible = gbecos.Enabled = gbxdiferencia.Enabled = editar = editardif = editareco = nuevo = !(psave.Visible = true);
         }
 
         private void dgvroles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -528,8 +529,6 @@ namespace controlFallos
             }
             btnstatus.BackgroundImage = (statusAnterior == 1 ? controlFallos.Properties.Resources.delete__4_ : controlFallos.Properties.Resources.up);
             btnguardar.BackgroundImage = controlFallos.Properties.Resources.pencil;
-            if (statusAnterior == 0 && peditar && pdesactivar)
-                MessageBox.Show("Para editar el registro es necesario reactivar primero el rol", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             pstatus.Visible = (pdesactivar ? true : false);
             unidades = new List<int>(ecosAnterior);
             unidadesAnterior = new List<int>(ecosAnterior);
@@ -542,8 +541,12 @@ namespace controlFallos
             foreach (DataRow item in dt.Rows)
             { unidadesAnterior.Add(Convert.ToInt32(item.ItemArray[0])); unidades.Add(Convert.ToInt32(item.ItemArray[0])); }
             lblunidades.Text = "Unidades: " + texto(unidadesAnterior);
-            lblecos.Text = "cambiar ecos";
+            lblecos.Text = "Cambiar ecos";
+            lbldiff.Text = "Cambiar diferencias de tiempo";
             pnuevo.Visible = editar = !(psave.Visible = false);
+            pselectecos.Visible = ptime.Visible = (statusAnterior == 0 ? false : true);
+            if (statusAnterior == 0 && peditar && pdesactivar)
+                MessageBox.Show("Para editar el registro es necesario reactivar primero el rol", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
     }
 }
