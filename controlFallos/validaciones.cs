@@ -4470,11 +4470,18 @@ namespace controlFallos
                 if (!col.ColumnName.Equals("CICLO"))
                     AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
                 else
+<<<<<<< HEAD
                 {
                     result.Columns.Add(new DataColumn() { AutoIncrement = true, AutoIncrementSeed = (t1.Rows.Count + 1), AutoIncrementStep = 1, ColumnName = "CICLO" });
                 }
 
             }
+=======
+                   result.Columns.Add(new DataColumn() { AutoIncrement = true, AutoIncrementSeed =(t1.Rows.Count+1),AutoIncrementStep = 1, ColumnName= "CICLO"});
+            }
+            foreach (DataColumn col in t2.Columns)
+                AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
+>>>>>>> 50b56608b1a77d96962cfd3d74dfda7db454bbeb
             for (int i = 0; i < (t1.Rows.Count > t2.Rows.Count ? t1.Rows.Count : t2.Rows.Count); i++)
             {
                 DataRow rowT1 = null, rowT2 = null, insertRow = result.NewRow(); ;
