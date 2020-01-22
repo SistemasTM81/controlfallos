@@ -669,7 +669,6 @@ namespace controlFallos
         }
         private void dgvcycles_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
         {
-            
             if (e.Data.GetDataPresent(System.Windows.Forms.DataFormats.Text))
                 e.Effect = System.Windows.Forms.DragDropEffects.Copy;
             else
