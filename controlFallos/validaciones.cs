@@ -4320,7 +4320,25 @@ namespace controlFallos
                                                             if (diferencias.Count == (Convert.ToInt32(necos) - 1))
                                                                 if (descanso > 0)
                                                                     if (descanso == 2 || (descanso == 1 && !string.IsNullOrWhiteSpace(rgode) && !string.IsNullOrWhiteSpace(rgoa)))
-                                                                        return true;
+                                                                        if (descanso == 2 || (descanso == 1 && Convert.ToInt32(rgode) > 0 && Convert.ToInt32(rgoa) > 0))
+                                                                            if (descanso == 2 || (descanso == 1 && Convert.ToInt32(rgode) < Convert.ToInt32(rgoa)))
+                                                                                if (descanso == 2 || (descanso == 1 && Convert.ToInt32(rgode) < Convert.ToInt32(necos) && Convert.ToInt32(rgoa) < Convert.ToInt32(necos)))
+                                                                                    return true;
+                                                                                else
+                                                                                {
+                                                                                    MessageBox.Show("El" + (Convert.ToInt32(rgode) > Convert.ToInt32(necos) ? " rango de debe" : " rango a debe") + " ser menor al número de ecos");
+                                                                                    return false;
+                                                                                }
+                                                                            else
+                                                                            {
+                                                                                MessageBox.Show("El \"rango de\" debe ser menor al \"rango a\"", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                                return false;
+                                                                            }
+                                                                        else
+                                                                        {
+                                                                            MessageBox.Show((Convert.ToInt32(rgode) == 0 && Convert.ToInt32(rgoa) == 0 ? "los campos de rango deben " : Convert.ToInt32(rgode) == 0 ? "El campo rango de debe" : "El campo rango a debe") + " ser mayor a 0", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                            return false;
+                                                                        }
                                                                     else
                                                                     {
                                                                         MessageBox.Show("Debe llenar los campos \"del ciclo\" y \"al ciclo\"", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -4448,21 +4466,15 @@ namespace controlFallos
         {
             DataTable result = new DataTable();
             foreach (DataColumn col in t1.Columns)
-<<<<<<< HEAD
-                AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
-=======
             {
                 if (!col.ColumnName.Equals("CICLO"))
                     AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
                 else
                 {
-                   result.Columns.Add(new DataColumn() { AutoIncrement = true, AutoIncrementSeed =(t1.Rows.Count+1),AutoIncrementStep = 1, ColumnName= "CICLO"});
+                    result.Columns.Add(new DataColumn() { AutoIncrement = true, AutoIncrementSeed = (t1.Rows.Count + 1), AutoIncrementStep = 1, ColumnName = "CICLO" });
                 }
-                
+
             }
->>>>>>> 07b8e3dfe16d0318b3dbf96ed51aa52fa1167a2e
-            foreach (DataColumn col in t2.Columns)
-                AddTableColumn(result, new StringBuilder(col.ColumnName), col.DataType);
             for (int i = 0; i < (t1.Rows.Count > t2.Rows.Count ? t1.Rows.Count : t2.Rows.Count); i++)
             {
                 DataRow rowT1 = null, rowT2 = null, insertRow = result.NewRow(); ;
