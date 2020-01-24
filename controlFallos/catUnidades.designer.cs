@@ -1085,7 +1085,7 @@
             // 
             // pblogo
             // 
-            this.pblogo.BackgroundImage = global::controlFallos.Properties.Resources.Dbkel_CXkAE43aG;
+            this.pblogo.BackgroundImage = global::controlFallos.Properties.Resources.transmasivo;
             this.pblogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pblogo.Location = new System.Drawing.Point(28, 192);
             this.pblogo.Name = "pblogo";

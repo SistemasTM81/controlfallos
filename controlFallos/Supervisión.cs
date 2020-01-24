@@ -759,8 +759,7 @@ namespace controlFallos
         private void btnExcel_Click(object sender, EventArgs e)
         {
             estado = true;
-            ThreadStart delegado = new ThreadStart(exporta_a_excel);
-            exportar = new Thread(delegado);
+            exportar = new Thread(new ThreadStart(exporta_a_excel));
             exportar.Start();
         }
         private void btnGuardar_Click(object sender, EventArgs e)

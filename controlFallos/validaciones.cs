@@ -4314,14 +4314,14 @@ namespace controlFallos
                                     if (Convert.ToUInt32(necos) > 0)
                                         if (horai.Hour >= 4 && horai.Hour <= 7)
                                             if (lciclos > 0)
-                                                if (ecos != null)
+                                                if (ecos != null && ecos.Count > 0)
                                                     if (ecos.Count == Convert.ToInt32(necos))
                                                         if (diferencias != null && diferencias.Count > 0)
                                                             if (diferencias.Count == (Convert.ToInt32(necos) - 1))
                                                                 return true;
                                                             else
                                                             {
-                                                                MessageBox.Show("Faltan " + ((Convert.ToInt32(necos) - 1) - diferencias.Count) + " diferencias de tiempo, por establecer", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                MessageBox.Show("Faltan " + ((Convert.ToInt32(necos) - 1) - diferencias.Count) + " diferencia(s) de tiempo por establecer", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                                                 return false;
                                                             }
                                                         else
@@ -4331,7 +4331,7 @@ namespace controlFallos
                                                         }
                                                     else
                                                     {
-                                                        MessageBox.Show("Faltan " + (Convert.ToInt32(necos) - ecos.Count) + " economicos por seleccionar", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                        MessageBox.Show("Faltan " + (Convert.ToInt32(necos) - ecos.Count) + " economico(s) por seleccionar", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                                         return false;
                                                     }
                                                 else

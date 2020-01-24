@@ -323,7 +323,7 @@ namespace controlFallos
         private void button2_Click(object sender, EventArgs e) { this.Close(); }
         private void menuPrincipal_Load(object sender, EventArgs e)
         {
-            lblnumnotificaciones.BackgroundImage = newimg = (empresa == 1 ? Properties.Resources.Dbkel_CXkAE43aG : (empresa == 2 ? Properties.Resources.Imagen2 : (empresa == 3 ? Properties.Resources.TSD : null)));
+            lblnumnotificaciones.BackgroundImage = newimg = (empresa == 1 ? Properties.Resources.transmasivo : (empresa == 2 ? Properties.Resources.Imagen2 : (empresa == 3 ? Properties.Resources.TSD : null)));
             v.c.referencia(idUsuario);
             var consultaPrivilegios = v.getaData("SELECT GROUP_CONCAT(namForm SEPARATOR ';') FROM privilegios WHERE usuariofkcpersonal= '" + this.idUsuario + "' and ver > 0").ToString().Split(';');
             foreach (string namForm in consultaPrivilegios)
