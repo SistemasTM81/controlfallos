@@ -372,8 +372,7 @@ namespace controlFallos
             {
                 if (this.InvokeRequired)
                 {
-                    MySqlConnection dbcon = null;
-                    dbcon = new MySqlConnection("Server = 127.0.0.1; user=UPT; password = UPT2018; database = sistrefaccmant ;port=3306");
+                    MySqlConnection dbcon = new MySqlConnection("Server = " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + "; database = sistrefaccmant ;port=" + v.c.portLocal);
                     dbcon.Open();
                     string sql = "SELECT statusiniciosesion FROM datosistema WHERE usuariofkcpersonal='" + idUsuario + "'";
                     MySqlCommand cmd = new MySqlCommand(sql, dbcon);
@@ -706,7 +705,7 @@ namespace controlFallos
         public void cambiarstatus(object i)
         {
             v.c.insertar("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'");
-            MySqlConnection localConnection = new MySqlConnection("Server = 127.0.0.1; user=UPT; password = UPT2018; database = sistrefaccmant ;port=3306");
+            MySqlConnection localConnection = new MySqlConnection("Server = "+v.c.hostLocal+ "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal+ "; database = sistrefaccmant ;port=" + v.c.portLocal);
             localConnection.Open();
             if (localConnection.State != ConnectionState.Open) localConnection.Open();
             MySqlCommand cmd = new MySqlCommand("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'", localConnection);

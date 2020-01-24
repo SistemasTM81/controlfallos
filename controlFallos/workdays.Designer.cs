@@ -14,9 +14,7 @@
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
             base.Dispose(disposing);
         }
 
@@ -56,6 +54,13 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dgvcycles = new System.Windows.Forms.DataGridView();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
+            this.panel12 = new System.Windows.Forms.Panel();
+            this.label11 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.panel11 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.backgroundPanel = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
@@ -65,6 +70,7 @@
             this.label6 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.groupBox2.SuspendLayout();
             this.pDias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupDurationWorkDay)).BeginInit();
@@ -75,6 +81,9 @@
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvcycles)).BeginInit();
             this.panel5.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel12.SuspendLayout();
+            this.panel11.SuspendLayout();
             this.panel8.SuspendLayout();
             this.panel9.SuspendLayout();
             this.SuspendLayout();
@@ -93,7 +102,7 @@
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.groupBox2.Location = new System.Drawing.Point(0, 0);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1216, 73);
+            this.groupBox2.Size = new System.Drawing.Size(1216, 77);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Registro de Roles";
@@ -152,7 +161,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(1092, 21);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(121, 49);
+            this.panel2.Size = new System.Drawing.Size(121, 53);
             this.panel2.TabIndex = 37;
             // 
             // panel3
@@ -162,13 +171,13 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel3.Location = new System.Drawing.Point(0, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(54, 49);
+            this.panel3.Size = new System.Drawing.Size(54, 53);
             this.panel3.TabIndex = 37;
             // 
             // label3
             // 
             this.label3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label3.Location = new System.Drawing.Point(0, 31);
+            this.label3.Location = new System.Drawing.Point(0, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(54, 18);
             this.label3.TabIndex = 36;
@@ -199,13 +208,13 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel1.Location = new System.Drawing.Point(67, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(54, 49);
+            this.panel1.Size = new System.Drawing.Size(54, 53);
             this.panel1.TabIndex = 36;
             // 
             // label2
             // 
             this.label2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label2.Location = new System.Drawing.Point(0, 31);
+            this.label2.Location = new System.Drawing.Point(0, 35);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 18);
             this.label2.TabIndex = 36;
@@ -307,7 +316,7 @@
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.groupBox1.Location = new System.Drawing.Point(1223, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(685, 73);
+            this.groupBox1.Size = new System.Drawing.Size(685, 77);
             this.groupBox1.TabIndex = 35;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registro de Roles";
@@ -328,17 +337,17 @@
             this.panel4.Controls.Add(this.label4);
             this.panel4.Controls.Add(this.button2);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel4.Location = new System.Drawing.Point(619, 21);
+            this.panel4.Location = new System.Drawing.Point(606, 21);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(63, 49);
+            this.panel4.Size = new System.Drawing.Size(76, 53);
             this.panel4.TabIndex = 38;
             // 
             // label4
             // 
             this.label4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.label4.Location = new System.Drawing.Point(0, 31);
+            this.label4.Location = new System.Drawing.Point(0, 35);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 18);
+            this.label4.Size = new System.Drawing.Size(76, 18);
             this.label4.TabIndex = 36;
             this.label4.Text = "Guardar";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -353,12 +362,13 @@
             this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.Image = global::controlFallos.Properties.Resources.save2;
+            this.button2.Image = global::controlFallos.Properties.Resources.diskette__1_;
             this.button2.Location = new System.Drawing.Point(0, 0);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(63, 32);
+            this.button2.Size = new System.Drawing.Size(76, 32);
             this.button2.TabIndex = 35;
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // cmbxRolService
             // 
@@ -421,18 +431,20 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
             this.dgvcycles.RowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvcycles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dgvcycles.Size = new System.Drawing.Size(1904, 626);
+            this.dgvcycles.Size = new System.Drawing.Size(1904, 622);
             this.dgvcycles.StandardTab = true;
             this.dgvcycles.TabIndex = 36;
             this.dgvcycles.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvcycles_ColumnAdded);
+            this.dgvcycles.SelectionChanged += new System.EventHandler(this.dgvcycles_SelectionChanged);
             this.dgvcycles.DragDrop += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragDrop);
             this.dgvcycles.DragEnter += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragEnter);
             this.dgvcycles.DragOver += new System.Windows.Forms.DragEventHandler(this.dgvcycles_DragOver);
-            this.dgvcycles.MouseDown += new System.Windows.Forms.MouseEventHandler(this.dgvcycles_MouseDown);
+            this.dgvcycles.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.dgvcycles_PreviewKeyDown);
             // 
             // panel5
             // 
             this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.panel10);
             this.panel5.Controls.Add(this.backgroundPanel);
             this.panel5.Controls.Add(this.label9);
             this.panel5.Controls.Add(this.panel7);
@@ -445,6 +457,83 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1908, 234);
             this.panel5.TabIndex = 37;
+            // 
+            // panel10
+            // 
+            this.panel10.Controls.Add(this.panel12);
+            this.panel10.Controls.Add(this.panel11);
+            this.panel10.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel10.Location = new System.Drawing.Point(1825, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(81, 232);
+            this.panel10.TabIndex = 7;
+            // 
+            // panel12
+            // 
+            this.panel12.Controls.Add(this.label11);
+            this.panel12.Controls.Add(this.button4);
+            this.panel12.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel12.Location = new System.Drawing.Point(0, 139);
+            this.panel12.Name = "panel12";
+            this.panel12.Size = new System.Drawing.Size(81, 93);
+            this.panel12.TabIndex = 1;
+            // 
+            // label11
+            // 
+            this.label11.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label11.Location = new System.Drawing.Point(0, 67);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(81, 26);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "Exportar";
+            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // button4
+            // 
+            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button4.FlatAppearance.BorderSize = 0;
+            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button4.Image = global::controlFallos.Properties.Resources.excelrol;
+            this.button4.Location = new System.Drawing.Point(0, 0);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(81, 64);
+            this.button4.TabIndex = 0;
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // panel11
+            // 
+            this.panel11.Controls.Add(this.label5);
+            this.panel11.Controls.Add(this.button3);
+            this.panel11.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel11.Location = new System.Drawing.Point(0, 0);
+            this.panel11.Name = "panel11";
+            this.panel11.Size = new System.Drawing.Size(81, 93);
+            this.panel11.TabIndex = 0;
+            // 
+            // label5
+            // 
+            this.label5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label5.Location = new System.Drawing.Point(0, 67);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(81, 26);
+            this.label5.TabIndex = 1;
+            this.label5.Text = "Imprimir";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // button3
+            // 
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Image = global::controlFallos.Properties.Resources.print;
+            this.button3.Location = new System.Drawing.Point(0, 0);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(81, 64);
+            this.button3.TabIndex = 0;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // backgroundPanel
             // 
@@ -514,7 +603,7 @@
             this.panel8.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel8.Location = new System.Drawing.Point(0, 0);
             this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(1908, 73);
+            this.panel8.Size = new System.Drawing.Size(1908, 77);
             this.panel8.TabIndex = 38;
             // 
             // panel9
@@ -522,10 +611,17 @@
             this.panel9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel9.Controls.Add(this.dgvcycles);
             this.panel9.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel9.Location = new System.Drawing.Point(0, 73);
+            this.panel9.Location = new System.Drawing.Point(0, 77);
             this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(1908, 630);
+            this.panel9.Size = new System.Drawing.Size(1908, 626);
             this.panel9.TabIndex = 39;
+            // 
+            // printDialog1
+            // 
+            this.printDialog1.AllowSelection = true;
+            this.printDialog1.AllowSomePages = true;
+            this.printDialog1.PrintToFile = true;
+            this.printDialog1.UseEXDialog = true;
             // 
             // workdays
             // 
@@ -556,6 +652,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvcycles)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
+            this.panel10.ResumeLayout(false);
+            this.panel12.ResumeLayout(false);
+            this.panel11.ResumeLayout(false);
             this.panel8.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -609,15 +708,10 @@
         void rol()
         {
             if (InvokeRequired)
-            {
                 BeginInvoke(new dataLoad(rol));
-            }
             else
             {
-                //    disableService(rolfkCRoles);
                 dgvcycles.DataSource = null;
-                //  if (serviceID.HasValue)
-                // {
                 System.Data.DataTable dt = new System.Data.DataTable("Rol De Servicio");
                 System.Data.DataColumn dc = new System.Data.DataColumn() { AutoIncrement = true, ColumnName = "CICLO", DataType = typeof(long), AutoIncrementSeed = 1 };
                 dt.Columns.Add(dc);
@@ -643,10 +737,7 @@
                     dt = Owner.v.JoinDataTables(dt, dt2);
                 }
                 for (int i = dt.Rows.Count; i < System.Convert.ToInt32(Owner.v.getaData("CALL sistrefaccmant.getMaxRoles(" + rolfkCRoles + ")")); i++)
-                {
-                    System.Data.DataRow rowsw = dt.NewRow();
-                    dt.Rows.Add(rowsw);
-                }
+                    dt.Rows.Add(dt.NewRow());
                 dgvcycles.DataSource = dt;
                 if (dtECOS.Length >= 11)
                 {
@@ -657,9 +748,7 @@
                 for (int i = 1; i < dgvcycles.Columns.Count; i += 3) { try { dgvcycles.Columns[i].Visible = false; } catch { } }
                 foreach (System.Windows.Forms.DataGridViewColumn column in dgvcycles.Columns)
                     column.HeaderText = column.HeaderText.Trim();
-
                 lblloadrol.Text = "Generando Horas. Espere";
-
                 var result = Owner.v.getaData("call sistrefaccmant.getDataRol(" + rolfkCRoles.Value + ") ").ToString().Split('|');
                 System.TimeSpan increment = System.TimeSpan.Parse(result[0]); System.TimeSpan incorporeHour = System.TimeSpan.Parse(result[0]);
                 int cyclesDiference = System.Convert.ToInt32(result[1]), cont = 0;
@@ -672,7 +761,6 @@
                         dgvcycles.Rows[row].Cells[column].Value = (incorporeHour = incorporeHour.Add(System.TimeSpan.FromMinutes((row > 0 ? cyclesDiference : 0)))).ToString(@"hh\:mm");
                 }
                 lblloadrol.Visible = false;
-
                 thload.Abort();
             }
         }
@@ -680,21 +768,33 @@
         private void Btn_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (e.Button != System.Windows.Forms.MouseButtons.Right) return;
-            (sender as System.Windows.Forms.Button).DoDragDrop((sender as System.Windows.Forms.Button).Name.Split('|')[1], System.Windows.Forms.DragDropEffects.All);
+            (sender as System.Windows.Forms.Button).DoDragDrop((sender as System.Windows.Forms.Button).Text, System.Windows.Forms.DragDropEffects.All);
         }
         private void nupDurationWorkDay_ValueChanged(object sender, System.EventArgs e) => lblfinaldate.Text = dtpinitialDate.Value.AddDays((System.Convert.ToDouble(nupDurationWorkDay.Value) - 1)).ToString("dd /MMMM/yyyy");
         private void dgvcycles_DragDrop(object sender, System.Windows.Forms.DragEventArgs e)
         {
-            var res = dgvcycles.CurrentCell;
-            System.Windows.Forms.MessageBox.Show(e.Data.GetData(System.Windows.Forms.DataFormats.Text).ToString());
+            if (dgvcycles.CurrentCell == null) return;
+            dgvcycles.CurrentCell.Value = e.Data.GetData(System.Windows.Forms.DataFormats.Text);
         }
         private void dgvcycles_DragEnter(object sender, System.Windows.Forms.DragEventArgs e)
         {
-            if (e.Data.GetDataPresent(System.Windows.Forms.DataFormats.Text))
+            e.Effect = e.Data.GetDataPresent(System.Windows.Forms.DataFormats.Text) ? System.Windows.Forms.DragDropEffects.Copy : e.Effect = System.Windows.Forms.DragDropEffects.None;
+        }
+        private void dgvcycles_DragOver(object sender, System.Windows.Forms.DragEventArgs e)
+        {
+            System.Drawing.Point dclient = dgvcycles.PointToClient(new System.Drawing.Point(e.X, e.Y));
+            System.Windows.Forms.DataGridView.HitTestInfo hitTest = dgvcycles.HitTest(dclient.X, dclient.Y);
+            if ((hitTest.RowIndex) >= 0 && hitTest.ColumnIndex >= 3 && !dgvcycles.Columns[hitTest.ColumnIndex].HeaderText.Equals("HORA"))
+            {
+                dgvcycles.CurrentCell = dgvcycles.Rows[(hitTest.RowIndex)].Cells[hitTest.ColumnIndex];
                 e.Effect = System.Windows.Forms.DragDropEffects.Copy;
-            else
-                e.Effect = System.Windows.Forms.DragDropEffects.None;
-
+            }
+            else { dgvcycles.CurrentCell = null; e.Effect = System.Windows.Forms.DragDropEffects.None; }
+        }
+        private void Btn_Click(object sender, System.EventArgs e)
+        {
+            foreach (System.Windows.Forms.DataGridViewCell cell in dgvcycles.SelectedCells)
+                cell.Value = (sender as System.Windows.Forms.Button).Text;
         }
         private void dgvcycles_ColumnAdded(object sender, System.Windows.Forms.DataGridViewColumnEventArgs e) => Owner.v.paraDataGridViews_ColumnAdded(sender, e);
 
@@ -735,5 +835,13 @@
         private System.Windows.Forms.Panel panel8;
         private System.Windows.Forms.Label lblloadrol;
         private System.Windows.Forms.Panel panel9;
+        private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Panel panel11;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Panel panel12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.PrintDialog printDialog1;
     }
 }
