@@ -698,13 +698,7 @@
             createRol();
             dgvcycles.Focus();
         }
-
-        private void createRol()
-        {
-            lblloadrol.Visible = true;
-            thload = new System.Threading.Thread(new System.Threading.ThreadStart(rol)) { IsBackground = true };
-            thload.Start();
-        }
+        private void createRol(){lblloadrol.Visible = true;(thload = new System.Threading.Thread(new System.Threading.ThreadStart(rol)) { IsBackground = true }).Start();}
         void rol()
         {
             if (InvokeRequired)
@@ -784,11 +778,7 @@
         {
             System.Drawing.Point dclient = dgvcycles.PointToClient(new System.Drawing.Point(e.X, e.Y));
             System.Windows.Forms.DataGridView.HitTestInfo hitTest = dgvcycles.HitTest(dclient.X, dclient.Y);
-            if ((hitTest.RowIndex) >= 0 && hitTest.ColumnIndex >= 3 && !dgvcycles.Columns[hitTest.ColumnIndex].HeaderText.Equals("HORA"))
-            {
-                dgvcycles.CurrentCell = dgvcycles.Rows[(hitTest.RowIndex)].Cells[hitTest.ColumnIndex];
-                e.Effect = System.Windows.Forms.DragDropEffects.Copy;
-            }
+            if ((hitTest.RowIndex) >= 0 && hitTest.ColumnIndex >= 3 && !dgvcycles.Columns[hitTest.ColumnIndex].HeaderText.Equals("HORA")){dgvcycles.CurrentCell = dgvcycles.Rows[(hitTest.RowIndex)].Cells[hitTest.ColumnIndex];e.Effect = System.Windows.Forms.DragDropEffects.Copy;}
             else { dgvcycles.CurrentCell = null; e.Effect = System.Windows.Forms.DragDropEffects.None; }
         }
         private void Btn_Click(object sender, System.EventArgs e)

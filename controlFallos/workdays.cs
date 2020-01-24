@@ -25,10 +25,8 @@ namespace controlFallos
         {
             this.Owner = Owner;
             InitializeComponent();
-            th = new Thread(dataLoader);
-            th.IsBackground = true;
+            th = new Thread(dataLoader) { IsBackground = true};
             th.Start();
-            th.Join();
             Owner.v.creatItemsPersonalizadosCombobox(cmbxTimeperiod, new string[] { "DÍA", "SEMANA", "QUINCENA" }, "-- SELECCIONE RANGO --", 1);
         }
         private void dataLoader()
