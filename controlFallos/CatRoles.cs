@@ -400,10 +400,8 @@ namespace controlFallos
                 }
             }
         }
-        private void txtciclos_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.Solonumeros(e);
-        }
+        private void txtciclos_KeyPress(object sender, KeyPressEventArgs e)=>v.Solonumeros(e);
+
 
         private void cmbempresa_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -417,7 +415,7 @@ namespace controlFallos
             else ptime.Visible = pselectecos.Visible = false;
         }
         public string cadena(List<string> lista)
-        {
+        { 
             string cadena = "";
             for (int i = 0; i < lista.Count; i++)
                 cadena = (i == 0 ? (cadena += lista[i]) : cadena += ("," + lista[i]));
