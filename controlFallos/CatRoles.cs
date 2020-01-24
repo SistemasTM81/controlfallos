@@ -98,6 +98,16 @@ namespace controlFallos
                 d1 d = new d1(loadecos);
                 pgif.Invoke(d);
             }
+<<<<<<< HEAD
+=======
+            else
+            {
+                foreach (DataRow item in dt.Rows)
+                    createcontrols(item.ItemArray[0], item.ItemArray[1]);
+                lblloadrol.Visible = false;
+            }
+            thunidades.Abort();
+>>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
         }
         void createcontrols(object id, object text)
         {
@@ -289,8 +299,15 @@ namespace controlFallos
         {
             if (cmbservicio.SelectedIndex > 0)
             {
+<<<<<<< HEAD
                 thunidades = new Thread(new ThreadStart(pecos));
                 thunidades.Start();
+=======
+                pgif.Controls.Clear(); x = y = 5;
+                dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
+                lblloadrol.Visible = true;
+                (thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true}).Start();
+>>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
             }
             else
             { pgif.Controls.Clear(); x = y = 5; }

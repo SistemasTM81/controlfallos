@@ -103,7 +103,11 @@
             this.pnuevo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelEmpresa = new System.Windows.Forms.Button();
+<<<<<<< HEAD
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+=======
+            this.lblloadrol = new System.Windows.Forms.Label();
+>>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
             this.gbaddpasillo.SuspendLayout();
             this.gbecos.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -246,7 +250,6 @@
             // 
             // pblogo
             // 
-            this.pblogo.BackgroundImage = global::controlFallos.Properties.Resources.transmasivo;
             this.pblogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pblogo.Location = new System.Drawing.Point(587, 79);
             this.pblogo.Name = "pblogo";
@@ -266,7 +269,6 @@
             // 
             // btnadd
             // 
-            this.btnadd.BackgroundImage = global::controlFallos.Properties.Resources.add;
             this.btnadd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnadd.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnadd.FlatAppearance.BorderSize = 0;
@@ -578,7 +580,11 @@
             // 
             // gbRol
             // 
+<<<<<<< HEAD
             this.gbRol.Controls.Add(this.pictureBox2);
+=======
+            this.gbRol.Controls.Add(this.lblloadrol);
+>>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
             this.gbRol.Controls.Add(this.pictureBox1);
             this.gbRol.Controls.Add(this.btnimg);
             this.gbRol.Controls.Add(this.lblimg);
@@ -991,7 +997,7 @@
             // 
             // btnCancelEmpresa
             // 
-            this.btnCancelEmpresa.BackgroundImage = global::controlFallos.Properties.Resources.addition;
+            this.btnCancelEmpresa.BackgroundImage = global::controlFallos.Properties.Resources.delete;
             this.btnCancelEmpresa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnCancelEmpresa.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelEmpresa.FlatAppearance.BorderSize = 0;
@@ -1003,6 +1009,7 @@
             this.btnCancelEmpresa.UseVisualStyleBackColor = true;
             this.btnCancelEmpresa.Click += new System.EventHandler(this.btnCancelEmpresa_Click);
             // 
+<<<<<<< HEAD
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(619, 152);
@@ -1010,6 +1017,18 @@
             this.pictureBox2.Size = new System.Drawing.Size(122, 97);
             this.pictureBox2.TabIndex = 92;
             this.pictureBox2.TabStop = false;
+=======
+            // lblloadrol
+            // 
+            this.lblloadrol.AutoSize = true;
+            this.lblloadrol.ForeColor = System.Drawing.Color.Crimson;
+            this.lblloadrol.Location = new System.Drawing.Point(310, 178);
+            this.lblloadrol.Name = "lblloadrol";
+            this.lblloadrol.Size = new System.Drawing.Size(242, 24);
+            this.lblloadrol.TabIndex = 92;
+            this.lblloadrol.Text = "Cargando Unidades. Espere";
+            this.lblloadrol.Visible = false;
+>>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
             // 
             // CatRoles
             // 
@@ -1125,6 +1144,10 @@
         private System.Windows.Forms.Label lblimg;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pblogo;
+<<<<<<< HEAD
         private System.Windows.Forms.PictureBox pictureBox2;
+=======
+        private System.Windows.Forms.Label lblloadrol;
+>>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
     }
 }

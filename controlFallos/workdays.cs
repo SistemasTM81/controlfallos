@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -24,10 +25,8 @@ namespace controlFallos
         {
             this.Owner = Owner;
             InitializeComponent();
-            th = new Thread(dataLoader);
-            th.IsBackground = true;
+            th = new Thread(dataLoader) { IsBackground = true};
             th.Start();
-            th.Join();
             Owner.v.creatItemsPersonalizadosCombobox(cmbxTimeperiod, new string[] { "DÍA", "SEMANA", "QUINCENA" }, "-- SELECCIONE RANGO --", 1);
         }
         private void dataLoader()
@@ -45,71 +44,43 @@ namespace controlFallos
                     int index = Array.IndexOf(ocupados, roe.ItemArray[0].ToString());
                     createControlDriver(roe.ItemArray[0], roe.ItemArray[1], (ocupados != null && ocupados.GetLength(0) > 0 ? (bool?)(index >= 0) : null));
                 }
-
                 th.Abort();
             }
         }
-
+        private void button2_Click(object sender, EventArgs e){}
+        private void dgvcycles_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                foreach (DataGridViewCell cell in dgvcycles.SelectedCells)
+                { if (!dgvcycles.Columns[cell.ColumnIndex].HeaderText.Equals("HORA")) cell.Value = string.Empty; }
+            }
+        }
+        private void dgvcycles_SelectionChanged(object sender, EventArgs e)
+        {
+               foreach (DataGridViewCell cell in dgvcycles.SelectedCells)
+                { if (dgvcycles.Columns[cell.ColumnIndex].HeaderText.Equals("HORA") || dgvcycles.Columns[cell.ColumnIndex].HeaderText.Equals("CICLO")) cell.Selected = false; }
+        }
+        private void button3_Click(object sender, EventArgs e){}
         private void createControlDriver(object driverID, object driverCRED, bool? existe)
         {
             bool canIBuild = true;
             if (existe.HasValue) canIBuild = !existe.Value;
             if (canIBuild)
             {
-                Button btn = new Button();
-                btn.FlatStyle = FlatStyle.Flat;
-                btn.Name = "Button|" + driverID;
-                btn.TextAlign = ContentAlignment.MiddleCenter;
-                btn.Cursor = Cursors.Hand;
-                btn.UseMnemonic = false;
+                Button btn = new Button() {FlatStyle = FlatStyle.Flat, Name = "Button | " + driverID,TextAlign = ContentAlignment.MiddleCenter,Cursor = Cursors.Hand,UseMnemonic = false};
                 btn.Click += Btn_Click;
-               // btn.MouseClick += Btn_MouseClick; ;
                 btn.MouseDown += Btn_MouseDown;
-           //     btn.MouseUp += Btn_MouseUp;     
                 backgroundPanel.Controls.Add(addContol(btn, canIBuild, driverCRED.ToString()));
-             
             }
             else
             {
-                Label lbl = new Label();
-                lbl.FlatStyle = FlatStyle.Flat;
-                lbl.Name = "Label|" + driverID;
-                lbl.UseMnemonic = false;
-                lbl.BorderStyle = BorderStyle.FixedSingle;
-                lbl.TextAlign = ContentAlignment.MiddleCenter;
-                lbl.ForeColor = Color.White;
-                lbl.UseCompatibleTextRendering = true;
+                Label lbl = new Label() {FlatStyle = FlatStyle.Flat, Name = "Label|" + driverID , UseMnemonic = false,BorderStyle = BorderStyle.FixedSingle,TextAlign = ContentAlignment.MiddleCenter,ForeColor = Color.White,UseCompatibleTextRendering = true};
                 backgroundPanel.Controls.Add(addContol(lbl, canIBuild, driverCRED.ToString()));
             }
             x += 50;
             if (x + 50 >= backgroundPanel.Size.Width) { x = 0; y += 30; }
-
         }
-
-private void Btn_Click(object sender, EventArgs e)
-        {
-            if (dgvcycles.CurrentCell == null || dgvcycles.CurrentCell.ColumnIndex==0) return;
-          var rowSelected = (from DataGridViewCell cell in dgvcycles.SelectedCells where cell.ColumnIndex ==   (from DataGridViewCell cell1 in dgvcycles.SelectedCells select cell.ColumnIndex).Min() select cell);
-
-        }
-
-        private void dgvcycles_DragOver(object sender, DragEventArgs e)
-        {
-            Point dscreen = new Point(e.X, e.Y);
-            Point dclient = dgvcycles.PointToClient(dscreen);
-            DataGridView.HitTestInfo hitTest = dgvcycles.HitTest(dclient.X, dclient.Y);
-            if ((hitTest.RowIndex) >= 0 && hitTest.ColumnIndex >= 3 && !dgvcycles.Columns[hitTest.ColumnIndex].HeaderText.Equals("HORA")) dgvcycles.CurrentCell = dgvcycles.Rows[(hitTest.RowIndex)].Cells[hitTest.ColumnIndex]; else dgvcycles.CurrentCell = null;
-        }
-
-
-        private void dgvcycles_MouseDown(object sender, MouseEventArgs e)
-        {
-
-
-        }
-
-
-
         /// <summary>
         ///Method that allow Specify some properties such as: size, Location or background that have in common a button and a label
         /// </summary>
@@ -125,6 +96,5 @@ private void Btn_Click(object sender, EventArgs e)
             control.Text = Text;
             return control;
         }
-
     }
 }

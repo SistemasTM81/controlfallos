@@ -874,6 +874,8 @@
     <Content Include="Resources\description.png" />
     <Content Include="Resources\deshacer.png" />
     <None Include="Resources\document-edit_icon-icons.com_52428.png" />
+    <None Include="Resources\diskette.png" />
+    <None Include="Resources\diskette %281%29.png" />
     <Content Include="Resources\DocumentEdit_40924.png" />
     <None Include="Resources\driver.png" />
     <None Include="Resources\driver %281%29.png" />
@@ -893,6 +895,7 @@
     <None Include="Resources\excel2.png" />
     <None Include="Resources\excel3.png" />
     <None Include="Resources\excel4.png" />
+    <None Include="Resources\excelrol.png" />
     <Content Include="Resources\file.png" />
     <None Include="Resources\fingerprint-scanning.png" />
     <None Include="Resources\fingerprint-transparent-gif-14.gif" />
@@ -989,6 +992,7 @@
     <None Include="Resources\purchase_order__1_.png" />
     <None Include="Resources\previous %283%29.png" />
     <None Include="Resources\previous %282%29.png" />
+    <None Include="Resources\print.png" />
     <Content Include="Resources\pushpin.png" />
     <Content Include="Resources\racing.png" />
     <Content Include="Resources\rec.png" />
