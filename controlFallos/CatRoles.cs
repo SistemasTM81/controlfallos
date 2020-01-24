@@ -26,6 +26,7 @@ namespace controlFallos
         DateTime horaAnterior;
         delegate void empre();
         delegate void d1();
+        delegate void d2();
         Thread hempresas, th, thunidades;
         DataTable dt;
         bool pinsertar { get; set; }
@@ -79,14 +80,26 @@ namespace controlFallos
             v.iniCombos("call sistrefaccmant.companieswithstatus();", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
             hempresas.Abort();
         }
-
+        void loadgif()
+        {
+            pictureBox2.Image = Properties.Resources.loader;
+        }
+        void loadecos()
+        {
+            pgif.Controls.Clear(); x = y = 5;
+            dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
+            foreach (DataRow item in dt.Rows)
+                createcontrols(item.ItemArray[0], item.ItemArray[1]);
+        }
         void pecos()
         {
             if (this.InvokeRequired)
             {
-                d1 d = new d1(pecos);
-                this.Invoke(d);
+                d1 d = new d1(loadecos);
+                pgif.Invoke(d);
             }
+<<<<<<< HEAD
+=======
             else
             {
                 foreach (DataRow item in dt.Rows)
@@ -94,6 +107,7 @@ namespace controlFallos
                 lblloadrol.Visible = false;
             }
             thunidades.Abort();
+>>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
         }
         void createcontrols(object id, object text)
         {
@@ -285,10 +299,15 @@ namespace controlFallos
         {
             if (cmbservicio.SelectedIndex > 0)
             {
+<<<<<<< HEAD
+                thunidades = new Thread(new ThreadStart(pecos));
+                thunidades.Start();
+=======
                 pgif.Controls.Clear(); x = y = 5;
                 dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
                 lblloadrol.Visible = true;
                 (thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true}).Start();
+>>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
             }
             else
             { pgif.Controls.Clear(); x = y = 5; }
@@ -413,6 +432,7 @@ namespace controlFallos
                 pselectecos.Visible = pselectecos.Visible = ((Convert.ToInt32(txtecos.Text) > 0 && (statusAnterior > 0 || !editar)) ? true : false);
             }
             else ptime.Visible = pselectecos.Visible = false;
+
         }
         public string cadena(List<string> lista)
         { 
