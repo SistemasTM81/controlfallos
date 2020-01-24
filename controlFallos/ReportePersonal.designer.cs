@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label59 = new System.Windows.Forms.Label();
             this.gbxReporte = new System.Windows.Forms.GroupBox();
             this.gbxVehiculo = new System.Windows.Forms.GroupBox();
@@ -81,8 +81,6 @@
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.gbxBusquedas = new System.Windows.Forms.GroupBox();
             this.lblExcel = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.txtVehiculoBusq = new System.Windows.Forms.TextBox();
             this.cbxMesB = new System.Windows.Forms.ComboBox();
             this.label20 = new System.Windows.Forms.Label();
             this.groupBoxFechas = new System.Windows.Forms.GroupBox();
@@ -118,7 +116,6 @@
             this.groupBoxObs.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbxBusquedas.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBoxFechas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbxLoadingExcel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPMantenimiento)).BeginInit();
@@ -176,7 +173,7 @@
             this.gbxReporte.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.gbxReporte.Location = new System.Drawing.Point(12, 90);
             this.gbxReporte.Name = "gbxReporte";
-            this.gbxReporte.Size = new System.Drawing.Size(1406, 449);
+            this.gbxReporte.Size = new System.Drawing.Size(1884, 449);
             this.gbxReporte.TabIndex = 0;
             this.gbxReporte.TabStop = false;
             this.gbxReporte.Text = "REPORTE:";
@@ -738,7 +735,6 @@
             // 
             this.gbxBusquedas.BackColor = System.Drawing.Color.Transparent;
             this.gbxBusquedas.Controls.Add(this.lblExcel);
-            this.gbxBusquedas.Controls.Add(this.groupBox4);
             this.gbxBusquedas.Controls.Add(this.cbxMesB);
             this.gbxBusquedas.Controls.Add(this.label20);
             this.gbxBusquedas.Controls.Add(this.groupBoxFechas);
@@ -754,9 +750,9 @@
             this.gbxBusquedas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbxBusquedas.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxBusquedas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbxBusquedas.Location = new System.Drawing.Point(1424, 90);
+            this.gbxBusquedas.Location = new System.Drawing.Point(1424, 545);
             this.gbxBusquedas.Name = "gbxBusquedas";
-            this.gbxBusquedas.Size = new System.Drawing.Size(472, 785);
+            this.gbxBusquedas.Size = new System.Drawing.Size(472, 383);
             this.gbxBusquedas.TabIndex = 16;
             this.gbxBusquedas.TabStop = false;
             this.gbxBusquedas.Text = "BÚSQUEDA:";
@@ -766,45 +762,12 @@
             // 
             this.lblExcel.AutoSize = true;
             this.lblExcel.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExcel.Location = new System.Drawing.Point(353, 718);
+            this.lblExcel.Location = new System.Drawing.Point(359, 329);
             this.lblExcel.Name = "lblExcel";
             this.lblExcel.Size = new System.Drawing.Size(97, 18);
             this.lblExcel.TabIndex = 258;
             this.lblExcel.Text = "EXPORTAR";
             this.lblExcel.Visible = false;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.txtVehiculoBusq);
-            this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.groupBox4.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.groupBox4.Location = new System.Drawing.Point(11, 194);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(446, 75);
-            this.groupBox4.TabIndex = 18;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "TIPO DE VEHICULO U OBJETO INVOLUCRADO:";
-            this.groupBox4.Paint += new System.Windows.Forms.PaintEventHandler(this.gbxall_Painting);
-            // 
-            // txtVehiculoBusq
-            // 
-            this.txtVehiculoBusq.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtVehiculoBusq.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtVehiculoBusq.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtVehiculoBusq.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtVehiculoBusq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtVehiculoBusq.Location = new System.Drawing.Point(6, 20);
-            this.txtVehiculoBusq.MaxLength = 60;
-            this.txtVehiculoBusq.Multiline = true;
-            this.txtVehiculoBusq.Name = "txtVehiculoBusq";
-            this.txtVehiculoBusq.ShortcutsEnabled = false;
-            this.txtVehiculoBusq.Size = new System.Drawing.Size(434, 49);
-            this.txtVehiculoBusq.TabIndex = 19;
-            this.txtVehiculoBusq.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.txtVehiculoBusq.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtAll_KeyPress);
-            this.txtVehiculoBusq.Validating += new System.ComponentModel.CancelEventHandler(this.txtall_Validating);
-            this.txtVehiculoBusq.Validated += new System.EventHandler(this.textBoxAll_Validated);
             // 
             // cbxMesB
             // 
@@ -816,32 +779,17 @@
             this.cbxMesB.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbxMesB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cbxMesB.FormattingEnabled = true;
-            this.cbxMesB.Items.AddRange(new object[] {
-            "-- MES --",
-            "ENERO",
-            "FEBRERO",
-            "MARZO",
-            "ABRIL",
-            "MAYO",
-            "JUNIO",
-            "JULIO",
-            "AGOSTO",
-            "SEPTIEMBRE",
-            "OCTUBRE",
-            "NOVIEMBRE",
-            "DICIEMBRE"});
-            this.cbxMesB.Location = new System.Drawing.Point(186, 361);
+            this.cbxMesB.Location = new System.Drawing.Point(186, 94);
             this.cbxMesB.Name = "cbxMesB";
             this.cbxMesB.Size = new System.Drawing.Size(271, 26);
             this.cbxMesB.TabIndex = 20;
-            this.cbxMesB.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.combos_para_otros_DrawItem);
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label20.Location = new System.Drawing.Point(8, 364);
+            this.label20.Location = new System.Drawing.Point(8, 97);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(46, 18);
             this.label20.TabIndex = 252;
@@ -859,7 +807,7 @@
             this.groupBoxFechas.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.groupBoxFechas.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxFechas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.groupBoxFechas.Location = new System.Drawing.Point(11, 483);
+            this.groupBoxFechas.Location = new System.Drawing.Point(11, 141);
             this.groupBoxFechas.Name = "groupBoxFechas";
             this.groupBoxFechas.Size = new System.Drawing.Size(446, 122);
             this.groupBoxFechas.TabIndex = 21;
@@ -940,7 +888,7 @@
             this.btnActualizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnActualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnActualizar.Location = new System.Drawing.Point(214, 672);
+            this.btnActualizar.Location = new System.Drawing.Point(220, 283);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(40, 40);
             this.btnActualizar.TabIndex = 25;
@@ -956,7 +904,7 @@
             this.label37.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label37.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label37.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label37.Location = new System.Drawing.Point(179, 718);
+            this.label37.Location = new System.Drawing.Point(185, 329);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(113, 18);
             this.label37.TabIndex = 250;
@@ -976,7 +924,7 @@
             this.btnBuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnBuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnBuscar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBuscar.Location = new System.Drawing.Point(50, 673);
+            this.btnBuscar.Location = new System.Drawing.Point(56, 284);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(40, 40);
             this.btnBuscar.TabIndex = 24;
@@ -991,7 +939,7 @@
             this.label32.AutoSize = true;
             this.label32.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label32.Location = new System.Drawing.Point(36, 718);
+            this.label32.Location = new System.Drawing.Point(42, 329);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(72, 18);
             this.label32.TabIndex = 248;
@@ -1003,7 +951,7 @@
             this.txtCredencialBusq.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtCredencialBusq.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCredencialBusq.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtCredencialBusq.Location = new System.Drawing.Point(186, 84);
+            this.txtCredencialBusq.Location = new System.Drawing.Point(186, 35);
             this.txtCredencialBusq.MaxLength = 7;
             this.txtCredencialBusq.Name = "txtCredencialBusq";
             this.txtCredencialBusq.ShortcutsEnabled = false;
@@ -1018,7 +966,7 @@
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label17.Location = new System.Drawing.Point(8, 84);
+            this.label17.Location = new System.Drawing.Point(8, 35);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(121, 18);
             this.label17.TabIndex = 230;
@@ -1028,7 +976,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(184, 95);
+            this.label16.Location = new System.Drawing.Point(184, 46);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(277, 9);
             this.label16.TabIndex = 243;
@@ -1043,7 +991,7 @@
             this.btnExcel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
             this.btnExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnExcel.Location = new System.Drawing.Point(376, 670);
+            this.btnExcel.Location = new System.Drawing.Point(382, 281);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(42, 42);
             this.btnExcel.TabIndex = 26;
@@ -1056,7 +1004,7 @@
             // ptbxLoadingExcel
             // 
             this.ptbxLoadingExcel.BackColor = System.Drawing.Color.Transparent;
-            this.ptbxLoadingExcel.Location = new System.Drawing.Point(376, 670);
+            this.ptbxLoadingExcel.Location = new System.Drawing.Point(382, 281);
             this.ptbxLoadingExcel.Name = "ptbxLoadingExcel";
             this.ptbxLoadingExcel.Size = new System.Drawing.Size(42, 42);
             this.ptbxLoadingExcel.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -1108,60 +1056,60 @@
             this.dgvPMantenimiento.AllowUserToDeleteRows = false;
             this.dgvPMantenimiento.AllowUserToResizeColumns = false;
             this.dgvPMantenimiento.AllowUserToResizeRows = false;
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle16.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvPMantenimiento.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvPMantenimiento.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvPMantenimiento.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvPMantenimiento.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvPMantenimiento.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dgvPMantenimiento.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle17.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPMantenimiento.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPMantenimiento.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvPMantenimiento.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPMantenimiento.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle18.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvPMantenimiento.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvPMantenimiento.DefaultCellStyle = dataGridViewCellStyle8;
             this.dgvPMantenimiento.EnableHeadersVisualStyles = false;
             this.dgvPMantenimiento.GridColor = System.Drawing.Color.Gray;
-            this.dgvPMantenimiento.Location = new System.Drawing.Point(12, 643);
+            this.dgvPMantenimiento.Location = new System.Drawing.Point(12, 642);
             this.dgvPMantenimiento.Name = "dgvPMantenimiento";
             this.dgvPMantenimiento.ReadOnly = true;
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle19.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvPMantenimiento.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvPMantenimiento.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgvPMantenimiento.RowHeadersVisible = false;
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle20.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvPMantenimiento.RowsDefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvPMantenimiento.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.dgvPMantenimiento.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvPMantenimiento.Size = new System.Drawing.Size(1406, 232);
+            this.dgvPMantenimiento.Size = new System.Drawing.Size(1406, 282);
             this.dgvPMantenimiento.TabIndex = 252;
             this.dgvPMantenimiento.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPMantenimiento_CellDoubleClick);
             this.dgvPMantenimiento.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvPMantenimiento_CellFormatting);
@@ -1277,7 +1225,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::controlFallos.Properties.Resources.Dbkel_CXkAE43aG;
+            this.pictureBox1.Image = global::controlFallos.Properties.Resources.transmasivo;
             this.pictureBox1.Location = new System.Drawing.Point(1700, 8);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(196, 81);
@@ -1324,8 +1272,6 @@
             this.groupBox2.PerformLayout();
             this.gbxBusquedas.ResumeLayout(false);
             this.gbxBusquedas.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBoxFechas.ResumeLayout(false);
             this.groupBoxFechas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbxLoadingExcel)).EndInit();
@@ -1352,7 +1298,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtVehiculoBusq;
         private System.Windows.Forms.TextBox txtKilometraje;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
@@ -1393,7 +1338,6 @@
         private System.Windows.Forms.ComboBox cbxMesB;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.DataGridView dgvPMantenimiento;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.PictureBox ptbxResponsable;
         private System.Windows.Forms.PictureBox ptbxCoordinador;
         private System.Windows.Forms.Label label19;

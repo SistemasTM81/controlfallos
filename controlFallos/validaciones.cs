@@ -4321,7 +4321,7 @@ namespace controlFallos
                                                                 return true;
                                                             else
                                                             {
-                                                                MessageBox.Show("Faltan " + ((Convert.ToInt32(necos) - 1) - diferencias.Count) + " diferencias de tiempo, por establecer", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                                MessageBox.Show("Faltan " + ((Convert.ToInt32(necos) - 1) - diferencias.Count) + " diferencia(s) de tiempo por establecer", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                                                 return false;
                                                             }
                                                         else
@@ -4331,7 +4331,7 @@ namespace controlFallos
                                                         }
                                                     else
                                                     {
-                                                        MessageBox.Show("Faltan " + (Convert.ToInt32(necos) - ecos.Count) + " economicos por seleccionar", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                                        MessageBox.Show("Faltan " + (Convert.ToInt32(necos) - ecos.Count) + " economico(s) por seleccionar", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
                                                         return false;
                                                     }
                                                 else

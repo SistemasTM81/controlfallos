@@ -66,7 +66,7 @@ namespace controlFallos
         {
             privilegios();
             ptabla.Visible = (pconsultar ? true : false);
-            gbRol.Visible = (pinsertar || peditar ? true : false);
+            gbRol.Visible = gbecos.Visible = gbxdiferencia.Visible = (pinsertar || peditar ? true : false);
             psave.Visible = (pinsertar ? true : false);
         }
         void mostrarEmpresas()
@@ -254,7 +254,7 @@ namespace controlFallos
                     for (int i = 0; i < (Convert.ToInt32(txtecos.Text) <= ecosAnterior ? Convert.ToInt32(txtecos.Text) : unidadesAnterior.Count); i++)
                     {
                         unidades.Add(unidadesAnterior[i]);
-                        if (i < unidadesAnterior.Count - 1)
+                        if (i < (Convert.ToInt32(txtecos.Text) <= ecosAnterior ? Convert.ToInt32(txtecos.Text) - 1 : diferenciaAnterior.Count))
                             diferencia.Add(diferenciaAnterior[i]);
                     }
                     lblunidades.Text = "Unidades: " + texto(unidades);
@@ -268,7 +268,6 @@ namespace controlFallos
                     }
                 }
             }
-
         }
         void resetcolor(string[] ids)
         {
@@ -303,6 +302,26 @@ namespace controlFallos
                 deletefromlist();
         }
 
+        private void gbRol_Paint(object sender, PaintEventArgs e)
+        {
+            GroupBox gbxall = sender as GroupBox;
+            v.DrawGroupBox(gbxall, e.Graphics, Color.FromArgb(75, 44, 52), Color.FromArgb(75, 44, 52), this);
+        }
+
+        Bitmap redimesionar(string img, int p)
+        {
+            Bitmap bmp = (Bitmap)Bitmap.FromFile(img);
+            float nperncent = ((float)p / 100);
+            int destinoWidth = (int)(bmp.Width * nperncent);
+            int destinoHeight = (int)(bmp.Height * nperncent);
+            Bitmap imagen2 = new Bitmap(destinoWidth, destinoHeight);
+            using (Graphics g = Graphics.FromImage((Image)imagen2))
+            {
+                g.DrawImage(bmp, 0, 0, destinoWidth, destinoHeight);
+            }
+            bmp.Dispose();
+            return (imagen2);
+        }
         private void btnimg_Click(object sender, EventArgs e)
         {
             OpenFileDialog dialogo = new OpenFileDialog();
@@ -312,7 +331,8 @@ namespace controlFallos
             dialogo.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
             if (dialogo.ShowDialog() == DialogResult.OK)
             {
-                img = v.ImageToString(pictureBox1.Image = Image.FromFile(dialogo.FileName));
+                img = v.ImageToString(dialogo.FileName);
+                pictureBox1.BackgroundImage = redimesionar(dialogo.FileName, 100);
                 lblimg.Text = "Cambiar imágen";
                 cmbempresa_SelectedValueChanged(sender, e);
             }
@@ -320,6 +340,7 @@ namespace controlFallos
         private void lbxdiferencias_DoubleClick(object sender, EventArgs e)
         {
             padd.Visible = !(pdatos.Visible = editardif = true);
+            btnadd.BackgroundImage = Properties.Resources.pencil;
             txtdiferencia.Text = (diferenciaA = Convert.ToInt32(diferencia[c = lbxdiferencias.SelectedIndex])).ToString();
             lbltexto.Text = "Diferencia entre unidad " + (lbxdiferencias.SelectedIndex + 1) + " y " + (lbxdiferencias.SelectedIndex + 2) + ": ";
         }
@@ -345,6 +366,7 @@ namespace controlFallos
                     if (editardif)
                         pdatos.Visible = padd.Visible = false;
                     cmbempresa_SelectedValueChanged(sender, e);
+                    btnadd.BackgroundImage = Properties.Resources.add;
                 }
                 else
                     MessageBox.Show("La diferencia debe ser mayor a 0", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -373,9 +395,6 @@ namespace controlFallos
                     differencebetween(diferencia);
                 }
             }
-        }
-        void respaldo(List<string> lista)
-        {
         }
         private void txtciclos_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -525,7 +544,6 @@ namespace controlFallos
                 diferenciaAnterior.Clear();
             }
             lblunidades.Text = img = imganterior = "";
-            pictureBox1.Image = null;
             mostrarEmpresas();
             nudlapso.Value = cmbempresa.SelectedIndex = empresaAnterior = areaArenterior = servicioAnterior = ciclosAnterior = ecosAnterior = lapsoAnterior = contador = idRol = 0;
             txtecos.Clear();
@@ -539,6 +557,7 @@ namespace controlFallos
             lbldiff.Text = "establecer diferencias de tiempo";
             psave.Visible = (pinsertar ? true : false);
             pnuevo.Visible = pstatus.Visible = pselectecos.Visible = gbecos.Enabled = gbxdiferencia.Enabled = editar = editardif = editareco = nuevo = !(psave.Visible = true);
+            pictureBox1.BackgroundImage = null;
         }
 
         private void dgvroles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -578,7 +597,7 @@ namespace controlFallos
             dtpincorporo.Value = horaAnterior = DateTime.Parse(datosrol[3]);
             nudlapso.Value = lapsoAnterior = Convert.ToInt32(datosrol[4]);
             lblstatus.Text = ((statusAnterior = Convert.ToInt32(datosrol[5])) == 1 ? "Desactivar" : "Reactivar");
-            btnstatus.BackgroundImage = (statusAnterior == 1 ? controlFallos.Properties.Resources.delete__4_ : controlFallos.Properties.Resources.up);
+            btnstatus.BackgroundImage = (statusAnterior == 1 ? controlFallos.Properties.Resources.sw : controlFallos.Properties.Resources.swv);
             btnguardar.BackgroundImage = controlFallos.Properties.Resources.pencil;
             pstatus.Visible = (pdesactivar ? true : false);
             unidades = new List<int>(ecosAnterior);
@@ -587,7 +606,7 @@ namespace controlFallos
             diferencia = new List<string>(ecosAnterior - 1);
             diferenciaAnterior = datosrol[6].Split(',').ToList();
             diferencia = datosrol[6].Split(',').ToList();
-            pictureBox1.Image = (!string.IsNullOrWhiteSpace(datosrol[7]) ? v.StringToImage(datosrol[7]) : null);
+            pictureBox1.BackgroundImage = (!string.IsNullOrWhiteSpace(datosrol[7]) ? v.StringToImage(datosrol[7]) : null);
             lblimg.Text = (!string.IsNullOrWhiteSpace((img = imganterior = datosrol[7])) ? "cambiar imagen" : "seleccionar imagen");
             DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosforlist('" + idRol + "');");
             foreach (DataRow item in dt.Rows)

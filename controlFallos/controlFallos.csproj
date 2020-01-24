@@ -1019,6 +1019,8 @@
     <None Include="Resources\sync.png" />
     <None Include="Resources\test.png" />
     <None Include="Resources\timer-transparent-css-6.gif" />
+    <None Include="Resources\switch.png" />
+    <None Include="Resources\switch %281%29.png" />
     <None Include="Resources\team.png" />
     <Content Include="Resources\transmasivo %281%29.ico" />
     <Content Include="Resources\transmasivo.png" />

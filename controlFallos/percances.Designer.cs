@@ -2583,7 +2583,7 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::controlFallos.Properties.Resources.Dbkel_CXkAE43aG;
+            this.pictureBox1.BackgroundImage = global::controlFallos.Properties.Resources.transmasivo;
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(1749, 554);
             this.pictureBox1.Name = "pictureBox1";

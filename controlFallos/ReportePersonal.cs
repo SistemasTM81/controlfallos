@@ -26,7 +26,7 @@ namespace controlFallos
 
         int idcred, idreporteP, consecutivoReporteP, empresa, area, totalvalidaciontxt, reporte, numhuella;
         public int hresponsable = 0, hcoordinador = 0, idUsuario, idFinal;
-        string tipo, estatus; 
+        string tipo, estatus;
         bool validaciontxt = false;
         bool exportando = false, banderaeditar;
         Thread th;
@@ -44,7 +44,7 @@ namespace controlFallos
 
         string nombrePDF, credencialPDF, FechaPDF, HoraDF, LugarIncidentePDF, tipovehiculobjetoPDF, KilometrajePDF, observacionesPDF, consecutivoReportePPDF, nombreReporte, Codigo, Vigencia, Revision, responsable, coordinador;
 
-        public ReportePersonal(int idUsuario, int empresa, int area,validaciones v)
+        public ReportePersonal(int idUsuario, int empresa, int area, validaciones v)
         {
             this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
@@ -53,6 +53,8 @@ namespace controlFallos
             this.empresa = empresa;
             this.area = area;
             this.idUsuario = idUsuario;
+            cbxMesB.DrawItem += v.combos_DrawItem;
+            cbxMesB.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             //dtpFecha.MinDate = DateTime.Today.Subtract(TimeSpan.FromDays(2));
             //dtpFecha.MaxDate = DateTime.Now.AddDays(1);
         }
@@ -60,6 +62,7 @@ namespace controlFallos
         private void ReportePersonal_Load(object sender, EventArgs e)
         {
             privilegios();
+            v.comboswithuot(cbxMesB, new string[] { "selccione un mes", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" });
             dtpTime.Format = DateTimePickerFormat.Custom;
             dtpTime.CustomFormat = "HH:mm";
             cbxMesB.SelectedIndex = 0;
@@ -76,12 +79,9 @@ namespace controlFallos
                 {
                     if (frm.InvokeRequired)
                     {
-
                         validaciones.delgado dm = new validaciones.delgado(v.cerrarForm);
-
                         Invoke(dm, frm);
                     }
-
                     break;
                 }
             }
@@ -166,15 +166,8 @@ namespace controlFallos
 
         public void nuevaconsecutiva()
         {
-            MySqlCommand cmd = new MySqlCommand("SELECT COUNT(idreportepersonal) AS CONTADOR FROM reportepersonal", v.c.dbconection());
-            MySqlDataReader dr = cmd.ExecuteReader();
-            if (dr.Read())
-            {
-                consecutivoReporteP = dr.GetInt32("CONTADOR");
-                consecutivoReporteP++;
-            }
-            dr.Close();
-            v.c.dbconection().Close();
+            consecutivoReporteP = Convert.ToInt32(v.getaData("select count(*) from reportepersonal"));
+            consecutivoReporteP++;
             gbxReporte.Text = "REPORTE # " + consecutivoReporteP + "";
         }
 
@@ -214,7 +207,7 @@ namespace controlFallos
 
         public void limpiarbusqnormal()
         {
-            txtCredencialBusq.Text = txtVehiculoBusq.Text = "";
+            txtCredencialBusq.Text = "";
             cbxMesB.SelectedIndex = 0;
             chbxFechas.Checked = false;
         }
@@ -234,33 +227,6 @@ namespace controlFallos
                     e.Handled = true; // Interceptamos la pulsación para que no permitirla.
         }
 
-        public void combos_para_otros_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            ComboBox cbx = sender as ComboBox;
-            if (cbx != null)
-            {
-                e.DrawBackground();
-                if (e.Index >= 0)
-                {
-                    StringFormat sf = new StringFormat();
-                    sf.LineAlignment = StringAlignment.Center;
-                    sf.Alignment = StringAlignment.Center;
-                    Brush brush = new SolidBrush(cbx.ForeColor);
-                    if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-                    {
-                        brush = SystemBrushes.HighlightText;
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, Color.Crimson);
-                        e.DrawBackground();
-
-                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, new SolidBrush(Color.White), e.Bounds, sf);
-                        e.DrawFocusRectangle();
-                    }
-                    else
-                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, brush, e.Bounds, sf);
-                }
-            }
-        }
-
         private void allpeople(string estatuss)
         {
             txtCredencial.Enabled = true; //NO QUITAR, APOYA A LA ACTIVACIÓN DEL EVENTO "LEAVE"
@@ -277,7 +243,7 @@ namespace controlFallos
                 txtKilometraje.Text = kilometrajeanterior = dr.GetString("KILOMETRAJE");
                 if (string.IsNullOrWhiteSpace(estatus))
                     if (!kilometrajeanterior.Equals("0.00"))
-                        if(banderaeditar)
+                        if (banderaeditar)
                             chbxVehiculo.Checked = txtKilometraje.Enabled = chbxVehiculo.Enabled = true;
                         else
                             chbxVehiculo.Checked = txtKilometraje.Enabled = chbxVehiculo.Enabled = false;
@@ -342,7 +308,7 @@ namespace controlFallos
             else
                 txtTipoVehiculo.Enabled = false;
             if (string.IsNullOrWhiteSpace(txtObservaciones.Text))
-                if(estatus == "FINALIZADO")
+                if (estatus == "FINALIZADO")
                     txtObservaciones.Enabled = false;
                 else
                     txtObservaciones.Enabled = true;
@@ -404,7 +370,6 @@ namespace controlFallos
                 btnGuardar.Visible = label24.Visible = true;
                 btnGuardar.Location = new Point(531, 553);
             }
-
             btnPDF.Visible = label31.Visible = btnFinalizar.Visible = label26.Visible = false;
             btnNuevo.BackgroundImage = Properties.Resources.eraser;
             label24.Text = "GUARDAR";
@@ -564,7 +529,7 @@ namespace controlFallos
             if (string.IsNullOrWhiteSpace(nombreReporte) && string.IsNullOrWhiteSpace(Codigo) && string.IsNullOrWhiteSpace(Vigencia) && string.IsNullOrWhiteSpace(Revision))
             {
                 MessageBox.Show("No existe la información del encabezado en el Reporte de personal, agregue toda la información para poder exportar", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                ReportesVigencias rp = new ReportesVigencias(empresa, area, idUsuario,v);
+                ReportesVigencias rp = new ReportesVigencias(empresa, area, idUsuario, v);
                 rp.Owner = this;
                 rp.ShowDialog();
             }
@@ -892,7 +857,6 @@ namespace controlFallos
                             c47s2_18.BorderColorBottom = BaseColor.BLACK;
                             c47s2_18.BorderWidthBottom = 2f;
                             tball.AddCell(c47s2_18);
-
                             dc.Add(tball);
                             dc.AddCreationDate();
                             dc.Close();
@@ -1159,7 +1123,7 @@ namespace controlFallos
 
         private void btnBuscar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtCredencialBusq.Text) && string.IsNullOrWhiteSpace(txtVehiculoBusq.Text) && cbxMesB.SelectedIndex == 0 && chbxFechas.Checked == false)
+            if (string.IsNullOrWhiteSpace(txtCredencialBusq.Text) && cbxMesB.SelectedIndex == 0 && chbxFechas.Checked == false)
                 MessageBox.Show("Campos de búsqueda vacíos", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
@@ -1184,13 +1148,6 @@ namespace controlFallos
                             where = " WHERE t2.credencial = '" + txtCredencialBusq.Text + "'";
                         else
                             where += " AND t2.credencial = '" + txtCredencialBusq.Text + "'";
-                    }
-                    if (!string.IsNullOrWhiteSpace(txtVehiculoBusq.Text))
-                    {
-                        if (string.IsNullOrWhiteSpace(where))
-                            where = " WHERE t1.TipoVehObj = '" + txtVehiculoBusq.Text + "'";
-                        else
-                            where += " AND t1.TipoVehObj = '" + txtVehiculoBusq.Text + "'";
                     }
                     if (cbxMesB.SelectedIndex != 0)
                     {
@@ -1222,7 +1179,7 @@ namespace controlFallos
                     else
                     {
                         label37.Visible = btnActualizar.Visible = true;
-                        if(peditar)
+                        if (peditar)
                             btnExcel.Visible = lblExcel.Visible = true;
                     }
                     limpiarbusqnormal();
@@ -1348,7 +1305,7 @@ namespace controlFallos
 
         private void btnActualizarEnca_Click(object sender, EventArgs e)
         {
-            ReportesVigencias rp = new ReportesVigencias(empresa, area, idUsuario,v);
+            ReportesVigencias rp = new ReportesVigencias(empresa, area, idUsuario, v);
             rp.Owner = this;
             rp.ShowDialog();
         }
@@ -1371,7 +1328,7 @@ namespace controlFallos
                 numhuella = 2;
                 tipo = "COORDINADOR";
             }
-            LectorHuellas lh = new LectorHuellas(2, numhuella, tipo, "Nombre", "Paterno", "Materno", idcred.ToString(),v);
+            LectorHuellas lh = new LectorHuellas(2, numhuella, tipo, "Nombre", "Paterno", "Materno", idcred.ToString(), v);
             lh.Owner = this;
             lh.ShowDialog();
             if (numhuella == 1)
@@ -1396,7 +1353,7 @@ namespace controlFallos
                 if (hresponsable != 0)
                     ptbxResponsable.Image = Properties.Resources.comprobar;
                 else
-                    ptbxResponsable.Image = Properties.Resources.incorrect;
+                    ptbxResponsable.Image = Properties.Resources.cross;
             }
             else
             {
@@ -1419,7 +1376,7 @@ namespace controlFallos
                 if (hcoordinador != 0)
                     ptbxCoordinador.Image = Properties.Resources.comprobar;
                 else
-                    ptbxCoordinador.Image = Properties.Resources.incorrect;
+                    ptbxCoordinador.Image = Properties.Resources.cross;
             }
         }
 
@@ -1528,7 +1485,7 @@ namespace controlFallos
                 }
                 else
                 {
-                    FormContraFinal FCF = new FormContraFinal(empresa, area, this,v);
+                    FormContraFinal FCF = new FormContraFinal(empresa, area, this, v);
                     FCF.LabelTitulo.Text = "Introduzca su contraseña para finalizar\nel reporte";
                     var res = FCF.ShowDialog();
                     if (res == DialogResult.OK)
@@ -1554,7 +1511,7 @@ namespace controlFallos
                                     else
                                         set += ", Kilometraje = '" + Convert.ToDouble(txtKilometraje.Text) + "'";
                             if (!string.IsNullOrWhiteSpace(hresponsable.ToString()))
-                                if(Convert.ToDouble(hresponsable) > 0)
+                                if (Convert.ToDouble(hresponsable) > 0)
                                     set = ", responsablefkcpersonal = '" + hresponsable + "'";
                                 else
                                     set += ", responsablefkcpersonal = '" + hresponsable + "'";
@@ -1575,7 +1532,7 @@ namespace controlFallos
                             v.c.dbconection().Close();
                             MessageBox.Show("El reporte ha sido finalizado", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             btnFinalizar.Visible = label26.Visible = btnPDF.Visible = label31.Visible = false;
-                            btnGuardar.Visible = label24.Visible = txtCredencial.Enabled = dtpFecha.Enabled = dtpTime.Enabled = txtLugarIncidente.Enabled = txtTipoVehiculo.Enabled =  true;
+                            btnGuardar.Visible = label24.Visible = txtCredencial.Enabled = dtpFecha.Enabled = dtpTime.Enabled = txtLugarIncidente.Enabled = txtTipoVehiculo.Enabled = true;
                             label24.Text = "GUARDAR";
                             btnGuardar.BackgroundImage = Properties.Resources.save1;
                             limpiar();
