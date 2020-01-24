@@ -87,8 +87,12 @@ namespace controlFallos
                 d1 d = new d1(pecos);
                 this.Invoke(d);
             }
-            foreach (DataRow item in dt.Rows)
-                createcontrols(item.ItemArray[0], item.ItemArray[1]);
+            else
+            {
+                foreach (DataRow item in dt.Rows)
+                    createcontrols(item.ItemArray[0], item.ItemArray[1]);
+                lblloadrol.Visible = false;
+            }
             thunidades.Abort();
         }
         void createcontrols(object id, object text)
@@ -283,7 +287,8 @@ namespace controlFallos
             {
                 pgif.Controls.Clear(); x = y = 5;
                 dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
-                thunidades = new Thread(new ThreadStart(pecos));
+                lblloadrol.Visible = true;
+                thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true};
                 thunidades.Start();
             }
             else
@@ -403,14 +408,14 @@ namespace controlFallos
 
         private void cmbempresa_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (editar && peditar)
+            /**if (editar && peditar)
                 psave.Visible = (cambios() ? true : false);
             if (!string.IsNullOrWhiteSpace(txtecos.Text))
             {
                 ptime.Visible = pselectecos.Visible = ((Convert.ToInt32(txtecos.Text) > 0 && (statusAnterior > 0 || !editar)) ? true : false);
                 pselectecos.Visible = pselectecos.Visible = ((Convert.ToInt32(txtecos.Text) > 0 && (statusAnterior > 0 || !editar)) ? true : false);
             }
-            else ptime.Visible = pselectecos.Visible = false;
+            else ptime.Visible = pselectecos.Visible = false;*/
         }
         public string cadena(List<string> lista)
         {

@@ -172,15 +172,14 @@
   <data name="bug__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bug__1_.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
-=======
+
   <data name="support" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\support.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ajustes" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ajustes.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
+
   <data name="driver (2)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\driver (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -214,19 +213,18 @@
   <data name="refresh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\refresh1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
+
   <data name="TSD" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TSD.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="delivery_truck" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\delivery-truck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="swv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\switch.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="list" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\list1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
   </data>
   <data name="up" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\up.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -273,7 +271,7 @@
   <data name="next" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\previous (3).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
+
   <data name="login" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -282,10 +280,9 @@
   </data>
   <data name="Imagen2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Imagen2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="save2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
   </data>
   <data name="exchange" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exchange.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -329,13 +326,13 @@
   <data name="plus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\plus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
+
   <data name="diskette" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\diskette.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="excelrol" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\excelrol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="pencil" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\pencil.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -347,7 +344,6 @@
   </data>
   <data name="file1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\file2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
   </data>
   <data name="document_edit_icon_icons_com_52428" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\document-edit_icon-icons.com_52428.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -372,12 +368,9 @@
   </data>
   <data name="presentation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\presentation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-<<<<<<< HEAD
-=======
   </data>
   <data name="TRASERO" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TRASERO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
   </data>
   <data name="addrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\addrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -391,13 +384,12 @@
   <data name="bus2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bus2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
   <data name="incorrect" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\incorrect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="fingerprint" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fingerprint.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
+
   </data>
   <data name="asistance" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\asistance.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -432,27 +424,26 @@
   <data name="nut" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\nut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
+
   <data name="FRONTAL_SOMBRA__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FRONTAL_SOMBRA__1_.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="fingerprint1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fingerprint1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="bus" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bus.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
+
   </data>
   <data name="sync" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sync.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
+
   <data name="calendar (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\calendar (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="bus1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bus1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
   </data>
   <data name="save" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -489,12 +480,11 @@
   </data>
   <data name="busstop" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bus-stop.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-<<<<<<< HEAD
+
   </data>
   <data name="support" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\support.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
+
   </data>
   <data name="deshacer" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\deshacer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -544,13 +534,12 @@
   <data name="report" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\report.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
+
   <data name="TRASERO" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\TRASERO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="login" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\login.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
   </data>
   <data name="previous" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\previous (2).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -561,7 +550,6 @@
   <data name="comprobar" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\comprobar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
   <data name="purchase_order__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\purchase_order__1_.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -570,10 +558,9 @@
   </data>
   <data name="manager1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\manager1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="addition" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\addition.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
   </data>
   <data name="FRONTAL_SOMBRA__1_" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\FRONTAL_SOMBRA__1_.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -599,15 +586,14 @@
   <data name="editrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\editrow.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-<<<<<<< HEAD
+
   <data name="diskette (1)" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\diskette (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-=======
+  </data>
   <data name="sw" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\switch (1).png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="team" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\team.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
->>>>>>> fc922f1cf5439be292d362d39a685f34636c3218
   </data>
 </root>
