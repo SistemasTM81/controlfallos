@@ -4314,7 +4314,7 @@ namespace controlFallos
                                     if (Convert.ToUInt32(necos) > 0)
                                         if (horai.Hour >= 4 && horai.Hour <= 7)
                                             if (lciclos > 0)
-                                                if (ecos != null)
+                                                if (ecos != null && ecos.Count > 0)
                                                     if (ecos.Count == Convert.ToInt32(necos))
                                                         if (diferencias != null && diferencias.Count > 0)
                                                             if (diferencias.Count == (Convert.ToInt32(necos) - 1))

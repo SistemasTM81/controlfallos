@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Drawing.Drawing2D;
 
 namespace controlFallos
 {
@@ -17,6 +18,7 @@ namespace controlFallos
         validaciones v;
         Button boton;
         int idUsuario, idRol, empresaAnterior, areaArenterior, servicioAnterior, ciclosAnterior, ecosAnterior, lapsoAnterior, statusAnterior, x = 5, y = 5, contador = 0, c = 0, diferenciaA;
+        string img, imganterior;
         List<int> unidades;
         List<int> unidadesAnterior;
         List<string> diferenciaAnterior;
@@ -25,6 +27,7 @@ namespace controlFallos
         delegate void empre();
         delegate void d1();
         Thread hempresas, th, thunidades;
+        DataTable dt;
         bool pinsertar { get; set; }
         bool pconsultar { get; set; }
         bool peditar { get; set; }
@@ -76,14 +79,14 @@ namespace controlFallos
             v.iniCombos("call sistrefaccmant.companieswithstatus();", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
             hempresas.Abort();
         }
+
         void pecos()
         {
             if (this.InvokeRequired)
             {
-                d1 dele = new d1(pecos);
-                this.Invoke(dele);
+                d1 d = new d1(pecos);
+                this.Invoke(d);
             }
-            DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbservicio.SelectedValue + "');");
             foreach (DataRow item in dt.Rows)
                 createcontrols(item.ItemArray[0], item.ItemArray[1]);
             thunidades.Abort();
@@ -199,52 +202,80 @@ namespace controlFallos
 
         private void btnecos_Click(object sender, EventArgs e)
         {
-            gbecos.Enabled = (!string.IsNullOrWhiteSpace(txtecos.Text) && Convert.ToInt32(txtecos.Text) > 0 ? true : false);
-            if (!editar)
+            if (cmbservicio.SelectedIndex > 0)
             {
-                object aux = null;
-                List<int> respaldo = null;
-                if (unidades != null && unidades.Count > 0)
+                gbecos.Enabled = (!string.IsNullOrWhiteSpace(txtecos.Text) && Convert.ToInt32(txtecos.Text) > 0 ? true : false);
+                if (!editar)
                 {
-                    aux = unidades.Count;
-                    if (Convert.ToInt32(aux ?? 0) != Convert.ToInt32(txtecos.Text) && Convert.ToInt32(aux ?? 0) > 0)
+                    object aux = null;
+                    List<int> respaldo = null;
+                    if (unidades != null && unidades.Count > 0)
                     {
-                        respaldo = new List<int>(Convert.ToInt32(aux));
-                        for (int i = 0; i < Convert.ToInt32(aux); i++)
-                            respaldo.Add(unidades[i]);
+                        aux = unidades.Count;
+                        if (Convert.ToInt32(aux ?? 0) != Convert.ToInt32(txtecos.Text) && Convert.ToInt32(aux ?? 0) > 0)
+                        {
+                            respaldo = new List<int>(Convert.ToInt32(aux));
+                            for (int i = 0; i < Convert.ToInt32(aux); i++)
+                                respaldo.Add(unidades[i]);
+                        }
                     }
+                    unidades = new List<int>(Convert.ToInt32(txtecos.Text));
+                    if (Convert.ToInt32(aux) != Convert.ToInt32(txtecos.Text) && Convert.ToInt32(aux) > 0)
+                        for (int i = 0; i < (Convert.ToInt32(aux) < Convert.ToInt32(txtecos.Text) ? Convert.ToInt32(aux) : Convert.ToInt32(txtecos.Text)); i++)
+                            unidades.Add(respaldo[i]);
+                    if (Convert.ToInt32(txtecos.Text) < Convert.ToInt32(aux))
+                        lblunidades.Text = "Unidades: " + texto(unidades);
                 }
-                unidades = new List<int>(Convert.ToInt32(txtecos.Text));
-                if (Convert.ToInt32(aux) != Convert.ToInt32(txtecos.Text) && Convert.ToInt32(aux) > 0)
-                    for (int i = 0; i < (Convert.ToInt32(aux) < Convert.ToInt32(txtecos.Text) ? Convert.ToInt32(aux) : Convert.ToInt32(txtecos.Text)); i++)
-                        unidades.Add(respaldo[i]);
-                if (Convert.ToInt32(txtecos.Text) < Convert.ToInt32(aux))
-                    lblunidades.Text = "Unidades: " + texto(unidades);
+                else
+                {
+                    if (Convert.ToInt32(txtecos.Text) != ecosAnterior)
+                    {
+                        unidades = new List<int>(Convert.ToInt32(txtecos.Text));
+                        for (int i = 0; i < (Convert.ToInt32(txtecos.Text) <= ecosAnterior ? Convert.ToInt32(txtecos.Text) : unidadesAnterior.Count); i++)
+                            unidades.Add(unidadesAnterior[i]);
+                        lblunidades.Text = "Unidades: " + texto(unidades);
+
+                    }
+
+                }
             }
             else
-            {
-                if (Convert.ToInt32(txtecos.Text) != ecosAnterior)
-                {
-                    unidades = new List<int>(Convert.ToInt32(txtecos.Text));
-                    for (int i = 0; i < (Convert.ToInt32(txtecos.Text) <= ecosAnterior ? Convert.ToInt32(txtecos.Text) : unidadesAnterior.Count); i++)
-                        unidades.Add(unidadesAnterior[i]);
-                    lblunidades.Text = "Unidades: " + texto(unidades);
-                }
-
-            }
+                MessageBox.Show("Debe seleccionar un servicio de la lista desplegable", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         void deletefromlist()
         {
             if (editar)
             {
                 if (Convert.ToInt32(txtecos.Text) != ecosAnterior)
-                    unidades = new List<int>(Convert.ToInt32(txtecos.Text));
-                for (int i = 0; i < (Convert.ToInt32(txtecos.Text) <= ecosAnterior ? Convert.ToInt32(txtecos.Text) : unidadesAnterior.Count); i++)
-                    unidades.Add(unidadesAnterior[i]);
+                {
+                    string restantes = "";
+                    unidades = new List<int>();
+                    diferencia = new List<string>();
+                    for (int i = 0; i < (Convert.ToInt32(txtecos.Text) <= ecosAnterior ? Convert.ToInt32(txtecos.Text) : unidadesAnterior.Count); i++)
+                    {
+                        unidades.Add(unidadesAnterior[i]);
+                        if (i < unidadesAnterior.Count - 1)
+                            diferencia.Add(diferenciaAnterior[i]);
+                    }
+                    lblunidades.Text = "Unidades: " + texto(unidades);
+                    differencebetween(diferencia);
+                    contador = unidades.Count;
+                    if (contador < unidadesAnterior.Count)
+                    {
+                        for (int i = contador; i < unidadesAnterior.Count; i++)
+                            restantes = (unidadesAnterior.Count - i > 1 ? restantes += unidadesAnterior[i].ToString() + "," : restantes += unidadesAnterior[i].ToString());
+                        resetcolor(restantes.ToString().Split(','));
+                    }
+                }
             }
-            else
-            {
 
+        }
+        void resetcolor(string[] ids)
+        {
+            for (int i = 0; i < ids.Length; i++)
+            {
+                Button b = pgif.Controls.Find("lbl|" + ids[i], true).FirstOrDefault() as Button;
+                b.BackColor = Color.PaleGreen;
             }
         }
         private void cmbservicio_SelectedValueChanged(object sender, EventArgs e)
@@ -252,6 +283,7 @@ namespace controlFallos
             if (cmbservicio.SelectedIndex > 0)
             {
                 pgif.Controls.Clear(); x = y = 5;
+                dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
                 thunidades = new Thread(new ThreadStart(pecos));
                 thunidades.Start();
             }
@@ -265,11 +297,26 @@ namespace controlFallos
                 padd.Visible = (!string.IsNullOrWhiteSpace(txtdiferencia.Text) && diferenciaA != Convert.ToInt32(txtdiferencia.Text) ? true : false);
         }
 
-        private void dgvroles_CellMouseEnter(object sender, DataGridViewCellEventArgs e)
+        private void txtecos_Validating(object sender, CancelEventArgs e)
         {
-            MessageBox.Show(e.ColumnIndex.ToString());
+            if (!string.IsNullOrWhiteSpace(txtecos.Text))
+                deletefromlist();
         }
 
+        private void btnimg_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog dialogo = new OpenFileDialog();
+            dialogo.Title = "Seleccionar imagen";
+            dialogo.InitialDirectory = System.Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+            dialogo.RestoreDirectory = true;
+            dialogo.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+            if (dialogo.ShowDialog() == DialogResult.OK)
+            {
+                img = v.ImageToString(pictureBox1.Image = Image.FromFile(dialogo.FileName));
+                lblimg.Text = "Cambiar imágen";
+                cmbempresa_SelectedValueChanged(sender, e);
+            }
+        }
         private void lbxdiferencias_DoubleClick(object sender, EventArgs e)
         {
             padd.Visible = !(pdatos.Visible = editardif = true);
@@ -279,43 +326,51 @@ namespace controlFallos
 
         private void btnadd_Click(object sender, EventArgs e)
         {
-            if (editardif)
+            if (!string.IsNullOrWhiteSpace(txtdiferencia.Text))
             {
-                diferencia.RemoveAt(c);
-                lbxdiferencias.Items.RemoveAt(c);
+                if (Convert.ToInt32(txtdiferencia.Text) > 0)
+                {
+                    if (editardif)
+                    {
+                        diferencia.RemoveAt(c);
+                        lbxdiferencias.Items.RemoveAt(c);
+                    }
+                    diferencia.Insert(c, txtdiferencia.Text);
+                    differencebetween(diferencia);
+                    txtdiferencia.Clear();
+                    txtdiferencia.Focus();
+                    c++;
+                    lbltexto.Text = "Diferencia entre unidad " + (c + 1) + " y " + (c + 2) + ": ";
+                    padd.Visible = pdatos.Visible = (c == Convert.ToInt32(txtecos.Text) - 1 ? false : true);
+                    if (editardif)
+                        pdatos.Visible = padd.Visible = false;
+                    cmbempresa_SelectedValueChanged(sender, e);
+                }
+                else
+                    MessageBox.Show("La diferencia debe ser mayor a 0", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            diferencia.Insert(c, txtdiferencia.Text);
-            differencebetween(diferencia);
-            txtdiferencia.Clear();
-            txtdiferencia.Focus();
-            c++;
-            lbltexto.Text = "Diferencia entre unidad " + (c + 1) + " y " + (c + 2) + ": ";
-            padd.Visible = pdatos.Visible = (c == Convert.ToInt32(txtecos.Text) - 1 ? false : true);
-            if (editardif)
-                pdatos.Visible = padd.Visible = false;
-            cmbempresa_SelectedValueChanged(sender, e);
+            else
+                MessageBox.Show("El campo de diferencia entre unidades se encuentra vacío", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btntime_Click(object sender, EventArgs e)
         {
             gbxdiferencia.Enabled = true;
-            pdatos.Visible = padd.Visible = (editar ? false : true);
             if (!editar)
             {
-                if (diferencia == null)
-                    diferencia = new List<string>(Convert.ToInt32(txtecos.Text));
+                diferencia = new List<string>();
+                for (int i = 0; i < Convert.ToInt32(txtecos.Text) - 1; i++)
+                    diferencia.Add("5");
+                differencebetween(diferencia);
             }
             else
             {
                 if ((Convert.ToInt32(txtecos.Text) - 1) != diferencia.Count)
                 {
-                    diferencia = new List<string>(Convert.ToInt32(txtecos.Text) - 1);
-                    for (int i = 0; i < (Convert.ToInt32(txtecos.Text) - 1 < diferenciaAnterior.Count ? (Convert.ToInt32(txtecos.Text) - 1) : diferenciaAnterior.Count); i++)
-                        diferencia.Add(diferenciaAnterior[i]);
+                    diferencia = new List<string>();
+                    for (int i = 0; i < Convert.ToInt32(txtecos.Text) - 1; i++)
+                        diferencia.Add("5");
                     differencebetween(diferencia);
-                    c = diferencia.Count;
-                    lbltexto.Text = "Diferencia entre unidad " + (c + 1) + " y " + (c + 2) + ": ";
-                    pdatos.Visible = padd.Visible = (Convert.ToInt32(txtecos.Text) > diferenciaAnterior.Count ? true : false);
                 }
             }
         }
@@ -352,7 +407,7 @@ namespace controlFallos
                 if (!v.existeRol(Convert.ToInt32(cmbservicio.SelectedValue), idRol))
                     if (!editar)
                     {
-                        if (v.c.insertar("Insert into croles(serviciofkcservicios, nciclos, necos, horaincorporo, diffciclos, timediference, usuariofkcpersonal) values('" + cmbservicio.SelectedValue + "', '" + Convert.ToInt32(txtciclos.Text) + "', '" + Convert.ToInt32(txtecos.Text) + "', '" + dtpincorporo.Value.ToString("HH:mm:ss") + "', '" + nudlapso.Value + "','" + cadena(diferencia) + "', '" + idUsuario + "')"))
+                        if (v.c.insertar("Insert into croles(serviciofkcservicios, nciclos, necos, horaincorporo, diffciclos, timediference, usuariofkcpersonal,image) values('" + cmbservicio.SelectedValue + "', '" + Convert.ToInt32(txtciclos.Text) + "', '" + Convert.ToInt32(txtecos.Text) + "', '" + dtpincorporo.Value.ToString("HH:mm:ss") + "', '" + nudlapso.Value + "','" + cadena(diferencia) + "', '" + idUsuario + "','" + img + "')"))
                             if (insertre())
                                 if (v.c.insertar("insert into modificaciones_sistema(form,idregistro,usuariofkcpersonal,fechaHora,Tipo,empresa,area) values('Catálogo de Roles','" + v.getaData("select idrol from croles where serviciofkcservicios='" + cmbservicio.SelectedValue + "';") + "','" + idUsuario + "',now(),'Inserción de Rol','1','1')"))
                                 {
@@ -369,7 +424,7 @@ namespace controlFallos
                         if (o.ShowDialog() == DialogResult.OK)
                         {
                             string motivo = o.txtgetedicion.Text.Trim();
-                            if (v.c.insertar("update croles set serviciofkcservicios='" + cmbservicio.SelectedValue + "',nciclos='" + Convert.ToInt32(txtciclos.Text) + "',necos='" + Convert.ToInt32(txtecos.Text) + "',horaincorporo='" + dtpincorporo.Value.ToString("HH:mm:ss") + "',diffciclos='" + nudlapso.Value + "',timediference='" + cadena(diferencia) + "' where idrol='" + idRol + "'"))
+                            if (v.c.insertar("update croles set serviciofkcservicios='" + cmbservicio.SelectedValue + "',nciclos='" + Convert.ToInt32(txtciclos.Text) + "',necos='" + Convert.ToInt32(txtecos.Text) + "',horaincorporo='" + dtpincorporo.Value.ToString("HH:mm:ss") + "',diffciclos='" + nudlapso.Value + "',timediference='" + cadena(diferencia) + "'" + (!string.IsNullOrWhiteSpace(img) ? ",image='" + img + "'" : "") + " where idrol='" + idRol + "'"))
                                 if (insertre())
                                     if (v.c.insertar("insert into modificaciones_sistema(form,idregistro,ultimaModificacion,usuariofkcpersonal,fechaHora,Tipo,motivoActualizacion,empresa,area) values('Catálogo de Roles','" + idRol + "','" + servicioAnterior + ";" + ciclosAnterior + ";" + ecosAnterior + ";" + horaAnterior.ToString("HH:mm") + ";" + lapsoAnterior + ";" + cadena(diferenciaAnterior) + "','" + idUsuario + "',now(),'Actualización de Rol','" + v.mayusculas(motivo) + "','1','1')"))
                                     {
@@ -433,7 +488,7 @@ namespace controlFallos
         bool cambios()
         {
             bool res = false;
-            if ((Convert.ToInt32(cmbempresa.SelectedValue) != empresaAnterior || Convert.ToInt32(cmbarea.SelectedValue) != areaArenterior || Convert.ToInt32(cmbservicio.SelectedValue) != servicioAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtciclos.Text) ? "0" : txtciclos.Text)) != ciclosAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtecos.Text) ? "0" : txtecos.Text)) != ecosAnterior || dtpincorporo.Value.ToString("HH:mm") != horaAnterior.ToString("HH:mm") || nudlapso.Value != lapsoAnterior || (unidadesAnterior != null && unidadesAnterior != null && diferenciaAnterior != null && diferencia != null && changesinlist())))
+            if ((Convert.ToInt32(cmbempresa.SelectedValue) != empresaAnterior || Convert.ToInt32(cmbarea.SelectedValue) != areaArenterior || img != imganterior || Convert.ToInt32(cmbservicio.SelectedValue) != servicioAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtciclos.Text) ? "0" : txtciclos.Text)) != ciclosAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtecos.Text) ? "0" : txtecos.Text)) != ecosAnterior || dtpincorporo.Value.ToString("HH:mm") != horaAnterior.ToString("HH:mm") || nudlapso.Value != lapsoAnterior || (unidadesAnterior != null && unidadesAnterior != null && diferenciaAnterior != null && diferencia != null && changesinlist())))
             {
                 if (empresaAnterior == 0 || areaArenterior == 0 || servicioAnterior == 0 || ciclosAnterior == 0 || ecosAnterior == 0 || horaAnterior.Hour == 0 || lapsoAnterior == 0)
                     nuevo = true;
@@ -454,6 +509,8 @@ namespace controlFallos
                 for (int i = 0; i < diferencia.Count; i++)
                     if (diferencia[i] != diferenciaAnterior[i])
                         res = true;
+                if (unidades.Count != unidadesAnterior.Count || diferencia.Count != diferenciaAnterior.Count)
+                    res = true;
             }
             else res = true;
             return res;
@@ -467,15 +524,17 @@ namespace controlFallos
                 diferencia.Clear();
                 diferenciaAnterior.Clear();
             }
-            lblunidades.Text = "";
+            lblunidades.Text = img = imganterior = "";
+            pictureBox1.Image = null;
             mostrarEmpresas();
-            nudlapso.Value = cmbempresa.SelectedIndex = empresaAnterior = areaArenterior = servicioAnterior = ciclosAnterior = ecosAnterior = lapsoAnterior  = contador = idRol = 0;
+            nudlapso.Value = cmbempresa.SelectedIndex = empresaAnterior = areaArenterior = servicioAnterior = ciclosAnterior = ecosAnterior = lapsoAnterior = contador = idRol = 0;
             txtecos.Clear();
             txtciclos.Clear();
             lbxdiferencias.Items.Clear();
             dtpincorporo.Value = horaAnterior = DateTime.Parse("00:00");
             btnguardar.BackgroundImage = controlFallos.Properties.Resources.save;
             dgvroles.ClearSelection();
+            lblimg.Text = "Seleccionar imagen: ";
             lblecos.Text = "seleccionar ecos";
             lbldiff.Text = "establecer diferencias de tiempo";
             psave.Visible = (pinsertar ? true : false);
@@ -502,7 +561,7 @@ namespace controlFallos
         void cargarDatos(DataGridViewCellEventArgs e)
         {
             limpiar();
-            string[] datosrol = v.getaData("select concat(serviciofkcservicios,'|',nciclos,'|',necos,'|',date_format(horaincorporo,'%H:%i'),'|',diffciclos,'|',status,'|',timediference)  from croles where idrol='" + (idRol = Convert.ToInt32(dgvroles.Rows[e.RowIndex].Cells[0].Value)) + "'").ToString().Split('|');
+            string[] datosrol = v.getaData("select concat(serviciofkcservicios,'|',nciclos,'|',necos,'|',date_format(horaincorporo,'%H:%i'),'|',diffciclos,'|',status,'|',timediference,'|',image)  from croles where idrol='" + (idRol = Convert.ToInt32(dgvroles.Rows[e.RowIndex].Cells[0].Value)) + "'").ToString().Split('|');
             empresaAnterior = Convert.ToInt32(v.getaData("select idempresa from cempresas as t1 inner join careas as t2 on t1.idempresa=t2.empresafkcempresas inner join cservicios as t3 on t2.idarea=t3.AreafkCareas where t3.idservicio='" + (servicioAnterior = Convert.ToInt32(datosrol[0])) + "';"));
             if (Convert.ToInt32(v.getaData("select status from cempresas where idempresa='" + empresaAnterior + "'")) == 0)
                 v.iniCombos("select idempresa as id, upper(nombreEmpresa)as nombre from cempresas where status='1' or idempresa='" + empresaAnterior + "' order by nombreEmpresa;", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
@@ -528,13 +587,15 @@ namespace controlFallos
             diferencia = new List<string>(ecosAnterior - 1);
             diferenciaAnterior = datosrol[6].Split(',').ToList();
             diferencia = datosrol[6].Split(',').ToList();
-            differencebetween(diferenciaAnterior);
+            pictureBox1.Image = (!string.IsNullOrWhiteSpace(datosrol[7]) ? v.StringToImage(datosrol[7]) : null);
+            lblimg.Text = (!string.IsNullOrWhiteSpace((img = imganterior = datosrol[7])) ? "cambiar imagen" : "seleccionar imagen");
             DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosforlist('" + idRol + "');");
             foreach (DataRow item in dt.Rows)
             { unidadesAnterior.Add(Convert.ToInt32(item.ItemArray[0])); unidades.Add(Convert.ToInt32(item.ItemArray[0])); }
             lblunidades.Text = "Unidades: " + texto(unidadesAnterior);
             lblecos.Text = "Cambiar ecos";
             lbldiff.Text = "Cambiar diferencias de tiempo";
+            differencebetween(diferenciaAnterior);
             pnuevo.Visible = editar = !(psave.Visible = false);
             pselectecos.Visible = ptime.Visible = (statusAnterior == 0 ? false : true);
             if (statusAnterior == 0 && peditar && pdesactivar)

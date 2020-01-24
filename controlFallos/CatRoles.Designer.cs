@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbaddpasillo = new System.Windows.Forms.GroupBox();
             this.gbecos = new System.Windows.Forms.GroupBox();
             this.pgif = new System.Windows.Forms.Panel();
@@ -42,10 +42,8 @@
             this.label18 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lblunidades = new System.Windows.Forms.Label();
-            this.pblogo = new System.Windows.Forms.PictureBox();
             this.gbxdiferencia = new System.Windows.Forms.GroupBox();
             this.padd = new System.Windows.Forms.Panel();
-            this.btnadd = new System.Windows.Forms.Button();
             this.lbxdiferencias = new System.Windows.Forms.ListBox();
             this.pdatos = new System.Windows.Forms.Panel();
             this.txtdiferencia = new System.Windows.Forms.TextBox();
@@ -53,7 +51,6 @@
             this.lbltexto = new System.Windows.Forms.Label();
             this.pstatus = new System.Windows.Forms.Panel();
             this.lblstatus = new System.Windows.Forms.Label();
-            this.btnstatus = new System.Windows.Forms.Button();
             this.ptabla = new System.Windows.Forms.Panel();
             this.gbpasillos = new System.Windows.Forms.GroupBox();
             this.dgvroles = new System.Windows.Forms.DataGridView();
@@ -70,15 +67,13 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.gbRol = new System.Windows.Forms.GroupBox();
+            this.lblimg = new System.Windows.Forms.Label();
             this.pselectecos = new System.Windows.Forms.Panel();
             this.lblecos = new System.Windows.Forms.Label();
-            this.btnecos = new System.Windows.Forms.Button();
             this.ptime = new System.Windows.Forms.Panel();
             this.lbldiff = new System.Windows.Forms.Label();
-            this.btntime = new System.Windows.Forms.Button();
             this.label16 = new System.Windows.Forms.Label();
             this.psave = new System.Windows.Forms.Panel();
-            this.btnguardar = new System.Windows.Forms.Button();
             this.lblsavemp = new System.Windows.Forms.Label();
             this.txtecos = new System.Windows.Forms.TextBox();
             this.txtciclos = new System.Windows.Forms.TextBox();
@@ -99,11 +94,18 @@
             this.label3 = new System.Windows.Forms.Label();
             this.pnuevo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
+            this.pblogo = new System.Windows.Forms.PictureBox();
+            this.btnadd = new System.Windows.Forms.Button();
+            this.btnstatus = new System.Windows.Forms.Button();
+            this.btnimg = new System.Windows.Forms.Button();
+            this.btnecos = new System.Windows.Forms.Button();
+            this.btntime = new System.Windows.Forms.Button();
+            this.btnguardar = new System.Windows.Forms.Button();
             this.btnCancelEmpresa = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.gbaddpasillo.SuspendLayout();
             this.gbecos.SuspendLayout();
             this.panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pblogo)).BeginInit();
             this.gbxdiferencia.SuspendLayout();
             this.padd.SuspendLayout();
             this.pdatos.SuspendLayout();
@@ -117,6 +119,8 @@
             this.psave.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudlapso)).BeginInit();
             this.pnuevo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pblogo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // gbaddpasillo
@@ -220,17 +224,6 @@
             this.lblunidades.Size = new System.Drawing.Size(1049, 37);
             this.lblunidades.TabIndex = 86;
             // 
-            // pblogo
-            // 
-            this.pblogo.BackgroundImage = global::controlFallos.Properties.Resources.Dbkel_CXkAE43aG;
-            this.pblogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pblogo.Location = new System.Drawing.Point(1427, 350);
-            this.pblogo.Name = "pblogo";
-            this.pblogo.Size = new System.Drawing.Size(469, 187);
-            this.pblogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pblogo.TabIndex = 87;
-            this.pblogo.TabStop = false;
-            // 
             // gbxdiferencia
             // 
             this.gbxdiferencia.Controls.Add(this.padd);
@@ -254,20 +247,6 @@
             this.padd.Size = new System.Drawing.Size(38, 39);
             this.padd.TabIndex = 90;
             this.padd.Visible = false;
-            // 
-            // btnadd
-            // 
-            this.btnadd.BackgroundImage = global::controlFallos.Properties.Resources.add;
-            this.btnadd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnadd.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnadd.FlatAppearance.BorderSize = 0;
-            this.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnadd.Location = new System.Drawing.Point(6, 7);
-            this.btnadd.Name = "btnadd";
-            this.btnadd.Size = new System.Drawing.Size(25, 25);
-            this.btnadd.TabIndex = 1;
-            this.btnadd.UseVisualStyleBackColor = true;
-            this.btnadd.Click += new System.EventHandler(this.btnadd_Click);
             // 
             // lbxdiferencias
             // 
@@ -350,20 +329,6 @@
             this.lblstatus.TabIndex = 0;
             this.lblstatus.Text = "Desactivar";
             // 
-            // btnstatus
-            // 
-            this.btnstatus.BackgroundImage = global::controlFallos.Properties.Resources.delete;
-            this.btnstatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnstatus.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnstatus.FlatAppearance.BorderSize = 0;
-            this.btnstatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnstatus.Location = new System.Drawing.Point(31, 6);
-            this.btnstatus.Name = "btnstatus";
-            this.btnstatus.Size = new System.Drawing.Size(45, 45);
-            this.btnstatus.TabIndex = 0;
-            this.btnstatus.UseVisualStyleBackColor = true;
-            this.btnstatus.Click += new System.EventHandler(this.btnstatus_Click);
-            // 
             // ptabla
             // 
             this.ptabla.Controls.Add(this.gbpasillos);
@@ -393,26 +358,26 @@
             this.dgvroles.AllowUserToDeleteRows = false;
             this.dgvroles.AllowUserToResizeColumns = false;
             this.dgvroles.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle21.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle21.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
             this.dgvroles.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvroles.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.dgvroles.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgvroles.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
             this.dgvroles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvroles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -425,14 +390,14 @@
             this.lapsoCiclos,
             this.supervisor,
             this.status});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvroles.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvroles.DefaultCellStyle = dataGridViewCellStyle23;
             this.dgvroles.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvroles.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvroles.EnableHeadersVisualStyles = false;
@@ -442,23 +407,23 @@
             this.dgvroles.MultiSelect = false;
             this.dgvroles.Name = "dgvroles";
             this.dgvroles.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvroles.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle24.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvroles.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
             this.dgvroles.RowHeadersVisible = false;
             this.dgvroles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvroles.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle25.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvroles.RowsDefaultCellStyle = dataGridViewCellStyle25;
             this.dgvroles.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvroles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvroles.ShowCellErrors = false;
@@ -569,6 +534,9 @@
             // 
             // gbRol
             // 
+            this.gbRol.Controls.Add(this.pictureBox1);
+            this.gbRol.Controls.Add(this.btnimg);
+            this.gbRol.Controls.Add(this.lblimg);
             this.gbRol.Controls.Add(this.pselectecos);
             this.gbRol.Controls.Add(this.ptime);
             this.gbRol.Controls.Add(this.label16);
@@ -601,6 +569,15 @@
             this.gbRol.Text = "Nuevo Rol de Servicio";
             this.gbRol.Visible = false;
             // 
+            // lblimg
+            // 
+            this.lblimg.AutoSize = true;
+            this.lblimg.Location = new System.Drawing.Point(34, 434);
+            this.lblimg.Name = "lblimg";
+            this.lblimg.Size = new System.Drawing.Size(173, 24);
+            this.lblimg.TabIndex = 90;
+            this.lblimg.Text = "Seleccionar imagen:";
+            // 
             // pselectecos
             // 
             this.pselectecos.Controls.Add(this.lblecos);
@@ -620,20 +597,6 @@
             this.lblecos.Size = new System.Drawing.Size(128, 21);
             this.lblecos.TabIndex = 90;
             this.lblecos.Text = "seleccionar ecos";
-            // 
-            // btnecos
-            // 
-            this.btnecos.BackgroundImage = global::controlFallos.Properties.Resources.bus2;
-            this.btnecos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnecos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnecos.FlatAppearance.BorderSize = 0;
-            this.btnecos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnecos.Location = new System.Drawing.Point(6, 7);
-            this.btnecos.Name = "btnecos";
-            this.btnecos.Size = new System.Drawing.Size(25, 25);
-            this.btnecos.TabIndex = 1;
-            this.btnecos.UseVisualStyleBackColor = true;
-            this.btnecos.Click += new System.EventHandler(this.btnecos_Click);
             // 
             // ptime
             // 
@@ -655,20 +618,6 @@
             this.lbldiff.TabIndex = 91;
             this.lbldiff.Text = "esteblecer diferencias de tiempo";
             // 
-            // btntime
-            // 
-            this.btntime.BackgroundImage = global::controlFallos.Properties.Resources.icons8_watch_100;
-            this.btntime.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btntime.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btntime.FlatAppearance.BorderSize = 0;
-            this.btntime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btntime.Location = new System.Drawing.Point(6, 7);
-            this.btntime.Name = "btntime";
-            this.btntime.Size = new System.Drawing.Size(25, 25);
-            this.btntime.TabIndex = 1;
-            this.btntime.UseVisualStyleBackColor = true;
-            this.btntime.Click += new System.EventHandler(this.btntime_Click);
-            // 
             // label16
             // 
             this.label16.AutoSize = true;
@@ -686,21 +635,6 @@
             this.psave.Name = "psave";
             this.psave.Size = new System.Drawing.Size(85, 80);
             this.psave.TabIndex = 83;
-            // 
-            // btnguardar
-            // 
-            this.btnguardar.BackColor = System.Drawing.Color.Transparent;
-            this.btnguardar.BackgroundImage = global::controlFallos.Properties.Resources.save;
-            this.btnguardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnguardar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnguardar.FlatAppearance.BorderSize = 0;
-            this.btnguardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnguardar.Location = new System.Drawing.Point(20, 7);
-            this.btnguardar.Name = "btnguardar";
-            this.btnguardar.Size = new System.Drawing.Size(45, 45);
-            this.btnguardar.TabIndex = 8;
-            this.btnguardar.UseVisualStyleBackColor = false;
-            this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
             // 
             // lblsavemp
             // 
@@ -727,6 +661,7 @@
             this.txtecos.TabIndex = 5;
             this.txtecos.TextChanged += new System.EventHandler(this.cmbempresa_SelectedValueChanged);
             this.txtecos.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtciclos_KeyPress);
+            this.txtecos.Validating += new System.ComponentModel.CancelEventHandler(this.txtecos_Validating);
             // 
             // txtciclos
             // 
@@ -941,6 +876,102 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Nuevo";
             // 
+            // pblogo
+            // 
+            this.pblogo.BackgroundImage = global::controlFallos.Properties.Resources.Dbkel_CXkAE43aG;
+            this.pblogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pblogo.Location = new System.Drawing.Point(1427, 350);
+            this.pblogo.Name = "pblogo";
+            this.pblogo.Size = new System.Drawing.Size(469, 187);
+            this.pblogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pblogo.TabIndex = 87;
+            this.pblogo.TabStop = false;
+            // 
+            // btnadd
+            // 
+            this.btnadd.BackgroundImage = global::controlFallos.Properties.Resources.add;
+            this.btnadd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnadd.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnadd.FlatAppearance.BorderSize = 0;
+            this.btnadd.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnadd.Location = new System.Drawing.Point(6, 7);
+            this.btnadd.Name = "btnadd";
+            this.btnadd.Size = new System.Drawing.Size(25, 25);
+            this.btnadd.TabIndex = 1;
+            this.btnadd.UseVisualStyleBackColor = true;
+            this.btnadd.Click += new System.EventHandler(this.btnadd_Click);
+            // 
+            // btnstatus
+            // 
+            this.btnstatus.BackgroundImage = global::controlFallos.Properties.Resources.delete;
+            this.btnstatus.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnstatus.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnstatus.FlatAppearance.BorderSize = 0;
+            this.btnstatus.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnstatus.Location = new System.Drawing.Point(31, 6);
+            this.btnstatus.Name = "btnstatus";
+            this.btnstatus.Size = new System.Drawing.Size(45, 45);
+            this.btnstatus.TabIndex = 0;
+            this.btnstatus.UseVisualStyleBackColor = true;
+            this.btnstatus.Click += new System.EventHandler(this.btnstatus_Click);
+            // 
+            // btnimg
+            // 
+            this.btnimg.BackgroundImage = global::controlFallos.Properties.Resources.upload__1_;
+            this.btnimg.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnimg.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnimg.FlatAppearance.BorderSize = 0;
+            this.btnimg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnimg.Location = new System.Drawing.Point(218, 424);
+            this.btnimg.Name = "btnimg";
+            this.btnimg.Size = new System.Drawing.Size(69, 39);
+            this.btnimg.TabIndex = 0;
+            this.btnimg.UseVisualStyleBackColor = true;
+            this.btnimg.Click += new System.EventHandler(this.btnimg_Click);
+            // 
+            // btnecos
+            // 
+            this.btnecos.BackgroundImage = global::controlFallos.Properties.Resources.bus2;
+            this.btnecos.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnecos.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnecos.FlatAppearance.BorderSize = 0;
+            this.btnecos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnecos.Location = new System.Drawing.Point(6, 7);
+            this.btnecos.Name = "btnecos";
+            this.btnecos.Size = new System.Drawing.Size(25, 25);
+            this.btnecos.TabIndex = 1;
+            this.btnecos.UseVisualStyleBackColor = true;
+            this.btnecos.Click += new System.EventHandler(this.btnecos_Click);
+            // 
+            // btntime
+            // 
+            this.btntime.BackgroundImage = global::controlFallos.Properties.Resources.icons8_watch_100;
+            this.btntime.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btntime.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btntime.FlatAppearance.BorderSize = 0;
+            this.btntime.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btntime.Location = new System.Drawing.Point(6, 7);
+            this.btntime.Name = "btntime";
+            this.btntime.Size = new System.Drawing.Size(25, 25);
+            this.btntime.TabIndex = 1;
+            this.btntime.UseVisualStyleBackColor = true;
+            this.btntime.Click += new System.EventHandler(this.btntime_Click);
+            // 
+            // btnguardar
+            // 
+            this.btnguardar.BackColor = System.Drawing.Color.Transparent;
+            this.btnguardar.BackgroundImage = global::controlFallos.Properties.Resources.save;
+            this.btnguardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnguardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnguardar.FlatAppearance.BorderSize = 0;
+            this.btnguardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnguardar.Location = new System.Drawing.Point(20, 7);
+            this.btnguardar.Name = "btnguardar";
+            this.btnguardar.Size = new System.Drawing.Size(45, 45);
+            this.btnguardar.TabIndex = 8;
+            this.btnguardar.UseVisualStyleBackColor = false;
+            this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
+            // 
             // btnCancelEmpresa
             // 
             this.btnCancelEmpresa.BackgroundImage = global::controlFallos.Properties.Resources.add;
@@ -954,6 +985,15 @@
             this.btnCancelEmpresa.TabIndex = 0;
             this.btnCancelEmpresa.UseVisualStyleBackColor = true;
             this.btnCancelEmpresa.Click += new System.EventHandler(this.btnCancelEmpresa_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(303, 393);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(185, 97);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 91;
+            this.pictureBox1.TabStop = false;
             // 
             // CatRoles
             // 
@@ -971,7 +1011,6 @@
             this.gbecos.ResumeLayout(false);
             this.gbecos.PerformLayout();
             this.panel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pblogo)).EndInit();
             this.gbxdiferencia.ResumeLayout(false);
             this.padd.ResumeLayout(false);
             this.pdatos.ResumeLayout(false);
@@ -992,6 +1031,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudlapso)).EndInit();
             this.pnuevo.ResumeLayout(false);
             this.pnuevo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pblogo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1064,5 +1105,8 @@
         private System.Windows.Forms.Panel pselectecos;
         private System.Windows.Forms.Label lblecos;
         private System.Windows.Forms.Button btnecos;
+        private System.Windows.Forms.Button btnimg;
+        private System.Windows.Forms.Label lblimg;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }

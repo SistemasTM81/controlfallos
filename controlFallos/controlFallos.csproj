@@ -881,6 +881,7 @@
     <Content Include="Resources\edit.png" />
     <None Include="Resources\edit1.png" />
     <None Include="Resources\editrow.png" />
+    <None Include="Resources\electronics.png" />
     <Content Include="Resources\enterprise.png" />
     <Content Include="Resources\enviar.png" />
     <Content Include="Resources\eraser.png" />
@@ -1031,6 +1032,8 @@
     <None Include="Resources\undo.png" />
     <Content Include="Resources\unfriend.png" />
     <Content Include="Resources\up.png" />
+    <None Include="Resources\upload.png" />
+    <None Include="Resources\upload %281%29.png" />
     <Content Include="Resources\user-login-button %281%29.png" />
     <Content Include="Resources\user-login-button.png" />
     <Content Include="Resources\user.png" />
