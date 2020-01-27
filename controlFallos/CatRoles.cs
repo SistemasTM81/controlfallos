@@ -83,13 +83,13 @@ namespace controlFallos
 
         Button[] pecos(object index)
         {
-               
 
-            DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" +index + "');");
-                Button[] returner = new Button[dt.Rows.Count];
+
+            DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + index + "');");
+            Button[] returner = new Button[dt.Rows.Count];
             int cont = 0;
-                foreach (DataRow item in dt.Rows)
-                  returner[cont++] =  createcontrols(item.ItemArray[0], item.ItemArray[1]);
+            foreach (DataRow item in dt.Rows)
+                returner[cont++] = createcontrols(item.ItemArray[0], item.ItemArray[1]);
             return returner;
         }
         Button createcontrols(object id, object text)
@@ -294,9 +294,9 @@ namespace controlFallos
             //(thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true }).Start();
             pgif.Controls.Clear(); x = y = 5;
             pictureBox2.Image = Properties.Resources.loader;
-            var controls = await Task.Run(()=> pecos(index));
-            for(int i=0; i< controls.Length;i++)
-            pgif.Controls.Add(controls[i]);
+            var controls = await Task.Run(() => pecos(index));
+            for (int i = 0; i < controls.Length; i++)
+                pgif.Controls.Add(controls[i]);
             pictureBox2.Image = null;
         }
 
