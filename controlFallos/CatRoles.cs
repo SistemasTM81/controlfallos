@@ -90,13 +90,14 @@ namespace controlFallos
             if (InvokeRequired)
                 pgif.Invoke(new d1(pecos));
             else
-            {         lblloadrol.Visible = true;
+            {
+                pictureBox2.Image = Properties.Resources.loader;
                 pgif.Controls.Clear(); x = y = 5;
                DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
        
                 foreach (DataRow item in dt.Rows)
                     createcontrols(item.ItemArray[0], item.ItemArray[1]);
-                lblloadrol.Visible = false;
+                pictureBox2.Image = null;
             }
         }
         void createcontrols(object id, object text)
