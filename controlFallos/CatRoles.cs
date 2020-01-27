@@ -83,32 +83,19 @@ namespace controlFallos
 
         Button[] pecos(object index)
         {
-
-
-            DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + index + "');");
-            Button[] returner = new Button[dt.Rows.Count];
+               
+            DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" +index + "');");
+                Button[] returner = new Button[dt.Rows.Count];
             int cont = 0;
-            foreach (DataRow item in dt.Rows)
-                returner[cont++] = createcontrols(item.ItemArray[0], item.ItemArray[1]);
+                foreach (DataRow item in dt.Rows)
+                  returner[cont++] =  createcontrols(item.ItemArray[0], item.ItemArray[1], Convert.ToInt32(v.getaData("call sistrefaccmant.ecoinuse('" + item.ItemArray[0] + "');")));
             return returner;
         }
-        Button createcontrols(object id, object text)
+        Button createcontrols(object id, object text, int inuse)
         {
-            Button l = new Button();
-            l.FlatStyle = FlatStyle.Flat;
-            l.Name = "lbl" + "|" + id;
-            l.AutoSize = false;
-            l.BackColor = (Convert.ToInt32(v.getaData("call sistrefaccmant.ecoinuse('" + id + "');")) > 0 ? Color.Khaki : Color.PaleGreen);
-            l.Enabled = (Convert.ToInt32(v.getaData("call sistrefaccmant.ecoinuse('" + id + "');")) == 0 ? true : Convert.ToInt32(v.getaData("call sistrefaccmant.ecowithrol('" + idRol + "', '" + id + "');")) > 0 ? true : false);
-            l.ForeColor = Color.FromArgb(75, 44, 52);
-            l.Font = new Font("garamond", 10, FontStyle.Bold);
-            l.Size = new Size(80, 24);
-            l.Click += btn_click;
-            y = (x + 87 >= (pgif.Size.Width - 10) ? y += 29 : y);
-            x = (x + 87 >= (pgif.Size.Width - 10) ? 5 : x);
-            l.Location = new Point(x, y);
+            Button l = new Button() {FlatStyle = FlatStyle.Flat,Name = "lbl" + "|" + id,AutoSize = false,BackColor = (inuse > 0 ? Color.Khaki : Color.PaleGreen),Enabled = (inuse == 0 ? true : Convert.ToInt32(v.getaData("call sistrefaccmant.ecowithrol('" + idRol + "', '" + id + "');")) > 0 ? true : false),ForeColor = Color.FromArgb(75, 44, 52),Font = new Font("garamond", 10, FontStyle.Bold),Size = new Size(80, 24),Location = new Point((x=((x + 87 >= (pgif.Size.Width - 10) ? 5 : x))), (y = (x + 87 >= (pgif.Size.Width - 10) ? y += 29 : y))), Text = text.ToString() };
+        l.Click += btn_click;
             x += 87;
-            l.Text = text.ToString();
             return l;
         }
         private void btn_click(object sender, EventArgs e)
@@ -294,9 +281,9 @@ namespace controlFallos
             //(thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true }).Start();
             pgif.Controls.Clear(); x = y = 5;
             pictureBox2.Image = Properties.Resources.loader;
-            var controls = await Task.Run(() => pecos(index));
-            for (int i = 0; i < controls.Length; i++)
-                pgif.Controls.Add(controls[i]);
+            var controls = await Task.Run(()=> pecos(index));
+            for(int i=0; i< controls.Length;i++)
+            pgif.Controls.Add(controls[i]);
             pictureBox2.Image = null;
         }
 
