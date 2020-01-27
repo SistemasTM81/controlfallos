@@ -80,6 +80,7 @@ namespace controlFallos
             v.iniCombos("call sistrefaccmant.companieswithstatus();", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
             hempresas.Abort();
         }
+<<<<<<< HEAD
         void loadecos()
         {
             pgif.Controls.Clear(); x = y = 5;
@@ -95,13 +96,30 @@ namespace controlFallos
                 d1 d = new d1(loadecos);
                 pgif.Invoke(d);
             }
+=======
+        void loadgif()
+        {
+            pictureBox2.Image = Properties.Resources.loader;
+        }
+    
+        void pecos()
+        {
+            if (InvokeRequired)
+                pgif.Invoke(new d1(pecos));
+>>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
             else
-            {
+            {         lblloadrol.Visible = true;
+                pgif.Controls.Clear(); x = y = 5;
+               DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
+       
                 foreach (DataRow item in dt.Rows)
                     createcontrols(item.ItemArray[0], item.ItemArray[1]);
                 lblloadrol.Visible = false;
             }
+<<<<<<< HEAD
             thunidades.Abort();
+=======
+>>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
         }
         void createcontrols(object id, object text)
         {
@@ -293,10 +311,14 @@ namespace controlFallos
         {
             if (cmbservicio.SelectedIndex > 0)
             {
+<<<<<<< HEAD
 
                 pgif.Controls.Clear(); x = y = 5;
                 dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
                 lblloadrol.Visible = true;
+=======
+             
+>>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
                 (thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true }).Start();
             }
             else
@@ -409,10 +431,8 @@ namespace controlFallos
                 }
             }
         }
-        private void txtciclos_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            v.Solonumeros(e);
-        }
+        private void txtciclos_KeyPress(object sender, KeyPressEventArgs e) => v.Solonumeros(e);
+
 
         private void cmbempresa_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -424,7 +444,6 @@ namespace controlFallos
                 pselectecos.Visible = pselectecos.Visible = ((Convert.ToInt32(txtecos.Text) > 0 && (statusAnterior > 0 || !editar)) ? true : false);
             }
             else ptime.Visible = pselectecos.Visible = false;
-
         }
         public string cadena(List<string> lista)
         {
