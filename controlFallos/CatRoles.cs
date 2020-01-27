@@ -25,7 +25,7 @@ namespace controlFallos
         List<string> diferencia;
         DateTime horaAnterior;
         delegate void empre();
-        delegate void d1();
+        delegate bool d1();
         delegate void d2();
         Thread hempresas, th, thunidades;
         DataTable dt;
@@ -80,32 +80,19 @@ namespace controlFallos
             v.iniCombos("call sistrefaccmant.companieswithstatus();", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
             hempresas.Abort();
         }
-        void loadecos()
-        {
-            pgif.Controls.Clear(); x = y = 5;
-            dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
-            foreach (DataRow item in dt.Rows)
-                createcontrols(item.ItemArray[0], item.ItemArray[1]);
-//            lblloadrol.Visible = false;
-        }
-        void pecos()
-        {
 
-            if (InvokeRequired)
-                pgif.Invoke(new d1(pecos));
-            else
-            {
-                pictureBox2.Image = Properties.Resources.loader;
-                pgif.Controls.Clear(); x = y = 5;
-               DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
-       
+        Button[] pecos(object index)
+        {
+               
+
+            DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" +index + "');");
+                Button[] returner = new Button[dt.Rows.Count];
+            int cont = 0;
                 foreach (DataRow item in dt.Rows)
-                    createcontrols(item.ItemArray[0], item.ItemArray[1]);
-                pictureBox2.Image = null;
-            }
-            thunidades.Abort();
+                  returner[cont++] =  createcontrols(item.ItemArray[0], item.ItemArray[1]);
+            return returner;
         }
-        void createcontrols(object id, object text)
+        Button createcontrols(object id, object text)
         {
             Button l = new Button();
             l.FlatStyle = FlatStyle.Flat;
@@ -122,7 +109,7 @@ namespace controlFallos
             l.Location = new Point(x, y);
             x += 87;
             l.Text = text.ToString();
-            pgif.Controls.Add(l);
+            return l;
         }
         private void btn_click(object sender, EventArgs e)
         {
@@ -295,10 +282,22 @@ namespace controlFallos
         {
             if (cmbservicio.SelectedIndex > 0)
             {
-                (thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true }).Start();
+
+                addControls(cmbarea.SelectedValue);
             }
             else
             { pgif.Controls.Clear(); x = y = 5; }
+        }
+
+        private async void addControls(object index)
+        {
+            //(thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true }).Start();
+            pgif.Controls.Clear(); x = y = 5;
+            pictureBox2.Image = Properties.Resources.loader;
+            var controls = await Task.Run(()=> pecos(index));
+            for(int i=0; i< controls.Length;i++)
+            pgif.Controls.Add(controls[i]);
+            pictureBox2.Image = null;
         }
 
         private void txtdiferencia_TextChanged(object sender, EventArgs e)

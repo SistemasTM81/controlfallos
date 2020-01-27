@@ -3,6 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Drawing;
 using System.Threading;
+
 using System.Windows.Forms;
 
 namespace controlFallos
@@ -22,6 +23,7 @@ namespace controlFallos
             this.Owner = Owner;
             InitializeComponent();
             LoadDataCrontrols(true, true, true, true, false, false, false);
+            
         }
         public void LoadDataCrontrols(bool initialData, bool ECObusq, bool driversBusq, bool LoadGridView, bool LoadServices, bool LoadecoService, bool Loadroles)
         {

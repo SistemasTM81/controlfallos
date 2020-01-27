@@ -2916,7 +2916,7 @@ namespace controlFallos
         public void paraDataGridViews_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
-            ((DataGridView)sender).Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.NotSortable);
+          // ** ((DataGridView)sender).Columns.Cast<DataGridViewColumn>().ToList().ForEach(f => f.SortMode = DataGridViewColumnSortMode.NotSortable);
         }
         public void espaciosenblanco(object sender, System.ComponentModel.CancelEventArgs e)
         {

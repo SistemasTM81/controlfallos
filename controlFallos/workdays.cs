@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -18,31 +19,33 @@ namespace controlFallos
         public long? rolfkCRoles { protected internal set; get; }
         public long? serviceID { protected internal set; get; }
         new public menuPrincipal Owner { protected internal set; get; }
-        delegate void dataLoad();
+        delegate bool dataLoad();
+        delegate void dataLoaders();
+        delegate void configureRows(int avoid);
         int x = 0, y = 0;
-        Thread th, thload;
+        Thread th;
         public workdays(menuPrincipal Owner)
         {
             this.Owner = Owner;
             InitializeComponent();
-            th = new Thread(dataLoader) { IsBackground = true};
+            th = new Thread(dataLoader) { IsBackground = true };
             th.Start();
             Owner.v.creatItemsPersonalizadosCombobox(cmbxTimeperiod, new string[] { "DÍA", "SEMANA", "QUINCENA" }, "-- SELECCIONE RANGO --", 1);
         }
         private void dataLoader()
         {
-               DataTable dt = (DataTable)Owner.v.getData("SELECT * FROM getdriversrol");
-                string[] ocupados = { };
-                if (periodID.HasValue)
-                    ocupados = Owner.v.getaData("CALL getAllDrivers(" + periodID.Value + ");").ToString().Split('|');
-                foreach (DataRow roe in dt.Rows)
-                {
-                    int index = Array.IndexOf(ocupados, roe.ItemArray[0].ToString());
-                    createControlDriver(roe.ItemArray[0], roe.ItemArray[1], (ocupados != null && ocupados.GetLength(0) > 0 ? (bool?)(index >= 0) : null));
-                }
-                th.Abort();
+            DataTable dt = (DataTable)Owner.v.getData("SELECT * FROM getdriversrol");
+            string[] ocupados = { };
+            if (periodID.HasValue)
+                ocupados = Owner.v.getaData("CALL getAllDrivers(" + periodID.Value + ");").ToString().Split('|');
+            foreach (DataRow roe in dt.Rows)
+            {
+                int index = Array.IndexOf(ocupados, roe.ItemArray[0].ToString());
+                createControlDriver(roe.ItemArray[0], roe.ItemArray[1], (ocupados != null && ocupados.GetLength(0) > 0 ? (bool?)(index >= 0) : null));
+            }
+            th.Abort();
         }
-        private void button2_Click(object sender, EventArgs e){}
+        private void button2_Click(object sender, EventArgs e) { }
         private void dgvcycles_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Delete)
@@ -53,14 +56,17 @@ namespace controlFallos
         }
         private void dgvcycles_SelectionChanged(object sender, EventArgs e)
         {
-               foreach (DataGridViewCell cell in dgvcycles.SelectedCells)
-                { if (dgvcycles.Columns[cell.ColumnIndex].HeaderText.Equals("HORA") || dgvcycles.Columns[cell.ColumnIndex].HeaderText.Equals("CICLO")) cell.Selected = false; }
+
+            foreach (DataGridViewCell cell in dgvcycles.SelectedCells)
+            {
+                if ( dgvcycles.Columns[cell.ColumnIndex].HeaderText.Equals("HORA") || dgvcycles.Columns[cell.ColumnIndex].HeaderText.Equals("CICLO")) cell.Selected = false;
+            }
         }
-        private void button3_Click(object sender, EventArgs e){}
+        private void button3_Click(object sender, EventArgs e) { }
         private void createControlDriver(object driverID, object driverCRED, bool? existe)
         {
             if (InvokeRequired)
-                Invoke(new dataLoad(dataLoader));
+                Invoke(new dataLoaders(dataLoader));
             else
             {
                 bool canIBuild = true;
@@ -81,6 +87,15 @@ namespace controlFallos
                 if (x + 50 >= backgroundPanel.Size.Width) { x = 0; y += 30; }
             }
         }
+
+        private void dgvcycles_DataSourceChanged(object sender, EventArgs e)
+        {
+            if(dgvcycles.DataSource!=null)
+            {
+                /**var configure = Task.Run(() => */configureR(((dgvcycles.Columns.Count - 2) / 3 + 1))/*)*/;
+            }
+        }
+
         /// <summary>
         ///Method that allow Specify some properties such as: size, Location or background that have in common a button and a label
         /// </summary>

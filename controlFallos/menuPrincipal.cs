@@ -330,22 +330,22 @@ namespace controlFallos
                 PrivilegiosVisibles(namForm);
             obtenerconsulta();
             cambiarstatus(1);
-            ThreadStart delegado = new ThreadStart(obtenerNotificaciones);
-            hilo = new Thread(delegado);
-            hilo.Start();
-            timer1.Start();
-            if ((empresa == 2 || empresa == 3) && area == 1)
-            {
-                BuscarValidaciones = new Thread(new ThreadStart(buscaValidar));
-                BuscarValidaciones.Start();
-            }
-            else
-                notifyIcon1.Dispose();
-            ThreadStart delegatse = new ThreadStart(sesion);
-            session = new Thread(delegatse);
-            session.Start();
-            /*  updates = new Thread(new ThreadStart(inserttoglobal));
-              updates.Start();*/
+            //ThreadStart delegado = new ThreadStart(obtenerNotificaciones);
+            //hilo = new Thread(delegado);
+            //hilo.Start();
+            //timer1.Start();
+            //if ((empresa == 2 || empresa == 3) && area == 1)
+            //{
+            //    BuscarValidaciones = new Thread(new ThreadStart(buscaValidar));
+            //    BuscarValidaciones.Start();
+            //}
+            //else
+            //    notifyIcon1.Dispose();
+            //ThreadStart delegatse = new ThreadStart(sesion);
+            //session = new Thread(delegatse);
+            //session.Start();
+            //*  updates = new Thread(new ThreadStart(inserttoglobal));
+            //  updates.Start();*/
         }
         /**    void inserttoglobal()
         {
