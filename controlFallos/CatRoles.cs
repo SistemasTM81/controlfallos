@@ -80,33 +80,19 @@ namespace controlFallos
             v.iniCombos("call sistrefaccmant.companieswithstatus();", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
             hempresas.Abort();
         }
-<<<<<<< HEAD
         void loadecos()
         {
             pgif.Controls.Clear(); x = y = 5;
             dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
             foreach (DataRow item in dt.Rows)
                 createcontrols(item.ItemArray[0], item.ItemArray[1]);
-            lblloadrol.Visible = false;
+//            lblloadrol.Visible = false;
         }
         void pecos()
         {
-            if (this.InvokeRequired)
-            {
-                d1 d = new d1(loadecos);
-                pgif.Invoke(d);
-            }
-=======
-        void loadgif()
-        {
-            pictureBox2.Image = Properties.Resources.loader;
-        }
-    
-        void pecos()
-        {
+
             if (InvokeRequired)
                 pgif.Invoke(new d1(pecos));
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
             else
             {
                 pictureBox2.Image = Properties.Resources.loader;
@@ -117,10 +103,7 @@ namespace controlFallos
                     createcontrols(item.ItemArray[0], item.ItemArray[1]);
                 pictureBox2.Image = null;
             }
-<<<<<<< HEAD
             thunidades.Abort();
-=======
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
         }
         void createcontrols(object id, object text)
         {
@@ -312,14 +295,6 @@ namespace controlFallos
         {
             if (cmbservicio.SelectedIndex > 0)
             {
-<<<<<<< HEAD
-
-                pgif.Controls.Clear(); x = y = 5;
-                dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
-                lblloadrol.Visible = true;
-=======
-             
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
                 (thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true }).Start();
             }
             else

@@ -31,11 +31,7 @@ namespace controlFallos
         }
         private void dataLoader()
         {
-<<<<<<< HEAD
-          
-=======
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
-                DataTable dt = (DataTable)Owner.v.getData("SELECT * FROM getdriversrol");
+               DataTable dt = (DataTable)Owner.v.getData("SELECT * FROM getdriversrol");
                 string[] ocupados = { };
                 if (periodID.HasValue)
                     ocupados = Owner.v.getaData("CALL getAllDrivers(" + periodID.Value + ");").ToString().Split('|');
@@ -45,10 +41,6 @@ namespace controlFallos
                     createControlDriver(roe.ItemArray[0], roe.ItemArray[1], (ocupados != null && ocupados.GetLength(0) > 0 ? (bool?)(index >= 0) : null));
                 }
                 th.Abort();
-<<<<<<< HEAD
-            
-=======
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
         }
         private void button2_Click(object sender, EventArgs e){}
         private void dgvcycles_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
