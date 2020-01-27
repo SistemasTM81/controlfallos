@@ -104,6 +104,17 @@
             this.pnuevo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelEmpresa = new System.Windows.Forms.Button();
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            this.lblloadrol = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+=======
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lblloadrol = new System.Windows.Forms.Label();
+>>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
+>>>>>>> 85d9762ac6c977d0a38b66897d61de694ec892a3
             this.gbaddpasillo.SuspendLayout();
             this.gbecos.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -146,6 +157,8 @@
             // 
             // gbecos
             // 
+            this.gbecos.Controls.Add(this.label11);
+            this.gbecos.Controls.Add(this.label12);
             this.gbecos.Controls.Add(this.pgif);
             this.gbecos.Controls.Add(this.label24);
             this.gbecos.Controls.Add(this.label20);
@@ -247,17 +260,18 @@
             // pblogo
             // 
             this.pblogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pblogo.Location = new System.Drawing.Point(587, 79);
+            this.pblogo.Image = global::controlFallos.Properties.Resources.transmasivo;
+            this.pblogo.Location = new System.Drawing.Point(581, 82);
             this.pblogo.Name = "pblogo";
             this.pblogo.Size = new System.Drawing.Size(469, 187);
-            this.pblogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pblogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pblogo.TabIndex = 91;
             this.pblogo.TabStop = false;
             // 
             // padd
             // 
             this.padd.Controls.Add(this.btnadd);
-            this.padd.Location = new System.Drawing.Point(504, 15);
+            this.padd.Location = new System.Drawing.Point(449, 15);
             this.padd.Name = "padd";
             this.padd.Size = new System.Drawing.Size(38, 39);
             this.padd.TabIndex = 90;
@@ -297,7 +311,7 @@
             this.pdatos.Controls.Add(this.lbltexto);
             this.pdatos.Location = new System.Drawing.Point(8, 19);
             this.pdatos.Name = "pdatos";
-            this.pdatos.Size = new System.Drawing.Size(481, 30);
+            this.pdatos.Size = new System.Drawing.Size(396, 30);
             this.pdatos.TabIndex = 87;
             this.pdatos.Visible = false;
             // 
@@ -315,6 +329,7 @@
             this.txtdiferencia.Size = new System.Drawing.Size(58, 20);
             this.txtdiferencia.TabIndex = 86;
             this.txtdiferencia.TextChanged += new System.EventHandler(this.txtdiferencia_TextChanged);
+            this.txtdiferencia.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtciclos_KeyPress);
             // 
             // label27
             // 
@@ -576,7 +591,14 @@
             // 
             // gbRol
             // 
+<<<<<<< HEAD
+=======
             this.gbRol.Controls.Add(this.pictureBox2);
+<<<<<<< HEAD
+=======
+            this.gbRol.Controls.Add(this.lblloadrol);
+>>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
+>>>>>>> 85d9762ac6c977d0a38b66897d61de694ec892a3
             this.gbRol.Controls.Add(this.pictureBox1);
             this.gbRol.Controls.Add(this.btnimg);
             this.gbRol.Controls.Add(this.lblimg);
@@ -602,6 +624,7 @@
             this.gbRol.Controls.Add(this.label22);
             this.gbRol.Controls.Add(this.label3);
             this.gbRol.Controls.Add(this.pnuevo);
+            this.gbRol.Controls.Add(this.lblloadrol);
             this.gbRol.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.gbRol.Location = new System.Drawing.Point(21, 18);
@@ -997,7 +1020,7 @@
             // 
             // btnCancelEmpresa
             // 
-            this.btnCancelEmpresa.BackgroundImage = global::controlFallos.Properties.Resources.delete;
+            this.btnCancelEmpresa.BackgroundImage = global::controlFallos.Properties.Resources.file;
             this.btnCancelEmpresa.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnCancelEmpresa.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnCancelEmpresa.FlatAppearance.BorderSize = 0;
@@ -1008,6 +1031,53 @@
             this.btnCancelEmpresa.TabIndex = 0;
             this.btnCancelEmpresa.UseVisualStyleBackColor = true;
             this.btnCancelEmpresa.Click += new System.EventHandler(this.btnCancelEmpresa_Click);
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+            // 
+=======
+            //
+            // pictureBox2
+            // 
+            this.pictureBox2.Location = new System.Drawing.Point(619, 152);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(122, 97);
+            this.pictureBox2.TabIndex = 92;
+            this.pictureBox2.TabStop = false;
+>>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
+            // lblloadrol
+            // 
+            this.lblloadrol.AutoSize = true;
+            this.lblloadrol.ForeColor = System.Drawing.Color.Crimson;
+            this.lblloadrol.Location = new System.Drawing.Point(310, 165);
+            this.lblloadrol.Name = "lblloadrol";
+            this.lblloadrol.Size = new System.Drawing.Size(242, 24);
+            this.lblloadrol.TabIndex = 92;
+            this.lblloadrol.Text = "Cargando Unidades. Espere";
+            this.lblloadrol.Visible = false;
+<<<<<<< HEAD
+            // 
+            // label11
+            // 
+            this.label11.BackColor = System.Drawing.Color.LightCoral;
+            this.label11.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(662, 184);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(18, 18);
+            this.label11.TabIndex = 88;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.Location = new System.Drawing.Point(509, 184);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(151, 18);
+            this.label12.TabIndex = 87;
+            this.label12.Text = "Unidades desactivadas";
+=======
+>>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
+>>>>>>> 85d9762ac6c977d0a38b66897d61de694ec892a3
             // 
             // CatRoles
             // 
@@ -1123,6 +1193,16 @@
         private System.Windows.Forms.Label lblimg;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pblogo;
+<<<<<<< HEAD
+        private System.Windows.Forms.Label lblloadrol;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+=======
         private System.Windows.Forms.PictureBox pictureBox2;
+<<<<<<< HEAD
+=======
+private System.Windows.Forms.Label lblloadrol;
+>>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
+>>>>>>> 85d9762ac6c977d0a38b66897d61de694ec892a3
     }
 }
