@@ -67,8 +67,8 @@ namespace controlFallos
         {
             privilegios();
             ptabla.Visible = (pconsultar ? true : false);
-            gbRol.Visible = gbecos.Visible = gbxdiferencia.Visible = (pinsertar || peditar ? true : false);
-            psave.Visible = (pinsertar ? true : false);
+            gbRol.Visible = gbecos.Visible = pblogo.Visible = gbxdiferencia.Visible = (pinsertar || peditar ? true : false);
+            psave.Visible = pblogo.Visible = (pinsertar ? true : false);
         }
         void mostrarEmpresas()
         {
@@ -80,16 +80,13 @@ namespace controlFallos
             v.iniCombos("call sistrefaccmant.companieswithstatus();", cmbempresa, "id", "nombre", "-- SELECCIONE UNA EMPRESA --");
             hempresas.Abort();
         }
-        void loadgif()
-        {
-            pictureBox2.Image = Properties.Resources.loader;
-        }
         void loadecos()
         {
             pgif.Controls.Clear(); x = y = 5;
             dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
             foreach (DataRow item in dt.Rows)
                 createcontrols(item.ItemArray[0], item.ItemArray[1]);
+            lblloadrol.Visible = false;
         }
         void pecos()
         {
@@ -98,8 +95,6 @@ namespace controlFallos
                 d1 d = new d1(loadecos);
                 pgif.Invoke(d);
             }
-<<<<<<< HEAD
-=======
             else
             {
                 foreach (DataRow item in dt.Rows)
@@ -107,7 +102,6 @@ namespace controlFallos
                 lblloadrol.Visible = false;
             }
             thunidades.Abort();
->>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
         }
         void createcontrols(object id, object text)
         {
@@ -299,15 +293,11 @@ namespace controlFallos
         {
             if (cmbservicio.SelectedIndex > 0)
             {
-<<<<<<< HEAD
-                thunidades = new Thread(new ThreadStart(pecos));
-                thunidades.Start();
-=======
+
                 pgif.Controls.Clear(); x = y = 5;
                 dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
                 lblloadrol.Visible = true;
-                (thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true}).Start();
->>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
+                (thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true }).Start();
             }
             else
             { pgif.Controls.Clear(); x = y = 5; }
@@ -363,7 +353,7 @@ namespace controlFallos
         private void lbxdiferencias_DoubleClick(object sender, EventArgs e)
         {
             padd.Visible = !(pdatos.Visible = editardif = true);
-            btnadd.BackgroundImage = Properties.Resources.pencil;
+            btnadd.BackgroundImage = Properties.Resources.edit1;
             txtdiferencia.Text = (diferenciaA = Convert.ToInt32(diferencia[c = lbxdiferencias.SelectedIndex])).ToString();
             lbltexto.Text = "Diferencia entre unidad " + (lbxdiferencias.SelectedIndex + 1) + " y " + (lbxdiferencias.SelectedIndex + 2) + ": ";
         }
@@ -531,7 +521,7 @@ namespace controlFallos
         bool cambios()
         {
             bool res = false;
-            if ((Convert.ToInt32(cmbempresa.SelectedValue) != empresaAnterior || Convert.ToInt32(cmbarea.SelectedValue) != areaArenterior || img != imganterior || Convert.ToInt32(cmbservicio.SelectedValue) != servicioAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtciclos.Text) ? "0" : txtciclos.Text)) != ciclosAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtecos.Text) ? "0" : txtecos.Text)) != ecosAnterior || dtpincorporo.Value.ToString("HH:mm") != horaAnterior.ToString("HH:mm") || nudlapso.Value != lapsoAnterior || (unidadesAnterior != null && unidadesAnterior != null && diferenciaAnterior != null && diferencia != null && changesinlist())))
+            if ((Convert.ToInt32(cmbempresa.SelectedValue) != empresaAnterior || Convert.ToInt32(cmbarea.SelectedValue) != areaArenterior || img != imganterior || Convert.ToInt32(cmbservicio.SelectedValue) != servicioAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtciclos.Text) ? "0" : txtciclos.Text)) != ciclosAnterior || Convert.ToInt32((string.IsNullOrWhiteSpace(txtecos.Text) ? "0" : txtecos.Text)) != ecosAnterior || dtpincorporo.Value.ToString("HH:mm") != horaAnterior.ToString("HH:mm") || nudlapso.Value != lapsoAnterior || (unidades != null && unidadesAnterior != null && diferenciaAnterior != null && diferencia != null && changesinlist())))
             {
                 if (empresaAnterior == 0 || areaArenterior == 0 || servicioAnterior == 0 || ciclosAnterior == 0 || ecosAnterior == 0 || horaAnterior.Hour == 0 || lapsoAnterior == 0)
                     nuevo = true;
@@ -560,13 +550,11 @@ namespace controlFallos
         }
         void limpiar()
         {
-            if (editar)
-            {
-                unidades.Clear();
-                unidadesAnterior.Clear();
-                diferencia.Clear();
-                diferenciaAnterior.Clear();
-            }
+            unidades = null;
+            unidadesAnterior = null;
+            diferencia = null;
+            diferenciaAnterior = null;
+            pictureBox1.BackgroundImage = null;
             lblunidades.Text = img = imganterior = "";
             mostrarEmpresas();
             nudlapso.Value = cmbempresa.SelectedIndex = empresaAnterior = areaArenterior = servicioAnterior = ciclosAnterior = ecosAnterior = lapsoAnterior = contador = idRol = 0;
@@ -581,7 +569,6 @@ namespace controlFallos
             lbldiff.Text = "establecer diferencias de tiempo";
             psave.Visible = (pinsertar ? true : false);
             pnuevo.Visible = pstatus.Visible = pselectecos.Visible = gbecos.Enabled = gbxdiferencia.Enabled = editar = editardif = editareco = nuevo = !(psave.Visible = true);
-            pictureBox1.BackgroundImage = null;
         }
 
         private void dgvroles_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -622,7 +609,7 @@ namespace controlFallos
             nudlapso.Value = lapsoAnterior = Convert.ToInt32(datosrol[4]);
             lblstatus.Text = ((statusAnterior = Convert.ToInt32(datosrol[5])) == 1 ? "Desactivar" : "Reactivar");
             btnstatus.BackgroundImage = (statusAnterior == 1 ? controlFallos.Properties.Resources.sw : controlFallos.Properties.Resources.swv);
-            btnguardar.BackgroundImage = controlFallos.Properties.Resources.pencil;
+            btnguardar.BackgroundImage = controlFallos.Properties.Resources.document_edit_icon_icons_com_52428;
             pstatus.Visible = (pdesactivar ? true : false);
             unidades = new List<int>(ecosAnterior);
             unidadesAnterior = new List<int>(ecosAnterior);

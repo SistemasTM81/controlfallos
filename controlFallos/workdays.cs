@@ -31,10 +31,7 @@ namespace controlFallos
         }
         private void dataLoader()
         {
-            if (InvokeRequired)
-                Invoke(new dataLoad(dataLoader));
-            else
-            {
+          
                 DataTable dt = (DataTable)Owner.v.getData("SELECT * FROM getdriversrol");
                 string[] ocupados = { };
                 if (periodID.HasValue)
@@ -45,7 +42,7 @@ namespace controlFallos
                     createControlDriver(roe.ItemArray[0], roe.ItemArray[1], (ocupados != null && ocupados.GetLength(0) > 0 ? (bool?)(index >= 0) : null));
                 }
                 th.Abort();
-            }
+            
         }
         private void button2_Click(object sender, EventArgs e){}
         private void dgvcycles_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -64,22 +61,27 @@ namespace controlFallos
         private void button3_Click(object sender, EventArgs e){}
         private void createControlDriver(object driverID, object driverCRED, bool? existe)
         {
-            bool canIBuild = true;
-            if (existe.HasValue) canIBuild = !existe.Value;
-            if (canIBuild)
-            {
-                Button btn = new Button() {FlatStyle = FlatStyle.Flat, Name = "Button | " + driverID,TextAlign = ContentAlignment.MiddleCenter,Cursor = Cursors.Hand,UseMnemonic = false};
-                btn.Click += Btn_Click;
-                btn.MouseDown += Btn_MouseDown;
-                backgroundPanel.Controls.Add(addContol(btn, canIBuild, driverCRED.ToString()));
-            }
+            if (InvokeRequired)
+                Invoke(new dataLoad(dataLoader));
             else
             {
-                Label lbl = new Label() {FlatStyle = FlatStyle.Flat, Name = "Label|" + driverID , UseMnemonic = false,BorderStyle = BorderStyle.FixedSingle,TextAlign = ContentAlignment.MiddleCenter,ForeColor = Color.White,UseCompatibleTextRendering = true};
-                backgroundPanel.Controls.Add(addContol(lbl, canIBuild, driverCRED.ToString()));
+                bool canIBuild = true;
+                if (existe.HasValue) canIBuild = !existe.Value;
+                if (canIBuild)
+                {
+                    Button btn = new Button() { FlatStyle = FlatStyle.Flat, Name = "Button | " + driverID, TextAlign = ContentAlignment.MiddleCenter, Cursor = Cursors.Hand, UseMnemonic = false };
+                    btn.Click += Btn_Click;
+                    btn.MouseDown += Btn_MouseDown;
+                    backgroundPanel.Controls.Add(addContol(btn, canIBuild, driverCRED.ToString()));
+                }
+                else
+                {
+                    Label lbl = new Label() { FlatStyle = FlatStyle.Flat, Name = "Label|" + driverID, UseMnemonic = false, BorderStyle = BorderStyle.FixedSingle, TextAlign = ContentAlignment.MiddleCenter, ForeColor = Color.White, UseCompatibleTextRendering = true };
+                    backgroundPanel.Controls.Add(addContol(lbl, canIBuild, driverCRED.ToString()));
+                }
+                x += 50;
+                if (x + 50 >= backgroundPanel.Size.Width) { x = 0; y += 30; }
             }
-            x += 50;
-            if (x + 50 >= backgroundPanel.Size.Width) { x = 0; y += 30; }
         }
         /// <summary>
         ///Method that allow Specify some properties such as: size, Location or background that have in common a button and a label
