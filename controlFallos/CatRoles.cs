@@ -84,30 +84,20 @@ namespace controlFallos
         {
             pictureBox2.Image = Properties.Resources.loader;
         }
-        void loadecos()
-        {
-            pgif.Controls.Clear(); x = y = 5;
-            dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
-            foreach (DataRow item in dt.Rows)
-                createcontrols(item.ItemArray[0], item.ItemArray[1]);
-        }
+    
         void pecos()
         {
-            if (this.InvokeRequired)
-            {
-                d1 d = new d1(loadecos);
-                pgif.Invoke(d);
-            }
-<<<<<<< HEAD
-=======
+            if (InvokeRequired)
+                pgif.Invoke(new d1(pecos));
             else
-            {
+            {         lblloadrol.Visible = true;
+                pgif.Controls.Clear(); x = y = 5;
+               DataTable dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
+       
                 foreach (DataRow item in dt.Rows)
                     createcontrols(item.ItemArray[0], item.ItemArray[1]);
                 lblloadrol.Visible = false;
             }
-            thunidades.Abort();
->>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
         }
         void createcontrols(object id, object text)
         {
@@ -299,15 +289,8 @@ namespace controlFallos
         {
             if (cmbservicio.SelectedIndex > 0)
             {
-<<<<<<< HEAD
-                thunidades = new Thread(new ThreadStart(pecos));
-                thunidades.Start();
-=======
-                pgif.Controls.Clear(); x = y = 5;
-                dt = (DataTable)v.getData("call sistrefaccmant.ecosbyservice('" + cmbarea.SelectedValue + "');");
-                lblloadrol.Visible = true;
-                (thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true}).Start();
->>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
+             
+                (thunidades = new Thread(new ThreadStart(pecos)) { IsBackground = true }).Start();
             }
             else
             { pgif.Controls.Clear(); x = y = 5; }
@@ -419,7 +402,7 @@ namespace controlFallos
                 }
             }
         }
-        private void txtciclos_KeyPress(object sender, KeyPressEventArgs e)=>v.Solonumeros(e);
+        private void txtciclos_KeyPress(object sender, KeyPressEventArgs e) => v.Solonumeros(e);
 
 
         private void cmbempresa_SelectedValueChanged(object sender, EventArgs e)
@@ -432,10 +415,9 @@ namespace controlFallos
                 pselectecos.Visible = pselectecos.Visible = ((Convert.ToInt32(txtecos.Text) > 0 && (statusAnterior > 0 || !editar)) ? true : false);
             }
             else ptime.Visible = pselectecos.Visible = false;
-
         }
         public string cadena(List<string> lista)
-        { 
+        {
             string cadena = "";
             for (int i = 0; i < lista.Count; i++)
                 cadena = (i == 0 ? (cadena += lista[i]) : cadena += ("," + lista[i]));

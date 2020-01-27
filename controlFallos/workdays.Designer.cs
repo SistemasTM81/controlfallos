@@ -707,12 +707,10 @@
             {
                 dgvcycles.DataSource = null;
                 System.Data.DataTable dt = new System.Data.DataTable("Rol De Servicio");
-                System.Data.DataColumn dc = new System.Data.DataColumn() { AutoIncrement = true, ColumnName = "CICLO", DataType = typeof(long), AutoIncrementSeed = 1 };
-                dt.Columns.Add(dc);
-                dc.AutoIncrementStep = 1;
+                dt.Columns.Add(new System.Data.DataColumn() { AutoIncrement = true, ColumnName = "CICLO", DataType = typeof(long), AutoIncrementSeed = 1,AutoIncrementStep =1 });
                 var dtECOS = Owner.v.getaData("call sistrefaccmant.getECOSCount(" + rolfkCRoles + ");").ToString().Split('¬');
                 dgvcycles.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Font = new System.Drawing.Font("Garamond", (dtECOS.Length >= 11 ? 10 : 12), System.Drawing.FontStyle.Bold), BackColor = System.Drawing.Color.FromArgb(200, 200, 200), ForeColor = System.Drawing.Color.FromArgb(75, 44, 52), Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter };
-                dgvcycles.RowsDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Font = new System.Drawing.Font("Garamond", (dtECOS.Length >= 11 ? 8 : 10), System.Drawing.FontStyle.Regular), BackColor = System.Drawing.Color.FromArgb(200, 200, 200), ForeColor = System.Drawing.Color.FromArgb(75, 44, 52), Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter, WrapMode = System.Windows.Forms.DataGridViewTriState.True, SelectionBackColor = System.Drawing.Color.Crimson, SelectionForeColor = System.Drawing.Color.White };
+                dgvcycles.RowsDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Font = new System.Drawing.Font("Garamond", (dtECOS.Length >= 11 ? 8 : 10), System.Drawing.FontStyle.Bold), BackColor = System.Drawing.Color.FromArgb(200, 200, 200), ForeColor = System.Drawing.Color.FromArgb(75, 44, 52), Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter, WrapMode = System.Windows.Forms.DataGridViewTriState.True, SelectionBackColor = System.Drawing.Color.Crimson, SelectionForeColor = System.Drawing.Color.White };
                 foreach (string row in dtECOS)
                 {
                     System.Data.DataTable dt2 = new System.Data.DataTable();
@@ -785,6 +783,7 @@
         {
             foreach (System.Windows.Forms.DataGridViewCell cell in dgvcycles.SelectedCells)
                 cell.Value = (sender as System.Windows.Forms.Button).Text;
+            dgvcycles.Focus();
         }
         private void dgvcycles_ColumnAdded(object sender, System.Windows.Forms.DataGridViewColumnEventArgs e) => Owner.v.paraDataGridViews_ColumnAdded(sender, e);
 

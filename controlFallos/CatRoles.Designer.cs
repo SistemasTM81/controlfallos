@@ -103,11 +103,8 @@
             this.pnuevo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelEmpresa = new System.Windows.Forms.Button();
-<<<<<<< HEAD
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-=======
             this.lblloadrol = new System.Windows.Forms.Label();
->>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
             this.gbaddpasillo.SuspendLayout();
             this.gbecos.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -580,11 +577,8 @@
             // 
             // gbRol
             // 
-<<<<<<< HEAD
             this.gbRol.Controls.Add(this.pictureBox2);
-=======
             this.gbRol.Controls.Add(this.lblloadrol);
->>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
             this.gbRol.Controls.Add(this.pictureBox1);
             this.gbRol.Controls.Add(this.btnimg);
             this.gbRol.Controls.Add(this.lblimg);
@@ -1008,8 +1002,7 @@
             this.btnCancelEmpresa.TabIndex = 0;
             this.btnCancelEmpresa.UseVisualStyleBackColor = true;
             this.btnCancelEmpresa.Click += new System.EventHandler(this.btnCancelEmpresa_Click);
-            // 
-<<<<<<< HEAD
+            //
             // pictureBox2
             // 
             this.pictureBox2.Location = new System.Drawing.Point(619, 152);
@@ -1017,7 +1010,6 @@
             this.pictureBox2.Size = new System.Drawing.Size(122, 97);
             this.pictureBox2.TabIndex = 92;
             this.pictureBox2.TabStop = false;
-=======
             // lblloadrol
             // 
             this.lblloadrol.AutoSize = true;
@@ -1028,7 +1020,6 @@
             this.lblloadrol.TabIndex = 92;
             this.lblloadrol.Text = "Cargando Unidades. Espere";
             this.lblloadrol.Visible = false;
->>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
             // 
             // CatRoles
             // 
@@ -1144,10 +1135,7 @@
         private System.Windows.Forms.Label lblimg;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pblogo;
-<<<<<<< HEAD
         private System.Windows.Forms.PictureBox pictureBox2;
-=======
-        private System.Windows.Forms.Label lblloadrol;
->>>>>>> 0fb22c92b1497bdff3ff7fb77fe7d257022982d8
+private System.Windows.Forms.Label lblloadrol;
     }
 }
