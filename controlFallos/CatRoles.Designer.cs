@@ -104,17 +104,9 @@
             this.pnuevo = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.btnCancelEmpresa = new System.Windows.Forms.Button();
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            this.lblloadrol = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+     this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-=======
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.lblloadrol = new System.Windows.Forms.Label();
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
->>>>>>> 85d9762ac6c977d0a38b66897d61de694ec892a3
             this.gbaddpasillo.SuspendLayout();
             this.gbecos.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -591,14 +583,7 @@
             // 
             // gbRol
             // 
-<<<<<<< HEAD
-=======
             this.gbRol.Controls.Add(this.pictureBox2);
-<<<<<<< HEAD
-=======
-            this.gbRol.Controls.Add(this.lblloadrol);
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
->>>>>>> 85d9762ac6c977d0a38b66897d61de694ec892a3
             this.gbRol.Controls.Add(this.pictureBox1);
             this.gbRol.Controls.Add(this.btnimg);
             this.gbRol.Controls.Add(this.lblimg);
@@ -624,7 +609,6 @@
             this.gbRol.Controls.Add(this.label22);
             this.gbRol.Controls.Add(this.label3);
             this.gbRol.Controls.Add(this.pnuevo);
-            this.gbRol.Controls.Add(this.lblloadrol);
             this.gbRol.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbRol.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.gbRol.Location = new System.Drawing.Point(21, 18);
@@ -1031,11 +1015,6 @@
             this.btnCancelEmpresa.TabIndex = 0;
             this.btnCancelEmpresa.UseVisualStyleBackColor = true;
             this.btnCancelEmpresa.Click += new System.EventHandler(this.btnCancelEmpresa_Click);
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-            // 
-=======
             //
             // pictureBox2
             // 
@@ -1044,18 +1023,6 @@
             this.pictureBox2.Size = new System.Drawing.Size(122, 97);
             this.pictureBox2.TabIndex = 92;
             this.pictureBox2.TabStop = false;
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
-            // lblloadrol
-            // 
-            this.lblloadrol.AutoSize = true;
-            this.lblloadrol.ForeColor = System.Drawing.Color.Crimson;
-            this.lblloadrol.Location = new System.Drawing.Point(310, 165);
-            this.lblloadrol.Name = "lblloadrol";
-            this.lblloadrol.Size = new System.Drawing.Size(242, 24);
-            this.lblloadrol.TabIndex = 92;
-            this.lblloadrol.Text = "Cargando Unidades. Espere";
-            this.lblloadrol.Visible = false;
-<<<<<<< HEAD
             // 
             // label11
             // 
@@ -1075,9 +1042,6 @@
             this.label12.Size = new System.Drawing.Size(151, 18);
             this.label12.TabIndex = 87;
             this.label12.Text = "Unidades desactivadas";
-=======
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
->>>>>>> 85d9762ac6c977d0a38b66897d61de694ec892a3
             // 
             // CatRoles
             // 
@@ -1193,16 +1157,8 @@
         private System.Windows.Forms.Label lblimg;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pblogo;
-<<<<<<< HEAD
-        private System.Windows.Forms.Label lblloadrol;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
-=======
         private System.Windows.Forms.PictureBox pictureBox2;
-<<<<<<< HEAD
-=======
-private System.Windows.Forms.Label lblloadrol;
->>>>>>> 43f0c8d5682ab67c63728d26322466e9feac7c53
->>>>>>> 85d9762ac6c977d0a38b66897d61de694ec892a3
-    }
+}
 }
