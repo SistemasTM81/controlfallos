@@ -21,7 +21,7 @@ namespace controlFallos
         new public menuPrincipal Owner { protected internal set; get; }
         delegate bool dataLoad();
         delegate void dataLoaders();
-        delegate void configureRows(int avoid);
+        delegate object configureRows(int avoid);
         int x = 0, y = 0;
         Thread th;
         public workdays(menuPrincipal Owner)
@@ -88,13 +88,9 @@ namespace controlFallos
             }
         }
 
-        private void dgvcycles_DataSourceChanged(object sender, EventArgs e)
-        {
-            if(dgvcycles.DataSource!=null)
-            {
-                /**var configure = Task.Run(() => */configureR(((dgvcycles.Columns.Count - 2) / 3 + 1))/*)*/;
-            }
-        }
+        private void dgvcycles_DataSourceChanged(object sender, EventArgs e){if(dgvcycles.DataSource!=null) apply();}
+
+        private async void apply() => await Task.Run(() => configureR(((dgvcycles.Columns.Count - 2) / 3 + 1)));
 
         /// <summary>
         ///Method that allow Specify some properties such as: size, Location or background that have in common a button and a label

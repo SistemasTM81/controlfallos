@@ -30,7 +30,7 @@ namespace controlFallos
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(workdays));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pDias = new System.Windows.Forms.Panel();
             this.nupDurationWorkDay = new System.Windows.Forms.NumericUpDown();
@@ -49,7 +49,6 @@ namespace controlFallos
             this.cmbxTimeperiod = new System.Windows.Forms.ComboBox();
             this.label15 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.lblloadrol = new System.Windows.Forms.PictureBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label4 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
@@ -73,6 +72,7 @@ namespace controlFallos
             this.label6 = new System.Windows.Forms.Label();
             this.panel8 = new System.Windows.Forms.Panel();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.lblloadrol = new System.Windows.Forms.Label();
             this.groupBox2.SuspendLayout();
             this.pDias.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nupDurationWorkDay)).BeginInit();
@@ -80,7 +80,6 @@ namespace controlFallos
             this.panel3.SuspendLayout();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lblloadrol)).BeginInit();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvcycles)).BeginInit();
             this.panel5.SuspendLayout();
@@ -324,17 +323,6 @@ namespace controlFallos
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Registro de Roles";
             // 
-            // lblloadrol
-            // 
-            this.lblloadrol.Image = global::controlFallos.Properties.Resources.Preloader;
-            this.lblloadrol.Location = new System.Drawing.Point(463, 21);
-            this.lblloadrol.Name = "lblloadrol";
-            this.lblloadrol.Size = new System.Drawing.Size(78, 50);
-            this.lblloadrol.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.lblloadrol.TabIndex = 39;
-            this.lblloadrol.TabStop = false;
-            this.lblloadrol.Visible = false;
-            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.label4);
@@ -427,12 +415,12 @@ namespace controlFallos
             this.dgvcycles.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             this.dgvcycles.RowHeadersVisible = false;
             this.dgvcycles.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 10F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
-            this.dgvcycles.RowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 10F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
+            this.dgvcycles.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvcycles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvcycles.Size = new System.Drawing.Size(1904, 622);
             this.dgvcycles.StandardTab = true;
@@ -620,6 +608,15 @@ namespace controlFallos
             this.panel9.Size = new System.Drawing.Size(1908, 626);
             this.panel9.TabIndex = 39;
             // 
+            // lblloadrol
+            // 
+            this.lblloadrol.AutoSize = true;
+            this.lblloadrol.ForeColor = System.Drawing.Color.Crimson;
+            this.lblloadrol.Location = new System.Drawing.Point(439, 31);
+            this.lblloadrol.Name = "lblloadrol";
+            this.lblloadrol.Size = new System.Drawing.Size(0, 18);
+            this.lblloadrol.TabIndex = 39;
+            // 
             // workdays
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -644,7 +641,7 @@ namespace controlFallos
             this.panel3.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lblloadrol)).EndInit();
+            this.groupBox1.PerformLayout();
             this.panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvcycles)).EndInit();
             this.panel5.ResumeLayout(false);
@@ -692,20 +689,20 @@ namespace controlFallos
         }
         private async void createRol()
         {
-            lblloadrol.Visible = true;
+            lblloadrol.Text = "Generando Rol";
             dgvcycles.DataSource = null;
             var activity = await Task.Run(() => rol());
             dgvcycles.DataSource = activity;
-            lblloadrol.Visible = false;
 
         }
 
-        private void configureR(int dtECOS)
+        private object configureR(int dtECOS)
         {
-            if (dgvcycles.InvokeRequired)
-                dgvcycles.Invoke(new configureRows(configureR), dtECOS);
+            if (InvokeRequired)
+                Invoke(new configureRows(configureR), dtECOS);
             else
             {
+                lblloadrol.Text = "Aplicando Estilos";
                 dgvcycles.ColumnHeadersDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Font = new System.Drawing.Font("Garamond", (dtECOS >= 11 ? 9.5f : 12f), System.Drawing.FontStyle.Bold), BackColor = System.Drawing.Color.FromArgb(200, 200, 200), ForeColor = System.Drawing.Color.FromArgb(75, 44, 52), Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter };
                 dgvcycles.RowsDefaultCellStyle = new System.Windows.Forms.DataGridViewCellStyle() { Font = new System.Drawing.Font("Garamond", (dtECOS >= 11 ? 8 : 10), System.Drawing.FontStyle.Bold), BackColor = System.Drawing.Color.FromArgb(200, 200, 200), ForeColor = System.Drawing.Color.FromArgb(75, 44, 52), Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter, WrapMode = System.Windows.Forms.DataGridViewTriState.True, SelectionBackColor = System.Drawing.Color.Crimson, SelectionForeColor = System.Drawing.Color.White };
                 if (dtECOS >= 11) dgvcycles.Columns[0].Width = 55;
@@ -720,7 +717,9 @@ namespace controlFallos
                     }
                     dgvcycles.Columns[column].HeaderText = dgvcycles.Columns[column].HeaderText.Trim();
                 }
+                lblloadrol.Text = string.Empty;
             }
+            return null;
         }
 
         System.Data.DataTable rol()
@@ -840,6 +839,6 @@ namespace controlFallos
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.PictureBox lblloadrol;
+        private System.Windows.Forms.Label lblloadrol;
     }
 }

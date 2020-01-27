@@ -78,7 +78,7 @@ namespace controlFallos
                     dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { host, user, password, port }));
                 else
                     dbcon = new MySqlConnection("Server = " + hostLocal + "; user=" + userLocal + "; password = " + passwordLocal + "; database = sistrefaccmant ;port=" + portLocal);
-                if (dbcon.State != System.Data.ConnectionState.Open) dbcon.Open();
+          /**      if (dbcon.State != System.Data.ConnectionState.Open) */dbcon.Open();
             }
             catch (Exception ex)
             {
