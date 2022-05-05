@@ -1134,6 +1134,13 @@ namespace controlFallos
             rep.ShowDialog();
         }
 
+        private void ventaExternaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ReporteVenExt venta = new ReporteVenExt(v, empresa, area, idUsuario);
+            venta.Owner = this;
+            venta.Show();
+        }
+
         private void asistencíaDelDíaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (cerrar())

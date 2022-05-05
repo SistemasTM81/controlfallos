@@ -61,6 +61,7 @@
             this.reporteAlmacenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.almacenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultaRetornoMaterialToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.corrocerosExtermosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.requisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ordenesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comparativasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,7 +80,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.corrocerosExtermosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ventaExternaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbnotif)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -521,6 +522,16 @@
             this.consultaRetornoMaterialToolStripMenuItem2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.consultaRetornoMaterialToolStripMenuItem2.Click += new System.EventHandler(this.consultaRetornoMaterialToolStripMenuItem2_Click);
             // 
+            // corrocerosExtermosToolStripMenuItem
+            // 
+            this.corrocerosExtermosToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.corrocerosExtermosToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.corrocerosExtermosToolStripMenuItem.Image = global::controlFallos.Properties.Resources.mexibus;
+            this.corrocerosExtermosToolStripMenuItem.Name = "corrocerosExtermosToolStripMenuItem";
+            this.corrocerosExtermosToolStripMenuItem.Size = new System.Drawing.Size(288, 28);
+            this.corrocerosExtermosToolStripMenuItem.Text = "Corroceros/Extermos";
+            this.corrocerosExtermosToolStripMenuItem.Click += new System.EventHandler(this.corrocerosExtermosToolStripMenuItem_Click);
+            // 
             // requisicionesToolStripMenuItem
             // 
             this.requisicionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -596,7 +607,8 @@
             this.validaciónToolStripMenuItem,
             this.totalEntradasToolStripMenuItem,
             this.totalSalidasToolStripMenuItem,
-            this.inventarioGeneralToolStripMenuItem});
+            this.inventarioGeneralToolStripMenuItem,
+            this.ventaExternaToolStripMenuItem});
             this.reportesToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.reportesToolStripMenuItem.Image = global::controlFallos.Properties.Resources.report;
             this.reportesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
@@ -722,15 +734,14 @@
             this.panel1.Size = new System.Drawing.Size(67, 47);
             this.panel1.TabIndex = 1;
             // 
-            // corrocerosExtermosToolStripMenuItem
+            // ventaExternaToolStripMenuItem
             // 
-            this.corrocerosExtermosToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
-            this.corrocerosExtermosToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.corrocerosExtermosToolStripMenuItem.Image = global::controlFallos.Properties.Resources.mexibus;
-            this.corrocerosExtermosToolStripMenuItem.Name = "corrocerosExtermosToolStripMenuItem";
-            this.corrocerosExtermosToolStripMenuItem.Size = new System.Drawing.Size(288, 28);
-            this.corrocerosExtermosToolStripMenuItem.Text = "Corroceros/Extermos";
-            this.corrocerosExtermosToolStripMenuItem.Click += new System.EventHandler(this.corrocerosExtermosToolStripMenuItem_Click);
+            this.ventaExternaToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.ventaExternaToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.ventaExternaToolStripMenuItem.Name = "ventaExternaToolStripMenuItem";
+            this.ventaExternaToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
+            this.ventaExternaToolStripMenuItem.Text = "Venta Externa";
+            this.ventaExternaToolStripMenuItem.Click += new System.EventHandler(this.ventaExternaToolStripMenuItem_Click);
             // 
             // menuPrincipal
             // 
@@ -822,5 +833,6 @@
         private System.Windows.Forms.ToolStripMenuItem totalSalidasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inventarioGeneralToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem corrocerosExtermosToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ventaExternaToolStripMenuItem;
     }
 }

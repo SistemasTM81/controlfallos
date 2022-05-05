@@ -550,6 +550,12 @@
     <Compile Include="ReportesVigencias.designer.cs">
       <DependentUpon>ReportesVigencias.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReporteVenExt.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteVenExt.Designer.cs">
+      <DependentUpon>ReporteVenExt.cs</DependentUpon>
+    </Compile>
     <Compile Include="requerimiento_mantenimiento.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -856,6 +862,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ReportesVigencias.resx">
       <DependentUpon>ReportesVigencias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteVenExt.resx">
+      <DependentUpon>ReporteVenExt.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="requerimiento_mantenimiento.resx">
       <DependentUpon>requerimiento_mantenimiento.cs</DependentUpon>
