@@ -247,7 +247,7 @@ namespace controlFallos
                                 string nombre = privilegios[i, 5];
                                 v.insert(ver, insertar, consultar, modificar, eliminar, nombre, idUsuario);
                                 //v.c.insertLocal(ver, insertar, consultar, modificar, eliminar, nombre, idUsuario);
-                                //Githup Respaldo
+                                //Githup Respaldo 05-05-2022
                             }
 
                             MessageBox.Show("Se Han Asignado los Privilegios Exitosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
