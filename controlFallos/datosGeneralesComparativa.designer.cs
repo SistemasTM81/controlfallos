@@ -52,7 +52,6 @@
             this.usuariofkcpersonalRefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idrefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombreRefacciondgv = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.pblogoright = new System.Windows.Forms.PictureBox();
             this.gbTodo = new System.Windows.Forms.GroupBox();
             this.pGenerar = new System.Windows.Forms.Panel();
             this.button1 = new System.Windows.Forms.Button();
@@ -108,6 +107,7 @@
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuarioagregoproveedordgv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idproveedordgv = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.pblogoright = new System.Windows.Forms.PictureBox();
             this.dgvcompara = new System.Windows.Forms.DataGridView();
             this.idComparacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -145,7 +145,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvrefacciones)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pblogoright)).BeginInit();
             this.gbTodo.SuspendLayout();
             this.pGenerar.SuspendLayout();
             this.pnewrefpro.SuspendLayout();
@@ -160,6 +159,7 @@
             this.gbRef.SuspendLayout();
             this.groupBox7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvproveedores)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pblogoright)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvcompara)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -173,13 +173,13 @@
             this.groupBox1.Controls.Add(this.gbTodo);
             this.groupBox1.Controls.Add(this.dgvproveedores);
             this.groupBox1.Controls.Add(this.pblogoright);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(1908, 490);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // dgvrefacciones
             // 
@@ -309,17 +309,6 @@
             this.nombreRefacciondgv.ReadOnly = true;
             this.nombreRefacciondgv.Visible = false;
             this.nombreRefacciondgv.Width = 172;
-            // 
-            // pblogoright
-            // 
-            this.pblogoright.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pblogoright.Image = global::controlFallos.Properties.Resources.Imagen2;
-            this.pblogoright.Location = new System.Drawing.Point(1250, 167);
-            this.pblogoright.Name = "pblogoright";
-            this.pblogoright.Size = new System.Drawing.Size(411, 157);
-            this.pblogoright.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pblogoright.TabIndex = 178;
-            this.pblogoright.TabStop = false;
             // 
             // gbTodo
             // 
@@ -527,7 +516,6 @@
             this.gbproveedores.Controls.Add(this.checkmejor);
             this.gbproveedores.Controls.Add(this.label12);
             this.gbproveedores.Controls.Add(this.label11);
-            this.gbproveedores.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gbproveedores.Location = new System.Drawing.Point(0, 0);
             this.gbproveedores.Name = "gbproveedores";
             this.gbproveedores.Size = new System.Drawing.Size(525, 313);
@@ -1101,6 +1089,17 @@
             this.idproveedordgv.Visible = false;
             this.idproveedordgv.Width = 130;
             // 
+            // pblogoright
+            // 
+            this.pblogoright.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pblogoright.Image = global::controlFallos.Properties.Resources.Imagen2;
+            this.pblogoright.Location = new System.Drawing.Point(1250, 167);
+            this.pblogoright.Name = "pblogoright";
+            this.pblogoright.Size = new System.Drawing.Size(411, 157);
+            this.pblogoright.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pblogoright.TabIndex = 178;
+            this.pblogoright.TabStop = false;
+            // 
             // dgvcompara
             // 
             this.dgvcompara.AllowUserToAddRows = false;
@@ -1272,7 +1271,6 @@
             this.groupBox2.Controls.Add(this.label21);
             this.groupBox2.Controls.Add(this.btnExcel);
             this.groupBox2.Controls.Add(this.pictureBoxExcelLoad);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.groupBox2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.groupBox2.Location = new System.Drawing.Point(0, 545);
@@ -1553,6 +1551,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
+            this.AutoSize = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1908, 936);
             this.Controls.Add(this.label1);
@@ -1569,7 +1569,6 @@
             this.Load += new System.EventHandler(this.datosGeneralesComparativa_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgvrefacciones)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pblogoright)).EndInit();
             this.gbTodo.ResumeLayout(false);
             this.gbTodo.PerformLayout();
             this.pGenerar.ResumeLayout(false);
@@ -1595,6 +1594,7 @@
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvproveedores)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pblogoright)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvcompara)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();

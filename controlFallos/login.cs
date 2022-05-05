@@ -3,13 +3,16 @@ using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 using System.Threading;
 using System.IO;
+using System.Security.Permissions;
+using System.Security;
+
 namespace controlFallos
 {
     public partial class login : Form
     {
         validaciones v;
         bloqueoLogin bl;
-        TimeSpan diferencia; 
+        TimeSpan diferencia;
         ThreadStart delegado;
         Thread hilo;
         public login(validaciones v)
@@ -17,27 +20,38 @@ namespace controlFallos
             InitializeComponent();
             this.v = v;
             bl = new bloqueoLogin(v);
-            delegado = new ThreadStart(desbloquearUsuarios);
-            hilo = new Thread(delegado);
+            //delegado = new ThreadStart(desbloquearUsuarios);
+            //hilo = new Thread(delegado);
             lbltitle.Left = (status.Width - lbltitle.Width) / 2;
             lbltitle.Top = (status.Height - status.Height) / 2;
             v.ChangeControlStyles(btnlogin, ControlStyles.Selectable, false);
-            if (hilo.ThreadState == ThreadState.Stopped || hilo.ThreadState == ThreadState.Unstarted)
-                hilo.Start();
+            //if (hilo.ThreadState == ThreadState.Stopped || hilo.ThreadState == ThreadState.Unstarted)
+            //    hilo.Start();
+            desbloquearUsuarios();
             string path = Application.StartupPath + @"\contains.txt";
+            FileIOPermission f2 = new FileIOPermission(FileIOPermissionAccess.Write | FileIOPermissionAccess.Read, path);
             if (File.Exists(path))
             {
-                StreamReader sr = new StreamReader(path);
-                string line = sr.ReadLine();
-                string[] idUsuarios = line.Trim(';').Split(';');
-                for (int i = 0; i < idUsuarios.Length; i++)
-               if(v.c.conexionOriginal())v.c.insertar("UPDATE datosistema SET statusiniciosesion = 0 WHERE usuariofkcpersonal ='" + idUsuarios[i] + "'");
-                sr.Close();
-                File.Delete(path);
+                try
+                {
+                    f2.Demand();
+                    StreamReader sr = new StreamReader(path);
+                    string line = sr.ReadLine();
+                    string[] idUsuarios = line.Trim(';').Split(';');
+                    for (int i = 0; i < idUsuarios.Length; i++)
+                        if (v.c.conexionOriginal()) v.c.insertar("UPDATE datosistema SET statusiniciosesion = 0 WHERE usuariofkcpersonal ='" + idUsuarios[i] + "'");
+                    sr.Close();
+                    File.Delete(path);
+                }
+                catch (SecurityException s)
+                {
+                    MessageBox.Show(s.Message);
+                }
+
             }
         }
 
-        private void label6_Click(object sender, EventArgs e){this.Close();}
+        private void label6_Click(object sender, EventArgs e) { this.Close(); }
 
         private void textBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -45,7 +59,7 @@ namespace controlFallos
             if (e.KeyChar == 13)
                 button1_Click(null, e);
         }
-        private void status_MouseDown(object sender, MouseEventArgs e){v.mover(sender, e, this);}
+        private void status_MouseDown(object sender, MouseEventArgs e) { v.mover(sender, e, this); }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -53,29 +67,29 @@ namespace controlFallos
             {
                 string usu = txtgetusu.Text;
                 string pass = v.Encriptar(txtgetpass.Text);
-                object data = v.getaData("SELECT CONCAT(t2.idpersona ,';',t2.empresa,';', t2.area) FROM datosistema as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idPersona WHERE  t1.usuario COLLATE utf8_bin ='" + usu + "' and t1.password COLLATE utf8_bin ='" + pass + "' and status = '1'");
+                object data = v.getaData("SELECT CONCAT(t2.idpersona ,';',t2.empresa,';', t2.area) as dato FROM datosistema as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idPersona WHERE  t1.usuario COLLATE utf8_bin ='" + usu + "' and t1.password COLLATE utf8_bin ='" + pass + "' and status = '1'");
                 if (data != null)
                 {
                     if (Convert.ToInt32(v.getaData("SELECT t2.status as cuenta FROM datosistema as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal =t2.idpersona WHERE t1.usuario ='" + usu + "' AND password ='" + pass + "'")) > 0)
                     {
                         if (!bl.usuarionobloqueado(usu))
                         {
-                                object[] datos = data.ToString().Split(';');
-                                if (!bl.noHainiciadoSesion(datos[0].ToString()))
+                            object[] datos = data.ToString().Split(';');
+                            if (!bl.noHainiciadoSesion(datos[0].ToString()))
+                            {
+                                if (Convert.ToInt32(v.getaData("SELECT count(idprivilegio) FROM privilegios WHERE usuariofkcpersonal= '" + datos[0] + "' ")) > 0)
                                 {
-                                    if (Convert.ToInt32(v.getaData("SELECT count(idprivilegio) FROM privilegios WHERE usuariofkcpersonal= '" + datos[0] + "' ")) > 0)
-                                    {
-                                        bl.intentos = 0;
+                                    bl.intentos = 0;
 
-                                        menuPrincipal m = new menuPrincipal(Convert.ToInt32(datos[0]), Convert.ToInt32(datos[1]), Convert.ToInt32(datos[2]), this, v);
-                                        Hide();
-                                        m.Show();
-                                    }
-                                    else
-                                        MessageBox.Show("No tiene privilegios para navegar por el sistema. Contacte a su administrador de area", v.sistema(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    menuPrincipal m = new menuPrincipal(Convert.ToInt32(datos[0]), Convert.ToInt32(datos[1]), Convert.ToInt32(datos[2]), this, v);
+                                    Hide();
+                                    m.Show();
                                 }
                                 else
-                                    MessageBox.Show("El usuario Tiene una Sesión Activa", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    MessageBox.Show("No tiene privilegios para navegar por el sistema. Contacte a su administrador de area", v.sistema(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            else
+                                MessageBox.Show("El usuario Tiene una Sesión Activa", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                         else
                             MessageBox.Show("El usuario ha sido Bloqueado", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -123,9 +137,9 @@ namespace controlFallos
             txtgetpass.Clear();
         }
 
-        private void lbltitle_MouseDown(object sender, MouseEventArgs e){v.mover(sender, e, this);}
+        private void lbltitle_MouseDown(object sender, MouseEventArgs e) { v.mover(sender, e, this); }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e){v.paraUsuarios(e);}
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e) { v.paraUsuarios(e); }
 
         private void timer1_Tick_1(object sender, EventArgs e)
         {
@@ -134,7 +148,7 @@ namespace controlFallos
 
             if (diferencia.Minutes == 0 && diferencia.Seconds == 0)
             {
-             if(v.c.conexionOriginal())   v.c.insertar("UPDATE bloqueologin SET statusbloqueo ='0' WHERE ipclient = '" + bl.GetIPAddress() + "'");
+                if (v.c.conexionOriginal()) v.c.insertar("UPDATE bloqueologin SET statusbloqueo ='0' WHERE ipclient = '" + bl.GetIPAddress() + "'");
                 plogin.Visible = true;
                 lblsistemaBloqueado.Visible = false;
                 btnlogin.Visible = true;
@@ -149,20 +163,28 @@ namespace controlFallos
         {
             try
             {
-                var res= v.getaData("SELECT TIMEDIFF(TIME(NOW()),TIME(fechaHora)) as tiempo FROM bloqueologin WHERE ipclient = '" + bl.GetIPAddress() + "' and statusbloqueo = 1 and tipobloqueo =1");
-                if (res!=null)
+                //System.Net.NetworkInformation.Ping p = new System.Net.NetworkInformation.Ping();
+                //if (p.Send("192.168.1.67").Status == System.Net.NetworkInformation.IPStatus.Success)
+                //{
+                //    //    v.c.dbcon.Close();
+                //}
+                if (v.c.conexionOriginal())
                 {
-                    plogin.Visible = false;
-                    lblsistemaBloqueado.Visible = true;
-                    btnlogin.Visible = false;
-                    lbllogin.Visible = false;
-                    bl.intentos = 0;
-                    diferencia = new TimeSpan(0, 5, 0);
-                    diferencia = diferencia.Subtract(TimeSpan.Parse(res.ToString()));
-                    timer1.Start();
+                    var res = v.getaData("SELECT TIMEDIFF(TIME(NOW()),TIME(fechaHora)) as tiempo FROM bloqueologin WHERE ipclient = '" + bl.GetIPAddress() + "' and statusbloqueo = 1 and tipobloqueo =1");
+                    if (res != null)
+                    {
+                        plogin.Visible = false;
+                        lblsistemaBloqueado.Visible = true;
+                        btnlogin.Visible = false;
+                        lbllogin.Visible = false;
+                        bl.intentos = 0;
+                        diferencia = new TimeSpan(0, 5, 0);
+                        diferencia = diferencia.Subtract(TimeSpan.Parse(res.ToString()));
+                        timer1.Start();
+                    }
                 }
             }
-            catch{}
+            catch (Exception ex) { }
             foreach (Form frm in Application.OpenForms)
             {
                 if (frm.GetType() == typeof(SplashScreen))
@@ -178,48 +200,67 @@ namespace controlFallos
             }
         }
 
-        private void txtgetusu_KeyPress(object sender, KeyPressEventArgs e){v.paraUsuarios(e);}
-         bool newe = true;
-     
-         void desbloquearUsuarios()
+
+        private void txtgetusu_KeyPress(object sender, KeyPressEventArgs e) { v.paraUsuarios(e); }
+        bool newe = true;
+
+        void desbloquearUsuarios()
         {
+
+            //
             try
             {
-                while (newe)
-                {
+                //while (newe)
+                //{
                     try
                     {
-                        MySqlConnection dbcon = null;
+                        //
                         if (v.c.conexionOriginal())
                         {
-                            dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
-                            if (File.Exists(Application.StartupPath + "/updates.srf"))
-                                v.c.insertarGlobal();
-                        }
-                        else
-                            dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
-                        dbcon.Open();
+                            MySqlConnection dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
+                            string path = Application.StartupPath + @"\updates.srf";
+                            FileIOPermission f2 = new FileIOPermission(FileIOPermissionAccess.Write | FileIOPermissionAccess.Read, path);
+                            if (File.Exists(path))
+                            {
+                                try
+                                {
+                                    f2.Demand();
+                                    v.c.insertarGlobal();
+                                }
+                                catch (SecurityException s)
+                                {
+                                    MessageBox.Show(s.Message);
+                                }
 
-                        MySqlCommand cmd = new MySqlCommand("UPDATE bloqueologin SET statusbloqueo = 0 WHERE TIME_TO_SEC(TIMEDIFF(TIME(NOW()),TIME(fechaHora))) > 300 and statusbloqueo=1", dbcon);
-                        cmd.ExecuteNonQuery();
-                        dbcon.Close();
-                        dbcon.Dispose();
-                        Thread.Sleep(500);
+                            }
+                            dbcon.Open();
+                            MySqlCommand cmd = new MySqlCommand("UPDATE bloqueologin SET statusbloqueo = 0 WHERE TIME_TO_SEC(TIMEDIFF(TIME(NOW()),TIME(fechaHora))) > 300 and statusbloqueo=1", dbcon);
+                            cmd.ExecuteNonQuery();
+                            dbcon.Close();
+                            //dbcon.Dispose();
+
+                            //if (File.Exists(Application.StartupPath + "/updates.srf"))
+                            //    v.c.insertarGlobal();
+                        }
+                        //else
+                            //dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
+
+                            Thread.Sleep(500);
                     }
-                    catch { continue; }
-                }
+                    catch { }
+                //}
             }
-            catch{}
+            catch { }
         }
 
         private void login_FormClosing(object sender, FormClosingEventArgs e)
         {
             newe = false;
-            hilo.Abort();
+            //hilo.Abort();
             Application.ExitThread();
-            try{Application.Exit();}catch { }
+            try { Application.Exit(); } catch { }
         }
-        private void login_Resize(object sender, EventArgs e){this.WindowState = FormWindowState.Normal;}
-        private void button1_Click_1(object sender, EventArgs e){Close();}
+        private void login_Resize(object sender, EventArgs e) { this.WindowState = FormWindowState.Normal; }
+        private void button1_Click_1(object sender, EventArgs e) { Close(); }
     }
 }

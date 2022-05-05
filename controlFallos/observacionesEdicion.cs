@@ -60,5 +60,10 @@ namespace controlFallos
             lbltitle.Left = (this.Width - lbltitle.Width) / 2;
             lblinfo.Left = (this.Width - lblinfo.Width) / 2;
         }
+
+        private void btndeleteuser_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

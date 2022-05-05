@@ -12,7 +12,7 @@ namespace controlFallos
     {
 
         string idFolio = "";
-        string consultaReportes = "";
+        string consultaReportes = "", cadenaEmpresa = "";
         int tipoArea;
         public int idUsuario;
         public String nombre = "";
@@ -32,7 +32,7 @@ namespace controlFallos
         delegate void sesioncaducada();
         Thread hilo;
         Thread hiloMuestraNotificacion;
-        int totalAnteriorPedidos;
+        int totalAnteriorPedidos, Heightp = 0, Widthp = 0;
         new login Owner;
         public menuPrincipal(int idUsuario, int empresa, int area, Form fh, validaciones v)
         {
@@ -41,6 +41,7 @@ namespace controlFallos
             this.empresa = empresa;
             this.area = area;
             this.v = v;
+            cadenaEmpresa = (empresa == 2 ? " (empresaMantenimiento = '2' or empresaMantenimiento = '1') " : (empresa == 3 ? " (empresaMantenimiento = '3' or empresaMantenimiento = '1') " : null));
             Owner = (login)fh;
             if (idUsuario == 0 || empresa == 0 || area == 0)
             {
@@ -112,30 +113,49 @@ namespace controlFallos
             {
                 Opacity = 0.9;
                 DialogResult res;
-                if ((empresa == 1 && area == 1) || (empresa == 2 && area == 1))
+                //if ((empresa == 1 && area == 1) || (empresa == 2 && area == 1))
+                //{
+                //    NotificacionSupervision n = new NotificacionSupervision(empresa, area, v);
+                //    n.Owner = this;
+                //    res = n.ShowDialog();
+                //}
+                //else
+                //{
+                //    NotificacionAlmacen n = new NotificacionAlmacen(v);
+                //    n.Owner = this;
+                //    res = n.ShowDialog();
+                //}
+                if ((empresa == 1))
                 {
                     NotificacionSupervision n = new NotificacionSupervision(empresa, area, v);
                     n.Owner = this;
                     res = n.ShowDialog();
                 }
-                else
+                else if ((empresa == 2 && area == 2) || (empresa == 3 && area == 2))
                 {
-                    NotificacionAlmacen n = new NotificacionAlmacen(v);
+                    NotificacionAlmacen n = new NotificacionAlmacen(v, empresa);
                     n.Owner = this;
                     res = n.ShowDialog();
                 }
+                else
+                {
+                    NotificacionTri n = new NotificacionTri(2, v, empresa, area);
+                    n.Owner = this;
+                    res = n.ShowDialog();
+                }
+
                 if (res == DialogResult.Cancel)
                     Opacity = 1;
             }
         }
         public void AddFormInPanel(Form fh)
         {
-            this.form = fh;
+            form = fh;
             fh.TopLevel = false;
             fh.FormBorderStyle = FormBorderStyle.None;
             fh.Dock = DockStyle.Fill;
-            this.lblnumnotificaciones.Controls.Add(fh);
-            this.lblnumnotificaciones.Tag = fh;
+            lblnumnotificaciones.Controls.Add(fh);
+            lblnumnotificaciones.Tag = fh;
             fh.Show();
         }
         public bool cerrar()
@@ -192,7 +212,9 @@ namespace controlFallos
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Catálogo de Fallos";
                 this.Text = "Catálogo de Fallos";
-                lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<catfallosGrales>().FirstOrDefault();
                 catfallosGrales hijo = form ?? new catfallosGrales(idUsuario, empresa, area, this, newimg, v);
@@ -208,7 +230,9 @@ namespace controlFallos
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Registro de Personal";
                 this.Text = "Sistema de Reporte de Fallos - Registro de Personal";
-                lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(catálogoDePersonalToolStripMenuItem);
                 var form = Application.OpenForms.OfType<catPersonal>().FirstOrDefault();
                 catPersonal hijo = form ?? new catPersonal(this.idUsuario, this.empresa, this.area, newimg, this, v);
@@ -223,7 +247,9 @@ namespace controlFallos
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Catálogo de Unidades";
                 this.Text = "Catálogo de Unidades";
-                lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 if (this.empresa == 1)
                 {
@@ -252,7 +278,9 @@ namespace controlFallos
                     lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                     lbltitle.Text = nombre + "Reportes Supervisión";
                     this.Text = lbltitle.Text;
-                    lbltitle.Location = new Point(1591, 13);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //lbltitle.Location = new Point(1591, 13);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     Deshabilitar(reporteDeSupervisiónToolStripMenuItem);
                     var form1 = Application.OpenForms.OfType<Supervisión>().FirstOrDefault();
                     Supervisión hijo = form1 ?? new Supervisión(this.idUsuario, empresa, area, v);
@@ -266,7 +294,7 @@ namespace controlFallos
                 p.cargarDAtos();
             }
         }
-        private void reporteNivelTransisumosToolStripMenuItem_Click(object sender, EventArgs e) { abrirAlmacen(); }
+        private void reporteNivelTransisumosToolStripMenuItem_Click(object sender, EventArgs e) { }
         void abrirAlmacen()
         {
             string name = "";
@@ -280,10 +308,12 @@ namespace controlFallos
                     lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                     lbltitle.Text = nombre + "Reportes Almacén";
                     this.Text = lbltitle.Text;
-                    lbltitle.Location = new Point(1575, 13);
-                    Deshabilitar(reporteAlmacenToolStripMenuItem1);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //lbltitle.Location = new Point(1575, 13);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //Deshabilitar(reporteAlmacenToolStripMenuItem1);
                     var form2 = Application.OpenForms.OfType<TRI>().FirstOrDefault();
-                    TRI hijo = form2 ?? new TRI(this.idUsuario, empresa, area, v);
+                    TRI hijo = form2 ?? new TRI(this.idUsuario, empresa, area, newimg, v);
                     AddFormInPanel(hijo);
                 }
             }
@@ -307,7 +337,9 @@ namespace controlFallos
                     lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                     lbltitle.Text = nombre + "Reportes Mantenimiento";
                     this.Text = lbltitle.Text;
-                    lbltitle.Location = new Point(1575, 13);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //lbltitle.Location = new Point(1575, 13);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     Deshabilitar(reporteMantenimientoToolStripMenuItem);
                     var form3 = Application.OpenForms.OfType<Mantenimiento>().FirstOrDefault();
                     Mantenimiento hijo = form3 ?? new Mantenimiento(idUsuario, empresa, area, newimg, v);
@@ -323,103 +355,139 @@ namespace controlFallos
         private void button2_Click(object sender, EventArgs e) { this.Close(); }
         private void menuPrincipal_Load(object sender, EventArgs e)
         {
-            lblnumnotificaciones.BackgroundImage = newimg = (empresa == 1 ? Properties.Resources.transmasivo : (empresa == 2 ? Properties.Resources.Imagen2 : (empresa == 3 ? Properties.Resources.TSD : null)));
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///descomentado es pantalla pequeña
+          /* Screen screen = Screen.PrimaryScreen;
+            Widthp = screen.Bounds.Width;
+            Heightp = screen.Bounds.Height;
+            this.Size = new Size(Convert.ToInt32(Widthp), Convert.ToInt32(Heightp) - 250);
+            Screen screen2 = Screen.PrimaryScreen;
+            int Widthp2 = screen2.Bounds.Width;
+            int Heightp2 = screen2.Bounds.Height;
+            lblnumnotificaciones.Size = new Size(Convert.ToInt32(Widthp2) - 50, Convert.ToInt32(Heightp2) - 180);
+            menuStrip1.Size = new Size(Widthp, 55);
+            panel3.Size = new Size(Widthp, 50);
+            lbltitle.Location = new Point(Convert.ToInt32(Widthp) - 500, 11);
+            panel1.Location = new Point(Convert.ToInt32(Widthp) - 120, 6);*/
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            int xk = this.area;
+            lblnumnotificaciones.BackgroundImage = newimg = (empresa == 1 ? Properties.Resources.transmasivo : (empresa == 2 ? Properties.Resources.Imagen2 : (empresa == 3 && this.area == 1 ? Properties.Resources.TSD : (empresa == 3 && this.area == 2 ? controlFallos.Properties.Resources.transinsumosk : null))));
             v.c.referencia(idUsuario);
+            dieselToolStripMenuItem.Visible = (empresa == 3 && this.area == 2 ? true : false);
+            reportesToolStripMenuItem.Visible = (empresa == 3 && this.area == 2 ? true : (empresa == 2 && this.area == 2 ? true : false));
             var consultaPrivilegios = v.getaData("SELECT GROUP_CONCAT(namForm SEPARATOR ';') FROM privilegios WHERE usuariofkcpersonal= '" + this.idUsuario + "' and ver > 0").ToString().Split(';');
             foreach (string namForm in consultaPrivilegios)
                 PrivilegiosVisibles(namForm);
             obtenerconsulta();
             cambiarstatus(1);
-            //ThreadStart delegado = new ThreadStart(obtenerNotificaciones);
-            //hilo = new Thread(delegado);
-            //hilo.Start();
-            //timer1.Start();
+            ///Notificaciones comentado  para mejorar velocidad 
+            ThreadStart delegado = new ThreadStart(obtenerNotificaciones);
+            hilo = new Thread(delegado);
+            hilo.Start();
+            timer1.Start();
+            if (area == 1)
             //if ((empresa == 2 || empresa == 3) && area == 1)
-            //{
-            //    BuscarValidaciones = new Thread(new ThreadStart(buscaValidar));
-            //    BuscarValidaciones.Start();
-            //}
-            //else
-            //    notifyIcon1.Dispose();
+            {
+                BuscarValidaciones = new Thread(new ThreadStart(buscaValidar));
+                BuscarValidaciones.Start();
+            }
+            else
+                notifyIcon1.Dispose();
             //ThreadStart delegatse = new ThreadStart(sesion);
             //session = new Thread(delegatse);
             //session.Start();
-            //*  updates = new Thread(new ThreadStart(inserttoglobal));
-            //  updates.Start();*/
+
+
+            //updates = new Thread(new ThreadStart(inserttoglobal));
+            //updates.Start();
         }
-        /**    void inserttoglobal()
-        {
-              while (res)
-              {
-                  if (!v.c.wait)
-                  {
-                      string[] querys = v.c.readtofile().Split('|');
-                      if (querys.Length > 0)
-                      {
-                          for (int i = 0; i < querys.Length; i++)
-                          {
-                              if (!string.IsNullOrWhiteSpace(querys[i]))
-                                  v.c.inserttoglobal(v.Desencriptar(querys[i]));
-                          }
-                          v.c.eliminar();
-                      }
-                  }
-              }
-          }*/
-        void sesion()
-        {
-            while (res)
-            {
-                if (this.InvokeRequired)
-                {
-                    MySqlConnection dbcon = new MySqlConnection("Server = " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + "; database = sistrefaccmant ;port=" + v.c.portLocal);
-                    dbcon.Open();
-                    string sql = "SELECT statusiniciosesion FROM datosistema WHERE usuariofkcpersonal='" + idUsuario + "'";
-                    MySqlCommand cmd = new MySqlCommand(sql, dbcon);
-                    int res1 = Convert.ToInt32(cmd.ExecuteScalar());
-                    if (res1 == 0)
-                    {
-                        sesioncaducada sesioncaducada = new sesioncaducada(sesion);
-                        this.Invoke(sesioncaducada);
-                    }
-                    dbcon.Close();
-                    dbcon.Dispose();
-                    dbcon = null;
-                    Thread.Sleep(5000);
-                }
-                else
-                {
-                    MessageBox.Show("La Sesión Ha Caducado", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    cerrarForm();
-                    Application.Exit();
-                    return;
-                }
-            }
-        }
+
+        //void inserttoglobal()
+        //{
+        //    while (res)
+        //    {
+        //        if (!v.c.wait)
+        //        {
+        //            string[] querys = v.c.readtofile().Split('|');
+        //            if (querys.Length > 0)
+        //            {
+        //                for (int i = 0; i < querys.Length; i++)
+        //                {
+        //                    if (!string.IsNullOrWhiteSpace(querys[i]))
+        //                        v.c.inserttoglobal(v.Desencriptar(querys[i]));
+        //                }
+        //                v.c.eliminar();
+        //            }
+        //        }
+        //    }
+        //}
+
+
+        //void sesion()
+        //{
+        //    while (res)
+        //    {
+        //        if (this.InvokeRequired)
+        //        {
+        //            Thread.Sleep(10000);
+        //            MySqlConnection dbcon = new MySqlConnection("Server = " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + "; database = sistrefaccmant ;port=" + v.c.portLocal);
+        //            dbcon.Open();
+        //            string sql = "SELECT statusiniciosesion FROM datosistema WHERE usuariofkcpersonal='" + idUsuario + "'";
+        //            MySqlCommand cmd = new MySqlCommand(sql, dbcon);
+        //            int res1 = Convert.ToInt32(cmd.ExecuteScalar());
+        //            if (res1 == 0)
+        //            {
+        //                sesioncaducada sesioncaducada = new sesioncaducada(sesion);
+        //                this.Invoke(sesioncaducada);
+        //            }
+        //            dbcon.Close();
+        //            dbcon.Dispose();
+        //            dbcon = null;
+        //            Thread.Sleep(5000);
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("La Sesión Ha Caducado", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //            cerrarForm();
+        //            Application.Exit();
+        //            return;
+        //        }
+        //    }
+        //}
         void buscaValidar()
         {
-            while (res)
+            try
             {
-                MySqlConnection dbcon = null;
-                if (v.c.conexionOriginal())
-                    dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
-                else
-                    dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
-                dbcon.Open();
-
-                string sql = "SELECT COUNT(t1.idestatusValidado) FROM estatusvalidado AS t1 INNER JOIN reportesupervicion as t4 ON t1.idreportefkreportesupervicion = t4.idReporteSupervicion INNER JOIN cunidades as t2 ON t4.UnidadfkCUnidades= t2.idunidad INNER JOIN cmodelos as t3 ON t2.modelofkcmodelos = t3.idmodelo WHERE t1.seen = 0 AND t3.empresaMantenimiento ='" + empresa + "'";
-                MySqlCommand cmd = new MySqlCommand(sql, dbcon);
-                int res2 = Convert.ToInt32(cmd.ExecuteScalar());
-                dbcon.Close();
-                dbcon.Dispose();
-                dbcon = null;
-                if (res2 != totalAnteriorPedidos)
+                while (res)
                 {
-                    mostrarNotificacion = new Thread(new ThreadStart(MostrarNotificacion));
-                    mostrarNotificacion.Start();
+                    if (v.c.conexionOriginal())
+                    {
+                        MySqlConnection dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
+                        //else
+                        //    dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
+                        dbcon.Open();
+
+                        string sql = "SELECT COUNT(t1.idestatusValidado) FROM estatusvalidado AS t1 INNER JOIN reportesupervicion as t4 ON t1.idreportefkreportesupervicion = t4.idReporteSupervicion INNER JOIN cunidades as t2 ON t4.UnidadfkCUnidades= t2.idunidad INNER JOIN cmodelos as t3 ON t2.modelofkcmodelos = t3.idmodelo WHERE t1.seen = 0 AND t3.empresaMantenimiento ='" + empresa + "'";
+                        //string sql = "SELECT COUNT(t1.idestatusValidado) FROM estatusvalidado AS t1 INNER JOIN reportesupervicion as t4 ON t1.idreportefkreportesupervicion = t4.idReporteSupervicion INNER JOIN cunidades as t2 ON t4.UnidadfkCUnidades= t2.idunidad INNER JOIN careas as t3 on t2.areafkcareas = t3.idarea WHERE t1.seen = 0 AND " + cadenaEmpresa;
+                        MySqlCommand cmd = new MySqlCommand(sql, dbcon);
+                        int res2 = Convert.ToInt32(cmd.ExecuteScalar());
+                        dbcon.Close();
+                        dbcon.Dispose();
+                        dbcon = null;
+                        if (res2 != totalAnteriorPedidos)
+                        {
+                            mostrarNotificacion = new Thread(new ThreadStart(MostrarNotificacion));
+                            mostrarNotificacion.Start();
+                        }
+                    }
+                    Thread.Sleep(5000);
                 }
-                Thread.Sleep(5000);
             }
+            catch (Exception ex)
+            {
+            }
+
         }
         Thread mostrarNotificacion;
         void MostrarNotificacion()
@@ -464,7 +532,7 @@ namespace controlFallos
         {
             if (empresa == 1 && area == 1)
             {
-                consultaReportes = "SELECT (COUNT(t1.idReporte)+(SELECT COUNT(idvigencia) FROM vigencias_supervision AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona WHERE t1.empresa='" + empresa + "' AND t1.area='" + area + "' AND (DATEDIFF(t1.fechaVencimientoConducir, curdate()) <= 7 or DATEDIFF(t1.fechaVencimientoTarjeton, curdate()) <= 7))) as cuenta FROM reportemantenimiento as t1 INNER JOIN cpersonal as t2 ON t1.mecanicofkPersonal = t2.idpersona INNER JOIN reportesupervicion as t3 ON t1.FoliofkSupervicion = t3.idReporteSupervicion INNER JOIN cunidades as t4 ON t3.UnidadfkCUnidades= t4.idunidad WHERE t1.seen = 0 and (t1.Estatus='Liberada' or t1.Estatus='Reprogramada') AND t3.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();";
+                consultaReportes = "SELECT (COUNT(t1.idReporte)+(SELECT COUNT(idvigencia) FROM vigencias_supervision AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona WHERE t1.empresa='" + empresa + "' AND t1.area='" + area + "' AND (DATEDIFF(t1.fechaVencimientoConducir, curdate()) <= 7 or DATEDIFF(t1.fechaVencimientoTarjeton, curdate()) <= 7))) as cuenta FROM reportemantenimiento as t1 INNER JOIN cpersonal as t2 ON t1.mecanicofkPersonal = t2.idpersona INNER JOIN reportesupervicion as t3 ON t1.FoliofkSupervicion = t3.idReporteSupervicion INNER JOIN cunidades as t4 ON t3.UnidadfkCUnidades= t4.idunidad WHERE t1.seen = 0 and (t1.Estatus='2' or t1.Estatus='3') AND t3.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();";
                 tipoArea = 1;
             }
             else if (empresa == 2 || empresa == 3)
@@ -476,10 +544,15 @@ namespace controlFallos
                 }
                 else if (area == 2)
                 {
-                    consultaReportes = "SELECT (count(IdReporte)+(SELECT count(idrefaccion) as cuenta FROM crefacciones  WHERE existencias <=media OR existencias<= abastecimiento OR datediff(proximoAbastecimiento,curdate()) <=20 and status=1)+(SELECT COUNT(*) FROM vigencias_supervision  WHERE empresa='" + empresa + "' and area='" + area + "' and DATEDIFF(fechaVencimientoConducir, curdate()) <= 7)) as cuenta FROM reportemantenimiento as t1 INNER JOIN reportesupervicion as t2 ON t1.foliofkSupervicion= t2.idReporteSupervicion  WHERE StatusRefacciones = 'Se Requieren Refacciones' and seenAlmacen=0 AND (SELECT (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) from cunidades WHERE idunidad = T2.UnidadfkCUnidades) = '" + empresa + "' AND t2.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();";
+                    consultaReportes = "select count(idrefaccion) as cuenta from crefacciones where (existencias <=media OR existencias<= abastecimiento) and empresa = '" + empresa + "' and status = 1";
                     tipoArea = 3;
                 }
+                else if (area == 4)
+                {
+                    consultaReportes = "SELECT count(idcrequicision) as cuenta FROM crequicision  WHERE Estatus = 0 AND empresa = '" + area + "' AND date_format(Fecha, '%Y-%m-%d')  BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate()";
+                }
             }
+
         }
 
         private void obtenerNotificaciones()
@@ -487,42 +560,46 @@ namespace controlFallos
             int res = 0;
             MySqlConnection dbcon = null;
             if (v.c.conexionOriginal())
+            {
                 dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
-            else
-                dbcon = new MySqlConnection("Server = 127.0.0.1; user=UPT; password = UPT2018; database = sistrefaccmant ;port=3306");
-            dbcon.Open();
-            MySqlCommand cm = new MySqlCommand(consultaReportes, dbcon);
-            res = Convert.ToInt32(cm.ExecuteScalar());
-            if (this.InvokeRequired)
-            {
-                obtenerNotificacionesD delegado = new obtenerNotificacionesD(obtenerNotificaciones);
-                this.Invoke(delegado);
-            }
-            else
-            {
-                pbnotif.BackgroundImage = null;
-                if (res > 0)
+                dbcon.Open();
+                MySqlCommand cm = new MySqlCommand(consultaReportes, dbcon);
+                res = Convert.ToInt32(cm.ExecuteScalar());
+                if (this.InvokeRequired)
                 {
-                    if (resAnterior != res)
-                    {
-                        resAnterior = res;
-                        ThreadStart delegado = new ThreadStart(MostrarNotifiacacion);
-                        hiloMuestraNotificacion = new Thread(delegado);
-                        hiloMuestraNotificacion.Start();
-                    }
-                    pbnotif.BackgroundImage = Properties.Resources.notification__3_1;
+                    obtenerNotificacionesD delegado = new obtenerNotificacionesD(obtenerNotificaciones);
+                    this.Invoke(delegado);
                 }
                 else
-                    pbnotif.BackgroundImage = Properties.Resources.notification__4_;
-                lblnotif.Text = "" + res;
-                if (lblnotif.Text.Length == 1)
-                    lblnotif.Location = new Point(95, 10);
-                else if (lblnotif.Text.Length == 2)
-                    lblnotif.Location = new Point(90, 10);
+                {
+                    pbnotif.BackgroundImage = null;
+                    if (res > 0)
+                    {
+                        if (resAnterior != res)
+                        {
+                            resAnterior = res;
+                            ThreadStart delegado = new ThreadStart(MostrarNotifiacacion);
+                            hiloMuestraNotificacion = new Thread(delegado);
+                            hiloMuestraNotificacion.Start();
+                        }
+                        pbnotif.BackgroundImage = Properties.Resources.notification__3_1;
+                    }
+                    else
+                        pbnotif.BackgroundImage = Properties.Resources.notification__4_;
+                    lblnotif.Text = "" + res;
+                    //lo comente para hacer una prueba
+                    //if (lblnotif.Text.Length == 1)
+                    //    lblnotif.Location = new Point(95, 10);
+                    //else if (lblnotif.Text.Length == 2)
+                    //    lblnotif.Location = new Point(90, 10);
+                }
+                //if (hilo != null)
+                //    hilo.Abort();
+                dbcon.Close();
             }
-            if (hilo != null)
-                hilo.Abort();
-            dbcon.Close();
+            //else
+            //    dbcon = new MySqlConnection("Server = 192.168.1.67; user=UPT; password = UPT2018; database = sistrefaccmant; port=3306");
+
         }
         private void MostrarNotifiacacion()
         {
@@ -568,6 +645,12 @@ namespace controlFallos
                     catálogosToolStripMenuItem.Visible = true;
                 catálogoDeRefaccionesToolStripMenuItem.Visible = true;
             }
+            else if (nombreForm == "catrefacc")
+            {
+                if (!catálogoDeRefaccionesToolStripMenuItem.Visible)
+                    catálogoDeRefaccionesToolStripMenuItem.Visible = true;
+                catálogoDeRefaccionesRecuperadasToolStripMenuItem.Visible = true;
+            }
             else if (nombreForm == "percances")
             {
                 if (!reporteSupervicionToolStripMenuItem.Visible) reporteSupervicionToolStripMenuItem.Visible = true;
@@ -607,8 +690,10 @@ namespace controlFallos
                 actualizaciónDeIVAToolStripMenuItem.Visible = true;
             else if (nombreForm == "encabezados")
                 actualizaciónDeEncabezadosDeReportesToolStripMenuItem.Visible = true;
+            else if (nombreForm == "catroles")
+                cátalogoDeRolesToolStripMenuItem.Visible = true;
         }
-        private void catálogoDeRefaccionesToolStripMenuItem_Click(object sender, EventArgs e) { iraRefacciones(null); }
+        private void catálogoDeRefaccionesToolStripMenuItem_Click(object sender, EventArgs e) {/* iraRefacciones(null);*/}
         void iraRefacciones(string idref)
         {
             string name = "";
@@ -620,8 +705,10 @@ namespace controlFallos
                     lblnumnotificaciones.BackgroundImage = null;
                     lbltitle.Text = nombre + "Catálogo de Refacciones";
                     this.Text = "Catálogo de Refacciones";
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     lbltitle.Location = defaultLocation;
-                    Deshabilitar(catálogoDeRefaccionesToolStripMenuItem);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    // Deshabilitar(catálogoDeRefaccionesToolStripMenuItem);
                     var form4 = Application.OpenForms.OfType<catRefacciones>().FirstOrDefault();
                     catRefacciones hijo;
                     if (!string.IsNullOrWhiteSpace(idref))
@@ -645,7 +732,9 @@ namespace controlFallos
                 lblnumnotificaciones.BackgroundImage = null;
                 lbltitle.Text = nombre + "Catálogo de Proveedores";
                 this.Text = "Catálogo de Proveedores";
-                lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<catProveedores>().FirstOrDefault();
                 catProveedores hijo = form ?? new catProveedores(this.idUsuario, newimg, empresa, area, v);
@@ -696,7 +785,7 @@ namespace controlFallos
         private void timer1_Tick(object sender, EventArgs e) { obtenerNotificaciones(); }
         private void notifyIcon1_Click(object sender, EventArgs e)
         {
-            v.c.insertar("UPDATE estatusValidado SET seen = 1 WHERE (SELECT (SELECT (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) from cunidades WHERE idunidad = UnidadfkCUnidades) FROM reportesupervicion WHERE idreportesupervicion = idreportefkreportesupervicion)  seen = 0");
+            v.c.insertar("UPDATE estatusValidado SET seen = 1 WHERE (SELECT (SELECT (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) from cunidades WHERE idunidad = UnidadfkCUnidades) FROM reportesupervicion WHERE idreportesupervicion = idreportefkreportesupervicion)  and seen = 0");
             totalAnteriorPedidos = 0;
             this.Show();
             this.WindowState = FormWindowState.Normal;
@@ -705,14 +794,14 @@ namespace controlFallos
         public void cambiarstatus(object i)
         {
             v.c.insertar("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'");
-            MySqlConnection localConnection = new MySqlConnection("Server = "+v.c.hostLocal+ "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal+ "; database = sistrefaccmant ;port=" + v.c.portLocal);
-            localConnection.Open();
-            if (localConnection.State != ConnectionState.Open) localConnection.Open();
-            MySqlCommand cmd = new MySqlCommand("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'", localConnection);
-            int p = cmd.ExecuteNonQuery();
-            localConnection.Close();
-            localConnection.Dispose();
-            localConnection = null;
+            //MySqlConnection localConnection = new MySqlConnection("Server = " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + "; database = sistrefaccmant ;port=" + v.c.portLocal);
+            //localConnection.Open();
+            //if (localConnection.State != ConnectionState.Open) localConnection.Open();
+            //MySqlCommand cmd = new MySqlCommand("UPDATE datosistema SET statusiniciosesion = " + i + " WHERE usuariofkcpersonal ='" + idUsuario + "'", localConnection);
+            //int res = cmd.ExecuteNonQuery();
+            //localConnection.Close();
+            //localConnection.Dispose();
+            //localConnection = null;
         }
 
         private void catálogoDePersonalToolStripMenuItem_EnabledChanged(object sender, EventArgs e) { ((ToolStripMenuItem)sender).ForeColor = Color.White; }
@@ -723,7 +812,9 @@ namespace controlFallos
                 lblnumnotificaciones.BackgroundImage = null;
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = lbltitle.Text = nombre + "Historial de Modificaciones";
-                lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<modificaciones>().FirstOrDefault();
                 modificaciones hijo = form ?? new modificaciones(empresa, area, v);
@@ -757,7 +848,9 @@ namespace controlFallos
                 lblnumnotificaciones.BackgroundImage = null;
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Orden de Compra";
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<OrdenDeCompra>().FirstOrDefault();
                 OrdenDeCompra hijo = form ?? new OrdenDeCompra(idUsuario, empresa, area, this, newimg, v);
@@ -767,17 +860,7 @@ namespace controlFallos
 
         private void comparativasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (cerrar())
-            {
-                lblnumnotificaciones.BackgroundImage = null;
-                lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
-                lbltitle.Text = nombre + "Comparativas";
-                lbltitle.Location = defaultLocation;
-                Deshabilitar(sender as ToolStripMenuItem);
-                var form = Application.OpenForms.OfType<datosGeneralesComparativa>().FirstOrDefault();
-                datosGeneralesComparativa hijo = form ?? new datosGeneralesComparativa(idUsuario, empresa, area, newimg, v);
-                AddFormInPanel(hijo);
-            }
+
         }
 
         private void reporteDeSupervisiónToolStripMenuItem_Click(object sender, EventArgs e) { abrirReporte(); }
@@ -790,7 +873,9 @@ namespace controlFallos
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Incidencias de Personal";
                 this.Text = lbltitle.Text;
-                lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<Incidencia_de_Personal>().FirstOrDefault();
                 Incidencia_de_Personal hijo = form1 ?? new Incidencia_de_Personal(this.idUsuario, empresa, area, v);
@@ -806,7 +891,9 @@ namespace controlFallos
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Reportes de Percances";
                 this.Text = lbltitle.Text;
-                lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<percances>().FirstOrDefault();
                 percances hijo = form1 ?? new percances(idUsuario, v/*, empresa, area*/);
@@ -821,7 +908,9 @@ namespace controlFallos
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Reportes de Personal";
                 this.Text = lbltitle.Text;
-                lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<ReportePersonal>().FirstOrDefault();
                 ReportePersonal hijo = form1 ?? new ReportePersonal(idUsuario, empresa, area, v);
@@ -852,6 +941,7 @@ namespace controlFallos
             reporteDeIndicenciaToolStripMenuItem.Enabled = (sender == reporteDeIndicenciaToolStripMenuItem ? false : true);
             ordenesDeCompraToolStripMenuItem.Enabled = (sender == ordenesDeCompraToolStripMenuItem ? false : true);
             rolesDeServiciosToolStripMenuItem.Enabled = (sender == rolesDeServiciosToolStripMenuItem ? false : true);
+            cátalogoDeRolesToolStripMenuItem.Enabled = (sender == cátalogoDeRolesToolStripMenuItem ? false : true);
         }
 
         private void rolesDeServiciosToolStripMenuItem_Click(object sender, EventArgs e)
@@ -862,7 +952,9 @@ namespace controlFallos
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Roles de Servicios";
                 this.Text = "Roles de Servicios";
-                lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form = Application.OpenForms.OfType<workdays>().FirstOrDefault();
                 workdays hijo = form ?? new workdays(this);
@@ -878,12 +970,154 @@ namespace controlFallos
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Catálogo de Roles";
                 this.Text = lbltitle.Text;
-                lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<CatRoles>().FirstOrDefault();
                 CatRoles hijo = form1 ?? new CatRoles(idUsuario, empresa, area, v);
                 AddFormInPanel(hijo);
             }
+        }
+
+        private void dieselToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Diesel Die = new Diesel(idUsuario, empresa, area, v);
+            Die.Owner = this;
+            Die.ShowDialog();
+        }
+
+        private void reportesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+           
+        }
+
+        private void notif_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void catToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            iraRefacciones(null);
+        }
+
+        private void catálogoDeRefaccionesRecuperadasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            iraRefaccionesRecu(null);
+        }
+        void iraRefaccionesRecu(string idref)
+        {
+            string name = "";
+            if (form != null) name = form.Name;
+            if (name != "catRefaccionesRecu")
+            {
+                if (cerrar())
+                {
+                    lblnumnotificaciones.BackgroundImage = null;
+                    lbltitle.Text = nombre + "Refacciones Recuperadas";
+                    this.Text = "Catálogo de Refacciones Recuperadas";
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    lbltitle.Location = defaultLocation;
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    Deshabilitar(catálogoDeRefaccionesRecuperadasToolStripMenuItem);
+                    var formnuevo = Application.OpenForms.OfType<Material_Recuperado>().FirstOrDefault();
+                    Material_Recuperado hijo;
+                    if (!string.IsNullOrWhiteSpace(idref))
+                        hijo = formnuevo ?? new Material_Recuperado(newimg, this.idUsuario, idref.ToString(), v);
+                    else
+                        hijo = formnuevo ?? new Material_Recuperado(newimg, this.idUsuario, empresa, area, v);
+                    AddFormInPanel(hijo);
+                }
+            }
+            else
+            {
+                Material_Recuperado c = (Material_Recuperado)form;
+                // c.actualizarTabla(idref);
+            }
+        }
+
+        private void refaaciónesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (cerrar())
+            {
+                lblnumnotificaciones.BackgroundImage = null;
+                lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
+                lbltitle.Text = nombre + "Requerimiento";
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //Deshabilitar(sender as ToolStripMenuItem);
+                var form = Application.OpenForms.OfType<requisicionRefacciones>().FirstOrDefault();
+                requisicionRefacciones hijo = form ?? new requisicionRefacciones(empresa, area, v);
+                AddFormInPanel(hijo);
+            }
+        }
+        void iraRequcisionHerramienta(object irH)
+        {
+            string name = "";
+            if (form != null) name = form.Name;
+            if (name != "RequisicionHerramienta")
+            {
+                if (cerrar())
+                {
+                    lblnumnotificaciones.BackgroundImage = null;
+                    lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
+                    lbltitle.Text = nombre + "Requerimiento";
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //lbltitle.Location = defaultLocation;
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    Deshabilitar(irH as ToolStripMenuItem);
+                    var form = Application.OpenForms.OfType<RequisicionHerramienta>().FirstOrDefault();
+                    RequisicionHerramienta hijo = form ?? new RequisicionHerramienta(empresa, area, this.idUsuario, v);
+                    AddFormInPanel(hijo);
+                }
+            }
+            else
+            {
+                Material_Recuperado c = (Material_Recuperado)form;
+                // c.actualizarTabla(idref);
+            }
+        }
+        private void herramientaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            iraRequcisionHerramienta(sender);
+        }
+
+        private void consultaRetornoMaterialToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrirMantenimiento();
+        }
+
+        private void consultaRetornoMaterialToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void almacenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            abrirAlmacen();
+        }
+
+        private void consultaRetornoMaterialToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            Retorno_de_material O = new Retorno_de_material(idUsuario, empresa, area, v, "", "", "", "", "");
+            O.Owner = this;
+            O.ShowDialog();
+        }
+
+        private void totalEntradasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            catREntradas rep = new catREntradas(v, empresa, area, idUsuario);
+            rep.Owner = this;
+            rep.ShowDialog();
+        }
+
+        private void validaciónToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+             Reportes rep = new Reportes(idUsuario, empresa, area, v);
+             rep.Owner = this;
+             rep.ShowDialog();
         }
 
         private void asistencíaDelDíaToolStripMenuItem_Click(object sender, EventArgs e)
@@ -894,12 +1128,24 @@ namespace controlFallos
                 lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
                 lbltitle.Text = nombre + "Asistencía del Día";
                 this.Text = lbltitle.Text;
-                lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = new Point(1591, 13);
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 Deshabilitar(sender as ToolStripMenuItem);
                 var form1 = Application.OpenForms.OfType<Asistencia>().FirstOrDefault();
                 Asistencia hijo = form1 ?? new Asistencia();
                 AddFormInPanel(hijo);
             }
+        }
+
+        private void lblnumnotificaciones_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void catálogosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -31,7 +31,7 @@ namespace controlFallos
         public void initializeRelations(string wheres)
         {
             dgvrelaciones.Rows.Clear();
-            DataTable dt = (DataTable)v.getData("SELECT t1.idrelacServicioEstacion, UPPER(t2.Nombre), UPPER(t3.estacion), UPPER(CONCAT(t4.nombres,' ',t4.apPaterno,' ',t4.apMaterno)),if(t1.status=1,'ACTIVO','NO ACTIVO'),t2.idservicio,t3.idestacion FROM relacservicioestacion as t1 INNER JOIN cservicios as t2 ON t1.serviciofkcservicios= t2.idservicio INNER JOIN cestaciones as t3 ON t1.estacionfkcestaciones = t3.idestacion INNER JOIN cpersonal as t4 ON t1.usuariofkcpersonal = t4.idpersona " + wheres);
+            DataTable dt = (DataTable)v.getData("SELECT t1.idrelacServicioEstacion, UPPER(t2.Nombre), UPPER(t3.estacion), UPPER(CONCAT(coalesce(t4.nombres,''),' ',coalesce(t4.apPaterno,''),' ',coalesce(t4.apMaterno,''))),if(t1.status=1,'ACTIVO','NO ACTIVO'),t2.idservicio,t3.idestacion FROM relacservicioestacion as t1 INNER JOIN cservicios as t2 ON t1.serviciofkcservicios= t2.idservicio INNER JOIN cestaciones as t3 ON t1.estacionfkcestaciones = t3.idestacion INNER JOIN cpersonal as t4 ON t1.usuariofkcpersonal = t4.idpersona " + wheres);
             for (int i = 0; i < dt.Rows.Count; i++) dgvrelaciones.Rows.Add(dt.Rows[i].ItemArray);
             dgvrelaciones.ClearSelection();
         }

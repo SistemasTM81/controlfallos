@@ -54,7 +54,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
@@ -75,7 +78,7 @@ namespace controlFallos
         public void muestra_familias()
         {
             tbfamilia.Rows.Clear();
-            string sql = "Select t1.idcnFamilia as id,upper(t1.familia) as fam,upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) as nom, t1.status as estatus from cnfamilias as t1 inner join cpersonal as t2 on t2.idpersona=t1.usuariofkcpersonal where t1.empresa='" + empresa + "' order by t1.familia asc;";
+            string sql = "Select t1.idcnFamilia as id,upper(t1.familia) as fam,upper(concat(coalesce(t2.ApPaterno,''),' ',coalesce(t2.ApMaterno,''),' ',coalesce(t2.nombres,''))) as nom, t1.status as estatus from cnfamilias as t1 inner join cpersonal as t2 on t2.idpersona=t1.usuariofkcpersonal where t1.empresa='" + empresa + "' order by t1.familia asc;";
             MySqlCommand cmd = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())

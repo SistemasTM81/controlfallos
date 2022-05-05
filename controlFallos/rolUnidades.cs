@@ -109,6 +109,11 @@ namespace controlFallos
 
         }
 
+        private void dgvroles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         /// <summary>
         /// Method that allow to create the dynamic buttons for the services registered
         /// </summary>

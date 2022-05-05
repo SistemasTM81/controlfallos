@@ -23,6 +23,18 @@ namespace controlFallos
     public partial class OrdenDeCompra : Form
     {
         Thread th;
+        byte[] img;
+        bool registrar = true;
+        double SubTotal = 0.0;
+        string ConsultaG = "SET lc_time_names = 'es_ES';Select convert(t1.Folio,char) as 'FOLIO REQUERIMIENTO', convert(t4.FolioOrdCompra, char) as 'FOLIO ORDEN COMPRA', convert(t2.codrefaccion,char) as CODIGO, convert(t2.nombreRefaccion,  char) as 'Nombre Refaccion', convert(t1.NumParte,char) as 'Numero de Parte', convert(t2.existencias, char) as 'Existencia',  convert(t1.Cantidad, char) as 'CANTIDAD SOLICITADA', if(t1.estatus = 0,'En Espera', if(t1.estatus=1, 'Aprobada', if(t1.estatus=2, 'Rechazada', if(t1.estatus = '', '','')))) as 'Estatus',(select convert(if(t1.idcrequicision = t4.requicisionfkCRequicision, (Select if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa) from cproveedores as x1  where x1.idproveedor = t4.proveedorfkCproveedor), ''), char)) as 'Proveedor Compra',convert(t1.Fecha, char) as 'Fecha De solicitud', convert(t1.precio,char) 'Precio de Compra',  convert(t4.Subtotal, char) as 'SubTotal', convert(t4.costoenvio, char) as 'COSTO ENVIO', convert(t4.iva, char) as 'IVA', convert(t4.Total,char) as 'TOTAL',convert(t1.Especificaciones,char) as 'Especificaiones',t4.ObservacionesOC as 'Comentarios' from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion left join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision";
+        string obtenerFolio = "select convert(concat('OC00-',right(FolioOrdCompra,1) + 1), char) from ordencompra order by idOrdCompra desc limit 1";
+        string unidadMedida = "Select x1.Simbolo from cunidadmedida as x1 inner join cfamilias as x2 on x1.idunidadmedida = x2.umfkcunidadmedida inner join cmarcas as x3 on x2.idfamilia = x3.descripcionfkcfamilias inner join crefacciones as x4 on x4.marcafkcmarcas = x3.idmarca where x4.codrefaccion = ";
+        List<string> lsEstatus = new List<string>();
+        string IVAd = "", proveedor = "", datosO = "", FolioR = "", departamento = "", FolioOC="", Fecha="";
+        string[] costos;
+        DataTable dt = new DataTable();
+        DataRow filas;
+        DataColumn columnas;
 
         /* VAR ANTERIORES */
 
@@ -33,7 +45,7 @@ namespace controlFallos
 
         /* VARIABLES */
 
-        int idordencompra, idvalidacionproveedor, idvalidacionfacturar, contadorefacc, empresa, area, res, idfolio, numerorefaccion, nrefacc, totalrefacc, idUsuario;
+        int idordencompra, idvalidacionproveedor, idvalidacionfacturar, contadorefacc, empresa, area, res, idfolio, numerorefaccion, nrefacc, totalrefacc, idUsuario, idRequicision, Continuaagregando = 0;
         double sumaCSolicitada, cantidadrefacc, resultado, iva, resultadototal;
         String personafinal = "", acumobservacionesrefacc, observacionesOCompra, refaccinicial, refaccfinal, codigorefaccionvalidada, codigorefaccionvalidada1;
         bool banderaeditar = false;
@@ -45,7 +57,7 @@ namespace controlFallos
 
         /* VARIABLES PDF */
 
-        String almacenistapdf = "", autorizapdf = "", proveedorpdf = "", facturarpdf = "";
+        String almacenistapdf = "", autorizapdf = "", proveedorpdf = "", facturarpdf = "", unidadM = "";
 
         new menuPrincipal Owner;
         public OrdenDeCompra(int idUsuario, int empresa, int area, Form fh,System.Drawing.Image logo,validaciones v)
@@ -54,53 +66,58 @@ namespace controlFallos
              th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
-            comboBoxProveedor.MouseWheel += new MouseEventHandler(comboBoxAll_MouseWheel);
-            comboBoxClave.MouseWheel += new MouseEventHandler(comboBoxAll_MouseWheel);
-            comboBoxFacturar.MouseWheel += new MouseEventHandler(comboBoxAll_MouseWheel);
-            comboBoxProveedorB.MouseWheel += new MouseEventHandler(comboBoxAll_MouseWheel);
-            comboBoxEmpresaB.MouseWheel += new MouseEventHandler(comboBoxAll_MouseWheel);
-            cbcomparativa.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
+            cmbEstatus.DrawItem += v.comboBoxEstatusr_DrwaItem;
+            cmbProveedorB.MouseWheel += new MouseEventHandler(comboBoxAll_MouseWheel);
+            cmbTipo.MouseWheel += new MouseEventHandler(comboBoxAll_MouseWheel);
+            cmbEstatus.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             this.idUsuario = idUsuario;
             this.empresa = empresa;
             this.area = area;
             Owner = (menuPrincipal)fh;
             pictureBox1.BackgroundImage = logo;
+           
         }
+        void iniProveedor1() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(t1.idproveedor,char) as idunidad, convert(if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedor1, "idunidad", "Nombre", "-- SELECCIONE PROVEEDOR --"); }
+        void iniProveedor2() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(t1.idproveedor,char) as idunidad, convert(if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedor2, "idunidad", "Nombre", "-- SELECCIONE PROVEEDOR --"); }
+        void iniProveedor3() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(t1.idproveedor,char) as idunidad, convert(if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedor3, "idunidad", "Nombre", "-- SELECCIONE PROVEEDOR --"); }
+        void iniTipo() { v.comboswithuot(cmbTipo, new string[] { "----Tipo De Requerimiento----", "PRODUCCION", "ALMACEN TRI", "TRANSMASIVO-TRI", "ALMACEN TRANSINSUMOS", "TRANSMASIVO-INSUMOS"}); }
         public void comprativas()
         {
-            v.iniCombos("select upper(nombreComparativa) as n, idcomparativa as id from comparativas where status='3';", cbcomparativa, "id", "n", "--SELECCIONE COMPARATIVA--");
+            v.iniCombos("select upper(nombreComparativa) as n, idcomparativa as id from comparativas where status='3';", cmbEstatus, "id", "n", "--SELECCIONE COMPARATIVA--");
         }
         private void OrdenDeCompra_Load(object sender, EventArgs e)
         {
             textBoxIVA.Enabled = false;
             timer1.Start();
-            comprativas();
             actualizarcbx();
-            cargafolio();
             metodocargaorden();
             metodocargadetordenPDF();
             conteoiniref();
-            dateTimePickerFechaEntrega.Value = DateTime.Now;
+            CargarProveedoresBusqueda();
             dateTimePickerIni.Value = DateTime.Now;
             dateTimePickerFin.Value = DateTime.Now;
-            dateTimePickerIniBFE.Value = DateTime.Now;
-            dateTimePickerFinBFE.Value = DateTime.Now;
+            iniTipo();
+            dateTimePickerIni.Value = DateTime.Now;
+            dtpFecha.Value = DateTime.Now;
             metodocargaiva();
             privilegios();
-
+            v.comboswithuot(cmbEstatus, new string[] { "----Selecciona----", "Aprobada", "Rechazada", });
+            iniProveedor1();
+            iniProveedor2();
+            iniProveedor3();
             AutoCompletado(textBoxOCompraB);
 
             if ((pinsertar == true) && (peditar == true) && (pconsultar == true))
             {
                 label60.Visible = true;
-                label61.Visible = true;
+                //label61.Visible = true;
                 buttonActualizarN.Visible = true;
                 label49.Visible = true;
             }
             else
             {
                 label60.Visible = false;
-                label61.Visible = false;
+                //label61.Visible = false;
                 buttonActualizarN.Visible = false;
                 label49.Visible = false;
             }
@@ -109,12 +126,9 @@ namespace controlFallos
             {
                 checkBoxFechas.ForeColor = checkBoxFechas.Checked ? Color.Crimson : Color.Crimson;
             }
+           
 
-            if (checkBoxFechasE.Checked == false)
-            {
-                checkBoxFechasE.ForeColor = checkBoxFechasE.Checked ? Color.Crimson : Color.Crimson;
-            }
-            if (Convert.ToInt32(v.getaData("SELECT Coalesce(ver,'0') FROM privilegios WHERE namform='catEmpresas' and usuariofkcpersonal='" + idUsuario + "'")) == 1) pEmpresa.Visible = true;
+
             //comboBoxProveedor.Enabled = false;
             foreach (Form frm in Application.OpenForms)
             {
@@ -136,7 +150,7 @@ namespace controlFallos
 
         public void CargarEmpresas()
         {
-            DataTable dt = (DataTable)v.getData("SELECT UPPER(nombreEmpresa) AS nombreEmpresa, idempresa FROM cempresas WHERE status = 1 order by nombreEmpresa");
+            /*DataTable dt = (DataTable)v.getData("SELECT UPPER(nombreEmpresa) AS nombreEmpresa, idempresa FROM cempresas WHERE status = 1 order by nombreEmpresa");
             DataRow row2 = dt.NewRow();
             row2["idempresa"] = 0;
             row2["nombreEmpresa"] = "-- SELECCIONE UNA EMPRESA --";
@@ -153,40 +167,24 @@ namespace controlFallos
             comboBoxFacturar.DisplayMember = "nombreEmpresa";
             comboBoxFacturar.DataSource = dt;
             comboBoxFacturar.SelectedIndex = 0;
-            v.c.dbcon.Close();
+            v.c.dbcon.Close();*/
         }
 
         public void CargarEmpresasBusqueda()
         {
-            v.iniCombos("SELECT DISTINCT UPPER(t2.nombreEmpresa) AS nombreEmpresa, t2.idempresa FROM ordencompra as t1 INNER JOIN cempresas as t2 ON t1.facturadafkcempresas = t2.idempresa GROUP BY FacturadafkCEmpresas ORDER BY nombreEmpresa ASC", comboBoxEmpresaB, "idempresa", "nombreEmpresa", "-- SELECCIONE UNA EMPRESA --");
+            //v.iniCombos("SELECT DISTINCT UPPER(t2.nombreEmpresa) AS nombreEmpresa, t2.idempresa FROM ordencompra as t1 INNER JOIN cempresas as t2 ON t1.facturadafkcempresas = t2.idempresa GROUP BY FacturadafkCEmpresas ORDER BY nombreEmpresa ASC", comboBoxEmpresaB, "idempresa", "nombreEmpresa", "-- SELECCIONE UNA EMPRESA --");
         }
 
-        public void CargarProveedores()
-        {
-            DataTable dt = (DataTable)v.getData("SELECT UPPER(empresa) AS empresa,  idproveedor FROM cproveedores WHERE status = 1 order by empresa");
-            DataRow row2 = dt.NewRow();
-            row2["idproveedor"] = 0;
-            row2["empresa"] = "-- SELECCIONE UN PROVEEDOR --";
-            dt.Rows.InsertAt(row2, 0);
-            comboBoxProveedor.ValueMember = "idproveedor";
-            comboBoxProveedor.DisplayMember = "empresa";
-            comboBoxProveedor.DataSource = dt;
-            comboBoxProveedor.SelectedIndex = 0;
-            v.c.dbcon.Close();
-        }
+       
 
         public void CargarProveedoresBusqueda()
         {
-            v.iniCombos("SELECT distinct UPPER(t2.empresa) AS empresa, idproveedor FROM sistrefaccmant.ordencompra AS t1 inner join cproveedores as t2 ON t1.proveedorfkcproveedores=t2.idproveedor GROUP by t1.ProveedorfkCProveedores order by t2.empresa asc;", comboBoxProveedorB, "idproveedor", "empresa", "-- SELECCIONE UN PROVEEDOR --");
-
+           v.iniCombos("SET lc_time_names = 'es_ES'; select convert(t1.idproveedor, char) as idunidad, convert(if (t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedorB, "idUnidad", "Nombre", "-- SELECCIONE PROVEEDOR --");
         }
 
         public void limpiarRefacc()
         {
-            comboBoxClave.SelectedIndex = 0;
-
-            comboBoxClave.Visible = true;
-            labelDescripcion.Text = "";
+            
             labelExistencia.Text = "";
             lblCantidad.Text = "";
             lblPrecio.Text = "";
@@ -198,35 +196,28 @@ namespace controlFallos
         {
             limpiar_variables();
             //comboBoxProveedor.SelectedIndex = 0;
-            labelCorreo.Text = "";
-            labelRepresentante.Text = "";
-            cbcomparativa.SelectedIndex = 0;
+            cmbProveedor1.SelectedIndex = cmbProveedor2.SelectedIndex = cmbProveedor3.SelectedIndex = 0;
+            cmbEstatus.SelectedIndex = 0;
             //comboBoxClave.SelectedIndex = 0;
             lblPrecio.Text = "";
             lblCantidad.Text = "";
-            labelDescripcion.Text = "";
             labelExistencia.Text = "0";
             labelSubTotal.Text = "0";
-            comboBoxFacturar.SelectedIndex = 0;
+            //comboBoxFacturar.SelectedIndex = 0;
             textBoxObservaciones.Text = "";
             textBoxObservacionesRefacc.Text = "";
-            dateTimePickerFechaEntrega.Value = DateTime.Now;
             dateTimePickerIni.Value = DateTime.Now;
             dateTimePickerFin.Value = DateTime.Now;
-            dateTimePickerIniBFE.Value = DateTime.Now;
-            dateTimePickerFinBFE.Value = DateTime.Now;
             textBoxIVA.Enabled = false;
         }
 
         public void limpiarRefaccB()
         {
             textBoxOCompraB.Text = "";
-            comboBoxProveedorB.SelectedIndex = 0;
-            comboBoxEmpresaB.SelectedIndex = 0;
+            cmbProveedorB.SelectedIndex = 0;
+            //comboBoxEmpresaB.SelectedIndex = 0;
             dateTimePickerIni.Value = DateTime.Now;
             dateTimePickerFin.Value = DateTime.Now;
-            dateTimePickerIniBFE.Value = DateTime.Now;
-            dateTimePickerFinBFE.Value = DateTime.Now;
         }
 
         bool pverEmpresa;
@@ -238,7 +229,7 @@ namespace controlFallos
         {
             if (banderaeditar == true)
             {
-                if ((comboBoxClave.Text == codigorefanterior) && textBoxObservacionesRefacc.Text.Trim() == observacionesrefaccanterior)
+                if ((txtCodigo.Text == codigorefanterior) && textBoxObservacionesRefacc.Text.Trim() == observacionesrefaccanterior)
                 {
                     buttonEditar.Visible = false;
                     label8.Visible = false;
@@ -254,13 +245,13 @@ namespace controlFallos
         public void actualizarcbx()
         {
             //CargarClave();
-            if (dataGridViewPedOCompra.Rows.Count == 0)
+           /* if (dataGridViewPedOCompra.Rows.Count == 0)
             {
                 CargarEmpresas();
                 //CargarProveedores();
-            }
+            }*/
             CargarEmpresasBusqueda();
-            CargarProveedoresBusqueda();
+           // CargarProveedoresBusqueda();
         }
 
         public void mostrarexcel()
@@ -289,7 +280,7 @@ namespace controlFallos
 
         public void validacionval()
         {
-            if (comboBoxProveedor.SelectedIndex == 0)
+            /*if (comboBoxProveedor.SelectedIndex == 0)
             {
                 idvalidacionproveedor = 0;
             }
@@ -304,25 +295,21 @@ namespace controlFallos
             else
             {
                 idvalidacionfacturar = Convert.ToInt32(comboBoxFacturar.SelectedValue);
-            }
+            }*/
         }
 
         public void btnnuevoOC()
         {
             limpiarRefaccN();
-            cargafolio();
             conteoiniref();
             limpia_var();
-            cbcomparativa.SelectedIndex = 0;
-            cbcomparativa.Enabled = true;
-            comboBoxProveedor.Enabled = false;
-            comboBoxClave.Visible = true;
-            comboBoxFacturar.Enabled = true;
+            cmbEstatus.SelectedIndex = 0;
+            cmbEstatus.Enabled = true;
             textBoxObservaciones.Enabled = true;
             buttonNuevoOC.Visible = false;
             label17.Visible = false;
             buttonPDF.Visible = false;
-            label3.Visible = false;
+            lblImprimir.Visible = false;
             buttonEditar.Visible = false;
             label8.Visible = false;
             buttonAgregarMas.Visible = false;
@@ -332,38 +319,32 @@ namespace controlFallos
             textBoxObservaciones.Visible = true;
             buttonFinalizar.Visible = false;
             label34.Visible = false;
-            dataGridViewPedOCompra.Enabled = false;
             Limpiar_labels();
-            comboBoxFacturar.SelectedIndex = 0;
             dataGridViewOCompra.ClearSelection();
             Limpia_variables();
             actualizarcbx();
-            dateTimePickerFechaEntrega.Enabled = true;
             textBoxObservacionesRefacc.Enabled = true;
             metodocargaiva();
             labelSubTotalOC.Visible = true;
             labelIVAOC.Visible = true;
             labelTotalOC.Visible = true;
             labelSubTotal.Visible = true;
-            dataGridViewPedOCompra.DataSource = null;
             metodocargadetordenPDF();
+            limpiar();
         }
 
         private void btneditar()
         {
             limpiarRefaccN();
-            cargafolio();
             conteoiniref();
             metodocargaorden();
             metodocargadetordenPDF();
-            cbcomparativa.SelectedIndex = 0;
-            comboBoxClave.Visible = true;
-            comboBoxFacturar.Enabled = true;
+            cmbEstatus.SelectedIndex = 0;
             textBoxObservaciones.Enabled = true;
             buttonNuevoOC.Visible = false;
             label17.Visible = false;
             buttonPDF.Visible = false;
-            label3.Visible = false;
+            lblImprimir.Visible = false;
             buttonEditar.Visible = false;
             label8.Visible = false;
             buttonExcel.Visible = false;
@@ -377,12 +358,9 @@ namespace controlFallos
             textBoxObservaciones.Visible = true;
             buttonFinalizar.Visible = false;
             label34.Visible = false;
-            dataGridViewPedOCompra.Enabled = false;
             Limpiar_labels();
-            comboBoxFacturar.SelectedIndex = 0;
             dataGridViewOCompra.ClearSelection();
             Limpia_variables();
-            dateTimePickerFechaEntrega.Enabled = true;
             textBoxObservacionesRefacc.Enabled = true;
             labelSubTotalOC.Visible = true;
             labelIVAOC.Visible = true;
@@ -408,23 +386,17 @@ namespace controlFallos
             buttonAgregarMas.Visible = false;
             label29.Visible = false;
             buttonPDF.Visible = false;
-            label3.Visible = false;
+            lblImprimir.Visible = false;
             buttonNuevoOC.Visible = true;
             label17.Visible = true;
             buttonFinalizar.Visible = false;
             label34.Visible = false;
             buttonAgregar.Visible = false;
             label9.Visible = false;
-            comboBoxProveedor.Enabled = false;
-            comboBoxFacturar.Enabled = false;
-            comboBoxClave.Visible = true;
             label1.Text = "CÓDIGO DE REFACCIÓN";
-            comboBoxClave.Enabled = false;
-            dateTimePickerFechaEntrega.Enabled = false;
             textBoxIVA.Enabled = false;
             textBoxObservaciones.Enabled = true;
             textBoxObservacionesRefacc.Enabled = false;
-            dataGridViewPedOCompra.Enabled = false;
             labelFolioOC.Text = dataGridViewOCompra.CurrentRow.Cells["ORDEN DE COMPRA"].Value.ToString();
             metodorecid();
             personafinal = dataGridViewOCompra.CurrentRow.Cells["PERSONA FINAL"].Value.ToString();
@@ -434,8 +406,8 @@ namespace controlFallos
             if (dr.Read())
             {
                 idordencompra = Convert.ToInt32(dr.GetString("idOrdCompra"));
-                cbcomparativa.SelectedValue = Convert.ToInt32(v.getaData("select t1.idcomparativa as id from comparativas as t1 inner join ordencompra as t2 on t2.ComparativaFKComparativas=t1.idcomparativa where t2.idOrdCompra='" + idordencompra + "';").ToString());
-                dateTimePickerFechaEntrega.Value = Convert.ToDateTime(dr.GetString("FechaEntregaOCompra"));
+                cmbEstatus.SelectedValue = Convert.ToInt32(v.getaData("select t1.idcomparativa as id from comparativas as t1 inner join ordencompra as t2 on t2.ComparativaFKComparativas=t1.idcomparativa where t2.idOrdCompra='" + idordencompra + "';").ToString());
+                
                 fentregaestimadanterior = Convert.ToDateTime(dr.GetString("FechaEntregaOCompra"));
                 labelSubTotalOC.Text = dr.GetString("Subtotal");
                 if (personafinal.Equals(""))
@@ -446,10 +418,8 @@ namespace controlFallos
                 labelIVAOC.Text = (Math.Truncate((dr.GetDouble("Subtotal")*(dr.GetDouble("IVA")/100))*100) / 100).ToString("N2");
                 textBoxObservaciones.Text = dr.GetString("Observaciones");
                 observacionesanterior = dr.GetString("Observaciones");
-                comboBoxProveedor.Text = dr.GetString("Proveedor");
                 proveedoranterior = dr.GetString("Proveedor");
                 idproveedoranterior = Convert.ToInt32(dr.GetString("NProveedores"));
-                comboBoxFacturar.Text = dr.GetString("NEmpresa");
                 facturaranterior = dr.GetString("NEmpresa");
                 idfacturaranterior = Convert.ToInt32(dr.GetString("EFacturar"));
                 sumaCSolicitada = Convert.ToDouble(dr.GetString("TotalCS"));
@@ -457,15 +427,12 @@ namespace controlFallos
 
             if (estatusOCompra == "FINALIZADA")
             {
-                cbcomparativa.Enabled = comboBoxClave.Enabled = comboBoxProveedor.Enabled = false;
-                if (!(string.IsNullOrWhiteSpace(comboBoxFacturar.Text)))
+                //cbcomparativa.Enabled = comboBoxClave.Enabled = comboBoxProveedor.Enabled = false;
+               /* if (!(string.IsNullOrWhiteSpace(comboBoxFacturar.Text)))
                 {
                     comboBoxFacturar.Enabled = true;
-                }
-                if (!(string.IsNullOrWhiteSpace(dateTimePickerFechaEntrega.Text)))
-                {
-                    dateTimePickerFechaEntrega.Enabled = true;
-                }
+                }*/
+                
                 if (!(string.IsNullOrWhiteSpace(textBoxObservaciones.Text)))
                 {
                     textBoxObservaciones.Enabled = true;
@@ -478,27 +445,25 @@ namespace controlFallos
             }
             else
             {
-                if (comboBoxFacturar.SelectedIndex > 0)
+                /*if (comboBoxFacturar.SelectedIndex > 0)
                 {
                     comboBoxFacturar.Enabled = true;
-                }
-                if (!(string.IsNullOrWhiteSpace(dateTimePickerFechaEntrega.Text)))
+                }*/
+                /*if (!(string.IsNullOrWhiteSpace(dateTimePickerFechaEntrega.Text)))
                 {
                     dateTimePickerFechaEntrega.Enabled = true;
-                }
+                }*/
                 if (!(string.IsNullOrWhiteSpace(textBoxObservaciones.Text)))
                 {
                     textBoxObservaciones.Enabled = true;
                 }
-                cbcomparativa.Enabled = false;
-                comboBoxClave.Enabled = false;
-                comboBoxProveedor.Enabled = false;
+                cmbEstatus.Enabled = false;
                 buttonAgregar.Visible = false;
                 label9.Visible = false;
                 buttonActualizar.Visible = false;
                 label37.Visible = false;
                 buttonPDF.Visible = false;
-                label3.Visible = false;
+                lblImprimir.Visible = false;
                 labelSubTotalOC.Visible = false;
                 labelIVAOC.Visible = false;
                 labelTotalOC.Visible = false;
@@ -537,7 +502,7 @@ namespace controlFallos
             if (banderaeditar == true)
             {
                 validacionval();
-                if (((idfacturaranterior == idvalidacionfacturar) || (comboBoxFacturar.SelectedIndex == 0)) && ((observacionesanterior == textBoxObservaciones.Text.Trim())) && (dateTimePickerFechaEntrega.Value.Date == fentregaestimadanterior))
+                if ((((observacionesanterior == textBoxObservaciones.Text.Trim())) ))
                 {
                     buttonEditar.Visible = false;
                     label8.Visible = false;
@@ -589,7 +554,10 @@ namespace controlFallos
             pinsertar = getBoolFromInt(Convert.ToInt32(privilegios[0]));
             pconsultar = getBoolFromInt(Convert.ToInt32(privilegios[1]));
             peditar = getBoolFromInt(Convert.ToInt32(privilegios[2]));
-            pdesactivar = getBoolFromInt(Convert.ToInt32(privilegios[3]));
+            if (privilegios.Length > 3)
+            {
+                pdesactivar = getBoolFromInt(Convert.ToInt32(privilegios[3]));
+            }
         }
 
         public bool getBoolFromInt(int i)
@@ -616,24 +584,6 @@ namespace controlFallos
             textBoxOCompraB.AutoCompleteCustomSource = nColl;
         }
 
-        public void cargafolio()
-        {
-            MySqlCommand cmd = new MySqlCommand("SELECT CONCAT(SUBSTRING(FolioOrdCompra, LENGTH(FolioOrdCompra) -6, 7)+1) AS FolioOC FROM ordencompra WHERE idOrdCompra = (SELECT MAX(idOrdCompra) FROM ordencompra)", v.c.dbconection());
-            string Folio = (string)cmd.ExecuteScalar();
-            if (Folio == null)
-            {
-                Folio = "0000001";
-            }
-            else
-            {
-                while (Folio.Length < 7)
-                {
-                    Folio = "0" + Folio;
-                }
-            }
-            labelFolioOC.Text = "OC-" + Folio.ToString();
-            v.c.dbconection().Close();
-        }
 
         validaciones v;
 
@@ -641,7 +591,7 @@ namespace controlFallos
         {
             try
             {
-                string res = v.getaData("SELECT idOrdCompra FROM ordencompra WHERE FolioOrdCompra = '" + labelFolioOC.Text + "'").ToString() ?? "";
+                string res = v.getaData("SELECT if(count(idOrdCompra) > 0,idOrdCompra,'') as idOrdCompra FROM ordencompra WHERE FolioOrdCompra = '" + labelFolioOC.Text + "'").ToString() ?? "";
                 idfolio = Convert.ToInt32(res);
             }
             catch
@@ -672,7 +622,7 @@ namespace controlFallos
             {
                 DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SELECT t1.NumRefacc AS PARTIDA,(select if(a5.refaccionfkcrefacciones is null,'',(select a8.codrefaccion from crefacciones as a8 where a8.idrefaccion=a5.refaccionfkcrefacciones)) from refaccionescomparativa as a5 inner join proveedorescomparativa as a6 on a5.idrefaccioncomparativa=a6.refaccionfkrefaccionesComparativa inner join comparativas as a7 on a7.idcomparativa=a5.ComparativaFKComparativas where a6.idproveedorComparativa=t1.ClavefkCRefacciones)as CLAVE,(select if(a1.refaccionfkcrefacciones is null,a1.nombreRefaccion,(select upper(a4.nombreRefaccion) from crefacciones as a4 where a4.idrefaccion=a1.refaccionfkcrefacciones)) from refaccionescomparativa as a1 inner join proveedorescomparativa as a2 on a1.idrefaccioncomparativa=a2.refaccionfkrefaccionesComparativa inner join comparativas as a3 on a3.idcomparativa=a1.comparativafkcomparativas where a2.idproveedorComparativa=t1.ClavefkCRefacciones)as 'DESCRIPCIÓN',COALESCE((SELECT x3.existencias FROM crefacciones AS x3 inner join refaccionescomparativa as x4 on x3.idrefaccion=x4.refaccionfkcrefacciones inner join comparativas as x5 on x5.idcomparativa=x4.comparativafkcomparativas inner join proveedorescomparativa as x6 on x6.refaccionfkrefaccionesComparativa=x4.idrefaccioncomparativa where x6.idproveedorComparativa=t1.ClavefkCRefacciones), 0) AS 'CANTIDAD EN EXISTENCIA', t1.Cantidad AS 'CANTIDAD SOLICITADA', t1.Precio AS 'PRECIO COTIZADO', (t1.cantidad*t1.precio)AS TOTAL, t1.ObservacionesRefacc AS OBSERVACIONES FROM detallesordencompra AS t1 INNER JOIN ordencompra AS t2 ON t1.OrdfkOrdenCompra = t2.idOrdCompra WHERE t1.OrdfkOrdenCompra = '" + idfolio + "'");
 
-                dataGridViewPedOCompra.DataSource = dt;
+                //dataGridViewPedOCompra.DataSource = dt;
                 v.c.dbconection().Close();
             }
             catch (Exception e)
@@ -683,9 +633,11 @@ namespace controlFallos
 
         public void metodocargaorden()
         {
-            DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES'; SELECT t1.FolioOrdCompra AS 'ORDEN DE COMPRA', UPPER(t2.empresa) AS PROVEEDOR, UPPER(t3.nombreEmpresa) AS 'NOMBRE DE LA EMPRESA', UPPER(DATE_FORMAT(t1.FechaOCompra, '%W %d %M %Y')) AS 'FECHA', UPPER(DATE_FORMAT(t1.FechaEntregaOCompra, '%W %d %M %Y')) AS 'FECHA DE ENTREGA', t1.SUBTOTAL, cast(((t1.IVA/100)*t1.Subtotal) as decimal (18,2)) as IVA, t1.TOTAL, coalesce((UPPER(t1.ESTATUS)), '') AS ESTATUS, coalesce((SELECT UPPER(CONCAT(t4.ApPaterno, ' ', t4.ApMaterno, ' ', t4.nombres)) FROM cpersonal AS t4 WHERE t1.PersonaFinal = t4.idPersona), '') AS 'PERSONA FINAL', UPPER(t1.ObservacionesOC) AS 'OBSERVACIONES' FROM ordencompra AS t1 LEFT JOIN cproveedores AS t2 ON t1.ProveedorfkCProveedores = t2.idproveedor INNER JOIN cempresas AS t3 ON t1.FacturadafkCEmpresas = t3.idempresa where t1.empresa='" + empresa +"'ORDER BY t1.FolioOrdCompra DESC");
+           /* DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES'; SELECT t1.FolioOrdCompra AS 'ORDEN DE COMPRA', UPPER(t2.empresa) AS PROVEEDOR, UPPER(t3.nombreEmpresa) AS 'NOMBRE DE LA EMPRESA', UPPER(DATE_FORMAT(t1.FechaOCompra, '%W %d %M %Y')) AS 'FECHA', UPPER(DATE_FORMAT(t1.FechaEntregaOCompra, '%W %d %M %Y')) AS 'FECHA DE ENTREGA', t1.SUBTOTAL, cast(((t1.IVA/100)*t1.Subtotal) as decimal (18,2)) as IVA, t1.TOTAL, coalesce((UPPER(t1.ESTATUS)), '') AS ESTATUS, coalesce((SELECT UPPER(CONCAT(coalesce(t4.ApPaterno,''), ' ', coalesce(t4.ApMaterno,''), ' ', coalesce(t4.nombres,''))) FROM cpersonal AS t4 WHERE t1.PersonaFinal = t4.idPersona), '') AS 'PERSONA FINAL', UPPER(t1.ObservacionesOC) AS 'OBSERVACIONES' FROM ordencompra AS t1 LEFT JOIN cproveedores AS t2 ON t1.ProveedorfkCProveedores = t2.idproveedor INNER JOIN cempresas AS t3 ON t1.FacturadafkCEmpresas = t3.idempresa where t1.empresa='" + empresa +"'ORDER BY t1.FolioOrdCompra DESC");
             dataGridViewOCompra.DataSource = dt;
-            v.c.dbconection().Close();
+            v.c.dbconection().Close();*/
+            DataTable dt = (DataTable)v.getData(ConsultaG + " where (date_format(t1.Fecha,'%Y-%m-%d') BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY)) AND  curdate()) and t1.empresa = '" + empresa + "'  order by t1.Folio desc");
+            dataGridViewOCompra.DataSource = dt;
         }
 
         public void conteoiniref() //Realiza Un Conteo Inicial Para Saber Si No Hubo Algun Cambio En El GridView
@@ -707,7 +659,7 @@ namespace controlFallos
             }
         }
 
-        public void CargarClave()
+        /*public void CargarClave()
         {
             DataTable dt = (DataTable)v.getData("SELECT UPPER(CONCAT(nombreRefaccion, ' - ', modeloRefaccion)) AS codrefaccion, idrefaccion FROM crefacciones WHERE status = 1 ORDER BY codrefaccion");
             DataRow row2 = dt.NewRow();
@@ -718,9 +670,9 @@ namespace controlFallos
             comboBoxClave.DisplayMember = "codrefaccion";
             comboBoxClave.DataSource = dt;
             comboBoxClave.SelectedIndex = 0;
-        }
+        }*/
 
-        public bool metodotxtpedcompra() // checar
+       /* public bool metodotxtpedcompra() // checar
         {
             if (dataGridViewPedOCompra.Rows.Count == 0)
             {
@@ -730,7 +682,7 @@ namespace controlFallos
             {
                 return false;
             }
-        }
+        }*/
 
 
         void limpia_var()
@@ -750,23 +702,22 @@ namespace controlFallos
             buttonAgregarMas.Visible = false;
             label29.Visible = false;
             buttonPDF.Visible = true;
-            label3.Visible = true;
+            lblImprimir.Visible = true;
             label37.Visible = false;
             buttonNuevoOC.Visible = true;
             label17.Visible = true;
             buttonFinalizar.Visible = false;
             label34.Visible = false;
-            labelFolioOC.Text = dataGridViewOCompra.CurrentRow.Cells["ORDEN DE COMPRA"].Value.ToString();
+            ///labelFolioOC.Text = dataGridViewOCompra.CurrentRow.Cells["ORDEN DE COMPRA"].Value.ToString();
             _idcomp = Convert.ToInt32(v.getaData("select t1.idcomparativa from comparativas as t1 inner join ordencompra as t2 on t1.idcomparativa=t2.ComparativaFKComparativas where t2.FolioOrdCompra='" + dataGridViewOCompra.CurrentRow.Cells["ORDEN DE COMPRA"].Value + "';").ToString());
             metodorecid();
             personafinal = dataGridViewOCompra.CurrentRow.Cells["PERSONA FINAL"].Value.ToString();
-            estatusOCompra = dataGridViewOCompra.CurrentRow.Cells["ESTATUS"].Value.ToString(); if (string.IsNullOrWhiteSpace(estatusOCompra)) label3.Text = "VISUALIZAR ORDEN" + Environment.NewLine + " DE COMPRA"; else label3.Text = "GENERAR ORDEN" + Environment.NewLine + " DE COMPRA";
+            estatusOCompra = dataGridViewOCompra.CurrentRow.Cells["ESTATUS"].Value.ToString(); if (string.IsNullOrWhiteSpace(estatusOCompra)) lblImprimir.Text = "VISUALIZAR ORDEN" + Environment.NewLine + " DE COMPRA"; else lblImprimir.Text = "GENERAR ORDEN" + Environment.NewLine + " DE COMPRA";
             MySqlCommand cmd = new MySqlCommand("SELECT t1.idOrdCompra,t1.FechaEntregaOCompra as FechaEntregaOCompra, coalesce((t1.Subtotal), '0') AS Subtotal, coalesce((t1.IVA), '0') AS IVA, coalesce((t1.Total), '0') AS Total, coalesce(upper((t1.ObservacionesOC)), '') AS Observaciones, UPPER(t2.nombreEmpresa) AS NEmpresa, t1.FacturadafkCEmpresas AS EFacturar, UPPER(t3.empresa) AS Proveedor, t1.ProveedorfkCProveedores AS NProveedores,(select sum(x1.Cantidad * x1.Precio) from detallesordencompra as x1 where x1.OrdfkOrdenCompra=t1.idOrdCompra)AS TotalCS from ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor  WHERE t1.FolioOrdCompra =  '" + labelFolioOC.Text + "'", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 idordencompra = Convert.ToInt32(dr.GetString("idOrdCompra"));
-                dateTimePickerFechaEntrega.Value = Convert.ToDateTime(dr.GetString("FechaEntregaOCompra"));
                 fentregaestimadanterior = Convert.ToDateTime(dr.GetString("FechaEntregaOCompra"));
                 labelSubTotalOC.Text = dr.GetString("Subtotal");
                 if (personafinal.Equals(""))
@@ -780,11 +731,10 @@ namespace controlFallos
                 labelTotalOC.Text = dr.GetString("Total");
                 textBoxObservaciones.Text = dr.GetString("Observaciones");
                 observacionesanterior = dr.GetString("Observaciones");
-                cbcomparativa.SelectedValue = _idcomp;
-                comboBoxProveedor.Text = dr.GetString("Proveedor");
+                cmbEstatus.SelectedValue = _idcomp;
                 proveedoranterior = dr.GetString("Proveedor");
                 idproveedoranterior = Convert.ToInt32(dr.GetString("NProveedores"));
-                comboBoxFacturar.Text = dr.GetString("NEmpresa");
+                //comboBoxFacturar.Text = dr.GetString("NEmpresa");
                 facturaranterior = dr.GetString("NEmpresa");
                 idfacturaranterior = Convert.ToInt32(dr.GetString("EFacturar"));
                 sumaCSolicitada = Convert.ToDouble(dr.GetString("TotalCS"));
@@ -795,7 +745,7 @@ namespace controlFallos
             MySqlDataReader dr1 = cmd1.ExecuteReader();
             if (dr1.Read())
             {
-                comboBoxFacturar.DataSource = null;
+                //comboBoxFacturar.DataSource = null;
                 MySqlCommand comando = new MySqlCommand("SELECT UPPER(nombreEmpresa) AS nombreEmpresa, idempresa FROM cempresas where status='1' order by nombreEmpresa", v.c.dbconection());
                 MySqlDataAdapter da = new MySqlDataAdapter(comando);
                 DataTable dt = new DataTable();
@@ -808,11 +758,11 @@ namespace controlFallos
                 row2["nombreEmpresa"] = dr1["nombreEmpresa"].ToString();
                 dt.Rows.InsertAt(row2, 1);
                 dt.Rows.InsertAt(row, 0);
-                comboBoxFacturar.ValueMember = "idempresa";
+               /* comboBoxFacturar.ValueMember = "idempresa";
                 comboBoxFacturar.DisplayMember = "nombreEmpresa";
                 comboBoxFacturar.DataSource = dt;
                 comboBoxFacturar.SelectedIndex = 1;
-                comboBoxFacturar.Text = dr1["nombreEmpresa"].ToString();
+                comboBoxFacturar.Text = dr1["nombreEmpresa"].ToString();*/
             }
             dr1.Close();
             v.c.dbconection().Close();
@@ -820,7 +770,6 @@ namespace controlFallos
             MySqlDataReader dr2 = proveedor.ExecuteReader();
             if (dr2.Read())
             {
-                comboBoxProveedor.DataSource = null;
                 DataTable dt = (DataTable)v.getData("SELECT UPPER(empresa) AS empresa,  idproveedor FROM cproveedores WHERE status = 1 order by empresa");
                 DataRow row2 = dt.NewRow();
                 DataRow row3 = dt.NewRow();
@@ -830,11 +779,6 @@ namespace controlFallos
                 row3["empresa"] = dr2["empresa"].ToString();
                 dt.Rows.InsertAt(row3, 1);
                 dt.Rows.InsertAt(row2, 0);
-                comboBoxProveedor.ValueMember = "idproveedor";
-                comboBoxProveedor.DisplayMember = "empresa";
-                comboBoxProveedor.DataSource = dt;
-                comboBoxProveedor.SelectedIndex = 1;
-                comboBoxProveedor.Text = dr2["empresa"].ToString();
                 v.c.dbconection().Close();
             }
             dr2.Close();
@@ -845,17 +789,15 @@ namespace controlFallos
                 label34.Visible = false;
                 buttonAgregar.Visible = false;
                 label9.Visible = false;
-                comboBoxClave.Enabled = false;
-                dateTimePickerFechaEntrega.Enabled = false;
                 if (pconsultar == true)
                 {
                     buttonPDF.Visible = true;
-                    label3.Visible = true;
+                    lblImprimir.Visible = true;
                 }
                 else
                 {
                     buttonPDF.Visible = false;
-                    label3.Visible = false;
+                    lblImprimir.Visible = false;
                 }
             }
             else
@@ -864,18 +806,16 @@ namespace controlFallos
                 label34.Visible = true;
                 buttonAgregar.Visible = true;
                 label9.Visible = true;
-                comboBoxClave.Enabled = true;
                 if (pconsultar == true)
                 {
                     buttonPDF.Visible = true;
-                    label3.Visible = true;
+                    lblImprimir.Visible = true;
                 }
                 else
                 {
                     buttonPDF.Visible = false;
-                    label3.Visible = false;
+                    lblImprimir.Visible = false;
                 }
-                dateTimePickerFechaEntrega.Enabled = true;
             }
             metodorecid();
             metodocargadetordenPDF();
@@ -1038,7 +978,7 @@ namespace controlFallos
                         PdfWriter writer = PdfWriter.GetInstance(doc, file);
                         doc.Open();
                         Chunk chunk = new Chunk("REPORTE DE MANTENIMIENTO", FontFactory.GetFont("ARIAL", 20, iTextSharp.text.Font.BOLD));
-                        var res = v.getaData("SELECT COALESCE(logo,'') FROM cempresas WHERE idempresa='" + comboBoxFacturar.SelectedValue + "'").ToString();
+                        var res = v.getaData("SELECT COALESCE(logo,'') FROM cempresas WHERE idempresa='3'").ToString();
                         byte[] img=null;
                         if (res == "")
                         {
@@ -1157,13 +1097,13 @@ namespace controlFallos
                         c17.HorizontalAlignment = Element.ALIGN_CENTER;
                         tb2.AddCell(c17);
 
-                        PdfPCell c18 = new PdfPCell(new Phrase(dateTimePickerFechaEntrega.Value.ToString("dddd, dd " + "DE" + " MMMM " + "DE" + " yyyy").ToUpper(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
+                        /*PdfPCell c18 = new PdfPCell(new Phrase(dateTimePickerFechaEntrega.Value.ToString("dddd, dd " + "DE" + " MMMM " + "DE" + " yyyy").ToUpper(), FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.NORMAL)));
                         c18.Colspan = 4;
                         c18.UseAscender = false;
                         c18.UseDescender = true;
                         c18.Colspan = 4;
                         c18.HorizontalAlignment = Element.ALIGN_CENTER;
-                        tb2.AddCell(c18);
+                        tb2.AddCell(c18);*/
 
                         PdfPCell c19 = new PdfPCell(new Phrase("Correo:", FontFactory.GetFont("ARIAL", 7, iTextSharp.text.Font.BOLD)));
                         c19.UseAscender = false;
@@ -1452,58 +1392,8 @@ namespace controlFallos
 
         private void buttonPDF_Click(object sender, EventArgs e)
         {
-            if (dataGridViewPedOCompra.Rows.Count > 0)
-            {
-                privilegios();
-                MySqlCommand cmd = new MySqlCommand("SELECT Almacen, Autoriza FROM nombresoc WHERE empresa='"+empresa+"'", v.c.dbconection());
-                MySqlDataReader dr = cmd.ExecuteReader();
-                if (dr.Read())
-                {
-                    almacenistapdf = dr.GetString("Almacen");
-                    autorizapdf = dr.GetString("Autoriza");
-                }
-                else
-                {
-                    almacenistapdf = "";
-                    autorizapdf = "";
-                }
-                dr.Close();
-                v.c.dbconection().Close();
-                MySqlCommand cmd0 = new MySqlCommand("SELECT t2.nombreEmpresa AS Empresa, t3.empresa AS Proveedor FROM ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor WHERE t1.FolioOrdCompra = '" + labelFolioOC.Text + "'", v.c.dbconection());
-                MySqlDataReader dr0 = cmd0.ExecuteReader();
-                if (dr0.Read())
-                {
-                    proveedorpdf = dr0.GetString("Proveedor");
-                    facturarpdf = dr0.GetString("Empresa");
-                }
-                else
-                {
-                    proveedorpdf = "";
-                    facturarpdf = "";
-                }
-                dr0.Close();
-                v.c.dbconection().Close();
-                if ((almacenistapdf != "") && (autorizapdf != "") && (facturarpdf != "") && (proveedorpdf != ""))
-                {
-                    To_pdf();
-                }
-                else if ((string.IsNullOrWhiteSpace(almacenistapdf) && string.IsNullOrWhiteSpace(almacenistapdf)))
-                {
-                    MessageBox.Show("Falta el registro de los nombres de los responsables de la Orden De Compra\n", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    NombresOC noc = new NombresOC(empresa, area, pictureBox1.BackgroundImage,v);
-                    noc.Owner = this;
-                    noc.ShowDialog();
-                }
-                else
-                {
-                    MessageBox.Show("Faltan datos por registrar en la orden de compra para poder exportar en PDF", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-
-            }
-            else
-            {
-                MessageBox.Show("No puede generar una orden de compra en PDF si no existen refacciones agregadas", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+            recalcular();
+            
         }
         void limpiar_variables()
         {
@@ -1515,21 +1405,16 @@ namespace controlFallos
         string observaciones;
         private void dataGridViewOCompra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
+            /*if (e.RowIndex >= 0)
             {
                 try
                 {
                     validacionval();
-                    if ((observacionesanterior.Equals(textBoxObservaciones.Text.Trim())) && (idproveedoranterior.Equals(Convert.ToInt32(comboBoxProveedor.SelectedValue))) && (idfacturaranterior.Equals(Convert.ToInt32(comboBoxFacturar.SelectedValue))))
+                    if ((observacionesanterior.Equals(textBoxObservaciones.Text.Trim())) &&  (idfacturaranterior.Equals(Convert.ToInt32(comboBoxFacturar.SelectedValue))))
                     {
                         limpiarRefaccN();
                         llamarorden();
                         metodocargadetordenPDF();
-                        dataGridViewPedOCompra.Enabled = true;
-                        if (comboBoxProveedor.Text != "")
-                        {
-                            comboBoxProveedor.Enabled = false;
-                        }
                         if (comboBoxFacturar.Text != "")
                         {
                             comboBoxFacturar.Enabled = false;
@@ -1548,14 +1433,11 @@ namespace controlFallos
                         }
                         buttonActualizar.Visible = false;
                         label37.Visible = false;
-                        dateTimePickerFechaEntrega.Enabled = false;
                         observaciones = Convert.ToString(dataGridViewOCompra.CurrentRow.Cells[9].Value);
-                        comboBoxClave.Visible = true;
                         labelSubTotalOC.Visible = true;
                         labelIVAOC.Visible = true;
                         labelTotalOC.Visible = true;
                         labelSubTotal.Visible = true;
-                        comboBoxClave.Enabled = true;
                     }
                     else
                     {
@@ -1565,11 +1447,6 @@ namespace controlFallos
                             llamarorden();
                             metodocargadetordenPDF();
                             labelSubTotal.Text = "00.00";
-                            dataGridViewPedOCompra.Enabled = true;
-                            if (comboBoxProveedor.Text != "")
-                            {
-                                comboBoxProveedor.Enabled = false;
-                            }
                             if (comboBoxFacturar.Text != "")
                             {
                                 comboBoxFacturar.Enabled = false;
@@ -1584,11 +1461,8 @@ namespace controlFallos
                             }
                             buttonActualizar.Visible = false;
                             label37.Visible = false;
-                            dateTimePickerFechaEntrega.Enabled = false;
                             observaciones = Convert.ToString(dataGridViewOCompra.CurrentRow.Cells[9].Value);
-                            dataGridViewPedOCompra.ClearSelection();
                             //comboBoxClave.SelectedIndex = 0;
-                            comboBoxClave.Visible = true;
                             labelSubTotalOC.Visible = true;
                             labelIVAOC.Visible = true;
                             labelTotalOC.Visible = true;
@@ -1600,7 +1474,7 @@ namespace controlFallos
                 {
                     MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            }*/
         }
 
         private void dataGridViewPedOCompra_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -1622,8 +1496,9 @@ namespace controlFallos
             try
             {
                 validacionval();
+                avilitado();
                 banderaeditar = false;
-                if (banderaeditar && ((idproveedoranterior != idvalidacionproveedor) || (comboBoxProveedor.SelectedIndex == 0)) && ((idfacturaranterior != idvalidacionfacturar) || (comboBoxFacturar.SelectedIndex == 0)) && ((textBoxObservaciones.Text.Trim() != observacionesanterior) || (string.IsNullOrWhiteSpace(textBoxObservaciones.Text))))
+                if (banderaeditar && ((idproveedoranterior != idvalidacionproveedor)) && ((textBoxObservaciones.Text.Trim() != observacionesanterior) || (string.IsNullOrWhiteSpace(textBoxObservaciones.Text))))
                 {
                     if (MessageBox.Show("Si usted cambia de orden de compra sin guardar, perdera los nuevos datos ingresados \n¿Desea cambiar de reporte?", "ADVERTENCIA", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning) == DialogResult.OK)
                     {
@@ -1632,7 +1507,7 @@ namespace controlFallos
                 }
                 else
                 {
-                    if (!banderaeditar && ((comboBoxClave.SelectedIndex == 0) && comboBoxFacturar.SelectedIndex > 0 && comboBoxProveedor.SelectedIndex > 0))
+                    if (!banderaeditar )
                     {
                         btnnuevoOC();
                     }
@@ -1654,7 +1529,100 @@ namespace controlFallos
         {
             try
             {
-                if ((comboBoxProveedor.SelectedIndex == 0) && (comboBoxClave.SelectedIndex == 0) && (comboBoxFacturar.SelectedIndex == 0) && (cbcomparativa.SelectedIndex==0))
+                
+                if (registrar)
+                {
+                    if (v.Checked(btnProveedor1.BackgroundImage).ToString().Equals("1"))
+                    {
+                        proveedor = cmbProveedor1.Text;
+                    }
+                    else if (v.Checked(btnProveedor2.BackgroundImage).ToString().Equals("1"))
+                    {
+                        proveedor = cmbProveedor2.Text;
+                    }
+                    else if (v.Checked(btnProveedor3.BackgroundImage).ToString().Equals("1"))
+                    {
+                        proveedor = cmbProveedor3.Text;
+                    }
+                    if (v.validarcamposOC(cmbProveedor1.SelectedIndex, cmbProveedor2.SelectedIndex, cmbProveedor3.SelectedIndex, txtCodigo.Text, txtCantidadS.Text, txtCosto.Text, txtNumParte.Text, txtNomRefaccion.Text, labelSubTotal.Text))
+                    {
+                        datosO = datosO + "|" + txtCodigo.Text + "|" + txtNumParte.Text + "|" + textBoxObservacionesRefacc.Text + "|" + txtNomRefaccion.Text + "|" + txtCantidadS.Text + "|PZA|" + txtCosto.Text + "|" + labelSubTotal.Text + "|" + dtpFecha.Value.ToString("dd/MM/yyyy");
+                        guardarOrden();
+                        var selectedOption = MessageBox.Show("¿Quiere agregar más productos?", "¡¡IMPORTANTE!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (selectedOption == DialogResult.Yes)
+                        {
+                            Continuaagregando = 1;
+                            limpiar1();
+                            
+                        }
+                        else
+                        {
+                            
+                            var selectedOption2 = MessageBox.Show("¿Desea Imprimir la orden de compra?", "¡¡IMPORTANTE!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (selectedOption2 == DialogResult.Yes)
+                            {
+                                agregaarDataset();
+                                costos = v.calcularCompleto(SubTotal, textBoxIVA.Text, Convert.ToDouble(txtCostoEnvio.Text)).Split('/');
+                                Fecha = dtpFecha.Value.ToString("dd 'de' MMMM 'de' yyyy");
+                                FolioOC = labelFolioOC.Text;
+                                Expota_PDF();
+                                limpiar();
+                            }
+                            else
+                            {
+                                limpiar();
+                            }
+                        }
+                    }
+                   
+                }
+                else
+                {
+                    if (v.Checked(btnProveedor1.BackgroundImage).ToString().Equals("1"))
+                    {
+                        proveedor = cmbProveedor1.Text;
+                    }
+                    else if (v.Checked(btnProveedor2.BackgroundImage).ToString().Equals("1"))
+                    {
+                        proveedor = cmbProveedor2.Text;
+                    }
+                    else if (v.Checked(btnProveedor3.BackgroundImage).ToString().Equals("1"))
+                    {
+                        proveedor = cmbProveedor3.Text;
+                    }
+                    if (v.validarcamposOC(cmbProveedor1.SelectedIndex, cmbProveedor2.SelectedIndex, cmbProveedor3.SelectedIndex, txtCodigo.Text, txtCantidadS.Text, txtCosto.Text, txtNumParte.Text, txtNomRefaccion.Text, labelSubTotal.Text))
+                    {
+                        datosO = datosO + "|" + txtCodigo.Text + "|" + txtNumParte.Text + "|" + textBoxObservacionesRefacc.Text + "|" + txtNomRefaccion.Text + "|" + txtCantidadS.Text + "|PZA|" + txtCosto.Text + "|" + labelSubTotal.Text + "|" + dtpFecha.Value.ToString("dd/MM/yyyy");
+                        EditarOrden();
+                        var selectedOption = MessageBox.Show("¿Quiere agregar más productos?", "¡¡IMPORTANTE!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                        if (selectedOption == DialogResult.Yes)
+                        {
+                            Continuaagregando = 1;
+                            limpiar1();
+
+                        }
+                        else
+                        {
+
+                            var selectedOption2 = MessageBox.Show("¿Desea Imprimir la orden de compra?", "¡¡IMPORTANTE!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                            if (selectedOption2 == DialogResult.Yes)
+                            {
+
+                                agregaarDataset();
+                                costos = v.calcularCompleto(SubTotal, textBoxIVA.Text, Convert.ToDouble(txtCostoEnvio.Text)).Split('/');
+                                Fecha = dtpFecha.Value.ToString("dd 'de' MMMM 'de' yyyy");
+                                FolioOC = labelFolioOC.Text;
+                                Expota_PDF();
+                                limpiar();
+                            }
+                            else
+                            {
+                                limpiar();
+                            }
+                        }
+                    }
+                }
+                /*if ((comboBoxFacturar.SelectedIndex == 0) && (cbcomparativa.SelectedIndex==0))
                 {
                     MessageBox.Show("Tiene que llenar todos los campos para añadir una refacción", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -1664,22 +1632,6 @@ namespace controlFallos
                     if (cbcomparativa.SelectedIndex == 0)
                     {
                         MessageBox.Show("Seleccione una comparativa de la lista desplegable", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (comboBoxProveedor.SelectedIndex == 0)
-                    {
-                        MessageBox.Show("Seleccione un proveedor", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (dateTimePickerFechaEntrega.Value.Date < DateTime.Now.Date)
-                    {
-                        MessageBox.Show("La fecha de entrega no debe de ser menor a la fecha actual", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (dateTimePickerFechaEntrega.Value.Date > actual)
-                    {
-                        MessageBox.Show("La fecha de entrega no debe superar más de 1 año", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
-                    else if (comboBoxClave.SelectedIndex == 0 && comboBoxClave.Visible == true)
-                    {
-                        MessageBox.Show("Seleccione una refacción de la lista desplegable", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                     else if (comboBoxFacturar.SelectedIndex == 0)
                     {
@@ -1706,7 +1658,7 @@ namespace controlFallos
                         if (idfolio == 0)
                         {
                             DataTable dt1 = new DataTable();
-                            MySqlCommand cmd1 = new MySqlCommand("INSERT INTO ordencompra(FolioOrdCompra, ProveedorfkCProveedores, FacturadafkCEmpresas, FechaOCompra, FechaEntregaOCompra,IVA,usuariofkcpersonal,ObservacionesOC,ComparativaFKComparativas,empresa) VALUES('" + labelFolioOC.Text + "', '" + comboBoxProveedor.SelectedValue + "', '" + comboBoxFacturar.SelectedValue + "', curdate(), '" + dateTimePickerFechaEntrega.Value.ToString("yyyy-MM-dd") + "','" + textBoxIVA.Text + "','" + idUsuario + "','" + textBoxObservaciones.Text.Trim() + "','" + cbcomparativa.SelectedValue + "','"+empresa+"')", v.c.dbconection());
+                            MySqlCommand cmd1 = new MySqlCommand("INSERT INTO ordencompra(FolioOrdCompra, FacturadafkCEmpresas, FechaOCompra, IVA,usuariofkcpersonal,ObservacionesOC,ComparativaFKComparativas,empresa) VALUES('" + labelFolioOC.Text  + "', '" + comboBoxFacturar.SelectedValue + "', curdate(), '" + textBoxIVA.Text + "','" + idUsuario + "','" + textBoxObservaciones.Text.Trim() + "','" + cbcomparativa.SelectedValue + "','"+empresa+"')", v.c.dbconection());
                             MySqlDataAdapter adp1 = new MySqlDataAdapter(cmd1);
                             adp1.Fill(dt1);
                             dataGridViewOCompra.DataSource = dt1;
@@ -1721,16 +1673,7 @@ namespace controlFallos
                         }
                         metodorecid();
 
-                        if (Convert.ToInt32(comboBoxClave.SelectedValue) > 0)
-                        {
-                            codigorefaccionvalidada = Convert.ToString(comboBoxClave.SelectedValue);
-                            codigorefaccionvalidada1 = "ClavefkCRefacciones";
-                        }
-                        else
-                        {
-                            codigorefaccionvalidada = comboBoxClave.Text;
-                            codigorefaccionvalidada1 = "Refacciones";
-                        }
+                       
 
                         DataTable dt = new DataTable();
                         MySqlCommand cmd = new MySqlCommand("INSERT INTO detallesordencompra(OrdfkOrdenCompra, NumRefacc, " + codigorefaccionvalidada1 + ", Cantidad, Precio, Total, ObservacionesRefacc,usuariofkcpersonal,empresa) VALUES('" + idfolio + "', '" + contadorefacc + "', '" + codigorefaccionvalidada + "', '" + lblCantidad.Text + "', '" + lblPrecio.Text + "', '" + resultado + "', '" + textBoxObservacionesRefacc.Text + "','" + idUsuario + "','"+empresa+"')", v.c.dbconection());
@@ -1745,17 +1688,9 @@ namespace controlFallos
                         }
                         dr3.Close();
                         v.c.dbconection().Close();
-                        if (comboBoxProveedor.SelectedIndex != 0)
-                        {
-                            comboBoxProveedor.Enabled = false;
-                        }
                         if (comboBoxFacturar.SelectedIndex != 0)
                         {
                             comboBoxFacturar.Enabled = false;
-                        }
-                        if (dateTimePickerFechaEntrega.Value != DateTime.Now)
-                        {
-                            dateTimePickerFechaEntrega.Enabled = false;
                         }
                         buttonNuevoOC.Visible = true;
                         label17.Visible = true;
@@ -1763,7 +1698,6 @@ namespace controlFallos
                         label34.Visible = true;
                         buttonPDF.Visible = true;
                         label3.Visible = true;
-                        dataGridViewPedOCompra.Enabled = true;
                         if (string.IsNullOrWhiteSpace(textBoxObservaciones.Text))
                         {
                             textBoxObservaciones.Enabled = true;
@@ -1821,133 +1755,243 @@ namespace controlFallos
                         CargarEmpresasBusqueda();
                         CargarProveedoresBusqueda();
                     }
-                }
+                }*/
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        public void agregaarDataset()
+        {
+            string medida = v.getaData(unidadMedida + "'" + txtCodigo.Text +"'").ToString();
+            if (dt.Columns.Count == 0)
+            {
+                columnas = new DataColumn();
+                columnas.ColumnName = "Clave";
+                dt.Columns.Add(columnas);
+                columnas = new DataColumn();
+                columnas.ColumnName = "Numero De Parte";
+                dt.Columns.Add(columnas);
+                columnas = new DataColumn();
+                columnas.ColumnName = "Especificación";
+                dt.Columns.Add(columnas);
+                columnas = new DataColumn();
+                columnas.ColumnName = "Refacción";
+                dt.Columns.Add(columnas);
+                columnas = new DataColumn();
+                columnas.ColumnName = "Cantidad Solicitada";
+                dt.Columns.Add(columnas);
+                columnas = new DataColumn();
+                columnas.ColumnName = "Unidad";
+                dt.Columns.Add(columnas);
+                columnas = new DataColumn();
+                columnas.ColumnName = "Precio Unitario";
+                dt.Columns.Add(columnas);
+                columnas = new DataColumn();
+                columnas.ColumnName = "Importe";
+                dt.Columns.Add(columnas);
+            }
+            
+            string[] arr = datosO.ToString().Split('|');
+            for (int i = 1; i < arr.Count(); i += 9)
+            {
+                filas = dt.NewRow();
+                filas["Clave"] = arr[i].ToString();
+                filas["Numero De Parte"] = arr[i + 1].ToString();
+                filas["Especificación"] = arr[i + 2].ToString();
+                filas["Refacción"] = arr[i + 3].ToString();
+                filas["Cantidad Solicitada"] = arr[i + 4].ToString();
+                filas["Unidad"] = medida.ToString();
+                filas["Precio Unitario"] = arr[i + 6].ToString();
+                filas["Importe"] = arr[i + 7].ToString();
+                calcularSubtotal(Convert.ToDouble(arr[i + 7].ToString()));
+                dt.Rows.Add(filas);
+            }
 
+            DataSet dst = new DataSet();
+            dst.Tables.Add(dt.Copy());
+            dgvimprimir.DataSource = dst.Tables[0];
+
+            metodocargaorden();
+
+        }
+    void calcularSubtotal(double costos)
+    {
+            SubTotal = SubTotal + costos;
+           
+           
+        }
+        public void limpiar()
+        {
+            DataTable dtL = new DataTable();
+            FolioR = txtCodigo.Text = txtNomRefaccion.Text=txtNumParte.Text = textBoxObservacionesRefacc.Text = labelExistencia.Text = txtCantidadS.Text = proveedor = txtCosto.Text = labelSubTotal.Text = labelIVAOC.Text = labelTotalOC.Text  =  txtMoneda2.Text = txtMoneda.Text = labelSubTotalOC.Text = lblFecha.Text = "";
+            groupBoxRefaccion.Text = "REFACCIÓN";
+            btnProveedor1.BackgroundImage = Properties.Resources.uncheck;
+            btnProveedor2.BackgroundImage = Properties.Resources.uncheck;
+            btnProveedor3.BackgroundImage = Properties.Resources.uncheck;
+            dgvimprimir.DataSource = dtL;
+            cmbEstatus.SelectedItem = cmbProveedor1.SelectedIndex = cmbProveedor2.SelectedIndex = cmbProveedor3.SelectedIndex = 0;
+            dgvimprimir.ClearSelection();
+            dt.Clear();
+            datosO = "";
+            dgvRefaccionesaSolicitar.DataSource = null;
+            metodocargaorden();
+            SubTotal = 0.0;
+            Continuaagregando = 0;
+            txtCostoEnvio.Text = "0.0";
+
+
+        }
+        public void limpiar1()
+        {
+            FolioR = txtCodigo.Text = txtNomRefaccion.Text = txtNumParte.Text = textBoxObservacionesRefacc.Text = labelExistencia.Text = txtCantidadS.Text = proveedor = txtCosto.Text = labelSubTotal.Text = labelIVAOC.Text = labelTotalOC.Text = txtMoneda2.Text = txtMoneda.Text = labelSubTotalOC.Text = lblFecha.Text = "";
+            groupBoxRefaccion.Text = "REFACCIÓN";
+            btnProveedor1.BackgroundImage = Properties.Resources.uncheck;
+            btnProveedor2.BackgroundImage = Properties.Resources.uncheck;
+            btnProveedor3.BackgroundImage = Properties.Resources.uncheck;
+
+            cmbEstatus.SelectedItem = cmbProveedor1.SelectedIndex = cmbProveedor2.SelectedIndex = cmbProveedor3.SelectedIndex = 0;
+            dgvimprimir.ClearSelection();
+            dgvRefaccionesaSolicitar.DataSource = null;
+            //cargafolio();
+            //metodocargaorden();
+
+        }
+        public void guardarOrden()
+        {
+            v.AgregarRequicision("insert into ordencompra(FolioOrdCompra, requicisionfkCRequicision, Subtotal, IVA, Total, FechaOCompra,proveedorfkCproveedor, usuariofkCPersonal, empresa, ObservacionesOC, FechaRegistro,departamento,costoenvio) value('" + labelFolioOC.Text + "', (select t1.idcrequicision from crequicision as t1 inner join crefacciones as t2 on t2.idrefaccion = t1.refaccionfkCRefacciones where t1.Folio = '" + FolioR.ToString() + "' and t2.codrefaccion = '" + txtCodigo.Text + "'), '" + labelSubTotal.Text + "','" + labelIVAOC.Text + "','" + labelTotalOC.Text + "',now(), (select idproveedor from cproveedores where (empresa = '" + proveedor.ToString() + "' or concat(aPaterno, ' ', aMaterno, ' ', nombres) = '" + proveedor.ToString() + "') and empresaS ='" + empresa+"'), '"+ idUsuario + "','"+ empresa +"','" + textBoxObservaciones.Text + "', now(), '" + departamento + "','" + txtCostoEnvio.Text + "')");
+            v.AgregarRequicision("update crequicision set precio='" + txtCosto.Text + "', proveedorfkCProveedor = '" + cmbProveedor1.SelectedValue.ToString() + "',proveedorfkCProveedor2 = '" + cmbProveedor2.SelectedValue.ToString() + "', proveedorfkCProveedor3 = '" + cmbProveedor3.SelectedValue.ToString() + "' where idcrequicision = '" + idRequicision + "' and empresa = '" + empresa + "' and departamento = '" + departamento + "'");
+        }
+        public void EditarOrden()
+        {
+            v.AgregarRequicision("update ordencompra as t1 inner join crequicision as t2 on t1.requicisionfkCRequicision = t2.idcrequicision set t1.proveedorfkCproveedor = (Select idProveedor from cproveedores where (concat(aPaterno, ' ', aMaterno, ' ', nombres) = '" + proveedor.ToString() + "' or empresa = '" + proveedor.ToString() + "') and empresaS = '"+ empresa+"'), t1.Estatus = '" + cmbEstatus.SelectedIndex + "', t2.Estatus = '" + cmbEstatus.SelectedIndex + "', t1.departamento = '" + departamento + "',costoenvio='" + txtCostoEnvio.Text + "'  where t1.FolioOrdCompra = '" + labelFolioOC.Text + "' and t2.Folio='" + FolioR.ToString() + "';");
+            v.AgregarRequicision("update crequicision set precio='" + txtCosto.Text + "', proveedorfkCProveedor = '" + cmbProveedor1.SelectedValue.ToString() + "',proveedorfkCProveedor2 = '" + cmbProveedor2.SelectedValue.ToString() + "', proveedorfkCProveedor3 = '" + cmbProveedor3.SelectedValue.ToString() + "'  where idcrequicision = '" + idRequicision + "' and empresa = '" + empresa + "' and departamento = '" + departamento + "'");
+
+        }
         private void buttonBuscar_Click(object sender, EventArgs e)
         {
-            if ((string.IsNullOrWhiteSpace(textBoxOCompraB.Text)) && (comboBoxProveedorB.Text == "-- SELECCIONE UN PROVEEDOR --") && (comboBoxEmpresaB.Text == "-- SELECCIONE UNA EMPRESA --") && (checkBoxFechas.Checked == false) && (checkBoxFechasE.Checked == false))
+            if (!string.IsNullOrWhiteSpace(txtFolioB.Text) || !string.IsNullOrWhiteSpace(textBoxOCompraB.Text) || (Convert.ToInt32(cmbProveedorB.SelectedIndex) > 0) || (Convert.ToInt32(cmbTipo.SelectedIndex) > 0) || (checkBoxFechas.Checked == true))
             {
-                MessageBox.Show("Seleccione un criterio de búsqueda", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else if (dateTimePickerIni.Value > dateTimePickerFin.Value)
-            {
-                MessageBox.Show("La fecha inicial no debe superar a la fecha final \n Favor de cambiar el rango de fechas", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                checkBoxFechas.Checked = false;
-                limpiarRefaccB();
-            }
-            else if (dateTimePickerIniBFE.Value > dateTimePickerFinBFE.Value)
-            {
-                MessageBox.Show("La fecha de entrega inicial no debe superar a la fecha final \n Favor de cambiar el rango de fechas", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                checkBoxFechasE.Checked = false;
-                limpiarRefaccB();
+                
+                    String Fini = "";
+                    String Ffin = "";
+                    String FiniE = "";
+                    String FfinE = "";
+                    string consulta = "SET lc_time_names = 'es_ES';Select convert(t1.Folio,char) as 'FOLIO REQUERIMIENTO', convert(t4.FolioOrdCompra, char) as 'FOLIO ORDEN COMPRA', convert(t2.codrefaccion,char) as CODIGO, convert(t2.nombreRefaccion,  char) as 'Nombre Refaccion', convert(t1.NumParte,char) as 'Numero de Parte', convert(t2.existencias, char) as 'Existencia',  convert(t1.Cantidad, char) as 'CANTIDAD SOLICITADA', if(t1.estatus = 0,'En Espera', if(t1.estatus=1, 'Aprobada', if(t1.estatus=2, 'Rechazada', if(t1.estatus = '', '','')))) as 'Estatus',(select convert(if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa),char) from cproveedores as x1  where x1.idproveedor = t4.proveedorfkCproveedor)as 'Proveedor Compra',convert(t1.Fecha, char) as 'Fecha De solicitud', convert(t1.precio,char) 'Precio de Compra', convert(t4.Subtotal, char) as 'SubTotal', convert(t4.iva, char) as 'IVA', convert(t4.Total,char) as 'TOTAL', convert(t1.Especificaciones,char) as 'Especificaiones', 	t4.ObservacionesOC as 'Comentarios' from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion left join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision  inner join cproveedores as t3 on t3.idproveedor = t4.proveedorfkCProveedor";
+                    string WHERE = "";
+                    if (!string.IsNullOrWhiteSpace(txtFolioB.Text))
+                    {
+                        if (WHERE == "")
+                        {
+                            WHERE = " where t1.Folio= '" + txtFolioB.Text + "'";
+                        }
+                        else
+                        {
+                            WHERE += " AND ( t1.Folio=  = '" + txtFolioB.Text + "')";
+                        }
+                    }
+                    if (!string.IsNullOrWhiteSpace(textBoxOCompraB.Text))
+                    {
+                        if (WHERE == "")
+                        {
+                            WHERE = " where t4.FolioOrdCompra = '" + textBoxOCompraB.Text + "'";
+                        }
+                        else
+                        {
+                            WHERE += " AND (t1.folio = '" + txtFolioB.Text + "')";
+                        }
+                    }
+                    if (cmbProveedorB.SelectedIndex > 0)
+                    {
+                        if (WHERE == "")
+                        {
+                            WHERE = "  where t4.proveedorfkCproveedor ='" + cmbProveedorB.SelectedValue + "'";
+                        }
+                        else
+                        {
+                            WHERE += " AND (t2.idproveedor = '" + cmbProveedorB.SelectedValue + "')";
+                        }
+                    }
+                    /* if (comboBoxEmpresaB.SelectedIndex > 0)
+                     {
+                         if (WHERE == "")
+                         {
+                             WHERE = " WHERE (t3.nombreEmpresa = '" + comboBoxEmpresaB.Text + "')";
+                         }
+                         else
+                         {
+                             WHERE += " AND (t3.nombreEmpresa = '" + comboBoxEmpresaB.Text + "')";
+                         }
+                     }*/
+                    if (checkBoxFechas.Checked == true)
+                    {
+                        Fini = dateTimePickerIni.Value.ToString("yyyy-MM-dd");
+                        Ffin = dateTimePickerFin.Value.ToString("yyyy-MM-dd");
+                        if (WHERE == "")
+                        {
+                            WHERE = " where date_format(convert(t1.fecha, char),'%Y-%m-%d') between'" + Fini.ToString() + "' AND '" + Ffin.ToString() + "'";
+                        }
+                        else
+                        {
+                            WHERE += " AND date_format(convert(t1.fecha, char),'%Y-%m-%d') between '" + Fini.ToString() + "' AND '" + Ffin.ToString() + "'";
+                        }
+                    }
+                    if (cmbTipo.SelectedIndex > 0 )
+                    {
+                       
+                        if (WHERE == "")
+                        {
+                            WHERE = " WHERE t1.departamento = '" + cmbTipo.SelectedValue + "'";
+                        }
+                        else
+                        {
+                            WHERE += " t1.departamento = '" + cmbTipo.SelectedValue + "'";
+                        }
+                    }
+                    if (WHERE != "")
+                    {
+                        WHERE += " and t1.empresa='" + empresa + "'";
+                    }
+                    MySqlDataAdapter adp = new MySqlDataAdapter(ConsultaG + WHERE, v.c.dbconection());
+                    DataSet ds = new DataSet();
+                    adp.Fill(ds);
+                    dataGridViewOCompra.DataSource = ds.Tables[0];
+                    v.c.dbconection().Close();
+                    ConsultaImprecion();
+
+                    if (ds.Tables[0].Rows.Count == 0)
+                    {
+                        MessageBox.Show("No se encontraron reportes", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        metodocargaorden();
+                        actualizarcbx();
+                        if (label38.Text == "EXPORTANDO")
+                        { }
+                        else
+                        {
+                            ocultarexcel();
+                        }
+                        limpiarRefaccB();
+                    }
+                    else
+                    {
+                        if (!exportando)
+                        {
+                        buttonExcel.Visible = true;
+                        buttonPDF.Visible = true;
+                        }
+                        label38.Visible = true;
+                    lblImprimir.Visible = true;
+                        limpiarRefaccB();
+                        metodo();
+                    }
+                    v.c.dbconection().Close();
+                   
+                
             }
             else
             {
-                String Fini = "";
-                String Ffin = "";
-                String FiniE = "";
-                String FfinE = "";
-                string consulta = "SET lc_time_names = 'es_ES'; SELECT t1.FolioOrdCompra AS 'Orden De Compra', UPPER(t2.empresa) AS Proveedor, UPPER(t3.nombreEmpresa) AS 'Nombre De La Empresa', UPPER(DATE_FORMAT(t1.FechaOCompra, '%W %d %M %Y')) AS 'Fecha', UPPER(DATE_FORMAT(t1.FechaEntregaOCompra, '%W %d %M %Y')) AS 'Fecha De Entrega', coalesce((t1.Subtotal), '') AS Subtotal, coalesce(IF(((t1.IVA != '') && (t1.Estatus = 'FINALIZADA')), cast(((t1.IVA/100)*t1.Subtotal) as decimal (5,2)), ''), '') AS IVA, coalesce((t1.Total), '') AS Total, coalesce((UPPER(t1.Estatus)), '') AS ESTATUS, coalesce((SELECT UPPER(CONCAT(t4.ApPaterno, ' ', t4.ApMaterno, ' ', t4.nombres)) FROM cpersonal AS t4 WHERE t1.PersonaFinal = t4.idPersona), '') AS 'Persona Final', UPPER(t1.ObservacionesOC) AS 'Observaciones' FROM ordencompra AS t1 LEFT JOIN cproveedores AS t2 ON t1.ProveedorfkCProveedores = t2.idproveedor INNER JOIN cempresas AS t3 ON t1.FacturadafkCEmpresas = t3.idempresa";
-                string WHERE = "";
-                if (!string.IsNullOrWhiteSpace(textBoxOCompraB.Text))
-                {
-                    if (WHERE == "")
-                    {
-                        WHERE = " WHERE (t1.FolioOrdCompra = '" + textBoxOCompraB.Text + "')";
-                    }
-                    else
-                    {
-                        WHERE += " AND (t1.FolioOrdCompra = '" + textBoxOCompraB.Text + "')";
-                    }
-                }
-                if (comboBoxProveedorB.SelectedIndex > 0)
-                {
-                    if (WHERE == "")
-                    {
-                        WHERE = " WHERE (t2.idproveedor = '" + comboBoxProveedorB.SelectedValue + "')";
-                    }
-                    else
-                    {
-                        WHERE += " AND (t2.idproveedor = '" + comboBoxProveedorB.SelectedValue + "')";
-                    }
-                }
-                if (comboBoxEmpresaB.SelectedIndex > 0)
-                {
-                    if (WHERE == "")
-                    {
-                        WHERE = " WHERE (t3.nombreEmpresa = '" + comboBoxEmpresaB.Text + "')";
-                    }
-                    else
-                    {
-                        WHERE += " AND (t3.nombreEmpresa = '" + comboBoxEmpresaB.Text + "')";
-                    }
-                }
-                if (checkBoxFechas.Checked == true)
-                {
-                    Fini = dateTimePickerIni.Value.ToString("yyyy-MM-dd");
-                    Ffin = dateTimePickerFin.Value.ToString("yyyy-MM-dd");
-                    if (WHERE == "")
-                    {
-                        WHERE = " WHERE (SELECT t1.FechaOCompra BETWEEN '" + Fini.ToString() + "' AND '" + Ffin.ToString() + "')";
-                    }
-                    else
-                    {
-                        WHERE += " AND (SELECT t1.FechaOCompra BETWEEN '" + Fini.ToString() + "' AND '" + Ffin.ToString() + "')";
-                    }
-                }
-                if (checkBoxFechasE.Checked == true)
-                {
-                    FiniE = dateTimePickerIniBFE.Value.ToString("yyyy-MM-dd");
-                    FfinE = dateTimePickerFinBFE.Value.ToString("yyyy-MM-dd");
-                    if (WHERE == "")
-                    {
-                        WHERE = " WHERE (SELECT t1.FechaEntregaOCompra BETWEEN '" + FiniE.ToString() + "' AND '" + FfinE.ToString() + "')";
-                    }
-                    else
-                    {
-                        WHERE += " AND (SELECT t1.FechaEntregaOCompra BETWEEN '" + FiniE.ToString() + "' AND '" + FfinE.ToString() + "')";
-                    }
-                }
-                if (WHERE != "")
-                {
-                    WHERE += " and empresa='"+empresa+"' ORDER BY t1.FolioOrdCompra DESC";
-                }
-                MySqlDataAdapter adp = new MySqlDataAdapter(consulta + WHERE, v.c.dbconection());
-                DataSet ds = new DataSet();
-                adp.Fill(ds);
-                dataGridViewOCompra.DataSource = ds.Tables[0];
-                v.c.dbconection().Close();
-
-                if (ds.Tables[0].Rows.Count == 0)
-                {
-                    MessageBox.Show("No se encontraron reportes", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    metodocargaorden();
-                    actualizarcbx();
-                    if (label38.Text == "EXPORTANDO")
-                    { }
-                    else
-                    {
-                        ocultarexcel();
-                    }
-                    limpiarRefaccB();
-                }
-                else
-                {
-                    if (!exportando)
-                    {
-                        buttonExcel.Visible = true;
-                    }
-                    label38.Visible = true;
-                    limpiarRefaccB();
-                    metodo();
-                }
-                v.c.dbconection().Close();
+                MessageBox.Show("Seleccione un criterio de búsqueda", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -1955,11 +1999,15 @@ namespace controlFallos
         {
             buttonActualizar.Visible = true;
             label37.Visible = true;
-
-
             checkBoxFechas.Checked = false;
-            checkBoxFechasE.Checked = false;
-
+            limpiarBusqueda();
+        }
+        void limpiarBusqueda()
+        {
+            txtFolioB.Text = textBoxOCompraB.Text = "";
+            checkBoxFechas.Checked = false;
+            cmbProveedorB.SelectedItem = 0;
+            cmbTipo.SelectedItem = 0;
         }
         bool activo = false;
         private void buttonActualizar_Click(object sender, EventArgs e)
@@ -1999,8 +2047,6 @@ namespace controlFallos
             dr1.Close();
             v.c.dbconection().Close();
             metodocargaiva();
-            comboBoxClave.SelectedIndex = 0;
-            comboBoxClave.Visible = true;
             buttonActualizar.Visible = false;
             label37.Visible = false;
             buttonNuevoOC.Visible = true;
@@ -2014,24 +2060,24 @@ namespace controlFallos
             buttonFinalizar.Visible = true;
             label34.Visible = true;
             buttonPDF.Visible = true;
-            label3.Visible = true;
+            lblImprimir.Visible = true;
             labelSubTotalOC.Visible = true;
             labelIVAOC.Visible = true;
             labelTotalOC.Visible = true;
             limpiarRefacc();
-            CargarClave();
+            //CargarClave();
         }
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
             DateTime actual = DateTime.Now.Date.AddMonths(12);
-            if (dateTimePickerFechaEntrega.Value.Date >= DateTime.Now.Date)
+            if (DateTime.Now.Date >= DateTime.Now.Date)
             {
-                if (!(dateTimePickerFechaEntrega.Value.Date > actual))
+                if (!(DateTime.Now.Date > actual))
                 {
-                    if (comboBoxFacturar.SelectedIndex != 0 && comboBoxProveedor.SelectedIndex != 0 && comboBoxClave.SelectedIndex == 0)
+                   /* if (1 != 0 && 1 == 0)
                     {
-                        if (!((proveedoranterior.Equals(comboBoxProveedor.Text)) && (facturaranterior.Equals(comboBoxFacturar.Text)) && (observacionesanterior.Equals(textBoxObservaciones.Text)) && (fentregaestimadanterior.Equals(dateTimePickerFechaEntrega.Value.ToString("yyyy-MM-dd")))))
+                        if (!((proveedoranterior.Equals(""))  && (observacionesanterior.Equals(textBoxObservaciones.Text)) && (fentregaestimadanterior.Equals(DateTime.Now.Date))))
                         {
                             observacionesEdicion obs = new observacionesEdicion(v);
                             obs.Owner = this;
@@ -2039,11 +2085,11 @@ namespace controlFallos
                             {
                                 string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
 
-                                MySqlCommand cmd0 = new MySqlCommand("UPDATE ordencompra SET ProveedorfkCProveedores = '" + comboBoxProveedor.SelectedValue + "', FacturadafkCEmpresas = '" + comboBoxFacturar.SelectedValue + "', FechaEntregaOCompra = '" + dateTimePickerFechaEntrega.Value.ToString("yyyy-MM-dd") + "', ObservacionesOC = '" + textBoxObservaciones.Text + "' WHERE idOrdCompra = '" + idordencompra + "'", v.c.dbconection());
+                                MySqlCommand cmd0 = new MySqlCommand("UPDATE ordencompra SET ProveedorfkCProveedores = '" + "" + "', FacturadafkCEmpresas = '" + comboBoxFacturar.SelectedValue + "', FechaEntregaOCompra = '" + DateTime.Now.Date + "', ObservacionesOC = '" + textBoxObservaciones.Text + "' WHERE idOrdCompra = '" + idordencompra + "'", v.c.dbconection());
                                 cmd0.ExecuteNonQuery();
                                 v.c.dbconection().Close();
 
-                                MySqlCommand cmd00 = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion ,empresa, area) VALUES('Orden De Compra', '" + idordencompra + "', CONCAT('" + comboBoxProveedor.SelectedValue + ";', '" + comboBoxFacturar.SelectedValue + ";', '" + fentregaestimadanterior + ";', '" + textBoxObservaciones.Text + "'), '" + idUsuario + "', now(), 'Actualización de Orden de Compra','" + observaciones + "', '2', '2')", v.c.dbconection());
+                                MySqlCommand cmd00 = new MySqlCommand("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion ,empresa, area) VALUES('Orden De Compra', '" + idordencompra + "', CONCAT('" + "" + ";', '" + comboBoxFacturar.SelectedValue + ";', '" + fentregaestimadanterior + ";', '" + textBoxObservaciones.Text + "'), '" + idUsuario + "', now(), 'Actualización de Orden de Compra','" + observaciones + "', '2', '2')", v.c.dbconection());
                                 cmd00.ExecuteNonQuery();
                                 v.c.dbconection().Close();
 
@@ -2065,7 +2111,7 @@ namespace controlFallos
                         }
                         else
                         {
-                            if (comboBoxProveedor.SelectedIndex == 0)
+                            if (1 == 0)
                             {
                                 MessageBox.Show("El proveedor no puede quedar vacio", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             }
@@ -2083,7 +2129,7 @@ namespace controlFallos
                                     }
                                     else
                                     {
-                                        if ((comboBoxClave.Text.Equals(codigorefanterior)) && /*(cantidadsolicitadanterior.Equals(valorcantidadsolicitada)) && (preciocotizadoanterior.Equals(valorpreciocotizado)) &&*/ (textBoxObservacionesRefacc.Text.Equals(observacionesrefaccanterior)))
+                                        if ((txtCodigo.Text.Equals(codigorefanterior)) && /*(cantidadsolicitadanterior.Equals(valorcantidadsolicitada)) && (preciocotizadoanterior.Equals(valorpreciocotizado)) && (textBoxObservacionesRefacc.Text.Equals(observacionesrefaccanterior)))
                                         {
                                             MessageBox.Show("No se realizó ningún cambio en los datos", "INFORMACIÓN", MessageBoxButtons.OK, MessageBoxIcon.Information);
                                         }
@@ -2113,11 +2159,11 @@ namespace controlFallos
                                                 btneditar();
                                             }
                                         }
-                                    }
+                                    //}
                                 }
                             }
                         }
-                    }
+                    }*/
                 }
                 else
                 {
@@ -2139,8 +2185,8 @@ namespace controlFallos
         }
         private void buttonFinalizar_Click(object sender, EventArgs e)
         {
-            FormContraFinal FCF = new FormContraFinal(empresa, area, this,v);
-            if (metodotxtpedcompra() == true)
+            FormContraFinal FCF = new FormContraFinal(empresa, area, this,v,"");
+            if (false == true)
             {
                 MessageBox.Show("Tiene que agregar al menos una refaccion en la Orden De Compra", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
@@ -2179,7 +2225,6 @@ namespace controlFallos
                         MySqlCommand cmd = new MySqlCommand("UPDATE ordencompra SET SubTotal = '" + subt + "',Total = '" + totaloc + "', Estatus = 'FINALIZADA',  PersonaFinal = '" + FCF.id+ "', ObservacionesOC='" + textBoxObservaciones.Text + "' WHERE FolioOrdCompra = '" + labelFolioOC.Text + "'", v.c.dbconection());
                         cmd.ExecuteNonQuery();
                         v.c.dbconection().Close();
-                        cargafolio();
                         metodocargaorden();
                         actualizarcbx();
                         idfolio = 0;
@@ -2188,7 +2233,7 @@ namespace controlFallos
                         limpiarRefaccN();
                         buttonAgregar.Visible = true;
                         label9.Visible = true;
-                        if (label35.Text == "EXPORTANDO")
+                        if (label38.Text == "EXPORTANDO")
                         { }
                         else
                         {
@@ -2196,17 +2241,17 @@ namespace controlFallos
                         }
                         buttonNuevoOC.Visible = false;
                         label17.Visible = false;
-                        buttonPDF.Visible = false;
-                        label3.Visible = false;
+                        
+
+                        lblImprimir.Visible = false;
                         buttonFinalizar.Visible = false;
                         label34.Visible = false;
-                        comboBoxFacturar.Enabled = true;
+                        //comboBoxFacturar.Enabled = true;
                         buttonExcel.Visible = false;
                         label38.Visible = false;
                         labelExistencia.Text = "";
                         Limpiar_labels();
-                        cbcomparativa.Enabled = true;
-                        dateTimePickerFechaEntrega.Enabled = true;
+                        cmbEstatus.Enabled = true;
                     }
                 }
             }
@@ -2222,28 +2267,26 @@ namespace controlFallos
         }
         public void _refacciones()
         {
-            v.iniCombos("select coalesce((select upper(x1.nombreRefaccion) from crefacciones as x1 where x1.idrefaccion=t2.refaccionfkcrefacciones),upper(t2.nombreRefaccion)) as n,t1.idproveedorComparativa as id from proveedorescomparativa as t1 inner join refaccionescomparativa as t2 on t1.refaccionfkrefaccionesComparativa=t2.idrefaccioncomparativa inner join comparativas as t3 on t3.idcomparativa=t2.comparativafkcomparativas inner join cproveedores as t4 on t4.idproveedor=t1.proveedorfkcproveedores where t4.idproveedor='" + comboBoxProveedor.SelectedValue + "' and t3.idcomparativa='" + cbcomparativa.SelectedValue + "' and t1.mejoropcion='1'", comboBoxClave, "id", "n", "--SELECCIONE REFACCIÓN--");
+           // v.iniCombos("select coalesce((select upper(x1.nombreRefaccion) from crefacciones as x1 where x1.idrefaccion=t2.refaccionfkcrefacciones),upper(t2.nombreRefaccion)) as n,t1.idproveedorComparativa as id from proveedorescomparativa as t1 inner join refaccionescomparativa as t2 on t1.refaccionfkrefaccionesComparativa=t2.idrefaccioncomparativa inner join comparativas as t3 on t3.idcomparativa=t2.comparativafkcomparativas inner join cproveedores as t4 on t4.idproveedor=t1.proveedorfkcproveedores where t4.idproveedor='" + "" + "' and t3.idcomparativa='" + cbcomparativa.SelectedValue + "' and t1.mejoropcion='1'", txtCodigo.Text, "id", "n", "--SELECCIONE REFACCIÓN--");
         }
         /*Validaciones extras */
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         private void comboBoxProveedor_SelectedValueChanged(object sender, EventArgs e)
         {
-            MySqlCommand validar = new MySqlCommand("SELECT correo, UPPER(CONCAT(aPaterno, ' ',coalesce( aMaterno,''), ' ', nombres)) AS representante, coalesce((paginaweb), '') AS paginaweb FROM cproveedores WHERE idproveedor = '" + comboBoxProveedor.SelectedValue + "'", v.c.dbconection());
+            MySqlCommand validar = new MySqlCommand("SELECT correo, UPPER(CONCAT(aPaterno, ' ',coalesce( aMaterno,''), ' ', nombres)) AS representante, coalesce((paginaweb), '') AS paginaweb FROM cproveedores WHERE idproveedor = '" + "" + "'", v.c.dbconection());
             MySqlDataReader leer = validar.ExecuteReader();
             if (leer.Read())
             {
-                labelCorreo.Text = leer["correo"].ToString();
-                labelRepresentante.Text = leer["representante"].ToString();
-                labelpaginaweb.Text = leer["paginaweb"].ToString();
+                /*lblProveedor3.Text = leer["correo"].ToString();
+                lblProveedor2.Text = leer["representante"].ToString();*/
             }
             else
             {
                 if (!leer.Read())
                 {
-                    labelCorreo.Text = "";
-                    labelRepresentante.Text = "";
-                    labelpaginaweb.Text = "";
+                    /*lblProveedor3.Text = "";
+                    lblProveedor2.Text = "";*/
                 }
             }
             leer.Close();
@@ -2252,7 +2295,7 @@ namespace controlFallos
             if (banderaeditar == true)
             {
                 validacionval();
-                if (((idproveedoranterior == idvalidacionproveedor) || (comboBoxProveedor.SelectedIndex == 0)) && ((idfacturaranterior == idvalidacionfacturar) || (comboBoxFacturar.SelectedIndex == 0)) && ((observacionesanterior == textBoxObservaciones.Text.Trim())) && (dateTimePickerFechaEntrega.Value.Date == fentregaestimadanterior))
+                if (((idproveedoranterior == idvalidacionproveedor) || (0 == 0)) &&  ((observacionesanterior == textBoxObservaciones.Text.Trim())) )
                 {
                     buttonEditar.Visible = false;
                     label8.Visible = false;
@@ -2270,7 +2313,7 @@ namespace controlFallos
             if (banderaeditar == true)
             {
                 validacionval();
-                if (((idproveedoranterior == idvalidacionproveedor) || (comboBoxProveedor.SelectedIndex == 0)) && ((idfacturaranterior == idvalidacionfacturar) || (comboBoxFacturar.SelectedIndex == 0)) && ((observacionesanterior == textBoxObservaciones.Text.Trim())) && (dateTimePickerFechaEntrega.Value.Date == fentregaestimadanterior))
+                if (((idproveedoranterior == idvalidacionproveedor) || (1 == 0))  && ((observacionesanterior == textBoxObservaciones.Text.Trim())) && (DateTime.Now.Date == fentregaestimadanterior))
                 {
                     buttonEditar.Visible = false;
                     label8.Visible = false;
@@ -2305,26 +2348,24 @@ namespace controlFallos
             DialogResult res = c.ShowDialog();
             if (res == DialogResult.Cancel)
             {
-                if (Convert.ToInt32(comboBoxFacturar.SelectedValue) == this.res) comboBoxFacturar.SelectedIndex = 0;
+                //if (Convert.ToInt32(comboBoxFacturar.SelectedValue) == this.res) comboBoxFacturar.SelectedIndex = 0;
             }
         }
 
 
         private void comboBoxClave_TextChanged(object sender, EventArgs e)
         {
-            MySqlCommand validar = new MySqlCommand("SELECT existencias, UPPER(nombreRefaccion) AS nombreRefaccion FROM crefacciones WHERE idrefaccion='" + comboBoxClave.SelectedValue + "'", v.c.dbconection());
+            MySqlCommand validar = new MySqlCommand("SELECT existencias, UPPER(nombreRefaccion) AS nombreRefaccion FROM crefacciones WHERE idrefaccion='" +txtCodigo.Text + "'", v.c.dbconection());
             MySqlDataReader leer = validar.ExecuteReader();
             if (leer.Read())
             {
                 labelExistencia.Text = leer["existencias"].ToString();
-                labelDescripcion.Text = leer["nombreRefaccion"].ToString();
             }
             else
             {
                 if (!leer.Read())
                 {
                     labelExistencia.Text = "";
-                    labelDescripcion.Text = "";
                 }
             }
             leer.Close();
@@ -2337,7 +2378,6 @@ namespace controlFallos
             {
                 dateTimePickerIni.Enabled = true;
                 dateTimePickerFin.Enabled = true;
-                checkBoxFechasE.Checked = false;
             }
             else
             {
@@ -2348,17 +2388,7 @@ namespace controlFallos
 
         private void checkBoxFechasE_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkBoxFechasE.Checked == true)
-            {
-                dateTimePickerIniBFE.Enabled = true;
-                dateTimePickerFinBFE.Enabled = true;
-                checkBoxFechas.Checked = false;
-            }
-            else
-            {
-                dateTimePickerIniBFE.Enabled = false;
-                dateTimePickerFinBFE.Enabled = false;
-            }
+           
         }
 
         private void dateTimePickerAll_KeyDown(object sender, KeyEventArgs e)
@@ -2368,32 +2398,32 @@ namespace controlFallos
 
         private void cbcomparativa_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (cbcomparativa.SelectedIndex > 0)
+            if (cmbEstatus.SelectedIndex > 0)
             {
-                v.iniCombos("select distinct UPPER(t1.empresa) as e, t1.idproveedor as id from cproveedores as t1 inner join proveedorescomparativa as t2 on t2.proveedorfkcproveedores=t1.idproveedor inner join refaccionescomparativa as t3 on t3.idrefaccioncomparativa=t2.refaccionfkrefaccionesComparativa inner join comparativas as t4 on t4.idcomparativa=t3.comparativafkcomparativas where t4.idcomparativa='" + cbcomparativa.SelectedValue + "' and t2.mejorOpcion='1' order by t1.empresa ;", comboBoxProveedor, "id", "e", "--SELECCIONE UN PROVEEDOR");
-                comboBoxProveedor.Enabled = true;
+                estatusOCompra = cmbEstatus.SelectedIndex.ToString();
+
+
             }
             else
             {
-                comboBoxProveedor.DataSource = null;
-                comboBoxProveedor.Enabled = false;
+                
             }
         }
-
+        
         private void comboBoxClave_SelectedIndexChanged_1(object sender, EventArgs e)
         {
-            if (comboBoxClave.SelectedIndex > 0)
+           /* if (comboBoxClave.SelectedIndex > 0)
             {
                 string[] datos = v.getaData("select distinct concat(t1.precioUnitario,';',t3.cantidad) from proveedorescomparativa as t1 inner join cproveedores as t2 on t2.idproveedor=t1.proveedorfkcproveedores inner join refaccionescomparativa as t3 on t1.refaccionfkrefaccionesComparativa=t3.idrefaccioncomparativa left join crefacciones as t4 on t4.idrefaccion=t3.refaccionfkcrefacciones inner join comparativas as t5 on t5.idcomparativa=t3.comparativafkcomparativas where t5.idcomparativa='" + cbcomparativa.SelectedValue + "' and t2.idproveedor='" + comboBoxProveedor.SelectedValue + "' and t1.idproveedorComparativa='" + comboBoxClave.SelectedValue + "';").ToString().Split(';');
                 lblPrecio.Text = datos[0];
                 lblCantidad.Text = datos[1];
                 labelSubTotal.Text = (Convert.ToDouble(datos[0]) * (Convert.ToDouble(datos[1]))).ToString();
-            }
+            }*/
         }
 
         private void comboBoxProveedor_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBoxProveedor.SelectedIndex > 0)
+            /*if (comboBoxProveedor.SelectedIndex > 0)
             {
                 _refacciones();
                 comboBoxClave.Enabled = true;
@@ -2402,7 +2432,7 @@ namespace controlFallos
             {
                 comboBoxClave.DataSource = null;
                 comboBoxClave.Enabled = false;
-            }
+            }*/
         }
 
         private void textBoxAll_Click(object sender, EventArgs e)
@@ -2441,7 +2471,7 @@ namespace controlFallos
 
         private void comboBoxClave_Click(object sender, EventArgs e)
         {
-            if (comboBoxClave.Text != "-- SELECCIONE UNA OPCIÓN --") comboBoxClave.Text = "";
+            //if (comboBoxClave.Text != "-- SELECCIONE UNA OPCIÓN --") comboBoxClave.Text = "";
         }
 
         private void textBoxOCompraB_KeyPress(object sender, KeyPressEventArgs e)
@@ -2542,14 +2572,79 @@ namespace controlFallos
             btnallb.Size = new Size(49, 49);
         }
 
+        private void txtCosto_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            v.numerosDecimales(e);
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                calcular_costo();
+            }
+        }
+
+        private void btnProveedor1_Click(object sender, EventArgs e)
+        {
+            btnProveedor2.BackgroundImage = Properties.Resources.uncheck;
+            btnProveedor3.BackgroundImage = Properties.Resources.uncheck;
+            v.CambiarEstado_Click(sender, e);
+        }
+
+        private void cmbEstatus_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
+
+        private void btnProveedor2_Click(object sender, EventArgs e)
+        {
+            btnProveedor1.BackgroundImage = Properties.Resources.uncheck;
+            btnProveedor3.BackgroundImage = Properties.Resources.uncheck;
+            v.CambiarEstado_Click(sender, e);
+        }
+
+        private void btnProveedor3_Click(object sender, EventArgs e)
+        {
+            btnProveedor2.BackgroundImage = Properties.Resources.uncheck;
+            btnProveedor3.BackgroundImage = Properties.Resources.uncheck;
+            v.CambiarEstado_Click(sender, e);
+        }
+
         private void buttonCatEmpresas_MouseMove(object sender, MouseEventArgs e)
         {
-            buttonCatEmpresas.Size = new Size(45, 45);
+            //buttonCatEmpresas.Size = new Size(45, 45);
+        }
+
+        private void cmbProveedorB_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void buttonCatEmpresas_MouseLeave(object sender, EventArgs e)
         {
-            buttonCatEmpresas.Size = new Size(40, 40);
+            //buttonCatEmpresas.Size = new Size(40, 40);
+        }
+
+        private void cmbProveedor1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
+
+        private void cmbProveedor2_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
+
+        private void cmbProveedor3_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
+
+        private void dgvRefaccionesaSolicitar_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
 
         void comboBoxAll_MouseWheel(object sender, MouseEventArgs e)
@@ -2557,6 +2652,23 @@ namespace controlFallos
             ((HandledMouseEventArgs)e).Handled = true;
         }
 
+        private void txtCosto_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtFolioB_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            
+        }
+
+        public void DarEnter(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                buttonBuscar_Click(sender, e);
+            }
+        }
         private void dataGridViewOCompra_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (this.dataGridViewOCompra.Columns[e.ColumnIndex].Name == "ESTATUS")
@@ -2648,7 +2760,7 @@ namespace controlFallos
             if (banderaeditar == true)
             {
                 validacionval();
-                if (((idproveedoranterior == idvalidacionproveedor) || (comboBoxProveedor.SelectedIndex == 0)) && ((idfacturaranterior == idvalidacionfacturar) || (comboBoxFacturar.SelectedIndex == 0)) && ((observacionesanterior == textBoxObservaciones.Text.Trim())) && (dateTimePickerFechaEntrega.Value.Date == fentregaestimadanterior))
+                if (((idproveedoranterior == idvalidacionproveedor) || (0 == 0)) &&  ((observacionesanterior == textBoxObservaciones.Text.Trim())) && (DateTime.Now.Date == fentregaestimadanterior))
                 {
                     buttonEditar.Visible = false;
                     label8.Visible = false;
@@ -2663,7 +2775,7 @@ namespace controlFallos
 
         private void dataGridViewOCompra_MouseClick(object sender, MouseEventArgs e)
         {
-            try
+            /*try
             {
                 banderaeditar = false;
                 if ((pinsertar == true) && (peditar == true) && (pconsultar == true) && (pdesactivar == true))
@@ -2685,13 +2797,13 @@ namespace controlFallos
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }*/
         }
 
         public void mn_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             validacionval();
-            if (((idproveedoranterior == idvalidacionproveedor) || (comboBoxProveedor.SelectedIndex == 0)) && ((idfacturaranterior == idvalidacionfacturar) || (comboBoxFacturar.SelectedIndex == 0)) && ((textBoxObservaciones.Text.Trim() == observacionesanterior)))
+            if (((idproveedoranterior == idvalidacionproveedor) || (0 == 0))  && ((textBoxObservaciones.Text.Trim() == observacionesanterior)))
             {
                 switch (e.ClickedItem.Name.ToString())
                 {
@@ -2788,7 +2900,7 @@ namespace controlFallos
         {
             if (banderaeditar == true)
             {
-                if (comboBoxClave.Text == codigorefanterior && textBoxObservacionesRefacc.Text.Trim() == observacionesrefaccanterior /*&& preciocotizadoanterior == valorpreciocotizado && cantidadsolicitadanterior == valorcantidadsolicitada*/)
+                if (txtCodigo.Text == codigorefanterior && textBoxObservacionesRefacc.Text.Trim() == observacionesrefaccanterior /*&& preciocotizadoanterior == valorpreciocotizado && cantidadsolicitadanterior == valorcantidadsolicitada*/)
                 {
                     buttonEditar.Visible = false;
                     label8.Visible = false;
@@ -2808,14 +2920,14 @@ namespace controlFallos
 
         private void dataGridViewOCompra_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (e.RowIndex >= 0)
+           /* if (e.RowIndex >= 0)
             {
                 dataGridViewOCompra.CurrentCell = dataGridViewOCompra.Rows[e.RowIndex].Cells[e.ColumnIndex];
-            }
+            }*/
         }
         void buscarRefaccion(string texto)
         {
-            bool res = false;
+            /*bool res = false;
             DataTable dataRefaccion = (DataTable)comboBoxClave.DataSource;
             for (int i = 1; i < dataRefaccion.Rows.Count; i++)
             {
@@ -2828,17 +2940,17 @@ namespace controlFallos
                     return;
                 }
             }
-            if (!res) comboBoxClave.SelectedIndex = 0;
+            if (!res) comboBoxClave.SelectedIndex = 0;*/
         }
 
         private void linkLabelAgregarRef_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (comboBoxClave.Visible)
+            /*if (comboBoxClave.Visible)
             {
                 comboBoxClave.SelectedIndex = 0;
                 label1.Text = "NOMBRE DE REFACCIÓN";
                 comboBoxClave.Visible = false;
-            }
+            }*/
         }
 
         private void textBoxRefaccion_TextChanged(object sender, EventArgs e)
@@ -2869,6 +2981,380 @@ namespace controlFallos
                 MessageBox.Show("Sólo se Aceptan Letras y Números En Este Campo", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 e.Handled = true;
             }
+        }
+
+       
+
+        private void dataGridViewOCompra_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                doblegridview(e);
+            }
+            selectiva();
+           
+        }
+        void CiglasOC()
+        {
+            string Consecutivo = v.FolioOC(empresa,departamento);
+            string [] arregloCigla = FolioR.Split('-');
+            string Ciglas = v.ciglasOC(empresa, arregloCigla[0].ToString());
+            labelFolioOC.Text = Ciglas + "-" + Consecutivo;
+        }
+        void doblegridview(DataGridViewCellEventArgs e)
+        {
+            groupBoxRefaccion.Text = "REFACCIÓN:";
+            string nosepo = dataGridViewOCompra.Rows[e.RowIndex].Cells[1].Value.ToString();
+            if (!nosepo.ToString().Equals(""))
+            {
+                labelFolioOC.Text = nosepo;
+                registrar = false;
+                FolioR = dataGridViewOCompra.Rows[e.RowIndex].Cells[0].Value.ToString();
+                txtCodigo.Text = dataGridViewOCompra.Rows[e.RowIndex].Cells[2].Value.ToString();
+                string[] datos = v.ObtenerRefR("SET lc_time_names = 'es_ES';select upper(concat(t1.idcrequicision, '|', t1.Folio,'|',t2.codrefaccion,'|',t2.nombreRefaccion,'|',t1.NumParte,'|',t2.existencias,'|', t1.Cantidad,'|', t1.estatus,'|',date_format(t1.Fecha, '%W %d de %M del %Y') ,'|', t1.precio,'|',(select simbolo from ctipocambio where idtipoCambio = t1.tipocambiofkCTipomoneda),'|',t1.Especificaciones, '|', t1.Estatus, '|',t4.proveedorfkCproveedor, '|', t1.departamento,'|', t4.costoenvio)) as r from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion inner join cproveedores as t3 on t3.idproveedor = t1.proveedorfkCProveedor inner join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision where t1.Folio='" + FolioR.ToString() + "' and t2.codrefaccion= '" + txtCodigo.Text + "' and t1.empresa = '" + empresa + "';").ToString().Split('|');
+                idRequicision = Convert.ToInt32(datos[0].ToString());
+                groupBoxRefaccion.Text = groupBoxRefaccion.Text + " " + datos[1].ToString();
+                FolioR = datos[1].ToString();
+                txtCodigo.Text = datos[2].ToString();
+                txtNomRefaccion.Text = datos[3].ToString();
+                txtNumParte.Text = datos[4].ToString();
+                labelExistencia.Text = datos[5].ToString();
+                txtCantidadS.Text = datos[6].ToString();
+                cmbEstatus.SelectedIndex = Convert.ToInt32(datos[7].ToString());
+                lblFecha.Text = datos[8].ToString();
+                txtCosto.Text = datos[9].ToString();
+                txtMoneda.Text = datos[10].ToString();
+                txtMoneda2.Text = datos[11].ToString();
+                textBoxObservacionesRefacc.Text = datos[12].ToString();
+                cmbProveedor1.SelectedValue = Convert.ToInt32(datos[13].ToString());
+                departamento = datos[14].ToString();
+                txtCostoEnvio.Text = datos[15].ToString();
+
+                String.Format("{0:n}", txtCosto.Text);
+
+                /*if (datos[15].ToString().Equals(cmbProveedor1.Text))
+                {
+                    btnProveedor1.BackgroundImage = Properties.Resources.check;
+                }
+                else if(datos[15].ToString().Equals(cmbProveedor2.Text))
+                {
+                    btnProveedor2.BackgroundImage = Properties.Resources.check;
+                }
+                else if (datos[15].ToString().Equals(cmbProveedor3.Text))
+                {
+                    btnProveedor3.BackgroundImage = Properties.Resources.check;
+                }*/
+
+                if (!datos[7].ToString().Equals("0"))
+                {
+                    noavilitado();
+                }
+                else
+                {
+                    avilitado();
+                }
+                selectiva();
+                calcular_costo();
+                buttonNuevoOC.Visible = true;
+                label17.Visible = true;
+                ultimaCompra();
+            }
+            else
+            {
+
+                btnProveedor1.BackgroundImage = Properties.Resources.uncheck;
+                btnProveedor2.BackgroundImage = Properties.Resources.uncheck;
+                btnProveedor3.BackgroundImage = Properties.Resources.uncheck;
+
+                registrar = true;
+                FolioR = dataGridViewOCompra.Rows[e.RowIndex].Cells[0].Value.ToString();
+                txtCodigo.Text = dataGridViewOCompra.Rows[e.RowIndex].Cells[2].Value.ToString();
+                string[] datos = v.ObtenerRefR("SET lc_time_names = 'es_ES';select upper(concat(t1.idcrequicision, '|',t1.Folio,'|',t2.codrefaccion,'|',t2.nombreRefaccion,'|',t1.NumParte,'|',t2.existencias,'|', t1.Cantidad,'|', if(t1.estatus = 0,'En Espera', if(t1.estatus=1, 'Aprobada', if(t1.estatus=2, 'Rechazada', if(t1.estatus = '', '','')))),'|',date_format(t1.Fecha, '%W %d de %M del %Y') ,'|', t1.precio,'|',(select simbolo from ctipocambio where idtipoCambio = t1.tipocambiofkCTipomoneda),'|',t1.Especificaciones,'|', t1.Estatus,'|',t1.departamento)) as r from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion  where t1.Folio='" + FolioR.ToString() + "' and t2.codrefaccion= '" + txtCodigo.Text + "';").ToString().Split('|');
+                idRequicision = Convert.ToInt32(datos[0].ToString());
+                groupBoxRefaccion.Text = groupBoxRefaccion.Text + " " + datos[1].ToString();
+                FolioR = datos[1].ToString();
+                txtCodigo.Text = datos[2].ToString();
+                txtNomRefaccion.Text = datos[3].ToString();
+                txtNumParte.Text = datos[4].ToString();
+                labelExistencia.Text = datos[5].ToString();
+                txtCantidadS.Text = datos[6].ToString();
+                lblFecha.Text = datos[8].ToString();
+                txtCosto.Text = datos[9].ToString();
+                txtMoneda.Text = datos[10].ToString();
+                txtMoneda2.Text = datos[10].ToString();
+                textBoxObservacionesRefacc.Text = datos[11].ToString();
+                cmbEstatus.SelectedIndex = Convert.ToInt32(datos[12].ToString());
+                departamento = datos[13].ToString();
+                selectiva();
+                calcular_costo();
+                buttonNuevoOC.Visible = true;
+                label17.Visible = true;
+                ultimaCompra();
+                if (Continuaagregando != 1)
+                {
+                    CiglasOC();
+                }
+            }
+        }
+        void noavilitado()
+        {
+
+            textBoxObservaciones.Enabled = txtCodigo.Enabled = txtNomRefaccion.Enabled = txtNumParte.Enabled = labelExistencia.Enabled = txtCantidadS.Enabled = cmbProveedor1.Enabled = cmbProveedor2.Enabled =cmbProveedor3.Enabled =lblFecha.Enabled =txtCosto.Enabled =txtMoneda.Enabled = txtMoneda2.Enabled = textBoxObservacionesRefacc.Enabled = cmbEstatus.Enabled = false;
+            buttonAgregar.Visible = false;
+        }
+        void avilitado()
+        {
+
+            textBoxObservaciones.Enabled = txtCodigo.Enabled = txtNomRefaccion.Enabled = txtNumParte.Enabled = labelExistencia.Enabled = txtCantidadS.Enabled = cmbProveedor1.Enabled = cmbProveedor2.Enabled = cmbProveedor3.Enabled = lblFecha.Enabled = txtCosto.Enabled = txtMoneda.Enabled = txtMoneda2.Enabled = textBoxObservacionesRefacc.Enabled = cmbEstatus.Enabled = true;
+        }
+        public void ultimaCompra()
+        {
+            MySqlDataAdapter adp = new MySqlDataAdapter("Select  t2.FolioFactura as 'Folio de Factura', t2.CantidadIngresa as 'Cantidad Ingresada', convert(t1.CostoUni,char) as Costo, t4.Simbolo as 'Moneda', t2.Proveedor as Proveedor, date_format(t2.FechaHora, '%d-%M-%Y') as 'Fecha Entrada' From crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion =t2.refaccionfkCRefacciones inner join datosistema as t3 on t2.UsuariofkCPersonal = t3.usuariofkcpersonal inner join ctipocambio as t4 on t2.tipomonedafkCTipoCambio = t4.idtipoCambio where t1.codrefaccion ='" + txtCodigo.Text + "' order by t2.FechaHora desc limit 3", v.c.dbconection());
+            DataSet ds = new DataSet();
+            adp.Fill(ds);
+            dgvRefaccionesaSolicitar.DataSource = ds.Tables[0];
+            v.c.dbconection().Close();
+        }
+        public void selectiva()
+        {
+            IVAd = v.getaData("SET lc_time_names = 'es_ES'; select convert(iva, char) as iva from civa").ToString();
+        }
+
+        private void label52_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBoxProveedor_Enter(object sender, EventArgs e)
+        {
+
+        }
+        public void calcular_costo()
+        {
+            string[] costos = v.calcular(txtCosto.Text, IVAd.ToString(), txtCantidadS.Text, txtCostoEnvio.Text).ToString().Split('/');
+            labelSubTotal.Text = costos[0].ToString();
+            labelSubTotalOC.Text = costos[1].ToString();
+            labelIVAOC.Text = costos[2].ToString();
+            labelTotalOC.Text = costos[3].ToString();
+            labelSubTotal.Text = String.Format("{0:#,##0.##}", labelSubTotal.Text);
+            String.Format("{0:#,##0.##}", labelSubTotalOC.Text);
+            String.Format("{0:n}", labelIVAOC.Text);
+            String.Format("{0:n}", labelTotalOC.Text);
+        }
+
+        private void labelTotalOC_Click(object sender, EventArgs e)
+        {
+
+        }
+        public void Expota_PDF()
+        {
+
+            //Código para generación de archivo pdf
+            string nombreHoja = "";
+            string[] cadenafolio = FolioR.Split('-');
+            Document doc = new Document(PageSize.LETTER);
+            doc.SetMargins(20f, 20f, 10f, 10f);
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.ValidateNames = true;
+            saveFileDialog1.InitialDirectory = "@C:";
+            saveFileDialog1.Title = "Guardar Orden De Compra";
+            saveFileDialog1.Filter = "Archivos PDF (*.pdf)|*.pdf";
+            saveFileDialog1.FilterIndex = 2;
+            saveFileDialog1.RestoreDirectory = true;
+            string filename = "";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                filename = saveFileDialog1.FileName;
+                string p = Path.GetExtension(filename);
+                p = p.ToLower();
+                if (p.ToLower() != ".pdf")
+                    filename = filename + ".pdf";
+                while (filename.ToLower().Contains(".pdf.pdf"))
+                    filename = filename.ToLower().Replace(".pdf.pdf", ".pdf").Trim();
+            }
+            try
+            {
+                if (filename.Trim() != "")
+                {
+                    FileStream file = new FileStream(filename,
+                        FileMode.Create,
+                        FileAccess.ReadWrite,
+                        FileShare.ReadWrite);
+                    PdfWriter.GetInstance(doc, file);
+                    iTextSharp.text.Font arial = FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
+                    iTextSharp.text.Font arial2 = FontFactory.GetFont("Arial", 9, BaseColor.BLACK);
+                    doc.Open();
+                    if (cadenafolio[0].ToString().Equals("RCV") || cadenafolio[0].ToString().Equals("RCP"))
+                    {
+                        img = Convert.FromBase64String(v.tri);
+                        nombreHoja = "TRANSINSUMOS S.A. DE C.V.";
+                    }
+                    else if(cadenafolio[0].ToString().Equals("RCI"))
+                    {
+                        img = Convert.FromBase64String(v.trainsumos);
+                        nombreHoja = "TRANSINSUMOS S.A. DE C.V.";
+                    }
+                    else if (cadenafolio[0].ToString().Equals("RCT") || cadenafolio[0].ToString().Equals("RCTI"))
+                    {
+                        img = Convert.FromBase64String(v.transmasivo);
+                        nombreHoja = "TRANSMASIVO S.A. DE C.V.";
+                    }
+
+                    iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(img);
+                    imagen.ScalePercent(24f);
+                    imagen.SetAbsolutePosition(440f, 720f);
+                    float percentage = 0.0f;
+                    percentage = 100 / imagen.Width;
+                    imagen.ScalePercent(percentage * 100);
+                    Chunk chunk = new Chunk("ECATEPEC ESTADO DE MEXICO A " + Fecha.ToString(), FontFactory.GetFont("ARIAL", 12, iTextSharp.text.Font.BOLD));
+                    doc.Add(imagen);
+                    doc.Add(new Paragraph(chunk));
+                    doc.Add(new Paragraph("                                    "));
+                    PdfPTable tabla = new PdfPTable(2);
+                    tabla.DefaultCell.Border = 0;
+                    tabla.WidthPercentage = 100;
+                    /*
+                     t1.Folio,'|',UNIDAD,'|',FECHA Y HORA,'|',MECANICO,'|',FECHAHORA ENTREGA,'|',PERSONA QUE ENTREGA,'|',FolioFactura,'|',ObservacionesTrans FolioR
+                     */
+                    tabla.AddCell(v.valorCampo(nombreHoja.ToString(), 2, 1, 0, arial));
+                    tabla.AddCell(v.valorCampo("\n\n CARRETERA FEDERAL MÉXICO PACHUCA 26.5, COL. VENTA DE CARPIO ECATEPEC DE MORELOS ESTADO DE MÉXICO C.P. 55060", 2, 1, 0, arial2));
+                    tabla.AddCell(v.valorCampo("\n\n Fol.OC: " + FolioOC.ToString() + " Fol.RC: " + FolioR.ToString(), 2, 2, 0, arial));
+                    tabla.AddCell(v.valorCampo("\n\n\n", 2, 1, 0, arial2));
+                    tabla.AddCell(v.valorCampo("AUTORIZACIÓN DE COMPRA", 2, 1, 0, arial));
+                    tabla.AddCell(v.valorCampo("\n\n", 2, 1, 0, arial2));
+                    tabla.AddCell(v.valorCampo(proveedor.ToString(), 2, 1, 0, arial)) ;
+                    /* tabla.AddCell(v.valorCampo("Non. REFACCION", 1, 0, 0, arial));
+                     tabla.AddCell(v.valorCampo("ENTREGA", 2, 0, 0, arial));
+                     tabla.AddCell(v.valorCampo(lblNomRef.Text, 1, 0, 0, arial2));
+                     tabla.AddCell(v.valorCampo(lblNomUsuario.Text, 1, 0, 0, arial2));
+                     tabla.AddCell(v.valorCampo("\n\n", 2, 0, 0, arial2));
+                     tabla.AddCell(v.valorCampo("COMENTARIOS", 2, 0, 0, arial));
+                     tabla.AddCell(v.valorCampo("", 2, 0, 0, arial2));
+                     tabla.AddCell(v.valorCampo("\n\n\n", 2, 0, 0, arial2));*/
+
+
+
+
+                    /*tabla.AddCell(v.valorCampo("REFACCIONES SOLICITADAS", 2, 1, 0, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD)));
+                    tabla.AddCell(v.valorCampo("\n\n\n", 2, 0, 0, arial2));*/
+                    doc.Add(tabla);
+                    GenerarDocumento(doc);
+                    doc.Close();
+                    System.Diagnostics.Process.Start(filename);
+                    //    } 
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString().ToUpper(), "ERROR AL EXPORTAR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        public void GenerarDocumento(Document document)
+        {
+            int i, j;
+            iTextSharp.text.Font arial2 = FontFactory.GetFont("Arial", 9, BaseColor.BLACK);
+            PdfPTable tabla1 = new PdfPTable(2);
+            tabla1.DefaultCell.Border = 0;
+            tabla1.WidthPercentage = 100;
+            tabla1.AddCell(v.valorCampo("", 2, 1, 0, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD)));
+            tabla1.AddCell(v.valorCampo("\n\n\n", 2, 0, 0, arial2));
+            PdfPTable tablaotra = new PdfPTable(2);
+            tablaotra.DefaultCell.Border = 0;
+            tablaotra.WidthPercentage = 100;
+
+            PdfPTable datatable = new PdfPTable(dgvimprimir.ColumnCount);
+            datatable.DefaultCell.Padding = 4;
+
+
+            float[] headerwidths = GetTamañoColumnas(dt);
+            datatable.SetWidths(headerwidths);
+            Color color = Color.PaleGreen;
+            datatable.WidthPercentage = 100;
+            PdfPCell observaciones = new PdfPCell();
+            datatable.DefaultCell.BorderWidth = 1;
+            datatable.DefaultCell.BackgroundColor = new iTextSharp.text.BaseColor(234, 231, 231);
+            datatable.DefaultCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            datatable.DefaultCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            for (i = 0; i < dgvimprimir.ColumnCount; i++)
+            {
+                datatable.AddCell(new Phrase(dgvimprimir.Columns[i].HeaderText.ToString(), FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+            }
+            datatable.HeaderRows = 1;
+            datatable.DefaultCell.BackgroundColor = new iTextSharp.text.BaseColor(250, 250, 250);
+            datatable.DefaultCell.BorderWidth = 1;
+            for (i = 0; i < dgvimprimir.RowCount; i++)
+            {
+                for (j = 0; j < dgvimprimir.ColumnCount; j++)
+                {
+                    PdfPCell celda = new PdfPCell(new Phrase(dgvimprimir[j, i].Value.ToString(), FontFactory.GetFont("ARIAL", 8)));
+                    celda.BackgroundColor = iTextSharp.text.BaseColor.WHITE;
+                    /* if (j == 5 && dgAgregados[j, i].Value.ToString() == "EXISTENCIA")
+                         celda.BackgroundColor = new iTextSharp.text.BaseColor(Color.PaleGreen);
+                     else
+                         celda.BackgroundColor = new iTextSharp.text.BaseColor(Color.LightCoral);*/
+                    if (dgvimprimir[j, i].Value != null)
+                        datatable.AddCell(celda);
+
+                }
+                datatable.CompleteRow();
+            }
+            tablaotra.AddCell(v.valorCampo("\n\nSUBTOTAL:                 $" + SubTotal, 2, 2, 0, arial2));
+            tablaotra.AddCell(v.valorCampo("\n\nCOSTO ENVIO:              $" + txtCostoEnvio.Text, 2,2,0, arial2));
+            tablaotra.AddCell(v.valorCampo("\nIVA:                        " + costos[0].ToString(), 2, 2, 0, arial2));
+            tablaotra.AddCell(v.valorCampo("\nTOTAL :                     " + costos[1], 2, 2, 0, arial2));
+            tablaotra.AddCell(v.valorCampo("\n\n\n\n_________________________________________", 2, 1, 0, arial2));
+            tablaotra.AddCell(v.valorCampo("\nCOMITE DE COMPRAS", 2, 1, 0, arial2));
+            datatable.AddCell(observaciones);
+            document.Add(tabla1);
+            document.Add(datatable);
+            document.Add(tablaotra);
+            document.Add(new Paragraph("\n\n\n\nOBSERVACIONES", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)));
+            document.Add(new Paragraph("\n"+ textBoxObservaciones.Text , FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)));
+
+
+
+
+        }
+        public float[] GetTamañoColumnas(DataTable dg)
+        {
+            float[] values = new float[dgvimprimir.ColumnCount];
+            for (int i = 0; i < dgvimprimir.ColumnCount; i++)
+            {
+                values[i] = (float)dgvimprimir.Columns[i].Width;
+            }
+            return values;
+        }
+
+        void ConsultaImprecion()
+        {
+            if (!String.IsNullOrWhiteSpace(textBoxOCompraB.Text))
+            {
+                FolioOC = textBoxOCompraB.Text;
+            }
+            else
+            {
+                FolioOC = txtFolioB.Text;
+            }
+            
+            DataSet ds = (DataSet)v.TraerOrden(FolioOC, empresa);
+            dgvimprimir.DataSource = ds.Tables[0];
+            string [] cadena = v.getaDataR("SET lc_time_names = 'es_ES';select convert(concat(t1.Folio, '|', (select if(t1.idcrequicision = t2.requicisionfkCRequicision, (Select if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa) from cproveedores as x1  where x1.idproveedor = t1.proveedorfkCproveedor), '')),'|',date_format(t2.FechaOCompra, '%d de %M de %Y')),char) from crequicision as t1 inner join ordencompra as t2 on t2.requicisionfkCRequicision = t1.idcrequicision where (t2.FolioOrdCompra = '" + FolioOC + "' or t1.Folio = '" + FolioOC +"') and t2.empresa = '" + empresa + "' limit 1").ToString().Split('|');
+            if (!cadena[0].ToString().Equals(""))
+            {
+                FolioR = cadena[0].ToString();
+                proveedor = cadena[1].ToString();
+                Fecha = cadena[2].ToString();
+                
+            }
+           
+
+        }
+        void recalcular()
+        {
+            SubTotal = Convert.ToDouble(v.getaData("SET lc_time_names = 'es_ES';select convert(sum(t1.Subtotal),char) from ordencompra as t1 inner join crequicision as t2 on t1.requicisionfkCRequicision = t2.idcrequicision where t2.Folio ='" + FolioOC + "' and t2.empresa = '" + empresa + "'").ToString());
+            costos = v.calcularCompleto(SubTotal, textBoxIVA.Text, Convert.ToDouble(txtCostoEnvio.Text)).Split('/');
+            Expota_PDF();
+            limpiar();
         }
     }
 }

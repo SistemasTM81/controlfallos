@@ -217,7 +217,7 @@ namespace controlFallos
             try
             {
                 tbubicaciones.Rows.Clear();
-                DataTable anaqueles = (DataTable)v.getData("SELECT idanaquel,(SELECT upper(pasillo) from cpasillos where idpasillo=pasillofkcpasillos),upper(nivel),upper(anaquel),upper((SELECT CONCAT(nombres,' ',apPaterno,' ',apMaterno) FROM cpersonal WHERE idpersona = t1.usuariofkcpersonal)), if(t1.status=1,'ACTIVO',CONCAT('NO ACTIVO')),(SELECT upper(idpasillo) from cpasillos where idpasillo=pasillofkcpasillos),idnivel FROM canaqueles as t1 INNER JOIN cniveles as t2 ON t1.nivelfkcniveles =t2.idnivel where t1.empresa='" + empresa + "'");
+                DataTable anaqueles = (DataTable)v.getData("SELECT idanaquel,(SELECT upper(pasillo) from cpasillos where idpasillo=pasillofkcpasillos),upper(nivel),upper(anaquel),upper((SELECT CONCAT(coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(apMaterno,'')) FROM cpersonal WHERE idpersona = t1.usuariofkcpersonal)), if(t1.status=1,'ACTIVO',CONCAT('NO ACTIVO')),(SELECT upper(idpasillo) from cpasillos where idpasillo=pasillofkcpasillos),idnivel FROM canaqueles as t1 INNER JOIN cniveles as t2 ON t1.nivelfkcniveles =t2.idnivel where t1.empresa='" + empresa + "'");
                 for (int i = 0; i < anaqueles.Rows.Count; i++)
                     tbubicaciones.Rows.Add(anaqueles.Rows[i].ItemArray);
                 tbubicaciones.ClearSelection();

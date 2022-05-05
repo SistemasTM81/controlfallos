@@ -10,16 +10,17 @@ namespace controlFallos
     public class conexion
     {
         validaciones v;
+        //187.210.164.226
         public string host { protected internal set; get; }
         public string user { protected internal set; get; }
         public string password { protected internal set; get; }
         public string port { protected internal set; get; }
-        public string hostLocal { protected internal set; get; }
-        public string userLocal { protected internal set; get; }
-        public string passwordLocal { protected internal set; get; }
-        public string portLocal { protected internal set; get; }
+        //public string hostLocal { protected internal set; get; }
+        //public string userLocal { protected internal set; get; }
+        //public string passwordLocal { protected internal set; get; }
+        //public string portLocal { protected internal set; get; }
         public MySqlConnection dbcon;
-        MySqlConnection localConnection;
+        //MySqlConnection localConnection;
         public conexion(validaciones v)
         {
             this.v = v;
@@ -27,7 +28,7 @@ namespace controlFallos
             if (!File.Exists(path))
             {
                 StreamWriter sw = new StreamWriter(path, true, Encoding.ASCII);
-                sw.Write("0yLCd4LvwPo9xeMPa3Xo60R8ubmf9ZS4hs58llM/Lovd0yqGbDjTyz2KnbCOiM+bcf37rsKzAOUAU0rVJ8p3MJc4c6X+gGpk39iuKOx48Va645A5bRjQnefB1JmW3H+a");
+                sw.Write("0yLCd4LvwPp466vOql/WY+V9+tZZRSa27B2i380WEppiQc6HrGSh88mBHwqbtjQwHvELSo/lJHiuNHH81K2ZKKb5N3ENTfOU");
                 sw.Close();
             }
             StreamReader lector = new StreamReader(path);
@@ -36,17 +37,37 @@ namespace controlFallos
             try
             {
                 string[] arreglo = Desencriptar(res).Split(';');
-                this.host = arreglo[0];
+                ///ORIGINAL///////////////////
+                this.host = "192.168.1.67";
+                ////////////////////////////
+                ////this.host = arreglo[0];
+                //this.host = "127.0.0.1";
+                //this.user = "kigs";
+                //this.password = "2030";
                 this.user = arreglo[1];
                 this.password = arreglo[2];
                 this.port = arreglo[3];
-                this.hostLocal = arreglo[4];
-                this.userLocal = arreglo[5];
-                this.passwordLocal = arreglo[6];
-                this.portLocal = arreglo[7];
-                localConnection = new MySqlConnection("Server = " + hostLocal + "; user=" + userLocal + "; password = " + passwordLocal + " ; database = sistrefaccmant ;port=" + portLocal);
+
+
+
+
+
+
+
+
+
+
+
+
+                //this.hostLocal = arreglo[4];
+                //this.userLocal = arreglo[5];
+                //this.passwordLocal = arreglo[6];
+                //this.portLocal = arreglo[7];
+                //localConnection = new MySqlConnection("Server = " + hostLocal + "; user=" + userLocal + "; password = " + passwordLocal + " ; database = sistrefaccmant; pooling=false; CharSet=utf8; port=" + portLocal);
             }
-            catch { }
+            catch (Exception ex) 
+            { 
+            }
         }
         public string Desencriptar(string textoEncriptado)
         {
@@ -75,10 +96,11 @@ namespace controlFallos
             try
             {
                 if (conexionOriginal())
-                    dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { host, user, password, port }));
-                else
-                    dbcon = new MySqlConnection("Server = " + hostLocal + "; user=" + userLocal + "; password = " + passwordLocal + "; database = sistrefaccmant ;port=" + portLocal);
-          /**      if (dbcon.State != System.Data.ConnectionState.Open) */dbcon.Open();
+                    dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; pooling=false; CharSet=utf8; command Timeout = 11000; port={3}", new string[] { host, user, password, port }));
+               // else
+                    //dbcon = new MySqlConnection("Server = " + hostLocal + "; user=" + userLocal + "; password = " + passwordLocal + "; database = sistrefaccmant; port=" + portLocal);
+                if (dbcon.State != System.Data.ConnectionState.Open)
+                    dbcon.Open();
             }
             catch (Exception ex)
             {
@@ -110,9 +132,63 @@ namespace controlFallos
 
 
         }
+
+    
+        //public bool insertarLocal(string sql)
+        //{
+        //    MySqlConnection localConnectionK = new MySqlConnection("Server = 192.168.1.67; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ; database = sistrefaccmant ;port=" + v.c.portLocal);
+        //    try
+        //    {
+        //        localConnectionK.Close(); localConnectionK.Open();
+        //        MySqlCommand cmd = new MySqlCommand(sql, localConnectionK);
+        //        cmd.ExecuteNonQuery();
+        //        return true;
+        //    }
+        //    catch { return false; }
+        //}
+
+        //public void editLocal(string id, string ver, string insertar, string consultar, string modificar, string eliminar)
+        //{
+        //    insertarLocal("UPDATE privilegios SET ver='" + ver + "' " + (short.Parse(ver) == 1 ? ", privilegios='" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "") + "'" : "") + "WHERE idprivilegio='" + id + "'");
+        //}
+        //public void insertLocal(string ver, string insertar, string consultar, string modificar, string eliminar, string nombre, int idUsuario)
+        //{
+        //    insertarLocal(@"INSERT INTO privilegios (usuariofkcpersonal,namform,ver" + (short.Parse(ver) == 1 ? ",privilegios" : "") + ")VALUES('" + idUsuario + "','" + nombre + "','" + (short.Parse(ver)) + "'" + (short.Parse(ver) == 1 ? ",'" + insertar + "/" + consultar + "/" + modificar + (short.Parse(eliminar) == 1 ? "/" + eliminar : "/0") + "'" : "") + ")");
+        //}
+
+
+        //public bool EliminarPrivilegiosLocales(int idUsuario)
+        //{
+        //    MySqlConnection localConnectionK = new MySqlConnection("Server = 192.168.1.67; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ; database = sistrefaccmant ;port=" + v.c.portLocal);
+        //    try
+        //    {
+        //        localConnectionK.Close(); localConnectionK.Open();
+        //        String sql = "SELECT COUNT(idprivilegio) FROM privilegios WHERE usuariofkcpersonal='" + idUsuario + "'";
+        //        MySqlCommand cm = new MySqlCommand(sql, localConnectionK);
+        //        int res = Convert.ToInt32(cm.ExecuteScalar());
+        //        localConnectionK.Close();
+        //        if (res > 0)
+        //        {
+        //            if (insertarLocal("DELETE FROM privilegios WHERE usuariofkcpersonal ='" + idUsuario + "'"))
+        //            {
+        //                return true;
+        //            }
+        //            else
+        //            {
+        //                return false;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            return true;
+        //        }
+        //    }
+        //    catch { return false; }
+        //}
+
+
         public object setData(string sql)
         {
-
             MySqlCommand cmd = new MySqlCommand(sql, dbconection());
             int i = cmd.ExecuteNonQuery();
             /** if (conexionOriginal())

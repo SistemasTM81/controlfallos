@@ -918,6 +918,7 @@ namespace controlFallos
             this.dgvroles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvroles.Size = new System.Drawing.Size(837, 275);
             this.dgvroles.TabIndex = 1;
+            this.dgvroles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvroles_CellContentClick);
             this.dgvroles.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvroles_CellDoubleClick);
             this.dgvroles.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvroles_ColumnAdded);
             // 
@@ -964,6 +965,7 @@ namespace controlFallos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1916, 937);
             this.Controls.Add(this.pRoles);

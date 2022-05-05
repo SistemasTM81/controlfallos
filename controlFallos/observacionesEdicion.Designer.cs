@@ -87,6 +87,7 @@
             this.btndeleteuser.Size = new System.Drawing.Size(50, 50);
             this.btndeleteuser.TabIndex = 4;
             this.btndeleteuser.UseVisualStyleBackColor = true;
+            this.btndeleteuser.Click += new System.EventHandler(this.btndeleteuser_Click);
             // 
             // label3
             // 

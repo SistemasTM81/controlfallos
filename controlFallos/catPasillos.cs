@@ -32,7 +32,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
@@ -205,7 +208,7 @@ namespace controlFallos
             try
             {
                 tbubicaciones.Rows.Clear();
-                string sql = "SELECT t1.idpasillo as id,t1.pasillo as p,t1.status as s, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as nombres FROM cpasillos as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona where t1.empresa='" + empresa + "'";
+                string sql = "SELECT t1.idpasillo as id,t1.pasillo as p,t1.status as s, UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))) as nombres FROM cpasillos as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona where t1.empresa='" + empresa + "'";
                 MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
                 MySqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())

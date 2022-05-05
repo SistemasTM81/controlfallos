@@ -57,7 +57,7 @@ namespace controlFallos
         {
             if (cbgrupo.SelectedIndex > 0)
             {
-                initializeData("SELECT t1.idcategoria,UPPER(t4.nombreFalloGral),upper(t2.descfallo),UPPER(categoria),UPPER(concat(t3.nombres,' ',t3.apPaterno,' ',t3.apMaterno)),if(t1.status=1,'ACTIVO','NO ACTIVO'), t4.idfallogral ,t2.iddescfallo FROM catcategorias as t1 INNER JOIN cdescfallo as t2 ON t1.subgrupofkcdescfallo=t2.iddescfallo LEFT JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona INNER JOIN cfallosgrales as t4 ON t2.falloGralfkcfallosgrales=t4.idfalloGral WHERE t4.idfallogral='" + cbgrupo.SelectedValue + "' AND  t1.empresa='" + empresa + "'");
+                initializeData("SELECT t1.idcategoria,UPPER(t4.nombreFalloGral),upper(t2.descfallo),UPPER(categoria),UPPER(concat(coalesce(t3.nombres,''),' ',coalesce(t3.apPaterno,''),' ',coalesce(t3.apMaterno,''))),if(t1.status=1,'ACTIVO','NO ACTIVO'), t4.idfallogral ,t2.iddescfallo FROM catcategorias as t1 INNER JOIN cdescfallo as t2 ON t1.subgrupofkcdescfallo=t2.iddescfallo LEFT JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona INNER JOIN cfallosgrales as t4 ON t2.falloGralfkcfallosgrales=t4.idfalloGral WHERE t4.idfallogral='" + cbgrupo.SelectedValue + "' AND  t1.empresa='" + empresa + "'");
                 v.iniCombos("SELECT iddescfallo as id, UPPER(descfallo) as nombre FROM cdescfallo WHERE falloGralfkcfallosgrales='" + cbgrupo.SelectedValue + "' AND empresa='" + empresa + "' AND status=1", cbsubgrupo, "id", "nombre", "-- SELECCIONE UN SUBGRUPO--");
                 cbsubgrupo.Enabled = true;
                 lnkLista.Visible = true;
@@ -90,7 +90,10 @@ namespace controlFallos
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegios[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegios[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegios[2]));
-                pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegios[3]));
+                if (privilegios.Length > 3)
+                {
+                    pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegios[3]));
+                }
                 mostrar();
             }
         }
@@ -156,6 +159,7 @@ namespace controlFallos
                 }
                 if (peditar)
                 {
+                    string kvar = tbcategorias.Rows[e.RowIndex].Cells[7].Value.ToString();
                     txtgetcategoria.Text = categoriaAnterior = v.mayusculas(tbcategorias.Rows[e.RowIndex].Cells[3].Value.ToString().ToLower());
                     cbgrupo.SelectedValue = grupoAnterior = Convert.ToInt32(tbcategorias.Rows[e.RowIndex].Cells[6].Value);
                     if (cbgrupo.SelectedIndex == -1)
@@ -166,7 +170,9 @@ namespace controlFallos
 
                     if (pinsertar)
                         pEliminarClasificacion.Visible = true;
-                    cbsubgrupo.SelectedValue = subgrupoAnterior = Convert.ToInt32(tbcategorias.Rows[e.RowIndex].Cells[7].Value);
+                    cbsubgrupo.SelectedValue = subgrupoAnterior = Convert.ToInt32(!string.IsNullOrWhiteSpace(kvar) ? "0" : kvar);
+
+
                     if (cbsubgrupo.SelectedIndex == -1)
                     {
                         v.iniCombos("SELECT iddescfallo as id, UPPER(descfallo) as nombre FROM cdescfallo WHERE falloGralfkcfallosgrales='" + cbgrupo.SelectedValue + "' AND (status=1 OR iddescfallo='" + subgrupoAnterior + "')", cbsubgrupo, "id", "nombre", "-- SELECCIONE UN SUBGRUPO--");
@@ -240,9 +246,9 @@ namespace controlFallos
         {
             if (cbsubgrupo.SelectedIndex > 0)
 
-                initializeData("SELECT t1.idcategoria,UPPER(t4.nombreFalloGral),upper(t2.descfallo),UPPER(categoria),UPPER(concat(t3.nombres,' ',t3.apPaterno,' ',t3.apMaterno)),if(t1.status=1,'ACTIVO','NO ACTIVO'), t4.idfallogral ,t2.iddescfallo FROM catcategorias as t1 INNER JOIN cdescfallo as t2 ON t1.subgrupofkcdescfallo=t2.iddescfallo LEFT JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona INNER JOIN cfallosgrales as t4 ON t2.falloGralfkcfallosgrales=t4.idfalloGral WHERE t2.iddescfallo='" + cbsubgrupo.SelectedValue + "' AND t1.empresa='" + empresa + "'");
+                initializeData("SELECT t1.idcategoria,UPPER(t4.nombreFalloGral),upper(t2.descfallo),UPPER(categoria),UPPER(concat(coalesce(t3.nombres,''),' ',coalesce(t3.apPaterno,''),' ',coalesce(t3.apMaterno,''))),if(t1.status=1,'ACTIVO','NO ACTIVO'), t4.idfallogral ,t2.iddescfallo FROM catcategorias as t1 INNER JOIN cdescfallo as t2 ON t1.subgrupofkcdescfallo=t2.iddescfallo LEFT JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona INNER JOIN cfallosgrales as t4 ON t2.falloGralfkcfallosgrales=t4.idfalloGral WHERE t2.iddescfallo='" + cbsubgrupo.SelectedValue + "' AND t1.empresa='" + empresa + "'");
             else
-                initializeData("SELECT t1.idcategoria,UPPER(t4.nombreFalloGral),upper(t2.descfallo),UPPER(categoria),UPPER(concat(t3.nombres,' ',t3.apPaterno,' ',t3.apMaterno)),if(t1.status=1,'ACTIVO','NO ACTIVO'), t4.idfallogral ,t2.iddescfallo FROM catcategorias as t1 INNER JOIN cdescfallo as t2 ON t1.subgrupofkcdescfallo=t2.iddescfallo LEFT JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona INNER JOIN cfallosgrales as t4 ON t2.falloGralfkcfallosgrales=t4.idfalloGral WHERE t4.idfallogral='" + cbgrupo.SelectedValue + "' AND t1.empresa='" + empresa + "'");
+                initializeData("SELECT t1.idcategoria,UPPER(t4.nombreFalloGral),upper(t2.descfallo),UPPER(categoria),UPPER(concat(coalesce(t3.nombres,''),' ',coalesce(t3.apPaterno,''),' ',coalesce(t3.apMaterno,''))),if(t1.status=1,'ACTIVO','NO ACTIVO'), t4.idfallogral ,t2.iddescfallo FROM catcategorias as t1 INNER JOIN cdescfallo as t2 ON t1.subgrupofkcdescfallo=t2.iddescfallo LEFT JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona INNER JOIN cfallosgrales as t4 ON t2.falloGralfkcfallosgrales=t4.idfalloGral WHERE t4.idfallogral='" + cbgrupo.SelectedValue + "' AND t1.empresa='" + empresa + "'");
         }
 
         private void txtgetcategoria_Validating(object sender, CancelEventArgs e) { v.espaciosenblanco(sender, e); }
@@ -371,7 +377,7 @@ namespace controlFallos
         void initializeData(string sql)
         {
             tbcategorias.Rows.Clear();
-            DataTable dt = (DataTable)v.getData((sql == null ? "SELECT t1.idcategoria,UPPER(t4.nombreFalloGral),upper(t2.descfallo),UPPER(categoria),UPPER(concat(t3.nombres,' ',t3.apPaterno,' ',t3.apMaterno)),if(t1.status=1,'ACTIVO','NO ACTIVO'), t4.idfallogral ,t2.iddescfallo FROM catcategorias as t1 INNER JOIN cdescfallo as t2 ON t1.subgrupofkcdescfallo=t2.iddescfallo LEFT JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona INNER JOIN cfallosgrales as t4 ON t2.falloGralfkcfallosgrales=t4.idfalloGral WHERE t1.empresa='" + empresa + "'" : sql));
+            DataTable dt = (DataTable)v.getData((sql == null ? "SELECT t1.idcategoria,UPPER(t4.nombreFalloGral),upper(t2.descfallo),UPPER(categoria),UPPER(concat(coalesce(t3.nombres,''),' ',coalesce(t3.apPaterno,''),' ',coalesce(t3.apMaterno,''))),if(t1.status=1,'ACTIVO','NO ACTIVO'), t4.idfallogral ,t2.iddescfallo FROM catcategorias as t1 INNER JOIN cdescfallo as t2 ON t1.subgrupofkcdescfallo=t2.iddescfallo LEFT JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona INNER JOIN cfallosgrales as t4 ON t2.falloGralfkcfallosgrales=t4.idfalloGral WHERE t1.empresa='" + empresa + "'" : sql));
             for (int i = 0; i < dt.Rows.Count; i++)
                 tbcategorias.Rows.Add(dt.Rows[i].ItemArray);
             dt.Dispose();

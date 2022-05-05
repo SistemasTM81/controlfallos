@@ -60,7 +60,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
@@ -71,7 +74,7 @@ namespace controlFallos
         public void MostrarDatos()
         {
             tbtipos.Rows.Clear();
-            String sql = "select idcattipos as id,t1.tipo as tipo,t1.Descripcion as descripcion,upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres))as nombre,if(t1.status=0,'NO ACTIVO','ACTIVO') as estatus from cattipos as t1 inner join cpersonal as t2 on t2.idPersona=t1.usuariofkcpersonal WHERE t1.empresa='" + empresa + "' and t1.area='" + area + "' order by tipo";
+            String sql = "select idcattipos as id,t1.tipo as tipo,t1.Descripcion as descripcion,upper(concat(coalesce(t2.ApPaterno,''),' ',coalesce(t2.ApMaterno,''),' ',coalesce(t2.nombres,'')))as nombre,if(t1.status=0,'NO ACTIVO','ACTIVO') as estatus from cattipos as t1 inner join cpersonal as t2 on t2.idPersona=t1.usuariofkcpersonal WHERE t1.empresa='" + empresa + "' and t1.area='" + area + "' order by tipo";
             MySqlCommand cmd = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())

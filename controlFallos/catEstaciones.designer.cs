@@ -159,7 +159,7 @@
             this.gbanaqueles.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbanaqueles.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbanaqueles.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbanaqueles.Location = new System.Drawing.Point(0, 245);
+            this.gbanaqueles.Location = new System.Drawing.Point(0, 257);
             this.gbanaqueles.Name = "gbanaqueles";
             this.gbanaqueles.Size = new System.Drawing.Size(865, 262);
             this.gbanaqueles.TabIndex = 39;
@@ -407,6 +407,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(865, 507);
             this.Controls.Add(this.panel1);

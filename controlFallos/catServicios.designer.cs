@@ -53,11 +53,8 @@
             this.lbldelete = new System.Windows.Forms.Label();
             this.btndelete = new System.Windows.Forms.Button();
             this.gbservicios = new System.Windows.Forms.GroupBox();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.lbltitle = new System.Windows.Forms.Label();
-            this.idServicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.idservicio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.emp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ar = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -65,11 +62,14 @@
             this.people = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Estatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.empresafkcempresas = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.lbltitle = new System.Windows.Forms.Label();
             this.gbaddservice.SuspendLayout();
             this.pCancelar.SuspendLayout();
             this.pEliminarService.SuspendLayout();
             this.gbservicios.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -145,7 +145,7 @@
             this.cbempresa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cbempresa.FormattingEnabled = true;
             this.cbempresa.Location = new System.Drawing.Point(411, 36);
-            this.cbempresa.MaxDropDownItems = 15;
+            this.cbempresa.MaxDropDownItems = 30;
             this.cbempresa.Name = "cbempresa";
             this.cbempresa.Size = new System.Drawing.Size(396, 26);
             this.cbempresa.TabIndex = 1;
@@ -355,38 +355,38 @@
             // 
             // gbservicios
             // 
-            this.gbservicios.Controls.Add(this.dataGridView2);
+            this.gbservicios.Controls.Add(this.dataGridView1);
             this.gbservicios.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbservicios.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbservicios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbservicios.Location = new System.Drawing.Point(0, 470);
+            this.gbservicios.Location = new System.Drawing.Point(0, 479);
             this.gbservicios.Name = "gbservicios";
-            this.gbservicios.Size = new System.Drawing.Size(1053, 358);
+            this.gbservicios.Size = new System.Drawing.Size(1053, 208);
             this.gbservicios.TabIndex = 0;
             this.gbservicios.TabStop = false;
             this.gbservicios.Text = "Consulta de Servicios";
             this.gbservicios.Visible = false;
             this.gbservicios.Paint += new System.Windows.Forms.PaintEventHandler(this.gbaddservice_Paint);
             // 
-            // dataGridView2
+            // dataGridView1
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.AllowUserToResizeColumns = false;
-            this.dataGridView2.AllowUserToResizeRows = false;
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AllowUserToResizeColumns = false;
+            this.dataGridView1.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(52)))), ((int)(((byte)(44)))));
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dataGridView2.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.dataGridView2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.dataGridView2.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
+            this.dataGridView1.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.dataGridView1.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -394,10 +394,10 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.idServicio,
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.idservicio,
             this.Nombre,
             this.emp,
             this.ar,
@@ -405,17 +405,18 @@
             this.people,
             this.Estatus,
             this.empresafkcempresas});
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
-            this.dataGridView2.EnableHeadersVisualStyles = false;
-            this.dataGridView2.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.dataGridView2.ImeMode = System.Windows.Forms.ImeMode.Katakana;
-            this.dataGridView2.Location = new System.Drawing.Point(3, 27);
-            this.dataGridView2.MultiSelect = false;
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dataGridView1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridView1.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.dataGridView1.EnableHeadersVisualStyles = false;
+            this.dataGridView1.GridColor = System.Drawing.Color.White;
+            this.dataGridView1.ImeMode = System.Windows.Forms.ImeMode.Katakana;
+            this.dataGridView1.Location = new System.Drawing.Point(3, 27);
+            this.dataGridView1.MultiSelect = false;
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersVisible = false;
+            this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -423,17 +424,76 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView2.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView2.ShowCellErrors = false;
-            this.dataGridView2.ShowCellToolTips = false;
-            this.dataGridView2.ShowEditingIcon = false;
-            this.dataGridView2.ShowRowErrors = false;
-            this.dataGridView2.Size = new System.Drawing.Size(1047, 328);
-            this.dataGridView2.TabIndex = 0;
-            this.dataGridView2.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentDoubleClick);
-            this.dataGridView2.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView2_CellFormatting);
-            this.dataGridView2.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridView2_ColumnAdded);
+            this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dataGridView1.RowTemplate.ReadOnly = true;
+            this.dataGridView1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView1.ShowCellErrors = false;
+            this.dataGridView1.ShowCellToolTips = false;
+            this.dataGridView1.ShowEditingIcon = false;
+            this.dataGridView1.ShowRowErrors = false;
+            this.dataGridView1.Size = new System.Drawing.Size(1047, 178);
+            this.dataGridView1.TabIndex = 69;
+            this.dataGridView1.TabStop = false;
+            this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick);
+            this.dataGridView1.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView1_CellFormatting);
+            this.dataGridView1.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridView1_ColumnAdded);
+            // 
+            // idservicio
+            // 
+            this.idservicio.HeaderText = "idservicio";
+            this.idservicio.Name = "idservicio";
+            this.idservicio.ReadOnly = true;
+            this.idservicio.Visible = false;
+            // 
+            // Nombre
+            // 
+            this.Nombre.HeaderText = "NOMBRE SERVICIO";
+            this.Nombre.Name = "Nombre";
+            this.Nombre.ReadOnly = true;
+            this.Nombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // emp
+            // 
+            this.emp.HeaderText = "EMPRESA PERTENECIENTE";
+            this.emp.Name = "emp";
+            this.emp.ReadOnly = true;
+            this.emp.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.emp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // ar
+            // 
+            this.ar.HeaderText = "ÁREA";
+            this.ar.Name = "ar";
+            this.ar.ReadOnly = true;
+            this.ar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Clave
+            // 
+            this.Clave.HeaderText = "DESCRIPCIÓN";
+            this.Clave.Name = "Clave";
+            this.Clave.ReadOnly = true;
+            this.Clave.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // people
+            // 
+            this.people.HeaderText = "PERSONA QUE DIÓ DE ALTA";
+            this.people.Name = "people";
+            this.people.ReadOnly = true;
+            this.people.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Estatus
+            // 
+            this.Estatus.HeaderText = "ESTATUS";
+            this.Estatus.Name = "Estatus";
+            this.Estatus.ReadOnly = true;
+            // 
+            // empresafkcempresas
+            // 
+            this.empresafkcempresas.HeaderText = "empresafkcempresas";
+            this.empresafkcempresas.Name = "empresafkcempresas";
+            this.empresafkcempresas.ReadOnly = true;
+            this.empresafkcempresas.Visible = false;
             // 
             // panel1
             // 
@@ -479,75 +539,13 @@
             this.lbltitle.Text = "Catálogo de Servicios";
             this.lbltitle.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel1_MouseDown);
             // 
-            // idServicio
-            // 
-            this.idServicio.HeaderText = "idservicio";
-            this.idServicio.Name = "idServicio";
-            this.idServicio.ReadOnly = true;
-            this.idServicio.Visible = false;
-            // 
-            // Nombre
-            // 
-            this.Nombre.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.Nombre.HeaderText = "NOMBRE SERVICIO";
-            this.Nombre.Name = "Nombre";
-            this.Nombre.ReadOnly = true;
-            this.Nombre.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Nombre.Width = 184;
-            // 
-            // emp
-            // 
-            this.emp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.emp.HeaderText = "EMPRESA PERTENECIENTE";
-            this.emp.Name = "emp";
-            this.emp.ReadOnly = true;
-            this.emp.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.emp.Width = 259;
-            // 
-            // ar
-            // 
-            this.ar.HeaderText = "ÁREA";
-            this.ar.Name = "ar";
-            this.ar.ReadOnly = true;
-            this.ar.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Clave
-            // 
-            this.Clave.FillWeight = 142.1053F;
-            this.Clave.HeaderText = "DESCRIPCIÓN";
-            this.Clave.Name = "Clave";
-            this.Clave.ReadOnly = true;
-            this.Clave.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // people
-            // 
-            this.people.FillWeight = 78.94736F;
-            this.people.HeaderText = "PERSONA QUE DIÓ DE ALTA";
-            this.people.Name = "people";
-            this.people.ReadOnly = true;
-            this.people.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Estatus
-            // 
-            this.Estatus.FillWeight = 78.94736F;
-            this.Estatus.HeaderText = "ESTATUS";
-            this.Estatus.Name = "Estatus";
-            this.Estatus.ReadOnly = true;
-            this.Estatus.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // empresafkcempresas
-            // 
-            this.empresafkcempresas.HeaderText = "empresafkcempresas";
-            this.empresafkcempresas.Name = "empresafkcempresas";
-            this.empresafkcempresas.ReadOnly = true;
-            this.empresafkcempresas.Visible = false;
-            // 
             // catServicios
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ClientSize = new System.Drawing.Size(1053, 828);
+            this.ClientSize = new System.Drawing.Size(1053, 687);
             this.Controls.Add(this.pEliminarService);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.gbaddservice);
@@ -568,7 +566,7 @@
             this.pEliminarService.ResumeLayout(false);
             this.pEliminarService.PerformLayout();
             this.gbservicios.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -591,7 +589,6 @@
         private System.Windows.Forms.Label label17;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.GroupBox gbservicios;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Panel panel1;
@@ -603,7 +600,8 @@
         public System.Windows.Forms.ComboBox cbempresa;
         public System.Windows.Forms.ComboBox cbarea;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idServicio;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idservicio;
         private System.Windows.Forms.DataGridViewTextBoxColumn Nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn emp;
         private System.Windows.Forms.DataGridViewTextBoxColumn ar;

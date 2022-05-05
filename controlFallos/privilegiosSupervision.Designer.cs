@@ -33,6 +33,11 @@
             this.button1 = new System.Windows.Forms.Button();
             this.lbltitle = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btndesactivarol = new System.Windows.Forms.Button();
+            this.btnmodificarol = new System.Windows.Forms.Button();
+            this.btnconsultarol = new System.Windows.Forms.Button();
+            this.btninsertarol = new System.Windows.Forms.Button();
+            this.label41 = new System.Windows.Forms.Label();
             this.btneliminarmodelo = new System.Windows.Forms.Button();
             this.btnmodificarmodelo = new System.Windows.Forms.Button();
             this.btnconsultarmodelo = new System.Windows.Forms.Button();
@@ -126,17 +131,12 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
             this.panel4 = new System.Windows.Forms.Panel();
             this.lbltexto = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.button32 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
-            this.label40 = new System.Windows.Forms.Label();
-            this.label41 = new System.Windows.Forms.Label();
-            this.btndesactivarol = new System.Windows.Forms.Button();
-            this.btnmodificarol = new System.Windows.Forms.Button();
-            this.btnconsultarol = new System.Windows.Forms.Button();
-            this.btninsertarol = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -293,6 +293,84 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(912, 836);
             this.panel2.TabIndex = 2;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // btndesactivarol
+            // 
+            this.btndesactivarol.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btndesactivarol.BackgroundImage")));
+            this.btndesactivarol.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btndesactivarol.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btndesactivarol.Enabled = false;
+            this.btndesactivarol.FlatAppearance.BorderSize = 0;
+            this.btndesactivarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btndesactivarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btndesactivarol.Location = new System.Drawing.Point(773, 414);
+            this.btndesactivarol.Name = "btndesactivarol";
+            this.btndesactivarol.Size = new System.Drawing.Size(20, 20);
+            this.btndesactivarol.TabIndex = 121;
+            this.btndesactivarol.TabStop = false;
+            this.btndesactivarol.UseVisualStyleBackColor = true;
+            this.btndesactivarol.Click += new System.EventHandler(this.CambiarEstado_Click);
+            // 
+            // btnmodificarol
+            // 
+            this.btnmodificarol.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnmodificarol.BackgroundImage")));
+            this.btnmodificarol.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnmodificarol.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnmodificarol.Enabled = false;
+            this.btnmodificarol.FlatAppearance.BorderSize = 0;
+            this.btnmodificarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnmodificarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnmodificarol.Location = new System.Drawing.Point(624, 415);
+            this.btnmodificarol.Name = "btnmodificarol";
+            this.btnmodificarol.Size = new System.Drawing.Size(20, 20);
+            this.btnmodificarol.TabIndex = 120;
+            this.btnmodificarol.TabStop = false;
+            this.btnmodificarol.UseVisualStyleBackColor = true;
+            this.btnmodificarol.Click += new System.EventHandler(this.CambiarEstado_Click);
+            // 
+            // btnconsultarol
+            // 
+            this.btnconsultarol.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnconsultarol.BackgroundImage")));
+            this.btnconsultarol.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnconsultarol.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnconsultarol.FlatAppearance.BorderSize = 0;
+            this.btnconsultarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnconsultarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnconsultarol.Location = new System.Drawing.Point(450, 415);
+            this.btnconsultarol.Name = "btnconsultarol";
+            this.btnconsultarol.Size = new System.Drawing.Size(20, 20);
+            this.btnconsultarol.TabIndex = 119;
+            this.btnconsultarol.TabStop = false;
+            this.btnconsultarol.UseVisualStyleBackColor = true;
+            this.btnconsultarol.BackgroundImageChanged += new System.EventHandler(this.btnconsultarol_BackgroundImageChanged);
+            this.btnconsultarol.Click += new System.EventHandler(this.CambiarEstado_Click);
+            // 
+            // btninsertarol
+            // 
+            this.btninsertarol.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btninsertarol.BackgroundImage")));
+            this.btninsertarol.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btninsertarol.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btninsertarol.FlatAppearance.BorderSize = 0;
+            this.btninsertarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btninsertarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btninsertarol.Location = new System.Drawing.Point(315, 415);
+            this.btninsertarol.Name = "btninsertarol";
+            this.btninsertarol.Size = new System.Drawing.Size(20, 20);
+            this.btninsertarol.TabIndex = 118;
+            this.btninsertarol.TabStop = false;
+            this.btninsertarol.UseVisualStyleBackColor = true;
+            this.btninsertarol.Click += new System.EventHandler(this.CambiarEstado_Click);
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.Location = new System.Drawing.Point(100, 416);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(136, 18);
+            this.label41.TabIndex = 117;
+            this.label41.Text = "Catálogo de  Roles";
             // 
             // btneliminarmodelo
             // 
@@ -1588,6 +1666,16 @@
             this.label38.Text = "_________________________________________________________________________________" +
     "__";
             // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(34, 389);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(840, 21);
+            this.label40.TabIndex = 116;
+            this.label40.Text = "_________________________________________________________________________________" +
+    "__";
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.lbltexto);
@@ -1650,97 +1738,11 @@
             this.button33.UseVisualStyleBackColor = true;
             this.button33.Click += new System.EventHandler(this.button33_Click);
             // 
-            // label40
-            // 
-            this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(34, 389);
-            this.label40.Name = "label40";
-            this.label40.Size = new System.Drawing.Size(840, 21);
-            this.label40.TabIndex = 116;
-            this.label40.Text = "_________________________________________________________________________________" +
-    "__";
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(100, 416);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(136, 18);
-            this.label41.TabIndex = 117;
-            this.label41.Text = "Catálogo de  Roles";
-            // 
-            // btndesactivarol
-            // 
-            this.btndesactivarol.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btndesactivarol.BackgroundImage")));
-            this.btndesactivarol.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btndesactivarol.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btndesactivarol.Enabled = false;
-            this.btndesactivarol.FlatAppearance.BorderSize = 0;
-            this.btndesactivarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btndesactivarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btndesactivarol.Location = new System.Drawing.Point(773, 414);
-            this.btndesactivarol.Name = "btndesactivarol";
-            this.btndesactivarol.Size = new System.Drawing.Size(20, 20);
-            this.btndesactivarol.TabIndex = 121;
-            this.btndesactivarol.TabStop = false;
-            this.btndesactivarol.UseVisualStyleBackColor = true;
-            this.btndesactivarol.Click += new System.EventHandler(this.CambiarEstado_Click);
-            // 
-            // btnmodificarol
-            // 
-            this.btnmodificarol.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnmodificarol.BackgroundImage")));
-            this.btnmodificarol.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnmodificarol.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnmodificarol.Enabled = false;
-            this.btnmodificarol.FlatAppearance.BorderSize = 0;
-            this.btnmodificarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnmodificarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmodificarol.Location = new System.Drawing.Point(624, 415);
-            this.btnmodificarol.Name = "btnmodificarol";
-            this.btnmodificarol.Size = new System.Drawing.Size(20, 20);
-            this.btnmodificarol.TabIndex = 120;
-            this.btnmodificarol.TabStop = false;
-            this.btnmodificarol.UseVisualStyleBackColor = true;
-            this.btnmodificarol.Click += new System.EventHandler(this.CambiarEstado_Click);
-            // 
-            // btnconsultarol
-            // 
-            this.btnconsultarol.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnconsultarol.BackgroundImage")));
-            this.btnconsultarol.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnconsultarol.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnconsultarol.FlatAppearance.BorderSize = 0;
-            this.btnconsultarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnconsultarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultarol.Location = new System.Drawing.Point(450, 415);
-            this.btnconsultarol.Name = "btnconsultarol";
-            this.btnconsultarol.Size = new System.Drawing.Size(20, 20);
-            this.btnconsultarol.TabIndex = 119;
-            this.btnconsultarol.TabStop = false;
-            this.btnconsultarol.UseVisualStyleBackColor = true;
-            this.btnconsultarol.BackgroundImageChanged += new System.EventHandler(this.btnconsultarol_BackgroundImageChanged);
-            this.btnconsultarol.Click += new System.EventHandler(this.CambiarEstado_Click);
-            // 
-            // btninsertarol
-            // 
-            this.btninsertarol.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btninsertarol.BackgroundImage")));
-            this.btninsertarol.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btninsertarol.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btninsertarol.FlatAppearance.BorderSize = 0;
-            this.btninsertarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btninsertarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btninsertarol.Location = new System.Drawing.Point(315, 415);
-            this.btninsertarol.Name = "btninsertarol";
-            this.btninsertarol.Size = new System.Drawing.Size(20, 20);
-            this.btninsertarol.TabIndex = 118;
-            this.btninsertarol.TabStop = false;
-            this.btninsertarol.UseVisualStyleBackColor = true;
-            this.btninsertarol.Click += new System.EventHandler(this.CambiarEstado_Click);
-            // 
             // privilegiosSupervision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(912, 865);
             this.Controls.Add(this.panel4);

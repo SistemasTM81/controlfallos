@@ -20,23 +20,34 @@ namespace controlFallos
         ReportePersonal RP;
         Incidencia_de_Personal IP;
         Form f;
+        string valorki = "";
 
         int empresa, area;
         public string id, tipobtn;
 
-        public FormContraFinal(int empresa, int area, Form F,validaciones v)
+        public FormContraFinal(int empresa, int area, Form F, validaciones v, string retorno)
         {
             this.val = v;
             InitializeComponent();
-            if (empresa == 1 && area == 1)
-                if (F.Name == "ReportePersonal")
-                    RP = (ReportePersonal)F;
-                else if (F.Name == "percances")
-                    PC = (percances)F;
-                else if (F.Name == "Incidencia de Personal")
-                    IP = (Incidencia_de_Personal)F;
-                else if (empresa == 2 && area == 2)
-                    ODC = (OrdenDeCompra)F;
+            
+            if (retorno == "1")
+            {
+                valorki = retorno;
+                LabelTitulo.Text = "Introduzca Su Contraseña Para\n Confirmación del Retorno";
+            }
+            else
+            {
+                if (empresa == 1 && area == 1)
+                    if (F.Name == "ReportePersonal")
+                        RP = (ReportePersonal)F;
+                    else if (F.Name == "percances")
+                        PC = (percances)F;
+                    else if (F.Name == "Incidencia de Personal")
+                        IP = (Incidencia_de_Personal)F;
+                    else if (empresa == 2 && area == 2)
+                        ODC = (OrdenDeCompra)F;
+            }
+
             this.empresa = empresa;
             this.area = area;
             f = F;
@@ -70,7 +81,7 @@ namespace controlFallos
 
         public void textBoxUsuFinal_TextChanged(object sender, EventArgs e)
         {
-            busquedageneral("SELECT t1.idPersona, UPPER(CONCAT(t1.ApPaterno, ' ', t1.ApMaterno, ' ', t1.nombres)) AS Nombre FROM cpersonal AS t1 INNER JOIN datosistema AS t2 ON t1.idPersona = t2.usuariofkcpersonal INNER JOIN puestos as t3 On t1.cargofkcargos = t3.idpuesto WHERE t2.password = '" + val.Encriptar(textBoxUsuFinal.Text) + "' AND t1.empresa = '" + empresa + "' AND t1.area = '" + area + "' AND t1.status = '1'", "idPersona", "Nombre");
+            busquedageneral("SELECT t1.idPersona, UPPER(CONCAT(coalesce(t1.ApPaterno,''), ' ', coalesce(t1.ApMaterno,''), ' ', coalesce(t1.nombres,''))) AS Nombre FROM cpersonal AS t1 INNER JOIN datosistema AS t2 ON t1.idPersona = t2.usuariofkcpersonal INNER JOIN puestos as t3 On t1.cargofkcargos = t3.idpuesto WHERE t2.password = '" + val.Encriptar(textBoxUsuFinal.Text) + "' AND t1.empresa = '" + empresa + "' AND t1.area = '" + area + "' AND t1.status = '1'", "idPersona", "Nombre");
         }
 
         public void busquedageneral(string consulta, string tituloid, string nombre)
@@ -98,6 +109,16 @@ namespace controlFallos
         {
             if (!string.IsNullOrWhiteSpace(id)) DialogResult = DialogResult.OK;
             else DialogResult = DialogResult.Abort;
+        }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonCancelar_Click(object sender, EventArgs e)
+        {
+
         }
 
         public void btnall_MouseLeave(object sender, EventArgs e)

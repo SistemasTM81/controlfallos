@@ -109,9 +109,9 @@ namespace controlFallos
                     if (!string.IsNullOrWhiteSpace(marca)) hijo.cbmarcas.SelectedValue = marca;
                     if (!string.IsNullOrWhiteSpace(charola))
                     {
-                        hijo.cbpasillo.SelectedValue = v.getaData("SELECT (SELECT (SELECT (SELECT idpasillo FROM cpasillos WHERE idpasillo=pasillofkcpasillos) FROM cniveles WHERE idnivel= nivelfkcniveles) FROM canaqueles WHERE idanaquel=anaquelfkcanaqueles) FROM ccharolas WHERE idcharola='" + charola + "'");
-                        hijo.cbnivel.SelectedValue = v.getaData("SELECT (SELECT (SELECT idnivel FROM cniveles WHERE idnivel= nivelfkcniveles) FROM canaqueles WHERE idanaquel=anaquelfkcanaqueles) FROM ccharolas WHERE idcharola='" + charola + "'");
-                        hijo.cbanaquel.SelectedValue = v.getaData("SELECT (SELECT idanaquel FROM canaqueles WHERE idanaquel=anaquelfkcanaqueles) FROM ccharolas WHERE idcharola='" + charola + "'"); hijo.cbcharola.SelectedValue = charola;
+                        hijo.cbpasillo.SelectedValue = v.getaData("SELECT (SELECT (SELECT (SELECT idpasillo FROM cpasillos WHERE idpasillo=pasillofkcpasillos limit 15) FROM cniveles WHERE idnivel= nivelfkcniveles limit 15) FROM canaqueles WHERE idanaquel=anaquelfkcanaqueles limit 15) FROM ccharolas WHERE idcharola='" + charola + "' limit 15");
+                        hijo.cbnivel.SelectedValue = v.getaData("SELECT (SELECT (SELECT idnivel FROM cniveles WHERE idnivel= nivelfkcniveles limit 15) FROM canaqueles WHERE idanaquel=anaquelfkcanaqueles limit 15) FROM ccharolas WHERE idcharola='" + charola + "' limit 15");
+                        hijo.cbanaquel.SelectedValue = v.getaData("SELECT (SELECT idanaquel FROM canaqueles WHERE idanaquel=anaquelfkcanaqueles limit 15) FROM ccharolas WHERE idcharola='" + charola + "' limit 15"); hijo.cbcharola.SelectedValue = charola;
 
                     }
                     if (cantidadingresadaAalmacen > 0) hijo.cantidada.Text = cantidadingresadaAalmacen.ToString();
@@ -120,8 +120,8 @@ namespace controlFallos
                     if (!string.IsNullOrWhiteSpace(observaciones)) hijo.txtdesc.Text = observaciones;
                     if (!string.IsNullOrWhiteSpace(marca))
                     {
-                        hijo.cbfamilia.SelectedValue = v.getaData("SELECT t3.idcnfamilia FROM cmarcas as t1 INNER JOIN cfamilias as t2 ON t1.descripcionfkcfamilias=t2.idfamilia INNER JOIN cnfamilias as t3 On t2.familiafkcnfamilias=t3.idcnFamilia WHERE t1.idmarca='" + marca + "'");
-                        hijo.cbdescfamilia.SelectedValue = v.getaData("SELECT t2.idfamilia FROM cmarcas as t1 INNER JOIN cfamilias as t2 ON t1.descripcionfkcfamilias=t2.idfamilia WHERE t1.idmarca='" + marca+ "'");
+                        hijo.cbfamilia.SelectedValue = v.getaData("SELECT t3.idcnfamilia FROM cmarcas as t1 INNER JOIN cfamilias as t2 ON t1.descripcionfkcfamilias=t2.idfamilia INNER JOIN cnfamilias as t3 On t2.familiafkcnfamilias=t3.idcnFamilia WHERE t1.idmarca='" + marca + "' limit 15");
+                        hijo.cbdescfamilia.SelectedValue = v.getaData("SELECT t2.idfamilia FROM cmarcas as t1 INNER JOIN cfamilias as t2 ON t1.descripcionfkcfamilias=t2.idfamilia WHERE t1.idmarca='" + marca+ "' limit 15");
                         hijo.cbmarcas.SelectedValue = marca;
                     }
                     codref = null;

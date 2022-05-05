@@ -6,6 +6,8 @@ using MySql.Data.MySqlClient;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Globalization;
+using System.Drawing.Imaging;
+using System.IO;
 
 namespace controlFallos
 {
@@ -14,10 +16,10 @@ namespace controlFallos
         
         validaciones v;
         int idUsuario, status, empresa, area;
-        string idRefaccionTemp, codrefAnterior, nomrefanterior, modrefanterior, marcaAnterior, nivelAnterior, charolaAnterior, ultimoabastecimiento, mediaAnterior, abastecimientoAnterior, descripcionAnterior;
+        string idRefaccionTemp, codrefAnterior, nomrefanterior, modrefanterior, marcaAnterior, nivelAnterior, charolaAnterior, ultimacantidad, ultimoabastecimiento, mediaAnterior, abastecimientoAnterior, descripcionAnterior, CostoAnterior, proveedorAnterior,Destino = "";
         public bool editar { private set; get; }
         Thread exportar, th;
-        decimal ultimacantidad;
+        //decimal ultimacantidad;
         public string idRefaccionMediaAbast;
         bool yaAparecioMensaje = false;
         bool Pinsertar { set; get; }
@@ -38,9 +40,22 @@ namespace controlFallos
                     decimal abastecimiento = 0; try { if (!string.IsNullOrWhiteSpace(notifabastecimiento.Text)) abastecimiento = Convert.ToDecimal(notifabastecimiento.Text); } catch { media = 0; }
                     int charolafkccharolas = 0; if (cbcharola.DataSource != null) charolafkccharolas = Convert.ToInt32(cbcharola.SelectedValue);
                     decimal cantidadAlmacen = 0; try { if (!string.IsNullOrWhiteSpace(cantidada.Text.Trim())) cantidadAlmacen = Convert.ToDecimal(cantidada.Text.Trim()); } catch { cantidadAlmacen = 0; }
+                    decimal costoUni = 0; try { if (!string.IsNullOrWhiteSpace(txtCostoUni.Text.Trim())) costoUni = Convert.ToDecimal(txtCostoUni.Text.Trim()); } catch { costoUni = 0; }
                     string observaciones = v.mayusculas(txtdesc.Text.Trim().ToLower());
 
-                    if (status == 1 && (!string.IsNullOrWhiteSpace(txtcodrefaccion.Text) && !string.IsNullOrWhiteSpace(txtnombrereFaccion.Text) && !string.IsNullOrWhiteSpace(txtmodeloRefaccion.Text) && cbfamilia.SelectedIndex > 0 && marca > 0 && (Convert.ToInt32((cbpasillo.SelectedValue ?? "0"))) > 0 && Convert.ToInt32((cbnivel.SelectedValue ?? "0")) > 0 && Convert.ToInt32((cbanaquel.SelectedValue ?? "0")) > 0 && charolafkccharolas > 0 && media > 0 && abastecimiento > 0) && (!codrefAnterior.Equals(codrefaccion) || !nomrefanterior.Equals(nomrefaccion) || !modrefanterior.Equals(modrefaccion) || (proxabastecimiento.Value.ToString("dd / MM / yyyy") != DateTime.Parse(ultimoabastecimiento).ToString("dd / MM / yyyy")) || (marcaAnterior != cbmarcas.SelectedValue.ToString()) || (charolaAnterior != charolafkccharolas.ToString()) || cantidadAlmacen > 0 || ((Convert.ToDecimal(mediaAnterior) != media || Convert.ToDecimal(abastecimientoAnterior) != abastecimiento)) || !descripcionAnterior.Equals(v.mayusculas(txtdesc.Text.Trim().ToLower()))))
+                    if (status == 1 && 
+                        
+                        (!string.IsNullOrWhiteSpace(txtcodrefaccion.Text) ||
+                        !string.IsNullOrWhiteSpace(txtnombrereFaccion.Text) ||
+                        !string.IsNullOrWhiteSpace(txtmodeloRefaccion.Text) ||
+                        cbfamilia.SelectedIndex > 0 ||
+                        marca > 0 ||
+                        (Convert.ToInt32((cbpasillo.SelectedValue ?? "0"))) > 0 ||
+                        Convert.ToInt32((cbnivel.SelectedValue ?? "0")) > 0 ||
+                        Convert.ToInt32((cbanaquel.SelectedValue ?? "0")) > 0 ||
+                        Convert.ToInt32((cmbPROVEEDOR.SelectedValue ?? "0")) > 0 ||
+                        charolafkccharolas > 0 || media > 0 || abastecimiento > 0) || 
+                        (!codrefAnterior.Equals(codrefaccion) || !nomrefanterior.Equals(nomrefaccion) || !modrefanterior.Equals(modrefaccion) || (proxabastecimiento.Value.ToString("dd / MM / yyyy") != DateTime.Parse(ultimoabastecimiento).ToString("dd / MM / yyyy")) || (marcaAnterior != cbmarcas.SelectedValue.ToString()) || (charolaAnterior != charolafkccharolas.ToString()) || cantidadAlmacen > 0 || ((Convert.ToDecimal(mediaAnterior) != media || Convert.ToDecimal(abastecimientoAnterior) != abastecimiento)) || (Convert.ToDecimal(CostoAnterior) != costoUni) || !descripcionAnterior.Equals(v.mayusculas(txtdesc.Text.Trim().ToLower())) || (marcaAnterior != cbmarcas.SelectedValue.ToString())))
                     {
                         btnsave.Visible = lblsave.Visible = true;
                     }
@@ -68,11 +83,13 @@ namespace controlFallos
             cbpasillo.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cbanaquel.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cbcharola.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
+            cmbPROVEEDOR.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cbfamiliabusq.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cbmarcasbusq.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             tbrefaccion.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             tbrefaccion.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cbdescfamilia.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
+            cmbMoneda.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             this.empresa = empresa;
             this.area = area; DataGridViewCellStyle d = new DataGridViewCellStyle();
             d.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -82,6 +99,18 @@ namespace controlFallos
             d.Font = new Font("Garamond", 14, FontStyle.Bold);
             d.WrapMode = DataGridViewTriState.True; d.BackColor = Color.FromArgb(200, 200, 200);
             tbrefaccion.ColumnHeadersDefaultCellStyle = d;
+            v.comboswithuot(cbmarcasbusq, new string[] { "--SELECCIONA TIPO--", "NUEVA", "REMANOFACTURADA", "PRODUCCION" });
+            v.comboswithuot(cmbTipo, new string[] { "--SELECCIONA TIPO--", "TRANSINSUMOS", "TRANSMASIVO", "PRODUCCION"});
+            
+            if (empresa == 2)
+            {
+                Destino = @"\\192.168.1.67\Imagenes\REFACCIONES\TRI\";
+            }
+            if (empresa == 3)
+            {
+                Destino = @"\\192.168.1.67\Imagenes\REFACCIONES\INSUMOS\";
+            }
+
         }
         public nuevaRefaccion(int idUsuario, string idrefaccion)
         {
@@ -93,22 +122,33 @@ namespace controlFallos
         }
         public void establecerPrivilegios()
         {
-            string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario,"catRefacciones")).ToString().Split('/');
-            if (privilegiosTemp.Length > 0)
+            try
             {
+                string[] privilegiosTemp = v.getaData(string.Format("SELECT privilegios FROM privilegios WHERE usuariofkcpersonal ='{0}' AND namForm ='{1}'", idUsuario, "catRefacciones")).ToString().Split('/');
+                if (privilegiosTemp.Length > 0)
+                {
 
-                Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
-                Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
-                Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                    Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
+                    Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
+                    Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
+                    if (Convert.ToInt32(privilegiosTemp.Length) > 3)
+                    {
+                        Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                    }
+
+                }
+                mostrar();
             }
-            mostrar();
+            catch (Exception ex)
+            {
+                MessageBox.Show("No tienes permisos para acceder al modulo".ToUpper(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
         void mostrar()
         {
-            if (Pinsertar || Peditar)
+            if (Pinsertar)
             {
-
                 gbaddrefaccion.Visible = true;
             }
             if (Pconsultar)
@@ -134,6 +174,10 @@ namespace controlFallos
         {
             v.iniCombos("SELECT idcnfamilia as idfamilia,UPPER(familia) as familia FROM cnfamilias where empresa='" + empresa + "' ORDER BY Familia ASC", cbfamiliabusq, "idfamilia", "familia", "-- SELECCIONE FAMILIA --");
         }
+        void iniMonedaCambio()
+        {
+            v.iniCombos("select idTipoCambio as id, Simbolo from ctipocambio order by simbolo desc", cmbMoneda, "id", "Simbolo", "--MONEDA--");
+        }
         private void nuevaRefaccion_Load(object sender, EventArgs e)
         {
             establecerPrivilegios();
@@ -142,6 +186,8 @@ namespace controlFallos
                 iniFamilias();
                 inifamiliasBusq();
                 iniubicaciones();
+                iniMonedaCambio();
+                mostrar_proveedor(empresa);
 
 
                 proxabastecimiento.Value = DateTime.Now;
@@ -149,6 +195,7 @@ namespace controlFallos
             if (Pconsultar)
             {
                 insertarRefacciones();
+                inifamiliasBusq();
             }
             if (!string.IsNullOrWhiteSpace(idRefaccionMediaAbast))
             {
@@ -186,11 +233,22 @@ namespace controlFallos
 
         private void button7_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text.Trim()) || cbfamiliabusq.SelectedIndex > 0 || cbmarcasbusq.SelectedIndex > 0)
+            if (!string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text.Trim()) || cbfamiliabusq.SelectedIndex > 0 || cbmarcasbusq.SelectedIndex > 0 || !string.IsNullOrWhiteSpace(txtCodigobusq.Text.Trim()))
             {
                 tbrefaccion.DataSource = null;
-                string sql = @"SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT t1.idrefaccion,UPPER(t1.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t1.nombreRefaccion) AS 'NOMBRE DE REFACCIÓN',UPPER(t1.modeloRefaccion) AS 'MODELO DE REFACCIÓN',UPPER(DATE_FORMAT(t1.proximoAbastecimiento, '%d / %M / %Y')) AS 'PRÓXIMO ABASTECIMIENTO',UPPER(t3.Familia) as 'FAMILIA',UPPER(t2.descripcionFamilia) AS 'DESCRIPCIÓN DE FAMILIA', UPPER(t9.Simbolo) as 'UNIDAD DE MEDIDA',UPPER(t8.marca) as 'MARCA',UPPER(CONCAT('PASILLO: ',t7.pasillo,';NIVEL: ',t6.nivel,';ANAQUEL: ',t5.anaquel,';CHAROLA: ',t4.charola)) as 'UBICACIÓN',t1.existencias as 'EXISTENCIAS',t1.media as 'MEDIA',t1.abastecimiento as 'ABASTECIMIENTO',UPPER(t1.descripcionRefaccion) as 'DESCRIPCIÓN',UPPER(CONCAT(t10.nombres,' ',t10.ApPaterno,' ',t10.ApMaterno)) AS 'USUARIO QUE DIÓ DE ALTA',UPPER(DATE_FORMAT(t1.fechaHoraalta,'%W, %d de %M del %Y  a las %H:%i:%s')) AS 'FECHA/HORA ALTA',IF(t1.status = 1, 'ACTIVO', 'NO ACTIVO') as 'ESTATUS',t2.familiafkcnfamilias,t2.idfamilia,t8.idmarca,t7.idpasillo,t6.idnivel,t5.idanaquel,t4.idcharola FROM crefacciones as t1 INNER JOIN ccharolas as t4 ON t1.charolafkcharolas=t4.idcharola INNER JOIN canaqueles as t5 ON t4.anaquelfkcanaqueles = t5.idanaquel INNER JOIN cniveles as t6 ON t5.nivelfkcniveles=t6.idnivel INNER JOIN cpasillos as t7 On t6.pasillofkcpasillos=t7.idpasillo INNER JOIN cmarcas as t8 ON t1.marcafkcmarcas=t8.idmarca INNER JOIN cfamilias as t2 ON t8.descripcionfkcfamilias = t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cunidadmedida as t9 ON t2.umfkcunidadmedida=t9.idunidadmedida INNER JOIN cpersonal as t10 ON t1.usuarioaltafkcpersonal=t10.idpersona  ";
+                string sql = @"SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT t1.idrefaccion,UPPER(t1.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t1.nombreRefaccion) AS 'NOMBRE DE REFACCIÓN',UPPER(t1.modeloRefaccion) AS 'MODELO DE REFACCIÓN',UPPER(DATE_FORMAT(t1.proximoAbastecimiento, '%d / %M / %Y')) AS 'PRÓXIMO ABASTECIMIENTO',UPPER(t3.Familia) as 'FAMILIA',UPPER(t2.descripcionFamilia) AS 'DESCRIPCIÓN DE FAMILIA', UPPER(t9.Simbolo) as 'UNIDAD DE MEDIDA',UPPER(t8.marca) as 'MARCA',UPPER(CONCAT('PASILLO: ',t7.pasillo,';NIVEL: ',t6.nivel,';ANAQUEL: ',t5.anaquel,';CHAROLA: ',t4.charola)) as 'UBICACIÓN',t1.existencias as 'EXISTENCIAS',t1.media as 'MEDIA',t1.abastecimiento as 'ABASTECIMIENTO',UPPER(t1.descripcionRefaccion) as 'DESCRIPCIÓN',UPPER(CONCAT(coalesce(t10.nombres,''),' ',coalesce(t10.ApPaterno,''),' ',coalesce(t10.ApMaterno,''))) AS 'USUARIO QUE DIÓ DE ALTA',UPPER(DATE_FORMAT(t1.fechaHoraalta,'%W, %d de %M del %Y  a las %H:%i:%s')) AS 'FECHA/HORA ALTA',IF(t1.status = 1, 'ACTIVO', 'NO ACTIVO') as 'ESTATUS',t2.familiafkcnfamilias,t2.idfamilia,t8.idmarca,t7.idpasillo,t6.idnivel,t5.idanaquel,t4.idcharola, UPPER(coalesce(convert(t1.CostoUni,char),'0')) as 'COSTO REFACCIÓN',convert(t12.Simbolo,char) as 'MONEDA',UPPER(coalesce(convert(if(t11.empresa = '',concat(t11.aPaterno, ' ', t11.aMaterno, ' ', t11.nombres), t11.empresa),char),'0')) as 'PROVEEDOR', if(t1.Tipo = 1, 'NUEVA', if(t1.Tipo = 2, 'REMANOFAACTURADA', if(t1.Tipo=3,'PRODUCCION',0))) as TIPO FROM crefacciones as t1 INNER JOIN ccharolas as t4 ON t1.charolafkcharolas=t4.idcharola INNER JOIN canaqueles as t5 ON t4.anaquelfkcanaqueles = t5.idanaquel INNER JOIN cniveles as t6 ON t5.nivelfkcniveles=t6.idnivel INNER JOIN cpasillos as t7 On t6.pasillofkcpasillos=t7.idpasillo INNER JOIN cmarcas as t8 ON t1.marcafkcmarcas=t8.idmarca INNER JOIN cfamilias as t2 ON t8.descripcionfkcfamilias = t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cunidadmedida as t9 ON t2.umfkcunidadmedida=t9.idunidadmedida INNER JOIN cpersonal as t10 ON t1.usuarioaltafkcpersonal=t10.idpersona inner join cproveedores as t11 on t1.proveedrofkCProveedores = t11.idproveedor inner join ctipocambio as t12 on t1.tipoMonedafkCTipoCambio = t12.idTipoCambio ";
                 string wheres = "";
+                if (!string.IsNullOrWhiteSpace(txtCodigobusq.Text))
+                {
+                    if (wheres == "")
+                    {
+                        wheres = "WHERE codrefaccion LIKE '" + txtCodigobusq.Text + "%' ";
+                    }
+                    else
+                    {
+                        wheres += " AND codrefaccion LIKE '" + txtCodigobusq.Text + "%' ";
+                    }
+                }
                 if (!string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text))
                 {
                     if (wheres == "")
@@ -217,14 +275,15 @@ namespace controlFallos
                 {
                     if (wheres == "")
                     {
-                        wheres = "WHERE t8.marca ='" + cbmarcasbusq.Text + "' ";
+                        wheres = "WHERE t1.Tipo = '" + cbmarcasbusq.SelectedValue + "'";
                     }
                     else
                     {
-                        wheres += " AND t8.marca ='" + cbmarcasbusq.Text + "' ";
+                        wheres += " AND  t1.Tipo = '" + cbmarcasbusq.SelectedValue + "'";
                     }
                 }
-                sql += wheres + " and t1.empresa='" + empresa + "' and t1.empresa='" + empresa + "' ORDER BY t1.codrefaccion ASC";
+                sql += wheres + " and t1.empresa='" + empresa + "' and t1.empresa='" + empresa + "' ORDER BY t1.codrefaccion";
+                txtCodigobusq.Clear();
                 txtnombrereFaccionbusq.Clear();
                 cbfamiliabusq.SelectedIndex = 0;
                 cbmarcasbusq.SelectedIndex = 0;
@@ -395,14 +454,14 @@ namespace controlFallos
             {
                 TextBox txtKilometraje = sender as TextBox;
                 char signo_decimal = (char)46;
-                if (char.IsNumber(e.KeyChar) || char.IsControl(e.KeyChar) || e.KeyChar == 46)
+                if (char.IsNumber(e.KeyChar) || char.IsControl(e.KeyChar) || e.KeyChar == 46 || e.KeyChar == 44)
                 {
                     e.Handled = false;
                 }
                 else
                 {
                     e.Handled = true;
-                    MessageBox.Show("Solo se aceptan: numéros y ( . ) en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Solo se aceptan: numéros y ( , ) en este campo".ToUpper(), "CARACTERES NO PERMITIDOS", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 if (e.KeyChar == 46)
                 {
@@ -522,6 +581,7 @@ namespace controlFallos
                 {
                     yaAparecioMensaje = true;
                     button11_Click(null, e);
+                    label40.Visible = label41.Visible = txtFolioF.Visible = false;
                 }
                 else
                 {
@@ -539,14 +599,14 @@ namespace controlFallos
         {
             if (cbfamiliabusq.SelectedIndex > 0)
             {
-                if (cbmarcasbusq.SelectedIndex == 0)
+               /* if (cbmarcasbusq.SelectedIndex == 0)
                 {
                     v.iniCombos("select t1.idmarca as id,UPPER(t1.marca) as marca from cmarcas as t1 INNER JOIN cfamilias as t2 ON t1.descripcionfkcfamilias = t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia WHERE t3.idcnfamilia='" + cbfamiliabusq.SelectedValue + "' and t2.empresa='" + empresa + "'", cbmarcasbusq, "id", "marca", "--SELECCIONE UNA MARCA--");
-                }
+                }*/
             }
             else
             {
-                v.iniCombos("select DISTINCT t1.idmarca as id,UPPER(t1.marca) as marca from cmarcas as t1 where empresa='" + empresa + "' GROUP BY t1.marca", cbmarcasbusq, "id", "marca", "--SELECCIONE UNA MARCA--");
+               // v.iniCombos("select DISTINCT t1.idmarca as id,UPPER(t1.marca) as marca from cmarcas as t1 where empresa='" + empresa + "' GROUP BY t1.marca", cbmarcasbusq, "id", "marca", "--SELECCIONE UNA MARCA--");
             }
         }
 
@@ -557,7 +617,7 @@ namespace controlFallos
 
         private void btndelcla_Click(object sender, EventArgs e)
         {
-            try
+             try
             {
                 int status;
                 string msg;
@@ -608,57 +668,86 @@ namespace controlFallos
             up.ShowDialog();
         }
 
+        public void abrirImagen()
+        {
+            OpenFileDialog Abrir = new OpenFileDialog();
+            Abrir.Filter = "JPENG(*.JPG)|*.JPG|BMP(*.BMP)|*.BMP";
+            if (Abrir.ShowDialog() == DialogResult.OK)
+            {
+                pbImgRefaccion.Image = Image.FromFile(Abrir.FileName);
+                pbImgRefaccion.SizeMode = PictureBoxSizeMode.Zoom;
+            }
+        }
+        public void pictureOnClick(object sender, EventArgs e)
+        {
+            abrirImagen();
+        }
+
+        public void guardarImagen()
+        {
+            
+            try
+            {
+                //pictureBox1.Image.Save(Destino, ImageFormat.Jpeg);
+                pbImgRefaccion.Image.Save(Destino + txtcodrefaccion.Text + ".Jpeg", ImageFormat.Jpeg);
+            }
+            catch (Exception e)
+            {
+
+                throw;
+            }
+        }
+        public void traerImagen()
+        {
+            pbImgRefaccion.Image = Image.FromFile(Path.Combine(Application.StartupPath, Destino + txtcodrefaccion.Text + ".Jpeg"));
+            pbImgRefaccion.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+        private void gbbuscar_Enter(object sender, EventArgs e)
+        {
+
+        }
+        bool activadok = false;
         private void btnExcel_Click(object sender, EventArgs e)
         {
-            est_expor = true;
-            ThreadStart delegado = new ThreadStart(ExportarExcel);
-            exportar = new Thread(delegado);
-            exportar.Start();
+            activadok = true;
+            ThreadStart excel = new ThreadStart(exporta_a_excel);
+            hiloEx = new Thread(excel);
+            hiloEx.Start();
+            //est_expor = true;
+            //ThreadStart delegado = new ThreadStart(ExportarExcel);
+            //exportar = new Thread(delegado);
+            //exportar.Start();
+
         }
-        bool exportando;
-        delegate void El_Delegado();
-        void cargando()
+        bool exportando = false;
+      
+        Thread hiloEx;
+        delegate void Loading();
+        public void cargando1()
         {
             pictureBox2.Image = Properties.Resources.loader;
             btnExcel.Visible = false;
-            LblExcel.Text = "Exportando";
+            label35.Text = "EXPORTANDO";
+            label35.Visible = true;
+            label35.Location = new Point(455, 778);
         }
-        delegate void El_Delegado1();
-        void cargando1()
+        delegate void Loading1();
+        public void cargando2()
         {
             pictureBox2.Image = null;
-            btnExcel.Visible = true;
+            label35.Visible = btnExcel.Visible = true;
+            label35.Text = "EXPORTAR";
             if (exportando)
             {
-                LblExcel.Visible = false;
                 btnExcel.Visible = false;
+                label35.Visible = false;
             }
             exportando = false;
-            est_expor = false;
-            LblExcel.Text = "Exportar";
+            activadok = false;
+            label35.Location = new Point(475, 778);
         }
-        private void textBox5_KeyPress(object sender, KeyPressEventArgs e){v.letrasnumerosdiagonalypunto(e);}
-
-        private void cantidada_Validated(object sender, EventArgs e){}
-
-        void _UnidadesExportadas(DataTable dt)
-        {
-            string id;
-            int contador = 0;
-            string sql = "INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Catálogo de Refacciones','0','";
-            foreach (DataRow row in dt.Rows)
-            {
-                contador++;
-                id = v.getaData(string.Format("SELECT idrefaccion FROM crefacciones WHERE codrefaccion='{0}'", row.ItemArray[0])).ToString();
-                if (contador < dt.Rows.Count){id += ";";}
-                sql += id;
-            }
-            sql += "','" + this.idUsuario + "',NOW(),'Exportación a Excel de Catálogo de Refacciones','" + this.empresa + "','" + this.area + "')";
-            MySqlCommand exportacion = new MySqlCommand(sql, v.c.dbconection());
-            exportacion.ExecuteNonQuery();
-            v.c.dbcon.Close();
-        }
-        void ExportarExcel()
+        delegate void El_Delegado(); delegate void El_Delegado1();
+        public void exporta_a_excel()
         {
             if (tbrefaccion.Rows.Count > 0)
             {
@@ -666,6 +755,7 @@ namespace controlFallos
                 for (int i = 0; i < tbrefaccion.Columns.Count; i++) if (tbrefaccion.Columns[i].Visible) dt.Columns.Add(tbrefaccion.Columns[i].HeaderText);
                 for (int j = 0; j < tbrefaccion.Rows.Count; j++)
                 {
+
                     DataRow row = dt.NewRow();
                     int indice = 0;
                     for (int i = 0; i < tbrefaccion.Columns.Count; i++)
@@ -676,19 +766,20 @@ namespace controlFallos
                             row[dt.Columns[indice]] = tbrefaccion.Rows[j].Cells[i].Value;
                             indice++;
                         }
+
                     }
                     dt.Rows.Add(row);
                 }
                 if (this.InvokeRequired)
                 {
-                    El_Delegado delega = new El_Delegado(cargando);
+                    El_Delegado delega = new El_Delegado(cargando1);
                     this.Invoke(delega);
                 }
 
-                // v.exportaExcel(dt);
+                v.exportaExcel(dt);
                 if (this.InvokeRequired)
                 {
-                    El_Delegado1 delega = new El_Delegado1(cargando1);
+                    El_Delegado1 delega = new El_Delegado1(cargando2);
                     this.Invoke(delega);
                 }
                 _UnidadesExportadas(dt);
@@ -698,6 +789,112 @@ namespace controlFallos
                 MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void cmbPROVEEDOR_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
+
+        //bool exportando;
+        //delegate void El_Delegado();
+        //void cargando()
+        //{
+        //    pictureBox2.Image = Properties.Resources.loader;
+        //    btnExcel.Visible = false;
+        //    LblExcel.Text = "Exportando";
+        //}
+        //delegate void El_Delegado1();
+        //void cargando1()
+        //{
+        //    pictureBox2.Image = null;
+        //    btnExcel.Visible = true;
+        //    if (exportando)
+        //    {
+        //        LblExcel.Visible = false;
+        //        btnExcel.Visible = false;
+        //    }
+        //    exportando = false;
+        //    est_expor = false;
+        //    LblExcel.Text = "Exportar";
+        //}
+        void _UnidadesExportadas(DataTable dt)
+        {
+            string id;
+            int contador = 0;
+            string sql = "INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Catálogo de Refacciones','0','";
+            foreach (DataRow row in dt.Rows)
+            {
+                contador++;
+                id = v.getaData(string.Format("SELECT idrefaccion FROM crefacciones WHERE codrefaccion='{0}'", row.ItemArray[0])).ToString();
+                if (contador < dt.Rows.Count) { id += ";"; }
+                sql += id;
+            }
+            sql += "','" + this.idUsuario + "',NOW(),'Exportación a Excel de Catálogo de Refacciones','" + this.empresa + "','" + this.area + "')";
+            MySqlCommand exportacion = new MySqlCommand(sql, v.c.dbconection());
+            exportacion.ExecuteNonQuery();
+            v.c.dbcon.Close();
+        }
+
+        private void cmbTipo_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        //void ExportarExcel()
+        //{
+        //    if (tbrefaccion.Rows.Count > 0)
+        //    {
+        //        DataTable dt = new DataTable();
+        //        for (int i = 0; i < tbrefaccion.Columns.Count; i++) if (tbrefaccion.Columns[i].Visible) dt.Columns.Add(tbrefaccion.Columns[i].HeaderText);
+        //        for (int j = 0; j < tbrefaccion.Rows.Count; j++)
+        //        {
+        //            DataRow row = dt.NewRow();
+        //            int indice = 0;
+        //            for (int i = 0; i < tbrefaccion.Columns.Count; i++)
+        //            {
+
+        //                if (tbrefaccion.Columns[i].Visible)
+        //                {
+        //                    row[dt.Columns[indice]] = tbrefaccion.Rows[j].Cells[i].Value;
+        //                    indice++;
+        //                }
+        //            }
+        //            dt.Rows.Add(row);
+        //        }
+        //        if (this.InvokeRequired)
+        //        {
+        //            El_Delegado delega = new El_Delegado(cargando);
+        //            this.Invoke(delega);
+        //        }
+
+        //        // v.exportaExcel(dt);
+        //        if (this.InvokeRequired)
+        //        {
+        //            El_Delegado1 delega = new El_Delegado1(cargando1);
+        //            this.Invoke(delega);
+        //        }
+        //        _UnidadesExportadas(dt);
+        //    }
+        //    else
+        //    {
+        //        MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e){v.letrasnumerosdiagonalypunto(e);}
+
+        private void cantidada_Validated(object sender, EventArgs e){}
+
+        private void gbconsultar_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+       
         private void button11_Click(object sender, EventArgs e)
         {
             try
@@ -705,10 +902,12 @@ namespace controlFallos
                 if (!editar)
                 {
                     insertar();
+                   // btnsave.Enabled = false;
                 }
                 else
                 {
-                    _editar();
+                    b_editar();
+                    //btnsave.Enabled = false;
                 }
             }
             catch (Exception ex)
@@ -717,44 +916,70 @@ namespace controlFallos
 
             }
         }
-        void _editar()
+        void  b_editar()
         {
-
             string codrefaccion = txtcodrefaccion.Text;
             string nombreRefaccion = v.mayusculas(txtnombrereFaccion.Text.ToLower());
             string modeloRefaccion = txtmodeloRefaccion.Text;
             string proxabast = proxabastecimiento.Value.ToString("yyyy/MM/dd");
             string proxabastParaValidacion = proxabastecimiento.Value.ToShortDateString();
             int marca = Convert.ToInt32(cbmarcas.SelectedValue.ToString());
+            int proveedor = Convert.ToInt32(cmbPROVEEDOR.SelectedValue);
+            int moneda = Convert.ToInt32(cmbMoneda.SelectedValue);
             int pasillo = Convert.ToInt32(cbpasillo.SelectedValue);
+            int Tipo = Convert.ToInt32(cmbTipo.SelectedValue);
             int nivel = 0; if (cbnivel.DataSource != null) nivel = Convert.ToInt32(cbnivel.SelectedValue);
             int anaquel = 0; if (cbanaquel.DataSource != null) anaquel = Convert.ToInt32(cbanaquel.SelectedValue);
             int charolafkccharolas = 0; if (cbcharola.DataSource != null) charolafkccharolas = Convert.ToInt32(cbcharola.SelectedValue);
             decimal cantidadAlmacen = 0; if (!string.IsNullOrWhiteSpace(cantidada.Text.Trim())) cantidadAlmacen = Convert.ToDecimal(cantidada.Text.Trim());
+            decimal CostoUni = 0; if (!string.IsNullOrWhiteSpace(txtCostoUni.Text.Trim())) CostoUni = Convert.ToDecimal(txtCostoUni.Text.Trim());
             decimal media = Convert.ToDecimal(notifmedia.Text);
             decimal abastecimiento = Convert.ToDecimal(notifabastecimiento.Text);
             string observa = v.mayusculas(txtdesc.Text.Trim().ToLower());
-            if (!v.formularioRefaciones(codrefaccion, nombreRefaccion, modeloRefaccion, marca, pasillo, nivel, anaquel, charolafkccharolas, proxabastecimiento.Value) && !v.NumericsUpDownRefaccionEdicion(media, abastecimiento))
+            string folioFactura = txtFolioF.Text;
+            if (!v.formularioRefaciones(codrefaccion, nombreRefaccion, modeloRefaccion, marca, pasillo, nivel, anaquel, charolafkccharolas,proveedor, moneda ,proxabastecimiento.Value, Tipo) && !v.NumericsUpDownRefaccionEdicion(media, abastecimiento))
             {
                 if (!v.existeRefaccionActualizar(codrefaccion, codrefAnterior, nombreRefaccion, nomrefanterior, modeloRefaccion, modrefanterior,empresa))
                 {
                     if (status == 1)
                     {
                         DialogResult edition = DialogResult.OK;
-                        if (mostrarmotivoActualizacion(new string[8, 2] { { codrefAnterior, codrefaccion }, { nomrefanterior, nomrefanterior }, { modrefanterior, modeloRefaccion }, { marcaAnterior, marca.ToString() }, { (charolaAnterior ?? "0"), charolafkccharolas.ToString() }, { Convert.ToDouble(mediaAnterior).ToString(), Convert.ToDouble(media).ToString() }, { Convert.ToDouble(abastecimientoAnterior).ToString(), abastecimiento.ToString() }, { descripcionAnterior, observa } }))
+                        if (mostrarmotivoActualizacion(new string[10, 2] { { codrefAnterior, codrefaccion }, { nomrefanterior, nomrefanterior }, { modrefanterior, modeloRefaccion }, { marcaAnterior, marca.ToString() }, { (charolaAnterior ?? "0"), charolafkccharolas.ToString() }, { Convert.ToDouble(mediaAnterior).ToString(), Convert.ToDouble(media).ToString() }, { Convert.ToDouble(abastecimientoAnterior).ToString(), abastecimiento.ToString() }, { descripcionAnterior, observa }, {CostoAnterior, CostoUni.ToString()}, { (proveedorAnterior ?? "0"), proveedor.ToString() } }))
                         {
                             observacionesEdicion obs = new observacionesEdicion(v);
                             obs.Owner = this;
                             edition = obs.ShowDialog();
                             if (edition == DialogResult.OK)
                             {
-                                string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
-                                if (string.IsNullOrWhiteSpace(cantidada.Text)) cantidada.Text = "0";
-                                decimal exist = Convert.ToDecimal(cantidada.Text) + Convert.ToDecimal(ultimacantidad);
-                                if (v.c.insertar(@"UPDATE crefacciones SET codrefaccion =LTRIM(RTRIM('" + codrefaccion + "')), nombreRefaccion = LTRIM(RTRIM('" + nombreRefaccion + "')), modeloRefaccion =LTRIM(RTRIM('" + modeloRefaccion + "'))" + (DateTime.Parse(proxabastecimiento.Value.ToString("yyyy-MM-dd")) > DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd")) ? " , proximoAbastecimiento = '" + proxabast + "'" : "") + ",charolafkcharolas = '" + charolafkccharolas + "', existencias = '" + exist + "', marcafkcmarcas = '" + marca + "', media = '" + media + "', abastecimiento = '" + abastecimiento + "',descripcionRefaccion='" + v.mayusculas(txtdesc.Text.ToLower()) + "' WHERE idrefaccion = '" + this.idRefaccionTemp + "'"))
+                                if (!v.yaExisterf(txtFolioF.Text, codrefaccion.ToString()))
                                 {
-                                    var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Refacciones','" + idRefaccionTemp + "','" + codrefAnterior + ";" + nomrefanterior + ";" + modrefanterior + ";" + ultimoabastecimiento + ";" + marcaAnterior + ";" + charolaAnterior + ";" + mediaAnterior + ";" + abastecimientoAnterior + ";" + descripcionAnterior + "','" + idUsuario + "',NOW(),'Actualización de Refacción','" + observaciones + "','" + empresa + "','" + area + "')");
 
+
+                                    string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
+                                    string quees = "";
+                                    if (string.IsNullOrWhiteSpace(cantidada.Text)) cantidada.Text = "0.0";
+                                    decimal exist = Convert.ToDecimal(cantidada.Text) + Convert.ToDecimal(ultimacantidad);
+                                    if (v.c.insertar(@"UPDATE crefacciones SET codrefaccion =LTRIM(RTRIM('" + codrefaccion + "')), nombreRefaccion = LTRIM(RTRIM('" + nombreRefaccion + "')), modeloRefaccion =LTRIM(RTRIM('" + modeloRefaccion + "'))" + (DateTime.Parse(proxabastecimiento.Value.ToString("yyyy-MM-dd")) > DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd")) ? " , proximoAbastecimiento = '" + proxabast + "'" : "") + ",charolafkcharolas = '" + charolafkccharolas + "', existencias = '" + exist + "', marcafkcmarcas = '" + marca + "', media = '" + media + "', abastecimiento = '" + abastecimiento + "',descripcionRefaccion='" + v.mayusculas(txtdesc.Text.ToLower()) + "', CostoUni='" + CostoUni + "', proveedrofkCProveedores='" + proveedor + "',tipoMonedafkCTipoCambio='" + moneda + "', Tipo = '" + Tipo + "'  WHERE idrefaccion = '" + this.idRefaccionTemp + "'"))
+                                    {
+                                        if (float.Parse(cantidada.Text) > 0.0 && !string.IsNullOrWhiteSpace(folioFactura))
+                                        {
+                                            centradas(CostoUni, moneda);
+                                        }
+                                        var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Refacciones','" + idRefaccionTemp + "','" +codrefAnterior + ";" + nomrefanterior + ";" + modrefanterior + ";" + ultimoabastecimiento + ";" + marcaAnterior + ";" + charolaAnterior + ";" + ultimacantidad + ";" + mediaAnterior + ";" + abastecimientoAnterior + ";" + descripcionAnterior + ";" + CostoAnterior + "','" + idUsuario + "',NOW(),'Actualización de Refacción','" + observaciones + "','" + empresa + "','" + area + "')");
+
+                                        /* var res3 = v.c.insertar("INSERT INTO cfoliosfactura(codrefaccionfkcrefacciones, Folio, Fecha,  Empresa,usuario) VALUES((select idrefaccion from crefacciones where codrefaccion = '" + codrefaccion + "'), '" + txtFolioF.Text + "', now(), '" + empresa +"','" + idUsuario + "')");*/
+                                        label40.Visible = label41.Visible = txtFolioF.Visible = false;
+                                        txtFolioF.Text = "";
+                                        if (pbImgRefaccion.Image !=null)
+                                        {
+                                            guardarImagen();
+                                        }
+                                    }
+                                    if (edition == DialogResult.OK)
+                                    {
+                                        if (!yaAparecioMensaje) MessageBox.Show("Refacción Actualizada Exitosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                        limpiar();
+                                    }
                                 }
                             }
 
@@ -763,11 +988,7 @@ namespace controlFallos
                         {
                             v.c.insertar("UPDATE crefacciones SET  proximoAbastecimiento = '" + proxabast + "', existencias=existencias+" + (cantidada.Text == "" ? "0" : cantidada.Text) + " WHERE idrefaccion='" + idRefaccionTemp + "'");
                         }
-                        if (edition == DialogResult.OK)
-                        {
-                            if (!yaAparecioMensaje) MessageBox.Show("Refacción Actualizada Exitosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            limpiar();
-                        }
+                        
                     }
                     else
                     {
@@ -782,32 +1003,54 @@ namespace controlFallos
             string codrefaccion = txtcodrefaccion.Text;
             string nombreRefaccion = v.mayusculas(txtnombrereFaccion.Text.ToLower());
             string modeloRefaccion = txtmodeloRefaccion.Text;
+            string folioFactura = txtFolioF.Text;
             string proxabast = proxabastecimiento.Value.ToString("yyyy/MM/dd");
             int marca = 0; if (cbmarcas.DataSource != null) marca = Convert.ToInt32(cbmarcas.SelectedValue.ToString());
             int pasillo = Convert.ToInt32(cbpasillo.SelectedValue);
+            int proveedor = Convert.ToInt32(cmbPROVEEDOR.SelectedValue);
+            int Tipo = Convert.ToInt32(cmbTipo.SelectedValue);
+            int moneda = Convert.ToInt32(cmbMoneda.SelectedValue);
             int nivel = 0; if (cbnivel.DataSource != null) nivel = Convert.ToInt32(cbnivel.SelectedValue);
             int anaquel = 0; if (cbanaquel.DataSource != null) anaquel = Convert.ToInt32(cbanaquel.SelectedValue);
             int charolafkccharolas = 0; if (cbcharola.DataSource != null) charolafkccharolas = Convert.ToInt32(cbcharola.SelectedValue);
             decimal cantidadAlmacen = 0; if (!string.IsNullOrWhiteSpace(cantidada.Text.Trim())) cantidadAlmacen = Convert.ToDecimal(cantidada.Text.Trim());
+
+            decimal costoUni = 0; if (!string.IsNullOrWhiteSpace(txtCostoUni.Text.Trim())) costoUni = Convert.ToDecimal(txtCostoUni.Text.Trim());
+
             if (!string.IsNullOrWhiteSpace(notifmedia.Text)) media = Convert.ToDecimal(notifmedia.Text);
             if (!string.IsNullOrWhiteSpace(notifabastecimiento.Text.Trim())) abastecimiento = Convert.ToDecimal(notifabastecimiento.Text.ToString());
             DateTime paraValidacion = proxabastecimiento.Value;
-            if (!v.formularioRefaciones(codrefaccion, nombreRefaccion, modeloRefaccion, marca, pasillo, nivel, anaquel, charolafkccharolas, paraValidacion) && !v.existeRefaccion(codrefaccion, nombreRefaccion, modeloRefaccion,empresa) && !v.NumericsUpDownRefaccion(cantidadAlmacen, media, abastecimiento))
+            if (!v.formularioRefaciones(codrefaccion, nombreRefaccion, modeloRefaccion, marca, pasillo, nivel, anaquel, charolafkccharolas,proveedor, moneda, paraValidacion, Tipo) && !v.existeRefaccion(codrefaccion, nombreRefaccion, modeloRefaccion,empresa) /*&& !v.NumericsUpDownRefaccion(cantidadAlmacen, media, abastecimiento)*/)
             {
-                string sql = "INSERT INTO crefacciones(codrefaccion, nombreRefaccion, modeloRefaccion ";
+                string sql = "INSERT INTO crefacciones(CostoUni, tipoMonedafkCTipoCambio,codrefaccion, nombreRefaccion, modeloRefaccion ";
                 if (DateTime.Parse(proxabastecimiento.Value.ToString("yyyy-MM-dd")) > DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd"))) sql += ",proximoAbastecimiento ";
-                sql += ", charolafkcharolas, existencias, marcafkcmarcas,fechaHoraalta,usuarioaltafkcpersonal, media, abastecimiento,descripcionRefaccion,empresa)  VALUES (LTRIM(RTRIM('" + codrefaccion + "')),LTRIM(RTRIM('" + nombreRefaccion + "')),LTRIM(RTRIM('" + modeloRefaccion + "'))";
+                sql += ", charolafkcharolas, existencias, marcafkcmarcas,fechaHoraalta,usuarioaltafkcpersonal, media, abastecimiento,descripcionRefaccion,empresa,proveedrofkCProveedores, Tipo)  VALUES (LTRIM(RTRIM('" + costoUni + "')), LTRIM(RTRIM('" + moneda + "')),LTRIM(RTRIM('" + codrefaccion + "')),LTRIM(RTRIM('" + nombreRefaccion + "')),LTRIM(RTRIM('" + modeloRefaccion + "'))";
                 if (DateTime.Parse(proxabastecimiento.Value.ToString("yyyy-MM-dd")) > DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd"))) sql += ",'" + proxabast + "'";
-                sql += ",'" + charolafkccharolas + "','" + cantidadAlmacen + "','" + marca + "',NOW(),'" + idUsuario + "','" + media + "','" + abastecimiento + "','" + v.mayusculas(txtdesc.Text.ToLower()) + "','"+empresa+"')";
+                sql += ",'" + charolafkccharolas + "','" + cantidadAlmacen + "','" + marca + "',NOW(),'" + idUsuario + "','" + media + "','" + abastecimiento + "','" + v.mayusculas(txtdesc.Text.ToLower()) + "','"+empresa+"', '" + proveedor + "','" + Tipo + "')";
+                if (float.Parse(cantidada.Text) > 0 && !string.IsNullOrEmpty(folioFactura))
+                {
+                    centradas(costoUni, moneda);
+                }
+                if (pbImgRefaccion.Image != null)
+                {
+                    guardarImagen();
+                }
 
                 if (v.c.insertar(sql))
                 {
-
-                    var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Catálogo de Refacciones',(SELECT idrefaccion FROM crefacciones WHERE codRefaccion='" + codrefaccion + "' AND nombreRefaccion='" + nombreRefaccion + "' and empresa='" + empresa + "'),'" + codrefaccion + ";" + nombreRefaccion + ";" + modeloRefaccion + ";" + proxabast + ";" + marca + ";" + charolafkccharolas + ";" + cantidadAlmacen + ";" + media + ";" + abastecimiento + ";" + v.mayusculas(txtdesc.Text.ToLower()) + "','" + idUsuario + "',NOW(),'Inserción de Refacción','" + empresa + "','" + area + "')");
+                    var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Catálogo de Refacciones',(SELECT idrefaccion FROM crefacciones WHERE codRefaccion='" + codrefaccion + "' AND nombreRefaccion='" + nombreRefaccion + "' and empresa='" + empresa + "'),'" + codrefaccion + ";" + nombreRefaccion + ";" + modeloRefaccion + ";" + proxabast + ";" + marca + ";" + charolafkccharolas + ";" + cantidadAlmacen + ";" + media + ";" + abastecimiento + ";" + v.mayusculas(txtdesc.Text.ToLower()) + ";" + costoUni + ";" + moneda + "','" + idUsuario + "',NOW(),'Inserción de Refacción','" + empresa + "','" + area + "')");
                     MessageBox.Show("Refacción Agregada Exitosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     limpiar();
                 }
+
             }
+        }
+        void centradas(decimal costoUni, int moneda)
+        {
+           
+
+
+            var res3 = v.c.insertar("insert into centradasm(refaccionfkCRefacciones,FolioFactura, CantidadIngresa, FechaHora, UsuariofkCPersonal, Empresa, proveedor,Costo,tipomonedafkCTipoCambio) value ((Select idRefaccion from crefacciones where codrefaccion ='" + txtcodrefaccion.Text + "' and empresa = '" + empresa + "'), '" + txtFolioF.Text + "', '" + cantidada.Text + "',now()," + idUsuario + "," + empresa + ",'" + cmbPROVEEDOR.Text + "','" + costoUni + "','" + moneda + "');");
         }
         void limpiar()
         {
@@ -819,15 +1062,19 @@ namespace controlFallos
                 lblsave.Text = "Guardar";
                 txtcodrefaccion.Focus();
             }
+            pbImgRefaccion.Image = null;
             txtcodrefaccion.Clear();
             txtnombrereFaccion.Clear();
             txtmodeloRefaccion.Clear();
+            txtFolioF.Clear();
             proxabastecimiento.Value = DateTime.Now.Date;
             cbfamilia.SelectedIndex = 0;
             cbpasillo.SelectedIndex = 0;
+            cmbTipo.SelectedIndex = 0;
             cantidada.Clear();
             notifmedia.Clear();
             txtdesc.Clear();
+            txtCostoUni.Clear();
             notifabastecimiento.Clear();
             pCancelar.Visible = false;
             pdelref.Visible = false;
@@ -836,30 +1083,34 @@ namespace controlFallos
             {
                 insertarRefacciones();
             }
-            idRefaccionTemp = null;
-            codrefAnterior = null;
-            nomrefanterior = null;
-            modrefanterior = null;
-            marcaAnterior = null;
-            nivelAnterior = null;
-            charolaAnterior = null;
-            ultimoabastecimiento = null;
+            if (Peditar)
+            {
+                gbaddrefaccion.Visible = false;
+            }
+            if (Pinsertar)
+            {
+                gbaddrefaccion.Visible = true;
+            }
+            idRefaccionTemp = codrefAnterior = nomrefanterior = modrefanterior = marcaAnterior = nivelAnterior = charolaAnterior = ultimoabastecimiento = null;
             btnsave.Visible = lblsave.Visible = true;
-            mediaAnterior = null;
-            abastecimientoAnterior = null;
-            lblexistencias.Text = null;
+            mediaAnterior = abastecimientoAnterior = ultimacantidad = lblexistencias.Text = null;
             pExistencias.Visible = false;
             pStock.Visible = false;
             iniFamilias();
             inifamiliasBusq();
             iniubicaciones();
+            iniMonedaCambio();
+            mostrar_proveedor(empresa);
+            label40.Visible = label41.Visible = txtFolioF.Visible = false;
+            txtcodrefaccion.Enabled = txtnombrereFaccion.Enabled = true;
+            btnsave.Enabled = true;
         }
 
         public void insertarRefacciones()
         {
             tbrefaccion.DataSource = null;
-            tbrefaccion.DataSource = v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT t1.idrefaccion,UPPER(t1.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t1.nombreRefaccion) AS 'NOMBRE DE REFACCIÓN',UPPER(t1.modeloRefaccion) AS 'MODELO DE REFACCIÓN',UPPER(DATE_FORMAT(t1.proximoAbastecimiento, '%d / %M / %Y')) AS 'PRÓXIMO ABASTECIMIENTO',UPPER(t3.Familia) as 'FAMILIA',UPPER(t2.descripcionFamilia) AS 'DESCRIPCIÓN DE FAMILIA', UPPER(t9.Simbolo) as 'UNIDAD DE MEDIDA',UPPER(t8.marca) as 'MARCA',UPPER(CONCAT('PASILLO: ',t7.pasillo,';NIVEL: ',t6.nivel,';ANAQUEL: ',t5.anaquel,';CHAROLA: ',t4.charola)) as 'UBICACIÓN',t1.existencias as 'EXISTENCIAS',t1.media as 'MEDIA',t1.abastecimiento as 'ABASTECIMIENTO',UPPER(t1.descripcionRefaccion) as 'DESCRIPCIÓN',UPPER(CONCAT(t10.nombres,' ',t10.ApPaterno,' ',t10.ApMaterno)) AS 'USUARIO QUE DIÓ DE ALTA',UPPER(DATE_FORMAT(t1.fechaHoraalta,'%W, %d de %M del %Y  a las %H:%i:%s')) AS 'FECHA/HORA ALTA',IF(t1.status = 1, 'ACTIVO', 'NO ACTIVO') as 'ESTATUS',t2.familiafkcnfamilias,t2.idfamilia,t8.idmarca,t7.idpasillo,t6.idnivel,t5.idanaquel,t4.idcharola FROM crefacciones as t1 INNER JOIN ccharolas as t4 ON t1.charolafkcharolas=t4.idcharola INNER JOIN canaqueles as t5 ON t4.anaquelfkcanaqueles = t5.idanaquel INNER JOIN cniveles as t6 ON t5.nivelfkcniveles=t6.idnivel INNER JOIN cpasillos as t7 On t6.pasillofkcpasillos=t7.idpasillo INNER JOIN cmarcas as t8 ON t1.marcafkcmarcas=t8.idmarca INNER JOIN cfamilias as t2 ON t8.descripcionfkcfamilias = t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cunidadmedida as t9 ON t2.umfkcunidadmedida=t9.idunidadmedida INNER JOIN cpersonal as t10 ON t1.usuarioaltafkcpersonal=t10.idpersona where t1.empresa='" + empresa + "' ORDER BY t1.codrefaccion ASC;");
-
+            tbrefaccion.DataSource = v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT t1.idrefaccion,UPPER(t1.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t1.nombreRefaccion) AS 'NOMBRE DE REFACCIÓN',UPPER(t1.modeloRefaccion) AS 'MODELO DE REFACCIÓN',UPPER(DATE_FORMAT(t1.proximoAbastecimiento, '%d / %M / %Y')) AS 'PRÓXIMO ABASTECIMIENTO',UPPER(t3.Familia) as 'FAMILIA',UPPER(t2.descripcionFamilia) AS 'DESCRIPCIÓN DE FAMILIA', UPPER(t9.Simbolo) as 'UNIDAD DE MEDIDA',UPPER(t8.marca) as 'MARCA',UPPER(CONCAT('PASILLO: ',t7.pasillo,';NIVEL: ',t6.nivel,';ANAQUEL: ',t5.anaquel,';CHAROLA: ',t4.charola)) as 'UBICACIÓN',t1.existencias as 'EXISTENCIAS',t1.media as 'MEDIA',t1.abastecimiento as 'ABASTECIMIENTO',UPPER(t1.descripcionRefaccion) as 'DESCRIPCIÓN',UPPER(CONCAT(coalesce(t10.nombres,''),' ',coalesce(t10.ApPaterno,''),' ',coalesce(t10.ApMaterno,''))) AS 'USUARIO QUE DIÓ DE ALTA',UPPER(DATE_FORMAT(t1.fechaHoraalta,'%W, %d de %M del %Y  a las %H:%i:%s')) AS 'FECHA/HORA ALTA',IF(t1.status = 1, 'ACTIVO', 'NO ACTIVO') as 'ESTATUS',t2.familiafkcnfamilias,t2.idfamilia,t8.idmarca,t7.idpasillo,t6.idnivel,t5.idanaquel,t4.idcharola, UPPER(coalesce(convert(t1.CostoUni,char),'0')) as 'COSTO REFACCIÓN',convert(t12.Simbolo, char) as 'MONEDA',UPPER(coalesce(convert(if(t11.empresa = '',concat(t11.aPaterno, ' ', t11.aMaterno, ' ', t11.nombres), t11.empresa),char),'0')) as 'PROVEEDOR', if(t1.Tipo = 1, 'NUEVA', if(t1.Tipo = 2,'REMANOFACTURADA', '')) as TIPO FROM crefacciones as t1 INNER JOIN ccharolas as t4 ON t1.charolafkcharolas=t4.idcharola INNER JOIN canaqueles as t5 ON t4.anaquelfkcanaqueles = t5.idanaquel INNER JOIN cniveles as t6 ON t5.nivelfkcniveles=t6.idnivel INNER JOIN cpasillos as t7 On t6.pasillofkcpasillos=t7.idpasillo INNER JOIN cmarcas as t8 ON t1.marcafkcmarcas=t8.idmarca INNER JOIN cfamilias as t2 ON t8.descripcionfkcfamilias = t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cunidadmedida as t9 ON t2.umfkcunidadmedida=t9.idunidadmedida INNER JOIN cpersonal as t10 ON t1.usuarioaltafkcpersonal=t10.idpersona inner join cproveedores as t11 on t1.proveedrofkCProveedores = t11.idproveedor inner join ctipocambio as t12 on t1.tipoMonedafkCTipoCambio = t12.idTipoCambio where t1.empresa='" + empresa + "' ORDER BY t1.codrefaccion ASC limit 15;");
+            //tbrefaccion.DataSource = v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';call karina('" + empresa + "');");
             ocultarCeldas();
             tbrefaccion.ClearSelection();
         }
@@ -891,7 +1142,7 @@ namespace controlFallos
             {
                 if (e.RowIndex >= 0)
                 {
-
+                    btnsave.Enabled = true;
                     string codrefaccion = txtcodrefaccion.Text.Trim();
                     string nomrefaccion = v.mayusculas(txtnombrereFaccion.Text.Trim().ToLower());
                     string modrefaccion = txtmodeloRefaccion.Text.Trim();
@@ -900,8 +1151,11 @@ namespace controlFallos
                     decimal abastecimiento = 0; try { if (!string.IsNullOrWhiteSpace(notifabastecimiento.Text)) abastecimiento = Convert.ToDecimal(notifabastecimiento.Text); } catch { media = 0; }
                     int charolafkccharolas = 0; if (cbcharola.DataSource != null) charolafkccharolas = Convert.ToInt32(cbcharola.SelectedValue);
                     decimal cantidadAlmacen = 0; try { if (!string.IsNullOrWhiteSpace(cantidada.Text.Trim())) cantidadAlmacen = Convert.ToDecimal(cantidada.Text.Trim()); } catch { cantidadAlmacen = 0; }
+                    int proveedorfkCProveedores = 0; if (cmbPROVEEDOR.DataSource != null) proveedorfkCProveedores = Convert.ToInt32(cmbPROVEEDOR.SelectedValue); 
+                    decimal costoRefaccion = 0; try { if (!string.IsNullOrWhiteSpace(txtCostoUni.Text.Trim())) costoRefaccion = Convert.ToDecimal(txtCostoUni.Text.Trim()); } catch { costoRefaccion = 0; }
+                    
                     string observaciones = v.mayusculas(txtdesc.Text.Trim().ToLower());
-                    if (status == 1 && (!string.IsNullOrWhiteSpace(txtcodrefaccion.Text) && !string.IsNullOrWhiteSpace(txtnombrereFaccion.Text) && !string.IsNullOrWhiteSpace(txtmodeloRefaccion.Text) && cbfamilia.SelectedIndex > 0 && marca > 0 && (Convert.ToInt32((cbpasillo.SelectedValue ?? "0"))) > 0 && Convert.ToInt32((cbnivel.SelectedValue ?? "0")) > 0 && Convert.ToInt32((cbanaquel.SelectedValue ?? "0")) > 0 && charolafkccharolas > 0 && media > 0 && abastecimiento > 0) && (!codrefAnterior.Equals(codrefaccion) || !nomrefanterior.Equals(nomrefaccion) || !modrefanterior.Equals(modrefaccion) || (proxabastecimiento.Value.ToString("dd / MM / yyyy") != DateTime.Parse(ultimoabastecimiento).ToString("dd / MM / yyyy")) || (marcaAnterior != cbmarcas.SelectedValue.ToString()) || (charolaAnterior != charolafkccharolas.ToString()) || cantidadAlmacen > 0 || ((Convert.ToDecimal(mediaAnterior) != media || Convert.ToDecimal(abastecimientoAnterior) != abastecimiento)) || !descripcionAnterior.Equals(v.mayusculas(txtdesc.Text.Trim().ToLower()))))
+                    if (status == 1 && (!string.IsNullOrWhiteSpace(txtcodrefaccion.Text) && !string.IsNullOrWhiteSpace(txtnombrereFaccion.Text) && !string.IsNullOrWhiteSpace(txtmodeloRefaccion.Text) && cbfamilia.SelectedIndex > 0 && marca > 0 && (Convert.ToInt32((cbpasillo.SelectedValue ?? "0"))) > 0 && Convert.ToInt32((cbnivel.SelectedValue ?? "0")) > 0 && Convert.ToInt32((cbanaquel.SelectedValue ?? "0")) > 0 && Convert.ToInt32((cmbPROVEEDOR.SelectedValue ?? "0")) > 0 && charolafkccharolas > 0 && media > 0 && abastecimiento > 0) && (!codrefAnterior.Equals(codrefaccion) || !nomrefanterior.Equals(nomrefaccion) || !modrefanterior.Equals(modrefaccion) || (proxabastecimiento.Value.ToString("dd / MM / yyyy") != DateTime.Parse(ultimoabastecimiento).ToString("dd / MM / yyyy")) || (marcaAnterior != cbmarcas.SelectedValue.ToString()) || (charolaAnterior != charolafkccharolas.ToString()) || cantidadAlmacen > 0 || costoRefaccion > 0 || ((Convert.ToDecimal(mediaAnterior) != media || Convert.ToDecimal(abastecimientoAnterior) != abastecimiento)) || !descripcionAnterior.Equals(v.mayusculas(txtdesc.Text.Trim().ToLower()))))
                     {
                         if (MessageBox.Show("¿Desea Guardar la Información?", validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                         {
@@ -910,7 +1164,13 @@ namespace controlFallos
                         }
                     }
                     guardarReporte(e);
+                    gbaddrefaccion.Visible = true;
                 }
+                label41.Visible = txtFolioF.Visible = label40.Visible = true;
+                txtcodrefaccion.Enabled =  txtnombrereFaccion.Enabled = false;
+                traerImagen();
+
+
             }
             catch (Exception ex){MessageBox.Show(ex.ToString(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);}
 
@@ -945,10 +1205,10 @@ namespace controlFallos
                 if (Peditar)
                 {
                     lblexistencias.Text = v.getExistenciasFromIDRefaccion(idRefaccionTemp);
-                    if ((stock = Convert.ToDouble(v.getaData("SELECT existencias FROM crefacciones WHERE idrefaccion='" + idRefaccionTemp + "'"))) > 0)
-                        pStock.Visible = true;
-                    else
-                        pStock.Visible = false;
+                    //if ((stock = Convert.ToDouble(v.getaData("SELECT existencias FROM crefacciones WHERE idrefaccion='" + idRefaccionTemp + "'"))) > 0)
+                       // pStock.Visible = true;
+                    //else
+//pStock.Visible = false;
                     txtcodrefaccion.Text = codrefAnterior = (string)tbrefaccion.Rows[e.RowIndex].Cells[1].Value;
                     txtnombrereFaccion.Text = nomrefanterior = v.mayusculas(tbrefaccion.Rows[e.RowIndex].Cells[2].Value.ToString().ToLower());
                     txtmodeloRefaccion.Text = modrefanterior = tbrefaccion.Rows[e.RowIndex].Cells[3].Value.ToString();
@@ -984,7 +1244,7 @@ namespace controlFallos
                     cbpasillo.SelectedValue = pasilloAnterior;
                     if (cbpasillo.SelectedIndex == -1)
                     {
-                        v.iniCombos("SELECT idpasillo,UPPER(pasillo) AS pasillo FROM cpasillos WHERE (status='1' OR idpasillo='" + pasilloAnterior + "')a and empresa='" + empresa + "' ORDER BY pasillo ASC", cbpasillo, "idpasillo", "pasillo", "-- SELECCIONE PASILLO --");
+                        v.iniCombos("SELECT idpasillo,UPPER(pasillo) AS pasillo FROM cpasillos WHERE (status='1' OR idpasillo='" + pasilloAnterior + "') and empresa='" + empresa + "' ORDER BY pasillo ASC", cbpasillo, "idpasillo", "pasillo", "-- SELECCIONE PASILLO --");
                         cbpasillo.SelectedValue = pasilloAnterior;
                     }
                     cbnivel.SelectedValue = nivelAnterior = tbrefaccion.Rows[e.RowIndex].Cells[21].Value.ToString();
@@ -1007,10 +1267,40 @@ namespace controlFallos
                         v.iniCombos("SELECT idcharola,UPPER(charola) AS charola FROM ccharolas WHERE (status='1' OR idcharola ='" + charolaAnterior + "') and anaquelfkcanaqueles= '" + cbanaquel.SelectedValue + "' and empresa='" + empresa + "' ORDER BY charola ASC", cbcharola, "idcharola", "charola", "--SELECCIONE UN ANAQUEL");
                         cbcharola.SelectedValue = charolaAnterior;
                     }
+                    cmbPROVEEDOR.SelectedValue = Convert.ToString(v.getaData("select coalesce(convert(proveedrofkCProveedores,char),'0') as idproveedor from crefacciones where idrefaccion='" + idRefaccionTemp + "'"));
+                    if (cmbPROVEEDOR.SelectedIndex == -1)
+                    {
+                        v.iniCombos("Select idproveedor,   if(empresa = '',concat(aPaterno, ' ', aMaterno, ' ', nombres) ,empresa) as Nombre from cproveedores WHERE idproveedor = '" + proveedorAnterior +"' and empresaS = '" + empresa + "'", cmbPROVEEDOR, "idproveedor", "Nombre", "--SELECCIONE UN PROVEEDOR");
+                        cmbPROVEEDOR.SelectedValue = proveedorAnterior;
+                    }
+                    cmbMoneda.SelectedValue = Convert.ToString(v.getaData("Select coalesce(convert(tipoMonedafkCTipoCambio,char),'0') as id from crefacciones where idrefaccion = '" + idRefaccionTemp + "'"));
+                    /*if (cmbMoneda.SelectedIndex == -1)
+                    {
+                        v.iniCombos("select idTipoCambio as id, Simbolo from ctipocambio order by simbolo desc", cmbMoneda, "id", "Simbolo", "--MONEDA--");
+                    }*/
+
+                    string tip = Convert.ToString(tbrefaccion.Rows[e.RowIndex].Cells[27].Value.ToString());
+                    if (tip.ToString().Equals("NUEVA"))
+                    {
+                        cmbTipo.SelectedIndex = 1;
+                    }
+                    else if (tip.ToString().Equals("REMANOFACTURADA"))
+                    {
+                        cmbTipo.SelectedIndex = 2;
+                    }
+                    else if (tip.ToString().Equals("PRODUCCION"))
+                    {
+                        cmbTipo.SelectedIndex = 3;
+                    }
+                    else if (tip.ToString().Equals("0"))
+                    {
+                        cmbTipo.SelectedIndex = 0;
+                    }
+                    CostoAnterior =  Convert.ToString(v.getaData("select coalesce(convert(CostoUni,char),'0') as costo from crefacciones where idrefaccion='" + idRefaccionTemp + "'"));
                     txtdesc.Text = descripcionAnterior = v.mayusculas(tbrefaccion.Rows[e.RowIndex].Cells[13].Value.ToString().ToLower());
                     notifmedia.Text = mediaAnterior = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[11].Value).ToString();
                     notifabastecimiento.Text = abastecimientoAnterior = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[12].Value).ToString();
-                    ultimacantidad = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[10].Value);
+                    ultimacantidad = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[10].Value).ToString();
                     editar = true;
                     gbaddrefaccion.Text = "Actualizar Refacción";
                     btnsave.BackgroundImage = Properties.Resources.pencil;
@@ -1033,6 +1323,15 @@ namespace controlFallos
                 if (!cambios[i, 0].Equals(cambios[i, 1])) res = true;
             }
             return res;
+        }
+        public void mostrar_proveedor(int empresa)
+        {
+            v.iniCombos("Select idproveedor,  if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t2.idempresa ='" + empresa + "'", cmbPROVEEDOR, "idproveedor", "Nombre", "--SELECCIONE UN PROVEEDOR");
+        }
+
+        private void cmbMoneda_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender,e);
         }
     }
 }

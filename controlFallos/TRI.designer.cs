@@ -72,6 +72,13 @@
             this.label17 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.GpbAlmacen = new System.Windows.Forms.GroupBox();
+            this.lblOtros = new System.Windows.Forms.Label();
+            this.btnOtros = new System.Windows.Forms.Button();
+            this.btnCancelFact = new System.Windows.Forms.Button();
+            this.btnFolioFactura = new System.Windows.Forms.Button();
+            this.numUpDownHASTA = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownDE = new System.Windows.Forms.NumericUpDown();
+            this.LBxRefacc = new System.Windows.Forms.ListBox();
             this.LblNota1 = new System.Windows.Forms.Label();
             this.txtObservacionesT = new System.Windows.Forms.TextBox();
             this.btnEditarReg = new System.Windows.Forms.Button();
@@ -106,15 +113,21 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.btnValidar = new System.Windows.Forms.Button();
             this.lblidreporte = new System.Windows.Forms.Label();
-            this.lbltitulo = new System.Windows.Forms.Label();
             this.tbReportes = new System.Windows.Forms.DataGridView();
             this.tbRefacciones = new System.Windows.Forms.DataGridView();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lbltitulo = new System.Windows.Forms.Label();
             this.GpbBusquedas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.GpbAlmacen.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbReportes)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbRefacciones)).BeginInit();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -124,11 +137,12 @@
             this.LblGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LblGuardar.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblGuardar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.LblGuardar.Location = new System.Drawing.Point(149, 304);
+            this.LblGuardar.Location = new System.Drawing.Point(745, 259);
             this.LblGuardar.Name = "LblGuardar";
             this.LblGuardar.Size = new System.Drawing.Size(89, 18);
             this.LblGuardar.TabIndex = 97;
             this.LblGuardar.Text = "GUARDAR";
+            this.LblGuardar.Click += new System.EventHandler(this.LblGuardar_Click);
             // 
             // label18
             // 
@@ -177,9 +191,9 @@
             this.GpbBusquedas.Controls.Add(this.label9);
             this.GpbBusquedas.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold);
             this.GpbBusquedas.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.GpbBusquedas.Location = new System.Drawing.Point(1316, 436);
+            this.GpbBusquedas.Location = new System.Drawing.Point(4, 265);
             this.GpbBusquedas.Name = "GpbBusquedas";
-            this.GpbBusquedas.Size = new System.Drawing.Size(592, 493);
+            this.GpbBusquedas.Size = new System.Drawing.Size(536, 493);
             this.GpbBusquedas.TabIndex = 12;
             this.GpbBusquedas.TabStop = false;
             this.GpbBusquedas.Text = "Buscar Reporte";
@@ -189,7 +203,7 @@
             // 
             this.dtpFechaDe.CalendarFont = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFechaDe.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpFechaDe.Location = new System.Drawing.Point(240, 229);
+            this.dtpFechaDe.Location = new System.Drawing.Point(190, 228);
             this.dtpFechaDe.Name = "dtpFechaDe";
             this.dtpFechaDe.Size = new System.Drawing.Size(333, 25);
             this.dtpFechaDe.TabIndex = 154;
@@ -203,7 +217,7 @@
             this.cmbMes.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbMes.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbMes.FormattingEnabled = true;
-            this.cmbMes.Location = new System.Drawing.Point(237, 170);
+            this.cmbMes.Location = new System.Drawing.Point(187, 169);
             this.cmbMes.Name = "cmbMes";
             this.cmbMes.Size = new System.Drawing.Size(333, 25);
             this.cmbMes.TabIndex = 151;
@@ -252,7 +266,7 @@
             this.cmbMecanicoSolicito.FormattingEnabled = true;
             this.cmbMecanicoSolicito.Items.AddRange(new object[] {
             "1TA10T046"});
-            this.cmbMecanicoSolicito.Location = new System.Drawing.Point(237, 97);
+            this.cmbMecanicoSolicito.Location = new System.Drawing.Point(187, 96);
             this.cmbMecanicoSolicito.Name = "cmbMecanicoSolicito";
             this.cmbMecanicoSolicito.Size = new System.Drawing.Size(333, 25);
             this.cmbMecanicoSolicito.TabIndex = 149;
@@ -268,7 +282,7 @@
             this.cmbPersonaEmtrego.FormattingEnabled = true;
             this.cmbPersonaEmtrego.Items.AddRange(new object[] {
             "1TA10T046"});
-            this.cmbPersonaEmtrego.Location = new System.Drawing.Point(237, 59);
+            this.cmbPersonaEmtrego.Location = new System.Drawing.Point(187, 58);
             this.cmbPersonaEmtrego.Name = "cmbPersonaEmtrego";
             this.cmbPersonaEmtrego.Size = new System.Drawing.Size(333, 25);
             this.cmbPersonaEmtrego.TabIndex = 148;
@@ -279,7 +293,7 @@
             this.LblExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LblExcel.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.LblExcel.Location = new System.Drawing.Point(444, 466);
+            this.LblExcel.Location = new System.Drawing.Point(421, 466);
             this.LblExcel.Name = "LblExcel";
             this.LblExcel.Size = new System.Drawing.Size(97, 18);
             this.LblExcel.TabIndex = 119;
@@ -290,7 +304,7 @@
             // 
             this.checkBox1.AutoSize = true;
             this.checkBox1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold);
-            this.checkBox1.Location = new System.Drawing.Point(300, 202);
+            this.checkBox1.Location = new System.Drawing.Point(250, 201);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(151, 22);
             this.checkBox1.TabIndex = 142;
@@ -305,7 +319,7 @@
             this.txtFolioA.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtFolioA.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFolioA.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtFolioA.Location = new System.Drawing.Point(240, 375);
+            this.txtFolioA.Location = new System.Drawing.Point(190, 374);
             this.txtFolioA.MaxLength = 10;
             this.txtFolioA.Name = "txtFolioA";
             this.txtFolioA.ShortcutsEnabled = false;
@@ -320,7 +334,7 @@
             this.txtFolioDe.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtFolioDe.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFolioDe.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtFolioDe.Location = new System.Drawing.Point(240, 331);
+            this.txtFolioDe.Location = new System.Drawing.Point(190, 330);
             this.txtFolioDe.MaxLength = 10;
             this.txtFolioDe.Name = "txtFolioDe";
             this.txtFolioDe.ShortcutsEnabled = false;
@@ -340,7 +354,7 @@
             this.btnActualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnActualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnActualizar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnActualizar.Location = new System.Drawing.Point(273, 413);
+            this.btnActualizar.Location = new System.Drawing.Point(250, 413);
             this.btnActualizar.Name = "btnActualizar";
             this.btnActualizar.Size = new System.Drawing.Size(55, 50);
             this.btnActualizar.TabIndex = 8;
@@ -386,7 +400,7 @@
             this.btnExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnExcel.Location = new System.Drawing.Point(465, 413);
+            this.btnExcel.Location = new System.Drawing.Point(442, 413);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(55, 50);
             this.btnExcel.TabIndex = 7;
@@ -402,7 +416,7 @@
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label1.Location = new System.Drawing.Point(321, 305);
+            this.label1.Location = new System.Drawing.Point(271, 304);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(123, 18);
             this.label1.TabIndex = 129;
@@ -436,7 +450,7 @@
             // 
             this.dtpFechaA.CalendarFont = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dtpFechaA.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpFechaA.Location = new System.Drawing.Point(237, 270);
+            this.dtpFechaA.Location = new System.Drawing.Point(187, 269);
             this.dtpFechaA.Name = "dtpFechaA";
             this.dtpFechaA.Size = new System.Drawing.Size(333, 25);
             this.dtpFechaA.TabIndex = 15;
@@ -453,7 +467,7 @@
             this.cmbBuscarUnidad.FormattingEnabled = true;
             this.cmbBuscarUnidad.Items.AddRange(new object[] {
             "1TA10T057"});
-            this.cmbBuscarUnidad.Location = new System.Drawing.Point(237, 134);
+            this.cmbBuscarUnidad.Location = new System.Drawing.Point(187, 133);
             this.cmbBuscarUnidad.Name = "cmbBuscarUnidad";
             this.cmbBuscarUnidad.Size = new System.Drawing.Size(333, 25);
             this.cmbBuscarUnidad.TabIndex = 13;
@@ -501,7 +515,7 @@
             this.txtBuscFolio.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtBuscFolio.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtBuscFolio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtBuscFolio.Location = new System.Drawing.Point(238, 29);
+            this.txtBuscFolio.Location = new System.Drawing.Point(188, 28);
             this.txtBuscFolio.MaxLength = 8;
             this.txtBuscFolio.Name = "txtBuscFolio";
             this.txtBuscFolio.ShortcutsEnabled = false;
@@ -515,7 +529,7 @@
             this.label12.BackColor = System.Drawing.Color.Transparent;
             this.label12.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label12.Location = new System.Drawing.Point(236, 41);
+            this.label12.Location = new System.Drawing.Point(186, 40);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(337, 9);
             this.label12.TabIndex = 116;
@@ -541,7 +555,7 @@
             this.lblactualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblactualizar.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblactualizar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblactualizar.Location = new System.Drawing.Point(217, 466);
+            this.lblactualizar.Location = new System.Drawing.Point(194, 466);
             this.lblactualizar.Name = "lblactualizar";
             this.lblactualizar.Size = new System.Drawing.Size(171, 18);
             this.lblactualizar.TabIndex = 144;
@@ -551,7 +565,7 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Location = new System.Drawing.Point(482, 413);
+            this.pictureBox2.Location = new System.Drawing.Point(459, 413);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(55, 50);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -564,7 +578,7 @@
             this.label17.BackColor = System.Drawing.Color.Transparent;
             this.label17.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label17.Location = new System.Drawing.Point(236, 387);
+            this.label17.Location = new System.Drawing.Point(186, 386);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(337, 9);
             this.label17.TabIndex = 153;
@@ -578,7 +592,7 @@
             this.label9.BackColor = System.Drawing.Color.Transparent;
             this.label9.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label9.Location = new System.Drawing.Point(236, 343);
+            this.label9.Location = new System.Drawing.Point(186, 342);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(337, 9);
             this.label9.TabIndex = 152;
@@ -588,6 +602,13 @@
             // 
             // GpbAlmacen
             // 
+            this.GpbAlmacen.Controls.Add(this.lblOtros);
+            this.GpbAlmacen.Controls.Add(this.btnOtros);
+            this.GpbAlmacen.Controls.Add(this.btnCancelFact);
+            this.GpbAlmacen.Controls.Add(this.btnFolioFactura);
+            this.GpbAlmacen.Controls.Add(this.numUpDownHASTA);
+            this.GpbAlmacen.Controls.Add(this.numUpDownDE);
+            this.GpbAlmacen.Controls.Add(this.LBxRefacc);
             this.GpbAlmacen.Controls.Add(this.LblNota1);
             this.GpbAlmacen.Controls.Add(this.txtObservacionesT);
             this.GpbAlmacen.Controls.Add(this.btnEditarReg);
@@ -624,20 +645,128 @@
             this.GpbAlmacen.Controls.Add(this.btnValidar);
             this.GpbAlmacen.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.GpbAlmacen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.GpbAlmacen.Location = new System.Drawing.Point(3, 77);
+            this.GpbAlmacen.Location = new System.Drawing.Point(3, 10);
             this.GpbAlmacen.Name = "GpbAlmacen";
             this.GpbAlmacen.Size = new System.Drawing.Size(1307, 370);
             this.GpbAlmacen.TabIndex = 115;
             this.GpbAlmacen.TabStop = false;
             this.GpbAlmacen.Text = "Almacen";
             this.GpbAlmacen.Visible = false;
+            this.GpbAlmacen.Enter += new System.EventHandler(this.GpbAlmacen_Enter);
+            // 
+            // lblOtros
+            // 
+            this.lblOtros.AutoSize = true;
+            this.lblOtros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblOtros.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOtros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lblOtros.Location = new System.Drawing.Point(1137, 307);
+            this.lblOtros.Name = "lblOtros";
+            this.lblOtros.Size = new System.Drawing.Size(144, 36);
+            this.lblOtros.TabIndex = 251;
+            this.lblOtros.Text = "Carroceros y/o\r\n Unidades Externas";
+            // 
+            // btnOtros
+            // 
+            this.btnOtros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnOtros.BackgroundImage = global::controlFallos.Properties.Resources.mexibus;
+            this.btnOtros.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnOtros.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnOtros.FlatAppearance.BorderSize = 0;
+            this.btnOtros.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnOtros.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnOtros.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnOtros.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnOtros.Location = new System.Drawing.Point(1071, 302);
+            this.btnOtros.Name = "btnOtros";
+            this.btnOtros.Size = new System.Drawing.Size(55, 50);
+            this.btnOtros.TabIndex = 250;
+            this.btnOtros.UseVisualStyleBackColor = false;
+            this.btnOtros.Click += new System.EventHandler(this.btnOtros_Click);
+            // 
+            // btnCancelFact
+            // 
+            this.btnCancelFact.AutoSize = true;
+            this.btnCancelFact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.BackgroundImage = global::controlFallos.Properties.Resources.cross;
+            this.btnCancelFact.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCancelFact.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelFact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatAppearance.BorderSize = 0;
+            this.btnCancelFact.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelFact.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelFact.Location = new System.Drawing.Point(598, 187);
+            this.btnCancelFact.Name = "btnCancelFact";
+            this.btnCancelFact.Size = new System.Drawing.Size(26, 30);
+            this.btnCancelFact.TabIndex = 249;
+            this.btnCancelFact.UseVisualStyleBackColor = false;
+            this.btnCancelFact.Click += new System.EventHandler(this.btnCancelFact_Click);
+            // 
+            // btnFolioFactura
+            // 
+            this.btnFolioFactura.AutoSize = true;
+            this.btnFolioFactura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.BackgroundImage = global::controlFallos.Properties.Resources.foliosFactura;
+            this.btnFolioFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFolioFactura.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFolioFactura.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatAppearance.BorderSize = 0;
+            this.btnFolioFactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFolioFactura.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFolioFactura.Location = new System.Drawing.Point(556, 187);
+            this.btnFolioFactura.Name = "btnFolioFactura";
+            this.btnFolioFactura.Size = new System.Drawing.Size(30, 30);
+            this.btnFolioFactura.TabIndex = 248;
+            this.btnFolioFactura.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnFolioFactura.UseVisualStyleBackColor = false;
+            this.btnFolioFactura.Visible = false;
+            this.btnFolioFactura.Click += new System.EventHandler(this.btnFolioFactura_Click);
+            // 
+            // numUpDownHASTA
+            // 
+            this.numUpDownHASTA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.numUpDownHASTA.Location = new System.Drawing.Point(490, 188);
+            this.numUpDownHASTA.Name = "numUpDownHASTA";
+            this.numUpDownHASTA.Size = new System.Drawing.Size(55, 29);
+            this.numUpDownHASTA.TabIndex = 247;
+            this.numUpDownHASTA.ValueChanged += new System.EventHandler(this.numUpDownHASTA_ValueChanged);
+            // 
+            // numUpDownDE
+            // 
+            this.numUpDownDE.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.numUpDownDE.Location = new System.Drawing.Point(429, 188);
+            this.numUpDownDE.Name = "numUpDownDE";
+            this.numUpDownDE.Size = new System.Drawing.Size(55, 29);
+            this.numUpDownDE.TabIndex = 246;
+            this.numUpDownDE.ValueChanged += new System.EventHandler(this.numUpDownDE_ValueChanged);
+            // 
+            // LBxRefacc
+            // 
+            this.LBxRefacc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.LBxRefacc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LBxRefacc.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.LBxRefacc.Font = new System.Drawing.Font("Garamond", 12F);
+            this.LBxRefacc.ForeColor = System.Drawing.Color.Black;
+            this.LBxRefacc.FormattingEnabled = true;
+            this.LBxRefacc.ItemHeight = 18;
+            this.LBxRefacc.Location = new System.Drawing.Point(255, 232);
+            this.LBxRefacc.Name = "LBxRefacc";
+            this.LBxRefacc.Size = new System.Drawing.Size(371, 56);
+            this.LBxRefacc.Sorted = true;
+            this.LBxRefacc.TabIndex = 238;
+            this.LBxRefacc.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.LBxRefacc_DrawItem);
+            this.LBxRefacc.SelectedIndexChanged += new System.EventHandler(this.LBxRefacc_SelectedIndexChanged);
             // 
             // LblNota1
             // 
             this.LblNota1.AutoSize = true;
             this.LblNota1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblNota1.ForeColor = System.Drawing.Color.Red;
-            this.LblNota1.Location = new System.Drawing.Point(494, 349);
+            this.LblNota1.Location = new System.Drawing.Point(251, 326);
             this.LblNota1.Name = "LblNota1";
             this.LblNota1.Size = new System.Drawing.Size(615, 18);
             this.LblNota1.TabIndex = 153;
@@ -650,12 +779,12 @@
             this.txtObservacionesT.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtObservacionesT.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtObservacionesT.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtObservacionesT.Location = new System.Drawing.Point(652, 152);
+            this.txtObservacionesT.Location = new System.Drawing.Point(652, 140);
             this.txtObservacionesT.MaxLength = 150;
             this.txtObservacionesT.Multiline = true;
             this.txtObservacionesT.Name = "txtObservacionesT";
             this.txtObservacionesT.ShortcutsEnabled = false;
-            this.txtObservacionesT.Size = new System.Drawing.Size(643, 89);
+            this.txtObservacionesT.Size = new System.Drawing.Size(625, 89);
             this.txtObservacionesT.TabIndex = 3;
             this.txtObservacionesT.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             this.txtObservacionesT.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRefacciones_KeyPress);
@@ -674,7 +803,7 @@
             this.btnEditarReg.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnEditarReg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnEditarReg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnEditarReg.Location = new System.Drawing.Point(306, 283);
+            this.btnEditarReg.Location = new System.Drawing.Point(902, 238);
             this.btnEditarReg.Name = "btnEditarReg";
             this.btnEditarReg.Size = new System.Drawing.Size(55, 50);
             this.btnEditarReg.TabIndex = 5;
@@ -690,7 +819,7 @@
             this.LblEditarR.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LblEditarR.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblEditarR.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.LblEditarR.Location = new System.Drawing.Point(366, 304);
+            this.LblEditarR.Location = new System.Drawing.Point(962, 259);
             this.LblEditarR.Name = "LblEditarR";
             this.LblEditarR.Size = new System.Drawing.Size(71, 18);
             this.LblEditarR.TabIndex = 151;
@@ -703,7 +832,7 @@
             this.label35.BackColor = System.Drawing.Color.Transparent;
             this.label35.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label35.Location = new System.Drawing.Point(648, 130);
+            this.label35.Location = new System.Drawing.Point(648, 118);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(114, 18);
             this.label35.TabIndex = 149;
@@ -723,7 +852,7 @@
             this.lblFechaEntrega.AutoSize = true;
             this.lblFechaEntrega.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFechaEntrega.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblFechaEntrega.Location = new System.Drawing.Point(909, 36);
+            this.lblFechaEntrega.Location = new System.Drawing.Point(909, 25);
             this.lblFechaEntrega.Name = "lblFechaEntrega";
             this.lblFechaEntrega.Size = new System.Drawing.Size(0, 18);
             this.lblFechaEntrega.TabIndex = 133;
@@ -733,7 +862,7 @@
             this.lblMecanicoSolicita.AutoSize = true;
             this.lblMecanicoSolicita.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblMecanicoSolicita.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblMecanicoSolicita.Location = new System.Drawing.Point(257, 182);
+            this.lblMecanicoSolicita.Location = new System.Drawing.Point(256, 140);
             this.lblMecanicoSolicita.Name = "lblMecanicoSolicita";
             this.lblMecanicoSolicita.Size = new System.Drawing.Size(0, 18);
             this.lblMecanicoSolicita.TabIndex = 141;
@@ -744,7 +873,7 @@
             this.lblFechaSolicitud.AutoSize = true;
             this.lblFechaSolicitud.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFechaSolicitud.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblFechaSolicitud.Location = new System.Drawing.Point(257, 134);
+            this.lblFechaSolicitud.Location = new System.Drawing.Point(260, 98);
             this.lblFechaSolicitud.Name = "lblFechaSolicitud";
             this.lblFechaSolicitud.Size = new System.Drawing.Size(0, 18);
             this.lblFechaSolicitud.TabIndex = 138;
@@ -755,7 +884,7 @@
             this.lblFolio.BackColor = System.Drawing.Color.Transparent;
             this.lblFolio.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblFolio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblFolio.Location = new System.Drawing.Point(257, 40);
+            this.lblFolio.Location = new System.Drawing.Point(261, 25);
             this.lblFolio.Name = "lblFolio";
             this.lblFolio.Size = new System.Drawing.Size(0, 18);
             this.lblFolio.TabIndex = 120;
@@ -766,7 +895,7 @@
             this.lblUnidad.BackColor = System.Drawing.Color.Transparent;
             this.lblUnidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUnidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblUnidad.Location = new System.Drawing.Point(257, 88);
+            this.lblUnidad.Location = new System.Drawing.Point(257, 59);
             this.lblUnidad.Name = "lblUnidad";
             this.lblUnidad.Size = new System.Drawing.Size(0, 18);
             this.lblUnidad.TabIndex = 122;
@@ -777,7 +906,7 @@
             this.label34.BackColor = System.Drawing.Color.Transparent;
             this.label34.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label34.Location = new System.Drawing.Point(254, 194);
+            this.label34.Location = new System.Drawing.Point(252, 111);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(373, 9);
             this.label34.TabIndex = 142;
@@ -797,7 +926,7 @@
             this.btnPdf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnPdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPdf.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnPdf.Location = new System.Drawing.Point(510, 283);
+            this.btnPdf.Location = new System.Drawing.Point(1106, 238);
             this.btnPdf.Name = "btnPdf";
             this.btnPdf.Size = new System.Drawing.Size(55, 50);
             this.btnPdf.TabIndex = 6;
@@ -814,7 +943,7 @@
             this.lblPersonaDis.BackColor = System.Drawing.Color.Transparent;
             this.lblPersonaDis.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblPersonaDis.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblPersonaDis.Location = new System.Drawing.Point(906, 118);
+            this.lblPersonaDis.Location = new System.Drawing.Point(906, 95);
             this.lblPersonaDis.Name = "lblPersonaDis";
             this.lblPersonaDis.Size = new System.Drawing.Size(0, 18);
             this.lblPersonaDis.TabIndex = 135;
@@ -826,7 +955,7 @@
             this.label24.BackColor = System.Drawing.Color.Transparent;
             this.label24.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label24.Location = new System.Drawing.Point(906, 50);
+            this.label24.Location = new System.Drawing.Point(904, 40);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(369, 9);
             this.label24.TabIndex = 134;
@@ -840,7 +969,7 @@
             this.txtDispenso.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtDispenso.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDispenso.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtDispenso.Location = new System.Drawing.Point(906, 92);
+            this.txtDispenso.Location = new System.Drawing.Point(906, 66);
             this.txtDispenso.MaxLength = 18;
             this.txtDispenso.Name = "txtDispenso";
             this.txtDispenso.PasswordChar = '*';
@@ -857,7 +986,7 @@
             this.label16.BackColor = System.Drawing.Color.Transparent;
             this.label16.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label16.Location = new System.Drawing.Point(648, 91);
+            this.label16.Location = new System.Drawing.Point(649, 74);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(234, 18);
             this.label16.TabIndex = 129;
@@ -869,7 +998,7 @@
             this.label10.BackColor = System.Drawing.Color.Transparent;
             this.label10.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label10.Location = new System.Drawing.Point(650, 39);
+            this.label10.Location = new System.Drawing.Point(649, 33);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(237, 18);
             this.label10.TabIndex = 128;
@@ -881,11 +1010,11 @@
             this.txtFolioFactura.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtFolioFactura.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFolioFactura.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtFolioFactura.Location = new System.Drawing.Point(257, 227);
+            this.txtFolioFactura.Location = new System.Drawing.Point(255, 192);
             this.txtFolioFactura.MaxLength = 8;
             this.txtFolioFactura.Name = "txtFolioFactura";
             this.txtFolioFactura.ShortcutsEnabled = false;
-            this.txtFolioFactura.Size = new System.Drawing.Size(292, 18);
+            this.txtFolioFactura.Size = new System.Drawing.Size(155, 18);
             this.txtFolioFactura.TabIndex = 1;
             this.txtFolioFactura.TabStop = false;
             this.txtFolioFactura.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
@@ -897,7 +1026,7 @@
             this.label8.BackColor = System.Drawing.Color.Transparent;
             this.label8.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label8.Location = new System.Drawing.Point(7, 234);
+            this.label8.Location = new System.Drawing.Point(5, 196);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(129, 18);
             this.label8.TabIndex = 125;
@@ -909,7 +1038,7 @@
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label4.Location = new System.Drawing.Point(257, 99);
+            this.label4.Location = new System.Drawing.Point(253, 74);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(369, 9);
             this.label4.TabIndex = 123;
@@ -923,7 +1052,7 @@
             this.label19.BackColor = System.Drawing.Color.Transparent;
             this.label19.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label19.Location = new System.Drawing.Point(254, 52);
+            this.label19.Location = new System.Drawing.Point(256, 40);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(373, 9);
             this.label19.TabIndex = 121;
@@ -949,7 +1078,7 @@
             this.label11.BackColor = System.Drawing.Color.Transparent;
             this.label11.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label11.Location = new System.Drawing.Point(2, 132);
+            this.label11.Location = new System.Drawing.Point(6, 104);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(240, 18);
             this.label11.TabIndex = 118;
@@ -961,7 +1090,7 @@
             this.label2.BackColor = System.Drawing.Color.Transparent;
             this.label2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label2.Location = new System.Drawing.Point(6, 83);
+            this.label2.Location = new System.Drawing.Point(6, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 18);
             this.label2.TabIndex = 116;
@@ -973,7 +1102,7 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label3.Location = new System.Drawing.Point(7, 180);
+            this.label3.Location = new System.Drawing.Point(5, 145);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(239, 18);
             this.label3.TabIndex = 117;
@@ -985,7 +1114,7 @@
             this.label22.BackColor = System.Drawing.Color.Transparent;
             this.label22.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label22.Location = new System.Drawing.Point(254, 146);
+            this.label22.Location = new System.Drawing.Point(253, 154);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(373, 9);
             this.label22.TabIndex = 132;
@@ -999,12 +1128,11 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label7.Location = new System.Drawing.Point(255, 238);
+            this.label7.Location = new System.Drawing.Point(253, 203);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(373, 9);
+            this.label7.Size = new System.Drawing.Size(157, 9);
             this.label7.TabIndex = 126;
-            this.label7.Text = "_________________________________________________________________________________" +
-    "___________";
+            this.label7.Text = "______________________________________";
             this.label7.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label15
@@ -1013,7 +1141,7 @@
             this.label15.BackColor = System.Drawing.Color.Transparent;
             this.label15.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label15.Location = new System.Drawing.Point(906, 105);
+            this.label15.Location = new System.Drawing.Point(904, 78);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(373, 9);
             this.label15.TabIndex = 130;
@@ -1027,7 +1155,7 @@
             this.LblPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.LblPDF.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblPDF.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.LblPDF.Location = new System.Drawing.Point(570, 304);
+            this.LblPDF.Location = new System.Drawing.Point(1166, 259);
             this.LblPDF.Name = "LblPDF";
             this.LblPDF.Size = new System.Drawing.Size(101, 18);
             this.LblPDF.TabIndex = 118;
@@ -1039,7 +1167,7 @@
             this.LblNota.AutoSize = true;
             this.LblNota.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LblNota.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.LblNota.Location = new System.Drawing.Point(436, 349);
+            this.LblNota.Location = new System.Drawing.Point(189, 326);
             this.LblNota.Name = "LblNota";
             this.LblNota.Size = new System.Drawing.Size(61, 18);
             this.LblNota.TabIndex = 152;
@@ -1057,7 +1185,7 @@
             this.btnGuardar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnGuardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnGuardar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnGuardar.Location = new System.Drawing.Point(85, 283);
+            this.btnGuardar.Location = new System.Drawing.Point(681, 238);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(55, 50);
             this.btnGuardar.TabIndex = 4;
@@ -1078,7 +1206,7 @@
             this.btnValidar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnValidar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnValidar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnValidar.Location = new System.Drawing.Point(85, 283);
+            this.btnValidar.Location = new System.Drawing.Point(681, 238);
             this.btnValidar.Name = "btnValidar";
             this.btnValidar.Size = new System.Drawing.Size(55, 50);
             this.btnValidar.TabIndex = 154;
@@ -1099,16 +1227,6 @@
             this.lblidreporte.Size = new System.Drawing.Size(0, 21);
             this.lblidreporte.TabIndex = 146;
             this.lblidreporte.Visible = false;
-            // 
-            // lbltitulo
-            // 
-            this.lbltitulo.AutoSize = true;
-            this.lbltitulo.Font = new System.Drawing.Font("Garamond", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltitulo.Location = new System.Drawing.Point(12, 16);
-            this.lbltitulo.Name = "lbltitulo";
-            this.lbltitulo.Size = new System.Drawing.Size(351, 36);
-            this.lbltitulo.TabIndex = 120;
-            this.lbltitulo.Text = "REPORTE ALMACEN ";
             // 
             // tbReportes
             // 
@@ -1147,7 +1265,7 @@
             this.tbReportes.DefaultCellStyle = dataGridViewCellStyle3;
             this.tbReportes.EnableHeadersVisualStyles = false;
             this.tbReportes.GridColor = System.Drawing.Color.LightSlateGray;
-            this.tbReportes.Location = new System.Drawing.Point(3, 450);
+            this.tbReportes.Location = new System.Drawing.Point(3, 387);
             this.tbReportes.MultiSelect = false;
             this.tbReportes.Name = "tbReportes";
             this.tbReportes.ReadOnly = true;
@@ -1168,8 +1286,9 @@
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Crimson;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
             this.tbReportes.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.tbReportes.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbReportes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tbReportes.Size = new System.Drawing.Size(1307, 479);
+            this.tbReportes.Size = new System.Drawing.Size(1307, 374);
             this.tbReportes.TabIndex = 122;
             this.tbReportes.Visible = false;
             this.tbReportes.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
@@ -1209,7 +1328,7 @@
             this.tbRefacciones.DefaultCellStyle = dataGridViewCellStyle8;
             this.tbRefacciones.EnableHeadersVisualStyles = false;
             this.tbRefacciones.GridColor = System.Drawing.Color.LightSlateGray;
-            this.tbRefacciones.Location = new System.Drawing.Point(1316, 88);
+            this.tbRefacciones.Location = new System.Drawing.Point(13, 16);
             this.tbRefacciones.MultiSelect = false;
             this.tbRefacciones.Name = "tbRefacciones";
             this.tbRefacciones.ReadOnly = true;
@@ -1231,37 +1350,67 @@
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
             this.tbRefacciones.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.tbRefacciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.tbRefacciones.Size = new System.Drawing.Size(592, 342);
+            this.tbRefacciones.Size = new System.Drawing.Size(536, 243);
             this.tbRefacciones.TabIndex = 147;
             this.tbRefacciones.Visible = false;
-            this.tbRefacciones.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dataGridView2_CellFormatting);
+            this.tbRefacciones.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tbRefacciones_CellContentDoubleClick);
+            this.tbRefacciones.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.tbRefacciones_CellFormatting);
             this.tbRefacciones.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.tbReportes_ColumnAdded);
             this.tbRefacciones.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.tbRefacciones_RowsAdded);
             this.tbRefacciones.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbRefacciones_KeyPress);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.tbReportes);
+            this.groupBox1.Controls.Add(this.GpbAlmacen);
+            this.groupBox1.Location = new System.Drawing.Point(0, 67);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1316, 781);
+            this.groupBox1.TabIndex = 148;
+            this.groupBox1.TabStop = false;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.tbRefacciones);
+            this.groupBox2.Controls.Add(this.GpbBusquedas);
+            this.groupBox2.Location = new System.Drawing.Point(1320, 72);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(565, 775);
+            this.groupBox2.TabIndex = 149;
+            this.groupBox2.TabStop = false;
+            // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::controlFallos.Properties.Resources.Imagen2;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Location = new System.Drawing.Point(1686, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(222, 81);
+            this.pictureBox1.Size = new System.Drawing.Size(222, 62);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 121;
             this.pictureBox1.TabStop = false;
+            // 
+            // lbltitulo
+            // 
+            this.lbltitulo.AutoSize = true;
+            this.lbltitulo.Font = new System.Drawing.Font("Garamond", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbltitulo.Location = new System.Drawing.Point(12, 16);
+            this.lbltitulo.Name = "lbltitulo";
+            this.lbltitulo.Size = new System.Drawing.Size(351, 36);
+            this.lbltitulo.TabIndex = 120;
+            this.lbltitulo.Text = "REPORTE ALMACÉN ";
             // 
             // TRI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1920, 937);
-            this.Controls.Add(this.tbRefacciones);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.lblidreporte);
-            this.Controls.Add(this.tbReportes);
             this.Controls.Add(this.lbltitulo);
-            this.Controls.Add(this.GpbAlmacen);
-            this.Controls.Add(this.GpbBusquedas);
             this.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1275,8 +1424,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.GpbAlmacen.ResumeLayout(false);
             this.GpbAlmacen.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbReportes)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbRefacciones)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1327,8 +1480,6 @@
         private System.Windows.Forms.Label LblPDF;
         private System.Windows.Forms.Label lblMecanicoSolicita;
         private System.Windows.Forms.Label label34;
-        private System.Windows.Forms.Label lbltitulo;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button btnActualizar;
         private System.Windows.Forms.Label lblactualizar;
         private System.Windows.Forms.DataGridView tbReportes;
@@ -1355,5 +1506,16 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button btnValidar;
         private System.Windows.Forms.DateTimePicker dtpFechaDe;
+        private System.Windows.Forms.ListBox LBxRefacc;
+        private System.Windows.Forms.Button btnCancelFact;
+        private System.Windows.Forms.Button btnFolioFactura;
+        private System.Windows.Forms.NumericUpDown numUpDownHASTA;
+        private System.Windows.Forms.NumericUpDown numUpDownDE;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label lblOtros;
+        private System.Windows.Forms.Button btnOtros;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lbltitulo;
     }
 }

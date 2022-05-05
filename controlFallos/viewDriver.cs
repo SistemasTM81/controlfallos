@@ -89,7 +89,10 @@ namespace controlFallos
             return control;
         }
 
+        private void viewDriver_Load(object sender, EventArgs e)
+        {
 
+        }
 
         private void Btn_DoubleClick(object sender, EventArgs e)
         {

@@ -53,6 +53,10 @@
             this.dtpvenctarjeton = new System.Windows.Forms.DateTimePicker();
             this.label25 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.ppuestos = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label15 = new System.Windows.Forms.Label();
             this.pCancel = new System.Windows.Forms.Panel();
             this.btnlimpiar = new System.Windows.Forms.Button();
             this.lbllimpiar = new System.Windows.Forms.Label();
@@ -90,10 +94,6 @@
             this.label29 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.label30 = new System.Windows.Forms.Label();
-            this.ppuestos = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.label15 = new System.Windows.Forms.Label();
             this.peliminarusu = new System.Windows.Forms.Panel();
             this.lbldeleteuser = new System.Windows.Forms.Label();
             this.btndeleteuser = new System.Windows.Forms.Button();
@@ -127,10 +127,10 @@
             this.gbvigencias.SuspendLayout();
             this.gblicencia.SuspendLayout();
             this.gbtarjeton.SuspendLayout();
+            this.ppuestos.SuspendLayout();
             this.pCancel.SuspendLayout();
             this.pprivilegios.SuspendLayout();
             this.pLicencias.SuspendLayout();
-            this.ppuestos.SuspendLayout();
             this.peliminarusu.SuspendLayout();
             this.gbbuscar.SuspendLayout();
             this.pExcel.SuspendLayout();
@@ -181,7 +181,7 @@
             this.busqEmpleados.EnableHeadersVisualStyles = false;
             this.busqEmpleados.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.busqEmpleados.ImeMode = System.Windows.Forms.ImeMode.Katakana;
-            this.busqEmpleados.Location = new System.Drawing.Point(0, 685);
+            this.busqEmpleados.Location = new System.Drawing.Point(0, 687);
             this.busqEmpleados.MultiSelect = false;
             this.busqEmpleados.Name = "busqEmpleados";
             this.busqEmpleados.ReadOnly = true;
@@ -460,6 +460,55 @@
             this.label1.Size = new System.Drawing.Size(191, 24);
             this.label1.TabIndex = 0;
             this.label1.Text = "Fecha de Expedición:";
+            // 
+            // ppuestos
+            // 
+            this.ppuestos.Controls.Add(this.label2);
+            this.ppuestos.Controls.Add(this.button3);
+            this.ppuestos.Controls.Add(this.label15);
+            this.ppuestos.Font = new System.Drawing.Font("Garamond", 15.75F);
+            this.ppuestos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.ppuestos.Location = new System.Drawing.Point(405, 182);
+            this.ppuestos.Name = "ppuestos";
+            this.ppuestos.Size = new System.Drawing.Size(119, 91);
+            this.ppuestos.TabIndex = 0;
+            this.ppuestos.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(1, 43);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 24);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Ir a Catálogo";
+            // 
+            // button3
+            // 
+            this.button3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button3.BackgroundImage")));
+            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.Location = new System.Drawing.Point(41, 3);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(40, 40);
+            this.button3.TabIndex = 0;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(8, 64);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(99, 24);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "de Puestos";
+            this.label15.Click += new System.EventHandler(this.label15_Click);
             // 
             // pCancel
             // 
@@ -906,54 +955,6 @@
             this.label30.TabIndex = 0;
             this.label30.Text = "de Licencias";
             // 
-            // ppuestos
-            // 
-            this.ppuestos.Controls.Add(this.label2);
-            this.ppuestos.Controls.Add(this.button3);
-            this.ppuestos.Controls.Add(this.label15);
-            this.ppuestos.Font = new System.Drawing.Font("Garamond", 15.75F);
-            this.ppuestos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.ppuestos.Location = new System.Drawing.Point(405, 182);
-            this.ppuestos.Name = "ppuestos";
-            this.ppuestos.Size = new System.Drawing.Size(119, 91);
-            this.ppuestos.TabIndex = 0;
-            this.ppuestos.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(1, 43);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 24);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Ir a Catálogo";
-            // 
-            // button3
-            // 
-            this.button3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button3.BackgroundImage")));
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.button3.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.Location = new System.Drawing.Point(41, 3);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(40, 40);
-            this.button3.TabIndex = 0;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(8, 64);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(99, 24);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "de Puestos";
-            // 
             // peliminarusu
             // 
             this.peliminarusu.Controls.Add(this.lbldeleteuser);
@@ -1101,7 +1102,7 @@
             this.gbbuscar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbbuscar.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbbuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbbuscar.Location = new System.Drawing.Point(0, 597);
+            this.gbbuscar.Location = new System.Drawing.Point(0, 599);
             this.gbbuscar.Name = "gbbuscar";
             this.gbbuscar.Size = new System.Drawing.Size(1920, 88);
             this.gbbuscar.TabIndex = 0;
@@ -1288,6 +1289,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1920, 937);
             this.Controls.Add(this.pLicencias);
@@ -1314,14 +1316,14 @@
             this.gblicencia.PerformLayout();
             this.gbtarjeton.ResumeLayout(false);
             this.gbtarjeton.PerformLayout();
+            this.ppuestos.ResumeLayout(false);
+            this.ppuestos.PerformLayout();
             this.pCancel.ResumeLayout(false);
             this.pCancel.PerformLayout();
             this.pprivilegios.ResumeLayout(false);
             this.pprivilegios.PerformLayout();
             this.pLicencias.ResumeLayout(false);
             this.pLicencias.PerformLayout();
-            this.ppuestos.ResumeLayout(false);
-            this.ppuestos.PerformLayout();
             this.peliminarusu.ResumeLayout(false);
             this.peliminarusu.PerformLayout();
             this.gbbuscar.ResumeLayout(false);

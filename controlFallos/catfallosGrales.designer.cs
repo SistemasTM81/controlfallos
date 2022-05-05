@@ -67,6 +67,9 @@
             this.iddesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idcatdgv = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbaddnomfallo = new System.Windows.Forms.GroupBox();
+            this.pEliminarClasificacion = new System.Windows.Forms.Panel();
+            this.lbldeletedesc = new System.Windows.Forms.Label();
+            this.btndeletedesc = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.button5 = new System.Windows.Forms.Button();
             this.cbcategoria = new System.Windows.Forms.ComboBox();
@@ -90,9 +93,6 @@
             this.txtgetdescfallo = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.pEliminarClasificacion = new System.Windows.Forms.Panel();
-            this.lbldeletedesc = new System.Windows.Forms.Label();
-            this.btndeletedesc = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -102,8 +102,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbfallos)).BeginInit();
             this.gbaddnomfallo.SuspendLayout();
-            this.pCancelar.SuspendLayout();
             this.pEliminarClasificacion.SuspendLayout();
+            this.pCancelar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -591,6 +591,41 @@
             this.gbaddnomfallo.Paint += new System.Windows.Forms.PaintEventHandler(this.gbaddnomfallo_Paint);
             this.gbaddnomfallo.Enter += new System.EventHandler(this.gbClasificacion_Enter);
             // 
+            // pEliminarClasificacion
+            // 
+            this.pEliminarClasificacion.Controls.Add(this.lbldeletedesc);
+            this.pEliminarClasificacion.Controls.Add(this.btndeletedesc);
+            this.pEliminarClasificacion.Location = new System.Drawing.Point(24, 406);
+            this.pEliminarClasificacion.Name = "pEliminarClasificacion";
+            this.pEliminarClasificacion.Size = new System.Drawing.Size(162, 95);
+            this.pEliminarClasificacion.TabIndex = 28;
+            this.pEliminarClasificacion.Visible = false;
+            // 
+            // lbldeletedesc
+            // 
+            this.lbldeletedesc.AutoSize = true;
+            this.lbldeletedesc.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbldeletedesc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lbldeletedesc.Location = new System.Drawing.Point(32, 63);
+            this.lbldeletedesc.Name = "lbldeletedesc";
+            this.lbldeletedesc.Size = new System.Drawing.Size(89, 21);
+            this.lbldeletedesc.TabIndex = 26;
+            this.lbldeletedesc.Text = "Desactivar";
+            // 
+            // btndeletedesc
+            // 
+            this.btndeletedesc.BackgroundImage = global::controlFallos.Properties.Resources.delete__4_;
+            this.btndeletedesc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btndeletedesc.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btndeletedesc.FlatAppearance.BorderSize = 0;
+            this.btndeletedesc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btndeletedesc.Location = new System.Drawing.Point(54, 3);
+            this.btndeletedesc.Name = "btndeletedesc";
+            this.btndeletedesc.Size = new System.Drawing.Size(50, 50);
+            this.btndeletedesc.TabIndex = 25;
+            this.btndeletedesc.UseVisualStyleBackColor = true;
+            this.btndeletedesc.Click += new System.EventHandler(this.btndeletedesc_Click);
+            // 
             // label10
             // 
             this.label10.AutoSize = true;
@@ -871,41 +906,6 @@
             this.label22.Text = "_________________________________________________________________________________" +
     "____________________________";
             // 
-            // pEliminarClasificacion
-            // 
-            this.pEliminarClasificacion.Controls.Add(this.lbldeletedesc);
-            this.pEliminarClasificacion.Controls.Add(this.btndeletedesc);
-            this.pEliminarClasificacion.Location = new System.Drawing.Point(24, 406);
-            this.pEliminarClasificacion.Name = "pEliminarClasificacion";
-            this.pEliminarClasificacion.Size = new System.Drawing.Size(162, 95);
-            this.pEliminarClasificacion.TabIndex = 28;
-            this.pEliminarClasificacion.Visible = false;
-            // 
-            // lbldeletedesc
-            // 
-            this.lbldeletedesc.AutoSize = true;
-            this.lbldeletedesc.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbldeletedesc.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lbldeletedesc.Location = new System.Drawing.Point(32, 63);
-            this.lbldeletedesc.Name = "lbldeletedesc";
-            this.lbldeletedesc.Size = new System.Drawing.Size(89, 21);
-            this.lbldeletedesc.TabIndex = 26;
-            this.lbldeletedesc.Text = "Desactivar";
-            // 
-            // btndeletedesc
-            // 
-            this.btndeletedesc.BackgroundImage = global::controlFallos.Properties.Resources.delete__4_;
-            this.btndeletedesc.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btndeletedesc.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btndeletedesc.FlatAppearance.BorderSize = 0;
-            this.btndeletedesc.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btndeletedesc.Location = new System.Drawing.Point(54, 3);
-            this.btndeletedesc.Name = "btndeletedesc";
-            this.btndeletedesc.Size = new System.Drawing.Size(50, 50);
-            this.btndeletedesc.TabIndex = 25;
-            this.btndeletedesc.UseVisualStyleBackColor = true;
-            this.btndeletedesc.Click += new System.EventHandler(this.btndeletedesc_Click);
-            // 
             // label9
             // 
             this.label9.AutoSize = true;
@@ -946,6 +946,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1908, 937);
             this.Controls.Add(this.label9);
@@ -968,10 +969,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.tbfallos)).EndInit();
             this.gbaddnomfallo.ResumeLayout(false);
             this.gbaddnomfallo.PerformLayout();
-            this.pCancelar.ResumeLayout(false);
-            this.pCancelar.PerformLayout();
             this.pEliminarClasificacion.ResumeLayout(false);
             this.pEliminarClasificacion.PerformLayout();
+            this.pCancelar.ResumeLayout(false);
+            this.pCancelar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

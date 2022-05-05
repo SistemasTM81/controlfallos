@@ -93,7 +93,7 @@ namespace controlFallos
         void iniComparativas()
         {
             dgvcompara.Rows.Clear();
-            string sql = @"SET lc_time_names = 'es_ES'; SELECT t1.idcomparativa, UPPER(t1.nombreComparativa), UPPER(t1.descripcionComparativa), UPPER(t1.observacionesComparativa), (SELECT COUNT(*) FROM refaccionescomparativa AS x1 WHERE x1.comparativafkcomparativas = t1.idcomparativa), UPPER(DATE_FORMAT(t1.fechaHoraCreacion, '%d de %M del %Y / %H:%i:%s')), CONCAT(t1.iva, ' %'), CONVERT(CONCAT('$ ', if(t1.status = 3, TRUNCATE(((SELECT COALESCE(SUM((x1.precioUnitario * x2.cantidad)), '0') FROM proveedorescomparativa AS x1 INNER JOIN refaccionescomparativa AS x2 ON x1.refaccionfkrefaccionesComparativa = x2.idrefaccioncomparativa WHERE x2.comparativafkcomparativas = t1.idcomparativa AND x1.mejorOpcion = 1) * (1 + (t1.iva / 100))), 2), '0')) USING utf8) AS total, UPPER(CONCAT(t2.nombres, ' ', t2.apPaterno, ' ', t2.apMaterno)), UPPER(if(t1.status = 1, CONCAT('AGREGANDO REFACCIONES'), if(t1.status = 2, CONCAT('GENERANDO CONCENTRADOS'), if(t1.status = 3, CONCAT('ELIGIENDO MEJOR OPCIÓN'), 'FINALIZADO')))), t1.status FROM comparativas AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona where t1.empresa='"+empresa+"' ORDER BY t1.idcomparativa DESC";
+            string sql = @"SET lc_time_names = 'es_ES'; SELECT t1.idcomparativa, UPPER(t1.nombreComparativa), UPPER(t1.descripcionComparativa), UPPER(t1.observacionesComparativa), (SELECT COUNT(*) FROM refaccionescomparativa AS x1 WHERE x1.comparativafkcomparativas = t1.idcomparativa), UPPER(DATE_FORMAT(t1.fechaHoraCreacion, '%d de %M del %Y / %H:%i:%s')), CONCAT(t1.iva, ' %'), CONVERT(CONCAT('$ ', if(t1.status = 3, TRUNCATE(((SELECT COALESCE(SUM((x1.precioUnitario * x2.cantidad)), '0') FROM proveedorescomparativa AS x1 INNER JOIN refaccionescomparativa AS x2 ON x1.refaccionfkrefaccionesComparativa = x2.idrefaccioncomparativa WHERE x2.comparativafkcomparativas = t1.idcomparativa AND x1.mejorOpcion = 1) * (1 + (t1.iva / 100))), 2), '0')) USING utf8) AS total, UPPER(CONCAT(coalesce(t2.nombres,''), ' ', coalesce(t2.apPaterno,''), ' ', coalesce(t2.apMaterno,''))), UPPER(if(t1.status = 1, CONCAT('AGREGANDO REFACCIONES'), if(t1.status = 2, CONCAT('GENERANDO CONCENTRADOS'), if(t1.status = 3, CONCAT('ELIGIENDO MEJOR OPCIÓN'), 'FINALIZADO')))), t1.status FROM comparativas AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona where t1.empresa='" + empresa+"' ORDER BY t1.idcomparativa DESC";
             DataTable t = (DataTable)v.getData(sql);
             for (int i = 0; i < t.Rows.Count; i++) dgvcompara.Rows.Add(t.Rows[i].ItemArray);
             dgvcompara.ClearSelection();
@@ -102,7 +102,7 @@ namespace controlFallos
         void iniRefacciones()
         {
             dgvrefacciones.Rows.Clear();
-            string sql = @"SELECT t1.idrefaccioncomparativa,UPPER(COALESCE(CONCAT(t3.nombreRefaccion),t1.nombreRefaccion)), cantidad,upper(observaciones), UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)),COALESCE(t1.refaccionfkcrefacciones,''),COALESCE(t1.nombreRefaccion,'') FROM refaccionescomparativa as t1 LEFT JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona LEFT JOIN crefacciones as t3 ON t1.refaccionfkcrefacciones = t3.idrefaccion where comparativafkcomparativas='" + idComparativaTemp + "' and t1.empresa='"+empresa+"' ORDER BY COALESCE(CONCAT(t3.nombreRefaccion),t1.nombreRefaccion) ASC";
+            string sql = @"SELECT t1.idrefaccioncomparativa,UPPER(COALESCE(CONCAT(t3.nombreRefaccion),t1.nombreRefaccion)), cantidad,upper(observaciones), UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))),COALESCE(t1.refaccionfkcrefacciones,''),COALESCE(t1.nombreRefaccion,'') FROM refaccionescomparativa as t1 LEFT JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona LEFT JOIN crefacciones as t3 ON t1.refaccionfkcrefacciones = t3.idrefaccion where comparativafkcomparativas='" + idComparativaTemp + "' and t1.empresa='"+empresa+"' ORDER BY COALESCE(CONCAT(t3.nombreRefaccion),t1.nombreRefaccion) ASC";
             DataTable t = (DataTable)v.getData(sql);
             for (int i = 0; i < t.Rows.Count; i++) dgvrefacciones.Rows.Add(t.Rows[i].ItemArray);
             dgvrefacciones.ClearSelection();
@@ -111,7 +111,7 @@ namespace controlFallos
         void iniProveedores()
         {
             dgvproveedores.Rows.Clear();
-            string sql = @"SELECT idproveedorComparativa,upper(t2.empresa),precioUnitario,(SELECT (t1.precioUnitario * cantidad) FROM refaccionesComparativa WHERE idrefaccionComparativa=t1.refaccionfkrefaccionesComparativa),t1.observaciones,COALESCE( if(mejorOpcion='1','MEJOR OPCIÓN',''),''), UPPER(CONCAT(t3.nombres,' ',t3.apPaterno,' ',t3.apMaterno)) as nombre,t1.proveedorfkcproveedores FROM proveedorescomparativa as t1 INNER JOIN cproveedores as t2 ON t1.proveedorfkcproveedores= t2.idproveedor INNER JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona WHERE t1.refaccionfkrefaccionesComparativa='" + idRefaccionTemp + "' and t1.empresa='"+empresa+"' ORDER BY t2.empresa ASC";
+            string sql = @"SELECT idproveedorComparativa,upper(t2.empresa),precioUnitario,(SELECT (t1.precioUnitario * cantidad) FROM refaccionesComparativa WHERE idrefaccionComparativa=t1.refaccionfkrefaccionesComparativa),t1.observaciones,COALESCE( if(mejorOpcion='1','MEJOR OPCIÓN',''),''), UPPER(CONCAT(coalesce(t3.nombres,''),' ',coalesce(t3.apPaterno,''),' ',coalesce(t3.apMaterno,''))) as nombre,t1.proveedorfkcproveedores FROM proveedorescomparativa as t1 INNER JOIN cproveedores as t2 ON t1.proveedorfkcproveedores= t2.idproveedor INNER JOIN cpersonal as t3 ON t1.usuariofkcpersonal=t3.idpersona WHERE t1.refaccionfkrefaccionesComparativa='" + idRefaccionTemp + "' and t1.empresa='"+empresa+"' ORDER BY t2.empresa ASC";
             DataTable t = (DataTable)v.getData(sql);
             for (int i = 0; i < t.Rows.Count; i++) dgvproveedores.Rows.Add(t.Rows[i].ItemArray);
             dgvproveedores.ClearSelection();
@@ -659,6 +659,11 @@ namespace controlFallos
             }
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
         private void White(object sender, CancelEventArgs e)
         {
             v.espaciosenblanco(sender, e);
@@ -691,7 +696,7 @@ namespace controlFallos
                 }
                 else
                 {
-                    string consulta = "SET lc_time_names = 'es_ES'; SELECT t1.idcomparativa, UPPER(t1.nombreComparativa), UPPER(t1.descripcionComparativa), UPPER(t1.observacionesComparativa), (SELECT COUNT(*) FROM refaccionescomparativa AS x1 WHERE x1.comparativafkcomparativas = t1.idcomparativa), UPPER(DATE_FORMAT(t1.fechaHoraCreacion, '%d de %M del %Y / %H:%i:%s')), CONCAT(t1.iva, ' %'), CONVERT(CONCAT('$ ', if(t1.status = 3, TRUNCATE(((SELECT COALESCE(SUM((x1.precioUnitario * x2.cantidad)), '0') FROM proveedorescomparativa AS x1 INNER JOIN refaccionescomparativa AS x2 ON x1.refaccionfkrefaccionesComparativa = x2.idrefaccioncomparativa WHERE x2.comparativafkcomparativas = t1.idcomparativa AND x1.mejorOpcion = 1) * (1 + (t1.iva / 100))), 2), '0')) USING utf8) AS total, UPPER(CONCAT(t2.nombres, ' ', t2.apPaterno, ' ', t2.apMaterno)), UPPER(if(t1.status = 1, CONCAT('AGREGANDO REFACCIONES'), if(t1.status = 2, CONCAT('GENERANDO CONCENTRADOS'), if(t1.status = 3, CONCAT('ELIGIENDO MEJOR OPCIÓN'), 'FINALIZADO')))), t1.status FROM comparativas AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona";
+                    string consulta = "SET lc_time_names = 'es_ES'; SELECT t1.idcomparativa, UPPER(t1.nombreComparativa), UPPER(t1.descripcionComparativa), UPPER(t1.observacionesComparativa), (SELECT COUNT(*) FROM refaccionescomparativa AS x1 WHERE x1.comparativafkcomparativas = t1.idcomparativa), UPPER(DATE_FORMAT(t1.fechaHoraCreacion, '%d de %M del %Y / %H:%i:%s')), CONCAT(t1.iva, ' %'), CONVERT(CONCAT('$ ', if(t1.status = 3, TRUNCATE(((SELECT COALESCE(SUM((x1.precioUnitario * x2.cantidad)), '0') FROM proveedorescomparativa AS x1 INNER JOIN refaccionescomparativa AS x2 ON x1.refaccionfkrefaccionesComparativa = x2.idrefaccioncomparativa WHERE x2.comparativafkcomparativas = t1.idcomparativa AND x1.mejorOpcion = 1) * (1 + (t1.iva / 100))), 2), '0')) USING utf8) AS total, UPPER(CONCAT(coalesce(t2.nombres,''), ' ', coalesce(t2.apPaterno,''), ' ', coalesce(t2.apMaterno,''))), UPPER(if(t1.status = 1, CONCAT('AGREGANDO REFACCIONES'), if(t1.status = 2, CONCAT('GENERANDO CONCENTRADOS'), if(t1.status = 3, CONCAT('ELIGIENDO MEJOR OPCIÓN'), 'FINALIZADO')))), t1.status FROM comparativas AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona";
                     string where = "";
                     if (!string.IsNullOrWhiteSpace(txtNombreBusq.Text))
                     {

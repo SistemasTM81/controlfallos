@@ -13,18 +13,22 @@ namespace controlFallos
     public partial class NotificacionAlmacen : Form
     {
         validaciones v;
+        int empresa = 0;
         bool res = true;
+        DataSet DsE = new DataSet();
         Thread t; ThreadStart tS;
-        public NotificacionAlmacen(validaciones v)
+        MySqlDataAdapter adaptador = new MySqlDataAdapter();
+        public NotificacionAlmacen(validaciones v, int empresa)
         {
             this.v = v;
+            this.empresa = empresa;
             InitializeComponent();
             cbmes.DrawItem += new DrawItemEventHandler(v.combos_DrawItem);
         }
        void busqvigencias()
         {
             tbnotvigencias.Rows.Clear();
-            string sql = "SET lc_time_names = 'es_ES'; SELECT t2.idPersona,UPPER(coalesce(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres), '')) AS NOMBRE,  COALESCE(CONCAT(T3.Tipo,' - ',t3.Descripcion),'') AS 'TIPO DE LICENCIA', UPPER(coalesce(DATE_FORMAT(t1.fechaEmisionConducir, '%W %d %M %Y'), '')) AS 'FECHA DE EMISIÓN DE LICENCIA DE CONDUCIR', UPPER(coalesce(DATE_FORMAT(t1.fechaVencimientoConducir, '%W %d %M %Y'), '')) AS 'FECHA DE VENCIMIENTO DE LICENCIA DE CONDUCIR'FROM vigencias_supervision AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona inner join cattipos as t3 On t1.tipolicenciafkcattipos=t3.idcattipos WHERE t2.empresa='2' and t2.area='2' AND DATEDIFF(t1.fechaVencimientoConducir, curdate()) <= 7 AND t2.status='1'";
+            string sql = "SET lc_time_names = 'es_ES'; SELECT t2.idPersona,UPPER(coalesce(CONCAT(coalesce(t2.ApPaterno,''), ' ', coalesce(t2.ApMaterno,''), ' ', coalesce(t2.nombres,'')), '')) AS NOMBRE,  COALESCE(CONCAT(T3.Tipo,' - ',t3.Descripcion),'') AS 'TIPO DE LICENCIA', UPPER(coalesce(DATE_FORMAT(t1.fechaEmisionConducir, '%W %d %M %Y'), '')) AS 'FECHA DE EMISIÓN DE LICENCIA DE CONDUCIR', UPPER(coalesce(DATE_FORMAT(t1.fechaVencimientoConducir, '%W %d %M %Y'), '')) AS 'FECHA DE VENCIMIENTO DE LICENCIA DE CONDUCIR'FROM vigencias_supervision AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona inner join cattipos as t3 On t1.tipolicenciafkcattipos=t3.idcattipos WHERE t2.empresa='2' and t2.area='2' AND DATEDIFF(t1.fechaVencimientoConducir, curdate()) <= 7 AND t2.status='1'";
             MySqlCommand cmd = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())
@@ -37,7 +41,7 @@ namespace controlFallos
         void busqnotificacionesFolio()
         {
             tbnotiffolios.Rows.Clear();
-            string sql = "SELECT t2.idReporteSupervicion as id, t2.Folio as folio,concat(t5.identificador,LPAD(t3.consecutivo,4,'0')) as eco, CONCAT(T4.nombres,' ',T4.ApPaterno) as mecanico,t1.FechaReporteM as fechas,(SELECT count(idPedRef) FROM pedidosrefaccion WHERE FolioPedfkSupervicion= t2.idReporteSupervicion) as total FROM reportemantenimiento as t1 INNER JOIN reportesupervicion as t2 ON t1.FoliofkSupervicion= t2.idReporteSupervicion INNER JOIN cunidades as t3 ON t2.UnidadfkCUnidades = t3.idunidad INNER JOIN cpersonal AS t4 ON t1.MecanicofkPersonal = t4.idPersona INNER JOIN careas as t5 ON t3.areafkcareas=t5.idarea  WHERE StatusRefacciones = 'Se Requieren Refacciones' and t1.seenAlmacen=0 AND t2.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();";
+            string sql = "SELECT t2.idReporteSupervicion as id, t2.Folio as folio,concat(t5.identificador,LPAD(t3.consecutivo,4,'0')) as eco, CONCAT(coalesce(T4.nombres,''),' ',coalesce(T4.ApPaterno,'')) as mecanico,t2.FechaReporte as fechas,(SELECT count(idPedRef) FROM pedidosrefaccion WHERE FolioPedfkSupervicion= t2.idReporteSupervicion) as total FROM reportemantenimiento as t1 INNER JOIN reportesupervicion as t2 ON t1.FoliofkSupervicion= t2.idReporteSupervicion INNER JOIN cunidades as t3 ON t2.UnidadfkCUnidades = t3.idunidad INNER JOIN cpersonal AS t4 ON t1.MecanicofkPersonal = t4.idPersona INNER JOIN careas as t5 ON t3.areafkcareas=t5.idarea  WHERE StatusRefacciones = 'Se Requieren Refacciones' and t1.seenAlmacen=0 AND t2.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();";
             MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
@@ -52,12 +56,14 @@ namespace controlFallos
          void busqnotificacionesAlertas()
         {
             tbnotifrefacc.Rows.Clear();
-            string sql = "SET lc_time_names='es_ES';SELECT t1.idrefaccion,t1.codrefaccion,t1.nombreRefaccion,t1.modeloRefaccion, COALESCE(DATE_FORMAT(t1.proximoAbastecimiento,'%W, %d de %M del %Y ' ),'') AS proximoAbastecimiento, CONCAT(t1.existencias,' ',t2.Simbolo) AS existencias, t1.existencias as exist, t1.media AS media,t1.abastecimiento AS abastecimiento,COALESCE(datediff(t1.proximoAbastecimiento,curdate()),'') as dif FROM crefacciones as t1 INNER JOIN cmarcas as t4 ON t1.marcafkcmarcas= t4.idmarca INNER JOIN Cfamilias as t3 ON t4.descripcionfkcfamilias = t3.idfamilia  INNER JOIN cunidadmedida as t2 ON t3.umfkcunidadmedida=t2.idunidadmedida WHERE t1.existencias <=t1.media OR t1.existencias<= t1.abastecimiento OR datediff(t1.proximoAbastecimiento,curdate()) <=20 and t1.status=1";
+            
+
+            string sql = "SET lc_time_names='es_ES';SELECT t1.idrefaccion,t1.codrefaccion,t1.nombreRefaccion,t1.modeloRefaccion, COALESCE(DATE_FORMAT(t1.proximoAbastecimiento,'%W, %d de %M del %Y ' ),'') AS proximoAbastecimiento, CONCAT(t1.existencias,' ',t2.Simbolo) AS existencias, t1.existencias as exist, t1.media AS media,t1.abastecimiento AS abastecimiento FROM crefacciones as t1 INNER JOIN cmarcas as t4 ON t1.marcafkcmarcas= t4.idmarca INNER JOIN Cfamilias as t3 ON t4.descripcionfkcfamilias = t3.idfamilia  INNER JOIN cunidadmedida as t2 ON t3.umfkcunidadmedida=t2.idunidadmedida WHERE (t1.existencias <=t1.media OR t1.existencias<= t1.abastecimiento) and t1.status=1 and t1.empresa = '" + empresa + "' order by t1.idrefaccion desc ";
             MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                string[] filas = { dr.GetString("idrefaccion"), dr.GetString("codrefaccion"), dr.GetString("nombreRefaccion"), dr.GetString("modeloRefaccion"), dr.GetString("proximoAbastecimiento"), dr.GetString("existencias"),dr.GetString("exist"), dr.GetString("media"), dr.GetString("abastecimiento"),dr.GetString("dif") };
+                string[] filas = { dr.GetString("idrefaccion"), dr.GetString("codrefaccion"), dr.GetString("nombreRefaccion"), dr.GetString("modeloRefaccion"), dr.GetString("proximoAbastecimiento"), dr.GetString("existencias"),dr.GetString("exist"), dr.GetString("media"), dr.GetString("abastecimiento")};
                 tbnotifrefacc.Rows.Add(filas);
             }
             dr.Close();
@@ -68,8 +74,8 @@ namespace controlFallos
 
         private void NotificacionAlmacen_Load(object sender, EventArgs e)
         {
-            busqvigencias();
-            busqnotificacionesFolio();
+           // busqvigencias();
+           // busqnotificacionesFolio();
             busqnotificacionesAlertas();
             buscarMeses();
             tbnotifrefacc.ClearSelection();
@@ -96,7 +102,8 @@ namespace controlFallos
             }
             else
             {
-                MySqlConnection dbcon = new MySqlConnection("Server = 192.168.1.108; user=controlFallos; password = controlFallos; database =sistrefaccmant;port=3306");
+                MySqlConnection dbcon = new MySqlConnection("Server = 192.168.1.67; user=73__p0_UJ2020; password = Upt_FJU2016; database =sistrefaccmant;port=3306");
+                //MySqlConnection dbcon = new MySqlConnection("Server = 187.210.164.226; user=73__p0_UJ2020; password = Upt_FJU2016; database =sistrefaccmant;port=3306");
                 dbcon.Open();
                 MySqlCommand cm = new MySqlCommand("SELECT COUNT(*) FROM reportemantenimiento as t1 INNER JOIN reportesupervicion as t2 ON t1.FoliofkSupervicion= t2.idReporteSupervicion INNER JOIN cunidades as t3 ON t2.UnidadfkCUnidades = t3.idunidad INNER JOIN cpersonal AS t4 ON t1.MecanicofkPersonal = t4.idPersona INNER JOIN careas as t5 ON t3.areafkcareas=t5.idarea  WHERE StatusRefacciones = 'Se Requieren Refacciones' and t1.seenAlmacen=0 AND t2.fechaReporte BETWEEN DATE_SUB(curdate(), INTERVAL 1 DAY) AND curdate();", dbcon);
                 var res = cm.ExecuteScalar();
@@ -171,12 +178,13 @@ namespace controlFallos
 
         private void tbnotifrefacc_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex>-1) {
-                string idRefaccion = tbnotifrefacc.Rows[e.RowIndex].Cells[0].Value.ToString();
-                menuPrincipal menu = (menuPrincipal)Owner;
-                menu.irArefacciones(idRefaccion);
-                this.Close();
-            }
+            //CHECAR
+            //if (e.RowIndex>-1) {
+            //    string idRefaccion = tbnotifrefacc.Rows[e.RowIndex].Cells[0].Value.ToString();
+            //    menuPrincipal menu = (menuPrincipal)Owner;
+            //    menu.irArefacciones(idRefaccion);
+            //    this.Close();
+            //}
         }
 
         private void tbnotiffolios_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -230,7 +238,7 @@ namespace controlFallos
         private void button7_Click(object sender, EventArgs e)
         {
             tbnotvigencias.Rows.Clear();
-            DataTable dt = (DataTable) v.getData("SET lc_time_names = 'es_ES'; SELECT t2.idPersona,UPPER(coalesce(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres), '')) AS NOMBRE,  COALESCE(CONCAT(T3.Tipo,' - ',t3.Descripcion),'') AS 'TIPO DE LICENCIA', UPPER(coalesce(DATE_FORMAT(t1.fechaEmisionConducir, '%W %d %M %Y'), '')) AS 'FECHA DE EMISIÓN DE LICENCIA DE CONDUCIR', UPPER(coalesce(DATE_FORMAT(t1.fechaVencimientoConducir, '%W %d %M %Y'), '')) AS 'FECHA DE VENCIMIENTO DE LICENCIA DE CONDUCIR'FROM vigencias_supervision AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona inner join cattipos as t3 On t1.tipolicenciafkcattipos=t3.idcattipos WHERE t2.empresa='2' and t2.area='2' AND (MONTH(t1.fechaVencimientoConducir)= '" + (Convert.ToInt32(cbmes.SelectedValue) > 12 ? (Convert.ToInt32(cbmes.SelectedValue) - 12).ToString() : cbmes.SelectedValue.ToString()) + "' AND year(t1.fechaVencimientoConducir)='" + (Convert.ToInt32(cbmes.SelectedValue) > 12 ? DateTime.Today.Year + 1 : DateTime.Today.Year) + "')");
+            DataTable dt = (DataTable) v.getData("SET lc_time_names = 'es_ES'; SELECT t2.idPersona,UPPER(coalesce(CONCAT(coalesce(t2.ApPaterno,''), ' ', coalesce(t2.ApMaterno,''), ' ', coalesce(t2.nombres,'')), '')) AS NOMBRE,  COALESCE(CONCAT(T3.Tipo,' - ',t3.Descripcion),'') AS 'TIPO DE LICENCIA', UPPER(coalesce(DATE_FORMAT(t1.fechaEmisionConducir, '%W %d %M %Y'), '')) AS 'FECHA DE EMISIÓN DE LICENCIA DE CONDUCIR', UPPER(coalesce(DATE_FORMAT(t1.fechaVencimientoConducir, '%W %d %M %Y'), '')) AS 'FECHA DE VENCIMIENTO DE LICENCIA DE CONDUCIR'FROM vigencias_supervision AS t1 INNER JOIN cpersonal AS t2 ON t1.usuariofkcpersonal = t2.idPersona inner join cattipos as t3 On t1.tipolicenciafkcattipos=t3.idcattipos WHERE t2.empresa='2' and t2.area='2' AND (MONTH(t1.fechaVencimientoConducir)= '" + (Convert.ToInt32(cbmes.SelectedValue) > 12 ? (Convert.ToInt32(cbmes.SelectedValue) - 12).ToString() : cbmes.SelectedValue.ToString()) + "' AND year(t1.fechaVencimientoConducir)='" + (Convert.ToInt32(cbmes.SelectedValue) > 12 ? DateTime.Today.Year + 1 : DateTime.Today.Year) + "')");
             for(int i=0; i<dt.Rows.Count;i++) 
                 tbnotvigencias.Rows.Add(dt.Rows[i].ItemArray);
             
@@ -278,6 +286,16 @@ namespace controlFallos
                 if (m.form.GetType() == typeof(catPersonal))
                     this.Close();
             }
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void gbrefacciones_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }

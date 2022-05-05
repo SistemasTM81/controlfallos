@@ -10,7 +10,7 @@ namespace controlFallos
         DataTable t;
         validaciones v;
         string[] id;
-        void buscarNombre() { lbltitle.Text = "Nombre del Empleado: " + v.getaData("SELECT CONCAT(nombres,' ',apPaterno,' ',apMaterno) as Nombre FROM cpersonal WHERE idPersona ='" + idUsuario + "'"); }
+        void buscarNombre() { lbltitle.Text = "Nombre del Empleado: " + v.getaData("SELECT CONCAT(coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(apMaterno,'')) as Nombre FROM cpersonal WHERE idPersona ='" + idUsuario + "'"); }
         public privilegiosSupervision(validaciones v, int idUsuario)
         {
             this.v = v;
@@ -239,6 +239,7 @@ namespace controlFallos
                                 string eliminar = privilegios[i, 4];
                                 string nombre = privilegios[i, 5];
                                 v.insert(ver, insertar, consultar, modificar, eliminar, nombre, idUsuario);
+                                //v.c.insertLocal(ver, insertar, consultar, modificar, eliminar, nombre, idUsuario);
                             }
                             mensaje = "Asignado";
                             MessageBox.Show("Se Han " + mensaje + " los Privilegios Exitosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -261,7 +262,11 @@ namespace controlFallos
                 {
                     if (sehicieronModificaciones(t, respaldo))
                     {
-
+                        //if (privilegios.Length >0)
+                        //{
+                        //    v.c.EliminarPrivilegiosLocales(idUsuario);
+                        //}
+                        
                         for (int i = 0; i < privilegios.GetLength(0); i++)
                         {
                             string ver = privilegios[i, 0];
@@ -271,6 +276,8 @@ namespace controlFallos
                             string eliminar = privilegios[i, 4];
                             string nombre = privilegios[i, 5];
                             v.edit(id[i], ver, insertar, consultar, modificar, eliminar);
+                            //v.c.editLocal(id[i], ver, insertar, consultar, modificar, eliminar);
+                            //v.c.insertLocal(ver, insertar, consultar, modificar, eliminar, nombre, idUsuario);
                         }
                         mensaje = "Actualizado";
                         MessageBox.Show("Se Han " + mensaje + " los Privilegios Exitosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
@@ -292,6 +299,7 @@ namespace controlFallos
                 else
                 {
                     v.EliminarPrivilegios(idUsuario);
+                    //v.c.EliminarPrivilegiosLocales(idUsuario);
                     MessageBox.Show("Se Han Eliminado Los Privilegios", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     catPersonal Cat = (catPersonal)Owner;
                     Cat.lblprivilegios.Text = "Asignar Privilegios";
@@ -416,68 +424,101 @@ namespace controlFallos
                             btninsertararea.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultararea.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificararea.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminararea.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminararea.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "catEmpresas":
                             btninsertarempresa.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultarempresa.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificarempresa.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminarempresa.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarempresa.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "catPersonal":
                             btninsertarempleado.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultarempleado.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificarempleado.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminarempleado.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarempleado.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "catPuestos":
                             btninsertarcargo.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultarcargo.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificarcargo.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminarcargo.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarcargo.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
 
                         case "catServicios":
                             btninsertarservicio.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultarservicio.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificarservicio.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminarservicio.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarservicio.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "catTipos":
                             btninsertartipo.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultartipo.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificartipo.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminartipo.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminartipo.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "catincidencias":
                             btninsertarincidencia.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultarincidencia.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificarincidencia.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminarincidencia.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarincidencia.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "catestaciones":
                             btninsertarestacion.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultarestacion.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificarestacion.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminarestacion.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarestacion.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "catUnidades":
                             btninsertarunidad.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultarunidad.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificarunidad.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminarunidad.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarunidad.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "catmodelos":
                             btninsertarmodelo.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultarmodelo.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificarmodelo.BackgroundImage = v.Checked(privilegios[2]);
-                            btneliminarmodelo.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarmodelo.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "CatRoles":
                             btninsertarol.BackgroundImage = v.Checked(privilegios[0]);
                             btnconsultarol.BackgroundImage = v.Checked(privilegios[1]);
                             btnmodificarol.BackgroundImage = v.Checked(privilegios[2]);
-                            btndesactivarol.BackgroundImage = v.Checked(privilegios[3]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btndesactivarol.BackgroundImage = v.Checked(privilegios[3]);
+                            }
                             break;
                         case "Form1":
                             btninsertarsuper.BackgroundImage = v.Checked(privilegios[0]);
@@ -666,6 +707,11 @@ namespace controlFallos
             }
             else
                 btndesactivarol.Enabled = btnmodificarol.Enabled = true;
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

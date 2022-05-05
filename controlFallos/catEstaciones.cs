@@ -357,7 +357,7 @@ namespace controlFallos
         void initializeData()
         {
             tbestaciones.Rows.Clear();
-            string sql = "SELECT t1.idestacion as id,UPPER(t1.estacion) as estacion,UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as usuario,if(t1.status=1,'ACTIVO','NO ACTIVO') as estatus FROM cestaciones as t1 LEFT JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona";
+            string sql = "SELECT t1.idestacion as id,UPPER(t1.estacion) as estacion,UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))) as usuario,if(t1.status=1,'ACTIVO','NO ACTIVO') as estatus FROM cestaciones as t1 LEFT JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona";
             MySqlCommand m = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = m.ExecuteReader();
             while (dr.Read())

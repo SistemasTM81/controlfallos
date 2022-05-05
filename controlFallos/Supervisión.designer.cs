@@ -278,6 +278,7 @@
             this.GpbSupervisión.Text = "Supervisión";
             this.GpbSupervisión.Visible = false;
             this.GpbSupervisión.Paint += new System.Windows.Forms.PaintEventHandler(this.GroupBox_Paint);
+            this.GpbSupervisión.Enter += new System.EventHandler(this.GpbSupervisión_Enter);
             // 
             // cbcategoria
             // 
@@ -1320,6 +1321,7 @@
             this.GpbBusquedas.Text = "Buscar:";
             this.GpbBusquedas.Visible = false;
             this.GpbBusquedas.Paint += new System.Windows.Forms.PaintEventHandler(this.GroupBox_Paint);
+            this.GpbBusquedas.Enter += new System.EventHandler(this.GpbBusquedas_Enter);
             // 
             // btnExcel
             // 
@@ -1666,6 +1668,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1920, 937);
             this.Controls.Add(this.GbpMantenimiento);

@@ -24,9 +24,9 @@ namespace controlFallos
             this.idUsuario = idUsuario;
             this.empresa = empresa;
             this.area = area;
-            dataGridView2.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
+            dataGridView1.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cbempresa.MouseWheel += v.paraComboBox_MouseWheel;
-            iniEmpresa();
+            //iniEmpresa();
         }
         public void privilegios()
         {
@@ -36,11 +36,17 @@ namespace controlFallos
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
-        void iniEmpresa(){v.iniCombos("SELECT idempresa,UPPER(nombreEmpresa) AS nombreEmpresa FROM cempresas WHERE status=1 AND (empresa='" + empresa + "' AND area='" + area + "') ORDER BY nombreEmpresa ASC", cbempresa, "idempresa", "nombreEmpresa", "--SELECCIONE UNA EMPRESA--");}
+        void iniEmpresa(){
+            v.iniCombos("SELECT idempresa,UPPER(nombreEmpresa) AS nombreEmpresa FROM cempresas WHERE status='1' AND (empresa='" + empresa + "' AND area='" + area + "') ORDER BY nombreEmpresa ASC", cbempresa, "idempresa", "nombreEmpresa", "--SELECCIONE UNA EMPRESA--");
+            cbempresa.SelectedIndex = 0;
+        }
         void getCambios(object sender, EventArgs e)
         {
             if (editarservice)
@@ -222,8 +228,8 @@ namespace controlFallos
         }
         public void servicios_index()
         {
-            dataGridView2.Rows.Clear();
-            String sql = "SELECT t1.idservicio,UPPER(t1.Nombre) AS Nombre,UPPER(t4.nombreEmpresa) as Empresa,upper(t3.nombreArea) as Area,UPPER(t1.Descripcion) AS Descripcion,t1.status, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) AS persona,AreafkCareas as fk FROM cservicios as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal= t2.idpersona INNER JOIN careas as t3 on t3.idarea=t1.AreafkCareas inner join cempresas as t4 on t4.idempresa=t3.empresafkcempresas ";
+            dataGridView1.Rows.Clear();
+            String sql = "SELECT t1.idservicio,UPPER(t1.Nombre) AS Nombre,UPPER(t4.nombreEmpresa) as Empresa,upper(t3.nombreArea) as Area,UPPER(t1.Descripcion) AS Descripcion,t1.status, UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))) AS persona,AreafkCareas as fk FROM cservicios as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal= t2.idpersona INNER JOIN careas as t3 on t3.idarea=t1.AreafkCareas inner join cempresas as t4 on t4.idempresa=t3.empresafkcempresas ";
             string wheres = "";
             if (cbempresa.SelectedIndex > 0)
             {
@@ -243,49 +249,31 @@ namespace controlFallos
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())
             {
-                dataGridView2.Rows.Add(dr.GetInt32("idservicio"), dr.GetString("Nombre"), dr.GetString("Empresa"), dr.GetString("Area"), dr.GetString("Descripcion"), dr.GetString("persona"), v.getStatusString(dr.GetInt32("status")), dr.GetString("fk"));
+                dataGridView1.Rows.Add(dr.GetInt32("idservicio"), dr.GetString("Nombre"), dr.GetString("Empresa"), dr.GetString("Area"), dr.GetString("Descripcion"), dr.GetString("persona"), v.getStatusString(dr.GetInt32("status")), dr.GetString("fk"));
             }
-            dataGridView2.ClearSelection();
+            dataGridView1.ClearSelection();
             dr.Close();
             v.c.dbcon.Close();
         }
         public void busqservices()
         {
-            dataGridView2.Rows.Clear();
-            String sql = "SELECT t1.idservicio,UPPER(t1.Nombre) AS Nombre,UPPER(t4.nombreEmpresa) as Empresa,upper(t3.nombreArea) as Area,UPPER(t1.Descripcion) AS Descripcion,t1.status, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) AS persona,AreafkCareas as fk FROM cservicios as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal= t2.idpersona INNER JOIN careas as t3 on t3.idarea=t1.AreafkCareas inner join cempresas as t4 on t4.idempresa=t3.empresafkcempresas;";
+            dataGridView1.Rows.Clear();
+            String sql = "SELECT t1.idservicio,UPPER(t1.Nombre) AS Nombre,UPPER(t4.nombreEmpresa) as Empresa,upper(t3.nombreArea) as Area,UPPER(t1.Descripcion) AS Descripcion,t1.status, UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))) AS persona,AreafkCareas as fk FROM cservicios as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal= t2.idpersona INNER JOIN careas as t3 on t3.idarea=t1.AreafkCareas inner join cempresas as t4 on t4.idempresa=t3.empresafkcempresas;";
             MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
-            while (dr.Read()){dataGridView2.Rows.Add(dr.GetInt32("idservicio"), dr.GetString("Nombre"), dr.GetString("Empresa"), dr.GetString("Area"), dr.GetString("Descripcion"), dr.GetString("persona"), v.getStatusString(dr.GetInt32("status")), dr.GetString("fk"));}
-            dataGridView2.ClearSelection();
+            while (dr.Read()){dataGridView1.Rows.Add(dr.GetInt32("idservicio"), dr.GetString("Nombre"), dr.GetString("Empresa"), dr.GetString("Area"), dr.GetString("Descripcion"), dr.GetString("persona"), v.getStatusString(dr.GetInt32("status")), dr.GetString("fk"));}
+            dataGridView1.ClearSelection();
             dr.Close();
             v.c.dbcon.Close();
         }
 
-        private void dataGridView2_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex >= 0)
-            {
-                if (idservicetemp > 0 && peditar && (!v.mayusculas(txtgetclave.Text.ToLower()).Trim().Equals(nombreAnterior) || !v.mayusculas(txtgetnombre_s.Text.ToLower()).Trim().Equals(descripcionAnterior)))
-                {
-                    if (MessageBox.Show("¿Desea Guardar la Información?", validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                    {
-                        yaAparecioMensaje = true;
-                        btnsaves_Click(null, e);
-                    }
-                    else
-                        guardarReporte(e);
-                }
-                else
-                    guardarReporte(e);
-            }
 
-        }
         void guardarReporte(DataGridViewCellEventArgs e)
         {
             try
             {
-                idservicetemp = Convert.ToInt32(dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString());
-                status = v.getStatusInt((string)dataGridView2.Rows[e.RowIndex].Cells[6].Value.ToString());
+                idservicetemp = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                status = v.getStatusInt((string)dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString());
                 if (pdesactivar)
                 {
                     if (status == 0)
@@ -303,10 +291,10 @@ namespace controlFallos
                 if (peditar)
                 {
                     editarservice = true;
-                    txtgetclave.Text = nombreAnterior = v.mayusculas(dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString().ToLower());
-                    txtgetnombre_s.Text = descripcionAnterior = v.mayusculas(dataGridView2.Rows[e.RowIndex].Cells[4].Value.ToString().ToLower());
-                    areaAnterior = dataGridView2.Rows[e.RowIndex].Cells[7].Value.ToString();
-                    cbempresa.SelectedValue = empresaAnterior = (v.getaData("select t1.idempresa from cempresas as t1 inner join careas as t2 on t1.idempresa=t2.empresafkcempresas where t2.idarea='" + dataGridView2.Rows[e.RowIndex].Cells[7].Value.ToString() + "'").ToString());
+                    txtgetclave.Text = nombreAnterior = v.mayusculas(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString().ToLower());
+                    txtgetnombre_s.Text = descripcionAnterior = v.mayusculas(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString().ToLower());
+                    areaAnterior = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
+                    cbempresa.SelectedValue = empresaAnterior = (v.getaData("select t1.idempresa from cempresas as t1 inner join careas as t2 on t1.idempresa=t2.empresafkcempresas where t2.idarea='" + dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString() + "'").ToString());
                     if (cbempresa.SelectedIndex == -1)
                     {
                         v.iniCombos("SELECT idempresa,UPPER(nombreEmpresa) AS nombreEmpresa FROM cempresas WHERE (status=1 OR idempresa='" + empresaAnterior + "') ORDER BY nombreEmpresa ASC", cbempresa, "idempresa", "nombreEmpresa", "--SELECCIONE UNA EMPRESA--");
@@ -319,7 +307,7 @@ namespace controlFallos
                         cbarea.SelectedValue = areaAnterior;
                     }
 
-                    dataGridView2.ClearSelection();
+                    dataGridView1.ClearSelection();
                     btnsaves.BackgroundImage = controlFallos.Properties.Resources.pencil;
                     lblsaves.Text = "Guardar";
                     gbaddservice.Text = "Actualizar Servicio";
@@ -347,7 +335,6 @@ namespace controlFallos
                 limpiar();
         }
 
-        private void dataGridView2_ColumnAdded(object sender, DataGridViewColumnEventArgs e){v.paraDataGridViews_ColumnAdded(sender, e);}
 
         private void txtgetclave_Validating(object sender, CancelEventArgs e)
         {
@@ -395,11 +382,53 @@ namespace controlFallos
 
         }
 
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            busqservices();
+        }
+
+        private void dataGridView1_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                if (idservicetemp > 0 && peditar && (!v.mayusculas(txtgetclave.Text.ToLower()).Trim().Equals(nombreAnterior) || !v.mayusculas(txtgetnombre_s.Text.ToLower()).Trim().Equals(descripcionAnterior)))
+                {
+                    if (MessageBox.Show("¿Desea Guardar la Información?", validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        yaAparecioMensaje = true;
+                        btnsaves_Click(null, e);
+                    }
+                    else
+                        guardarReporte(e);
+                }
+                else
+                    guardarReporte(e);
+            }
+        }
+
+        private void dataGridView1_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+        {
+            v.paraDataGridViews_ColumnAdded(sender, e);
+        }
+
+        private void dataGridView1_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dataGridView1.Columns[e.ColumnIndex].Name == "Estatus")
+            {
+                if (Convert.ToString(e.Value) == "Activo".ToUpper())
+                    e.CellStyle.BackColor = Color.PaleGreen;
+
+                else
+                    e.CellStyle.BackColor = Color.LightCoral;
+            }
+        }
+
         private void cbempresa_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbempresa.SelectedIndex > 0)
             {
-                v.iniCombos("SELECT idarea, upper(nombreArea) as area FROM careas WHERE status = 1 AND empresafkcempresas='" + cbempresa.SelectedValue + "'", cbarea, "idarea", "area", "--SELECCIONE UN ÁREA--");
+                v.iniCombos("SELECT idarea, upper(nombreArea) as area FROM careas WHERE status = '1' AND empresafkcempresas='" + cbempresa.SelectedValue + "'", cbarea, "idarea", "area", "--SELECCIONE UN ÁREA--");
                 servicios_index();
                 cbarea.Enabled = true;
             }
@@ -412,25 +441,18 @@ namespace controlFallos
 
         }
 
-        private void cbempresa_DrawItem(object sender, DrawItemEventArgs e){v.combos_DrawItem(sender, e);}
+        private void cbempresa_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
         private void catServicios_Load(object sender, EventArgs e)
         {
             privilegios();
-            if (pconsultar)busqservices();
+            if (pconsultar) busqservices();
+            iniEmpresa();
         }
 
         private void gbadd_Enter(object sender, EventArgs e){}
 
-        private void dataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-            if (dataGridView2.Columns[e.ColumnIndex].Name == "Estatus")
-            {
-                if (Convert.ToString(e.Value) == "Activo".ToUpper())
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                
-                else
-                    e.CellStyle.BackColor = Color.LightCoral;
-            }
-        }
     }
 }

@@ -41,7 +41,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
@@ -116,7 +119,7 @@ namespace controlFallos
         void cargarNiveles()
         {
             dtniveles.Rows.Clear();
-            DataTable dt = (DataTable)v.getData("SELECT t1.idnivel,upper(t2.pasillo),upper(t1.nivel),(SELECT UPPER(CONCAT(nombres,' ',apPaterno,' ',apMaterno)) FROM cpersonal WHERE idpersona = t1.usuariofkcpersonal),if(t1.status=1,'ACTIVO',CONCAT('NO ACTIVO')),idpasillo FROM cniveles as t1 INNER JOIN cpasillos AS t2 ON t1.pasillofkcpasillos=t2.idpasillo and t1.empresa='" + empresa + "' ORDER BY t2.pasillo, t1.nivel ASC");
+            DataTable dt = (DataTable)v.getData("SELECT t1.idnivel,upper(t2.pasillo),upper(t1.nivel),(SELECT UPPER(CONCAT(coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(apMaterno,''))) FROM cpersonal WHERE idpersona = t1.usuariofkcpersonal),if(t1.status=1,'ACTIVO',CONCAT('NO ACTIVO')),idpasillo FROM cniveles as t1 INNER JOIN cpasillos AS t2 ON t1.pasillofkcpasillos=t2.idpasillo and t1.empresa='" + empresa + "' ORDER BY t2.pasillo, t1.nivel ASC");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 dtniveles.Rows.Add(dt.Rows[i].ItemArray);

@@ -92,6 +92,11 @@ namespace controlFallos
 
         private async void apply() => await Task.Run(() => configureR(((dgvcycles.Columns.Count - 2) / 3 + 1)));
 
+        private void dgvcycles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         /// <summary>
         ///Method that allow Specify some properties such as: size, Location or background that have in common a button and a label
         /// </summary>

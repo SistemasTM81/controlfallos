@@ -51,7 +51,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
@@ -511,6 +514,12 @@ namespace controlFallos
                 //NASSIM LOUCHANI
             }
         }
+
+        private void tbpuestos_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
         private void lbltitle_MouseDown(object sender, MouseEventArgs e)
         {
             v.mover(sender, e, this);
@@ -596,7 +605,7 @@ namespace controlFallos
         public void busquedapuestos()
         {
             tbpuestos.Rows.Clear();
-            String sql = "SELECT t1.idpuesto as id, UPPER(t1.puesto) AS puesto, t1.status, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as persona  FROM puestos as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona WHERE t1.empresa = '" + empresa + "' and t1.area ='" + area + "' ORDER BY puesto ASC";
+            String sql = "SELECT t1.idpuesto as id, UPPER(t1.puesto) AS puesto, t1.status, UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))) as persona  FROM puestos as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona WHERE t1.empresa = '" + empresa + "' and t1.area ='" + area + "' ORDER BY puesto ASC";
             MySqlCommand cm = new MySqlCommand(sql,v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())

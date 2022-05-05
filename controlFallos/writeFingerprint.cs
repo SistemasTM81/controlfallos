@@ -133,5 +133,10 @@ namespace controlFallos
             try { fngPrint.Finalizer(); fngPrint.CaptureFinalize(); } catch { }
         }
         private void btnCerrar_Click_1(object sender, EventArgs e) { this.Close(); }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

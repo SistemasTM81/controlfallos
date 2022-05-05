@@ -267,9 +267,9 @@
             this.gbbuscar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbbuscar.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbbuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbbuscar.Location = new System.Drawing.Point(0, 589);
+            this.gbbuscar.Location = new System.Drawing.Point(0, 591);
             this.gbbuscar.Name = "gbbuscar";
-            this.gbbuscar.Size = new System.Drawing.Size(1908, 96);
+            this.gbbuscar.Size = new System.Drawing.Size(1896, 96);
             this.gbbuscar.TabIndex = 0;
             this.gbbuscar.TabStop = false;
             this.gbbuscar.Text = "Buscar";
@@ -2273,7 +2273,7 @@
             this.tbProveedores.EnableHeadersVisualStyles = false;
             this.tbProveedores.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.tbProveedores.ImeMode = System.Windows.Forms.ImeMode.Katakana;
-            this.tbProveedores.Location = new System.Drawing.Point(0, 685);
+            this.tbProveedores.Location = new System.Drawing.Point(0, 687);
             this.tbProveedores.MultiSelect = false;
             this.tbProveedores.Name = "tbProveedores";
             this.tbProveedores.ReadOnly = true;
@@ -2293,7 +2293,7 @@
             this.tbProveedores.ShowCellToolTips = false;
             this.tbProveedores.ShowEditingIcon = false;
             this.tbProveedores.ShowRowErrors = false;
-            this.tbProveedores.Size = new System.Drawing.Size(1908, 252);
+            this.tbProveedores.Size = new System.Drawing.Size(1896, 252);
             this.tbProveedores.TabIndex = 0;
             this.tbProveedores.TabStop = false;
             this.tbProveedores.Visible = false;
@@ -2582,6 +2582,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1908, 937);
             this.Controls.Add(this.peliminarpro);

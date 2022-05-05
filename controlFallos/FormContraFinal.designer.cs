@@ -135,6 +135,7 @@
             this.groupBox2.Size = new System.Drawing.Size(419, 199);
             this.groupBox2.TabIndex = 108;
             this.groupBox2.TabStop = false;
+            this.groupBox2.Enter += new System.EventHandler(this.groupBox2_Enter);
             // 
             // LabelEncabezado
             // 
@@ -179,6 +180,7 @@
             this.buttonCancelar.TabIndex = 136;
             this.buttonCancelar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.buttonCancelar.UseVisualStyleBackColor = false;
+            this.buttonCancelar.Click += new System.EventHandler(this.buttonCancelar_Click);
             this.buttonCancelar.MouseLeave += new System.EventHandler(this.btnall_MouseLeave);
             this.buttonCancelar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.btnall_MouseMove);
             // 

@@ -15,7 +15,7 @@ namespace controlFallos
         validaciones v;
         int idUsuario, statusAnterior, empresa, area;
         bool editar = false, yaAparecioMensaje = false;
-        string idareaAnterior, empresaanterior, identificadorAnterior, nombreAreaAnterior;
+        string idareaAnterior, empresaanterior, identificadorAnterior, nombreAreaAnterior, cadenaEmpresa;
         public catAreas(int idUsuario, int empresa, int area,validaciones v)
         {
             this.v = v;
@@ -51,7 +51,10 @@ namespace controlFallos
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
@@ -104,10 +107,12 @@ namespace controlFallos
             }
             catch (Exception ex) { MessageBox.Show(ex.Message, v.sistema(), MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
+
+
         void insertar()
         {
             string nombre = v.mayusculas(txtnombre.Text.ToLower()).Trim();
-
+            //string rbtn = (Rbtn1.Checked) ? "1" : (Rbtn2.Checked) ? "2" : (Rbtn0.Checked) ? "0" : null;
             if (!v.formularioAreas(cbempresa.SelectedIndex, txtid.Text.Trim(), nombre) && !v.existeArea(cbempresa.SelectedValue.ToString(), txtid.Text.Trim(), nombre))
             {
                 if (v.c.insertar("INSERT INTO careas (empresafkcempresas,identificador,nombreArea,usuariofkcpersonal) VALUES('" + cbempresa.SelectedValue + "','" + txtid.Text.Trim() + "','" + nombre + "','" + idUsuario + "')"))
@@ -129,6 +134,7 @@ namespace controlFallos
         {
             string id = txtid.Text.Trim();
             string nombre = v.mayusculas(txtnombre.Text.ToLower()).Trim();
+            //string rbtn = (Rbtn1.Checked) ? "1" : (Rbtn2.Checked) ? "2" : (Rbtn0.Checked) ? "0" : null;
             if (id.Equals(identificadorAnterior) && nombre.Equals(nombreAreaAnterior))
             {
                 if (MessageBox.Show("No Se Realizaron Cambios. \n ¿Desea Limpiar Los Campos?", validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Asterisk) == DialogResult.Yes)
@@ -273,7 +279,7 @@ namespace controlFallos
         public void empresas_index()
         {
             tbareas.Rows.Clear();
-            DataTable dt = (DataTable)v.getData("SELECT t1.idarea,upper(t2.nombreEmpresa),UPPER(t1.identificador),UPPER(t1.nombreArea),UPPER(CONCAT(t3.nombres,' ',t3.apPaterno,' ',t3.apMaterno)) as nombres, UPPER(if(t1.status=1,'Activo','Inactivo')),t1.empresafkcempresas FROM careas as t1 INNER JOIN cempresas as t2 ON t1.empresafkcempresas = t2.idempresa INNER JOIN cpersonal as t3 ON t1.usuariofkcpersonal = t3.idPersona where t2.idempresa='" + cbempresa.SelectedValue + "'");
+            DataTable dt = (DataTable)v.getData("SELECT t1.idarea,upper(t2.nombreEmpresa),UPPER(t1.identificador),UPPER(t1.nombreArea),UPPER(CONCAT(coalesce(t3.nombres,''),' ',coalesce(t3.apPaterno,''),' ',coalesce(t3.apMaterno,''))) as nombres, UPPER(if(t1.status=1,'Activo','Inactivo')),t1.empresafkcempresas FROM careas as t1 INNER JOIN cempresas as t2 ON t1.empresafkcempresas = t2.idempresa INNER JOIN cpersonal as t3 ON t1.usuariofkcpersonal = t3.idPersona where t2.idempresa='" + cbempresa.SelectedValue + "'");
             int numFilas = dt.Rows.Count;
             for (int i = 0; i < numFilas; i++)
                 tbareas.Rows.Add(dt.Rows[i].ItemArray);
@@ -283,7 +289,7 @@ namespace controlFallos
         void busqueda()
         {
             tbareas.Rows.Clear();
-            DataTable dt = (DataTable)v.getData("SELECT t1.idarea,upper(t2.nombreEmpresa),UPPER(t1.identificador),UPPER(t1.nombreArea),UPPER(CONCAT(t3.nombres,' ',t3.apPaterno,' ',t3.apMaterno)) as nombres, UPPER(if(t1.status=1,'Activo','Inactivo')),t1.empresafkcempresas FROM careas as t1 INNER JOIN cempresas as t2 ON t1.empresafkcempresas = t2.idempresa INNER JOIN cpersonal as t3 ON t1.usuariofkcpersonal = t3.idPersona");
+            DataTable dt = (DataTable)v.getData("SELECT t1.idarea,upper(t2.nombreEmpresa),UPPER(t1.identificador),UPPER(t1.nombreArea),UPPER(CONCAT(coalesce(t3.nombres,''),' ',coalesce(t3.apPaterno,''),' ',coalesce(t3.apMaterno,''))) as nombres, UPPER(if(t1.status=1,'Activo','Inactivo')),t1.empresafkcempresas FROM careas as t1 INNER JOIN cempresas as t2 ON t1.empresafkcempresas = t2.idempresa INNER JOIN cpersonal as t3 ON t1.usuariofkcpersonal = t3.idPersona");
             int numFilas = dt.Rows.Count;
             for (int i = 0; i < numFilas; i++)
                 tbareas.Rows.Add(dt.Rows[i].ItemArray);
@@ -316,7 +322,7 @@ namespace controlFallos
             {
                 idareaAnterior = tbareas.Rows[e.RowIndex].Cells[0].Value.ToString();
                 statusAnterior = v.getStatusInt(tbareas.Rows[e.RowIndex].Cells[5].Value.ToString());
-
+                
                 if (pdesactivar)
                 {
                     if (statusAnterior == 0)
@@ -335,6 +341,11 @@ namespace controlFallos
                 {
                     editar = true;
                     cbempresa.SelectedValue = empresaanterior = tbareas.Rows[e.RowIndex].Cells[6].Value.ToString();
+                    //string dato = v.getaData("SELECT MantTsdTri FROM careas where empresafkcempresas='" + empresaanterior + "'").ToString();
+                    //Rbtn0.Checked = dato == "0" ? true : false;
+                    //Rbtn1.Checked = dato == "1" ? true : false;
+                    //Rbtn2.Checked = dato == "2" ? true : false;
+
                     txtid.Text = identificadorAnterior = tbareas.Rows[e.RowIndex].Cells[2].Value.ToString();
                     txtnombre.Text = nombreAreaAnterior = v.mayusculas(tbareas.Rows[e.RowIndex].Cells[3].Value.ToString().ToLower());
                     btnsavemp.BackgroundImage = controlFallos.Properties.Resources.pencil;

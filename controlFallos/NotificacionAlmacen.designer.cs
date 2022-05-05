@@ -72,16 +72,6 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.tbnotifrefacc = new System.Windows.Forms.DataGridView();
-            this.idrefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.corefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombrRefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.modeloRefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Proc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Existencias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.existen = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.media = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Abastecimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.prox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.rbvigencias = new System.Windows.Forms.RadioButton();
@@ -95,6 +85,16 @@
             this.mecanico = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.FechaSolicitud = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.total = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prox = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Abastecimiento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.media = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.existen = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Existencias = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Proc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.modeloRefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombrRefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.corefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.idrefaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2.SuspendLayout();
             this.panel1.SuspendLayout();
             this.gbBuscar.SuspendLayout();
@@ -169,6 +169,7 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1455, 614);
             this.panel1.TabIndex = 5;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // gbBuscar
             // 
@@ -405,8 +406,8 @@
             // 
             // gbrefacciones
             // 
-            this.gbrefacciones.Controls.Add(this.panel4);
             this.gbrefacciones.Controls.Add(this.tbnotifrefacc);
+            this.gbrefacciones.Controls.Add(this.panel4);
             this.gbrefacciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.gbrefacciones.Location = new System.Drawing.Point(94, 138);
             this.gbrefacciones.Name = "gbrefacciones";
@@ -414,6 +415,7 @@
             this.gbrefacciones.TabIndex = 3;
             this.gbrefacciones.TabStop = false;
             this.gbrefacciones.Text = "Alertas de Refacciones";
+            this.gbrefacciones.Enter += new System.EventHandler(this.gbrefacciones_Enter);
             // 
             // panel4
             // 
@@ -566,84 +568,6 @@
             this.tbnotifrefacc.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tbnotifrefacc_CellContentClick);
             this.tbnotifrefacc.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tbnotifrefacc_CellContentDoubleClick);
             this.tbnotifrefacc.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.tbnotifrefacc_ColumnAdded_1);
-            // 
-            // idrefaccion
-            // 
-            this.idrefaccion.HeaderText = "idrefaccion";
-            this.idrefaccion.Name = "idrefaccion";
-            this.idrefaccion.ReadOnly = true;
-            this.idrefaccion.Visible = false;
-            this.idrefaccion.Width = 98;
-            // 
-            // corefaccion
-            // 
-            this.corefaccion.HeaderText = "CÓDIGO DE REFACCIÓN";
-            this.corefaccion.Name = "corefaccion";
-            this.corefaccion.ReadOnly = true;
-            this.corefaccion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.corefaccion.Width = 240;
-            // 
-            // nombrRefaccion
-            // 
-            this.nombrRefaccion.HeaderText = "NOMBRE DE REFACCIÓN";
-            this.nombrRefaccion.Name = "nombrRefaccion";
-            this.nombrRefaccion.ReadOnly = true;
-            this.nombrRefaccion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.nombrRefaccion.Width = 300;
-            // 
-            // modeloRefaccion
-            // 
-            this.modeloRefaccion.HeaderText = "MODELO DE REFACCIÓN";
-            this.modeloRefaccion.Name = "modeloRefaccion";
-            this.modeloRefaccion.ReadOnly = true;
-            this.modeloRefaccion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.modeloRefaccion.Width = 200;
-            // 
-            // Proc
-            // 
-            this.Proc.HeaderText = "PRÓXIMO ABASTECIMIENTO";
-            this.Proc.Name = "Proc";
-            this.Proc.ReadOnly = true;
-            this.Proc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Proc.Width = 300;
-            // 
-            // Existencias
-            // 
-            this.Existencias.HeaderText = "EXISTENCIAS";
-            this.Existencias.Name = "Existencias";
-            this.Existencias.ReadOnly = true;
-            this.Existencias.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Existencias.Width = 200;
-            // 
-            // existen
-            // 
-            this.existen.HeaderText = "existen";
-            this.existen.Name = "existen";
-            this.existen.ReadOnly = true;
-            this.existen.Visible = false;
-            // 
-            // media
-            // 
-            this.media.HeaderText = "Media";
-            this.media.Name = "media";
-            this.media.ReadOnly = true;
-            this.media.Visible = false;
-            this.media.Width = 200;
-            // 
-            // Abastecimiento
-            // 
-            this.Abastecimiento.HeaderText = "Abastecimiento";
-            this.Abastecimiento.Name = "Abastecimiento";
-            this.Abastecimiento.ReadOnly = true;
-            this.Abastecimiento.Visible = false;
-            this.Abastecimiento.Width = 200;
-            // 
-            // prox
-            // 
-            this.prox.HeaderText = "dif";
-            this.prox.Name = "prox";
-            this.prox.ReadOnly = true;
-            this.prox.Visible = false;
             // 
             // label1
             // 
@@ -841,10 +765,89 @@
             this.total.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.total.Width = 300;
             // 
+            // prox
+            // 
+            this.prox.HeaderText = "dif";
+            this.prox.Name = "prox";
+            this.prox.ReadOnly = true;
+            this.prox.Visible = false;
+            // 
+            // Abastecimiento
+            // 
+            this.Abastecimiento.HeaderText = "Abastecimiento";
+            this.Abastecimiento.Name = "Abastecimiento";
+            this.Abastecimiento.ReadOnly = true;
+            this.Abastecimiento.Visible = false;
+            this.Abastecimiento.Width = 200;
+            // 
+            // media
+            // 
+            this.media.HeaderText = "Media";
+            this.media.Name = "media";
+            this.media.ReadOnly = true;
+            this.media.Visible = false;
+            this.media.Width = 200;
+            // 
+            // existen
+            // 
+            this.existen.HeaderText = "existen";
+            this.existen.Name = "existen";
+            this.existen.ReadOnly = true;
+            this.existen.Visible = false;
+            // 
+            // Existencias
+            // 
+            this.Existencias.HeaderText = "EXISTENCIAS";
+            this.Existencias.Name = "Existencias";
+            this.Existencias.ReadOnly = true;
+            this.Existencias.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Existencias.Width = 200;
+            // 
+            // Proc
+            // 
+            this.Proc.HeaderText = "PRÓXIMO ABASTECIMIENTO";
+            this.Proc.Name = "Proc";
+            this.Proc.ReadOnly = true;
+            this.Proc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Proc.Width = 300;
+            // 
+            // modeloRefaccion
+            // 
+            this.modeloRefaccion.HeaderText = "MODELO DE REFACCIÓN";
+            this.modeloRefaccion.Name = "modeloRefaccion";
+            this.modeloRefaccion.ReadOnly = true;
+            this.modeloRefaccion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.modeloRefaccion.Width = 200;
+            // 
+            // nombrRefaccion
+            // 
+            this.nombrRefaccion.HeaderText = "NOMBRE DE REFACCIÓN";
+            this.nombrRefaccion.Name = "nombrRefaccion";
+            this.nombrRefaccion.ReadOnly = true;
+            this.nombrRefaccion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.nombrRefaccion.Width = 300;
+            // 
+            // corefaccion
+            // 
+            this.corefaccion.HeaderText = "CÓDIGO DE REFACCIÓN";
+            this.corefaccion.Name = "corefaccion";
+            this.corefaccion.ReadOnly = true;
+            this.corefaccion.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.corefaccion.Width = 240;
+            // 
+            // idrefaccion
+            // 
+            this.idrefaccion.HeaderText = "idrefaccion";
+            this.idrefaccion.Name = "idrefaccion";
+            this.idrefaccion.ReadOnly = true;
+            this.idrefaccion.Visible = false;
+            this.idrefaccion.Width = 98;
+            // 
             // NotificacionAlmacen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1455, 646);
             this.Controls.Add(this.panel1);
@@ -899,16 +902,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.RadioButton rbrefacciones;
-        private System.Windows.Forms.DataGridViewTextBoxColumn idrefaccion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn corefaccion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombrRefaccion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn modeloRefaccion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Proc;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Existencias;
-        private System.Windows.Forms.DataGridViewTextBoxColumn existen;
-        private System.Windows.Forms.DataGridViewTextBoxColumn media;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Abastecimiento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn prox;
         private System.Windows.Forms.DataGridViewTextBoxColumn idReporteMantenimiento;
         private System.Windows.Forms.DataGridViewTextBoxColumn Folio;
         private System.Windows.Forms.DataGridViewTextBoxColumn ECO;
@@ -933,5 +926,15 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.ComboBox cbmes;
+        private System.Windows.Forms.DataGridViewTextBoxColumn idrefaccion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn corefaccion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombrRefaccion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn modeloRefaccion;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Proc;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Existencias;
+        private System.Windows.Forms.DataGridViewTextBoxColumn existen;
+        private System.Windows.Forms.DataGridViewTextBoxColumn media;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Abastecimiento;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prox;
     }
 }

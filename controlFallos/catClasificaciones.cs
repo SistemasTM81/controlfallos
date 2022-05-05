@@ -31,7 +31,10 @@ namespace controlFallos
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
 
@@ -75,7 +78,7 @@ namespace controlFallos
             try
             {
                 tbfallos.Rows.Clear();
-                String sql = "SELECT t1.idFalloGral,UPPER(t1.nombreFalloGral) AS nombreFalloGral,t1.status, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as nombre FROM cfallosgrales as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona WHERE t1.empresa = '" + empresa + "'";
+                String sql = "SELECT t1.idFalloGral,UPPER(t1.nombreFalloGral) AS nombreFalloGral,t1.status, UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))) as nombre FROM cfallosgrales as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona WHERE t1.empresa = '" + empresa + "'";
                 MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
                 MySqlDataReader dr = cm.ExecuteReader();
                 while (dr.Read())
@@ -114,6 +117,7 @@ namespace controlFallos
         }
         void insertar()
         {
+            //
             string clasificacion = txtgetclasificacion.Text.ToLower().Trim();
             if (!string.IsNullOrWhiteSpace(clasificacion))
             {

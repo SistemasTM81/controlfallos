@@ -19,10 +19,9 @@ namespace controlFallos
         validaciones v;
 
         int idUsuario, empresa, area, idcusu;
-        string binanterior, nmotoranterior, ntransmisionAnterior, modeloAnterior, marcaAnterior, eco, nempresa, narea, usuarioact;
+        string binanterior, nmotoranterior, ntransmisionAnterior, modeloAnterior, marcaAnterior, eco, nempresa, narea, usuarioact, cadenaEmpresa;
         int ckempresa, ckarea;
         Thread th;
-
         bool pconsultar { set; get; }
         bool pinsertar { set; get; }
         bool peditar { set; get; }
@@ -37,7 +36,10 @@ namespace controlFallos
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
              
@@ -45,7 +47,7 @@ namespace controlFallos
 
         public catUnidaesTRI(int idUsuario, Image logo, int empresa, int area,validaciones v)
         {
-            this.v=v;
+            this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
@@ -57,6 +59,7 @@ namespace controlFallos
             this.idUsuario = idUsuario;
             this.empresa = empresa;
             this.area = area;
+            cadenaEmpresa = (empresa == 2 ? " (empresaMantenimiento = '2' or empresaMantenimiento = '1') " : (empresa == 3 ? " (empresaMantenimiento = '3' or empresaMantenimiento = '1') " : null));
             cbEstatus.DrawItem += new DrawItemEventHandler(v.comboBoxEstatus_DrwaItem);
         }
         private void catUnidaesTRI_Load(object sender, EventArgs e)
@@ -114,7 +117,7 @@ namespace controlFallos
                 if (csetEmpresa.SelectedIndex != 0)
                 {
                     v.iniCombos("SELECT t1.idarea,UPPER(CONCAT(t2.NombreEmpresa,' - ',t1.nombreArea)) as area FROM careas as t1 INNER JOIN cempresas as t2 ON t1.empresafkcempresas=t2.idempresa WHERE t2.idempresa='" + csetEmpresa.SelectedValue + "' AND t1.status=1 ORDER BY t2.nombreEmpresa,' - ',t1.nombreArea ASC", csetarea, "idarea", "area", "--SELECCIONE UNA ÁREA--");
-                    v.iniCombos("SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea INNER JOIN cempresas as t3 ON t2.empresafkcempresas=t3.idempresa  WHERE t1.status =1 AND t3.idempresa='" + csetEmpresa.SelectedValue + "' AND (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) = '" + empresa + "'", cbeco, "idunidad", "eco", "--SELECCIONE UN ECO--");
+                    v.iniCombos("SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea INNER JOIN cempresas as t3 ON t2.empresafkcempresas=t3.idempresa inner join cmodelos as t4 on t1.modelofkcmodelos=t4.idmodelo WHERE t1.status =1 AND t3.idempresa='" + csetEmpresa.SelectedValue + "' AND " + cadenaEmpresa, cbeco, "idunidad", "eco", "--SELECCIONE UN ECO--");
                     csetarea.Enabled = true;
                     cbeco.Enabled = false;
                 }
@@ -122,7 +125,7 @@ namespace controlFallos
                 {
                     v.iniCombos("SELECT idempresa,Upper(nombreEmpresa) as nombreEmpresa FROM cempresas WHERE status=1 ORDER BY nombreEmpresa ASC", csetEmpresa, "idempresa", "nombreEmpresa", "--SELECCIONE UNA EMPRESA--");
                     v.iniCombos("SELECT t1.idarea,UPPER(CONCAT(t2.nombreEmpresa,' - ',t1.nombreArea)) as area FROM careas as t1 INNER JOIN cempresas as t2 ON t1.empresafkcempresas=t2.idempresa WHERE t1.status=1 ORDER BY t2.nombreEmpresa,' - ',t1.nombreArea ASC", csetarea, "idarea", "area", "--SELECCIONE UNA ÁREA--");
-                    v.iniCombos("SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea WHERE t1.status =1 AND (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) = '" + empresa + "'", cbeco, "idunidad", "eco", "--SELECCIONE UN ECO--");
+                    v.iniCombos("SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea inner join cmodelos as t4 on t1.modelofkcmodelos=t4.idmodelo WHERE t1.status =1 AND " + cadenaEmpresa, cbeco, "idunidad", "eco", "--SELECCIONE UN ECO--");
                     csetarea.Enabled = false;
                     cbeco.Enabled = false;
                 }
@@ -134,7 +137,7 @@ namespace controlFallos
                 {
                     if (Convert.ToInt32(v.getaData("SELECT COUNT(idunidad) FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea WHERE t1.status =1 AND t2.idarea='" + csetarea.SelectedValue + "'")) > 0)
                     {
-                        v.iniCombos("SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea WHERE t1.status =1 AND t2.idarea='" + csetarea.SelectedValue + "' AND (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) = '" + empresa + "'", cbeco, "idunidad", "eco", "--SELECCIONE UN ECO--");
+                        v.iniCombos("SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea inner join cmodelos as t4 on t1.modelofkcmodelos=t4.idmodelo WHERE t1.status =1 AND t2.idarea='" + csetarea.SelectedValue + "' AND " + cadenaEmpresa, cbeco, "idunidad", "eco", "--SELECCIONE UN ECO--");
                         cbeco.Enabled = true;
                     }
                     else
@@ -146,7 +149,7 @@ namespace controlFallos
                 else
                 {
                     v.iniCombos("SELECT t1.idarea,UPPER(CONCAT(t2.nombreEmpresa,' - ',t1.nombreArea)) as area FROM careas as t1 INNER JOIN cempresas as t2 ON t1.empresafkcempresas=t2.idempresa WHERE t1.status=1 ORDER BY t2.nombreEmpresa,' - ',t1.nombreArea ASC", csetarea, "idarea", "area", "--SELECCIONE UNA ÁREA--");
-                    v.iniCombos("SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea WHERE t1.status =1 AND (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) = '" + empresa + "'", cbeco, "idunidad", "eco", "--SELECCIONE UN ECO--");
+                    v.iniCombos("SELECT idunidad ,concat(t2.identificador,LPAD(consecutivo,4,'0')) as eco FROM cunidades as t1 INNER JOIN careas as t2 ON t1.areafkcareas= t2.idarea inner join cmodelos as t4 on t1.modelofkcmodelos=t4.idmodelo WHERE t1.status =1 AND " + cadenaEmpresa, cbeco, "idunidad", "eco", "--SELECCIONE UN ECO--");
                     cbeco.Enabled = false;
                 }
             }
@@ -169,10 +172,11 @@ namespace controlFallos
             cbeco.DataSource = null;
             csetarea.Enabled = false;
             cbeco.Enabled = false;
+            cbeco.Enabled = false;
         }
         public void bunidades()
         {
-            DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT CONCAT(t2.identificador, LPAD(t1.consecutivo, 4, '0')) AS 'ECONÓMICO', UPPER(t3.nombreEmpresa) AS EMPRESA, UPPER(t2.nombreArea) AS 'ÁREA', UPPER(COALESCE(t1.bin,'')) AS VIN, UPPER(coalesce(t1.nmotor, '')) AS 'NÚMERO DE MOTOR', UPPER(coalesce(t1.ntransmision, '')) AS 'NÚMERO DE TRANSMISIÓN', UPPER(coalesce(t1.Marca, '')) AS MARCA, UPPER(coalesce(t1.modelo, '')) AS MODELO, (SELECT UPPER(coalesce(CONCAT(t3.ApPaterno, ' ', t3.ApMaterno, ' ',t3.nombres), '')) FROM cpersonal AS t3 WHERE t1.usuariofkcpersonaltri = t3.idPersona) as 'USUARIO QUE DIÓ DE ALTA',if(t1.status='1','ACTIVO','NO ACTIVO') as ESTATUS FROM cunidades AS t1 INNER JOIN careas AS t2 ON t1.areafkcareas = t2.idarea INNER JOIN cempresas AS t3 ON t3.idempresa = t2.empresafkcempresas WHERE (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) = '"+empresa+"' ORDER BY CONCAT(t2.identificador, LPAD(t1.consecutivo, 4, '0')) ASC");
+            DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT CONCAT(t2.identificador, LPAD(t1.consecutivo, 4, '0')) AS 'ECONÓMICO', UPPER(t3.nombreEmpresa) AS EMPRESA, UPPER(t2.nombreArea) AS 'ÁREA', UPPER(COALESCE(t1.bin,'')) AS VIN, UPPER(coalesce(t1.nmotor, '')) AS 'NÚMERO DE MOTOR', UPPER(coalesce(t1.ntransmision, '')) AS 'NÚMERO DE TRANSMISIÓN', UPPER(coalesce(t1.Marca, '')) AS MARCA, UPPER(coalesce(t1.modelo, '')) AS MODELO, (SELECT UPPER(coalesce(CONCAT(coalesce(t3.ApPaterno,''), ' ', coalesce(t3.ApMaterno,''), ' ',coalesce(t3.nombres,'')), '')) FROM cpersonal AS t3 WHERE t1.usuariofkcpersonaltri = t3.idPersona) as 'USUARIO QUE DIÓ DE ALTA',if(t1.status='1','ACTIVO','NO ACTIVO') as ESTATUS FROM cunidades AS t1 INNER JOIN careas AS t2 ON t1.areafkcareas = t2.idarea INNER JOIN cempresas AS t3 ON t3.idempresa = t2.empresafkcempresas inner join cmodelos as t4 on t1.modelofkcmodelos=t4.idmodelo WHERE " + cadenaEmpresa + " ORDER BY CONCAT(t2.identificador, LPAD(t1.consecutivo, 4, '0')) ASC");
             dataGridViewUnidadesTRI.DataSource = dt;
             dataGridViewUnidadesTRI.ClearSelection();
             dataGridViewUnidadesTRI.Columns[0].Frozen = true;
@@ -214,7 +218,7 @@ namespace controlFallos
         {
             idcusu = 0;
             labelNomCUsu.Text = null;
-            object res = v.getaData("SELECT CONCAT(t1.idPersona,';',UPPER(CONCAT(t1.ApPaterno, ' ', t1.ApMaterno, ' ', t1.nombres))) AS nombre FROM cpersonal AS t1 INNER JOIN datosistema AS t2 ON t1.idPersona = t2.usuariofkcpersonal WHERE t2.password = '" + v.Encriptar(textBoxCUsu.Text) + "' AND t1.empresa = '" + empresa + "' AND t1.area = '" + area + "' AND t1.status = '1'");
+            object res = v.getaData("SELECT CONCAT(t1.idPersona,';',UPPER(CONCAT(coalesce(t1.ApPaterno,''), ' ', coalesce(t1.ApMaterno,''), ' ', coalesce(t1.nombres,'')))) AS nombre FROM cpersonal AS t1 INNER JOIN datosistema AS t2 ON t1.idPersona = t2.usuariofkcpersonal WHERE t2.password = '" + v.Encriptar(textBoxCUsu.Text) + "' AND t1.empresa = '" + empresa + "' AND t1.area = '" + area + "' AND t1.status = '1'");
             if (res != null)
             {
                 string[] ress = res.ToString().Split(';');
@@ -400,8 +404,8 @@ namespace controlFallos
                 if (csetEmpresa.SelectedIndex > 0 || area > 0 || econ > 0 || !string.IsNullOrWhiteSpace(vin) || !string.IsNullOrWhiteSpace(motor) || !string.IsNullOrWhiteSpace(trans) || !string.IsNullOrWhiteSpace(modelo) || !string.IsNullOrWhiteSpace(marca) || cbEstatus.SelectedIndex > 0)
                 {
                     //dataGridViewUnidadesTRI.Rows.Clear();
-                    string wheres = " WHERE (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) = '" + empresa + "' ";
-                    string sql = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT CONCAT(t2.identificador, LPAD(t1.consecutivo, 4, '0')) AS 'ECONÓMICO', UPPER(t3.nombreEmpresa) AS EMPRESA, UPPER(t2.nombreArea) AS 'ÁREA', UPPER(COALESCE(t1.bin,'')) AS VIN, UPPER(coalesce(t1.nmotor, '')) AS 'NÚMERO DE MOTOR', UPPER(coalesce(t1.ntransmision, '')) AS 'NÚMERO DE TRANSMISIÓN', UPPER(coalesce(t1.Marca, '')) AS MARCA, UPPER(coalesce(t1.modelo, '')) AS MODELO, (SELECT UPPER(coalesce(CONCAT(t3.ApPaterno, ' ', t3.ApMaterno, ' ',t3.nombres), '')) FROM cpersonal AS t3 WHERE t1.usuariofkcpersonaltri = t3.idPersona) as 'USUARIO QUE DIÓ DE ALTA',if(t1.status='1','ACTIVO','NO ACTIVO') as ESTATUS FROM cunidades AS t1 INNER JOIN careas AS t2 ON t1.areafkcareas = t2.idarea INNER JOIN cempresas AS t3 ON t3.idempresa = t2.empresafkcempresas  ";
+                    string wheres = " WHERE " + cadenaEmpresa;
+                    string sql = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT CONCAT(t2.identificador, LPAD(t1.consecutivo, 4, '0')) AS 'ECONÓMICO', UPPER(t3.nombreEmpresa) AS EMPRESA, UPPER(t2.nombreArea) AS 'ÁREA', UPPER(COALESCE(t1.bin,'')) AS VIN, UPPER(coalesce(t1.nmotor, '')) AS 'NÚMERO DE MOTOR', UPPER(coalesce(t1.ntransmision, '')) AS 'NÚMERO DE TRANSMISIÓN', UPPER(coalesce(t1.Marca, '')) AS MARCA, UPPER(coalesce(t1.modelo, '')) AS MODELO, (SELECT UPPER(coalesce(CONCAT(coalesce(t3.ApPaterno,''), ' ', coalesce(t3.ApMaterno,''), ' ',coalesce(t3.nombres,'')), '')) FROM cpersonal AS t3 WHERE t1.usuariofkcpersonaltri = t3.idPersona) as 'USUARIO QUE DIÓ DE ALTA',if(t1.status='1','ACTIVO','NO ACTIVO') as ESTATUS FROM cunidades AS t1 INNER JOIN careas AS t2 ON t1.areafkcareas = t2.idarea INNER JOIN cempresas AS t3 ON t3.idempresa = t2.empresafkcempresas inner join cmodelos as t4 on t1.modelofkcmodelos=t4.idmodelo  ";
                     if (csetEmpresa.DataSource != null && csetEmpresa.SelectedIndex > 0)
                     {
                         if (wheres == "")
@@ -506,7 +510,7 @@ namespace controlFallos
         private void buttonActualizar_Click(object sender, EventArgs e)
         {
             esta_exportando();
-            if (Convert.ToInt32(v.getaData("SELECT COUNT(*) FROM cunidades WHERE (SELECT empresaMantenimiento FROM cmodelos WHERE idmodelo = modelofkcmodelos) = '" + empresa + "'")) != dataGridViewUnidadesTRI.Rows.Count)
+            if (Convert.ToInt32(v.getaData("SELECT COUNT(*) FROM cunidades as t1 inner join cmodelos as t4 on t1.modelofkcmodelos=t4.idmodelo WHERE " + cadenaEmpresa)) != dataGridViewUnidadesTRI.Rows.Count)
                 bunidades();
             restablecer();
             restablecebusq();
@@ -543,7 +547,7 @@ namespace controlFallos
                 string trans = txtgettransmision.Text;
                 string modelo = txtgetmodelo.Text;
                 string marca = txtgetmarca.Text;
-                if (!v.formularioUnidadesTRI(vin, motor, trans, modelo, marca) && !v.yaexisteunidad(vin, motor, trans, eco, idUnidadTemp,empresa))
+                if (!v.formularioUnidadesTRI(vin, motor, trans, modelo, marca) && !v.yaexisteunidad(vin, motor, trans, eco, idUnidadTemp, empresa))
                 {
                     if ((labelNomCUsu.Text != "") && (!string.IsNullOrWhiteSpace(textBoxCUsu.Text)))
                     {

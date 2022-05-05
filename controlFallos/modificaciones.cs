@@ -53,7 +53,7 @@ namespace controlFallos
         void iniusuarios()
         {
 
-            DataTable dr = (DataTable)v.getData("SELECT DISTINCT t2.idpersona,UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as nombre FROM modificaciones_sistema as t1 INNER JOIN  cpersonal AS t2 ON t1.usuariofkcpersonal=t2.idpersona WHERE t1.empresa='" + empresa + "' && t1.area ='" + area + "' and status=1 GROUP BY t1.usuariofkcpersonal ORDER BY t2.nombres ASC ");
+            DataTable dr = (DataTable)v.getData("SELECT DISTINCT t2.idpersona,UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))) as nombre FROM modificaciones_sistema as t1 INNER JOIN  cpersonal AS t2 ON t1.usuariofkcpersonal=t2.idpersona WHERE t1.empresa='" + empresa + "' && t1.area ='" + area + "' and status=1 GROUP BY t1.usuariofkcpersonal ORDER BY t2.nombres ASC ");
             DataRow nuevaFila = dr.NewRow();
             nuevaFila["idpersona"] = 0;
             nuevaFila["nombre"] = "--Seleccione un Empleado--".ToUpper();
@@ -189,8 +189,14 @@ namespace controlFallos
                     row["id"] = 6;
                     row["Nombre"] = "Reporte de Almacén".ToUpper();
                     dt.Rows.Add(row);
+                    row = dt.NewRow();
                     row["id"] = 7;
                     row["Nombre"] = "Catalogo De I.V.A.".ToUpper();
+                    dt.Rows.Add(row);
+                    row = dt.NewRow();
+                    row["id"] = 8;
+                    row["Nombre"] = "Dispensador de Diesel".ToUpper();
+                    dt.Rows.Add(row);
                 }
             }
             {
@@ -224,9 +230,9 @@ namespace controlFallos
                         string sql = "SET lc_time_names='es_ES';SELECT t1.idmodificacion, t1.idregistro,(SELECT UPPER(t1.form)) as form,{0},upper(Tipo) as ultima,UPPER(Concat('Mostrar Más Información')) as m, if((SELECT COUNT(*) FROM modificaciones_sistema WHERE idregistro=t1.idregistro and upper(form)=t1.form)>1,'MOSTRAR HISTORIAL','')  FROM modificaciones_sistema as t1";
                         string wheres = "";
                         if (cbapartado.SelectedIndex > 0)
-                            wheres = (wheres == "" ? " WHERE t1.form LIKE '" + cbapartado.Text + "%' " : wheres += "AND t1.form LIKE '" + cbapartado.Text + "%' ");
+                            wheres = (wheres == "" ? " WHERE t1.form LIKE '" + cbapartado.Text.Trim() + "%' " : wheres += "AND t1.form LIKE '" + cbapartado.Text.Trim() + "%' ");
                         if (cbtipo.SelectedIndex > 0)
-                            wheres = (wheres == "" ? " WHERE t1.Tipo LIKE '" + cbtipo.Text + "%' " : wheres += "AND t1.Tipo LIKE '" + cbtipo.Text + "%' ");
+                            wheres = (wheres == "" ? " WHERE t1.Tipo LIKE '" + cbtipo.Text.Trim() + "%' " : wheres += "AND t1.Tipo LIKE '" + cbtipo.Text.Trim() + "%' ");
                         if (cbusuario.SelectedIndex > 0)
                             wheres = (wheres == "" ? " WHERE t1.usuariofkcpersonal LIKE '" + cbusuario.SelectedValue + "%' " : wheres += "AND t1.usuariofkcpersonal LIKE '" + cbusuario.SelectedValue + "%' ");
                         if (cbmes.SelectedIndex > 0)
@@ -251,17 +257,17 @@ namespace controlFallos
                                 wheres += " AND  DATE(t1.fechaHora) BETWEEN '" + dtpd.Value.ToString("yyyy-MM-dd") + "' AND '" + dtpa.Value.ToString("yyyy-MM-dd") + "'";
                             }
                         }
-                        else
-                        {
-                            if (wheres == "")
-                            {
-                                wheres = " WHERE DATE(t1.fechaHora) = DATE(NOW())";
-                            }
-                            else
-                            {
-                                wheres += " AND DATE(t1.fechaHora) = DATE(NOW())";
-                            }
-                        }
+                        //else
+                        //{
+                        //    if (wheres == "")
+                        //    {
+                        //        wheres = " WHERE DATE(t1.fechaHora) = DATE(NOW())";
+                        //    }
+                        //    else
+                        //    {
+                        //        wheres += " AND DATE(t1.fechaHora) = DATE(NOW())";
+                        //    }
+                        //}
                         if (wheres == "")
                         {
                             wheres = " WHERE t1.empresa='" + empresa + "' and t1.area='" + area + "'  ORDER BY date((SELECT MAX(fechaHora) FROM modificaciones_sistema WHERE empresa='" + empresa + "' and area='" + area + "' and form= t1.form and idregistro=t1.idregistro)) asc, time((SELECT MAX(fechaHora) FROM modificaciones_sistema WHERE empresa='" + empresa + "' and area='" + area + "' and form= t1.form and idmodificacion=t1.idmodificacion)) DESC ;";
@@ -413,6 +419,11 @@ namespace controlFallos
             v.DrawGroupBox(box, e.Graphics, Color.FromArgb(75, 44, 52), Color.FromArgb(75, 44, 52), this);
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
         void iniModificaciones()
         {
 
@@ -455,6 +466,13 @@ namespace controlFallos
                 row = dt.NewRow();
                 row["id"] = 7;
                 row["Nombre"] = "Reactivación de Empleado".ToUpper();
+                dt.Rows.Add(row);
+            }
+            if (res == "Dispensador de Diesel".ToUpper())
+            {
+                row = dt.NewRow();
+                row["id"] = 1;
+                row["Nombre"] = "Registro".ToUpper();
                 dt.Rows.Add(row);
             }
             else

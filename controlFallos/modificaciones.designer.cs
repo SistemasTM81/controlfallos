@@ -30,14 +30,21 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(modificaciones));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(modificaciones));
             this.tbmodif = new System.Windows.Forms.DataGridView();
+            this.idregistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ultima = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.more = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.historial = new System.Windows.Forms.DataGridViewLinkColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.cbapartado = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -59,13 +66,6 @@
             this.button7 = new System.Windows.Forms.Button();
             this.cbusuario = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.idregistro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ultima = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cat = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Tipo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.more = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.historial = new System.Windows.Forms.DataGridViewLinkColumn();
             ((System.ComponentModel.ISupportInitialize)(this.tbmodif)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
@@ -98,7 +98,6 @@
             this.Tipo,
             this.more,
             this.historial});
-            this.tbmodif.Dock = System.Windows.Forms.DockStyle.Left;
             this.tbmodif.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.tbmodif.EnableHeadersVisualStyles = false;
             this.tbmodif.Location = new System.Drawing.Point(0, 0);
@@ -118,9 +117,86 @@
             this.tbmodif.ShowCellToolTips = false;
             this.tbmodif.ShowEditingIcon = false;
             this.tbmodif.ShowRowErrors = false;
-            this.tbmodif.Size = new System.Drawing.Size(1423, 937);
+            this.tbmodif.Size = new System.Drawing.Size(1423, 904);
             this.tbmodif.TabIndex = 1;
             this.tbmodif.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.tbmodif_CellContentDoubleClick);
+            // 
+            // idregistro
+            // 
+            this.idregistro.HeaderText = "idregistro";
+            this.idregistro.Name = "idregistro";
+            this.idregistro.ReadOnly = true;
+            this.idregistro.Visible = false;
+            this.idregistro.Width = 86;
+            // 
+            // ultima
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.ultima.DefaultCellStyle = dataGridViewCellStyle2;
+            this.ultima.HeaderText = "ultima";
+            this.ultima.Name = "ultima";
+            this.ultima.ReadOnly = true;
+            this.ultima.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ultima.Visible = false;
+            this.ultima.Width = 61;
+            // 
+            // cat
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.cat.DefaultCellStyle = dataGridViewCellStyle3;
+            this.cat.HeaderText = "FORMULARIO";
+            this.cat.Name = "cat";
+            this.cat.ReadOnly = true;
+            this.cat.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.cat.Width = 141;
+            // 
+            // fecha
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.fecha.DefaultCellStyle = dataGridViewCellStyle4;
+            this.fecha.HeaderText = "ÚLTIMA FECHA /HORA";
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
+            this.fecha.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.fecha.Width = 224;
+            // 
+            // Tipo
+            // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.Tipo.DefaultCellStyle = dataGridViewCellStyle5;
+            this.Tipo.HeaderText = "ÚLTIMA MODIFICACIÓN";
+            this.Tipo.Name = "Tipo";
+            this.Tipo.ReadOnly = true;
+            this.Tipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Tipo.Width = 238;
+            // 
+            // more
+            // 
+            this.more.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.more.DefaultCellStyle = dataGridViewCellStyle6;
+            this.more.HeaderText = "MOSTRAR MÁS INFORMACIÓN";
+            this.more.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
+            this.more.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.more.Name = "more";
+            this.more.ReadOnly = true;
+            this.more.Text = "";
+            this.more.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.more.Width = 291;
+            // 
+            // historial
+            // 
+            this.historial.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.historial.DefaultCellStyle = dataGridViewCellStyle7;
+            this.historial.HeaderText = "MOSTRAR HISTORIAL";
+            this.historial.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.historial.Name = "historial";
+            this.historial.ReadOnly = true;
+            this.historial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.historial.Text = "";
+            this.historial.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.historial.Width = 210;
             // 
             // label1
             // 
@@ -218,15 +294,15 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cbapartado);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Right;
             this.groupBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.groupBox1.Location = new System.Drawing.Point(1429, 0);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(479, 937);
+            this.groupBox1.Size = new System.Drawing.Size(479, 923);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Buscar Por:";
             this.groupBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBox1_Paint);
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // cbmes
             // 
@@ -422,89 +498,13 @@
             this.label2.TabIndex = 2;
             this.label2.Text = "Usuario que Modificó:";
             // 
-            // idregistro
-            // 
-            this.idregistro.HeaderText = "idregistro";
-            this.idregistro.Name = "idregistro";
-            this.idregistro.ReadOnly = true;
-            this.idregistro.Visible = false;
-            this.idregistro.Width = 86;
-            // 
-            // ultima
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.ultima.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ultima.HeaderText = "ultima";
-            this.ultima.Name = "ultima";
-            this.ultima.ReadOnly = true;
-            this.ultima.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ultima.Visible = false;
-            this.ultima.Width = 61;
-            // 
-            // cat
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.cat.DefaultCellStyle = dataGridViewCellStyle3;
-            this.cat.HeaderText = "FORMULARIO";
-            this.cat.Name = "cat";
-            this.cat.ReadOnly = true;
-            this.cat.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.cat.Width = 141;
-            // 
-            // fecha
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.fecha.DefaultCellStyle = dataGridViewCellStyle4;
-            this.fecha.HeaderText = "ÚLTIMA FECHA /HORA";
-            this.fecha.Name = "fecha";
-            this.fecha.ReadOnly = true;
-            this.fecha.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.fecha.Width = 224;
-            // 
-            // Tipo
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.Tipo.DefaultCellStyle = dataGridViewCellStyle5;
-            this.Tipo.HeaderText = "ÚLTIMA MODIFICACIÓN";
-            this.Tipo.Name = "Tipo";
-            this.Tipo.ReadOnly = true;
-            this.Tipo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Tipo.Width = 238;
-            // 
-            // more
-            // 
-            this.more.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.more.DefaultCellStyle = dataGridViewCellStyle6;
-            this.more.HeaderText = "MOSTRAR MÁS INFORMACIÓN";
-            this.more.LinkBehavior = System.Windows.Forms.LinkBehavior.AlwaysUnderline;
-            this.more.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.more.Name = "more";
-            this.more.ReadOnly = true;
-            this.more.Text = "";
-            this.more.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.more.Width = 291;
-            // 
-            // historial
-            // 
-            this.historial.ActiveLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.historial.DefaultCellStyle = dataGridViewCellStyle7;
-            this.historial.HeaderText = "MOSTRAR HISTORIAL";
-            this.historial.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.historial.Name = "historial";
-            this.historial.ReadOnly = true;
-            this.historial.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.historial.Text = "";
-            this.historial.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.historial.Width = 210;
-            // 
             // modificaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ClientSize = new System.Drawing.Size(1908, 937);
+            this.ClientSize = new System.Drawing.Size(1908, 947);
             this.Controls.Add(this.tbmodif);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

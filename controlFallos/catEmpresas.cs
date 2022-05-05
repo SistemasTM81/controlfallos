@@ -50,7 +50,10 @@ namespace controlFallos
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (Convert.ToInt32(privilegiosTemp.Length) > 3)
+                {
+                    pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
@@ -170,7 +173,7 @@ namespace controlFallos
                         {
                             OrdenDeCompra odc = (OrdenDeCompra)Owner;
                             odc.CargarEmpresas();
-                            odc.comboBoxFacturar.SelectedValue = id;
+                            //odc.comboBoxFacturar.SelectedValue = id;
 
                         }
                         MessageBox.Show("La Empresa se Ha Insertado Correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -281,9 +284,9 @@ namespace controlFallos
 
             String sql = "";
             if (empresa == 1 && area == 1)
-                sql = "SELECT t1.idempresa,upper(t1.nombreEmpresa) as nombreEmpresa, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as persona, t1.status,t1.empresa,t1.area FROM cempresas as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona WHERE t1.empresa='" + empresa + "' AND t1.area='" + area + "' ORDER BY nombreEmpresa ASC";
+                sql = "SELECT t1.idempresa,upper(t1.nombreEmpresa) as nombreEmpresa, UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))) as persona, t1.status,t1.empresa,t1.area FROM cempresas as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona WHERE t1.empresa='" + empresa + "' AND t1.area='" + area + "' ORDER BY nombreEmpresa ASC";
             else
-                sql = "SELECT t1.idempresa,upper(t1.nombreEmpresa) as nombreEmpresa, UPPER(CONCAT(t2.nombres,' ',t2.apPaterno,' ',t2.apMaterno)) as persona, t1.status,t1.empresa,t1.area FROM cempresas as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona  ORDER BY nombreEmpresa ASC";
+                sql = "SELECT t1.idempresa,upper(t1.nombreEmpresa) as nombreEmpresa, UPPER(CONCAT(coalesce(t2.nombres,''),' ',coalesce(t2.apPaterno,''),' ',coalesce(t2.apMaterno,''))) as persona, t1.status,t1.empresa,t1.area FROM cempresas as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal = t2.idpersona  ORDER BY nombreEmpresa ASC";
             MySqlCommand cm = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cm.ExecuteReader();
             while (dr.Read())

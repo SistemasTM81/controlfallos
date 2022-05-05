@@ -56,12 +56,19 @@ namespace controlFallos
         }
         public void privilegios()
         {
-            string sql = "SELECT privilegios as privilegios FROM privilegios where usuariofkcpersonal='" + idUsuario + "' and namform='CatRoles'";
+            string sql = "SELECT if(count(privilegios) > 0, privilegios, '')  as privilegios FROM privilegios where usuariofkcpersonal='" + idUsuario + "' and namform='CatRoles'";
             string[] privilegios = v.getaData(sql).ToString().Split('/');
-            pinsertar = getboolfromint(Convert.ToInt32(privilegios[0]));
-            pconsultar = getboolfromint(Convert.ToInt32(privilegios[1]));
-            peditar = getboolfromint(Convert.ToInt32(privilegios[2]));
-            pdesactivar = getboolfromint(Convert.ToInt32(privilegios[3]));
+            if (Convert.ToInt32(privilegios.Length) > 1)
+            {
+                pinsertar = getboolfromint(Convert.ToInt32(privilegios[0]));
+                pconsultar = getboolfromint(Convert.ToInt32(privilegios[1]));
+                peditar = getboolfromint(Convert.ToInt32(privilegios[2]));
+                if (privilegios.Length > 3)
+                {
+                    pdesactivar = getboolfromint(Convert.ToInt32(privilegios[3]));
+                }
+            }
+            
         }
         void mostrar()
         {
@@ -163,7 +170,7 @@ namespace controlFallos
         void cargarroles()
         {
             dgvroles.Rows.Clear();
-            string sql = "select t1.idrol as id,(select upper(nombreEmpresa) from cempresas as x1 inner join careas as x2 on x1.idempresa=x2.empresafkcempresas where t2.AreafkCareas=x2.idarea)as empresa,(select upper(x1.nombreArea) from careas as x1 where x1.idarea=t2.AreafkCareas)as area, upper(concat(t2.nombre,' ',t2.descripcion)) as servicio,nciclos as ciclos, necos as ecos, date_format(horaincorporo,'%H:%i') as hora, CONCAT(diffciclos,' MINUTOS') as diferencia,(select upper(concat(coalesce(x1.apPaterno,''),' ',coalesce(x1.apMaterno,''),' ',x1.nombres)) from cpersonal as x1 where x1.idPersona=t1.usuariofkcpersonal)as persona, if(t1.status=1,'ACTIVO','NO ACTIVO') as estatus from croles as t1 inner join cservicios as t2 on t2.idservicio=t1.serviciofkcservicios";
+            string sql = "select t1.idrol as id,(select upper(nombreEmpresa) from cempresas as x1 inner join careas as x2 on x1.idempresa=x2.empresafkcempresas where t2.AreafkCareas=x2.idarea)as empresa,(select upper(x1.nombreArea) from careas as x1 where x1.idarea=t2.AreafkCareas)as area, upper(concat(t2.nombre,' ',t2.descripcion)) as servicio,nciclos as ciclos, necos as ecos, date_format(horaincorporo,'%H:%i') as hora, CONCAT(diffciclos,' MINUTOS') as diferencia,(select upper(concat(coalesce(x1.apPaterno,''),' ',coalesce(x1.apMaterno,''),' ',coalesce(x1.nombres,''))) from cpersonal as x1 where x1.idPersona=t1.usuariofkcpersonal)as persona, if(t1.status=1,'ACTIVO','NO ACTIVO') as estatus from croles as t1 inner join cservicios as t2 on t2.idservicio=t1.serviciofkcservicios";
             MySqlCommand cmd = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             while (dr.Read())

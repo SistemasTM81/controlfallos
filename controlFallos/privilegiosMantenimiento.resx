@@ -118,6 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="btnConsultaRefac.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
+        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJ
+        TUUH4gkZAC4jHjkSEwAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAPlSURBVHhe
+        7Vu/TxRBFOaisbGyMLGwsN/di7i7KB0VAnuU19iYHJUdoScWdoaWwB/AH2CwxFwhvYkdsaAj9IQEEiH4
+        fTPfcqv88uB+7O3jSyZ3+97svPdmdmbevJkZ6zem6/XHjSCdz4JksREmn7Mw3sjCpI3/O/g9YNL/Nnku
+        D/PiHb6rYkYLs+PjT2FQay5MNvF7hHR2y3SkMlosU8WXE80geIQW/ABlt5FOZYBPUbInQ9azKF7Gb2su
+        SGfmojhiyoJXb0kjD/nWXF68c/6+T6dZkH6nDMqS2FKgBiPeQcHdosIw4mcjSj/NB2nKPD5rV6jxXZbB
+        soplI+1SJvP4rEPCfBhPN6LkR0Gx/UYUL828fPNCWXoGlsmyKSOXR9nUQVkGh9n66+dQYCtXBOkQrfRx
+        EIMWZVAWZRbkb1EnZekvGtHEJATmrXCCtI7+/EzsgYEyKVs6UBd8fROTYvcHWRC/h6BjLzD+ldWTUKyh
+        gTo4XXwlHFNHsXqHZrP5IAvTFQk5wzz9LYuiJ2IPHdTF6ZTrB12ps9h3gzM+SL50Co9Xp6amHopdGlAn
+        6nauJ3TuSSUUWv4352CRSwvq6HWlzumKyLeD+nze8qU3PocqQV/CLccEjfb5gLcq8siAOqsSjrueHTTP
+        +6kOg0sZ+/xNcGNCZ2Dc78pPwAtycjC9lGi07xZuduhMkVsiXw+6lnrhpAzz/F3h/QTvLP2P21wr+Pbr
+        oo08aAttom14vHoBpVUdjT8chnvbL8htdmsHrSIvwq/n/ZKWiw2RKwMtoNi4u5fGEwpz5/7IhqKuAW2i
+        bd7GS3waMBjJQT+Jl0SqHBRPYCNvi+ShGJ4LY/UjmFEW0DZVwOlfMUYQFshg6EmkyoI2qhIWRMKnEaZf
+        SWT8TaTKgjY6W2GzI2hwcKFrBTArDdpIW2mzG+zdpgUJUbIH/nCjrINBLQ+503YseZNFPqBvbCpD5UFb
+        XaPDdvR/ble5T6Iyru9NQAWsuS8AttMB4l4dukC8LH7lod0pNHq8wSmw7R+SlviVB22VzW12Ae7MnnGv
+        TvzKQ3uR7AI7rA1uUXOVFIlfedBW2kzb7yvgvgtYHwTNT4N0BlQbRh0h866w9cWQ+eUwYTogQoBgOyRm
+        PihKgGg3LE5ws0BMmxsj5rfGCG4cKpO9zVHB9vY4Yf2AhAMy2z0iQ5g/JEWYPiaXw/RByRymj8oS5g9L
+        E64SOl+CGxjLNDu40b4z4CH18Lh8ERoT7F2YKEKzg80rMznkJ9i8NFUEXcvC2oHJxrW5f2D34mQRPp7g
+        5mBzV2cvQDFGW5enrwIHLbf5wivxbhuuTNfnx8b+AHGJPazOCNEZAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="btneliminartipo.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6

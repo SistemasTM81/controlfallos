@@ -47,7 +47,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
@@ -117,7 +120,7 @@ namespace controlFallos
         public void Incidencias()
         {
             DgvIncidencias.Rows.Clear();
-            MySqlCommand datos = new MySqlCommand("select t1.idincidencia as id,t1.numeroIncidencia as 'N° de Incidencia',t1.concepto as 'Concepto',upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) as 'Persona',if(t1.status=1,'ACTIVO','NO ACTIVO') as estatus from catincidencias as t1 inner join cpersonal as t2 on t2.idPersona=t1.personaFKcpersonal order by t1.numeroIncidencia asc;", v.c.dbconection());
+            MySqlCommand datos = new MySqlCommand("select t1.idincidencia as id,t1.numeroIncidencia as 'N° de Incidencia',t1.concepto as 'Concepto',upper(concat(coalesce(t2.ApPaterno,''),' ',coalesce(t2.ApMaterno,''),' ',coalesce(t2.nombres,''))) as 'Persona',if(t1.status=1,'ACTIVO','NO ACTIVO') as estatus from catincidencias as t1 inner join cpersonal as t2 on t2.idPersona=t1.personaFKcpersonal order by t1.numeroIncidencia asc;", v.c.dbconection());
             MySqlDataReader dr = datos.ExecuteReader();
             while (dr.Read())
             {

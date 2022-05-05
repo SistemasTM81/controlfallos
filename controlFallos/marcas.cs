@@ -52,7 +52,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }
@@ -153,7 +156,7 @@ namespace controlFallos
         public void insertarums()
         {
             tbmarcas.DataSource = null;
-            tbmarcas.DataSource = v.getData("SELECT idmarca,upper(t3.Familia) as 'FAMILIA',upper(t2.descripcionFamilia) as 'DESCRIPCIÓN FAMILIA', upper(t1.marca) as 'MARCA', upper(CONCAT(nombres,' ',apPaterno,' ',apMaterno)) AS 'PERSONA QUE DIÓ DE ALTA', if (t1.status = 1,'ACTIVO','NO ACTIVO') AS 'ESTATUS', idcnFamilia,idfamilia FROM cmarcas as t1 INNER JOIN cfamilIas as t2 ON t1.descripcionfkcfamilias=t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cpersonal as t4 ON t1.personafkcpersonal=t4.idpersona;");
+            tbmarcas.DataSource = v.getData("SELECT idmarca,upper(t3.Familia) as 'FAMILIA',upper(t2.descripcionFamilia) as 'DESCRIPCIÓN FAMILIA', upper(t1.marca) as 'MARCA', upper(CONCAT(coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(apMaterno,''))) AS 'PERSONA QUE DIÓ DE ALTA', if (t1.status = 1,'ACTIVO','NO ACTIVO') AS 'ESTATUS', idcnFamilia,idfamilia FROM cmarcas as t1 INNER JOIN cfamilIas as t2 ON t1.descripcionfkcfamilias=t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cpersonal as t4 ON t1.personafkcpersonal=t4.idpersona where t1.empresa = '" + empresa + "' limit 15;");
             if (tbmarcas.DataSource != null) tbmarcas.Columns[0].Visible = tbmarcas.Columns[6].Visible = tbmarcas.Columns[7].Visible = false;
             tbmarcas.ClearSelection();
         }

@@ -20,6 +20,8 @@ namespace controlFallos
         DateTime expedicionTarjetonAnterior, vencimientoTarjetonAnterior, expedicionlicenciaAnterior, vencimientolicenciaAnterior;
         validaciones v;
         new menuPrincipal Owner;
+        privilegiosAlmacen pv;
+        
         public catPersonal(int idUsuario, int empresa, int area, Image logo, menuPrincipal f, validaciones v)
         {
             th = new Thread(new ThreadStart(v.Splash));
@@ -49,6 +51,7 @@ namespace controlFallos
             pLicencias.Visible = Convert.ToInt32(v.getaData("SELECT ver FROM privilegios WHERE namform='catTipos' AND usuariofkcpersonal='" + idUsuario + "'")) == 1;
             privilegiosPersonal();
             busqPuestos();
+           // bus2puest();
             if (Pconsultar) { busemp(); Estatus(); }
             iniacceso();
             txtgetcredencial.Focus();
@@ -67,11 +70,23 @@ namespace controlFallos
             th.Abort();
 
         }
-        public void busqPuestos()
+
+       /* public void bus2puest()
         {
-            v.iniCombos("SELECT idpuesto,UPPER(puesto) as puesto FROM puestos WHERE  empresa = " + empresa + " and area = '" + this.area + "' and status= 1 ORDER BY puesto ASC", csetpuestos, "idpuesto", "puesto", "-- seleccione un puesto --");
-            v.iniCombos("SELECT idpuesto,UPPER(puesto) as puesto FROM puestos WHERE  empresa = " + empresa + " and area = '" + this.area + "'  ORDER BY puesto ASC", csetbpuestos, "idpuesto", "puesto", "-- seleccione un puesto --");
+            v.iniCombos("SELECT idpuesto,UPPER(puesto) as puesto FROM puestos WHERE  empresa = " + empresa + " and area = '" + this.area + "' and status= 1 ORDER BY puesto ASC", pv.puestoCB, "idpuesto", "puesto", "-- seleccione un puesto --");
+            v.iniCombos("SELECT idpuesto,UPPER(puesto) as puesto FROM puestos WHERE  empresa = " + empresa + " and area = '" + this.area + "'  ORDER BY puesto ASC", pv.puestoCB, "idpuesto", "puesto", "-- seleccione un puesto --");
+            pv.puestoCB.Enabled = pv.puestoCB.Enabled = true;
+
+        }*/
+        
+    public void busqPuestos()
+        {
+           v.iniCombos("SELECT idpuesto,UPPER(puesto) as puesto FROM puestos WHERE  empresa = " + empresa + " and area = '" + this.area + "' and status= 1 ORDER BY puesto ASC", csetpuestos, "idpuesto", "puesto", "-- seleccione un puesto --");
+            v.iniCombos("SELECT idpuesto,UPPER(puesto) as puesto FROM puestos WHERE  empresa = " + empresa + " and area = '" + this.area + "'  ORDER BY puesto ASC", csetbpuestos ,"idpuesto", "puesto", "-- seleccione un puesto --");
             csetpuestos.Enabled = csetbpuestos.Enabled = true;
+           
+         
+            
         }
         void Estatus()
         {
@@ -182,6 +197,7 @@ namespace controlFallos
                             {
                                 if (v.c.insertar("INSERT INTO datosistema(usuariofkcpersonal, usuario, password) VALUES('" + this.idUsuarioTemp + "','" + usuarioTemp + "','" + v.Encriptar(password) + "')"))
                                 {
+                                    //v.c.insertarLocal("INSERT INTO datosistema(usuariofkcpersonal, usuario, password) VALUES('" + this.idUsuarioTemp + "','" + usuarioTemp + "','" + v.Encriptar(password) + "')");
                                     if (string.IsNullOrWhiteSpace(usuarioAnterior)) v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Personal','" + idUsuarioTemp + "','" + usuarioTemp + ";" + v.Encriptar(password) + "','" + idUsuario + "',NOW(),'Inserción de Usuario','" + edicion + "','" + empresa + "','" + area + "')");
                                     else v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Personal','" + idUsuarioTemp + "','" + usuarioAnterior + ";" + v.Encriptar(PasswordAnterior) + "','" + idUsuario + "',NOW(),'Inserción de Usuario','" + edicion + "','" + empresa + "','" + area + "')");
 
@@ -198,6 +214,9 @@ namespace controlFallos
                                     var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Personal','" + idUsuarioTemp + "','" + UsuarioAnterior + ";" + PasswordAnterior + "','" + idUsuario + "',NOW(),'Actualización de Usuario','" + edicion + "','" + empresa + "','" + area + "')");
                                     v.c.insertar("UPDATE cpersonal SET credencial=LTRIM(RTRIM('" + Convert.ToInt32(credencial) + "')),apPaterno=LTRIM(RTRIM('" + ap + "')),apMaterno=LTRIM(RTRIM('" + am + "')),nombres=LTRIM(RTRIM('" + nombre + "')),cargofkcargos=LTRIM(RTRIM('" + puesto + "')) WHERE idPersona =" + this.idUsuarioTemp);
                                     var res = v.c.insertar("UPDATE datosistema SET usuario= '" + usuarioTemp + "',password='" + v.Encriptar(password) + "' WHERE usuariofkcpersonal='" + idUsuarioTemp + "'");
+
+                                    //v.c.insertarLocal("UPDATE cpersonal SET credencial=LTRIM(RTRIM('" + Convert.ToInt32(credencial) + "')),apPaterno=LTRIM(RTRIM('" + ap + "')),apMaterno=LTRIM(RTRIM('" + am + "')),nombres=LTRIM(RTRIM('" + nombre + "')),cargofkcargos=LTRIM(RTRIM('" + puesto + "')) WHERE idPersona =" + this.idUsuarioTemp);
+                                    //v.c.insertarLocal("UPDATE datosistema SET usuario= '" + usuarioTemp + "',password='" + v.Encriptar(password) + "' WHERE usuariofkcpersonal='" + idUsuarioTemp + "'");
 
                                     if (res) { if (!yaAparecioMensaje) { MessageBox.Show("Empleado Actualizado Exitosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information); yaAparecioMensaje = true; } }
                                 }
@@ -218,6 +237,7 @@ namespace controlFallos
                         string eliminar = privilegios[i, 4];
                         string nombref = privilegios[i, 5];
                         v.insert(ver, insertar, consultar, modificar, eliminar, nombref, idUsuarioTemp);
+                        //v.c.insertLocal(ver, insertar, consultar, modificar, eliminar, nombref, idUsuarioTemp);
                     }
                     if (!yaAparecioMensaje) { MessageBox.Show("Empleado Actualizado Exitosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information); yaAparecioMensaje = true; }
                 }
@@ -250,6 +270,7 @@ namespace controlFallos
         {
             var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Personal','" + idUsuarioTemp + "','" + UsuarioAnterior + ";" + PasswordAnterior + "','" + idUsuario + "',NOW(),'Eliminación de Usuario','" + observaciones + "','" + empresa + "','" + area + "')");
             v.EliminarPrivilegios(idUsuarioTemp);
+            //v.c.EliminarPrivilegiosLocales(idUsuarioTemp);
             var res = v.c.insertar("DELETE FROM datosistema WHERE usuariofkcpersonal =" + idUsuarioTemp);
         }
         public void actualizarDatosP(string credencial, string ap, string am, string nombres, int puesto, string razonEdicion)
@@ -359,13 +380,13 @@ namespace controlFallos
             busqEmpleados.DataSource = null;
             if (empresa == 1 && area == 1)
             {
-                busqEmpleados.DataSource = v.getData(@"Set names 'utf8';SET lc_time_names='es_ES';SELECT t1.idPersona as id, t1.credencial as 'CREDENCIAL', UPPER(t1.ApPaterno) as 'APELLIDO PATERNO', UPPER(t1.ApMaterno) as 'APELLIDO MATERNO', UPPER(t1.nombres) as 'NOMBRES', UPPER(t2.puesto) as 'PUESTO', (SELECT UPPER(CONCAT(nombres, ' ', apPaterno, ' ', ApMaterno)) from cpersonal WHERE idPersona = t1.idPersonalaltafkpersona) as 'PERSONA QUE DIÓ DE ALTA',t1.cargofkcargos as cargo, t1.area,COALESCE(t3.usuario, '') as 'USUARIO',coalesce(upper(CONCAT('Exp: \n', DATE_FORMAT(t4.fechaEmisionTarjeton,   '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoTarjeton,  '%d/ %m/%Y'))), '') AS 'TARJETÓN',if(t5.Descripcion='',T5.Tipo,COALESCE(CONCAT(T5.Tipo,' - ',t5.Descripcion),'')) AS 'TIPO DE LICENCIA' ,coalesce(UPPER(CONCAT('Exp: \n', DATE_FORMAT(t4.fechaEmisionConducir,  '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoConducir, '%d/%m/%Y'))), '') AS 'LICENCIA DE CONDUCIR', if (t1.status = 1,'ACTIVO',CONCAT('NO ACTIVO')) as 'ESTATUS',COALESCE(t3.password, '') as pass,COALESCE(t4.fechaEmisionTarjeton,''), COALESCE(t4.fechaVencimientoTarjeton,''),COALESCE(t4.fechaEmisionConducir,''), COALESCE(t4.fechaVencimientoConducir,''),COALESCE(t5.idcattipos,'') AS 'idtipo' FROM cpersonal as t1 INNER JOIN  puestos as t2 ON t1.cargofkcargos = t2.idpuesto LEFT JOIN datosistema as t3 ON t3.usuariofkcpersonal = t1.idPersona LEFT JOIN vigencias_supervision as t4 ON t4.usuariofkcpersonal = t1.idPersona left JOIN cattipos as t5 ON t4.tipolicenciafkcattipos=t5.idcattipos WHERE t1.empresa = '" + empresa + "' and t1.area = '" + area + "' and t1.status='1'  ORDER BY t1.credencial ASC");
+                busqEmpleados.DataSource = v.getData(@"Set names 'utf8';SET lc_time_names='es_ES';SELECT t1.idPersona as id, t1.credencial as 'CREDENCIAL', UPPER(coalesce(t1.ApPaterno,'')) as 'APELLIDO PATERNO', UPPER(coalesce(t1.ApMaterno,'')) as 'APELLIDO MATERNO', UPPER(coalesce(t1.nombres,'')) as 'NOMBRES', UPPER(t2.puesto) as 'PUESTO', (SELECT UPPER(CONCAT(coalesce(nombres,''), ' ', coalesce(apPaterno,''), ' ', coalesce(ApMaterno,''))) from cpersonal WHERE idPersona = t1.idPersonalaltafkpersona) as 'PERSONA QUE DIÓ DE ALTA',t1.cargofkcargos as cargo, t1.area,COALESCE(t3.usuario, '') as 'USUARIO',coalesce(upper(CONCAT('Exp: \n', DATE_FORMAT(t4.fechaEmisionTarjeton,   '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoTarjeton,  '%d/ %m/%Y'))), '') AS 'TARJETÓN',if(t5.Descripcion='',T5.Tipo,COALESCE(CONCAT(T5.Tipo,' - ',t5.Descripcion),'')) AS 'TIPO DE LICENCIA' ,coalesce(UPPER(CONCAT('Exp: \n', DATE_FORMAT(t4.fechaEmisionConducir,  '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoConducir, '%d/%m/%Y'))), '') AS 'LICENCIA DE CONDUCIR', if (t1.status = 1,'ACTIVO',CONCAT('NO ACTIVO')) as 'ESTATUS',COALESCE(t3.password, '') as pass,COALESCE(t4.fechaEmisionTarjeton,''), COALESCE(t4.fechaVencimientoTarjeton,''),COALESCE(t4.fechaEmisionConducir,''), COALESCE(t4.fechaVencimientoConducir,''),COALESCE(t5.idcattipos,'') AS 'idtipo' FROM cpersonal as t1 INNER JOIN  puestos as t2 ON t1.cargofkcargos = t2.idpuesto LEFT JOIN datosistema as t3 ON t3.usuariofkcpersonal = t1.idPersona LEFT JOIN vigencias_supervision as t4 ON t4.usuariofkcpersonal = t1.idPersona left JOIN cattipos as t5 ON t4.tipolicenciafkcattipos=t5.idcattipos WHERE t1.empresa = '" + empresa + "' and t1.area = '" + area + "' and t1.status='1'  ORDER BY t1.credencial ASC");
                 if (busqEmpleados.DataSource != null)
                     busqEmpleados.Columns[14].Visible = busqEmpleados.Columns[15].Visible = busqEmpleados.Columns[16].Visible = busqEmpleados.Columns[17].Visible = busqEmpleados.Columns[18].Visible = busqEmpleados.Columns[19].Visible = false;
             }
             else
             {
-                busqEmpleados.DataSource = v.getData("Set names 'utf8';SET lc_time_names='es_ES';SELECT t1.idPersona as id, t1.credencial as 'CREDENCIAL', UPPER(t1.ApPaterno) as 'APELLIDO PATERNO', UPPER(t1.ApMaterno) as 'APELLIDO MATERNO', UPPER(t1.nombres) as 'NOMBRES', UPPER(t2.puesto) as 'PUESTO',(SELECT UPPER(CONCAT(nombres,' ',apPaterno,' ',ApMaterno)) from cpersonal WHERE idPersona=t1.idPersonalaltafkpersona)as 'PERSONA QUE DIÓ DE ALTA',t1.cargofkcargos as cargo, t1.area,COALESCE(t3.usuario,'') as 'USUARIO',COALESCE(t3.password,'') as pass,if(t5.Descripcion='',T5.Tipo,COALESCE(CONCAT(T5.Tipo,' - ',t5.Descripcion),'')) AS 'TIPO DE LICENCIA' ,coalesce(UPPER(CONCAT('Expedición: \n',  DATE_FORMAT(t4.fechaEmisionConducir,  '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoConducir, '%d/%m/%Y'))), '') AS 'LICENCIA DE CONDUCIR', if(t1.status=1,'ACTIVO',CONCAT('NO ACTIVO')) as 'ESTATUS',COALESCE(t4.fechaEmisionConducir,''), COALESCE(t4.fechaVencimientoConducir,''),COALESCE(t5.idcattipos,'') AS 'idtipo' FROM cpersonal as t1 INNER JOIN  puestos as t2 ON t1.cargofkcargos = t2.idpuesto LEFT JOIN datosistema as t3 ON t3.usuariofkcpersonal = t1.idPersona LEFT JOIN vigencias_supervision as t4 ON t4.usuariofkcpersonal = t1.idPersona left JOIN cattipos as t5 ON t4.tipolicenciafkcattipos=t5.idcattipos where t1.empresa='" + empresa + "' and t1.area= '" + area + "'and t1.status='1'  ORDER BY t1.credencial ASC");
+                busqEmpleados.DataSource = v.getData("Set names 'utf8';SET lc_time_names='es_ES';SELECT t1.idPersona as id, t1.credencial as 'CREDENCIAL', UPPER(coalesce(t1.ApPaterno,'')) as 'APELLIDO PATERNO', UPPER(coalesce(t1.ApMaterno,'')) as 'APELLIDO MATERNO', UPPER(coalesce(t1.nombres,'')) as 'NOMBRES', UPPER(t2.puesto) as 'PUESTO',(SELECT UPPER(CONCAT(coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(ApMaterno,''))) from cpersonal WHERE idPersona=t1.idPersonalaltafkpersona)as 'PERSONA QUE DIÓ DE ALTA',t1.cargofkcargos as cargo, t1.area,COALESCE(t3.usuario,'') as 'USUARIO',COALESCE(t3.password,'') as pass,if(t5.Descripcion='',T5.Tipo,COALESCE(CONCAT(T5.Tipo,' - ',t5.Descripcion),'')) AS 'TIPO DE LICENCIA' ,coalesce(UPPER(CONCAT('Expedición: \n',  DATE_FORMAT(t4.fechaEmisionConducir,  '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoConducir, '%d/%m/%Y'))), '') AS 'LICENCIA DE CONDUCIR', if(t1.status=1,'ACTIVO',CONCAT('NO ACTIVO')) as 'ESTATUS',COALESCE(t4.fechaEmisionConducir,''), COALESCE(t4.fechaVencimientoConducir,''),COALESCE(t5.idcattipos,'') AS 'idtipo' FROM cpersonal as t1 INNER JOIN  puestos as t2 ON t1.cargofkcargos = t2.idpuesto LEFT JOIN datosistema as t3 ON t3.usuariofkcpersonal = t1.idPersona LEFT JOIN vigencias_supervision as t4 ON t4.usuariofkcpersonal = t1.idPersona left JOIN cattipos as t5 ON t4.tipolicenciafkcattipos=t5.idcattipos where t1.empresa='" + empresa + "' and t1.area= '" + area + "'and t1.status='1'  ORDER BY t1.credencial ASC");
                 if (busqEmpleados.DataSource != null) busqEmpleados.Columns[10].Visible = busqEmpleados.Columns[14].Visible = busqEmpleados.Columns[15].Visible = busqEmpleados.Columns[16].Visible = false;
             }
             if (busqEmpleados.DataSource != null) { busqEmpleados.Columns[0].Visible = busqEmpleados.Columns[7].Visible = busqEmpleados.Columns[8].Visible = false; busqEmpleados.ClearSelection(); }
@@ -422,8 +443,11 @@ namespace controlFallos
 
                             if (v.c.insertar(sql))
                             {
-                                if (v.c.insertar("INSERT INTO datosistema(usuariofkcpersonal, usuario, password) VALUES(LTRIM(RTRIM('" + v.idPersonaparaUsuario(credencial) + "')), LTRIM(RTRIM('" + usu + "')), '" + v.Encriptar(pass1) + "')"))
+                                //v.c.insertarLocal(sql);
+                                string cadena2k = "INSERT INTO datosistema(usuariofkcpersonal, usuario, password) VALUES(LTRIM(RTRIM('" + v.idPersonaparaUsuario(credencial) + "')), LTRIM(RTRIM('" + usu + "')), '" + v.Encriptar(pass1) + "')";
+                                if (v.c.insertar(cadena2k))
                                 {
+                                    //v.c.insertarLocal(cadena2k);
                                     var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area) VALUES('Catálogo de Personal',(SELECT idpersona FROM cpersonal WHERE credencial = '" + credencial + "'),'" + credencial + ";" + ap + ";" + am + ";" + nombre + ";" + puesto + ";" + _idTIpo + ";" + Fecha_expL + ";" + Fecha_venL + ";" + usu + ";" + pass1 + "','" + idUsuario + "',NOW(),'Inserción de Empleado','" + empresa + "','" + area + "')");
                                     if (privilegios != null)
                                     {
@@ -438,6 +462,7 @@ namespace controlFallos
                                             string eliminar = privilegios[i, 4];
                                             string nombref = privilegios[i, 5];
                                             v.insert(ver, insertar, consultar, modificar, eliminar, nombref, idUsuarioTemp);
+                                            //v.c.insertLocal(ver, insertar, consultar, modificar, eliminar, nombref, idUsuarioTemp);
                                         }
                                     }
                                     if (Convert.ToInt32(cbtipo.SelectedValue) > 0 && (DateTime.Parse(dtpexpconducir.Value.ToString("yyyy-MM-dd")) != DateTime.Parse(dtpvencconducir.Value.ToString("yyyy-MM-dd")) && (DateTime.Parse(dtpexpconducir.Value.ToString("yyyy-MM-dd")) != DateTime.Today && DateTime.Parse(dtpvencconducir.Value.ToString("yyyy-MM-dd")) != DateTime.Today))) insertarVigencias(v.getaData("SELECT idpersona FROM cpersonal WHERE credencial = '" + credencial + "'"));
@@ -463,6 +488,7 @@ namespace controlFallos
                                 sql = string.Format(sql, "", "");
                             if (v.c.insertar(sql))
                             {
+                                //v.c.insertarLocal(sql);
                                 object idpersona = null;
                                 if (!csetpuestos.Text.Contains("BECARIO"))
                                     idpersona = v.getaData("SELECT idpersona FROM cpersonal WHERE credencial = '" + credencial + "'");
@@ -660,9 +686,9 @@ namespace controlFallos
             {
                 busqEmpleados.DataSource = null;
                 string sql = "";
-                if (empresa == 1 && area == 1) sql = "Set names 'utf8';SET lc_time_names='es_ES';SELECT t1.idPersona as id, t1.credencial as 'CREDENCIAL', UPPER(t1.ApPaterno) as 'APELLIDO PATERNO', UPPER(t1.ApMaterno) as 'APELLIDO MATERNO', UPPER(t1.nombres) as 'NOMBRES', UPPER(t2.puesto) as 'PUESTO', (SELECT UPPER(CONCAT(nombres, ' ', apPaterno, ' ', ApMaterno)) from cpersonal WHERE idPersona = t1.idPersonalaltafkpersona) as 'PERSONA QUE DIÓ DE ALTA',t1.cargofkcargos as cargo, t1.area,COALESCE(t3.usuario, '') as 'USUARIO',coalesce(upper(CONCAT('Expedición: \n', DATE_FORMAT(t4.fechaEmisionTarjeton,   '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoTarjeton,  '%d/ %m/%Y'))), '') AS 'TARJETÓN',COALESCE(CONCAT(T5.Tipo,' - ',t5.Descripcion),'') AS 'TIPO DE LICENCIA' ,coalesce(UPPER(CONCAT('Expedición: \n',  DATE_FORMAT(t4.fechaEmisionConducir, '%d/%m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoConducir, '%d/%m/%Y'))), '') AS 'LICENCIA DE CONDUCIR', if (t1.status = 1,'ACTIVO',CONCAT('NO ACTIVO')) as 'ESTATUS',COALESCE(t3.password, '') as pass,COALESCE(t4.fechaEmisionTarjeton,''), COALESCE(t4.fechaVencimientoTarjeton,''),COALESCE(t4.fechaEmisionConducir,''), COALESCE(t4.fechaVencimientoConducir,''),COALESCE(t5.idcattipos,'') AS 'idtipo'{0} FROM cpersonal as t1 INNER JOIN  puestos as t2 ON t1.cargofkcargos = t2.idpuesto LEFT JOIN datosistema as t3 ON t3.usuariofkcpersonal = t1.idPersona LEFT JOIN vigencias_supervision as t4 ON t4.usuariofkcpersonal = t1.idPersona left JOIN cattipos as t5 ON t4.tipolicenciafkcattipos=t5.idcattipos WHERE t1.empresa = '1' and t1.area = '1' ";
+                if (empresa == 1 && area == 1) sql = "Set names 'utf8';SET lc_time_names='es_ES';SELECT t1.idPersona as id, t1.credencial as 'CREDENCIAL', UPPER(coalesce(t1.ApPaterno,'')) as 'APELLIDO PATERNO', UPPER(coalesce(t1.ApMaterno,'')) as 'APELLIDO MATERNO', UPPER(coalesce(t1.nombres,'')) as 'NOMBRES', UPPER(t2.puesto) as 'PUESTO', (SELECT UPPER(CONCAT(coalesce(nombres,''), ' ', coalesce(apPaterno,''), ' ', coalesce(ApMaterno,''))) from cpersonal WHERE idPersona = t1.idPersonalaltafkpersona) as 'PERSONA QUE DIÓ DE ALTA',t1.cargofkcargos as cargo, t1.area,COALESCE(t3.usuario, '') as 'USUARIO',coalesce(upper(CONCAT('Expedición: \n', DATE_FORMAT(t4.fechaEmisionTarjeton,   '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoTarjeton,  '%d/ %m/%Y'))), '') AS 'TARJETÓN',COALESCE(CONCAT(T5.Tipo,' - ',t5.Descripcion),'') AS 'TIPO DE LICENCIA' ,coalesce(UPPER(CONCAT('Expedición: \n',  DATE_FORMAT(t4.fechaEmisionConducir, '%d/%m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoConducir, '%d/%m/%Y'))), '') AS 'LICENCIA DE CONDUCIR', if (t1.status = 1,'ACTIVO',CONCAT('NO ACTIVO')) as 'ESTATUS',COALESCE(t3.password, '') as pass,COALESCE(t4.fechaEmisionTarjeton,''), COALESCE(t4.fechaVencimientoTarjeton,''),COALESCE(t4.fechaEmisionConducir,''), COALESCE(t4.fechaVencimientoConducir,''),COALESCE(t5.idcattipos,'') AS 'idtipo'{0} FROM cpersonal as t1 INNER JOIN  puestos as t2 ON t1.cargofkcargos = t2.idpuesto LEFT JOIN datosistema as t3 ON t3.usuariofkcpersonal = t1.idPersona LEFT JOIN vigencias_supervision as t4 ON t4.usuariofkcpersonal = t1.idPersona left JOIN cattipos as t5 ON t4.tipolicenciafkcattipos=t5.idcattipos WHERE t1.empresa = '1' and t1.area = '1' ";
                 else
-                    sql = "Set names 'utf8';SET lc_time_names='es_ES';SELECT t1.idPersona as id, t1.credencial as 'CREDENCIAL', UPPER(t1.ApPaterno) as 'APELLIDO PATERNO', UPPER(t1.ApMaterno) as 'APELLIDO MATERNO', UPPER(t1.nombres) as 'NOMBRES', UPPER(t2.puesto) as 'PUESTO',(SELECT UPPER(CONCAT(nombres,' ',apPaterno,' ',ApMaterno)) from cpersonal WHERE idPersona=t1.idPersonalaltafkpersona)as 'PERSONA QUE DIÓ DE ALTA',t1.cargofkcargos as cargo, t1.area,COALESCE(t3.usuario,'') as 'USUARIO',COALESCE(t3.password,'') as pass,COALESCE(CONCAT(T5.Tipo,' - ',t5.Descripcion),'') AS 'TIPO DE LICENCIA' ,coalesce(UPPER(CONCAT('Expedición: \n',  DATE_FORMAT(t4.fechaEmisionConducir,  '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoConducir, '%d/%m/%Y'))), '') AS 'LICENCIA DE CONDUCIR', if(t1.status=1,'ACTIVO',CONCAT('NO ACTIVO')) as 'ESTATUS',COALESCE(t4.fechaEmisionConducir,''), COALESCE(t4.fechaVencimientoConducir,''),COALESCE(t5.idcattipos,'') AS 'idtipo'{0} FROM cpersonal as t1 INNER JOIN  puestos as t2 ON t1.cargofkcargos = t2.idpuesto LEFT JOIN datosistema as t3 ON t3.usuariofkcpersonal = t1.idPersona LEFT JOIN vigencias_supervision as t4 ON t4.usuariofkcpersonal = t1.idPersona left JOIN cattipos as t5 ON t4.tipolicenciafkcattipos=t5.idcattipos WHERE t1.empresa='" + empresa + "' and t1.area= '" + area + "' ";
+                    sql = "Set names 'utf8';SET lc_time_names='es_ES';SELECT t1.idPersona as id, t1.credencial as 'CREDENCIAL', UPPER(coalesce(t1.ApPaterno,'')) as 'APELLIDO PATERNO', UPPER(coalesce(t1.ApMaterno,'')) as 'APELLIDO MATERNO', UPPER(coalesce(t1.nombres,'')) as 'NOMBRES', UPPER(t2.puesto) as 'PUESTO',(SELECT UPPER(CONCAT(coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(ApMaterno,''))) from cpersonal WHERE idPersona=t1.idPersonalaltafkpersona)as 'PERSONA QUE DIÓ DE ALTA',t1.cargofkcargos as cargo, t1.area,COALESCE(t3.usuario,'') as 'USUARIO',COALESCE(t3.password,'') as pass,COALESCE(CONCAT(T5.Tipo,' - ',t5.Descripcion),'') AS 'TIPO DE LICENCIA' ,coalesce(UPPER(CONCAT('Expedición: \n',  DATE_FORMAT(t4.fechaEmisionConducir,  '%d/ %m/%Y'), '\n Vencimiento: \n', DATE_FORMAT(t4.fechaVencimientoConducir, '%d/%m/%Y'))), '') AS 'LICENCIA DE CONDUCIR', if(t1.status=1,'ACTIVO',CONCAT('NO ACTIVO')) as 'ESTATUS',COALESCE(t4.fechaEmisionConducir,''), COALESCE(t4.fechaVencimientoConducir,''),COALESCE(t5.idcattipos,'') AS 'idtipo'{0} FROM cpersonal as t1 INNER JOIN  puestos as t2 ON t1.cargofkcargos = t2.idpuesto LEFT JOIN datosistema as t3 ON t3.usuariofkcpersonal = t1.idPersona LEFT JOIN vigencias_supervision as t4 ON t4.usuariofkcpersonal = t1.idPersona left JOIN cattipos as t5 ON t4.tipolicenciafkcattipos=t5.idcattipos WHERE t1.empresa='" + empresa + "' and t1.area= '" + area + "' ";
                 string wheres = "";
                 if (!string.IsNullOrWhiteSpace(txtbredencial.Text.ToString()))
                 {
@@ -778,6 +804,7 @@ namespace controlFallos
                     if (v.c.insertar(sql))
                     {
                         if (msg == "Des") v.EliminarPrivilegios(idUsuarioTemp);
+                        //v.c.EliminarPrivilegiosLocales(idUsuarioTemp);
                         var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Personal','" + idUsuarioTemp + "','" + msg + "activación de Empleado','" + idUsuario + "',NOW(),'" + msg + "activación de Empleado','" + edicion + "','" + empresa + "','" + area + "')");
                         MessageBox.Show("El empleado ha sido " + msg + "activado Existosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         limpiar();
@@ -810,18 +837,20 @@ namespace controlFallos
                         if (area == 1)
                         {
                             privilegiosMantenimiento ps = new privilegiosMantenimiento(idUsuarioTemp, v);
+                            ps.Owner = this;
                             string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                             ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
-                            ps.Owner = this;
                             if (privilegios != null) ps.insertarPrivilegios(privilegios);
                             ps.ShowDialog();
+
+                            
                         }
                         else
                         {
                             privilegiosAlmacen ps = new privilegiosAlmacen(idUsuarioTemp,v);
+                            ps.Owner = this;
                             string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                             ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
-                            ps.Owner = this;
                             if (privilegios != null) ps.insertarPrivilegios(privilegios);
                             ps.ShowDialog();
                         }
@@ -847,18 +876,18 @@ namespace controlFallos
                     if (area == 1)
                     {
                         privilegiosMantenimiento ps = new privilegiosMantenimiento(idUsuarioTemp, v);
+                        ps.Owner = this;
                         string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                         ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
-                        ps.Owner = this;
                         if (privilegios != null) ps.insertarPrivilegios(privilegios);
                         ps.ShowDialog();
                     }
                     else
                     {
                         privilegiosAlmacen ps = new privilegiosAlmacen(idUsuarioTemp,v);
+                        ps.Owner = this;
                         string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                         ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
-                        ps.Owner = this;
                         if (privilegios != null) ps.insertarPrivilegios(privilegios);
                         ps.ShowDialog();
                     }
@@ -875,15 +904,18 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrarPersonal();
             ppuestos.Visible = Convert.ToInt32(v.getaData("SELECT ver FROM privilegios WHERE usuariofkcpersonal = '" + idUsuario + "' and namform = 'catPuestos'")) == 1;
         }
         public void mostrarLicencias()
         {
-            if (Convert.ToInt32(v.getaData("SELECT COUNT(*) FROM cattipos WHERE status=1 AND empresa='" + empresa + "' AND area='" + area + "'")) > 0)
-            {
+            //if (Convert.ToInt32(v.getaData("SELECT COUNT(*) FROM cattipos WHERE status=1 AND empresa='" + empresa + "' AND area='" + area + "'")) > 0)
+            //{
                 cbtipo.DataSource = null;
                 DataTable dt = (DataTable)v.getData("SELECT idcattipos, if(descripcion='',tipo,CONCAT(Tipo,' - ',Descripcion)) as nombre FROM cattipos WHERE status=1 AND empresa='" + empresa + "' AND area='" + area + "'");
                 DataRow nuevaFila = dt.NewRow();
@@ -897,9 +929,9 @@ namespace controlFallos
                 cbtipo.ValueMember = "idcattipos";
                 cbtipo.DisplayMember = "nombre";
                 cbtipo.DataSource = dt;
-            }
-            else
-                cbtipo.Enabled = false;
+            //}
+            //else
+            //    cbtipo.Enabled = false;
         }
         public void mostrarLicenciasBusq()
         {
@@ -939,6 +971,7 @@ namespace controlFallos
         public bool Pinsertar { set; get; }
         public bool Peditar { get; set; }
         private void csetpuestos_DrawItem(object sender, DrawItemEventArgs e) { v.combos_DrawItem(sender, e); }
+        
         private void busqEmpleados_ColumnAdded(object sender, DataGridViewColumnEventArgs e) { v.paraDataGridViews_ColumnAdded(sender, e); }
         private void busqEmpleados_Leave(object sender, EventArgs e) { busqEmpleados.ClearSelection(); }
         private void txtgetap_Validating(object sender, CancelEventArgs e) { v.espaciosenblanco(sender, e); }
@@ -1247,8 +1280,12 @@ namespace controlFallos
                 MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
- 
-         
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
         private void btnExcel_Click(object sender, EventArgs e)
         {
             ThreadStart delegado = new ThreadStart(ExportarExcel);
@@ -1278,9 +1315,9 @@ namespace controlFallos
                 txtgetcredencial_TextChanged(null, e);
             }
         }
-
-        private void csetpuestos_SelectedIndexChanged(object sender, EventArgs e)
+        public void csetpuestos_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             if (csetpuestos.DataSource != null && cbaccess.DataSource != null)
             {
                 if (empresa == 1 && area == 1)
@@ -1307,7 +1344,11 @@ namespace controlFallos
                 }
             }
             privilegios = null;
+              
         }
+           
+
+        
 
         private void txtbap_KeyPress(object sender, KeyPressEventArgs e)
         {

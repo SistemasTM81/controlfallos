@@ -17,11 +17,16 @@ namespace controlFallos
             this.area = area;
         }
 
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void textBoxUsuario_TextChanged(object sender, EventArgs e)
         {
             try
             {
-                object res = v.getaData("SELECT CONCAT(idpersona,';',nombres,' ',apPaterno,' ',apMaterno) FROM datosistema as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona WHERE password='" + v.Encriptar(((TextBox)sender).Text) + "' AND t2.empresa='"+empresa+"' AND t2.area='"+area+"'");
+                object res = v.getaData("SELECT CONCAT(idpersona,';',coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(apMaterno,'')) FROM datosistema as t1 INNER JOIN cpersonal as t2 ON t1.usuariofkcpersonal=t2.idpersona WHERE password='" + v.Encriptar(((TextBox)sender).Text) + "' AND t2.empresa='"+empresa+"' AND t2.area='"+area+"'");
                 if (res != null)
                 {
                     string[] usu = res.ToString().Split(';');

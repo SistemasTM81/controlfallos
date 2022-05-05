@@ -73,7 +73,10 @@ namespace controlFallos
                 pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
      
@@ -106,7 +109,7 @@ namespace controlFallos
             try
             {
                 tbfallos.Rows.Clear();
-                DataTable dt = (DataTable)v.getData("SELECT t1.idfalloEsp,UPPER(t3.nombreFalloGral),UPPER(t2.descfallo),UPPER(t5.categoria),UPPER(t1.codfallo) AS codfallo,UPPER(t1.falloesp) AS falloesp,UPPER(CONCAT(t4.nombres,' ',t4.ApPaterno,' ',t4.ApMaterno)) AS nombre,if(t1.status=1,'ACTIVO','NO ACTIVO'),t3.idFalloGral,t2.iddescfallo,t5.idcategoria FROM cfallosesp AS t1 INNER JOIN catcategorias AS t5 ON t1.descfallofkcdescfallo = t5.idcategoria INNER JOIN cdescfallo AS t2 ON t5.subgrupofkcdescfallo = t2.iddescfallo INNER JOIN cfallosgrales AS t3 ON t2.falloGralfkcfallosgrales = t3.idFalloGral INNER JOIN cpersonal AS t4 ON t1.usuariofkcpersonal = t4.idpersona WHERE t1.empresa='"+empresa+"' ORDER BY SUBSTRING(codfallo,LENGTH(codFALLO) - 3,4)");
+                DataTable dt = (DataTable)v.getData("SELECT t1.idfalloEsp,UPPER(t3.nombreFalloGral),UPPER(t2.descfallo),UPPER(t5.categoria),UPPER(t1.codfallo) AS codfallo,UPPER(t1.falloesp) AS falloesp,UPPER(CONCAT(coalesce(t4.nombres,''),' ',coalesce(t4.ApPaterno,''),' ',coalesce(t4.ApMaterno,''))) AS nombre,if(t1.status=1,'ACTIVO','NO ACTIVO'),t3.idFalloGral,t2.iddescfallo,t5.idcategoria FROM cfallosesp AS t1 INNER JOIN catcategorias AS t5 ON t1.descfallofkcdescfallo = t5.idcategoria INNER JOIN cdescfallo AS t2 ON t5.subgrupofkcdescfallo = t2.iddescfallo INNER JOIN cfallosgrales AS t3 ON t2.falloGralfkcfallosgrales = t3.idFalloGral INNER JOIN cpersonal AS t4 ON t1.usuariofkcpersonal = t4.idpersona WHERE t1.empresa='" + empresa+"' ORDER BY SUBSTRING(codfallo,LENGTH(codFALLO) - 3,4)");
               foreach(DataRow row in dt.Rows)
                     tbfallos.Rows.Add(row.ItemArray);
                 dt.Dispose();
@@ -627,7 +630,7 @@ namespace controlFallos
                     string codfallo = txtgetcodbusq.Text;
 
                     tbfallos.Rows.Clear();
-                    string sql = "SELECT t1.idfalloEsp,UPPER(t3.nombreFalloGral),UPPER(t2.descfallo),UPPER(t5.categoria),UPPER(t1.codfallo) AS codfallo,UPPER(t1.falloesp) AS falloesp,UPPER(CONCAT(t4.nombres,' ',t4.ApPaterno,' ',t4.ApMaterno)) AS nombre,if(t1.status=1,'ACTIVO','NO ACTIVO'),t3.idFalloGral,t2.iddescfallo,t5.idcategoria FROM cfallosesp AS t1 INNER JOIN catcategorias AS t5 ON t1.descfallofkcdescfallo = t5.idcategoria INNER JOIN cdescfallo AS t2 ON t5.subgrupofkcdescfallo = t2.iddescfallo INNER JOIN cfallosgrales AS t3 ON t2.falloGralfkcfallosgrales = t3.idFalloGral INNER JOIN cpersonal AS t4 ON t1.usuariofkcpersonal = t4.idpersona ";
+                    string sql = "SELECT t1.idfalloEsp,UPPER(t3.nombreFalloGral),UPPER(t2.descfallo),UPPER(t5.categoria),UPPER(t1.codfallo) AS codfallo,UPPER(t1.falloesp) AS falloesp,UPPER(CONCAT(coalesce(t4.nombres,''),' ',coalesce(t4.ApPaterno,''),' ',coalesce(t4.ApMaterno,''))) AS nombre,if(t1.status=1,'ACTIVO','NO ACTIVO'),t3.idFalloGral,t2.iddescfallo,t5.idcategoria FROM cfallosesp AS t1 INNER JOIN catcategorias AS t5 ON t1.descfallofkcdescfallo = t5.idcategoria INNER JOIN cdescfallo AS t2 ON t5.subgrupofkcdescfallo = t2.iddescfallo INNER JOIN cfallosgrales AS t3 ON t2.falloGralfkcfallosgrales = t3.idFalloGral INNER JOIN cpersonal AS t4 ON t1.usuariofkcpersonal = t4.idpersona ";
                     string wheres = "";
                     if (cbClasificacionb.SelectedIndex > 0)
                     {

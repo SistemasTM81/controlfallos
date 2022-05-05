@@ -122,6 +122,12 @@ namespace controlFallos
                 return true;
             else return false;
         }
+
+        private void gbdatos_Enter(object sender, EventArgs e)
+        {
+
+        }
+
         bool peditar { get; set; }
 
         private void txtcontraseña_Leave(object sender, EventArgs e)

@@ -643,6 +643,16 @@ namespace controlFallos.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap foliosFactura {
+            get {
+                object obj = ResourceManager.GetObject("foliosFactura", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap foursquare_button {
             get {
                 object obj = ResourceManager.GetObject("foursquare_button", resourceCulture);
@@ -1346,6 +1356,16 @@ namespace controlFallos.Properties {
         internal static System.Drawing.Bitmap test {
             get {
                 object obj = ResourceManager.GetObject("test", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap transinsumosk {
+            get {
+                object obj = ResourceManager.GetObject("transinsumosk", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

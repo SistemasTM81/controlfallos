@@ -460,7 +460,7 @@ namespace controlFallos
                 if ((_template != null) && (_template.Size > 0))
                 {
                     fngPrint.IdentifyPrepare(_template);
-                    string consulta = "SELECT t2.idpersona, t2.credencial, UPPER(t2.ApPaterno) AS 'PATERNO', UPPER(t2.ApMaterno) AS 'MATERNO', UPPER(t2.nombres) AS 'NOMBRES', UPPER(t3.puesto) AS 'PUESTO', t1.template, t1.calidad FROM huellasupervision AS t1 INNER JOIN cpersonal AS t2 ON t2.idPersona = t1.Personafkcpersonal INNER JOIN puestos AS t3 ON t2.cargofkcargos = t3.idpuesto";
+                    string consulta = "SELECT t2.idpersona, t2.credencial, UPPER(coalesce(t2.ApPaterno,'')) AS 'PATERNO', UPPER(coalesce(t2.ApMaterno,'')) AS 'MATERNO', UPPER(coalesce(t2.nombres,'')) AS 'NOMBRES', UPPER(t3.puesto) AS 'PUESTO', t1.template, t1.calidad FROM huellasupervision AS t1 INNER JOIN cpersonal AS t2 ON t2.idPersona = t1.Personafkcpersonal INNER JOIN puestos AS t3 ON t2.cargofkcargos = t3.idpuesto";
                     string where = "";
                     if (reporte == 1 && numhuella == 1)
                         where = " WHERE UPPER(t3.puesto) LIKE '%CONDUCTOR%'";

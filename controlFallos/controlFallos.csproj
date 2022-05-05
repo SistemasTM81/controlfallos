@@ -9,22 +9,23 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>controlFallos</RootNamespace>
     <AssemblyName>controlFallos</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>C:\Users\Desarrollador 7\Desktop\</PublishUrl>
+    <PublishUrl>\\192.168.1.67\Users\Public\ERP\DISPOSITIVOS DE 23 PULGADAS\</PublishUrl>
     <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
+    <InstallFrom>Unc</InstallFrom>
+    <UpdateEnabled>true</UpdateEnabled>
     <UpdateMode>Foreground</UpdateMode>
     <UpdateInterval>7</UpdateInterval>
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
+    <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>27</ApplicationRevision>
+    <MinimumRequiredVersion>1.1.2.284</MinimumRequiredVersion>
+    <ApplicationRevision>285</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -75,15 +76,23 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>
-    </ApplicationIcon>
+    <ApplicationIcon>derecho_sombra_pZF_icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bitbucket.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=676cfcd09bc93b26, processorArchitecture=MSIL">
+      <HintPath>..\packages\Bitbucket.Net.2.1.12\lib\net452\Bitbucket.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurl, Version=2.7.1.0, Culture=neutral, PublicKeyToken=46974597867576d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.Signed.2.7.1\lib\net40\Flurl.dll</HintPath>
+    </Reference>
+    <Reference Include="Flurl.Http, Version=2.3.2.0, Culture=neutral, PublicKeyToken=46974597867576d1, processorArchitecture=MSIL">
+      <HintPath>..\packages\Flurl.Http.Signed.2.3.2\lib\net45\Flurl.Http.dll</HintPath>
+    </Reference>
     <Reference Include="GriauleFingerprintLibrary">
-      <HintPath>G:\Documentos\17-06-19\V2\controlFallos\controlFallos\bin\Debug\GriauleFingerprintLibrary.dll</HintPath>
+      <HintPath>..\GriauleFingerprintLibrary.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp">
-      <HintPath>..\..\..\itextsharp.dll</HintPath>
+      <HintPath>..\itextsharp.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
@@ -94,16 +103,23 @@
     <Reference Include="Microsoft.Office.Interop.Word, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
-    <Reference Include="Microsoft.ReportViewer.Common, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.ReportViewer.WinForms, Version=12.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.ReportViewer.WinForms">
+      <HintPath>..\Microsoft.ReportViewer.WinForms.dll</HintPath>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
@@ -175,11 +191,23 @@
     <Compile Include="catfallosGrales.designer.cs">
       <DependentUpon>catfallosGrales.cs</DependentUpon>
     </Compile>
+    <Compile Include="catFamiliasH.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catFamiliasH.Designer.cs">
+      <DependentUpon>catFamiliasH.cs</DependentUpon>
+    </Compile>
     <Compile Include="catGiros.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="catGiros.designer.cs">
       <DependentUpon>catGiros.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catHerramienta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catHerramienta.Designer.cs">
+      <DependentUpon>catHerramienta.cs</DependentUpon>
     </Compile>
     <Compile Include="CatIncidencias.cs">
       <SubType>Form</SubType>
@@ -241,6 +269,12 @@
     <Compile Include="catRefacciones.designer.cs">
       <DependentUpon>catRefacciones.cs</DependentUpon>
     </Compile>
+    <Compile Include="catREntradas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catREntradas.Designer.cs">
+      <DependentUpon>catREntradas.cs</DependentUpon>
+    </Compile>
     <Compile Include="CatRoles.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,6 +319,12 @@
     <Compile Include="datosGeneralesComparativa.designer.cs">
       <DependentUpon>datosGeneralesComparativa.cs</DependentUpon>
     </Compile>
+    <Compile Include="Diesel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Diesel.Designer.cs">
+      <DependentUpon>Diesel.cs</DependentUpon>
+    </Compile>
     <Compile Include="familias.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -302,6 +342,13 @@
     </Compile>
     <Compile Include="Incidencia de Personal.designer.cs">
       <DependentUpon>Incidencia de Personal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="intermedio.cs" />
+    <Compile Include="Inventario.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Inventario.Designer.cs">
+      <DependentUpon>Inventario.cs</DependentUpon>
     </Compile>
     <Compile Include="LectorHuellas.cs">
       <SubType>Form</SubType>
@@ -321,6 +368,12 @@
     <Compile Include="marcas.designer.cs">
       <DependentUpon>marcas.cs</DependentUpon>
     </Compile>
+    <Compile Include="Material_Recuperado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Material_Recuperado.Designer.cs">
+      <DependentUpon>Material_Recuperado.cs</DependentUpon>
+    </Compile>
     <Compile Include="menuPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -333,6 +386,7 @@
     <Compile Include="Mantenimiento.designer.cs">
       <DependentUpon>Mantenimiento.cs</DependentUpon>
     </Compile>
+    <Compile Include="metodos.cs" />
     <Compile Include="modificaciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -405,6 +459,12 @@
     <Compile Include="OrdenDeCompra.designer.cs">
       <DependentUpon>OrdenDeCompra.cs</DependentUpon>
     </Compile>
+    <Compile Include="Otros.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Otros.Designer.cs">
+      <DependentUpon>Otros.cs</DependentUpon>
+    </Compile>
     <Compile Include="percances.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -460,11 +520,23 @@
     <Compile Include="relacionServicioEstacion.Designer.cs">
       <DependentUpon>relacionServicioEstacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reporte Cierre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reporte Cierre.Designer.cs">
+      <DependentUpon>Reporte Cierre.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportePersonal.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReportePersonal.designer.cs">
       <DependentUpon>ReportePersonal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reportes.Designer.cs">
+      <DependentUpon>Reportes.cs</DependentUpon>
     </Compile>
     <Compile Include="ReportesVigencias.cs">
       <SubType>Form</SubType>
@@ -472,11 +544,35 @@
     <Compile Include="ReportesVigencias.designer.cs">
       <DependentUpon>ReportesVigencias.cs</DependentUpon>
     </Compile>
+    <Compile Include="requerimiento_mantenimiento.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="requerimiento_mantenimiento.Designer.cs">
+      <DependentUpon>requerimiento_mantenimiento.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RequisicionHerramienta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RequisicionHerramienta.Designer.cs">
+      <DependentUpon>RequisicionHerramienta.cs</DependentUpon>
+    </Compile>
     <Compile Include="requisicionRefacciones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="requisicionRefacciones.Designer.cs">
       <DependentUpon>requisicionRefacciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Retorno de material.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Retorno de material.Designer.cs">
+      <DependentUpon>Retorno de material.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RetornoAlmacen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RetornoAlmacen.Designer.cs">
+      <DependentUpon>RetornoAlmacen.cs</DependentUpon>
     </Compile>
     <Compile Include="rolUnidades.cs">
       <SubType>Form</SubType>
@@ -547,6 +643,7 @@
     </Compile>
     <EmbeddedResource Include="Asistencia.resx">
       <DependentUpon>Asistencia.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="catAnaqueles.resx">
       <DependentUpon>catAnaqueles.cs</DependentUpon>
@@ -576,8 +673,14 @@
     <EmbeddedResource Include="catfallosGrales.resx">
       <DependentUpon>catfallosGrales.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="catFamiliasH.resx">
+      <DependentUpon>catFamiliasH.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="catGiros.resx">
       <DependentUpon>catGiros.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catHerramienta.resx">
+      <DependentUpon>catHerramienta.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CatIncidencias.resx">
       <DependentUpon>CatIncidencias.cs</DependentUpon>
@@ -602,12 +705,16 @@
     </EmbeddedResource>
     <EmbeddedResource Include="catProveedores.resx">
       <DependentUpon>catProveedores.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="catPuestos.resx">
       <DependentUpon>catPuestos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="catRefacciones.resx">
       <DependentUpon>catRefacciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catREntradas.resx">
+      <DependentUpon>catREntradas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CatRoles.resx">
       <DependentUpon>CatRoles.cs</DependentUpon>
@@ -630,6 +737,9 @@
     <EmbeddedResource Include="datosGeneralesComparativa.resx">
       <DependentUpon>datosGeneralesComparativa.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Diesel.resx">
+      <DependentUpon>Diesel.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="familias.resx">
       <DependentUpon>familias.cs</DependentUpon>
     </EmbeddedResource>
@@ -639,6 +749,9 @@
     <EmbeddedResource Include="Incidencia de Personal.resx">
       <DependentUpon>Incidencia de Personal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Inventario.resx">
+      <DependentUpon>Inventario.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="LectorHuellas.resx">
       <DependentUpon>LectorHuellas.cs</DependentUpon>
     </EmbeddedResource>
@@ -647,6 +760,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="marcas.resx">
       <DependentUpon>marcas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Material_Recuperado.resx">
+      <DependentUpon>Material_Recuperado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="menuPrincipal.resx">
       <DependentUpon>menuPrincipal.cs</DependentUpon>
@@ -691,6 +807,9 @@
     <EmbeddedResource Include="OrdenDeCompra.resx">
       <DependentUpon>OrdenDeCompra.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Otros.resx">
+      <DependentUpon>Otros.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="percances.resx">
       <DependentUpon>percances.cs</DependentUpon>
     </EmbeddedResource>
@@ -723,11 +842,26 @@
     <EmbeddedResource Include="ReportePersonal.resx">
       <DependentUpon>ReportePersonal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Reportes.resx">
+      <DependentUpon>Reportes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReportesVigencias.resx">
       <DependentUpon>ReportesVigencias.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="requerimiento_mantenimiento.resx">
+      <DependentUpon>requerimiento_mantenimiento.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RequisicionHerramienta.resx">
+      <DependentUpon>RequisicionHerramienta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="requisicionRefacciones.resx">
       <DependentUpon>requisicionRefacciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Retorno de material.resx">
+      <DependentUpon>Retorno de material.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RetornoAlmacen.resx">
+      <DependentUpon>RetornoAlmacen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="rolUnidades.resx">
       <DependentUpon>rolUnidades.cs</DependentUpon>
@@ -804,6 +938,7 @@
   <ItemGroup>
     <None Include="Resources\20.png" />
     <None Include="Resources\1-02-512.png" />
+    <Content Include="derecho_sombra_pZF_icon.ico" />
     <Content Include="Resources\add.png" />
     <None Include="Resources\add1.png" />
     <None Include="Resources\ajax-spinner.gif" />
@@ -916,6 +1051,7 @@
     <None Include="Resources\frontal-crash.png" />
     <None Include="Resources\FRONTAL_SOMBRA__1_.png" />
     <None Include="Resources\FRENTE.png" />
+    <None Include="Resources\foliosFactura.png" />
     <Content Include="Resources\goma-de-borrar.png" />
     <Content Include="Resources\guardar %286%29.png" />
     <Content Include="Resources\guardar %286%291.png" />
@@ -1026,6 +1162,7 @@
     <None Include="Resources\switch.png" />
     <None Include="Resources\switch %281%29.png" />
     <None Include="Resources\team.png" />
+    <None Include="Resources\transinsumosk.png" />
     <Content Include="Resources\transmasivo %281%29.ico" />
     <Content Include="Resources\transmasivo.png" />
     <None Include="Resources\TSD.png" />

@@ -82,6 +82,9 @@
             this.label14 = new System.Windows.Forms.Label();
             this.button32 = new System.Windows.Forms.Button();
             this.button33 = new System.Windows.Forms.Button();
+            this.btnConsultaRefac = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -139,6 +142,9 @@
             // panel2
             // 
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.btnConsultaRefac);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.label20);
             this.panel2.Controls.Add(this.label37);
             this.panel2.Controls.Add(this.btneliminartipo);
@@ -179,17 +185,19 @@
             this.panel2.Controls.Add(this.label18);
             this.panel2.Controls.Add(this.label22);
             this.panel2.Controls.Add(this.panel3);
+            this.panel2.Controls.Add(this.label10);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel2.Location = new System.Drawing.Point(0, 26);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(927, 519);
+            this.panel2.Size = new System.Drawing.Size(927, 638);
             this.panel2.TabIndex = 3;
+            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // label20
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(491, 262);
+            this.label20.Location = new System.Drawing.Point(498, 317);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(63, 21);
             this.label20.TabIndex = 122;
@@ -214,7 +222,7 @@
             this.btneliminartipo.FlatAppearance.BorderSize = 0;
             this.btneliminartipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btneliminartipo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btneliminartipo.Location = new System.Drawing.Point(794, 195);
+            this.btneliminartipo.Location = new System.Drawing.Point(796, 249);
             this.btneliminartipo.Name = "btneliminartipo";
             this.btneliminartipo.Size = new System.Drawing.Size(20, 20);
             this.btneliminartipo.TabIndex = 119;
@@ -231,7 +239,7 @@
             this.btnmodificartipo.FlatAppearance.BorderSize = 0;
             this.btnmodificartipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnmodificartipo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmodificartipo.Location = new System.Drawing.Point(615, 192);
+            this.btnmodificartipo.Location = new System.Drawing.Point(617, 246);
             this.btnmodificartipo.Name = "btnmodificartipo";
             this.btnmodificartipo.Size = new System.Drawing.Size(20, 20);
             this.btnmodificartipo.TabIndex = 118;
@@ -247,7 +255,7 @@
             this.btnconsultartipo.FlatAppearance.BorderSize = 0;
             this.btnconsultartipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnconsultartipo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultartipo.Location = new System.Drawing.Point(439, 191);
+            this.btnconsultartipo.Location = new System.Drawing.Point(441, 245);
             this.btnconsultartipo.Name = "btnconsultartipo";
             this.btnconsultartipo.Size = new System.Drawing.Size(20, 20);
             this.btnconsultartipo.TabIndex = 117;
@@ -264,7 +272,7 @@
             this.btninsertartipo.FlatAppearance.BorderSize = 0;
             this.btninsertartipo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btninsertartipo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btninsertartipo.Location = new System.Drawing.Point(279, 192);
+            this.btninsertartipo.Location = new System.Drawing.Point(281, 246);
             this.btninsertartipo.Name = "btninsertartipo";
             this.btninsertartipo.Size = new System.Drawing.Size(20, 20);
             this.btninsertartipo.TabIndex = 116;
@@ -276,7 +284,7 @@
             // 
             this.label23.AutoSize = true;
             this.label23.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.Location = new System.Drawing.Point(8, 191);
+            this.label23.Location = new System.Drawing.Point(10, 245);
             this.label23.Name = "label23";
             this.label23.Size = new System.Drawing.Size(217, 18);
             this.label23.TabIndex = 115;
@@ -285,7 +293,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(42, 201);
+            this.label24.Location = new System.Drawing.Point(44, 255);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(840, 21);
             this.label24.TabIndex = 120;
@@ -297,7 +305,7 @@
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(219, 380);
+            this.label13.Location = new System.Drawing.Point(180, 454);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(606, 17);
             this.label13.TabIndex = 114;
@@ -310,7 +318,7 @@
             this.label7.BackColor = System.Drawing.Color.Transparent;
             this.label7.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label7.ForeColor = System.Drawing.Color.Crimson;
-            this.label7.Location = new System.Drawing.Point(169, 379);
+            this.label7.Location = new System.Drawing.Point(130, 453);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(47, 18);
             this.label7.TabIndex = 113;
@@ -324,7 +332,7 @@
             this.btnconsultarhistorial.FlatAppearance.BorderSize = 0;
             this.btnconsultarhistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnconsultarhistorial.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultarhistorial.Location = new System.Drawing.Point(438, 328);
+            this.btnconsultarhistorial.Location = new System.Drawing.Point(445, 383);
             this.btnconsultarhistorial.Name = "btnconsultarhistorial";
             this.btnconsultarhistorial.Size = new System.Drawing.Size(20, 20);
             this.btnconsultarhistorial.TabIndex = 110;
@@ -337,7 +345,7 @@
             // 
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.Location = new System.Drawing.Point(28, 329);
+            this.label21.Location = new System.Drawing.Point(35, 384);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(197, 18);
             this.label21.TabIndex = 108;
@@ -353,7 +361,7 @@
             this.btnmodificarmante.FlatAppearance.BorderSize = 0;
             this.btnmodificarmante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnmodificarmante.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmodificarmante.Location = new System.Drawing.Point(615, 293);
+            this.btnmodificarmante.Location = new System.Drawing.Point(622, 348);
             this.btnmodificarmante.Name = "btnmodificarmante";
             this.btnmodificarmante.Size = new System.Drawing.Size(20, 20);
             this.btnmodificarmante.TabIndex = 100;
@@ -369,7 +377,7 @@
             this.btnconsultarmante.FlatAppearance.BorderSize = 0;
             this.btnconsultarmante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnconsultarmante.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultarmante.Location = new System.Drawing.Point(438, 289);
+            this.btnconsultarmante.Location = new System.Drawing.Point(445, 344);
             this.btnconsultarmante.Name = "btnconsultarmante";
             this.btnconsultarmante.Size = new System.Drawing.Size(20, 20);
             this.btnconsultarmante.TabIndex = 99;
@@ -386,7 +394,7 @@
             this.btninsertarmante.FlatAppearance.BorderSize = 0;
             this.btninsertarmante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btninsertarmante.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btninsertarmante.Location = new System.Drawing.Point(279, 293);
+            this.btninsertarmante.Location = new System.Drawing.Point(286, 348);
             this.btninsertarmante.Name = "btninsertarmante";
             this.btninsertarmante.Size = new System.Drawing.Size(20, 20);
             this.btninsertarmante.TabIndex = 98;
@@ -398,7 +406,7 @@
             // 
             this.label12.AutoSize = true;
             this.label12.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(31, 293);
+            this.label12.Location = new System.Drawing.Point(38, 348);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(194, 18);
             this.label12.TabIndex = 96;
@@ -414,7 +422,7 @@
             this.btnmodificarunidad.FlatAppearance.BorderSize = 0;
             this.btnmodificarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnmodificarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmodificarunidad.Location = new System.Drawing.Point(615, 230);
+            this.btnmodificarunidad.Location = new System.Drawing.Point(617, 284);
             this.btnmodificarunidad.Name = "btnmodificarunidad";
             this.btnmodificarunidad.Size = new System.Drawing.Size(20, 20);
             this.btnmodificarunidad.TabIndex = 94;
@@ -430,7 +438,7 @@
             this.btnconsultarunidad.FlatAppearance.BorderSize = 0;
             this.btnconsultarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnconsultarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultarunidad.Location = new System.Drawing.Point(438, 226);
+            this.btnconsultarunidad.Location = new System.Drawing.Point(440, 280);
             this.btnconsultarunidad.Name = "btnconsultarunidad";
             this.btnconsultarunidad.Size = new System.Drawing.Size(20, 20);
             this.btnconsultarunidad.TabIndex = 93;
@@ -447,7 +455,7 @@
             this.btninsertarunidad.FlatAppearance.BorderSize = 0;
             this.btninsertarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btninsertarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btninsertarunidad.Location = new System.Drawing.Point(279, 230);
+            this.btninsertarunidad.Location = new System.Drawing.Point(281, 284);
             this.btninsertarunidad.Name = "btninsertarunidad";
             this.btninsertarunidad.Size = new System.Drawing.Size(20, 20);
             this.btninsertarunidad.TabIndex = 92;
@@ -459,7 +467,7 @@
             // 
             this.label11.AutoSize = true;
             this.label11.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(65, 231);
+            this.label11.Location = new System.Drawing.Point(67, 285);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(160, 18);
             this.label11.TabIndex = 90;
@@ -736,7 +744,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(41, 303);
+            this.label22.Location = new System.Drawing.Point(48, 358);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(840, 21);
             this.label22.TabIndex = 112;
@@ -800,7 +808,7 @@
             this.panel4.Controls.Add(this.label14);
             this.panel4.Controls.Add(this.button32);
             this.panel4.Controls.Add(this.button33);
-            this.panel4.Location = new System.Drawing.Point(138, 442);
+            this.panel4.Location = new System.Drawing.Point(136, 502);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(616, 76);
             this.panel4.TabIndex = 4;
@@ -856,13 +864,49 @@
             this.button33.UseVisualStyleBackColor = true;
             this.button33.Click += new System.EventHandler(this.button33_Click);
             // 
+            // btnConsultaRefac
+            // 
+            this.btnConsultaRefac.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnConsultaRefac.BackgroundImage")));
+            this.btnConsultaRefac.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnConsultaRefac.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConsultaRefac.FlatAppearance.BorderSize = 0;
+            this.btnConsultaRefac.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnConsultaRefac.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConsultaRefac.Location = new System.Drawing.Point(440, 197);
+            this.btnConsultaRefac.Name = "btnConsultaRefac";
+            this.btnConsultaRefac.Size = new System.Drawing.Size(20, 20);
+            this.btnConsultaRefac.TabIndex = 125;
+            this.btnConsultaRefac.TabStop = false;
+            this.btnConsultaRefac.UseVisualStyleBackColor = true;
+            this.btnConsultaRefac.Click += new System.EventHandler(this.CambiarEstado_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(55, 185);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(177, 36);
+            this.label2.TabIndex = 123;
+            this.label2.Text = "Catálogo de Refacciones\r\nRecuperadas";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(37, 210);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(840, 21);
+            this.label10.TabIndex = 128;
+            this.label10.Text = "_________________________________________________________________________________" +
+    "__";
+            // 
             // privilegiosMantenimiento
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ClientSize = new System.Drawing.Size(927, 545);
-            this.Controls.Add(this.panel4);
+            this.ClientSize = new System.Drawing.Size(927, 664);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Garamond", 14.25F);
@@ -873,7 +917,6 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.TopMost = true;
             this.Load += new System.EventHandler(this.privilegiosMantenimiento_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -942,5 +985,8 @@
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Button btnConsultaRefac;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label10;
     }
 }

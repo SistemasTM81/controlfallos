@@ -72,7 +72,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegios[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegios[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegios[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegios[3]));
+                if (privilegios.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegios[3]));
+                }
                 mostrar();
             }
             mostrar();

@@ -42,7 +42,7 @@ namespace controlFallos
         public void iniClasificaciones()
         {
             tbgiros.Rows.Clear();
-            DataTable dt = (DataTable)v.getData("SELECT idgiro,UPPER(giro),(SELECT UPPER(CONCAT(nombres,' ',apPaterno,' ',apMaterno)) FROM cpersonal WHERE idpersona = usuariofkcpersonal),if(status=1,'ACTIVO',CONCAT('NO ACTIVO')) FROM cgiros WHERE empresa='" + empresa + "' AND area='" + area + "' ORDER BY giro ASC");
+            DataTable dt = (DataTable)v.getData("SELECT idgiro,UPPER(giro),(SELECT UPPER(CONCAT(coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(apMaterno,''))) FROM cpersonal WHERE idpersona = usuariofkcpersonal),if(status=1,'ACTIVO',CONCAT('NO ACTIVO')) FROM cgiros WHERE empresa='" + empresa + "' AND area='" + area + "' ORDER BY giro ASC");
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 tbgiros.Rows.Add(dt.Rows[i].ItemArray);
@@ -337,7 +337,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar();
         }

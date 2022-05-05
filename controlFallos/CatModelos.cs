@@ -30,7 +30,10 @@ namespace controlFallos
                 Pconsultar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[1]));
                 Pinsertar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[0]));
                 Peditar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[2]));
-                Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                if (privilegiosTemp.Length > 3)
+                {
+                    Pdesactivar = v.getBoolFromInt(Convert.ToInt32(privilegiosTemp[3]));
+                }
             }
             mostrar_p();
         }
@@ -50,12 +53,13 @@ namespace controlFallos
             InitializeComponent();
             this.idUsuario = idUsuario;
             cbEmpresa.DrawItem += v.combos_DrawItem;
-            v.creatItemsPersonalizadosCombobox(cbEmpresa, new string[] { "TRI VEHICULOS FUNCIONALES S. A DE C. V.", "TECNOSISTEMAS DIESEL S. A. DE C. V." }, "-- SELECCIONE UNA EMPRESA --",null);
+            //v.creatItemsPersonalizadosCombobox(cbEmpresa, new string[] { "TRI VEHICULOS FUNCIONALES S. A DE C. V.", "TECNOSISTEMAS DIESEL S. A. DE C. V." }, "-- SELECCIONE UNA EMPRESA --",2);
+            v.creatItemsPersonalizadosCombobox(cbEmpresa, new string[] { "AMBOS", "TRI VEHICULOS FUNCIONALES S. A DE C. V.", "TECNOSISTEMAS DIESEL S. A. DE C. V." }, "-- SELECCIONE UNA EMPRESA --", null);
         }
         void mostrar()
         {
             tbModelos.Rows.Clear();
-            string sql = "select t1.idmodelo as id,upper(t1.modelo) as modelo,if(empresaMantenimiento=2,'TRI VEHICULOS FUNCIONALES S. A DE C. V.','TECNOSISTEMAS DIESEL S. A. DE C. V.') as empresa,upper(concat(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) as usuario,if(t1.status=1,'ACTIVO','NO ACTIVO') as Estatus,t1.empresaMantenimiento as idempresa from cmodelos as t1 inner join cpersonal as t2 on t2.idpersona=t1.usuariofkcpersonal;";
+            string sql = "select t1.idmodelo as id,upper(t1.modelo) as modelo,if(empresaMantenimiento=2,'TRI VEHICULOS FUNCIONALES S. A DE C. V.','TECNOSISTEMAS DIESEL S. A. DE C. V.') as empresa,upper(concat(coalesce(t2.ApPaterno,''),' ',coalesce(t2.ApMaterno,''),' ',coalesce(t2.nombres,''))) as usuario,if(t1.status=1,'ACTIVO','NO ACTIVO') as Estatus,t1.empresaMantenimiento as idempresa from cmodelos as t1 inner join cpersonal as t2 on t2.idpersona=t1.usuariofkcpersonal;";
             MySqlCommand m = new MySqlCommand(sql, v.c.dbconection());
             MySqlDataReader dr = m.ExecuteReader();
             while (dr.Read())
@@ -93,7 +97,7 @@ namespace controlFallos
                 {
                     string observaciones = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
                     var edit = v.c.insertar("update cmodelos set modelo='" + modelo + "', empresaMantenimiento='" + empresa + "' where idmodelo='" + _idmodeloAnterior + "';");
-                    MessageBox.Show("Se edito el modelo correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Se Actualizó el modelo correctamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
                     var modif = v.c.insertar("Insert into modificaciones_sistema (form,idregistro,ultimaModificacion,usuariofkcpersonal,fechaHora,tipo,motivoActualizacion,empresa,area) values ('Catálogo de Modelos','" + _idmodeloAnterior + "','" + _modeloAnterior + ";" + _empresaAnterior + "','" + this.idUsuario + "',now(),'Actualización de Modelo','" + observaciones + "','1','1')");
                     limpiar();
                     mostrar();
@@ -245,6 +249,16 @@ namespace controlFallos
                 else
                     this.Close();
             }
+        }
+
+        private void gbModelos_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void tbModelos_CellDoubleClick(object sender, DataGridViewCellEventArgs e)

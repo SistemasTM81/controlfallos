@@ -306,7 +306,7 @@
             this.gbum.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbum.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbum.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbum.Location = new System.Drawing.Point(0, 407);
+            this.gbum.Location = new System.Drawing.Point(0, 409);
             this.gbum.Margin = new System.Windows.Forms.Padding(5);
             this.gbum.Name = "gbum";
             this.gbum.Padding = new System.Windows.Forms.Padding(5);
@@ -467,6 +467,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(696, 673);
             this.Controls.Add(this.panel1);

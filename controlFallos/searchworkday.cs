@@ -37,6 +37,9 @@ namespace controlFallos
             }
         }
 
-        
+        private void searchworkday_Load(object sender, System.EventArgs e)
+        {
+
+        }
     }
 }

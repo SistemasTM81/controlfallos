@@ -21,12 +21,14 @@ namespace controlFallos
 {
     public partial class TRI : Form
     {
+        int idUsuario, idusuarioAnterior, empresa, area, idFolioFacturaSeleccionada = 0, indexAnteriork = 0, conteoListBoxAnt = 0; public Thread hilo, th;
+        DataTable dtList = new DataTable();
+        bool res1 = true, xkList = false;
+        //string consulta_gral = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'Folio', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaHoraI,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(coalesce(x1.ApPaterno,''),' ',coalesce(x1.ApMaterno,''),' ',coalesce(x1.nombres,''))) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(coalesce(x5.ApPaterno,''),' ',coalesce(x5.ApMaterno,''),' ',coalesce(x5.nombres,''))) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad inner join careas as t4 on t4.idarea=t3.areafkcareas";
+        string consulta_gral = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'Folio', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaHoraI,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud',(SELECT UPPER(CONCAT(coalesce(x1.ApPaterno,''),' ',coalesce(x1.ApMaterno,''),' ',coalesce(x1.nombres,''))) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita',COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(coalesce(x5.ApPaterno,''),' ',coalesce(x5.ApMaterno,''),' ',coalesce(x5.nombres,''))) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.IdReporte= x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad inner join careas as t4 on t4.idarea= t3.areafkcareas";
 
-        int idUsuario, idusuarioAnterior, empresa, area; public Thread hilo, th;
-        bool res1 = true;
-        string consulta_gral = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT  t2.Folio AS 'Folio', concat(t4.identificador,LPAD(consecutivo,4,'0')) AS 'Unidad' ,(SELECT UPPER(DATE_FORMAT(t1.FechaHoraI,'%W %d de %M del %Y'))) AS 'Fecha De Solicitud', (SELECT UPPER(CONCAT(x1.ApPaterno,' ',x1.ApMaterno,' ',x1.nombres)) FROM cpersonal AS x1 WHERE x1.idPersona=t1.MecanicofkPersonal)AS 'Mecánico Que Solicita',COALESCE((SELECT x2.FolioFactura FROM reportetri AS x2 WHERE t1.FoliofkSupervicion=x2.idreportemfkreportemantenimiento),'') AS 'Folio De Factura' ,COALESCE((SELECT UPPER(DATE_FORMAT( x4.FechaEntrega,'%W %d de %M del %Y')) FROM reportetri AS x4 WHERE t1.FoliofkSupervicion=x4.idreportemfkreportemantenimiento),'')AS 'Fecha De Entrega',COALESCE((SELECT UPPER(CONCAT(x5.ApPaterno,' ',x5.ApMaterno,' ',x5.nombres)) FROM cpersonal AS x5 INNER JOIN reportetri AS x6 ON x5.idpersona=x6.PersonaEntregafkcPersonal WHERE t1.FoliofkSupervicion=x6.idreportemfkreportemantenimiento),'') AS 'Persona Que Entrego Refacción',COALESCE((SELECT UPPER(x7.ObservacionesTrans) FROM reportetri as x7 WHERE  t1.FoliofkSupervicion=x7.idreportemfkreportemantenimiento),'') AS 'Observaciones De Almacen' FROM reportemantenimiento AS t1 INNER JOIN reportesupervicion AS t2 ON t1.FoliofkSupervicion=t2.idReporteSupervicion INNER JOIN cunidades AS t3 ON t2.UnidadfkCUnidades=t3.idunidad inner join careas as t4 on t4.idarea=t3.areafkcareas";
-        string folioAnterior, Observacionesanterior;
-        public TRI(int idUsuario, int empresa, int area, validaciones v)
+         string folioAnterior, Observacionesanterior;
+        public TRI(int idUsuario, int empresa, int area, System.Drawing.Image logo, validaciones v)
         {
             this.v = v;
             th = new Thread(new ThreadStart(v.Splash));
@@ -42,6 +44,7 @@ namespace controlFallos
             cmbPersonaEmtrego.MouseWheel += new MouseEventHandler(cmbBuscarUnidad_MouseWheel);
             this.empresa = empresa;
             this.area = area;
+            pictureBox1.BackgroundImage = logo;
             this.idUsuario = idUsuario;
             lbltitulo.Left = (this.Width - lbltitulo.Width) / 2;
         }
@@ -53,13 +56,15 @@ namespace controlFallos
             {
                 MySqlConnection dbcon;
                 if (v.c.conexionOriginal())
+                {
                     dbcon = new MySqlConnection(string.Format("Server = {0}; user={1}; password ={2}; database = sistrefaccmant; port={3}", new string[] { v.c.host, v.c.user, v.c.password, v.c.port }));
-                else
-                    dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
-                dbcon.Open();
-                MySqlCommand cmd = new MySqlCommand("UPDATE reportemantenimiento SET seenAlmacen = 1 WHERE seenAlmacen  = 0", dbcon);
-                cmd.ExecuteNonQuery();
-                dbcon.Close();
+                    //else
+                    //    dbcon = new MySqlConnection("Server =  " + v.c.hostLocal + "; user=" + v.c.userLocal + "; password = " + v.c.passwordLocal + " ;database = sistrefaccmant ;port=" + v.c.portLocal);
+                    dbcon.Open();
+                    MySqlCommand cmd = new MySqlCommand("UPDATE reportemantenimiento SET seenAlmacen = 1 WHERE seenAlmacen  = 0", dbcon);
+                    cmd.ExecuteNonQuery();
+                    dbcon.Close();
+                }
                 Thread.Sleep(180000);
             }
         }
@@ -89,7 +94,10 @@ namespace controlFallos
             pinsertar = getboolfromint(Convert.ToInt32(privilegios[0]));
             pconsultar = getboolfromint(Convert.ToInt32(privilegios[1]));
             peditar = getboolfromint(Convert.ToInt32(privilegios[2]));
-            pdesactivar = getboolfromint(Convert.ToInt32(privilegios[3]));
+            if (privilegios.Length > 3)
+            {
+                pdesactivar = getboolfromint(Convert.ToInt32(privilegios[3]));
+            }
         }
         public object getaData(string sql)
         {
@@ -104,21 +112,22 @@ namespace controlFallos
         }
         public void CargarDatos()// Metodo para cargar los reportes de la base de datos al datagridview y poder mostrarlos
         {
-            MySqlDataAdapter cargar = new MySqlDataAdapter(consulta_gral + " WHERE t1.StatusRefacciones='1' and(date_format(t1.FechaHoraI,'%Y-%m-%d') BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate()) and t1.empresa='" + empresa + "' ORDER BY t1.FechaHoraI DESC, t2.folio desc;", v.c.dbconection());
-            v.c.dbcon.Close();
+            /*  MySqlDataAdapter cargar = new MySqlDataAdapter(consulta_gral + " WHERE t1.StatusRefacciones='1' and(date_format(t1.FechaHoraI,'%Y-%m-%d') BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate()) and t1.empresa='" + empresa + "' ORDER BY t1.FechaHoraI DESC, t2.folio desc;", v.c.dbconection());
+              v.c.dbcon.Close();*/
             DataSet ds = new DataSet();
+            MySqlDataAdapter cargar = (MySqlDataAdapter)v.getReport(consulta_gral + " WHERE t1.StatusRefacciones='1' and(date_format(t1.FechaHoraI,'%Y-%m-%d') BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY))AND  curdate()) and t1.empresa='" + empresa + "' ORDER BY t1.FechaHoraI DESC, t2.folio desc;");
             cargar.Fill(ds);
             tbReportes.DataSource = ds.Tables[0];
             tbReportes.ClearSelection();
         }
         public void Persona_entrego()
         {
-            v.iniCombos("SELECT DISTINCT  idpersona,UPPER(CONCAT(t2.ApPaterno,' ',t2.ApMaterno,' ',t2.nombres)) AS NOMBRE FROM sistrefaccmant.reportetri as t1 INNER JOIN cpersonal as t2 On t1.PersonaEntregafkcPersonal = t2.idpersona where t2.empresa='" + empresa + "' group by PersonaEntregafkcPersonal;", cmbPersonaEmtrego, "idpersona", "NOMBRE", "-- SELECCIONE UN ALMACENISTA --");
+            v.iniCombos("SELECT DISTINCT  idpersona,UPPER(CONCAT(coalesce(t2.ApPaterno,''),' ',coalesce(t2.ApMaterno,''),' ',coalesce(t2.nombres,''))) AS NOMBRE FROM reportetri as t1 INNER JOIN cpersonal as t2 On t1.PersonaEntregafkcPersonal = t2.idpersona where t2.empresa='" + empresa + "' group by PersonaEntregafkcPersonal;", cmbPersonaEmtrego, "idpersona", "NOMBRE", "-- SELECCIONE UN ALMACENISTA --");
 
         }
         public void Mecanico_solicito()
         {
-            v.iniCombos("SELECT DISTINCT t2.idPersona,UPPER(CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres)) AS Nombre FROM reportemantenimiento as t1 INNER JOIN cpersonal as t2 ON t1.MecanicofkPersonal=t2.idpersona where t2.empresa='" + empresa + "' GROUP BY MecanicofkPersonal ORDER BY CONCAT(t2.ApPaterno, ' ', t2.ApMaterno, ' ', t2.nombres) asc;", cmbMecanicoSolicito, "idPersona", "Nombre", "-- seleccione un MECáNICO --");
+            v.iniCombos("SELECT DISTINCT t2.idPersona,UPPER(CONCAT(coalesce(t2.ApPaterno,''), ' ', coalesce(t2.ApMaterno,''), ' ', coalesce(t2.nombres,''))) AS Nombre FROM reportemantenimiento as t1 INNER JOIN cpersonal as t2 ON t1.MecanicofkPersonal=t2.idpersona where t2.empresa='" + empresa + "' GROUP BY MecanicofkPersonal ORDER BY CONCAT(coalesce(t2.ApPaterno,''), ' ', coalesce(t2.ApMaterno,''), ' ', coalesce(t2.nombres,'')) asc;", cmbMecanicoSolicito, "idPersona", "Nombre", "-- seleccione un MECáNICO --");
             v.comboswithuot(cmbMes, new string[] { "--seleccione mes--", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" });
 
         }
@@ -158,6 +167,17 @@ namespace controlFallos
         {
             txtFolioFactura.Enabled = txtDispenso.Enabled = txtObservacionesT.Enabled = true;
         }
+        //insert into 
+        public void cargaList()
+        {
+            if (!string.IsNullOrWhiteSpace(lblidreporte.Text))
+            {
+                dtList = v.obtenData("select concat('Folio: ', t1.Folio,' Item: ', t1.items) as text from foliosfacturas as t1 inner join reportemantenimiento as t2 on t1. Reportesupfkrepmantenimiento = t2.foliofksupervicion where t1.clasif!='mant' and reportesupfkrepmantenimiento='" + lblidreporte.Text + "'");
+                LBxRefacc.DataSource = v.iniList("select t1.idFolioFac as id, concat('Folio: ', t1.Folio,' Item: ', t1.items) as text from foliosfacturas as t1 inner join reportemantenimiento as t2 on t1. Reportesupfkrepmantenimiento = t2.foliofksupervicion where t1.clasif!='mant' and reportesupfkrepmantenimiento='" + lblidreporte.Text + "'");
+                conteoListBoxAnt = LBxRefacc.Items.Count;
+            }
+        }
+
         private void TransInsumos_Load(object sender, EventArgs e)
         {
             hilo = new Thread(new ThreadStart(quitarseen));
@@ -165,8 +185,10 @@ namespace controlFallos
             inhanilitar_campos();
             btnGuardar.Enabled = dtpFechaDe.Enabled = dtpFechaA.Enabled = false;
             lblFechaEntrega.Text = DateTime.Now.ToLongDateString().ToUpper();
-            dtpFechaDe.MinDate = dtpFechaA.MinDate = Convert.ToDateTime(v.getaData("select min(FechaHoraI) from reportemantenimiento where StatusRefacciones='1' ") ?? DateTime.Today);
-            dtpFechaDe.MaxDate = dtpFechaA.MaxDate = Convert.ToDateTime(v.getaData("select max(FechaHoraI) from reportemantenimiento where StatusRefacciones='1'") ?? DateTime.Today);
+
+            dtpFechaDe.MinDate = dtpFechaA.MinDate = Convert.ToDateTime((v.getaData("select min(FechaHoraI) from reportemantenimiento where StatusRefacciones='1' ") != DBNull.Value) ? v.getaData("select min(FechaHoraI) from reportemantenimiento where StatusRefacciones='1' ") : DateTime.Today);
+
+            dtpFechaDe.MaxDate = dtpFechaA.MaxDate = Convert.ToDateTime((v.getaData("select max(FechaHoraI) from reportemantenimiento where StatusRefacciones='1'") != DBNull.Value) ? v.getaData("select max(FechaHoraI) from reportemantenimiento where StatusRefacciones='1'") : DateTime.Today);
             cargarUnidad(); // cargamos las unidades en el comboBox de busqueda por unidad
             Persona_entrego();
             Mecanico_solicito();
@@ -191,42 +213,43 @@ namespace controlFallos
             }
             th.Abort();
         }
-        void Mostrar()
-        {
-            privilegios();
-            if (pinsertar)
-            {
-                GpbAlmacen.Visible = LblNota.Visible = LblNota1.Visible = tbReportes.Visible = tbRefacciones.Visible = true;
-                tbRefacciones.Size = new Size(592, 360);
-                tbReportes.Size = new Size(1905, 479);
-            }
-            if (pinsertar && !peditar && !pconsultar)
-            {
-                LblNota.Location = new Point(700, 348);
-                LblNota1.Location = new Point(720, 348);
-                LblNota1.Text = "DEBE SELECCIONAR UN REPORTE DE LA TABLA PARA LLENAR LOS DATOS";
-            }
-            if (peditar)
-                tbReportes.Visible = tbRefacciones.Visible = LblNota.Visible = LblNota1.Visible = btnEditarReg.Visible = LblEditarR.Visible = true;
-            if (pconsultar)
-            {
-                tbReportes.Visible = tbRefacciones.Visible = GpbBusquedas.Visible = LblNota.Visible = LblNota1.Visible = true;
-                tbRefacciones.Size = new Size(592, 342);
-                tbReportes.Size = new Size(1307, 479);
-            }
-            if (pconsultar && !pinsertar && !peditar)
-            {
-                LblNota.Location = new Point(600, 348);
-                LblNota1.Location = new Point(646, 348);
-                LblNota1.Text = "PARA CONSULTAR LA INFORMACIÓN DE DOBLE CLIC SOBRE EL REPORTE EN LA TABLA.";
-            }
-            if (peditar && pinsertar && pconsultar)
-            {
-                LblPDF.Visible = btnPdf.Visible = true;
-                LblNota1.Text = "PARA CONSULTAR O EDITAR LA INFORMACIÓN DE DOBLE CLIC SOBRE EL REPORTE EN LA TABLA.";
-            }
-        }
-
+        //ORIGINAL
+         void Mostrar()
+         {
+             privilegios();
+             if (pinsertar)
+             {
+                 GpbAlmacen.Visible = LblNota.Visible = LblNota1.Visible = tbReportes.Visible = tbRefacciones.Visible = true;
+                 tbRefacciones.Size = new Size(592, 360);
+                 tbReportes.Size = new Size(1905, 479);
+             }
+             if (pinsertar && !peditar && !pconsultar)
+             {
+                 LblNota.Location = new Point(700, 348);
+                 LblNota1.Location = new Point(720, 348);
+                 LblNota1.Text = "DEBE SELECCIONAR UN REPORTE DE LA TABLA PARA LLENAR LOS DATOS";
+             }
+             if (peditar)
+                 tbReportes.Visible = tbRefacciones.Visible = LblNota.Visible = LblNota1.Visible = btnEditarReg.Visible = LblEditarR.Visible = true;
+             if (pconsultar)
+             {
+                 tbReportes.Visible = tbRefacciones.Visible = GpbBusquedas.Visible = LblNota.Visible = LblNota1.Visible = true;
+                 tbRefacciones.Size = new Size(592, 342);
+                 tbReportes.Size = new Size(1307, 479);
+             }
+             if (pconsultar && !pinsertar && !peditar)
+             {
+                 LblNota.Location = new Point(600, 348);
+                 LblNota1.Location = new Point(646, 348);
+                 LblNota1.Text = "PARA CONSULTAR LA INFORMACIÓN DE DOBLE CLIC SOBRE EL REPORTE EN LA TABLA.";
+             }
+             if (peditar && pinsertar && pconsultar)
+             {
+                 LblPDF.Visible = btnPdf.Visible = true;
+                 LblNota1.Text = "PARA CONSULTAR O EDITAR LA INFORMACIÓN DE DOBLE CLIC SOBRE EL REPORTE EN LA TABLA.";
+             }
+         }
+       
         public void LimpiarBusqueda()//Metodo para limpiar todos los campos que se encuentrane en la sección de busqueda.
         {
             txtBuscFolio.Clear();
@@ -392,6 +415,7 @@ namespace controlFallos
                 {
                     MessageBox.Show("Se agregaron las refacciones satisfactoriamente ".ToUpper() + DateTime.Now.ToLongDateString().ToUpper() + " " + DateTime.Now.ToLongTimeString().ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     CargarDatos();
+                    limFolioFact();
                     ocultar_botones();
                     LimpiarReporteTri();
                 }
@@ -418,15 +442,17 @@ namespace controlFallos
                 sql.ExecuteNonQuery();
 
                 // consulta para insertar los datos a la base de datos
-                MySqlCommand guardar = new MySqlCommand("insert into reportetri (idreportemfkreportemantenimiento,FolioFactura,FechaEntrega,PersonaEntregafkcPersonal,ObservacionesTrans,empresa) VALUES ('" + Convert.ToInt32(lblidreporte.Text) + "','" + Convert.ToInt32(txtFolioFactura.Text.Trim()) + "',curdate(), '" + Convert.ToInt32(IdDispenso) + "','" + txtObservacionesT.Text.Trim() + "','" + empresa + "') ;", v.c.dbconection());
+                MySqlCommand guardar = new MySqlCommand("insert into reportetri (idreportemfkreportemantenimiento,FechaEntrega,PersonaEntregafkcPersonal,ObservacionesTrans,empresa) VALUES ('" + Convert.ToInt32(lblidreporte.Text) + "', curdate(), '" + Convert.ToInt32(IdDispenso) + "','" + txtObservacionesT.Text.Trim() + "','" + empresa + "') ;", v.c.dbconection());
                 guardar.ExecuteNonQuery();
                 v.c.dbconection().Close();
                 MessageBox.Show("Registro guardado con exito ".ToUpper() + DateTime.Now.ToLongDateString().ToUpper() + " " + DateTime.Now.ToLongTimeString().ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 //    Modificacion_Crear(lblFolio.Text);
                 //insertar_refacciones(lblFolio.Text);
                 LimpiarReporteTri();
+                limFolioFact();
                 CargarDatos();
                 lblidreporte.Text = "";
+
                 //}
             }
             catch (Exception ex) //excepción en caso de que no se pueda guardar el reporte
@@ -449,7 +475,9 @@ namespace controlFallos
         {
             try
             {
-                if (v.camposAlmacen(txtFolioFactura.Text, txtDispenso.Text, lblFechaEntrega.Text, empresa, area, idrepor))
+                //comente la linea 4323, campo : folio, camposAlmacen();
+                //if (v.camposAlmacen(txtFolioFactura.Text, txtDispenso.Text, lblFechaEntrega.Text, empresa, area, idrepor))
+                if (v.camposAlmacen(txtDispenso.Text, lblFechaEntrega.Text, empresa, area, idrepor))
                 {
                     if (tbRefacciones.Rows.Count == 0)
                     {
@@ -476,17 +504,31 @@ namespace controlFallos
                                 }
                                 else
                                 {
-                                    GuardarRegistro();//Mandamos llamar el metodo GuardarRegisro.
-                                    LimpiarReporteTri();
+                                    if (LBxRefacc.Items.Count > 0)
+                                    {
+                                        GuardarRegistro();//Mandamos llamar el metodo GuardarRegisro.
+                                        LimpiarReporteTri();
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("No se puede guardar el registro, Requiere folio de factura", "SIN FOLIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    }
                                 }
                             }
                             DR1.Close();
                         }
                         else
                         {
-                            GuardarRegistro();//Mandamos llamar el metodo GuardarRegisro.
-                            LimpiarReporteTri();
-                            btnGuardar.Enabled = false;
+                            if (LBxRefacc.Items.Count > 0)
+                            {
+                                GuardarRegistro();//Mandamos llamar el metodo GuardarRegisro.
+                                LimpiarReporteTri();
+                                btnGuardar.Enabled = false;
+                            }
+                            else
+                            {
+                                MessageBox.Show("No se puede actualizar, Requiere folio de factura", "SIN FOLIOS", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
                         }
                     }
                 }
@@ -529,6 +571,8 @@ namespace controlFallos
         }
         public void CargarRefacciones()
         {
+            LBxRefacc.DataSource = null;
+            conteoListBoxAnt = 0;
             tbRefacciones.ClearSelection();
             //consulta para obtener el id del reporte de supervisión
             MySqlCommand cmd = new MySqlCommand("Select t1.idreportesupervicion as id  from reportesupervicion as t1 inner join reportemantenimiento as t2 on t2.FoliofkSupervicion=t1.idreportesupervicion Where t1.Folio='" + lblFolio.Text + "'", v.c.dbconection());
@@ -537,6 +581,7 @@ namespace controlFallos
             if (dr1.Read())
             {
                 lblidreporte.Text = ((Convert.ToString(dr1["id"])));
+                cargaList();
             }
             else
             {
@@ -558,36 +603,38 @@ namespace controlFallos
                 lblUnidad.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[1].Value);
                 lblFechaSolicitud.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[2].Value);
                 lblMecanicoSolicita.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[3].Value);
+                //
                 statusDeMantenimiento = v.getaData("SELECT t1.Estatus FROM reportemantenimiento as t1 inner join reportesupervicion as t2 on t1.FoliofkSupervicion=t2.idReporteSupervicion where t2.folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "'").ToString() ?? "SIN ESTATUS";
                 MySqlCommand existencia = new MySqlCommand("Select T1.idreportemfkreportemantenimiento from reportetri as T1 inner join reportesupervicion as t2 on t2.idreportesupervicion=T1.idreportemfkreportemantenimiento where t2.folio='" + lblFolio.Text + "'", v.c.dbconection());
                 MySqlDataReader dtr1 = existencia.ExecuteReader();
                 if (dtr1.Read())
                 {
-
                     idrepor = getaData("SELECT idReporteTransinsumos FROM REPORTETRI AS T1 INNER JOIN REPORTESUPERVICION AS T2 ON T2.IDREPORTESUPERVICION=T1.idreportemfkreportemantenimiento WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='" + empresa + "'").ToString();
                     nuevo_reporte = true;
                 }
                 //Pasamos los datos del datagridview a labels, textbox,comboBox
                 if (bandera_e && !bandera_c)
                 {
+                    LBxRefacc.DataSource = null;
                     btnGuardar.Visible = false;
                     LblGuardar.Visible = false;
                     btnPdf.Visible = true;
                     LblPDF.Visible = true;
-                    if ((Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[5].Value) == ""))
+                    
+                    if ((Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[4].Value) == ""))
                     {
                         lblFechaEntrega.Text = DateTime.Now.ToLongDateString().ToUpper();
                     }
                     else
                     {
-                        lblFechaEntrega.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[5].Value).ToUpper();
+                        lblFechaEntrega.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[4].Value).ToUpper();
                     }
-                    txtFolioFactura.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[4].Value);
-                    lblPersonaDis.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[6].Value);
-                    txtObservacionesT.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[7].Value);
-                    per_d = tbReportes.Rows[e.RowIndex].Cells[6].Value.ToString().Trim();
-                    obser_t = tbReportes.Rows[e.RowIndex].Cells[7].Value.ToString().Trim();
-                    fol_f = tbReportes.Rows[e.RowIndex].Cells[4].Value.ToString();
+                    //txtFolioFactura.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[4].Value);
+                    lblPersonaDis.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[5].Value);
+                    txtObservacionesT.Text = Convert.ToString(tbReportes.Rows[e.RowIndex].Cells[6].Value);
+                    per_d = tbReportes.Rows[e.RowIndex].Cells[5].Value.ToString().Trim();
+                    obser_t = tbReportes.Rows[e.RowIndex].Cells[6].Value.ToString().Trim();
+                    //fol_f = tbReportes.Rows[e.RowIndex].Cells[4].Value.ToString();
                     MySqlCommand cmdestatus = new MySqlCommand("Select UPPER(t1.Estatus) as Estatus from reportemantenimiento as t1 inner join reportesupervicion as t2 on t1.FoliofkSupervicion=t2.idreportesupervicion Where t2.Folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "' ", v.c.dbconection());
                     MySqlDataReader dtr = cmdestatus.ExecuteReader();
                     string status;
@@ -619,8 +666,9 @@ namespace controlFallos
                             tbRefacciones.Columns.Add("cantentre", "CANTIDAD ENTREGADA");
                             tbRefacciones.Columns.Add("status", "ESTATUS DE REFACCIÓN");
                             tbRefacciones.Columns.Add("cantfalta", "CANTIDAD FALTANTE");
+                            tbRefacciones.Columns.Add("retorno", "RETORNO");
                             //conuslta para mostrar las refacciones solicitadas y saber su estatus
-                            string sql = "select t1.idPedRef,UPPER(t2.codrefaccion) as 'CÓDIGO DE REFACCIÓN',UPPER(t2.nombreRefaccion) as 'NOMBRE DE REFACIÓN',sum(t1.Cantidad) as 'CANTIDAD SOLICITADA',sum(t1.CantidadEntregada) as 'CANTIDAD ENTREGADA', UPPER(t1.EstatusRefaccion) as 'ESTATUS DE REFACCIÓN' ,Coalesce(t1.cantidad-t1.CantidadEntregada,t1.cantidad) as 'CANTIDAD FALTANTE' from pedidosrefaccion as t1 inner join crefacciones as t2 on t1.RefaccionfkCRefaccion=t2.idrefaccion inner join reportesupervicion as t3 on t1.FolioPedfkSupervicion=t3.idreportesupervicion where t3.folio='" + lblFolio.Text + "' group by(t2.codrefaccion)";
+                            string sql = "select t1.idPedRef,UPPER(t2.codrefaccion) as 'CÓDIGO DE REFACCIÓN',UPPER(t2.nombreRefaccion) as 'NOMBRE DE REFACIÓN',sum(t1.Cantidad) as 'CANTIDAD SOLICITADA',sum(t1.CantidadEntregada) as 'CANTIDAD ENTREGADA', UPPER(t1.EstatusRefaccion) as 'ESTATUS DE REFACCIÓN' ,Coalesce(t1.cantidad-t1.CantidadEntregada,t1.cantidad) as 'CANTIDAD FALTANTE', UPPER((select if(envio='0', '', if(seen='0', 'Ver', if(AutorizaAlmacen ='0', 'Evaluando', if(AutorizaAlmacen ='1', 'Correcto', 'Incorrecto')))) from refacciones_standby as x1 where t1.idpedRef = x1.refaccionfkpedidosRefaccion)) as retorno from pedidosrefaccion as t1 inner join crefacciones as t2 on t1.RefaccionfkCRefaccion=t2.idrefaccion inner join reportesupervicion as t3 on t1.FolioPedfkSupervicion=t3.idreportesupervicion where t3.folio='" + lblFolio.Text + "' group by(t2.codrefaccion)";
 
                             DataTable dt = (DataTable)v.getData(sql);
                             int numFilas = dt.Rows.Count;
@@ -642,9 +690,10 @@ namespace controlFallos
                             tbRefacciones.Columns.Add("status", "ESTATUS DE REFACCIÓN");
                             tbRefacciones.Columns.Add("cantentre", "CANTIDAD ENTREGADA");
                             tbRefacciones.Columns.Add("cantfalta", "CANTIDAD FALTANTE");
+                            tbRefacciones.Columns.Add("retorno", "RETORNO");
                             tbRefacciones.DataSource = null;
                             //conuslta para mostrar las refacciones solicitadas y saber su estatus
-                            string sql = "SELECT T1.idPedRef, UPPER(T3.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t3.nombreRefaccion)as 'NOMBRE DE REFACCIÓN',T1.Cantidad As 'CANTIDAD SOLICITADA',(select if(T3.existencias<0,'0',T3.existencias)) as 'CANTIDAD EN EXISTENCIAS' ,(if(t1.Cantidad=t1.CantidadEntregada,'EXISTENCIA',if(t3.existencias>0 && t3.existencias<(t1.Cantidad-t1.CantidadEntregada),'INCOMPLETO',if(t3.existencias>=(t1.Cantidad-t1.CantidadEntregada),'EXISTENCIA',t1.EstatusRefaccion)))) as 'ESTATUS DE REFACCIÓN',COALESCE(T1.CantidadEntregada,'0')as 'CANTIDAD ENTREGADA',(T1.Cantidad-T1.CantidadEntregada) as 'CANTIDAD FALTANTE' FROM pedidosrefaccion AS T1  INNER JOIN crefacciones AS T3 ON T1.RefaccionfkCRefaccion=T3.idrefaccion INNER JOIN reportesupervicion AS T4 ON t4.idReporteSupervicion=T1.FolioPedfkSupervicion WHERE t4.Folio='" + lblFolio.Text + "' and (t1.EstatusRefaccion is not null)";
+                            string sql = "SELECT T1.idPedRef, UPPER(T3.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t3.nombreRefaccion)as 'NOMBRE DE REFACCIÓN',T1.Cantidad As 'CANTIDAD SOLICITADA',(select if(T3.existencias<0,'0',T3.existencias)) as 'CANTIDAD EN EXISTENCIAS' ,(if(t1.Cantidad=t1.CantidadEntregada,'EXISTENCIA',if(t3.existencias>0 && t3.existencias<(t1.Cantidad-t1.CantidadEntregada),'INCOMPLETO',if(t3.existencias>=(t1.Cantidad-t1.CantidadEntregada),'EXISTENCIA',t1.EstatusRefaccion)))) as 'ESTATUS DE REFACCIÓN',COALESCE(T1.CantidadEntregada,'0') as 'CANTIDAD ENTREGADA',(T1.Cantidad-T1.CantidadEntregada) as 'CANTIDAD FALTANTE', UPPER((select if(envio='0', '', if(seen='0', 'Ver', if(AutorizaAlmacen ='0', 'Evaluando', if(AutorizaAlmacen ='1', 'Correcto', 'Incorrecto')))) from refacciones_standby as x1 where t1.idpedRef = x1.refaccionfkpedidosRefaccion)) as retorno FROM pedidosrefaccion AS T1  INNER JOIN crefacciones AS T3 ON T1.RefaccionfkCRefaccion=T3.idrefaccion INNER JOIN reportesupervicion AS T4 ON t4.idReporteSupervicion=T1.FolioPedfkSupervicion WHERE t4.Folio='" + lblFolio.Text + "' and (t1.EstatusRefaccion is not null)";
                             DataTable dt = (DataTable)v.getData(sql);
                             int numFilas = dt.Rows.Count;
                             for (int i = 0; i < numFilas; i++)
@@ -653,7 +702,7 @@ namespace controlFallos
                             }
                             tbRefacciones.Visible = true;
                             //conuslta para mostrar las refacciones solicitadas y saber su estatus
-                            string sql1 = "SELECT T1.idPedRef,UPPER(T3.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t3.nombreRefaccion) as 'NOMBRE DE REFACCIÓN',T1.Cantidad As 'CANTIDAD SOLICITADA',(select if(T3.existencias<0,'0',T3.existencias)) as 'CANTIDAD EN EXISTENCIAS' ,(select if(T3.existencias<=0,'SIN EXISTENCIA',(if(t3.existencias >0 && t3.existencias < t1.cantidad,'INCOMPLETO','EXISTENCIA')) )) as 'ESTATUS DE REFACCIÓN',COALESCE(T1.CantidadEntregada,'0') as 'CANTIDAD ENTREGADA',(Select if(T1.cantidad>t3.existencias,(T1.cantidad-t3.existencias),(t1.cantidad-t1.cantidad))) as 'CANTIDAD FALTANTE' FROM pedidosrefaccion AS T1  INNER JOIN crefacciones AS T3 ON T1.RefaccionfkCRefaccion=T3.idrefaccion INNER JOIN reportesupervicion AS T4 ON t4.idReporteSupervicion=T1.FolioPedfkSupervicion WHERE t4.Folio='" + lblFolio.Text + "' and (T1.EstatusRefaccion is null  )";
+                            string sql1 = "SELECT T1.idPedRef,UPPER(T3.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t3.nombreRefaccion) as 'NOMBRE DE REFACCIÓN',T1.Cantidad As 'CANTIDAD SOLICITADA',(select if(T3.existencias<0,'0',T3.existencias)) as 'CANTIDAD EN EXISTENCIAS' ,(select if(T3.existencias<=0,'SIN EXISTENCIA',(if(t3.existencias >0 && t3.existencias < t1.cantidad,'INCOMPLETO','EXISTENCIA')) )) as 'ESTATUS DE REFACCIÓN',COALESCE(T1.CantidadEntregada,'0') as 'CANTIDAD ENTREGADA',(Select if(T1.cantidad>t3.existencias,(T1.cantidad-t3.existencias),(t1.cantidad-t1.cantidad))) as 'CANTIDAD FALTANTE', UPPER((select if(envio='0', '', if(seen='0', 'VER', if(AutorizaAlmacen ='0', 'Evaluando', if(AutorizaAlmacen ='1', 'Correcto', 'Incorrecto')))) from refacciones_standby as x1 where t1.idpedRef = x1.refaccionfkpedidosRefaccion)) as retorno FROM pedidosrefaccion AS T1  INNER JOIN crefacciones AS T3 ON T1.RefaccionfkCRefaccion=T3.idrefaccion INNER JOIN reportesupervicion AS T4 ON t4.idReporteSupervicion=T1.FolioPedfkSupervicion WHERE t4.Folio='" + lblFolio.Text + "' and (T1.EstatusRefaccion is null  )";
                             DataTable dt1 = (DataTable)v.getData(sql1);
                             int numFilas1 = dt1.Rows.Count;
                             for (int i = 0; i < numFilas1; i++)
@@ -675,6 +724,14 @@ namespace controlFallos
                             }
                             else
                             {
+                                /*0 =  'Folio', 
+                     *1 =  'Unidad' ,
+                     *2 = 'Fecha De Solicitud', 
+                     *3 = 'Mecánico Que Solicita',
+                     *4 = 'Folio De Factura' ,
+                     *5 = 'Fecha De Entrega',
+                     *6 = 'Persona Que Entrego Refacción',
+                     *7 = 'Observaciones De Almacen';*/
                                 foreach (DataGridViewRow row in tbRefacciones.Rows)
                                 {
                                     Can_s = row.Cells[3].Value.ToString();
@@ -701,6 +758,7 @@ namespace controlFallos
                     }
                     dtr.Close();
                     CargarRefacciones();
+
                     //COnsulta para obtener nombre y contraseña del almacenista
                     MySqlCommand cmd1 = new MySqlCommand("select t1.password,t2.nombres, t2.idpersona as id from datosistema AS t1 inner join cpersonal AS t2 on t2.idpersona=t1.usuariofkcpersonal  where concat(t2.Appaterno,' ',t2.ApMaterno,' ',t2.nombres)='" + lblPersonaDis.Text + "' and t2.empresa='" + empresa + "'", v.c.dbconection());
                     MySqlDataReader dr2 = cmd1.ExecuteReader();
@@ -717,28 +775,34 @@ namespace controlFallos
                     v.c.dbconection().Close();
                     dr2.Close();
                 }
+                v.c.insertar("update refacciones_standby as t1 inner join pedidosrefaccion as t2 on t1.refaccionfkpedidosRefaccion = t2.idpedref inner join reportesupervicion as t3 on t2.folioPedfkSupervicion=t3.idreportesupervicion set t1.seen = '1' where t3.Folio = '" + lblFolio.Text + "'");
             }
+            idFolioFacturaSeleccionada = 0;
+            //limFolioFact();
+            txtFolioFactura.Text = ""; numUpDownDE.Value = numUpDownHASTA.Value = idFolioFacturaSeleccionada = indexAnteriork = 0; xkList = false;
         }
         string id, folio_f, fecha_d, pers_d, obser, est;
         void verifica_modificaciones()
         {
-            DialogResult respuesta;
-            if (!string.IsNullOrWhiteSpace(txtFolioFactura.Text) || !string.IsNullOrWhiteSpace(txtDispenso.Text))
+            DialogResult respuesta;//LBxRefacc
+            //if (!string.IsNullOrWhiteSpace(txtFolioFactura.Text) || !string.IsNullOrWhiteSpace(txtDispenso.Text))
+            if ((LBxRefacc.Items.Count > 0) || !string.IsNullOrWhiteSpace(txtDispenso.Text))
             {
-                MySqlCommand modificaciones = new MySqlCommand("SET lc_time_names = 'es_ES';SELECT T1.IDREPORTETRANSINSUMOS AS ID, T1.FolioFactura AS FOLIO,upper(Date_format(T1.FechaEntrega,'%W %d de %M del %Y')) AS FECHA,(SELECT upper(CONCAT(X1.ApPaterno,' ',X1.ApMaterno,' ',X1.nombres)) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS DISPENSO ,UPPER(T1.ObservacionesTrans) AS OBSERVACIONES ,T3.Estatus AS ESTATUS FROM reportetri AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.idreportemfkreportemantenimiento INNER JOIN REPORTEMANTENIMIENTO AS T3 ON T2.IDREPORTESUPERVICION=T3.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';", v.c.dbconection());
+                //MySqlCommand modificaciones = new MySqlCommand("SET lc_time_names = 'es_ES';SELECT T1.IDREPORTETRANSINSUMOS AS ID, T1.FolioFactura AS FOLIO,upper(Date_format(T1.FechaEntrega,'%W %d de %M del %Y')) AS FECHA,(SELECT upper(CONCAT(coalesce(X1.ApPaterno,''),' ',coalesce(X1.ApMaterno,''),' ',coalesce(X1.nombres,''))) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS DISPENSO ,UPPER(T1.ObservacionesTrans) AS OBSERVACIONES ,T3.Estatus AS ESTATUS FROM reportetri AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.idreportemfkreportemantenimiento INNER JOIN REPORTEMANTENIMIENTO AS T3 ON T2.IDREPORTESUPERVICION=T3.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';", v.c.dbconection());
+                MySqlCommand modificaciones = new MySqlCommand("SET lc_time_names = 'es_ES';SELECT T1.IDREPORTETRANSINSUMOS AS ID,upper(Date_format(T1.FechaEntrega,'%W %d de %M del %Y')) AS FECHA,(SELECT upper(CONCAT(coalesce(X1.ApPaterno,''),' ',coalesce(X1.ApMaterno,''),' ',coalesce(X1.nombres,''))) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS DISPENSO ,UPPER(T1.ObservacionesTrans) AS OBSERVACIONES ,T3.Estatus AS ESTATUS FROM reportetri AS T1 INNER JOIN reportesupervicion AS T2 ON T2.IDREPORTESUPERVICION=T1.idreportemfkreportemantenimiento INNER JOIN REPORTEMANTENIMIENTO AS T3 ON T2.IDREPORTESUPERVICION=T3.FoliofkSupervicion WHERE T2.FOLIO='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';", v.c.dbconection());
                 MySqlDataReader Dr = modificaciones.ExecuteReader();
                 if (Dr.Read())
                 {
                     id = Convert.ToString(Dr["ID"]);
-                    folio_f = Convert.ToString(Dr["FOLIO"]);
+                    //folio_f = Convert.ToString(Dr["FOLIO"]);
                     fecha_d = Convert.ToString(Dr["FECHA"]);
                     pers_d = Convert.ToString(Dr["DISPENSO"]);
                     obser = Convert.ToString(Dr["OBSERVACIONES"]);
                     est = Dr["ESTATUS"].ToString();
 
-                    if ((folio_f != txtFolioFactura.Text || fecha_d != lblFechaEntrega.Text || pers_d != lblPersonaDis.Text || obser != txtObservacionesT.Text) && ((est != "LIBERADA") || (est == "LIBERADA" && (pinsertar && pconsultar && peditar))))
+                    //if ((folio_f != txtFolioFactura.Text || fecha_d != lblFechaEntrega.Text || pers_d != lblPersonaDis.Text || obser != txtObservacionesT.Text) && ((est != "LIBERADA") || (est == "LIBERADA" && (pinsertar && pconsultar && peditar))))
+                    if ((fecha_d != lblFechaEntrega.Text || pers_d != lblPersonaDis.Text || obser != txtObservacionesT.Text) && ((est != "LIBERADA") || (est == "LIBERADA" && (pinsertar && pconsultar && peditar))))
                     {
-
                         respuesta = MessageBox.Show("¿Desea guardar las modificaciones?".ToUpper(), "ALERTA", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         if (respuesta == DialogResult.Yes)
                         {
@@ -769,6 +833,9 @@ namespace controlFallos
                 }
             }
         }
+
+
+
         DataGridViewCellEventArgs e = null;
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -776,6 +843,7 @@ namespace controlFallos
             {
                 if (e.RowIndex >= 0)
                 {
+                    limFolioFact();
                     habilitar();
                     bandera_e = true;
                     editar = false;
@@ -885,7 +953,6 @@ namespace controlFallos
             exportar.Start();
         }
         //*********************************Animación de Botones************************************
-
         private void TRI_FormClosing(object sender, FormClosingEventArgs e)
         {
             hilo.Abort();
@@ -908,9 +975,9 @@ namespace controlFallos
                         {
                             if (tbRefacciones.Rows[i].Cells[1].Value.ToString().Equals(tbRefacciones.Rows[e.RowIndex].Cells[1].Value.ToString()))
                             {
-                                double exist = Convert.ToDouble(tbRefacciones.Rows[e.RowIndex].Cells[4].Value);
-                                double cs = Convert.ToDouble(tbRefacciones.Rows[e.RowIndex].Cells[3].Value);
-                                double ce = Convert.ToDouble(tbRefacciones.Rows[e.RowIndex].Cells[6].Value);
+                                double exist = !string.IsNullOrWhiteSpace(tbRefacciones.Rows[e.RowIndex].Cells[4].Value.ToString()) ? Convert.ToDouble(tbRefacciones.Rows[e.RowIndex].Cells[4].Value) : 0;
+                                double cs = !string.IsNullOrWhiteSpace(tbRefacciones.Rows[e.RowIndex].Cells[3].Value.ToString()) ? Convert.ToDouble(tbRefacciones.Rows[e.RowIndex].Cells[3].Value) : 0;
+                                double ce = !string.IsNullOrWhiteSpace(tbRefacciones.Rows[e.RowIndex].Cells[6].Value.ToString()) ? Convert.ToDouble(tbRefacciones.Rows[e.RowIndex].Cells[6].Value) : 0;
                                 for (int j = 0; j < i; j++)
                                 {
                                     res = Convert.ToDouble(tbRefacciones.Rows[i].Cells[6].Value) == 0;
@@ -1012,9 +1079,295 @@ namespace controlFallos
             Nuevas_Refacciones();
         }
 
+        private void tbRefacciones_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string idRefk = "", Refaccion = "", codigo = "", cantReal = "";
+            if (e.RowIndex >= 0)
+            {
+                //select t2.Estatus from reportetri as t1 inner join reportemantenimiento as t2 on t1.idreportemfkreportemantenimiento=t2.foliofksupervicion where t1.idreportemfkreportemantenimiento='51'
+                if (v.getaData("select t2.Estatus from reportemantenimiento as t2 where t2.FoliofkSupervicion ='" + lblidreporte.Text + "'").ToString() != "3")
+                {
+                    // if (!string.IsNullOrWhiteSpace(tbRefacciones.Rows[e.RowIndex].Cells[8].Value.ToString()))
+                    //{
+                    codigo = tbRefacciones.Rows[e.RowIndex].Cells[1].Value.ToString();
+                        Refaccion = tbRefacciones.Rows[e.RowIndex].Cells[2].Value.ToString();
+                        cantReal = tbRefacciones.Rows[e.RowIndex].Cells[3].Value.ToString();
+                    //RetornoMant = v.getaData("select cantRetorno from pedidosrefaccion as t1 inner join refacciones_standby as t2 on t1.idpedref = t2.refaccionfkpedidosrefaccion where t1.idpedref='" + idRefk + "' order by idStanby asc;").ToString();
+                    Retorno_de_material O = new Retorno_de_material(idUsuario, empresa, area, v, Refaccion, codigo, lblUnidad.Text,cantReal,lblFolio.Text);
+                        //RetornoAlmacen o = new RetornoAlmacen(empresa, area, v, Refaccion,  cantReal, Convert.ToInt32(idRefk));
+                        O.Owner = this;
+                        if (O.ShowDialog() == DialogResult.OK)
+                        {
+                            /*string responde = "", estatus = "", cantidad = "", observaciones = "", motivo = "";
+                            responde = o.id;
+                            estatus = o.cmbEstatus.SelectedIndex.ToString();
+                            cantidad = o.txtcantidad.Text;
+                            observaciones = o.txtObservacion.Text;
+                            motivo = o.txtMotivo.Text;
+                            v.c.insertar("update refacciones_standby set AutorizaAlmacen='" + estatus + "', FechaHoraR=now(), ObservacionAlm='" + observaciones + "', UsuarioR='" + responde + "', cantRetornoAlm='" + cantidad + "' where refaccionfkpedidosRefaccion='" + idRefk + "'");
+
+                            string cadenaModificacion = cantidad + ";" + estatus + ";" + responde + ";" + observaciones + ";";
+                            v.c.insertar("insert into modificaciones_sistema(form, idregistro, ultimamodificacion, Tipo, MotivoActualizacion, empresa, Area, usuariofkcpersonal, fechaHora) values('Retorno de Refacciones', '" + idRefk + "','" + cadenaModificacion + "','Confirmar Retorno','" + motivo + "','" + empresa + "','" + area + "','" + idUsuario + "',now())");*/
+                        }
+                   /* }
+                    else
+                    {
+                        MessageBox.Show("Sin Estatus de Retorno", "¡Acción no Realizada!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }*/
+                }
+                else
+                {
+                    MessageBox.Show("¡El reporte ha finalizado!", "Acción no Realizada", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void LBxRefacc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (xkList)
+            {
+                //if (LBxRefacc.Items.Count > 0)
+                if (LBxRefacc.SelectedIndex != -1)
+                {
+                    if (LBxRefacc.Items.Count > 0 && LBxRefacc.DataSource != null)
+                    {
+                        if (!string.IsNullOrWhiteSpace(LBxRefacc.SelectedItem.ToString()))
+                        {
+                            indexAnteriork = LBxRefacc.SelectedIndex;
+                            string item = LBxRefacc.SelectedItem.ToString();
+                            string[] slocal = item.Split(new char[] { ':', ' ', '-' });
+                            txtFolioFactura.Text = slocal[2].Trim();
+                            numUpDownDE.Value = Convert.ToInt32(slocal[5].Trim());
+                            numUpDownHASTA.Value = Convert.ToInt32(slocal[6].Trim());
+                            idFolioFacturaSeleccionada = Convert.ToInt32(v.getaData("SELECT t1.idFolioFac FROM foliosfacturas as t1 inner join reportemantenimiento as t2 on t1. Reportesupfkrepmantenimiento = t2.foliofksupervicion where t1.reportesupfkrepmantenimiento ='" + lblidreporte.Text + "' and t1.Folio='" + txtFolioFactura.Text + "' and t1.items='" + numUpDownDE.Value + "-" + numUpDownHASTA.Value + "';"));
+                        }
+                    }
+                }
+            }
+            xkList = true;
+        }
+
+        private void numUpDownHASTA_ValueChanged(object sender, EventArgs e)
+        {
+            if (numUpDownHASTA.Value > tbRefacciones.RowCount)
+            {
+                numUpDownHASTA.Value = 0;
+            }
+            habilitaGuardado();
+        }
+
+        private void numUpDownDE_ValueChanged(object sender, EventArgs e)
+        {
+            if (numUpDownDE.Value > numUpDownHASTA.Value && numUpDownDE.Value > tbRefacciones.RowCount)
+            {
+                numUpDownDE.Value = 0;
+            }
+            habilitaGuardado();
+        }
+
+        private void LBxRefacc_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            if (e.Index < 0) return;
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, Color.White, Color.Crimson);
+                e.DrawBackground();
+                e.Graphics.DrawString(LBxRefacc.Items[e.Index].ToString(), e.Font, Brushes.White, e.Bounds, StringFormat.GenericDefault);
+                e.DrawFocusRectangle();
+            }
+            else
+            {
+                e.DrawBackground();
+                e.Graphics.DrawString(LBxRefacc.Items[e.Index].ToString(), e.Font, Brushes.Black, e.Bounds, StringFormat.GenericDefault);
+                e.DrawFocusRectangle();
+            }
+        }
+
+        private void btnFolioFactura_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtFolioFactura.Text) && numUpDownDE.Value > 0 && numUpDownHASTA.Value > 0 && (numUpDownDE.Value <= numUpDownHASTA.Value))
+            {
+                compruebaDobles();
+            }
+            else
+            {
+                MessageBox.Show("Campos obligatorios, faltantes".ToUpper(), "ALERTA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        public void compruebaDobles()
+        {
+            string nuevaCadena = "Folio: " + txtFolioFactura.Text + " Item: " + numUpDownDE.Value + "-" + numUpDownHASTA.Value;
+            int index = LBxRefacc.FindString(nuevaCadena);
+            if (index != -1)
+            {
+                if (idFolioFacturaSeleccionada == 0)
+                {
+                    MessageBox.Show("Acción Inválida".ToUpper(), "ALERTA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    if (verificaLitbox())
+                    {
+                        //CHECAR
+                        enviaRegistro(1);
+                        MessageBox.Show("Información actualizada con éxito".ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        if (index == indexAnteriork)
+                        {
+                            enviaRegistro(1);
+                            MessageBox.Show("Información actualizada con éxito".ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Acción Inválida, verifica la información".ToUpper(), "ALERTA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    //comparar primero con actualización
+                }
+            }
+            else
+            {
+                if (idFolioFacturaSeleccionada == 0)
+                {
+                    //registro
+                    if (verificaLitbox())
+                    {
+                        enviaRegistro(0);
+                        MessageBox.Show("Información guardada con éxito".ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Acción Inválida, verifica la información".ToUpper(), "ALERTA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    //actualización
+                    if (verificaLitbox())
+                    {
+                        //CHECAR
+                        if (index == indexAnteriork)
+                        {
+                            enviaRegistro(1);
+                            MessageBox.Show("Información actualizada con éxito".ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Acción Inválida, verifica la información".ToUpper(), "ALERTA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Acción Inválida, verifica la información".ToUpper(), "ALERTA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
+            }
+        }
+
+
+        bool verificaLitbox()
+        {
+            string concatena = "";
+            bool actualiza = true;
+            int index = LBxRefacc.FindString(txtFolioFactura.Text);
+            for (int i = 0; i < LBxRefacc.Items.Count; i++)
+            {
+                string[] slocal = LBxRefacc.Items[i].ToString().Split(new char[] { ':', ' ', '-' });
+                int item = Convert.ToInt32(slocal[2].Trim()), RangoI = Convert.ToInt32(slocal[5].Trim()), RangoF = Convert.ToInt32(slocal[6].Trim());
+                if (IsBetween(Convert.ToInt32(numUpDownDE.Value), Convert.ToInt32(numUpDownHASTA.Value), RangoI, RangoF) && !xkList)
+                {
+                    return false;
+                }
+                else if (IsBetween(Convert.ToInt32(numUpDownDE.Value), Convert.ToInt32(numUpDownHASTA.Value), RangoI, RangoF) && xkList)
+                {
+                    concatena += i + ",";
+                }
+            }
+            actualiza = revisa(concatena);
+            return actualiza;
+        }
+
+        public bool revisa(string concatena)
+        {
+            string[] arrayLocal; bool xf = true;
+            if (!string.IsNullOrWhiteSpace(concatena))
+            {
+                arrayLocal = concatena.Split(',');
+                xf = (arrayLocal.Count() >= 1) ? !string.IsNullOrWhiteSpace(arrayLocal[0]) ? false : Convert.ToInt32(arrayLocal[0]) == indexAnteriork && idFolioFacturaSeleccionada != 0 ? true : false : true;
+            }
+            return xf;
+        }
+
+        public static bool IsBetween(int IniciaA, int FinalizaA, int IniciaB, int FinalizaB)
+        {
+            return (IniciaA <= FinalizaB) && (FinalizaA >= IniciaB) && (IniciaA <= FinalizaB) && (IniciaB <= FinalizaA);
+        }
+
+        public void enviaRegistro(int accions)
+        {
+            //idrepor = idReporteTransinsumos
+            string sql = (accions == 0) ? "Insert into foliosfacturas(Folio, items, reportesupfkrepmantenimiento, clasif) values('" + txtFolioFactura.Text + "', '" + numUpDownDE.Value + "-" + numUpDownHASTA.Value + "', '" + lblidreporte.Text + "', 'alm')" : "update foliosfacturas set folio='" + txtFolioFactura.Text + "', items='" + numUpDownDE.Value + "-" + numUpDownHASTA.Value + "' where idFolioFac='" + idFolioFacturaSeleccionada + "'";
+            v.c.insertar(sql);
+            string idmoment = (accions == 0) ? v.getaData("select idfoliofac from foliosfacturas where reportesupfkrepmantenimiento='" + lblidreporte.Text + "' and folio='" + txtFolioFactura.Text + "' and clasif!='mant' order by idfoliofac desc;").ToString() : idFolioFacturaSeleccionada.ToString();
+
+            //modificacionFolios(idmoment, txtfoliof.Text + ";" + numUpDownDE.Value + "-" + numUpDownHASTA.Value + ";" + idreporte, "Alta de folio Factura", "");
+            modificacionFolios(idmoment, txtFolioFactura.Text + ";" + numUpDownDE.Value + "-" + numUpDownHASTA.Value + ";" + lblidreporte.Text, ((accions == 0) ? "Alta" : "Actualización") + " de folio Factura Almacén", "");
+            limFolioFact();
+            LBxRefacc.DataSource = v.iniList("select t1.idFolioFac as id, concat('Folio: ', t1.Folio,' Item: ', t1.items) as text from foliosfacturas as t1 inner join reportemantenimiento as t2 on t1. Reportesupfkrepmantenimiento = t2.foliofksupervicion where t1.clasif!='mant' and reportesupfkrepmantenimiento='" + lblidreporte.Text + "'");
+        }
+
+        private void tbRefacciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (this.tbRefacciones.Columns[e.ColumnIndex].HeaderText.ToUpper() == "RETORNO")
+                e.CellStyle.BackColor = (e.Value.ToString() == "VER" ? Color.White : e.Value.ToString() == "EVALUANDO" ? Color.Aquamarine : e.Value.ToString() == "CORRECTO" ? Color.GreenYellow : e.Value.ToString() == "INCORRECTO" ? Color.Red : Color.LightSlateGray);
+        }
+
+        public void modificacionFolios(string idFolioFact, string ultimaModificacion, string tipo, string porquemodificacion)
+        {
+            var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area, motivoActualizacion) VALUES('Folio de Factura Almacén', " + idFolioFact + ",'" + ultimaModificacion + "','" + idUsuario + "',NOW(),'" + tipo + "','" + empresa + "','" + area + "', '" + porquemodificacion + "')");
+        }
+
+        private void GpbAlmacen_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        public int comparaAntesDespuesFolios()
+        {
+            //select count(idFolioFac) as id from foliosfacturas where clasif!='mant' and reportesupfkrepmantenimiento='' and folio!=''
+            for (int i = 0; i < dtList.Rows.Count;)
+            {
+                for (int j = 0; j < LBxRefacc.Items.Count; j++)
+                {
+                    string dtlocal = dtList.Rows[i]["text"].ToString();
+                    string listlocal = LBxRefacc.Items[i].ToString();
+                    if (!string.IsNullOrWhiteSpace(dtlocal) && !string.IsNullOrWhiteSpace(listlocal))
+                    {
+                        if (dtlocal != listlocal)
+                        {
+                            return 1;
+                        }
+                    }
+                    i++;
+                }
+            }
+            return 0;
+        }
+
+        private void btnCancelFact_Click(object sender, EventArgs e)
+        {
+            //limFolioFact();
+            txtFolioFactura.Text = ""; numUpDownDE.Value = numUpDownHASTA.Value = idFolioFacturaSeleccionada = indexAnteriork = 0; xkList = false;
+        }
+
+        void limFolioFact() { txtFolioFactura.Text = ""; numUpDownDE.Value = numUpDownHASTA.Value = idFolioFacturaSeleccionada = indexAnteriork = 0; xkList = false; LBxRefacc.DataSource = null; }
         public void Expota_PDF()
         {
-            string[] datos = v.getaData(" select upper(concat(t1.Folio,'|',(select concat(x2.identificador,LPAD(consecutivo,4,'0')) from cunidades as x1 inner join careas as x2 on x2.idarea=x1.areafkcareas where x1.idunidad=t1.UnidadfkCUnidades),'|',date_format(t2.FechaHoraI,'%W %d de %M del %Y'),'|',(select concat(coalesce(x3.ApPaterno,''),' ',coalesce(x3.ApMaterno,' '),' ',nombres) from cpersonal as x3 where x3.idpersona=t2.MecanicofkPersonal),'|',t3.FolioFactura,'|',date_format(FechaEntrega,'%W %d de %M del %Y'),'|',(select concat(coalesce(x4.ApPaterno,''),' ',coalesce(x4.ApMaterno,' '),' ',x4.nombres) from cpersonal as x4 where x4.idpersona=t3.PersonaEntregafkcPersonal),'|',t3.ObservacionesTrans)) as r from reportesupervicion as t1 inner join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion inner join reportetri as t3 on t3.idreportemfkreportemantenimiento=t1.idReporteSupervicion where t1.Folio='" + lblFolio.Text + "' and t2.empresa='" + empresa + "'").ToString().Split('|');
+            byte[] img;
+            string[] datos = v.getaData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';select upper(concat(coalesce(t1.Folio,''),'|',coalesce((select concat(x2.identificador,LPAD(consecutivo,4,'0')) from cunidades as x1 inner join careas as x2 on x2.idarea=x1.areafkcareas where x1.idunidad=t1.UnidadfkCUnidades),''),'|',date_format(t2.FechaHoraI,'%W %d de %M del %Y'),'|',coalesce((select concat(coalesce(x3.ApPaterno,''),' ',coalesce(x3.ApMaterno,' '),' ',coalesce(nombres,'')) from cpersonal as x3 where x3.idpersona=t2.MecanicofkPersonal),''),'|',date_format(FechaEntrega,'%W %d de %M del %Y'),'|',coalesce((select concat(coalesce(x4.ApPaterno,''),' ',coalesce(x4.ApMaterno,' '),' ',coalesce(x4.nombres,'')) from cpersonal as x4 where x4.idpersona=t3.PersonaEntregafkcPersonal),''),'|',coalesce(t3.ObservacionesTrans,''))) as r from reportesupervicion as t1 inner join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion inner join reportetri as t3 on t3.idreportemfkreportemantenimiento=t1.idReporteSupervicion where t1.Folio='" + lblFolio.Text + "' and t2.empresa='" + empresa + "'").ToString().Split('|');
             //Código para generación de archivo pdf
             Document doc = new Document(PageSize.LETTER);
             doc.SetMargins(20f, 20f, 10f, 10f);
@@ -1048,20 +1401,30 @@ namespace controlFallos
                     iTextSharp.text.Font arial = FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD, BaseColor.BLACK);
                     iTextSharp.text.Font arial2 = FontFactory.GetFont("Arial", 9, BaseColor.BLACK);
                     doc.Open();
-                    byte[] img = Convert.FromBase64String(v.tri);
+                    if (empresa == 2)
+                    {
+                        img = Convert.FromBase64String(v.tri);
+                    }
+                    else{
+                        img = Convert.FromBase64String(v.trainsumos);
+                    }
+                     
                     iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(img);
                     imagen.ScalePercent(24f);
                     imagen.SetAbsolutePosition(440f, 720f);
                     float percentage = 0.0f;
                     percentage = 150 / imagen.Width;
                     imagen.ScalePercent(percentage * 100);
-                    Chunk chunk = new Chunk("REPORTE TRI ALMACEN", FontFactory.GetFont("ARIAL", 20, iTextSharp.text.Font.BOLD));
+                    Chunk chunk = new Chunk("REPORTE  ALMACEN", FontFactory.GetFont("ARIAL", 20, iTextSharp.text.Font.BOLD));
                     doc.Add(imagen);
                     doc.Add(new Paragraph(chunk));
                     doc.Add(new Paragraph("                                    "));
                     PdfPTable tabla = new PdfPTable(2);
                     tabla.DefaultCell.Border = 0;
                     tabla.WidthPercentage = 100;
+                    /*
+                     t1.Folio,'|',UNIDAD,'|',FECHA Y HORA,'|',MECANICO,'|',FECHAHORA ENTREGA,'|',PERSONA QUE ENTREGA,'|',FolioFactura,'|',ObservacionesTrans
+                     */
                     tabla.AddCell(v.valorCampo("FOLIO DEL REPORTE", 1, 0, 0, arial));
                     tabla.AddCell(v.valorCampo("UNIDAD", 1, 0, 0, arial));
                     tabla.AddCell(v.valorCampo(datos[0], 1, 0, 0, arial2));
@@ -1072,20 +1435,42 @@ namespace controlFallos
                     tabla.AddCell(v.valorCampo(datos[2], 1, 0, 0, arial2));
                     tabla.AddCell(v.valorCampo(datos[3], 1, 0, 0, arial2));
                     tabla.AddCell(v.valorCampo("\n\n", 2, 0, 0, arial2));
-                    tabla.AddCell(v.valorCampo("FOLIO DE FACTURA", 1, 0, 0, arial));
+                    //tabla.AddCell(v.valorCampo("FOLIO DE FACTURA", 1, 0, 0, arial));
                     tabla.AddCell(v.valorCampo("FECHA DE ENTREGA", 1, 0, 0, arial));
+                    tabla.AddCell(v.valorCampo("PERSONA QUE ENTREGA", 2, 0, 0, arial));
                     tabla.AddCell(v.valorCampo(datos[4], 1, 0, 0, arial2));
                     tabla.AddCell(v.valorCampo(datos[5], 1, 0, 0, arial2));
                     tabla.AddCell(v.valorCampo("\n\n", 2, 0, 0, arial2));
-                    tabla.AddCell(v.valorCampo("PERSONA QUE ENTREGA", 2, 0, 0, arial));
-                    tabla.AddCell(v.valorCampo(datos[6], 2, 0, 0, arial2));
-                    tabla.AddCell(v.valorCampo("\n\n", 2, 0, 0, arial2));
                     tabla.AddCell(v.valorCampo("OBSERVACIONES", 2, 0, 0, arial));
-                    tabla.AddCell(v.valorCampo(datos[7], 2, 0, 0, arial2));
+                    tabla.AddCell(v.valorCampo(datos[6], 2, 0, 0, arial2));
                     tabla.AddCell(v.valorCampo("\n\n\n", 2, 0, 0, arial2));
-                    tabla.AddCell(v.valorCampo("REFACCIONES SOLICITADAS", 2, 1, 0, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD)));
-                    tabla.AddCell(v.valorCampo("\n\n\n", 2, 0, 0, arial2));
+
+                    tabla.AddCell(v.valorCampo("FOLIOS DE FACTURA ", 2, 1, 0, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD)));
+                    //tabla.AddCell(v.valorCampo("\n\n\n", 2, 0, 0, arial2));
+
+                    string olk = "FOLIO," +  v.getaData("select coalesce(group_concat(t1.folio),',') as Folio from foliosfacturas as t1 inner join reportemantenimiento as t2 on t1.reportesupfkrepmantenimiento= t2.foliofksupervicion inner join reportesupervicion as t3 on t3.idReporteSupervicion=t2.FoliofkSupervicion where t3.Folio='" + lblFolio.Text + "' and t2.empresa='" + empresa + "'").ToString();
+                    string[] arryFolios = olk.Split(',');
+                    PdfPTable datatable = new PdfPTable(1);
+                    datatable.WidthPercentage = 100;
+                    for (int qi = 0; qi < arryFolios.Length; qi++)
+                    {
+                        if (qi == 0)
+                        {
+                            datatable.AddCell(new Phrase("FOLIO", FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+                        }
+                        else
+                        {
+                            datatable.AddCell(new Phrase(arryFolios[qi], FontFactory.GetFont("Arial", 9, iTextSharp.text.Font.BOLD)));
+                        }
+                    }
+                    datatable.AddCell(v.valorCampo("\n\n", 2, 0, 0, arial2));
+                    
+
+
+                    //tabla.AddCell(v.valorCampo("REFACCIONES SOLICITADAS", 2, 1, 0, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD)));
+                    //tabla.AddCell(v.valorCampo("\n\n\n", 2, 0, 0, arial2));
                     doc.Add(tabla);
+                    doc.Add(datatable);
                     GenerarDocumento(doc);
                     doc.Close();
                     System.Diagnostics.Process.Start(filename);
@@ -1114,8 +1499,18 @@ namespace controlFallos
         public void GenerarDocumento(Document document)
         {
             int i, j;
+            iTextSharp.text.Font arial2 = FontFactory.GetFont("Arial", 9, BaseColor.BLACK);
+            PdfPTable tabla1 = new PdfPTable(2);
+            tabla1.DefaultCell.Border = 0;
+            tabla1.WidthPercentage = 100;
+            tabla1.AddCell(v.valorCampo("REFACCIONES SOLICITADAS", 2, 1, 0, FontFactory.GetFont("Arial", 14, iTextSharp.text.Font.BOLD)));
+            tabla1.AddCell(v.valorCampo("\n\n\n", 2, 0, 0, arial2));
+
+
             PdfPTable datatable = new PdfPTable(tbRefacciones.ColumnCount);
             datatable.DefaultCell.Padding = 4;
+            
+
             float[] headerwidths = GetTamañoColumnas(tbRefacciones);
             datatable.SetWidths(headerwidths);
             Color color = Color.PaleGreen;
@@ -1152,7 +1547,9 @@ namespace controlFallos
                 }
                 datatable.CompleteRow();
             }
+
             datatable.AddCell(observaciones);
+            document.Add(tabla1);
             document.Add(datatable);
         }
         public float[] GetTamañoColumnas(DataGridView dg)
@@ -1166,20 +1563,27 @@ namespace controlFallos
         }
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            if (editar && nuevo_reporte && peditar)
-            {
-                cont = v.Desencriptar(getaData("SELECT PASSWORD FROM DATOSISTEMA AS T1 INNER JOIN CPERSONAL AS T2 ON T2.IDPERSONA=T1.usuariofkcpersonal WHERE upper(concat(APPATERNO,' ',APMATERNO,' ',NOMBRES))='" + per_d + "'").ToString());
-                if ((obser_t != txtObservacionesT.Text.Trim() || fol_f != txtFolioFactura.Text || cont != txtDispenso.Text) && (!string.IsNullOrWhiteSpace(txtFolioFactura.Text) && !string.IsNullOrWhiteSpace(txtDispenso.Text)))
+                if (editar && nuevo_reporte && peditar)
                 {
-                    btnEditarReg.Visible = true;
-                    LblEditarR.Visible = true;
+                   /* cont = v.Desencriptar(getaData("SELECT PASSWORD FROM DATOSISTEMA AS T1 INNER JOIN CPERSONAL AS T2 ON T2.IDPERSONA=T1.usuariofkcpersonal WHERE upper(concat(coalesce(APPATERNO,''),' ',coalesce(APMATERNO,''),' ',coalesce(NOMBRES,'')))='" + per_d + "'").ToString());*/
+                    if ((obser_t != txtObservacionesT.Text.Trim() || cont != txtDispenso.Text) && (!string.IsNullOrWhiteSpace(txtDispenso.Text)) && comparaAntesDespuesFolios() == 0)
+                    {
+                        btnEditarReg.Visible = true;
+                        LblEditarR.Visible = true;
+                    }
+                    else
+                    {
+                        btnEditarReg.Visible = false;
+                        LblEditarR.Visible = false;
+                    }
+                    habilitaGuardado();
                 }
-                else
-                {
-                    btnEditarReg.Visible = false;
-                    LblEditarR.Visible = false;
-                }
-            }
+        }
+
+        void habilitaGuardado()
+        {
+
+            btnFolioFactura.Visible = !string.IsNullOrWhiteSpace(txtFolioFactura.Text) && numUpDownDE.Value > 0 && numUpDownHASTA.Value > 0 ? true : false;
         }
 
         bool exportando = false, est_expor = false;
@@ -1200,7 +1604,7 @@ namespace controlFallos
         {
             if (this.tbRefacciones.Columns[e.ColumnIndex].HeaderText == "ESTATUS DE REFACCIÓN")
                 e.CellStyle.BackColor = (e.Value.ToString() == "EXISTENCIA" ? Color.PaleGreen : e.Value.ToString() == "SIN EXISTENCIA" ? Color.LightCoral : Color.FromArgb(255, 144, 51));
-            if (this.tbRefacciones.Columns[e.ColumnIndex].HeaderText == "CANTIDAD FALTANTE")
+            if (this.tbRefacciones.Columns[e.ColumnIndex].HeaderText == "CANTIDAD FALTANTE" && !string.IsNullOrWhiteSpace(e.Value.ToString()))
             {
                 e.CellStyle.BackColor = (Convert.ToInt32(e.Value) == 0 ? Color.PaleGreen : Color.Khaki);
             }
@@ -1216,13 +1620,13 @@ namespace controlFallos
                 if (edita_valida && !B_Doble)
                 {
                     Nuevas_Refacciones();
-                    MySqlCommand actualizar = new MySqlCommand("update reportetri set FolioFactura='" + Convert.ToInt32(txtFolioFactura.Text) + "',PersonaEntregafkcPersonal='" + Convert.ToInt32(IdDispenso) + "', ObservacionesTrans='" + txtObservacionesT.Text.Trim() + "' WHERE idreportemfkreportemantenimiento='" + lblidreporte.Text + "'", v.c.dbconection());
+                    MySqlCommand actualizar = new MySqlCommand("update reportetri set PersonaEntregafkcPersonal='" + Convert.ToInt32(IdDispenso) + "', ObservacionesTrans='" + txtObservacionesT.Text.Trim() + "' WHERE idreportemfkreportemantenimiento='" + lblidreporte.Text + "'", v.c.dbconection());
                     actualizar.ExecuteNonQuery();
                     MessageBox.Show("Se actualizo el reporte y se validaron las refacciones satisfactoriamente ".ToUpper() + DateTime.Now.ToString().ToUpper(), "CORRECTO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    MySqlCommand actualizar = new MySqlCommand("update reportetri set FolioFactura='" + Convert.ToInt32(txtFolioFactura.Text) + "',PersonaEntregafkcPersonal='" + Convert.ToInt32(IdDispenso) + "', ObservacionesTrans='" + txtObservacionesT.Text.Trim() + "' WHERE idreportemfkreportemantenimiento='" + lblidreporte.Text + "'", v.c.dbconection());
+                    MySqlCommand actualizar = new MySqlCommand("update reportetri set PersonaEntregafkcPersonal='" + Convert.ToInt32(IdDispenso) + "', ObservacionesTrans='" + txtObservacionesT.Text.Trim() + "' WHERE idreportemfkreportemantenimiento='" + lblidreporte.Text + "'", v.c.dbconection());
                     actualizar.ExecuteNonQuery();
                     if (!mensaje)
                     {
@@ -1231,6 +1635,7 @@ namespace controlFallos
                     }
                 }
                 LimpiarReporteTri();
+                limFolioFact();
                 CargarDatos();
                 btnGuardar.Enabled = false;
                 v.c.dbconection().Close();
@@ -1256,100 +1661,102 @@ namespace controlFallos
         void boton_edita()
         {
             //validación de campos vacios
-            if (string.IsNullOrWhiteSpace(txtFolioFactura.Text))
+            //if (string.IsNullOrWhiteSpace(txtFolioFactura.Text))
+            //{
+            //    MessageBox.Show("El campo folio de factura se encuentra vacio", "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //}
+            //else
+            //{
+            if (string.IsNullOrWhiteSpace(txtDispenso.Text))
             {
-                MessageBox.Show("El campo folio de factura se encuentra vacio", "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El campo contraseña de usuario se encuentra vacio", "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                if (string.IsNullOrWhiteSpace(txtDispenso.Text))
+                if (string.IsNullOrWhiteSpace(lblFechaEntrega.Text))
                 {
-                    MessageBox.Show("El campo contraseña de usuario se encuentra vacio", "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("El campo fecha de entrega se encuentra vacio", "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    if (string.IsNullOrWhiteSpace(lblFechaEntrega.Text))
+                    //int folio = Convert.ToInt32(txtFolioFactura.Text);//validación folio mayor  a0
+                    //if (folio <= 0)
+                    //{
+                    //    MessageBox.Show("El folio de factura debe ser mayor a 0", "VERIFICAR FOLIO DE FACTURA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //}
+                    //else
+                    //{
+                    //consulta para obtener el nombre del almacenista cuando ingrese su contaseña
+                    MySqlCommand sql = new MySqlCommand("SELECT CONCAT(coalesce(t1.ApPaterno,''),' ',coalesce(t1.ApMaterno,''),' ',coalesce(t1.nombres,'')) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "'  AND t1.status='1' AND t2.status='1' and t1.empresa='" + empresa + "' ;", v.c.dbconection());
+                    MySqlDataReader cmd = sql.ExecuteReader();
+                    v.c.dbconection().Close();
+                    if (!cmd.Read())
                     {
-                        MessageBox.Show("El campo fecha de entrega se encuentra vacio", "CAMPO VACIO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("La contraseña de almacenista ingresada es incorrecta", "CONTRASEÑA INCORRECTA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        txtDispenso.Focus();
+                        txtDispenso.Clear();
                     }
                     else
                     {
-                        int folio = Convert.ToInt32(txtFolioFactura.Text);//validación folio mayor  a0
-                        if (folio <= 0)
+                        MySqlCommand ValidarEdiciones = new MySqlCommand("SELECT t2.folio as folio,T1.FolioFactura As Factura, (SELECT concat(coalesce(X1.ApPaterno,''),' ',coalesce(X1.ApMaterno,''),' ',coalesce(X1.nombres,'')) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS Dispenso, T1.ObservacionesTrans AS Obser FROM REPORTETRI AS T1 INNER JOIN reportesupervicion as t2 on idreportemfkreportemantenimiento=t2.idreportesupervicion WHERE t2.folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';", v.c.dbconection());
+                        MySqlDataReader DR = ValidarEdiciones.ExecuteReader();
+                        if (DR.Read())
                         {
-                            MessageBox.Show("El folio de factura debe ser mayor a 0", "VERIFICAR FOLIO DE FACTURA", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        else
-                        {
-                            //consulta para obtener el nombre del almacenista cuando ingrese su contaseña
-                            MySqlCommand sql = new MySqlCommand("SELECT CONCAT(t1.ApPaterno,' ',t1.ApMaterno,' ',t1.nombres) AS almacenista, t2.puesto,t1.idPersona,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND t2.puesto='Almacenista' AND t1.status='1' AND t2.status='1' and t1.empresa='" + empresa + "' ;", v.c.dbconection());
-                            MySqlDataReader cmd = sql.ExecuteReader();
-                            v.c.dbconection().Close();
-                            if (!cmd.Read())
+                            foliof = Convert.ToString(DR["Factura"]);
+                            dispenso = Convert.ToString(DR["Dispenso"]);
+                            observaciones = Convert.ToString(DR["Obser"]);
+
+                            if (comparaAntesDespuesFolios() == 0 && dispenso == lblPersonaDis.Text && observaciones == mayusculas(txtObservacionesT.Text.ToLower()))
                             {
-                                MessageBox.Show("La contraseña de almacenista ingresada es incorrecta", "CONTRASEÑA INCORRECTA", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                txtDispenso.Focus();
-                                txtDispenso.Clear();
+                                //Si no se modifica nada mandamos un mensaje diciendo que no se modifico nado
+                                MessageBox.Show("No se modificó ningún dato", "SIN MODIFICACIONES", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                DialogResult resultado;
+                                resultado = MessageBox.Show("¿Desea limpiar los campos?", "ADVERTENCIA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (resultado == DialogResult.Yes)
+                                {
+                                    LimpiarReporteTri();
+                                    txtFolioFactura.Enabled = true;
+                                    CargarDatos();
+                                    limFolioFact();
+                                }
                             }
                             else
                             {
-                                MySqlCommand ValidarEdiciones = new MySqlCommand("SELECT t2.folio as folio,T1.FolioFactura As Factura, (SELECT concat(X1.ApPaterno,' ',X1.ApMaterno,' ',X1.nombres) FROM cpersonal AS X1 WHERE X1.idPersona=T1.PersonaEntregafkcPersonal) AS Dispenso, T1.ObservacionesTrans AS Obser FROM REPORTETRI AS T1 INNER JOIN reportesupervicion as t2 on idreportemfkreportemantenimiento=t2.idreportesupervicion WHERE t2.folio='" + lblFolio.Text + "' and t1.empresa='" + empresa + "';", v.c.dbconection());
-                                MySqlDataReader DR = ValidarEdiciones.ExecuteReader();
-                                if (DR.Read())
-                                {
-                                    foliof = Convert.ToString(DR["Factura"]);
-                                    dispenso = Convert.ToString(DR["Dispenso"]);
-                                    observaciones = Convert.ToString(DR["Obser"]);
-
-                                    if (foliof == txtFolioFactura.Text && dispenso == lblPersonaDis.Text && observaciones == mayusculas(txtObservacionesT.Text.ToLower()))
-                                    {
-                                        //Si no se modifica nada mandamos un mensaje diciendo que no se modifico nado
-                                        MessageBox.Show("No se modificó ningún dato", "SIN MODIFICACIONES", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                                        DialogResult resultado;
-                                        resultado = MessageBox.Show("¿Desea limpiar los campos?", "ADVERTENCIA", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                                        if (resultado == DialogResult.Yes)
-                                        {
-                                            LimpiarReporteTri();
-                                            txtFolioFactura.Enabled = true;
-                                            CargarDatos();
-                                        }
-                                    }
-                                    else
-                                    {
-                                        if (foliof == txtFolioFactura.Text)
-                                        {
-                                            actualizar_datos();
-                                        }
-                                        else
-                                        {
-                                            MySqlCommand editar_folio = new MySqlCommand("select t1.FolioFactura as folio from reportetri as t1 inner join reportesupervicion as t2 on t1.idreportemfkreportemantenimiento= t2.idreportesupervicion where t1.Foliofactura='" + txtFolioFactura.Text + "' and t1.empresa='" + empresa + "'", v.c.dbconection());
-                                            MySqlDataReader DTR = editar_folio.ExecuteReader();
-                                            if (DTR.Read())
-                                            {
-                                                foliof = Convert.ToString(DTR["folio"]);
-                                            }
-                                            DTR.Close();
-                                            if (foliof == txtFolioFactura.Text)
-                                            {
-                                                MessageBox.Show("El folio  de factura ya existe, ingrese un folio diferente", "FOLIO DE FACTURA DUPLICADO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                                                txtFolioFactura.Focus();
-                                                txtFolioFactura.Clear();
-                                            }
-                                            else
-                                            {
-                                                actualizar_datos();
-                                                //consulta para actualizar los datos
-                                            }
-                                            v.c.dbconection().Close();
-                                        }
-                                    }
-                                    DR.Close();
-                                }
+                                actualizar_datos();
+                                //if (foliof == txtFolioFactura.Text)
+                                //{
+                                //    actualizar_datos();
+                                //}
+                                //else
+                                //{
+                                //    MySqlCommand editar_folio = new MySqlCommand("select t1.FolioFactura as folio from reportetri as t1 inner join reportesupervicion as t2 on t1.idreportemfkreportemantenimiento= t2.idreportesupervicion where t1.Foliofactura='" + txtFolioFactura.Text + "' and t1.empresa='" + empresa + "'", v.c.dbconection());
+                                //    MySqlDataReader DTR = editar_folio.ExecuteReader();
+                                //    if (DTR.Read())
+                                //    {
+                                //        foliof = Convert.ToString(DTR["folio"]);
+                                //    }
+                                //    DTR.Close();
+                                //    if (foliof == txtFolioFactura.Text)
+                                //    {
+                                //        MessageBox.Show("El folio  de factura ya existe, ingrese un folio diferente", "FOLIO DE FACTURA DUPLICADO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                //        txtFolioFactura.Focus();
+                                //        txtFolioFactura.Clear();
+                                //    }
+                                //    else
+                                //    {
+                                //        actualizar_datos();
+                                //        //consulta para actualizar los datos
+                                //    }
+                                //    v.c.dbconection().Close();
+                                //}
                             }
+                            DR.Close();
                         }
                     }
+                    //}
                 }
             }
+            //}
         }
 
         private void btnEditarReg_Click(object sender, EventArgs e)
@@ -1361,14 +1768,20 @@ namespace controlFallos
                 CargarDatos();
             }
             else
-                boton_edita();
+            {
+                if (conteoListBoxAnt >= LBxRefacc.Items.Count)
+                {
+                    boton_edita();
+                }
+            }
         }
         void Modificaciones_tabla(string observaciones)
         {
-            string sql = "INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Reporte de Almacen','" + idrepor + "',concat('" + foliof + ";',(Select idpersona from cpersonal where concat(ApPaterno, ' ', ApMaterno,' ',nombres)='" + dispenso + "'),';";
-            sql += (!string.IsNullOrWhiteSpace(observaciones) ? sql += observaciones : sql += "SIN OBSERVACIONES");
-            sql += "'),'" + idUsuario + "',NOW(),'Actualización de Reporte de Almacén','" + observaciones + "','2','2')";
-            MySqlCommand modificaciones = new MySqlCommand(sql, v.c.dbconection());
+            string info = "";
+            string sql = "INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Reporte de Almacen','" + idrepor + "',concat('" + foliof + "',';',(Select idpersona from cpersonal where concat(ApPaterno, ' ', ApMaterno,' ',nombres)='" + dispenso + "'),';";
+            info += (!string.IsNullOrWhiteSpace(observaciones) ? sql += observaciones : sql += "SIN OBSERVACIONES");
+            info += "'),'" + idUsuario + "',NOW(),'Actualización de Reporte de Almacén','" + observaciones + "','2','2')";
+            MySqlCommand modificaciones = new MySqlCommand(info, v.c.dbconection());
             var res = modificaciones.ExecuteNonQuery();
             v.c.dbconection().Close();
         }
@@ -1384,7 +1797,7 @@ namespace controlFallos
             {
                 if (Convert.ToInt32(v.getaData("select count(*) from cpersonal as t1 inner join puestos as t2 on t1.cargofkcargos=t2.idpuesto inner join datosistema as t3 on t3.usuariofkcpersonal=t1.idPersona where t3.password='" + v.Encriptar(txtDispenso.Text.Trim()) + "' and t1.empresa='" + empresa + "' and t1.area='" + area + "' and t1.status='1';")) > 0)
                 {
-                    string[] datos = v.getaData("select upper(concat(coalesce(t1.ApPaterno,''),' ',coalesce(t1.ApMaterno,''),' ',t1.nombres,'/',t1.idpersona)) from cpersonal as t1 inner join datosistema as t2 on t2.usuariofkcpersonal=t1.idPersona where t2.password='" + v.Encriptar(txtDispenso.Text.Trim()) + "'").ToString().Split('/');
+                    string[] datos = v.getaData("select upper(concat(coalesce(t1.ApPaterno,''),' ',coalesce(t1.ApMaterno,''),' ',coalesce(t1.nombres,''),'/',t1.idpersona)) from cpersonal as t1 inner join datosistema as t2 on t2.usuariofkcpersonal=t1.idPersona where t2.password='" + v.Encriptar(txtDispenso.Text.Trim()) + "'").ToString().Split('/');
                     lblPersonaDis.Text = datos[0];
                     IdDispenso = datos[1];
                 }
@@ -1413,7 +1826,17 @@ namespace controlFallos
             else
                 cmbMes.Enabled = !(dtpFechaDe.Enabled = dtpFechaA.Enabled = false);
         }
+
+        private void btnOtros_Click(object sender, EventArgs e)
+        {
+            Otros rep = new Otros(idUsuario, empresa, area,v);
+            rep.Owner = this;
+            rep.ShowDialog();
+        }
+
+        private void LblGuardar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
-
-

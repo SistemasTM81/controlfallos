@@ -34,7 +34,7 @@ namespace controlFallos
             else
             {
                 dgvjorneys.Rows.Clear();
-                DataTable dt = (DataTable)Owner.Owner.v.getData("SELECT journeyID, UPPER(journeyname), TIME_FORMAT(duration,'%H:%i'),(SELECT UPPER(CONCAT(nombres,' ',apPaterno,' ',apMaterno)) FROM cpersonal WHERE idpersona= userfkcpersonal),if(status=1,'ACTIVO','INACTIVO') FROM cjourneys ");
+                DataTable dt = (DataTable)Owner.Owner.v.getData("SELECT journeyID, UPPER(journeyname), TIME_FORMAT(duration,'%H:%i'),(SELECT UPPER(CONCAT(coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(apMaterno,''))) FROM cpersonal WHERE idpersona= userfkcpersonal),if(status=1,'ACTIVO','INACTIVO') FROM cjourneys ");
                 foreach (DataRow row in dt.Rows)
                     dgvjorneys.Rows.Add(row.ItemArray);
                 dgvjorneys.ClearSelection();

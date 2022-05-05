@@ -131,9 +131,9 @@
             this.gbUnidades.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbUnidades.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbUnidades.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbUnidades.Location = new System.Drawing.Point(0, 672);
+            this.gbUnidades.Location = new System.Drawing.Point(0, 686);
             this.gbUnidades.Name = "gbUnidades";
-            this.gbUnidades.Size = new System.Drawing.Size(1908, 265);
+            this.gbUnidades.Size = new System.Drawing.Size(1891, 265);
             this.gbUnidades.TabIndex = 66;
             this.gbUnidades.TabStop = false;
             this.gbUnidades.Text = "Consulta de Unidades";
@@ -209,7 +209,7 @@
             this.dataGridView1.ShowCellToolTips = false;
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.ShowRowErrors = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1902, 237);
+            this.dataGridView1.Size = new System.Drawing.Size(1885, 237);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.TabStop = false;
             this.dataGridView1.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentDoubleClick_1);
@@ -356,9 +356,9 @@
             this.gbbuscar.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.gbbuscar.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbbuscar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbbuscar.Location = new System.Drawing.Point(0, 580);
+            this.gbbuscar.Location = new System.Drawing.Point(0, 594);
             this.gbbuscar.Name = "gbbuscar";
-            this.gbbuscar.Size = new System.Drawing.Size(1908, 92);
+            this.gbbuscar.Size = new System.Drawing.Size(1891, 92);
             this.gbbuscar.TabIndex = 7;
             this.gbbuscar.TabStop = false;
             this.gbbuscar.Text = "Buscar";
@@ -1111,6 +1111,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1908, 937);
             this.Controls.Add(this.lblopcionales);
