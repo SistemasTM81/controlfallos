@@ -89,7 +89,17 @@ namespace controlFallos
                                     MessageBox.Show("No tiene privilegios para navegar por el sistema. Contacte a su administrador de area", v.sistema(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                             }
                             else
-                                MessageBox.Show("El usuario Tiene una Sesión Activa", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            {
+                                var selectedOption = MessageBox.Show("El usuario Tiene una Sesión Activa \n" + "¿Desea cerrar sesión en todos los dispocitivos?", "¡¡IMPORTANTE!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                if (selectedOption == DialogResult.Yes)
+                                {
+                                    v.Carroceros("update datosistema set statusiniciosesion='0' where usuario='" + usu + "' and password = '" + pass + "'");
+                                }
+                            }
+                                
+                            /* var selecction =*/
+                            //MessageBox.Show("El usuario Tiene una Sesión Activa \n" + "¿Desea cerrar sesión en todos los dispocitivos?","Error", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+
                         }
                         else
                             MessageBox.Show("El usuario ha sido Bloqueado", validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);

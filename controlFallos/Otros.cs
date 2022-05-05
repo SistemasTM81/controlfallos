@@ -20,7 +20,7 @@ namespace controlFallos
         validaciones v;
         int idUsuario, empresa, area, Fn=0, otros = 0;
         double existencia = 0.0;
-        string idEntrega ="" , unidadImprime = "", Folio = "", codigo ="", fecha ="", observaciones = "",cantidad = "", nombreRef="",usuario="", Mecanico="";
+        string idEntrega ="" , unidadImprime = "", Folio = "", codigo ="", fecha ="", observaciones = "",cantidad = "", nombreRef="",usuario="", Mecanico="", Mecanico_Principal="";
         string []unidad;
         public Otros()
         {
@@ -158,7 +158,7 @@ namespace controlFallos
             if (v.validadOtros(txtcodigo.Text, txtCantidad.Text, txtDispenso.Text, cmbUnidad.SelectedValue.ToString(), lblNomRef.Text, Mecanico.ToString(), textBoxObservaciones.Text, Convert.ToInt32(cmbSalida.SelectedValue), existencia))
             {
                 double existencianueva = existencia - Convert.ToDouble(txtCantidad.Text);
-                v.Carroceros("insert into ccarrocero (refaccionfkCRefacciones, unidadfkCUnidades, cantidad,usuariofkCPersonal,FechaHora,Empresa,mecanico,observacion, TipoSalida) value ((Select idrefaccion from crefacciones where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'), '" + cmbUnidad.SelectedValue.ToString() + "', '" + txtCantidad.Text + "', '" + idEntrega.ToString() + "' , now(), '" + empresa + "', '" + Mecanico.ToString() + "','" + textBoxObservaciones.Text + "', '" + cmbSalida.SelectedValue + "')");
+                v.Carroceros("insert into ccarrocero (refaccionfkCRefacciones, unidadfkCUnidades, CantidadEntregada,usuariofkCPersonal,FechaHora,Empresa,mecanico,observacion, TipoSalida) value ((Select idrefaccion from crefacciones where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'), '" + cmbUnidad.SelectedValue.ToString() + "', '" + txtCantidad.Text + "', '" + idEntrega.ToString() + "' , now(), '" + empresa + "', '" + Mecanico.ToString() + "','" + textBoxObservaciones.Text + "', '" + cmbSalida.SelectedValue + "')");
                 v.CarroceroE("update crefacciones  set existencias='" + existencianueva + "' Where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'");
                 MessageBox.Show("Refaccion agregada correctamente", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -181,7 +181,7 @@ namespace controlFallos
         }
         public void cargarDatos()
         {
-            MySqlDataAdapter DT = new MySqlDataAdapter("Select convert(concat(t1.consecutivo, '-', t1.descripcioneco),char) as Eco, t3.codrefaccion as Codigo, t3.nombreRefaccion as Nombre, t2.cantidad as Cantidad, t2.FechaHora as Fecha, t4.usuario as Entrega from cunidades as t1 inner join ccarrocero as t2 on t1.idunidad = t2.unidadfkCUnidades inner join crefacciones as t3 on t3.idrefaccion = t2.refaccionfkCRefacciones inner join datosistema as t4 on t4.usuariofkcpersonal = t2.usuariofkCPersonal where left(t2.FechaHora,10) = curdate()", v.c.dbconection());
+            MySqlDataAdapter DT = new MySqlDataAdapter("Select convert(concat(t1.consecutivo, '-', t1.descripcioneco),char) as Eco, t3.codrefaccion as Codigo, t3.nombreRefaccion as Nombre, t2.CantidadEntregada as Cantidad, t2.FechaHora as Fecha, t4.usuario as Entrega from cunidades as t1 inner join ccarrocero as t2 on t1.idunidad = t2.unidadfkCUnidades inner join crefacciones as t3 on t3.idrefaccion = t2.refaccionfkCRefacciones inner join datosistema as t4 on t4.usuariofkcpersonal = t2.usuariofkCPersonal where left(t2.FechaHora,10) = curdate()", v.c.dbconection());
             DataSet ds = new DataSet();
             DT.Fill(ds);
             dgAgregados.DataSource = ds.Tables[0];
@@ -213,6 +213,16 @@ namespace controlFallos
         private void txtDispenso_Validated(object sender, EventArgs e)
         {
             obtenerNombre();
+        }
+
+        private void cbMecanico1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbMecanico1.Checked == true)
+            {
+                Mecanico_Principal = cmbMecanico.SelectedValue.ToString();
+                cbMecanico1.Enabled = false;
+            }
+            
         }
 
         private void cmbMecanico_SelectedIndexChanged(object sender, EventArgs e)
@@ -306,7 +316,8 @@ namespace controlFallos
             txtCantidad.Text = txtcodigo.Text = txtDispenso.Text = lblNomRef.Text = lblNomUsuario.Text = txtNomMecanico.Text= textBoxObservaciones.Text = "";
             txtNomMecanico.Visible = label4.Visible = false; cmbMecanico.Visible = true;
             existencia = 0.0;
-
+            cbMecanico1.Enabled = true;
+            cbMecanico1.Checked = false;
             while (dgImprimir.RowCount > 0)
             {
                 dgImprimir.Rows.Remove(dgImprimir.CurrentRow);
@@ -402,7 +413,15 @@ namespace controlFallos
                     tabla.AddCell(v.valorCampo(dtFecha.Value.ToString("yyyy-MM-dd"), 1, 0, 0, arial2));
                     tabla.AddCell(v.valorCampo("\n\n", 2, 0, 0, arial2));
                     tabla.AddCell(v.valorCampo("MECANICO QUE SOLICITA", 1, 0, 0, arial));
-                    tabla.AddCell(v.valorCampo(Mecanico.ToString(), 1, 0, 0, arial2));
+                    if (cbMecanico1.Checked == true)
+                    {
+                        tabla.AddCell(v.valorCampo(Mecanico_Principal.ToString(), 1, 0, 0, arial2));
+                    }
+                    else
+                    {
+                        tabla.AddCell(v.valorCampo(Mecanico.ToString(), 1, 0, 0, arial2));
+                    }
+                    
                     tabla.AddCell(v.valorCampo("\n\n\n", 2, 0, 0, arial));
                     /* tabla.AddCell(v.valorCampo("ENTREGA", 2, 0, 0, arial));
                      tabla.AddCell(v.valorCampo(lblNomRef.Text, 1, 0, 0, arial2));

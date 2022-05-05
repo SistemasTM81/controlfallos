@@ -14,7 +14,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>\\192.168.1.67\Users\Public\ERP\DISPOSITIVOS DE 23 PULGADAS\</PublishUrl>
+    <PublishUrl>\\192.168.1.67\Users\Public\ERP\DISPOSITIVOS MEDIANOS TSD Y LAPS\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <MinimumRequiredVersion>1.1.2.284</MinimumRequiredVersion>
-    <ApplicationRevision>285</ApplicationRevision>
+    <MinimumRequiredVersion>1.1.2.297</MinimumRequiredVersion>
+    <ApplicationRevision>298</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -280,6 +280,12 @@
     </Compile>
     <Compile Include="CatRoles.Designer.cs">
       <DependentUpon>CatRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catRSalidas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catRSalidas.Designer.cs">
+      <DependentUpon>catRSalidas.cs</DependentUpon>
     </Compile>
     <Compile Include="catServicios.cs">
       <SubType>Form</SubType>
@@ -718,6 +724,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CatRoles.resx">
       <DependentUpon>CatRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catRSalidas.resx">
+      <DependentUpon>catRSalidas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="catServicios.resx">
       <DependentUpon>catServicios.cs</DependentUpon>

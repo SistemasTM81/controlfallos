@@ -22,7 +22,6 @@ namespace controlFallos
     {
         public string folio = "";
         public conexion c;
-
         public validaciones() { c = new conexion(this); }
         public void Sololetras(KeyPressEventArgs e)
         {
@@ -3564,7 +3563,6 @@ namespace controlFallos
             X.Visible = true;
         }
         delegate void iniCombosProgreso(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial);
-        
         public void iniCombos(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial, Form fh)
         {
             if (fh.InvokeRequired)
@@ -4803,7 +4801,7 @@ namespace controlFallos
             }
         }
         
-        public void Splash()
+    public void Splash()
         {
             try { Application.Run(new SplashScreen()); }
             catch { }

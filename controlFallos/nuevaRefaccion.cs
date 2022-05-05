@@ -236,7 +236,7 @@ namespace controlFallos
             if (!string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text.Trim()) || cbfamiliabusq.SelectedIndex > 0 || cbmarcasbusq.SelectedIndex > 0 || !string.IsNullOrWhiteSpace(txtCodigobusq.Text.Trim()))
             {
                 tbrefaccion.DataSource = null;
-                string sql = @"SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT t1.idrefaccion,UPPER(t1.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t1.nombreRefaccion) AS 'NOMBRE DE REFACCIÓN',UPPER(t1.modeloRefaccion) AS 'MODELO DE REFACCIÓN',UPPER(DATE_FORMAT(t1.proximoAbastecimiento, '%d / %M / %Y')) AS 'PRÓXIMO ABASTECIMIENTO',UPPER(t3.Familia) as 'FAMILIA',UPPER(t2.descripcionFamilia) AS 'DESCRIPCIÓN DE FAMILIA', UPPER(t9.Simbolo) as 'UNIDAD DE MEDIDA',UPPER(t8.marca) as 'MARCA',UPPER(CONCAT('PASILLO: ',t7.pasillo,';NIVEL: ',t6.nivel,';ANAQUEL: ',t5.anaquel,';CHAROLA: ',t4.charola)) as 'UBICACIÓN',t1.existencias as 'EXISTENCIAS',t1.media as 'MEDIA',t1.abastecimiento as 'ABASTECIMIENTO',UPPER(t1.descripcionRefaccion) as 'DESCRIPCIÓN',UPPER(CONCAT(coalesce(t10.nombres,''),' ',coalesce(t10.ApPaterno,''),' ',coalesce(t10.ApMaterno,''))) AS 'USUARIO QUE DIÓ DE ALTA',UPPER(DATE_FORMAT(t1.fechaHoraalta,'%W, %d de %M del %Y  a las %H:%i:%s')) AS 'FECHA/HORA ALTA',IF(t1.status = 1, 'ACTIVO', 'NO ACTIVO') as 'ESTATUS',t2.familiafkcnfamilias,t2.idfamilia,t8.idmarca,t7.idpasillo,t6.idnivel,t5.idanaquel,t4.idcharola, UPPER(coalesce(convert(t1.CostoUni,char),'0')) as 'COSTO REFACCIÓN',convert(t12.Simbolo,char) as 'MONEDA',UPPER(coalesce(convert(if(t11.empresa = '',concat(t11.aPaterno, ' ', t11.aMaterno, ' ', t11.nombres), t11.empresa),char),'0')) as 'PROVEEDOR', if(t1.Tipo = 1, 'NUEVA', if(t1.Tipo = 2, 'REMANOFAACTURADA', if(t1.Tipo=3,'PRODUCCION',0))) as TIPO FROM crefacciones as t1 INNER JOIN ccharolas as t4 ON t1.charolafkcharolas=t4.idcharola INNER JOIN canaqueles as t5 ON t4.anaquelfkcanaqueles = t5.idanaquel INNER JOIN cniveles as t6 ON t5.nivelfkcniveles=t6.idnivel INNER JOIN cpasillos as t7 On t6.pasillofkcpasillos=t7.idpasillo INNER JOIN cmarcas as t8 ON t1.marcafkcmarcas=t8.idmarca INNER JOIN cfamilias as t2 ON t8.descripcionfkcfamilias = t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cunidadmedida as t9 ON t2.umfkcunidadmedida=t9.idunidadmedida INNER JOIN cpersonal as t10 ON t1.usuarioaltafkcpersonal=t10.idpersona inner join cproveedores as t11 on t1.proveedrofkCProveedores = t11.idproveedor inner join ctipocambio as t12 on t1.tipoMonedafkCTipoCambio = t12.idTipoCambio ";
+                string sql = @"SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT t1.idrefaccion,UPPER(t1.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t1.nombreRefaccion) AS 'NOMBRE DE REFACCIÓN',UPPER(t1.modeloRefaccion) AS 'MODELO DE REFACCIÓN',UPPER(DATE_FORMAT(t1.proximoAbastecimiento, '%d / %M / %Y')) AS 'PRÓXIMO ABASTECIMIENTO',UPPER(t3.Familia) as 'FAMILIA',UPPER(t2.descripcionFamilia) AS 'DESCRIPCIÓN DE FAMILIA', UPPER(t9.Simbolo) as 'UNIDAD DE MEDIDA',UPPER(t8.marca) as 'MARCA',UPPER(CONCAT('PASILLO: ',t7.pasillo,';NIVEL: ',t6.nivel,';ANAQUEL: ',t5.anaquel,';CHAROLA: ',t4.charola)) as 'UBICACIÓN',if(t1.maximo is null, '0', t1.maximo) as 'MAXIMO',t1.existencias as 'EXISTENCIAS',t1.media as 'MEDIA',t1.abastecimiento as 'ABASTECIMIENTO',UPPER(t1.descripcionRefaccion) as 'DESCRIPCIÓN',UPPER(CONCAT(coalesce(t10.nombres,''),' ',coalesce(t10.ApPaterno,''),' ',coalesce(t10.ApMaterno,''))) AS 'USUARIO QUE DIÓ DE ALTA',UPPER(DATE_FORMAT(t1.fechaHoraalta,'%W, %d de %M del %Y  a las %H:%i:%s')) AS 'FECHA/HORA ALTA',IF(t1.status = 1, 'ACTIVO', 'NO ACTIVO') as 'ESTATUS',t2.familiafkcnfamilias,t2.idfamilia,t8.idmarca,t7.idpasillo,t6.idnivel,t5.idanaquel,t4.idcharola, UPPER(coalesce(convert(t1.CostoUni,char),'0')) as 'COSTO REFACCIÓN',convert(t12.Simbolo,char) as 'MONEDA',UPPER(coalesce(convert(if(t11.empresa = '',concat(t11.aPaterno, ' ', t11.aMaterno, ' ', t11.nombres), t11.empresa),char),'0')) as 'PROVEEDOR', if(t1.Tipo = 1, 'NUEVA', if(t1.Tipo = 2, 'REMANOFAACTURADA', if(t1.Tipo=3,'PRODUCCION',0))) as TIPO FROM crefacciones as t1 INNER JOIN ccharolas as t4 ON t1.charolafkcharolas=t4.idcharola INNER JOIN canaqueles as t5 ON t4.anaquelfkcanaqueles = t5.idanaquel INNER JOIN cniveles as t6 ON t5.nivelfkcniveles=t6.idnivel INNER JOIN cpasillos as t7 On t6.pasillofkcpasillos=t7.idpasillo INNER JOIN cmarcas as t8 ON t1.marcafkcmarcas=t8.idmarca INNER JOIN cfamilias as t2 ON t8.descripcionfkcfamilias = t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cunidadmedida as t9 ON t2.umfkcunidadmedida=t9.idunidadmedida INNER JOIN cpersonal as t10 ON t1.usuarioaltafkcpersonal=t10.idpersona inner join cproveedores as t11 on t1.proveedrofkCProveedores = t11.idproveedor inner join ctipocambio as t12 on t1.tipoMonedafkCTipoCambio = t12.idTipoCambio ";
                 string wheres = "";
                 if (!string.IsNullOrWhiteSpace(txtCodigobusq.Text))
                 {
@@ -671,7 +671,7 @@ namespace controlFallos
         public void abrirImagen()
         {
             OpenFileDialog Abrir = new OpenFileDialog();
-            Abrir.Filter = "JPENG(*.JPG)|*.JPG|BMP(*.BMP)|*.BMP";
+            Abrir.Filter = "JPG(*.JPG)|*.JPG|BMP(*.BMP)|*.BMP|JPEG(*.JPEG)|*.JPEG";
             if (Abrir.ShowDialog() == DialogResult.OK)
             {
                 pbImgRefaccion.Image = Image.FromFile(Abrir.FileName);
@@ -689,7 +689,7 @@ namespace controlFallos
             try
             {
                 //pictureBox1.Image.Save(Destino, ImageFormat.Jpeg);
-                pbImgRefaccion.Image.Save(Destino + txtcodrefaccion.Text + ".Jpeg", ImageFormat.Jpeg);
+                pbImgRefaccion.Image.Save(Destino + txtcodrefaccion.Text + ".Jpg", ImageFormat.Jpeg);
             }
             catch (Exception e)
             {
@@ -699,7 +699,7 @@ namespace controlFallos
         }
         public void traerImagen()
         {
-            pbImgRefaccion.Image = Image.FromFile(Path.Combine(Application.StartupPath, Destino + txtcodrefaccion.Text + ".Jpeg"));
+            pbImgRefaccion.Image = Image.FromFile(Path.Combine(Application.StartupPath, Destino + txtcodrefaccion.Text + ".Jpg"));
             pbImgRefaccion.SizeMode = PictureBoxSizeMode.Zoom;
         }
         private void gbbuscar_Enter(object sender, EventArgs e)
@@ -1104,19 +1104,20 @@ namespace controlFallos
             label40.Visible = label41.Visible = txtFolioF.Visible = false;
             txtcodrefaccion.Enabled = txtnombrereFaccion.Enabled = true;
             btnsave.Enabled = true;
+            panelM.Visible = false;
         }
 
         public void insertarRefacciones()
         {
             tbrefaccion.DataSource = null;
-            tbrefaccion.DataSource = v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT t1.idrefaccion,UPPER(t1.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t1.nombreRefaccion) AS 'NOMBRE DE REFACCIÓN',UPPER(t1.modeloRefaccion) AS 'MODELO DE REFACCIÓN',UPPER(DATE_FORMAT(t1.proximoAbastecimiento, '%d / %M / %Y')) AS 'PRÓXIMO ABASTECIMIENTO',UPPER(t3.Familia) as 'FAMILIA',UPPER(t2.descripcionFamilia) AS 'DESCRIPCIÓN DE FAMILIA', UPPER(t9.Simbolo) as 'UNIDAD DE MEDIDA',UPPER(t8.marca) as 'MARCA',UPPER(CONCAT('PASILLO: ',t7.pasillo,';NIVEL: ',t6.nivel,';ANAQUEL: ',t5.anaquel,';CHAROLA: ',t4.charola)) as 'UBICACIÓN',t1.existencias as 'EXISTENCIAS',t1.media as 'MEDIA',t1.abastecimiento as 'ABASTECIMIENTO',UPPER(t1.descripcionRefaccion) as 'DESCRIPCIÓN',UPPER(CONCAT(coalesce(t10.nombres,''),' ',coalesce(t10.ApPaterno,''),' ',coalesce(t10.ApMaterno,''))) AS 'USUARIO QUE DIÓ DE ALTA',UPPER(DATE_FORMAT(t1.fechaHoraalta,'%W, %d de %M del %Y  a las %H:%i:%s')) AS 'FECHA/HORA ALTA',IF(t1.status = 1, 'ACTIVO', 'NO ACTIVO') as 'ESTATUS',t2.familiafkcnfamilias,t2.idfamilia,t8.idmarca,t7.idpasillo,t6.idnivel,t5.idanaquel,t4.idcharola, UPPER(coalesce(convert(t1.CostoUni,char),'0')) as 'COSTO REFACCIÓN',convert(t12.Simbolo, char) as 'MONEDA',UPPER(coalesce(convert(if(t11.empresa = '',concat(t11.aPaterno, ' ', t11.aMaterno, ' ', t11.nombres), t11.empresa),char),'0')) as 'PROVEEDOR', if(t1.Tipo = 1, 'NUEVA', if(t1.Tipo = 2,'REMANOFACTURADA', '')) as TIPO FROM crefacciones as t1 INNER JOIN ccharolas as t4 ON t1.charolafkcharolas=t4.idcharola INNER JOIN canaqueles as t5 ON t4.anaquelfkcanaqueles = t5.idanaquel INNER JOIN cniveles as t6 ON t5.nivelfkcniveles=t6.idnivel INNER JOIN cpasillos as t7 On t6.pasillofkcpasillos=t7.idpasillo INNER JOIN cmarcas as t8 ON t1.marcafkcmarcas=t8.idmarca INNER JOIN cfamilias as t2 ON t8.descripcionfkcfamilias = t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cunidadmedida as t9 ON t2.umfkcunidadmedida=t9.idunidadmedida INNER JOIN cpersonal as t10 ON t1.usuarioaltafkcpersonal=t10.idpersona inner join cproveedores as t11 on t1.proveedrofkCProveedores = t11.idproveedor inner join ctipocambio as t12 on t1.tipoMonedafkCTipoCambio = t12.idTipoCambio where t1.empresa='" + empresa + "' ORDER BY t1.codrefaccion ASC limit 15;");
+            tbrefaccion.DataSource = v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT t1.idrefaccion,UPPER(t1.codrefaccion) AS 'CÓDIGO DE REFACCIÓN',UPPER(t1.nombreRefaccion) AS 'NOMBRE DE REFACCIÓN',UPPER(t1.modeloRefaccion) AS 'MODELO DE REFACCIÓN',UPPER(DATE_FORMAT(t1.proximoAbastecimiento, '%d / %M / %Y')) AS 'PRÓXIMO ABASTECIMIENTO',UPPER(t3.Familia) as 'FAMILIA',UPPER(t2.descripcionFamilia) AS 'DESCRIPCIÓN DE FAMILIA', UPPER(t9.Simbolo) as 'UNIDAD DE MEDIDA',UPPER(t8.marca) as 'MARCA',UPPER(CONCAT('PASILLO: ',t7.pasillo,';NIVEL: ',t6.nivel,';ANAQUEL: ',t5.anaquel,';CHAROLA: ',t4.charola)) as 'UBICACIÓN',if(t1.Maximo is null, '0', t1.Maximo) as 'MAXIMO',t1.existencias as 'EXISTENCIAS',t1.media as 'MEDIA',t1.abastecimiento as 'ABASTECIMIENTO',UPPER(t1.descripcionRefaccion) as 'DESCRIPCIÓN',UPPER(CONCAT(coalesce(t10.nombres,''),' ',coalesce(t10.ApPaterno,''),' ',coalesce(t10.ApMaterno,''))) AS 'USUARIO QUE DIÓ DE ALTA',UPPER(DATE_FORMAT(t1.fechaHoraalta,'%W, %d de %M del %Y  a las %H:%i:%s')) AS 'FECHA/HORA ALTA',IF(t1.status = 1, 'ACTIVO', 'NO ACTIVO') as 'ESTATUS',t2.familiafkcnfamilias,t2.idfamilia,t8.idmarca,t7.idpasillo,t6.idnivel,t5.idanaquel,t4.idcharola, UPPER(coalesce(convert(t1.CostoUni,char),'0')) as 'COSTO REFACCIÓN',convert(t12.Simbolo, char) as 'MONEDA',UPPER(coalesce(convert(if(t11.empresa = '',concat(t11.aPaterno, ' ', t11.aMaterno, ' ', t11.nombres), t11.empresa),char),'0')) as 'PROVEEDOR', if(t1.Tipo = 1, 'NUEVA', if(t1.Tipo = 2,'REMANOFACTURADA', '')) as TIPO FROM crefacciones as t1 INNER JOIN ccharolas as t4 ON t1.charolafkcharolas=t4.idcharola INNER JOIN canaqueles as t5 ON t4.anaquelfkcanaqueles = t5.idanaquel INNER JOIN cniveles as t6 ON t5.nivelfkcniveles=t6.idnivel INNER JOIN cpasillos as t7 On t6.pasillofkcpasillos=t7.idpasillo INNER JOIN cmarcas as t8 ON t1.marcafkcmarcas=t8.idmarca INNER JOIN cfamilias as t2 ON t8.descripcionfkcfamilias = t2.idfamilia INNER JOIN cnfamilias as t3 ON t2.familiafkcnfamilias=t3.idcnfamilia INNER JOIN cunidadmedida as t9 ON t2.umfkcunidadmedida=t9.idunidadmedida INNER JOIN cpersonal as t10 ON t1.usuarioaltafkcpersonal=t10.idpersona inner join cproveedores as t11 on t1.proveedrofkCProveedores = t11.idproveedor inner join ctipocambio as t12 on t1.tipoMonedafkCTipoCambio = t12.idTipoCambio where t1.empresa='" + empresa + "' ORDER BY t1.codrefaccion ASC limit 15;");
             //tbrefaccion.DataSource = v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';call karina('" + empresa + "');");
             ocultarCeldas();
             tbrefaccion.ClearSelection();
         }
         void ocultarCeldas()
         {
-            tbrefaccion.Columns[23].Visible = tbrefaccion.Columns[22].Visible = tbrefaccion.Columns[21].Visible = tbrefaccion.Columns[20].Visible = tbrefaccion.Columns[19].Visible = tbrefaccion.Columns[18].Visible = tbrefaccion.Columns[17].Visible = tbrefaccion.Columns[0].Visible = false;
+            tbrefaccion.Columns[24].Visible = tbrefaccion.Columns[23].Visible = tbrefaccion.Columns[22].Visible = tbrefaccion.Columns[21].Visible = tbrefaccion.Columns[20].Visible = tbrefaccion.Columns[19].Visible = tbrefaccion.Columns[18].Visible = tbrefaccion.Columns[17].Visible = tbrefaccion.Columns[0].Visible = false;
             tbrefaccion.Columns[0].Frozen = tbrefaccion.Columns[1].Frozen = tbrefaccion.Columns[2].Frozen = true;
 
         }
@@ -1167,7 +1168,7 @@ namespace controlFallos
                     gbaddrefaccion.Visible = true;
                 }
                 label41.Visible = txtFolioF.Visible = label40.Visible = true;
-                txtcodrefaccion.Enabled =  txtnombrereFaccion.Enabled = false;
+                txtcodrefaccion.Enabled =  false;
                 traerImagen();
 
 
@@ -1206,9 +1207,9 @@ namespace controlFallos
                 {
                     lblexistencias.Text = v.getExistenciasFromIDRefaccion(idRefaccionTemp);
                     //if ((stock = Convert.ToDouble(v.getaData("SELECT existencias FROM crefacciones WHERE idrefaccion='" + idRefaccionTemp + "'"))) > 0)
-                       // pStock.Visible = true;
+                    // pStock.Visible = true;
                     //else
-//pStock.Visible = false;
+                    //pStock.Visible = false;
                     txtcodrefaccion.Text = codrefAnterior = (string)tbrefaccion.Rows[e.RowIndex].Cells[1].Value;
                     txtnombrereFaccion.Text = nomrefanterior = v.mayusculas(tbrefaccion.Rows[e.RowIndex].Cells[2].Value.ToString().ToLower());
                     txtmodeloRefaccion.Text = modrefanterior = tbrefaccion.Rows[e.RowIndex].Cells[3].Value.ToString();
@@ -1216,7 +1217,7 @@ namespace controlFallos
                         proxabastecimiento.Value = Convert.ToDateTime(ultimoabastecimiento = (string)tbrefaccion.Rows[e.RowIndex].Cells[4].Value);
                     else
                         proxabastecimiento.Value = Convert.ToDateTime(ultimoabastecimiento = DateTime.Today.ToString());
-                    marcaAnterior = tbrefaccion.Rows[e.RowIndex].Cells[19].Value.ToString();
+                    marcaAnterior = tbrefaccion.Rows[e.RowIndex].Cells[20].Value.ToString();
                     object familiaAnterior = v.getaData("SELECT t3.idcnfamilia FROM cmarcas as t1 INNER JOIN cfamilias as t2 ON t1.descripcionfkcfamilias=t2.idfamilia INNER JOIN cnfamilias as t3 On t2.familiafkcnfamilias=t3.idcnFamilia WHERE t1.idmarca='" + marcaAnterior + "'and t3.empresa='" + empresa + "'");
                     cbfamilia.SelectedValue = familiaAnterior;
                     if (cbfamilia.SelectedIndex == -1)
@@ -1240,28 +1241,28 @@ namespace controlFallos
                         cbmarcas.SelectedValue = marcaAnterior;
                     }
 
-                    object pasilloAnterior = tbrefaccion.Rows[e.RowIndex].Cells[20].Value;
+                    object pasilloAnterior = tbrefaccion.Rows[e.RowIndex].Cells[21].Value;
                     cbpasillo.SelectedValue = pasilloAnterior;
                     if (cbpasillo.SelectedIndex == -1)
                     {
                         v.iniCombos("SELECT idpasillo,UPPER(pasillo) AS pasillo FROM cpasillos WHERE (status='1' OR idpasillo='" + pasilloAnterior + "') and empresa='" + empresa + "' ORDER BY pasillo ASC", cbpasillo, "idpasillo", "pasillo", "-- SELECCIONE PASILLO --");
                         cbpasillo.SelectedValue = pasilloAnterior;
                     }
-                    cbnivel.SelectedValue = nivelAnterior = tbrefaccion.Rows[e.RowIndex].Cells[21].Value.ToString();
+                    cbnivel.SelectedValue = nivelAnterior = tbrefaccion.Rows[e.RowIndex].Cells[22].Value.ToString();
 
                     if (cbnivel.SelectedIndex == -1)
                     {
                         v.iniCombos("SELECT idnivel,UPPER(nivel) AS nivel FROM cniveles WHERE (status='1' OR idnivel='" + nivelAnterior + "') and pasillofkcpasillos = '" + cbpasillo.SelectedValue + "'  and empresa='" + empresa + "' ORDER BY nivel ASC", cbnivel, "idnivel", "nivel", "--SELECCIONE UN NIVEL");
                         cbnivel.SelectedValue = nivelAnterior;
                     }
-                    object anaquelAnterior = tbrefaccion.Rows[e.RowIndex].Cells[22].Value;
+                    object anaquelAnterior = tbrefaccion.Rows[e.RowIndex].Cells[23].Value;
                     cbanaquel.SelectedValue = anaquelAnterior;
                     if (cbanaquel.SelectedIndex == -1)
                     {
                         v.iniCombos("SELECT idanaquel,UPPER(anaquel) AS anaquel FROM canaqueles WHERE (status='1' OR idanaquel='" + anaquelAnterior + "') and nivelfkcniveles= '" + cbnivel.SelectedValue + "' and empresa='" + empresa + "' ORDER BY anaquel ASC", cbanaquel, "idanaquel", "anaquel", "--SELECCIONE UN ANAQUEL");
                         cbanaquel.SelectedValue = anaquelAnterior;
                     }
-                    cbcharola.SelectedValue = charolaAnterior = tbrefaccion.Rows[e.RowIndex].Cells[23].Value.ToString();
+                    cbcharola.SelectedValue = charolaAnterior = tbrefaccion.Rows[e.RowIndex].Cells[24].Value.ToString();
                     if (cbcharola.SelectedIndex == -1)
                     {
                         v.iniCombos("SELECT idcharola,UPPER(charola) AS charola FROM ccharolas WHERE (status='1' OR idcharola ='" + charolaAnterior + "') and anaquelfkcanaqueles= '" + cbanaquel.SelectedValue + "' and empresa='" + empresa + "' ORDER BY charola ASC", cbcharola, "idcharola", "charola", "--SELECCIONE UN ANAQUEL");
@@ -1270,7 +1271,7 @@ namespace controlFallos
                     cmbPROVEEDOR.SelectedValue = Convert.ToString(v.getaData("select coalesce(convert(proveedrofkCProveedores,char),'0') as idproveedor from crefacciones where idrefaccion='" + idRefaccionTemp + "'"));
                     if (cmbPROVEEDOR.SelectedIndex == -1)
                     {
-                        v.iniCombos("Select idproveedor,   if(empresa = '',concat(aPaterno, ' ', aMaterno, ' ', nombres) ,empresa) as Nombre from cproveedores WHERE idproveedor = '" + proveedorAnterior +"' and empresaS = '" + empresa + "'", cmbPROVEEDOR, "idproveedor", "Nombre", "--SELECCIONE UN PROVEEDOR");
+                        v.iniCombos("Select idproveedor,   if(empresa = '',concat(aPaterno, ' ', aMaterno, ' ', nombres) ,empresa) as Nombre from cproveedores WHERE idproveedor = '" + proveedorAnterior + "' and empresaS = '" + empresa + "'", cmbPROVEEDOR, "idproveedor", "Nombre", "--SELECCIONE UN PROVEEDOR");
                         cmbPROVEEDOR.SelectedValue = proveedorAnterior;
                     }
                     cmbMoneda.SelectedValue = Convert.ToString(v.getaData("Select coalesce(convert(tipoMonedafkCTipoCambio,char),'0') as id from crefacciones where idrefaccion = '" + idRefaccionTemp + "'"));
@@ -1279,7 +1280,7 @@ namespace controlFallos
                         v.iniCombos("select idTipoCambio as id, Simbolo from ctipocambio order by simbolo desc", cmbMoneda, "id", "Simbolo", "--MONEDA--");
                     }*/
 
-                    string tip = Convert.ToString(tbrefaccion.Rows[e.RowIndex].Cells[27].Value.ToString());
+                    string tip = Convert.ToString(tbrefaccion.Rows[e.RowIndex].Cells[28].Value.ToString());
                     if (tip.ToString().Equals("NUEVA"))
                     {
                         cmbTipo.SelectedIndex = 1;
@@ -1296,11 +1297,12 @@ namespace controlFallos
                     {
                         cmbTipo.SelectedIndex = 0;
                     }
-                    CostoAnterior =  Convert.ToString(v.getaData("select coalesce(convert(CostoUni,char),'0') as costo from crefacciones where idrefaccion='" + idRefaccionTemp + "'"));
-                    txtdesc.Text = descripcionAnterior = v.mayusculas(tbrefaccion.Rows[e.RowIndex].Cells[13].Value.ToString().ToLower());
-                    notifmedia.Text = mediaAnterior = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[11].Value).ToString();
-                    notifabastecimiento.Text = abastecimientoAnterior = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[12].Value).ToString();
-                    ultimacantidad = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[10].Value).ToString();
+                    CostoAnterior = Convert.ToString(v.getaData("select coalesce(convert(CostoUni,char),'0') as costo from crefacciones where idrefaccion='" + idRefaccionTemp + "'"));
+                    txtdesc.Text = descripcionAnterior = v.mayusculas(tbrefaccion.Rows[e.RowIndex].Cells[14].Value.ToString().ToLower());
+                    notifmedia.Text = mediaAnterior = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[12].Value).ToString();
+                    notifabastecimiento.Text = abastecimientoAnterior = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[13].Value).ToString();
+                    ultimacantidad = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[11].Value).ToString();
+                    lblMaxio.Text = Convert.ToDecimal(tbrefaccion.Rows[e.RowIndex].Cells[10].Value).ToString() + ' '+ lblum.Text;
                     editar = true;
                     gbaddrefaccion.Text = "Actualizar Refacción";
                     btnsave.BackgroundImage = Properties.Resources.pencil;
@@ -1308,6 +1310,7 @@ namespace controlFallos
                     notifmedia.Focus();
                     notifabastecimiento.Focus();
                     txtcodrefaccion.Focus();
+                    panelM.Visible = true;
                     if (status == 0) MessageBox.Show(v.mayusculas("Para Modificar La Información Necesita Reactivar El Registro"), validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else

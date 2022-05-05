@@ -121,6 +121,9 @@
             this.label42 = new System.Windows.Forms.Label();
             this.gbaddrefaccion = new System.Windows.Forms.GroupBox();
             this.pbImgRefaccion = new System.Windows.Forms.PictureBox();
+            this.panelM = new System.Windows.Forms.Panel();
+            this.label43 = new System.Windows.Forms.Label();
+            this.lblMaxio = new System.Windows.Forms.Label();
             this.gbconsultar.SuspendLayout();
             this.gbbuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -133,6 +136,7 @@
             this.pStock.SuspendLayout();
             this.gbaddrefaccion.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImgRefaccion)).BeginInit();
+            this.panelM.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbconsultar
@@ -1319,6 +1323,7 @@
             // 
             // gbaddrefaccion
             // 
+            this.gbaddrefaccion.Controls.Add(this.panelM);
             this.gbaddrefaccion.Controls.Add(this.pbImgRefaccion);
             this.gbaddrefaccion.Controls.Add(this.label42);
             this.gbaddrefaccion.Controls.Add(this.cmbTipo);
@@ -1393,6 +1398,34 @@
             this.pbImgRefaccion.TabStop = false;
             this.pbImgRefaccion.Click += new System.EventHandler(this.pictureOnClick);
             // 
+            // panelM
+            // 
+            this.panelM.Controls.Add(this.label43);
+            this.panelM.Controls.Add(this.lblMaxio);
+            this.panelM.Location = new System.Drawing.Point(8, 331);
+            this.panelM.Name = "panelM";
+            this.panelM.Size = new System.Drawing.Size(218, 53);
+            this.panelM.TabIndex = 82;
+            this.panelM.Visible = false;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label43.Location = new System.Drawing.Point(3, 3);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(104, 48);
+            this.label43.TabIndex = 0;
+            this.label43.Text = "Existencias\r\nMaxima:";
+            // 
+            // lblMaxio
+            // 
+            this.lblMaxio.AutoSize = true;
+            this.lblMaxio.Location = new System.Drawing.Point(111, 3);
+            this.lblMaxio.Name = "lblMaxio";
+            this.lblMaxio.Size = new System.Drawing.Size(0, 24);
+            this.lblMaxio.TabIndex = 0;
+            // 
             // nuevaRefaccion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -1430,6 +1463,8 @@
             this.gbaddrefaccion.ResumeLayout(false);
             this.gbaddrefaccion.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbImgRefaccion)).EndInit();
+            this.panelM.ResumeLayout(false);
+            this.panelM.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1525,5 +1560,8 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.GroupBox gbaddrefaccion;
         private System.Windows.Forms.PictureBox pbImgRefaccion;
+        private System.Windows.Forms.Panel panelM;
+        private System.Windows.Forms.Label label43;
+        public System.Windows.Forms.Label lblMaxio;
     }
 }

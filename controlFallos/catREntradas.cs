@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using h = Microsoft.Office.Interop.Excel;
 using MySql.Data.MySqlClient;
+using System.Threading;
 
 namespace controlFallos
 {
@@ -17,7 +18,7 @@ namespace controlFallos
         validaciones v;
         MySqlDataAdapter adaptador;
         int empresa, area, IdUsuario, total, inicio = 0;
-        string consultaGeneral = "SELECT t1.idrefaccion, t1.codrefaccion as CODIGO, t1.nombreRefaccion AS REFACCION, sum(t2.CantidadIngresa) AS TOTAL, t5.Simbolo AS MEDIDA FROM crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion = t2.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t1.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida";
+        string consultaGeneral = "SELECT t1.idrefaccion, t1.codrefaccion as CODIGO, t1.nombreRefaccion AS REFACCION, CONVERT(sum(replace(t2.CantidadIngresa,',','')),decimal(12,2)) AS TOTAL, t5.Simbolo AS MEDIDA FROM crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion = t2.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t1.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida";
         string messel;
         DataSet ds = new DataSet();
         DataTable dt;
@@ -36,21 +37,23 @@ namespace controlFallos
         }
         public void ConsultaGeneral(string cadena)
         {
-            DataTable contar = new DataTable();
+            DataSet contar = new DataSet();
+
             adaptador = (MySqlDataAdapter)v.getReport(consultaGeneral + cadena);
             adaptador.Fill(contar);
-            if (contar.Rows.Count > 1)
+            if (contar.Tables[0].Rows.Count > 1)
             {
                 adaptador.Fill(ds, 0, 10, "Entradas");
                 dgvEntrada.DataSource = ds.Tables[0];
+                gvimprimir.DataSource = contar.Tables[0];
             }
             else
             {
                 adaptador.Fill(ds, 0, 1, "Entradas");
                 dgvEntrada.DataSource = ds.Tables[0];
-              
+                gvimprimir.DataSource = contar.Tables[0];
             }
-           
+
         }
         private void CargarInicio(object sender, EventArgs e)
         {
@@ -81,7 +84,7 @@ namespace controlFallos
                 {
                     messel = cmbMes.SelectedIndex.ToString();
                 }
-                ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "' group by t1.idrefaccion") ;
+                ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "' group by t1.idrefaccion");
             }
             else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0)
             {
@@ -111,23 +114,54 @@ namespace controlFallos
                 }
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.Tipo = '" + cmbEmpresa.SelectedIndex + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "' group by t1.idrefaccion");
             }
+            else if (cbFecha.Checked == true)
+            {
+                ConsultaGeneral(" where date_format(FechaHora, '%Y-%m-%d') between '"  + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "' group by t1.idrefaccion");
+            }
             else
             {
                 MessageBox.Show("!Seleccione Parametros De Busqueda", "!ALERTA¡", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             Limpiar();
         }
-        private void Excel_Export(object sender, EventArgs e)
+        bool activo = false;
+        public void carga1()
         {
-            if (dgvEntrada.Rows.Count > 0)
+            pictureBoxExcelLoad.Image = Properties.Resources.loader;
+            pictureBoxExcelLoad.Visible = true;
+            buttonExcel.Visible = false;
+            label35.Location = new Point(497, 112);
+            label35.Text = "EXPORTANDO";
+        }
+
+        delegate void Loading1();
+        public void carga2()
+        {
+            pictureBoxExcelLoad.Image = null;
+            pictureBoxExcelLoad.Visible = false;
+            buttonExcel.Visible = true;
+            label35.Location = new Point(497, 112);
+            label35.Text = "EXPORTAR";
+            if (activo)
+            {
+                buttonExcel.Visible = false;
+                label35.Visible = false;
+            }
+            activo = false;
+            exportando = false;
+        }
+        delegate void Loading();
+        private void Excel_Export()
+        {
+            if (gvimprimir.Rows.Count > 0)
             {
                 //isexporting = true;
-                dt = (DataTable)dgvEntrada.DataSource;
-                /*  if (this.InvokeRequired)
+                dt = (DataTable)gvimprimir.DataSource;
+                if (this.InvokeRequired)
                   {
-                      uno delega = new uno(inicio);
+                    Loading delega = new Loading(carga1);
                       this.Invoke(delega);
-                  }*/
+                  }
                 Microsoft.Office.Interop.Excel.Application X = new Microsoft.Office.Interop.Excel.Application();
                 X.Application.Workbooks.Add(Type.Missing);
                 h.Worksheet sheet = (h.Worksheet)X.ActiveSheet;
@@ -165,13 +199,14 @@ namespace controlFallos
                 X.Columns.AutoFit();
                 X.Rows.AutoFit();
                 X.Visible = true;
-                /*if (this.InvokeRequired) 
+                if (this.InvokeRequired) 
                 {
-                    dos delega2 = new dos(termino);
+                    Loading1 delega2 = new Loading1(carga2);
                     this.Invoke(delega2);
-                }*/
-                buttonExcel.Visible = false;
-                label35.Visible = false;
+                    buttonExcel.Visible = false;
+                    label35.Visible = false;
+                }
+               
             }
             else
                 MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -201,10 +236,21 @@ namespace controlFallos
             this.Close();
         }
 
+        private void ActivarFecha(object sender, EventArgs e)
+        {
+            if (cbFecha.Checked== true)
+            {
+                dtpFechaA.Enabled = dtpFechaDe.Enabled = true;
+            }
+            else
+            {
+                dtpFechaA.Enabled = dtpFechaDe.Enabled = false;
+            }
+        }
+
         public void recorrerE(int valor)
         {
-                
-                    ds.Clear();
+            ds.Clear();
             if (valor >=0)
             {
                 adaptador.Fill(ds, valor, 10, "Entradas");
@@ -224,9 +270,30 @@ namespace controlFallos
         void Limpiar()
         {
             txtcodigo.Text = "";
-            cmbEmpresa.SelectedItem = cmbMes.SelectedItem = 0;
+            cmbEmpresa.SelectedIndex = cmbMes.SelectedIndex = 0;
             buttonExcel.Visible = label35.Visible = true;
 
         }
+        Thread hiloEx2;
+        bool exportando = false;
+        private void exportar(object sender, EventArgs e)
+        {
+            exportando = true;
+            ThreadStart excel = new ThreadStart(Excel_Export);
+            hiloEx2 = new Thread(excel);
+            hiloEx2.Start();
+        }
+
+        /*CONSULTA PARA TOTAL DE SALIDAS (SELECT codrefaccion As CODIGO,nombreRefaccion AS REFACCION, sum(CantidadEntregada) 'Total Salidas', Simbolo
+FROM
+(
+    SELECT  t2.codrefaccion,t2.nombreRefaccion,t1.CantidadEntregada, t5.Simbolo
+    FROM pedidosrefaccion as t1 inner join crefacciones as t2 on t2.idrefaccion = t1.RefaccionfkCRefaccion inner join cmarcas as t3 on t3.idmarca = t2.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida where date_format(fechaHoraPedido, '%Y') = '2022'
+    union all
+    SELECT t2.codrefaccion,t2.nombreRefaccion, t1.CantidadEntregada, t5.Simbolo 
+    FROM ccarrocero as t1 inner join crefacciones as t2 on t2.idrefaccion = t1.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t2.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida where date_format(FechaHora, '%Y') = '2022' and t1.Cancelado =0
+    
+) t 
+GROUP BY codrefaccion;) 5581672467 */
     }
 }

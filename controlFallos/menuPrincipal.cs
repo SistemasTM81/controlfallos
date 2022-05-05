@@ -357,7 +357,7 @@ namespace controlFallos
         {
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ///descomentado es pantalla pequeña
-          /* Screen screen = Screen.PrimaryScreen;
+           /*Screen screen = Screen.PrimaryScreen;
             Widthp = screen.Bounds.Width;
             Heightp = screen.Bounds.Height;
             this.Size = new Size(Convert.ToInt32(Widthp), Convert.ToInt32(Heightp) - 250);
@@ -1118,6 +1118,20 @@ namespace controlFallos
              Reportes rep = new Reportes(idUsuario, empresa, area, v);
              rep.Owner = this;
              rep.ShowDialog();
+        }
+
+        private void totalSalidasToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            catRSalidas rep = new catRSalidas(v, empresa, area, idUsuario);
+            rep.Owner = this;
+            rep.ShowDialog();
+        }
+
+        private void corrocerosExtermosToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Otros rep = new Otros(idUsuario, empresa, area, v);
+            rep.Owner = this;
+            rep.ShowDialog();
         }
 
         private void asistencíaDelDíaToolStripMenuItem_Click(object sender, EventArgs e)

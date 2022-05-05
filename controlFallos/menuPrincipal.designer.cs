@@ -37,7 +37,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.pbnotif = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catálogosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catálogoDePersonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catálogoDeProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +67,11 @@
             this.refaaciónesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.herramientaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.historialDeModificacionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.validaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.totalEntradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.totalSalidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.inventarioGeneralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -75,10 +79,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.validaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.totalEntradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.totalSalidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.inventarioGeneralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.corrocerosExtermosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbnotif)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -185,26 +186,10 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(1920, 47);
+            this.menuStrip1.Size = new System.Drawing.Size(1920, 55);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbltitle_MouseDown);
-            // 
-            // reportesToolStripMenuItem
-            // 
-            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.validaciónToolStripMenuItem,
-            this.totalEntradasToolStripMenuItem,
-            this.totalSalidasToolStripMenuItem,
-            this.inventarioGeneralToolStripMenuItem});
-            this.reportesToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.reportesToolStripMenuItem.Image = global::controlFallos.Properties.Resources.report;
-            this.reportesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
-            this.reportesToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(120, 51);
-            this.reportesToolStripMenuItem.Text = "Reportes";
-            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
             // 
             // catálogosToolStripMenuItem
             // 
@@ -499,7 +484,8 @@
             // 
             this.reporteAlmacenToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.almacenToolStripMenuItem,
-            this.consultaRetornoMaterialToolStripMenuItem2});
+            this.consultaRetornoMaterialToolStripMenuItem2,
+            this.corrocerosExtermosToolStripMenuItem});
             this.reporteAlmacenToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
             this.reporteAlmacenToolStripMenuItem1.Image = global::controlFallos.Properties.Resources.report;
             this.reporteAlmacenToolStripMenuItem1.Name = "reporteAlmacenToolStripMenuItem1";
@@ -604,6 +590,61 @@
             this.historialDeModificacionesToolStripMenuItem.Visible = false;
             this.historialDeModificacionesToolStripMenuItem.Click += new System.EventHandler(this.historialDeModificacionesToolStripMenuItem_Click);
             // 
+            // reportesToolStripMenuItem
+            // 
+            this.reportesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.validaciónToolStripMenuItem,
+            this.totalEntradasToolStripMenuItem,
+            this.totalSalidasToolStripMenuItem,
+            this.inventarioGeneralToolStripMenuItem});
+            this.reportesToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.reportesToolStripMenuItem.Image = global::controlFallos.Properties.Resources.report;
+            this.reportesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
+            this.reportesToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(120, 51);
+            this.reportesToolStripMenuItem.Text = "Reportes";
+            this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
+            // 
+            // validaciónToolStripMenuItem
+            // 
+            this.validaciónToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.validaciónToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.validaciónToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.validaciónToolStripMenuItem.Name = "validaciónToolStripMenuItem";
+            this.validaciónToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
+            this.validaciónToolStripMenuItem.Text = "Validación";
+            this.validaciónToolStripMenuItem.Click += new System.EventHandler(this.validaciónToolStripMenuItem_Click);
+            // 
+            // totalEntradasToolStripMenuItem
+            // 
+            this.totalEntradasToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.totalEntradasToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.totalEntradasToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.totalEntradasToolStripMenuItem.Name = "totalEntradasToolStripMenuItem";
+            this.totalEntradasToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
+            this.totalEntradasToolStripMenuItem.Text = "Total Entradas";
+            this.totalEntradasToolStripMenuItem.Click += new System.EventHandler(this.totalEntradasToolStripMenuItem_Click);
+            // 
+            // totalSalidasToolStripMenuItem
+            // 
+            this.totalSalidasToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.totalSalidasToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.totalSalidasToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.totalSalidasToolStripMenuItem.Name = "totalSalidasToolStripMenuItem";
+            this.totalSalidasToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
+            this.totalSalidasToolStripMenuItem.Text = "Total Salidas";
+            this.totalSalidasToolStripMenuItem.Click += new System.EventHandler(this.totalSalidasToolStripMenuItem_Click);
+            // 
+            // inventarioGeneralToolStripMenuItem
+            // 
+            this.inventarioGeneralToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.inventarioGeneralToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.inventarioGeneralToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.inventarioGeneralToolStripMenuItem.Name = "inventarioGeneralToolStripMenuItem";
+            this.inventarioGeneralToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
+            this.inventarioGeneralToolStripMenuItem.Text = "Inventario General";
+            // 
             // pictureBox1
             // 
             this.pictureBox1.BackgroundImage = global::controlFallos.Properties.Resources.minimazar;
@@ -681,43 +722,15 @@
             this.panel1.Size = new System.Drawing.Size(67, 47);
             this.panel1.TabIndex = 1;
             // 
-            // validaciónToolStripMenuItem
+            // corrocerosExtermosToolStripMenuItem
             // 
-            this.validaciónToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
-            this.validaciónToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.validaciónToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.validaciónToolStripMenuItem.Name = "validaciónToolStripMenuItem";
-            this.validaciónToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
-            this.validaciónToolStripMenuItem.Text = "Validación";
-            this.validaciónToolStripMenuItem.Click += new System.EventHandler(this.validaciónToolStripMenuItem_Click);
-            // 
-            // totalEntradasToolStripMenuItem
-            // 
-            this.totalEntradasToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
-            this.totalEntradasToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.totalEntradasToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.totalEntradasToolStripMenuItem.Name = "totalEntradasToolStripMenuItem";
-            this.totalEntradasToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
-            this.totalEntradasToolStripMenuItem.Text = "Total Entradas";
-            this.totalEntradasToolStripMenuItem.Click += new System.EventHandler(this.totalEntradasToolStripMenuItem_Click);
-            // 
-            // totalSalidasToolStripMenuItem
-            // 
-            this.totalSalidasToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
-            this.totalSalidasToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.totalSalidasToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.totalSalidasToolStripMenuItem.Name = "totalSalidasToolStripMenuItem";
-            this.totalSalidasToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
-            this.totalSalidasToolStripMenuItem.Text = "Total Salidas";
-            // 
-            // inventarioGeneralToolStripMenuItem
-            // 
-            this.inventarioGeneralToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
-            this.inventarioGeneralToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.inventarioGeneralToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.inventarioGeneralToolStripMenuItem.Name = "inventarioGeneralToolStripMenuItem";
-            this.inventarioGeneralToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
-            this.inventarioGeneralToolStripMenuItem.Text = "Inventario General";
+            this.corrocerosExtermosToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.corrocerosExtermosToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.corrocerosExtermosToolStripMenuItem.Image = global::controlFallos.Properties.Resources.mexibus;
+            this.corrocerosExtermosToolStripMenuItem.Name = "corrocerosExtermosToolStripMenuItem";
+            this.corrocerosExtermosToolStripMenuItem.Size = new System.Drawing.Size(288, 28);
+            this.corrocerosExtermosToolStripMenuItem.Text = "Corroceros/Extermos";
+            this.corrocerosExtermosToolStripMenuItem.Click += new System.EventHandler(this.corrocerosExtermosToolStripMenuItem_Click);
             // 
             // menuPrincipal
             // 
@@ -808,5 +821,6 @@
         private System.Windows.Forms.ToolStripMenuItem totalEntradasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem totalSalidasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem inventarioGeneralToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem corrocerosExtermosToolStripMenuItem;
     }
 }
