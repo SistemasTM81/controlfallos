@@ -2957,7 +2957,14 @@ namespace controlFallos
             c.dbcon.Dispose();
             return dt;
         }
-
+        public object getFolioP(int empresa)
+        {
+            MySqlCommand folioP = new MySqlCommand("SELECT convert( SUBSTRING_INDEX(Folio,'-',-1), char) AS FolioOC FROM materialproduccion WHERE Folio = (SELECT MAX(Folio) FROM materialproduccion where empresa = '" + empresa + "') and empresa ='" + empresa + "'", c.dbconection());
+            var res = folioP.ExecuteScalar();
+            c.dbcon.Close();
+            c.dbcon.Dispose();
+            return res;
+        }
         public MySqlDataAdapter getReport(string sql)
         {
             MySqlCommand m = new MySqlCommand(sql, c.dbconection());

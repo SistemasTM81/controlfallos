@@ -374,6 +374,12 @@
     <Compile Include="marcas.designer.cs">
       <DependentUpon>marcas.cs</DependentUpon>
     </Compile>
+    <Compile Include="MaterialProduccion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MaterialProduccion.Designer.cs">
+      <DependentUpon>MaterialProduccion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Material_Recuperado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -775,6 +781,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="marcas.resx">
       <DependentUpon>marcas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaterialProduccion.resx">
+      <DependentUpon>MaterialProduccion.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Material_Recuperado.resx">
       <DependentUpon>Material_Recuperado.cs</DependentUpon>
