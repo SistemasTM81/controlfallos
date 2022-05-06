@@ -73,6 +73,7 @@
             this.totalEntradasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.totalSalidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventarioGeneralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ventaExternaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -80,7 +81,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ventaExternaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.materialParaProduccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbnotif)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -187,7 +188,7 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(1920, 55);
+            this.menuStrip1.Size = new System.Drawing.Size(1920, 47);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbltitle_MouseDown);
@@ -486,7 +487,8 @@
             this.reporteAlmacenToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.almacenToolStripMenuItem,
             this.consultaRetornoMaterialToolStripMenuItem2,
-            this.corrocerosExtermosToolStripMenuItem});
+            this.corrocerosExtermosToolStripMenuItem,
+            this.materialParaProduccionToolStripMenuItem});
             this.reporteAlmacenToolStripMenuItem1.ForeColor = System.Drawing.Color.White;
             this.reporteAlmacenToolStripMenuItem1.Image = global::controlFallos.Properties.Resources.report;
             this.reporteAlmacenToolStripMenuItem1.Name = "reporteAlmacenToolStripMenuItem1";
@@ -504,7 +506,7 @@
             this.almacenToolStripMenuItem.Name = "almacenToolStripMenuItem";
             this.almacenToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 1, 0, 10);
             this.almacenToolStripMenuItem.ShowShortcutKeys = false;
-            this.almacenToolStripMenuItem.Size = new System.Drawing.Size(288, 37);
+            this.almacenToolStripMenuItem.Size = new System.Drawing.Size(290, 37);
             this.almacenToolStripMenuItem.Text = "Almacen";
             this.almacenToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.almacenToolStripMenuItem.Click += new System.EventHandler(this.almacenToolStripMenuItem_Click);
@@ -517,7 +519,7 @@
             this.consultaRetornoMaterialToolStripMenuItem2.Name = "consultaRetornoMaterialToolStripMenuItem2";
             this.consultaRetornoMaterialToolStripMenuItem2.Padding = new System.Windows.Forms.Padding(0, 1, 0, 10);
             this.consultaRetornoMaterialToolStripMenuItem2.ShowShortcutKeys = false;
-            this.consultaRetornoMaterialToolStripMenuItem2.Size = new System.Drawing.Size(288, 37);
+            this.consultaRetornoMaterialToolStripMenuItem2.Size = new System.Drawing.Size(290, 37);
             this.consultaRetornoMaterialToolStripMenuItem2.Text = "Consulta Retorno Material";
             this.consultaRetornoMaterialToolStripMenuItem2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.consultaRetornoMaterialToolStripMenuItem2.Click += new System.EventHandler(this.consultaRetornoMaterialToolStripMenuItem2_Click);
@@ -528,7 +530,7 @@
             this.corrocerosExtermosToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.corrocerosExtermosToolStripMenuItem.Image = global::controlFallos.Properties.Resources.mexibus;
             this.corrocerosExtermosToolStripMenuItem.Name = "corrocerosExtermosToolStripMenuItem";
-            this.corrocerosExtermosToolStripMenuItem.Size = new System.Drawing.Size(288, 28);
+            this.corrocerosExtermosToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
             this.corrocerosExtermosToolStripMenuItem.Text = "Corroceros/Extermos";
             this.corrocerosExtermosToolStripMenuItem.Click += new System.EventHandler(this.corrocerosExtermosToolStripMenuItem_Click);
             // 
@@ -614,7 +616,7 @@
             this.reportesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
             this.reportesToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(120, 51);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(120, 43);
             this.reportesToolStripMenuItem.Text = "Reportes";
             this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
             // 
@@ -656,6 +658,15 @@
             this.inventarioGeneralToolStripMenuItem.Name = "inventarioGeneralToolStripMenuItem";
             this.inventarioGeneralToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
             this.inventarioGeneralToolStripMenuItem.Text = "Inventario General";
+            // 
+            // ventaExternaToolStripMenuItem
+            // 
+            this.ventaExternaToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.ventaExternaToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.ventaExternaToolStripMenuItem.Name = "ventaExternaToolStripMenuItem";
+            this.ventaExternaToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
+            this.ventaExternaToolStripMenuItem.Text = "Venta Externa";
+            this.ventaExternaToolStripMenuItem.Click += new System.EventHandler(this.ventaExternaToolStripMenuItem_Click);
             // 
             // pictureBox1
             // 
@@ -734,14 +745,11 @@
             this.panel1.Size = new System.Drawing.Size(67, 47);
             this.panel1.TabIndex = 1;
             // 
-            // ventaExternaToolStripMenuItem
+            // materialParaProduccionToolStripMenuItem
             // 
-            this.ventaExternaToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
-            this.ventaExternaToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.ventaExternaToolStripMenuItem.Name = "ventaExternaToolStripMenuItem";
-            this.ventaExternaToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
-            this.ventaExternaToolStripMenuItem.Text = "Venta Externa";
-            this.ventaExternaToolStripMenuItem.Click += new System.EventHandler(this.ventaExternaToolStripMenuItem_Click);
+            this.materialParaProduccionToolStripMenuItem.Name = "materialParaProduccionToolStripMenuItem";
+            this.materialParaProduccionToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
+            this.materialParaProduccionToolStripMenuItem.Text = "Material Para Produccion";
             // 
             // menuPrincipal
             // 
@@ -834,5 +842,6 @@
         private System.Windows.Forms.ToolStripMenuItem inventarioGeneralToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem corrocerosExtermosToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem ventaExternaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem materialParaProduccionToolStripMenuItem;
     }
 }
