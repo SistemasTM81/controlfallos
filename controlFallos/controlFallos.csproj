@@ -966,6 +966,7 @@
     <None Include="Resources\20.png" />
     <None Include="Resources\1-02-512.png" />
     <Content Include="derecho_sombra_pZF_icon.ico" />
+    <Content Include="Resources\produccion.png" />
     <Content Include="Resources\add.png" />
     <None Include="Resources\add1.png" />
     <None Include="Resources\ajax-spinner.gif" />

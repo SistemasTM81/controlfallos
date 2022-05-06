@@ -14,7 +14,7 @@ namespace controlFallos
     public partial class MaterialProduccion : Form
     {
         validaciones v;
-        int empresa, area, idUsuario;
+        int empresa, area, idUsuario, idEntrega;
         string folio = "";
         double existencia = 0.0;
 
@@ -28,7 +28,11 @@ namespace controlFallos
             this.empresa = empresa;
             this.area = area;
             this.idUsuario = IdUsuario;
+            cmbMecanico.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
+            dtFecha.MaxDate = DateTime.Now;
+            CargarMecanico();
         }
+
 
 
 
@@ -49,13 +53,34 @@ namespace controlFallos
             obtener_folio();
         }
 
+        private void Cerrar(object sender, EventArgs e)
+        {
+            this.Close();
+        }
 
+        private void cmbDrawable(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
+
+        private void btn_Guardar(object sender, EventArgs e)
+        {
+            if (v.materialP(folio, txtcodigo.Text, Double.Parse(txtCantidad.Text), cmbMecanico.SelectedIndex, txtMotivo.Text))
+            {
+                guardar();
+            }
+           
+        }
+        private void nombrealmacen(object sender, EventArgs e)
+        {
+            obtenerNombre();
+        }
         void obtener_folio()
         {
            string consecutivo = v.getFolioP(empresa).ToString();
             if (!string.IsNullOrWhiteSpace(consecutivo))
             {
-                folio = "P0-" + (Convert.ToInt32(consecutivo + 1));
+                folio = "P0-" + (Convert.ToInt32(consecutivo)+1);
             }
             else
             {
@@ -101,6 +126,27 @@ namespace controlFallos
 
         }
 
+        void guardar()
+        {
+            v.Carroceros("insert into materialproduccion (Folio, refaccionfkcrefacciones, cantidad, fechahora, empresa, almacenfkcpersonal, motivo) values ('" + folio.ToString() + "',(select idrefaccion  from crefacciones where codrefaccion ='" + txtcodigo.Text + "' and empresa = '" + empresa + "'),'" + txtCantidad.Text + "', now(), '" + empresa + "', '" + idEntrega + "','"+ txtMotivo.Text + "')");
+        }
 
+        void obtenerNombre()
+        {
+            MySqlCommand sql = new MySqlCommand("SELECT CONCAT(coalesce(t1.ApPaterno,''),' ',coalesce(t1.ApMaterno,''),' ',coalesce(t1.nombres,'')) AS almacenista, t2.puesto,t1.idPersona as id,t2.idpuesto FROM cpersonal as t1 INNER JOIN puestos AS t2 ON t2.idpuesto=t1.cargofkcargos inner join datosistema as t3 on t3.usuariofkcpersonal =t1.idpersona WHERE t3.password='" + v.Encriptar(txtDispenso.Text) + "' AND  t1.status='1' AND t2.status='1' and t1.empresa='" + empresa + "' ;", v.c.dbconection());
+            MySqlDataReader cmd = sql.ExecuteReader();
+            v.c.dbconection().Close();
+            if (!cmd.Read())
+            {
+                MessageBox.Show("La contraseña de almacenista ingresada es incorrecta", "CONTRASEÑA INCORRECTA", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtDispenso.Focus();
+                txtDispenso.Clear();
+            }
+            else
+            {
+                lblNomUsuario.Text = cmd.GetString("Almacenista").ToString();
+                idEntrega = Convert.ToInt32(cmd.GetString("id").ToString());
+            }
+        }
     }
 }

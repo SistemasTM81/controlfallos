@@ -35,8 +35,14 @@
             this.notif = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.pbnotif = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.lblnumnotificaciones = new System.Windows.Forms.Panel();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.catálogosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catálogoDePersonalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.catálogoDeProveedoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,6 +68,7 @@
             this.almacenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultaRetornoMaterialToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.corrocerosExtermosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.materialParaProduccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.requisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ordenesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comparativasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,19 +81,12 @@
             this.totalSalidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inventarioGeneralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ventaExternaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.button2 = new System.Windows.Forms.Button();
-            this.lblnumnotificaciones = new System.Windows.Forms.Panel();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.materialParaProduccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.pbnotif = new System.Windows.Forms.PictureBox();
             this.panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbnotif)).BeginInit();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbnotif)).BeginInit();
             this.SuspendLayout();
             // 
             // lblnotif
@@ -157,21 +157,6 @@
             this.label1.Text = "Alertas: ";
             this.label1.Click += new System.EventHandler(this.lbltitle_DoubleClick);
             // 
-            // pbnotif
-            // 
-            this.pbnotif.BackColor = System.Drawing.Color.Crimson;
-            this.pbnotif.BackgroundImage = global::controlFallos.Properties.Resources.notification__4_;
-            this.pbnotif.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbnotif.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pbnotif.Location = new System.Drawing.Point(80, 2);
-            this.pbnotif.Name = "pbnotif";
-            this.pbnotif.Size = new System.Drawing.Size(58, 45);
-            this.pbnotif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbnotif.TabIndex = 1;
-            this.pbnotif.TabStop = false;
-            this.toolTip1.SetToolTip(this.pbnotif, "Notificaciones");
-            this.pbnotif.Click += new System.EventHandler(this.pictureBox3_Click);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.Color.Crimson;
@@ -188,10 +173,87 @@
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.menuStrip1.ShowItemToolTips = true;
-            this.menuStrip1.Size = new System.Drawing.Size(1920, 47);
+            this.menuStrip1.Size = new System.Drawing.Size(1920, 55);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             this.menuStrip1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lbltitle_MouseDown);
+            // 
+            // lblnumnotificaciones
+            // 
+            this.lblnumnotificaciones.AutoScroll = true;
+            this.lblnumnotificaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.lblnumnotificaciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.lblnumnotificaciones.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lblnumnotificaciones.Location = new System.Drawing.Point(0, 53);
+            this.lblnumnotificaciones.Name = "lblnumnotificaciones";
+            this.lblnumnotificaciones.Size = new System.Drawing.Size(1920, 937);
+            this.lblnumnotificaciones.TabIndex = 0;
+            this.lblnumnotificaciones.Paint += new System.Windows.Forms.PaintEventHandler(this.lblnumnotificaciones_Paint);
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 2000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // notifyIcon1
+            // 
+            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
+            this.notifyIcon1.BalloonTipTitle = "Se Ha Validado El Pedido de Refaccion";
+            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
+            this.notifyIcon1.Visible = true;
+            this.notifyIcon1.BalloonTipClicked += new System.EventHandler(this.notifyIcon1_Click);
+            this.notifyIcon1.BalloonTipClosed += new System.EventHandler(this.notifyIcon1_Click);
+            this.notifyIcon1.BalloonTipShown += new System.EventHandler(this.notifyIcon1_Click);
+            this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
+            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_Click);
+            this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_Click);
+            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_Click);
+            // 
+            // panel1
+            // 
+            this.panel1.CausesValidation = false;
+            this.panel1.Controls.Add(this.pictureBox1);
+            this.panel1.Controls.Add(this.button2);
+            this.panel1.ImeMode = System.Windows.Forms.ImeMode.Off;
+            this.panel1.Location = new System.Drawing.Point(1850, 6);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(67, 47);
+            this.panel1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = global::controlFallos.Properties.Resources.minimazar;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pictureBox1.Location = new System.Drawing.Point(16, 14);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(15, 30);
+            this.pictureBox1.TabIndex = 3;
+            this.pictureBox1.TabStop = false;
+            this.toolTip1.SetToolTip(this.pictureBox1, "Minimizar");
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // button2
+            // 
+            this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.button2.BackColor = System.Drawing.Color.Transparent;
+            this.button2.BackgroundImage = global::controlFallos.Properties.Resources.logout;
+            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Crimson;
+            this.button2.FlatAppearance.BorderSize = 0;
+            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
+            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Crimson;
+            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button2.ForeColor = System.Drawing.Color.Crimson;
+            this.button2.Location = new System.Drawing.Point(37, 3);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(26, 29);
+            this.button2.TabIndex = 2;
+            this.button2.TabStop = false;
+            this.toolTip1.SetToolTip(this.button2, "Cerrar Sesión");
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // catálogosToolStripMenuItem
             // 
@@ -534,6 +596,16 @@
             this.corrocerosExtermosToolStripMenuItem.Text = "Corroceros/Extermos";
             this.corrocerosExtermosToolStripMenuItem.Click += new System.EventHandler(this.corrocerosExtermosToolStripMenuItem_Click);
             // 
+            // materialParaProduccionToolStripMenuItem
+            // 
+            this.materialParaProduccionToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.materialParaProduccionToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.materialParaProduccionToolStripMenuItem.Image = global::controlFallos.Properties.Resources.produccion;
+            this.materialParaProduccionToolStripMenuItem.Name = "materialParaProduccionToolStripMenuItem";
+            this.materialParaProduccionToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
+            this.materialParaProduccionToolStripMenuItem.Text = "Material Para Produccion";
+            this.materialParaProduccionToolStripMenuItem.Click += new System.EventHandler(this.materialParaProduccionToolStripMenuItem_Click);
+            // 
             // requisicionesToolStripMenuItem
             // 
             this.requisicionesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -616,7 +688,7 @@
             this.reportesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
             this.reportesToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(120, 43);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(120, 51);
             this.reportesToolStripMenuItem.Text = "Reportes";
             this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
             // 
@@ -668,88 +740,20 @@
             this.ventaExternaToolStripMenuItem.Text = "Venta Externa";
             this.ventaExternaToolStripMenuItem.Click += new System.EventHandler(this.ventaExternaToolStripMenuItem_Click);
             // 
-            // pictureBox1
+            // pbnotif
             // 
-            this.pictureBox1.BackgroundImage = global::controlFallos.Properties.Resources.minimazar;
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.pictureBox1.Location = new System.Drawing.Point(16, 14);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(15, 30);
-            this.pictureBox1.TabIndex = 3;
-            this.pictureBox1.TabStop = false;
-            this.toolTip1.SetToolTip(this.pictureBox1, "Minimizar");
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            // 
-            // button2
-            // 
-            this.button2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BackgroundImage = global::controlFallos.Properties.Resources.logout;
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Crimson;
-            this.button2.FlatAppearance.BorderSize = 0;
-            this.button2.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Crimson;
-            this.button2.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Crimson;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.Crimson;
-            this.button2.Location = new System.Drawing.Point(37, 3);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(26, 29);
-            this.button2.TabIndex = 2;
-            this.button2.TabStop = false;
-            this.toolTip1.SetToolTip(this.button2, "Cerrar Sesión");
-            this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // lblnumnotificaciones
-            // 
-            this.lblnumnotificaciones.AutoScroll = true;
-            this.lblnumnotificaciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.lblnumnotificaciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.lblnumnotificaciones.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblnumnotificaciones.Location = new System.Drawing.Point(0, 53);
-            this.lblnumnotificaciones.Name = "lblnumnotificaciones";
-            this.lblnumnotificaciones.Size = new System.Drawing.Size(1920, 937);
-            this.lblnumnotificaciones.TabIndex = 0;
-            this.lblnumnotificaciones.Paint += new System.Windows.Forms.PaintEventHandler(this.lblnumnotificaciones_Paint);
-            // 
-            // timer1
-            // 
-            this.timer1.Interval = 2000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // notifyIcon1
-            // 
-            this.notifyIcon1.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.notifyIcon1.BalloonTipTitle = "Se Ha Validado El Pedido de Refaccion";
-            this.notifyIcon1.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon1.Icon")));
-            this.notifyIcon1.Visible = true;
-            this.notifyIcon1.BalloonTipClicked += new System.EventHandler(this.notifyIcon1_Click);
-            this.notifyIcon1.BalloonTipClosed += new System.EventHandler(this.notifyIcon1_Click);
-            this.notifyIcon1.BalloonTipShown += new System.EventHandler(this.notifyIcon1_Click);
-            this.notifyIcon1.Click += new System.EventHandler(this.notifyIcon1_Click);
-            this.notifyIcon1.DoubleClick += new System.EventHandler(this.notifyIcon1_Click);
-            this.notifyIcon1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_Click);
-            this.notifyIcon1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon1_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.CausesValidation = false;
-            this.panel1.Controls.Add(this.pictureBox1);
-            this.panel1.Controls.Add(this.button2);
-            this.panel1.ImeMode = System.Windows.Forms.ImeMode.Off;
-            this.panel1.Location = new System.Drawing.Point(1850, 6);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(67, 47);
-            this.panel1.TabIndex = 1;
-            // 
-            // materialParaProduccionToolStripMenuItem
-            // 
-            this.materialParaProduccionToolStripMenuItem.Name = "materialParaProduccionToolStripMenuItem";
-            this.materialParaProduccionToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
-            this.materialParaProduccionToolStripMenuItem.Text = "Material Para Produccion";
+            this.pbnotif.BackColor = System.Drawing.Color.Crimson;
+            this.pbnotif.BackgroundImage = global::controlFallos.Properties.Resources.notification__4_;
+            this.pbnotif.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbnotif.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.pbnotif.Location = new System.Drawing.Point(80, 2);
+            this.pbnotif.Name = "pbnotif";
+            this.pbnotif.Size = new System.Drawing.Size(58, 45);
+            this.pbnotif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbnotif.TabIndex = 1;
+            this.pbnotif.TabStop = false;
+            this.toolTip1.SetToolTip(this.pbnotif, "Notificaciones");
+            this.pbnotif.Click += new System.EventHandler(this.pictureBox3_Click);
             // 
             // menuPrincipal
             // 
@@ -780,11 +784,11 @@
             this.Resize += new System.EventHandler(this.menuPrincipal_Resize);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbnotif)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbnotif)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

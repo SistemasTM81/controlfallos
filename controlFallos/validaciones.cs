@@ -2914,7 +2914,50 @@ namespace controlFallos
             }
         }
         
-        
+        public bool materialP(string folio, string codigo, double cantidad, int mecanico, string motivo)
+        {
+            if (!string.IsNullOrWhiteSpace(folio))
+            {
+                if (!string.IsNullOrWhiteSpace(codigo))
+                {
+                    if (cantidad > 0.0)
+                    {
+                        if (mecanico > 0)
+                        {
+                            if (!string.IsNullOrWhiteSpace(motivo))
+                            {
+                                return true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Ingrese el motivo de salida", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return false;
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Seleccione Un Mecanico", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Ingrese la cantidad a entregar", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Ingrese el codigo de la refaccion", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
            
   
         public string getcpFromidSepomex(string id)
@@ -2957,10 +3000,14 @@ namespace controlFallos
             c.dbcon.Dispose();
             return dt;
         }
-        public object getFolioP(int empresa)
+        public string getFolioP(int empresa)
         {
             MySqlCommand folioP = new MySqlCommand("SELECT convert( SUBSTRING_INDEX(Folio,'-',-1), char) AS FolioOC FROM materialproduccion WHERE Folio = (SELECT MAX(Folio) FROM materialproduccion where empresa = '" + empresa + "') and empresa ='" + empresa + "'", c.dbconection());
-            var res = folioP.ExecuteScalar();
+            string res =(string) folioP.ExecuteScalar();
+            if (res == null)
+            {
+                res = "";
+            }
             c.dbcon.Close();
             c.dbcon.Dispose();
             return res;

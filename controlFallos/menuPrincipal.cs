@@ -1141,6 +1141,13 @@ namespace controlFallos
             venta.Show();
         }
 
+        private void materialParaProduccionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MaterialProduccion venta = new MaterialProduccion(v, empresa, area, idUsuario);
+            venta.Owner = this;
+            venta.Show();
+        }
+
         private void asistencíaDelDíaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (cerrar())
