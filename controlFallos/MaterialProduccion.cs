@@ -128,6 +128,11 @@ namespace controlFallos
 
         void guardar()
         {
+
+
+
+
+
             v.Carroceros("insert into materialproduccion (Folio, refaccionfkcrefacciones, cantidad, fechahora, empresa, almacenfkcpersonal, motivo) values ('" + folio.ToString() + "',(select idrefaccion  from crefacciones where codrefaccion ='" + txtcodigo.Text + "' and empresa = '" + empresa + "'),'" + txtCantidad.Text + "', now(), '" + empresa + "', '" + idEntrega + "','"+ txtMotivo.Text + "')");
         }
 

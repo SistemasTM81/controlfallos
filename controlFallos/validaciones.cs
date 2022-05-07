@@ -2914,7 +2914,7 @@ namespace controlFallos
             }
         }
         
-        public bool materialP(string folio, string codigo, double cantidad, int mecanico, string motivo)
+        public bool materialP(string folio, string codigo, double cantidad, int mecanico, string motivo, double existencias)
         {
             if (!string.IsNullOrWhiteSpace(folio))
             {
@@ -2926,7 +2926,15 @@ namespace controlFallos
                         {
                             if (!string.IsNullOrWhiteSpace(motivo))
                             {
-                                return true;
+                                if (existencias >= cantidad)
+                                {
+                                    return true;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("No cuentas con los insumos suficientes", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return false;
+                                }
                             }
                             else
                             {
