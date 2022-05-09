@@ -65,7 +65,7 @@ namespace controlFallos
 
         private void btn_Guardar(object sender, EventArgs e)
         {
-            if (v.materialP(folio, txtcodigo.Text, Double.Parse(txtCantidad.Text), cmbMecanico.SelectedIndex, txtMotivo.Text))
+            if (v.materialP(folio, txtcodigo.Text, Double.Parse(txtCantidad.Text), cmbMecanico.SelectedIndex, txtMotivo.Text, existencia))
             {
                 guardar();
             }
@@ -128,12 +128,23 @@ namespace controlFallos
 
         void guardar()
         {
-
-
-
-
-
+            double editar = existencia - Double.Parse(txtCantidad.Text);
             v.Carroceros("insert into materialproduccion (Folio, refaccionfkcrefacciones, cantidad, fechahora, empresa, almacenfkcpersonal, motivo) values ('" + folio.ToString() + "',(select idrefaccion  from crefacciones where codrefaccion ='" + txtcodigo.Text + "' and empresa = '" + empresa + "'),'" + txtCantidad.Text + "', now(), '" + empresa + "', '" + idEntrega + "','"+ txtMotivo.Text + "')");
+            v.CarroceroE("update crefacciones  set existencias='" + editar + "' Where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'");
+            MessageBox.Show("Refaccion agregada correctamente", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            var selectedOption = MessageBox.Show("¿Desea continuar creando folios de la unidad actual?", "¡¡IMPORTANTE!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (selectedOption == DialogResult.Yes)
+            {
+                dgImprimir.Rows.Add(txtcodigo.Text, lblNomRef.Text, txtCantidad.Text, lblMedida.Text, dtFecha.Value.ToString("yyyy-MM-dd"), cmbMecanico.SelectedIndex.ToString(), lblNomUsuario.Text);
+                txtCantidad.Text = txtcodigo.Text = txtDispenso.Text = lblNomRef.Text = lblNomUsuario.Text = "";
+            }
+            else
+            {
+                dgImprimir.Rows.Add(txtcodigo.Text, lblNomRef.Text, txtCantidad.Text, lblMedida.Text, dtFecha.Value.ToString("yyyy-MM-dd"), cmbMecanico.SelectedIndex.ToString(), lblNomUsuario.Text);
+                /*Expota_PDF();
+                limpiar();*/
+            }
         }
 
         void obtenerNombre()

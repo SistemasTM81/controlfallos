@@ -24,12 +24,13 @@ namespace controlFallos
         delegate void uno();
         delegate void dos();
         int idUsuario, status, empresa, area, idEntrega, familiaanterior,  economicoanterior;
-        string inicioCodigo = "", codigoanterior = "", motivoanterior = "", nombreanterior = "", cantidadanterior = "", mecanicoanterior = "";
+        string inicioCodigo = "", codigoanterior = "", motivoanterior = "", nombreanterior = "",  mecanicoanterior = "";
+        double cantidadanterior = 0.0;
         public bool editar { private set; get; }
         Thread exportar, th;
         //decimal ultimacantidad;
         public string idRefaccionMediaAbast;
-        public bool isexporting, aux, accion = true;
+        public bool isexporting, aux, accion = false;
         bool yaAparecioMensaje = false;
         bool Pinsertar { set; get; }
         bool Pconsultar { set; get; }
@@ -117,7 +118,6 @@ namespace controlFallos
 
         private void btnsave_Click(object sender, EventArgs e)
         {
-
             if (!accion)
             {
                
@@ -152,13 +152,14 @@ namespace controlFallos
             if (!v.formularioRefacionesRecu(txtcodrefaccionRep.Text, txtnombrereFaccionRep.Text, txtCantidad.Text, cmbDescripcion.SelectedIndex, txtContasenna.Text, cmbMantenimiento.SelectedIndex, txtMotivo.Text))
             {
                 double cantidadactualizada = 0.0;
-                if (txtCantidad.Text != cantidadanterior)
+                if (Double.Parse(txtCantidad.Text) != cantidadanterior)
+                    
                 {
-                    cantidadactualizada = Double.Parse(txtCantidad.Text) + Double.Parse(cantidadanterior);
+                    cantidadactualizada = Double.Parse(txtCantidad.Text) + cantidadanterior;
                 }
                 else
                 {
-                    cantidadactualizada = Double.Parse(cantidadanterior);
+                    cantidadactualizada = cantidadanterior;
                 }
                 v.c.insertar("update crefaccionesrecu set nomrefaccion = '" + txtnombrereFaccionRep.Text + "', existencias ='" + cantidadactualizada + "', desfamilicnfamilias ='" + Convert.ToInt32(Convert.ToInt32(cmbDescripcion.SelectedValue)) + "', usuarioaltafkcpersonal = '" + idUsuario + "', usuariomantenimiento ='" + cmbMantenimiento.SelectedValue + "', descripcion = '" + txtMotivo.Text + "', ecofkcunidades = '" + Convert.ToInt32(cmbEconomico.SelectedValue) + "' where coderefaccRecu = '" + txtcodrefaccionRep.Text + "' and empresa ='" + empresa + "'");
                 Limpiar();
@@ -396,7 +397,8 @@ namespace controlFallos
             string[] datos = v.getaData("SET lc_time_names = 'es_ES';select concat(convert(coderefaccRecu,char),'|',convert(nomrefaccion,char),'|',convert(existencias,char),'|',convert(ecofkcunidades,char),'|',(Select x4.idcnFamilia from  cfamilias as x2  inner join cnfamilias as x4 on x4.idcnFamilia = x2.familiafkcnfamilias where x2.idfamilia=desfamilicnfamilias),'|',convert(desfamilicnfamilias,char),'|',convert(usuarioaltafkcpersonal,char),'|',convert(usuariomantenimiento,char),'|',convert(descripcion,char), '|', (Select convert(x1.Simbolo,char) from cunidadmedida as x1 inner join cfamilias as x2 on x1.idunidadmedida = x2.umfkcunidadmedida inner join cnfamilias as x4 on x4.idcnFamilia = x2.familiafkcnfamilias where x2.idfamilia=desfamilicnfamilias)) from crefaccionesrecu  where coderefaccRecu = '" + codigo + "'  and empresa ='" + empresa + "'").ToString().Split('|');
             txtcodrefaccionRep.Text = datos[0].ToString();
             nombreanterior = txtnombrereFaccionRep.Text = datos[1].ToString();
-            cantidadanterior = txtCantidad.Text = datos[2].ToString();
+            txtCantidad.Text = datos[2].ToString();
+            cantidadanterior =Double.Parse(datos[2].ToString());
             cmbEconomico.SelectedValue = Convert.ToInt32(datos[3].ToString());
             economicoanterior = Convert.ToInt32(datos[3].ToString());
             cmbFamilia.SelectedValue = Convert.ToInt32(datos[4].ToString());
@@ -409,7 +411,7 @@ namespace controlFallos
             lblUnidadMedida.Text = datos[9].ToString();
             pdelref.Visible = pCancelar.Visible = true;
             txtSalidas.Visible = lblsalida.Visible = cmbMotivos.Visible = lblMotivo.Visible = lblSalidaC.Visible =  true;
-
+            accion = true;
             cargaEcoBusq(cmbBuscarUnidad);
 
         }
@@ -473,6 +475,7 @@ namespace controlFallos
             cmbEconomico.SelectedValue = cmbFamilia.SelectedValue = cmbMantenimiento.SelectedValue = cbfamiliabusq.SelectedValue = cmbMotivos.SelectedValue = cmbBuscarUnidad.SelectedValue = 0;
             pCancelar.Visible = pdelref.Visible = btnCargar.Visible = btnExcel.Visible = false;
             consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 limit 10 ;");
+            accion = false;
 
         }
         void cadenaCodigo()
