@@ -395,7 +395,11 @@
             // puestoCB
             // 
             this.puestoCB.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.puestoCB.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.puestoCB.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.puestoCB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.puestoCB.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.puestoCB.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.puestoCB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.puestoCB.FormattingEnabled = true;
             this.puestoCB.Items.AddRange(new object[] {
             "Administrador",
@@ -406,9 +410,8 @@
             "Solo Consulta"});
             this.puestoCB.Location = new System.Drawing.Point(3, 16);
             this.puestoCB.Name = "puestoCB";
-            this.puestoCB.Size = new System.Drawing.Size(212, 29);
+            this.puestoCB.Size = new System.Drawing.Size(212, 23);
             this.puestoCB.TabIndex = 144;
-            this.puestoCB.Text = "-- Seleccione el Puesto --";
             this.puestoCB.SelectedIndexChanged += new System.EventHandler(this.puestoCB_SelectedIndexChanged);
             // 
             // btnEliminarRR
