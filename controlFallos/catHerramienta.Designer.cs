@@ -28,10 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbaddrefaccion = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.paddpasillo = new System.Windows.Forms.Panel();
+            this.btnaddpasillo = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
             this.cmbTipo = new System.Windows.Forms.ComboBox();
             this.cmbMoneda = new System.Windows.Forms.ComboBox();
@@ -85,12 +91,6 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.cbnivel = new System.Windows.Forms.ComboBox();
-            this.paddpasillo = new System.Windows.Forms.Panel();
-            this.btnaddpasillo = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
             this.gbbuscar = new System.Windows.Forms.GroupBox();
             this.btnExcel = new System.Windows.Forms.Button();
             this.LblExcel = new System.Windows.Forms.Label();
@@ -109,12 +109,12 @@
             this.label14 = new System.Windows.Forms.Label();
             this.tbrefaccion = new System.Windows.Forms.DataGridView();
             this.gbaddrefaccion.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.paddpasillo.SuspendLayout();
             this.pExistencias.SuspendLayout();
             this.pCancelar.SuspendLayout();
             this.pdelref.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.paddpasillo.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.gbbuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.pActualizar.SuspendLayout();
@@ -173,6 +173,74 @@
             this.gbaddrefaccion.TabStop = false;
             this.gbaddrefaccion.Text = "Agregar Nueva Refacción";
             this.gbaddrefaccion.Enter += new System.EventHandler(this.gbaddrefaccion_Enter);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Location = new System.Drawing.Point(1549, 17);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(143, 82);
+            this.panel1.TabIndex = 107;
+            // 
+            // button1
+            // 
+            this.button1.BackgroundImage = global::controlFallos.Properties.Resources._goto;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Location = new System.Drawing.Point(53, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(35, 35);
+            this.button1.TabIndex = 68;
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label1.Location = new System.Drawing.Point(21, 37);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(107, 42);
+            this.label1.TabIndex = 69;
+            this.label1.Text = "Ir a Catálogo\r\nde Marcas";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // paddpasillo
+            // 
+            this.paddpasillo.Controls.Add(this.btnaddpasillo);
+            this.paddpasillo.Controls.Add(this.label13);
+            this.paddpasillo.Location = new System.Drawing.Point(884, 17);
+            this.paddpasillo.Name = "paddpasillo";
+            this.paddpasillo.Size = new System.Drawing.Size(143, 82);
+            this.paddpasillo.TabIndex = 106;
+            // 
+            // btnaddpasillo
+            // 
+            this.btnaddpasillo.BackgroundImage = global::controlFallos.Properties.Resources._goto;
+            this.btnaddpasillo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnaddpasillo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnaddpasillo.FlatAppearance.BorderSize = 0;
+            this.btnaddpasillo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnaddpasillo.Location = new System.Drawing.Point(53, 3);
+            this.btnaddpasillo.Name = "btnaddpasillo";
+            this.btnaddpasillo.Size = new System.Drawing.Size(35, 35);
+            this.btnaddpasillo.TabIndex = 68;
+            this.btnaddpasillo.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label13.Location = new System.Drawing.Point(21, 37);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(107, 42);
+            this.label13.TabIndex = 69;
+            this.label13.Text = "Ir a Catálogo\r\nde Familia";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label42
             // 
@@ -578,6 +646,7 @@
             this.btndelref.Size = new System.Drawing.Size(50, 50);
             this.btndelref.TabIndex = 0;
             this.btndelref.UseVisualStyleBackColor = true;
+            this.btndelref.Click += new System.EventHandler(this.btndelref_Click);
             // 
             // label35
             // 
@@ -847,74 +916,6 @@
             this.cbnivel.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cbmarcas_DrawItem);
             this.cbnivel.SelectedIndexChanged += new System.EventHandler(this.cbnivel_SelectedIndexChanged);
             // 
-            // paddpasillo
-            // 
-            this.paddpasillo.Controls.Add(this.btnaddpasillo);
-            this.paddpasillo.Controls.Add(this.label13);
-            this.paddpasillo.Location = new System.Drawing.Point(884, 17);
-            this.paddpasillo.Name = "paddpasillo";
-            this.paddpasillo.Size = new System.Drawing.Size(143, 82);
-            this.paddpasillo.TabIndex = 106;
-            // 
-            // btnaddpasillo
-            // 
-            this.btnaddpasillo.BackgroundImage = global::controlFallos.Properties.Resources._goto;
-            this.btnaddpasillo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnaddpasillo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnaddpasillo.FlatAppearance.BorderSize = 0;
-            this.btnaddpasillo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnaddpasillo.Location = new System.Drawing.Point(53, 3);
-            this.btnaddpasillo.Name = "btnaddpasillo";
-            this.btnaddpasillo.Size = new System.Drawing.Size(35, 35);
-            this.btnaddpasillo.TabIndex = 68;
-            this.btnaddpasillo.UseVisualStyleBackColor = true;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label13.Location = new System.Drawing.Point(21, 37);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(107, 42);
-            this.label13.TabIndex = 69;
-            this.label13.Text = "Ir a Catálogo\r\nde Familia";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(1549, 17);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(143, 82);
-            this.panel1.TabIndex = 107;
-            // 
-            // button1
-            // 
-            this.button1.BackgroundImage = global::controlFallos.Properties.Resources._goto;
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Location = new System.Drawing.Point(53, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(35, 35);
-            this.button1.TabIndex = 68;
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label1.Location = new System.Drawing.Point(21, 37);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 42);
-            this.label1.TabIndex = 69;
-            this.label1.Text = "Ir a Catálogo\r\nde Marcas";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // gbbuscar
             // 
             this.gbbuscar.Controls.Add(this.btnExcel);
@@ -1116,27 +1117,27 @@
             this.tbrefaccion.AllowUserToDeleteRows = false;
             this.tbrefaccion.AllowUserToResizeColumns = false;
             this.tbrefaccion.AllowUserToResizeRows = false;
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle31.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle31.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tbrefaccion.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tbrefaccion.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.tbrefaccion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.tbrefaccion.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.tbrefaccion.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.tbrefaccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbrefaccion.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle32.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle32.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle32.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle32.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle32.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tbrefaccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tbrefaccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.tbrefaccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tbrefaccion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.tbrefaccion.EnableHeadersVisualStyles = false;
@@ -1148,14 +1149,14 @@
             this.tbrefaccion.ReadOnly = true;
             this.tbrefaccion.RowHeadersVisible = false;
             this.tbrefaccion.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle33.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle33.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle33.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle33.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle33.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tbrefaccion.RowsDefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tbrefaccion.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.tbrefaccion.RowTemplate.ReadOnly = true;
             this.tbrefaccion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tbrefaccion.ShowCellErrors = false;
@@ -1188,6 +1189,10 @@
             this.Load += new System.EventHandler(this.catHerramienta_Load);
             this.gbaddrefaccion.ResumeLayout(false);
             this.gbaddrefaccion.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.paddpasillo.ResumeLayout(false);
+            this.paddpasillo.PerformLayout();
             this.pExistencias.ResumeLayout(false);
             this.pExistencias.PerformLayout();
             this.pCancelar.ResumeLayout(false);
@@ -1196,10 +1201,6 @@
             this.pdelref.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.paddpasillo.ResumeLayout(false);
-            this.paddpasillo.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.gbbuscar.ResumeLayout(false);
             this.gbbuscar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();

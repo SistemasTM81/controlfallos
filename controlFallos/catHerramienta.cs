@@ -253,6 +253,11 @@ namespace controlFallos
                 v.enGeneral(e);
         }
 
+        private void btndelref_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void label33_Click(object sender, EventArgs e)
         {
 
@@ -264,3 +269,5 @@ namespace controlFallos
         }
     }
 }
+
+//Prueba Jesus subir git
