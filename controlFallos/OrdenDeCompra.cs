@@ -3011,7 +3011,7 @@ namespace controlFallos
                 registrar = false;
                 FolioR = dataGridViewOCompra.Rows[e.RowIndex].Cells[0].Value.ToString();
                 txtCodigo.Text = dataGridViewOCompra.Rows[e.RowIndex].Cells[2].Value.ToString();
-                string[] datos = v.ObtenerRefR("SET lc_time_names = 'es_ES';select upper(concat(t1.idcrequicision, '|', t1.Folio,'|',t2.codrefaccion,'|',t2.nombreRefaccion,'|',t1.NumParte,'|',t2.existencias,'|', t1.Cantidad,'|', t1.estatus,'|',date_format(t1.Fecha, '%W %d de %M del %Y') ,'|', t1.precio,'|',(select simbolo from ctipocambio where idtipoCambio = t1.tipocambiofkCTipomoneda),'|',t1.Especificaciones, '|', t1.Estatus, '|',t4.proveedorfkCproveedor, '|', t1.departamento,'|', t4.costoenvio)) as r from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion inner join cproveedores as t3 on t3.idproveedor = t1.proveedorfkCProveedor inner join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision where t1.Folio='" + FolioR.ToString() + "' and t2.codrefaccion= '" + txtCodigo.Text + "' and t1.empresa = '" + empresa + "';").ToString().Split('|');
+                string[] datos = v.ObtenerRefR("SET lc_time_names = 'es_ES';select upper(concat(t1.idcrequicision, '|', t1.Folio,'|',t2.codrefaccion,'|',t2.nombreRefaccion,'|',t1.NumParte,'|',t2.existencias,'|', t1.Cantidad,'|', t1.estatus,'|',date_format(t1.Fecha, '%W %d de %M del %Y') ,'|', t1.precio,'|',(select simbolo from ctipocambio where idtipoCambio = t1.tipocambiofkCTipomoneda),'|',t1.Especificaciones, '|',t4.proveedorfkCproveedor, '|', t1.departamento,'|', t4.costoenvio)) as r from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion inner join cproveedores as t3 on t3.idproveedor = t1.proveedorfkCProveedor inner join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision where t1.Folio='" + FolioR.ToString() + "' and t2.codrefaccion= '" + txtCodigo.Text + "' and t1.empresa = '" + empresa + "';").ToString().Split('|');
                 idRequicision = Convert.ToInt32(datos[0].ToString());
                 groupBoxRefaccion.Text = groupBoxRefaccion.Text + " " + datos[1].ToString();
                 FolioR = datos[1].ToString();
@@ -3024,11 +3024,11 @@ namespace controlFallos
                 lblFecha.Text = datos[8].ToString();
                 txtCosto.Text = datos[9].ToString();
                 txtMoneda.Text = datos[10].ToString();
-                txtMoneda2.Text = datos[11].ToString();
-                textBoxObservacionesRefacc.Text = datos[12].ToString();
-                cmbProveedor1.SelectedValue = Convert.ToInt32(datos[13].ToString());
-                departamento = datos[14].ToString();
-                txtCostoEnvio.Text = datos[15].ToString();
+                txtMoneda2.Text = datos[10].ToString();
+                textBoxObservacionesRefacc.Text = datos[11].ToString();
+                cmbProveedor1.SelectedValue = Convert.ToInt32(datos[12].ToString());
+                departamento = datos[13].ToString();
+                txtCostoEnvio.Text = datos[14].ToString();
 
                 String.Format("{0:n}", txtCosto.Text);
 
@@ -3085,6 +3085,8 @@ namespace controlFallos
                 textBoxObservacionesRefacc.Text = datos[11].ToString();
                 cmbEstatus.SelectedIndex = Convert.ToInt32(datos[12].ToString());
                 departamento = datos[13].ToString();
+
+                txtCostoEnvio.Text = datos[15].ToString();
                 selectiva();
                 calcular_costo();
                 buttonNuevoOC.Visible = true;
