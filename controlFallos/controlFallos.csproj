@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <MinimumRequiredVersion>1.1.2.299</MinimumRequiredVersion>
-    <ApplicationRevision>300</ApplicationRevision>
+    <MinimumRequiredVersion>1.1.2.301</MinimumRequiredVersion>
+    <ApplicationRevision>301</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -385,6 +385,12 @@
     </Compile>
     <Compile Include="Material_Recuperado.Designer.cs">
       <DependentUpon>Material_Recuperado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="materiralTerminado.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="materiralTerminado.Designer.cs">
+      <DependentUpon>materiralTerminado.cs</DependentUpon>
     </Compile>
     <Compile Include="menuPrincipal.cs">
       <SubType>Form</SubType>
@@ -787,6 +793,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Material_Recuperado.resx">
       <DependentUpon>Material_Recuperado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="materiralTerminado.resx">
+      <DependentUpon>materiralTerminado.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="menuPrincipal.resx">
       <DependentUpon>menuPrincipal.cs</DependentUpon>

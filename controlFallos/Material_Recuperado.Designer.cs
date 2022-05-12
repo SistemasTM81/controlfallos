@@ -331,7 +331,6 @@
             // 
             this.txtContasenna.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.txtContasenna.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtContasenna.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtContasenna.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtContasenna.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.txtContasenna.Location = new System.Drawing.Point(220, 193);
