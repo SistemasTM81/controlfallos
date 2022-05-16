@@ -30,7 +30,7 @@ namespace controlFallos
         string obtenerFolio = "select convert(concat('OC00-',right(FolioOrdCompra,1) + 1), char) from ordencompra order by idOrdCompra desc limit 1";
         string unidadMedida = "Select x1.Simbolo from cunidadmedida as x1 inner join cfamilias as x2 on x1.idunidadmedida = x2.umfkcunidadmedida inner join cmarcas as x3 on x2.idfamilia = x3.descripcionfkcfamilias inner join crefacciones as x4 on x4.marcafkcmarcas = x3.idmarca where x4.codrefaccion = ";
         List<string> lsEstatus = new List<string>();
-        string IVAd = "", proveedor = "", datosO = "", FolioR = "", departamento = "", FolioOC="", Fecha="";
+        string IVAd = "", proveedor = "", datosO = "", FolioR = "", departamento = "", FolioOC="", Fecha="",observacionesd="";
         string[] costos;
         DataTable dt = new DataTable();
         DataRow filas;
@@ -3311,7 +3311,15 @@ namespace controlFallos
             document.Add(datatable);
             document.Add(tablaotra);
             document.Add(new Paragraph("\n\n\n\nOBSERVACIONES", FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)));
-            document.Add(new Paragraph("\n"+ textBoxObservaciones.Text , FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)));
+            if (!string.IsNullOrWhiteSpace(observacionesd))
+            {
+                document.Add(new Paragraph("\n" + observacionesd, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)));
+            }
+            else
+            {
+                document.Add(new Paragraph("\n" + textBoxObservaciones.Text, FontFactory.GetFont("Arial", 10, iTextSharp.text.Font.BOLD)));
+            }
+           
 
 
 
@@ -3340,13 +3348,14 @@ namespace controlFallos
             
             DataSet ds = (DataSet)v.TraerOrden(FolioOC, empresa);
             dgvimprimir.DataSource = ds.Tables[0];
-            string [] cadena = v.getaDataR("SET lc_time_names = 'es_ES';select convert(concat(t1.Folio, '|', (select if(t1.idcrequicision = t2.requicisionfkCRequicision, (Select if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa) from cproveedores as x1  where x1.idproveedor = t1.proveedorfkCproveedor), '')),'|',date_format(t2.FechaOCompra, '%d de %M de %Y')),char) from crequicision as t1 inner join ordencompra as t2 on t2.requicisionfkCRequicision = t1.idcrequicision where (t2.FolioOrdCompra = '" + FolioOC + "' or t1.Folio = '" + FolioOC +"') and t2.empresa = '" + empresa + "' limit 1").ToString().Split('|');
+            string [] cadena = v.getaDataR("SET lc_time_names = 'es_ES';select convert(concat(t1.Folio, '|', (select if(t1.idcrequicision = t2.requicisionfkCRequicision, (Select if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa) from cproveedores as x1  where x1.idproveedor = t1.proveedorfkCproveedor), '')),'|',date_format(t2.FechaOCompra, '%d de %M de %Y'), '|',t2.ObservacionesOC),char) from crequicision as t1 inner join ordencompra as t2 on t2.requicisionfkCRequicision = t1.idcrequicision where (t2.FolioOrdCompra = '" + FolioOC + "' or t1.Folio = '" + FolioOC +"') and t2.empresa = '" + empresa + "' limit 1").ToString().Split('|');
             if (!cadena[0].ToString().Equals(""))
             {
                 FolioR = cadena[0].ToString();
                 proveedor = cadena[1].ToString();
                 Fecha = cadena[2].ToString();
-                
+                observacionesd = cadena[3].ToString();
+
             }
            
 

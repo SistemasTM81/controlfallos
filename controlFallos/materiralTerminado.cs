@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using MySql.Data.MySqlClient;
 
 namespace controlFallos
 {
@@ -16,7 +17,7 @@ namespace controlFallos
         int empresa, area, idUsuario, idEntrega;
         string folio = "";
         double existencia = 0.0;
-        DataSet ds;
+        DataTable ds;
 
         public materiralTerminado(validaciones v, int empresa, int area, int IdUsuario)
         {
@@ -33,21 +34,40 @@ namespace controlFallos
 
         public void materialTerminado_Load(object sender, EventArgs e)
         {
-            ConsultaGenerar(Convert.ToString(empresa));
+            ConsultaGenerar(Convert.ToString("where t1.empresa = '" + empresa + "'"));
         }
 
-        public void txtCodigo_Validated(object sender, EventArgs e)
+        public void Cerrar(object sender, EventArgs e)
         {
+            this.Close();
+        }
 
+        public void Buscar(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(txtFolio.Text))
+            {
+                ConsultaGenerar("WHERE t1.Folio = '" + txtFolio.Text + "' and t1.empresa = '" + empresa + "'");
+
+            }
+            else if (cbFecha.Checked ==true)
+            {
+                ConsultaGenerar("where  date_format(fechahora, ' %Y-%m-%d) between '" + dtpFechaDe.Value.ToString("yyyy/MM/dd") + "' and '" + dtpFechaA.Value.ToString("yyyy/MM/dd") + "' and t1.empresa = '" + empresa + "'");
+            }
         }
 
 
 
         void ConsultaGenerar(string where)
         {
-            ds = (DataSet)v.getaData("SET lc_time_names = 'es_ES'Select t1.Folio, t2.codrefaccion, t2.nombreRefaccion, t1.cantidad, t1.fechahora, t2.CostoUni from materialproduccion as t1 inner join crefacciones as t2 on t1.refaccionfkcrefacciones = t2.idrefaccion where t1.empresa = '" + empresa + "'");
-            dgvMaterial.DataSource = ds.Tables[0];
+            ds = (DataTable)v.getData("SET lc_time_names = 'es_ES';Select  t2.codrefaccion, t2.nombreRefaccion, t1.cantidad, t1.fechahora, t2.CostoUni from materialproduccion as t1 inner join crefacciones as t2 on t1.refaccionfkcrefacciones = t2.idrefaccion " + where);
+            for (int i = 0; i < ds.Rows.Count; i++)
+                dgvMaterial.Rows.Add(ds.Rows[i].ItemArray);
+            ds.Dispose();
+            ds.EndInit();
+            dgvMaterial.Columns["cbSelect"].DisplayIndex = 0;
+            //dgvMaterial.DataSource = ds.Tables[0];
         }
-        
+       
+
     }
 }

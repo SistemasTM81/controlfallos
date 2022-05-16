@@ -18,7 +18,7 @@ namespace controlFallos
         validaciones v;
         MySqlDataAdapter adaptador;
         int empresa, area, IdUsuario, total, inicio = 0;
-        string consultaGeneral = "SELECT t1.idrefaccion, t1.codrefaccion as CODIGO, t1.nombreRefaccion AS REFACCION, CONVERT(sum(replace(t2.CantidadIngresa,',','')),decimal(12,2)) AS TOTAL, t5.Simbolo AS MEDIDA FROM crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion = t2.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t1.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida";
+        string consultaGeneral = "SELECT t1.codrefaccion as CODIGO, t1.nombreRefaccion AS REFACCION, CONVERT(sum(replace(t2.CantidadIngresa,',','')),decimal(12,2)) AS TOTAL, t5.Simbolo AS MEDIDA,'MÁS INFORMACIÓN' FROM crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion = t2.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t1.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida";
         string messel;
         DataSet ds = new DataSet();
         DataTable dt;
@@ -38,8 +38,17 @@ namespace controlFallos
         public void ConsultaGeneral(string cadena)
         {
             DataSet contar = new DataSet();
+            DataTable dt = (DataTable)v.getData(consultaGeneral + cadena);
+            int numFila = dt.Rows.Count;
+            if (numFila > 0 )
+            {
+                for (int i = 0; i < numFila; i++)
+                {
+                    dgvEntrada.Rows.Add(dt.Rows[i].ItemArray);
+                }
+            }
 
-            adaptador = (MySqlDataAdapter)v.getReport(consultaGeneral + cadena);
+           /* adaptador = (MySqlDataAdapter)v.getReport(consultaGeneral + cadena);
             adaptador.Fill(contar);
             if (contar.Tables[0].Rows.Count > 1)
             {
@@ -52,7 +61,7 @@ namespace controlFallos
                 adaptador.Fill(ds, 0, 1, "Entradas");
                 dgvEntrada.DataSource = ds.Tables[0];
                 gvimprimir.DataSource = contar.Tables[0];
-            }
+            }*/
 
         }
         private void CargarInicio(object sender, EventArgs e)

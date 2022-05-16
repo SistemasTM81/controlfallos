@@ -16,6 +16,7 @@ namespace controlFallos
     {
         validaciones v;
         int empresa, area, IdUsuario;
+        double cantidad_actual = 0.0;
         public Diesel(int idusuario, int empresa, int area, validaciones v)
         {
             this.v = v;
@@ -117,7 +118,8 @@ namespace controlFallos
             {
                 if (v.c.insertar("insert into dispensadordiesel(EcofkCunidades,refaccionfkCRefacciones,Cant,fechaHoraReg,usuariofkdatosistema) values('" + cmbEco.SelectedValue + "','" + cmbAgrega.SelectedValue + "','" + txtCant.Text.Trim() + "',now(),'" + IdUsuario + "')"))
                 {
-                    if (v.c.insertar("update crefacciones set existencias = (existencias-" + txtCant.Text + ") where idrefaccion='" + cmbAgrega.SelectedValue + "'")) { }
+                    double actualizar = cantidad_actual - Double.Parse(txtCant.Text);
+                    if (v.c.insertar("update crefacciones set existencias = '" + actualizar + "' where idrefaccion='" + cmbAgrega.SelectedValue + "'")) { }
                     string id = v.getaData("select if (count(convert(idDispDiesel, char)) > 0, convert(idDispDiesel, char), '0') as id from dispensadordiesel where EcofkCunidades = '" + cmbEco.SelectedValue + "' and refaccionfkCRefacciones = '" + cmbAgrega.SelectedValue + "' order by iddispdiesel desc limit 1").ToString();
                     v.c.insertar("insert into modificaciones_sistema(form, idregistro, ultimaModificacion,usuariofkcpersonal,fechaHora, Tipo, empresa, area) values('Dispensador de Diesel','" + id + "', '" + cmbEco.SelectedValue + ";" + cmbAgrega.SelectedValue + ";" + txtCant.Text.Trim() + "', '" + IdUsuario + "', now(), 'Registro', '" + empresa + "', '" + area + "')");
                     MessageBox.Show("Registro Correcto", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -156,7 +158,7 @@ namespace controlFallos
 
         private void txtCant_Validating(object sender, CancelEventArgs e)
         {
-            TextBox txtCanti = sender as TextBox;
+           /* TextBox txtCanti = sender as TextBox;
             if (!string.IsNullOrWhiteSpace(txtCanti.Text.Trim()))
             {
                 while (txtCanti.Text.Contains(".."))
@@ -175,7 +177,7 @@ namespace controlFallos
                 {
                     txtCanti.Clear(); MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-            }
+            }*/
         }
         bool activado = false;
         private void buttonExcel_Click(object sender, EventArgs e)
@@ -347,6 +349,10 @@ namespace controlFallos
         private void cmbAgrega_SelectedValueChanged(object sender, EventArgs e)
         {
             lblUnidad.Text = (cmbAgrega.SelectedIndex > 0 ? v.getaData("select coalesce(upper(t4." + v.c.fieldscunidadmedida[1] + "),'') from crefacciones as t1 inner join cmarcas as t2 on t1." + v.c.fieldscrefacciones[7] + "=t2." + v.c.fieldscmarcas[0] + " inner join cfamilias as t3 on t2." + v.c.fieldscmarcas[1] + "=t3." + v.c.fieldscfamilias[0] + " inner join cunidadmedida as t4 on t3." + v.c.fieldscfamilias[5] + " = t4." + v.c.fieldscunidadmedida[0] + " where t1." + v.c.fieldscrefacciones[0] + " = '" + cmbAgrega.SelectedValue + "'").ToString() : "");
+            if (cmbAgrega.SelectedIndex > 0)
+            {
+                cantidad_actual = Double.Parse(v.getaData("select existencias from crefacciones where idrefaccion='" + cmbAgrega.SelectedValue.ToString() + "' and empresa = '" + empresa + "'").ToString());
+            }
         }
     }
 }

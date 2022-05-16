@@ -34,16 +34,12 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvMaterial = new System.Windows.Forms.DataGridView();
-            this.cbSelect = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.codref = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.costo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
             this.txtrefacciones = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
-            this.txtcodigo = new System.Windows.Forms.TextBox();
+            this.txtFolio = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.btnBuscar = new System.Windows.Forms.Button();
             this.buttonExcel = new System.Windows.Forms.Button();
@@ -52,10 +48,18 @@
             this.label31 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.dtpFechaA = new System.Windows.Forms.DateTimePicker();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label35 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.codref = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cantidad = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.costo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cbSelect = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaterial)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvMaterial
@@ -85,12 +89,12 @@
             this.dgvMaterial.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvMaterial.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvMaterial.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cbSelect,
             this.codref,
             this.nombre,
             this.cantidad,
             this.fecha,
-            this.costo});
+            this.costo,
+            this.cbSelect});
             this.dgvMaterial.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -103,9 +107,8 @@
             this.dgvMaterial.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgvMaterial.EnableHeadersVisualStyles = false;
             this.dgvMaterial.GridColor = System.Drawing.Color.Gray;
-            this.dgvMaterial.Location = new System.Drawing.Point(12, 307);
+            this.dgvMaterial.Location = new System.Drawing.Point(12, 374);
             this.dgvMaterial.Name = "dgvMaterial";
-            this.dgvMaterial.ReadOnly = true;
             this.dgvMaterial.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -127,55 +130,13 @@
             this.dgvMaterial.Size = new System.Drawing.Size(776, 300);
             this.dgvMaterial.TabIndex = 201;
             // 
-            // cbSelect
-            // 
-            this.cbSelect.HeaderText = "SELECCIONAR";
-            this.cbSelect.Name = "cbSelect";
-            this.cbSelect.ReadOnly = true;
-            this.cbSelect.Width = 134;
-            // 
-            // codref
-            // 
-            this.codref.HeaderText = "CODIGO REFACCION";
-            this.codref.Name = "codref";
-            this.codref.ReadOnly = true;
-            this.codref.Width = 188;
-            // 
-            // nombre
-            // 
-            this.nombre.HeaderText = "NOMBRE REFACCION";
-            this.nombre.Name = "nombre";
-            this.nombre.ReadOnly = true;
-            this.nombre.Width = 194;
-            // 
-            // cantidad
-            // 
-            this.cantidad.HeaderText = "CANTIDAD";
-            this.cantidad.Name = "cantidad";
-            this.cantidad.ReadOnly = true;
-            this.cantidad.Width = 126;
-            // 
-            // fecha
-            // 
-            this.fecha.HeaderText = "FECHA ";
-            this.fecha.Name = "fecha";
-            this.fecha.ReadOnly = true;
-            this.fecha.Width = 97;
-            // 
-            // costo
-            // 
-            this.costo.HeaderText = "COSTO";
-            this.costo.Name = "costo";
-            this.costo.ReadOnly = true;
-            this.costo.Width = 92;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.label18);
             this.groupBox1.Controls.Add(this.label35);
             this.groupBox1.Controls.Add(this.txtrefacciones);
             this.groupBox1.Controls.Add(this.label27);
-            this.groupBox1.Controls.Add(this.txtcodigo);
+            this.groupBox1.Controls.Add(this.txtFolio);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.btnBuscar);
             this.groupBox1.Controls.Add(this.buttonExcel);
@@ -184,11 +145,36 @@
             this.groupBox1.Controls.Add(this.label31);
             this.groupBox1.Controls.Add(this.label32);
             this.groupBox1.Controls.Add(this.dtpFechaA);
-            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Location = new System.Drawing.Point(12, 67);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(776, 289);
             this.groupBox1.TabIndex = 202;
             this.groupBox1.TabStop = false;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label18.Font = new System.Drawing.Font("Garamond", 9.75F);
+            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label18.Location = new System.Drawing.Point(84, 219);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(55, 14);
+            this.label18.TabIndex = 265;
+            this.label18.Text = "BUSCAR";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.BackColor = System.Drawing.Color.Transparent;
+            this.label35.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label35.Location = new System.Drawing.Point(170, 218);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(75, 14);
+            this.label35.TabIndex = 264;
+            this.label35.Text = "EXPORTAR";
+            this.label35.Visible = false;
             // 
             // txtrefacciones
             // 
@@ -211,19 +197,19 @@
             this.label27.TabIndex = 262;
             this.label27.Text = "________________________________________________________";
             // 
-            // txtcodigo
+            // txtFolio
             // 
-            this.txtcodigo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtcodigo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtcodigo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtcodigo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtcodigo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtcodigo.Location = new System.Drawing.Point(93, 26);
-            this.txtcodigo.MaxLength = 10;
-            this.txtcodigo.Name = "txtcodigo";
-            this.txtcodigo.ShortcutsEnabled = false;
-            this.txtcodigo.Size = new System.Drawing.Size(227, 18);
-            this.txtcodigo.TabIndex = 261;
+            this.txtFolio.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtFolio.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtFolio.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtFolio.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFolio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtFolio.Location = new System.Drawing.Point(93, 26);
+            this.txtFolio.MaxLength = 10;
+            this.txtFolio.Name = "txtFolio";
+            this.txtFolio.ShortcutsEnabled = false;
+            this.txtFolio.Size = new System.Drawing.Size(227, 18);
+            this.txtFolio.TabIndex = 261;
             // 
             // label5
             // 
@@ -231,9 +217,9 @@
             this.label5.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(6, 26);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 21);
+            this.label5.Size = new System.Drawing.Size(52, 21);
             this.label5.TabIndex = 260;
-            this.label5.Text = "Codigo:";
+            this.label5.Text = "Folio:";
             // 
             // btnBuscar
             // 
@@ -252,6 +238,7 @@
             this.btnBuscar.Size = new System.Drawing.Size(31, 32);
             this.btnBuscar.TabIndex = 259;
             this.btnBuscar.UseVisualStyleBackColor = false;
+            this.btnBuscar.Click += new System.EventHandler(this.Buscar);
             // 
             // buttonExcel
             // 
@@ -331,30 +318,79 @@
             this.dtpFechaA.Size = new System.Drawing.Size(252, 25);
             this.dtpFechaA.TabIndex = 254;
             // 
-            // label18
+            // panel1
             // 
-            this.label18.AutoSize = true;
-            this.label18.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label18.Font = new System.Drawing.Font("Garamond", 9.75F);
-            this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label18.Location = new System.Drawing.Point(84, 219);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(55, 14);
-            this.label18.TabIndex = 265;
-            this.label18.Text = "BUSCAR";
+            this.panel1.BackColor = System.Drawing.Color.Crimson;
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(800, 27);
+            this.panel1.TabIndex = 203;
             // 
-            // label35
+            // button1
             // 
-            this.label35.AutoSize = true;
-            this.label35.BackColor = System.Drawing.Color.Transparent;
-            this.label35.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label35.Location = new System.Drawing.Point(170, 218);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(75, 14);
-            this.label35.TabIndex = 264;
-            this.label35.Text = "EXPORTAR";
-            this.label35.Visible = false;
+            this.button1.BackColor = System.Drawing.Color.Crimson;
+            this.button1.BackgroundImage = global::controlFallos.Properties.Resources.delete;
+            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(770, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(30, 27);
+            this.button1.TabIndex = 1;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.Cerrar);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Crimson;
+            this.label1.Font = new System.Drawing.Font("Garamond", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(277, 2);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(163, 22);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Material Terminado";
+            // 
+            // codref
+            // 
+            this.codref.HeaderText = "CODIGO REFACCION";
+            this.codref.Name = "codref";
+            this.codref.Width = 188;
+            // 
+            // nombre
+            // 
+            this.nombre.HeaderText = "NOMBRE REFACCION";
+            this.nombre.Name = "nombre";
+            this.nombre.Width = 194;
+            // 
+            // cantidad
+            // 
+            this.cantidad.HeaderText = "CANTIDAD";
+            this.cantidad.Name = "cantidad";
+            this.cantidad.Width = 126;
+            // 
+            // fecha
+            // 
+            this.fecha.HeaderText = "FECHA ";
+            this.fecha.Name = "fecha";
+            this.fecha.Width = 97;
+            // 
+            // costo
+            // 
+            this.costo.HeaderText = "COSTO";
+            this.costo.Name = "costo";
+            this.costo.Width = 92;
+            // 
+            // cbSelect
+            // 
+            this.cbSelect.HeaderText = "SELECCIONAR";
+            this.cbSelect.Name = "cbSelect";
+            this.cbSelect.Width = 134;
             // 
             // materiralTerminado
             // 
@@ -362,15 +398,20 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ClientSize = new System.Drawing.Size(800, 628);
+            this.ClientSize = new System.Drawing.Size(800, 700);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.dgvMaterial);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "materiralTerminado";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "materiralTerminado";
+            this.Load += new System.EventHandler(this.materialTerminado_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvMaterial)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -378,16 +419,10 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvMaterial;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn cbSelect;
-        private System.Windows.Forms.DataGridViewTextBoxColumn codref;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
-        private System.Windows.Forms.DataGridViewTextBoxColumn costo;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox txtrefacciones;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.TextBox txtcodigo;
+        private System.Windows.Forms.TextBox txtFolio;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button btnBuscar;
         private System.Windows.Forms.Button buttonExcel;
@@ -398,5 +433,14 @@
         private System.Windows.Forms.DateTimePicker dtpFechaA;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn codref;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cantidad;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.DataGridViewTextBoxColumn costo;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn cbSelect;
     }
 }

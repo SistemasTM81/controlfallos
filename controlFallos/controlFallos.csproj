@@ -25,7 +25,7 @@
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
     <MinimumRequiredVersion>1.1.2.301</MinimumRequiredVersion>
-    <ApplicationRevision>301</ApplicationRevision>
+    <ApplicationRevision>302</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -975,6 +975,7 @@
     <None Include="Resources\20.png" />
     <None Include="Resources\1-02-512.png" />
     <Content Include="derecho_sombra_pZF_icon.ico" />
+    <Content Include="Resources\material.png" />
     <Content Include="Resources\produccion.png" />
     <Content Include="Resources\add.png" />
     <None Include="Resources\add1.png" />

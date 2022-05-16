@@ -215,6 +215,11 @@ namespace controlFallos
             obtenerNombre();
         }
 
+        private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            v.numerosDecimales(e);
+        }
+
         private void cbMecanico1_CheckedChanged(object sender, EventArgs e)
         {
             if (cbMecanico1.Checked == true)

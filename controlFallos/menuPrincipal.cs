@@ -357,7 +357,7 @@ namespace controlFallos
         {
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ///descomentado es pantalla pequeña
-           Screen screen = Screen.PrimaryScreen;
+           /*Screen screen = Screen.PrimaryScreen;
             Widthp = screen.Bounds.Width;
             Heightp = screen.Bounds.Height;
             this.Size = new Size(Convert.ToInt32(Widthp), Convert.ToInt32(Heightp) - 250);
@@ -368,7 +368,7 @@ namespace controlFallos
             menuStrip1.Size = new Size(Widthp, 55);
             panel3.Size = new Size(Widthp, 50);
             lbltitle.Location = new Point(Convert.ToInt32(Widthp) - 500, 11);
-            panel1.Location = new Point(Convert.ToInt32(Widthp) - 120, 6);
+            panel1.Location = new Point(Convert.ToInt32(Widthp) - 120, 6);*/
 
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             int xk = this.area;
@@ -1144,6 +1144,13 @@ namespace controlFallos
         private void materialParaProduccionToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MaterialProduccion venta = new MaterialProduccion(v, empresa, area, idUsuario);
+            venta.Owner = this;
+            venta.Show();
+        }
+
+        private void productoTerminadoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            materiralTerminado venta = new materiralTerminado(v, empresa, area, idUsuario);
             venta.Owner = this;
             venta.Show();
         }
