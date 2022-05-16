@@ -252,7 +252,7 @@ namespace controlFallos
                 }
                 else
                 {
-                    MessageBox.Show("No hay datos que mostrar e la tabla".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("No hay datos que mostrar en la tabla".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             if (cmbProveedorB.SelectedIndex != 0 && cbFecha.Checked == false && cmbMes.SelectedIndex == 0 && !string.IsNullOrEmpty(txtcodigo.Text))
