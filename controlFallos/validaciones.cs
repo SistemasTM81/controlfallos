@@ -5305,7 +5305,7 @@ namespace controlFallos
             {
                 if (!string.IsNullOrWhiteSpace(cantidad))
                 {
-                    if (Convert.ToInt32(cantidad) > 0)
+                    if (double.Parse(cantidad) > 0.0)
                     {
                         if (!string.IsNullOrWhiteSpace(contrseña))
                         {

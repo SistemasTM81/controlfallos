@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <MinimumRequiredVersion>1.1.2.301</MinimumRequiredVersion>
-    <ApplicationRevision>302</ApplicationRevision>
+    <MinimumRequiredVersion>1.1.2.303</MinimumRequiredVersion>
+    <ApplicationRevision>304</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -373,6 +373,12 @@
     </Compile>
     <Compile Include="marcas.designer.cs">
       <DependentUpon>marcas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="masInfoES.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="masInfoES.Designer.cs">
+      <DependentUpon>masInfoES.cs</DependentUpon>
     </Compile>
     <Compile Include="MaterialProduccion.cs">
       <SubType>Form</SubType>
@@ -787,6 +793,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="marcas.resx">
       <DependentUpon>marcas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="masInfoES.resx">
+      <DependentUpon>masInfoES.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MaterialProduccion.resx">
       <DependentUpon>MaterialProduccion.cs</DependentUpon>

@@ -64,6 +64,7 @@
             this.dgvEntrada = new System.Windows.Forms.DataGridView();
             this.btnSiguiente = new System.Windows.Forms.Button();
             this.btnAnterior = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.suma = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -107,7 +108,7 @@
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(708, 0);
+            this.button1.Location = new System.Drawing.Point(738, 0);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(30, 27);
             this.button1.TabIndex = 1;
@@ -468,6 +469,7 @@
             this.dgvEntrada.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvEntrada.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvEntrada.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id,
             this.Codigo,
             this.nombre,
             this.suma,
@@ -509,8 +511,9 @@
             this.dgvEntrada.ShowCellToolTips = false;
             this.dgvEntrada.ShowEditingIcon = false;
             this.dgvEntrada.ShowRowErrors = false;
-            this.dgvEntrada.Size = new System.Drawing.Size(715, 238);
+            this.dgvEntrada.Size = new System.Drawing.Size(756, 238);
             this.dgvEntrada.TabIndex = 254;
+            this.dgvEntrada.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEntrada_CellContentClick);
             // 
             // btnSiguiente
             // 
@@ -549,6 +552,13 @@
             this.btnAnterior.TabIndex = 251;
             this.btnAnterior.UseVisualStyleBackColor = false;
             this.btnAnterior.Click += new System.EventHandler(this.Anterior);
+            // 
+            // id
+            // 
+            this.id.HeaderText = "idRefaccion";
+            this.id.Name = "id";
+            this.id.Visible = false;
+            this.id.Width = 104;
             // 
             // Codigo
             // 
@@ -641,6 +651,7 @@
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.DateTimePicker dtpFechaA;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Codigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
         private System.Windows.Forms.DataGridViewTextBoxColumn suma;
