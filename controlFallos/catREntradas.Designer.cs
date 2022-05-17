@@ -62,14 +62,14 @@
             this.label25 = new System.Windows.Forms.Label();
             this.gvimprimir = new System.Windows.Forms.DataGridView();
             this.dgvEntrada = new System.Windows.Forms.DataGridView();
-            this.btnSiguiente = new System.Windows.Forms.Button();
-            this.btnAnterior = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.suma = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.simbolo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.INFO = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.btnSiguiente = new System.Windows.Forms.Button();
+            this.btnAnterior = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExcelLoad)).BeginInit();
@@ -515,44 +515,6 @@
             this.dgvEntrada.TabIndex = 254;
             this.dgvEntrada.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEntrada_CellContentClick);
             // 
-            // btnSiguiente
-            // 
-            this.btnSiguiente.BackColor = System.Drawing.Color.Transparent;
-            this.btnSiguiente.BackgroundImage = global::controlFallos.Properties.Resources.next;
-            this.btnSiguiente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSiguiente.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnSiguiente.FlatAppearance.BorderSize = 0;
-            this.btnSiguiente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnSiguiente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSiguiente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnSiguiente.Location = new System.Drawing.Point(438, 531);
-            this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(31, 32);
-            this.btnSiguiente.TabIndex = 252;
-            this.btnSiguiente.UseVisualStyleBackColor = false;
-            this.btnSiguiente.Click += new System.EventHandler(this.Siguiente);
-            // 
-            // btnAnterior
-            // 
-            this.btnAnterior.BackColor = System.Drawing.Color.Transparent;
-            this.btnAnterior.BackgroundImage = global::controlFallos.Properties.Resources.previous;
-            this.btnAnterior.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAnterior.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnAnterior.FlatAppearance.BorderSize = 0;
-            this.btnAnterior.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.btnAnterior.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAnterior.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnAnterior.Location = new System.Drawing.Point(239, 531);
-            this.btnAnterior.Name = "btnAnterior";
-            this.btnAnterior.Size = new System.Drawing.Size(31, 32);
-            this.btnAnterior.TabIndex = 251;
-            this.btnAnterior.UseVisualStyleBackColor = false;
-            this.btnAnterior.Click += new System.EventHandler(this.Anterior);
-            // 
             // id
             // 
             this.id.HeaderText = "idRefaccion";
@@ -595,6 +557,44 @@
             this.INFO.Name = "INFO";
             this.INFO.VisitedLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.INFO.Width = 177;
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.BackColor = System.Drawing.Color.Transparent;
+            this.btnSiguiente.BackgroundImage = global::controlFallos.Properties.Resources.next;
+            this.btnSiguiente.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnSiguiente.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSiguiente.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnSiguiente.FlatAppearance.BorderSize = 0;
+            this.btnSiguiente.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnSiguiente.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnSiguiente.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSiguiente.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnSiguiente.Location = new System.Drawing.Point(438, 531);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(31, 32);
+            this.btnSiguiente.TabIndex = 252;
+            this.btnSiguiente.UseVisualStyleBackColor = false;
+            this.btnSiguiente.Click += new System.EventHandler(this.Siguiente);
+            // 
+            // btnAnterior
+            // 
+            this.btnAnterior.BackColor = System.Drawing.Color.Transparent;
+            this.btnAnterior.BackgroundImage = global::controlFallos.Properties.Resources.previous;
+            this.btnAnterior.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnAnterior.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAnterior.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnAnterior.FlatAppearance.BorderSize = 0;
+            this.btnAnterior.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this.btnAnterior.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this.btnAnterior.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAnterior.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnAnterior.Location = new System.Drawing.Point(239, 531);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(31, 32);
+            this.btnAnterior.TabIndex = 251;
+            this.btnAnterior.UseVisualStyleBackColor = false;
+            this.btnAnterior.Click += new System.EventHandler(this.Anterior);
             // 
             // catREntradas
             // 

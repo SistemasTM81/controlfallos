@@ -39,6 +39,7 @@ namespace controlFallos
         {
             DataSet contar = new DataSet();
             DataTable dt = (DataTable)v.getData(consultaGeneral + cadena);
+            dgvEntrada.Rows.Clear();
             int numFila = dt.Rows.Count;
             if (numFila > 0 )
             {
@@ -75,15 +76,15 @@ namespace controlFallos
         private void Buscar(object sender, EventArgs e)
         {
             ds.Clear();
-            if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0)
+            if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.codrefaccion = '" + txtcodigo.Text + "' group by t1.idrefaccion");
             }
-            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0)
+            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.Tipo = '" + cmbEmpresa.SelectedIndex + "' group by t1.idrefaccion");
             }
-            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0)
+            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0 && cbFecha.Checked == false)
             {
                 if (int.Parse(cmbMes.SelectedIndex.ToString()) == 1 || int.Parse(cmbMes.SelectedIndex.ToString()) == 2 || int.Parse(cmbMes.SelectedIndex.ToString()) == 3 || int.Parse(cmbMes.SelectedIndex.ToString()) == 4 || int.Parse(cmbMes.SelectedIndex.ToString()) == 5 || int.Parse(cmbMes.SelectedIndex.ToString()) == 6 || int.Parse(cmbMes.SelectedIndex.ToString()) == 7 || int.Parse(cmbMes.SelectedIndex.ToString()) == 8 || int.Parse(cmbMes.SelectedIndex.ToString()) == 9)
                 {
@@ -95,11 +96,11 @@ namespace controlFallos
                 }
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "' group by t1.idrefaccion");
             }
-            else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0)
+            else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.codrefaccion = '" + txtcodigo.Text + "' and t1.Tipo = '" + cmbEmpresa.SelectedIndex + "' group by t1.idrefaccion");
             }
-            else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0)
+            else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0 && cbFecha.Checked == false)
             {
                 if (int.Parse(cmbMes.SelectedIndex.ToString()) == 1 || int.Parse(cmbMes.SelectedIndex.ToString()) == 2 || int.Parse(cmbMes.SelectedIndex.ToString()) == 3 || int.Parse(cmbMes.SelectedIndex.ToString()) == 4 || int.Parse(cmbMes.SelectedIndex.ToString()) == 5 || int.Parse(cmbMes.SelectedIndex.ToString()) == 6 || int.Parse(cmbMes.SelectedIndex.ToString()) == 7 || int.Parse(cmbMes.SelectedIndex.ToString()) == 8 || int.Parse(cmbMes.SelectedIndex.ToString()) == 9)
                 {
@@ -111,7 +112,7 @@ namespace controlFallos
                 }
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.codrefaccion = '" + txtcodigo.Text + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "' group by t1.idrefaccion");
             }
-            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex > 0)
+            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex > 0 && cbFecha.Checked == false)
             {
                 if (int.Parse(cmbMes.SelectedIndex.ToString()) == 1 || int.Parse(cmbMes.SelectedIndex.ToString()) == 2 || int.Parse(cmbMes.SelectedIndex.ToString()) == 3 || int.Parse(cmbMes.SelectedIndex.ToString()) == 4 || int.Parse(cmbMes.SelectedIndex.ToString()) == 5 || int.Parse(cmbMes.SelectedIndex.ToString()) == 6 || int.Parse(cmbMes.SelectedIndex.ToString()) == 7 || int.Parse(cmbMes.SelectedIndex.ToString()) == 8 || int.Parse(cmbMes.SelectedIndex.ToString()) == 9)
                 {
@@ -123,9 +124,13 @@ namespace controlFallos
                 }
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.Tipo = '" + cmbEmpresa.SelectedIndex + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "' group by t1.idrefaccion");
             }
-            else if (cbFecha.Checked == true)
+            else if (cbFecha.Checked == true && !string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0)
             {
                 ConsultaGeneral(" where date_format(FechaHora, '%Y-%m-%d') between '"  + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "' group by t1.idrefaccion");
+            }
+            else if (cbFecha.Checked == true && string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0)
+            {
+                ConsultaGeneral(" where date_format(FechaHora, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "' and t1.Tipo = '" + cmbEmpresa.SelectedIndex + "' group by t1.idrefaccion");
             }
             else
             {
