@@ -34,5 +34,7 @@ namespace controlFallos
     
 
         }
+
+    /*ACTUALIZACION 17-05-2022 REPORTE UNIDADES EXTERNAS*/
     }
 
