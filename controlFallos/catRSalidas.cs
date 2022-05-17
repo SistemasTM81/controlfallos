@@ -53,15 +53,15 @@ namespace controlFallos
         private void Buscar(object sender, EventArgs e)
         {
             ds.Clear();
-            if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0)
+            if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 ConsultaGenera("where date_format(fechaHoraPedido, '%Y') = date_format(now(), '%Y') and t2.empresa = '" + empresa + "' and t2.codrefaccion = '" + txtcodigo.Text +"'", "where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.Cancelado = 0 and t2.codrefaccion = '" + txtcodigo.Text + "' and t2.empresa = '" + empresa + "'");
             }
-            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0)
+            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 ConsultaGenera("where date_format(fechaHoraPedido, '%Y') = date_format(now(), '%Y') and t2.empresa = '" + empresa + "' and t2.codrefaccion = '" + txtcodigo.Text + "' and t2.Tipo = '" + cmbEmpresa.SelectedIndex + "'", "where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.Cancelado = 0 and t2.codrefaccion = '" + txtcodigo.Text + "' and t2.empresa = '" + empresa + "' and t2.Tipo = '" + cmbEmpresa.SelectedIndex + "'");
             }
-            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0)
+            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0 && cbFecha.Checked == false)
             {
                 if (int.Parse(cmbMes.SelectedIndex.ToString()) == 1 || int.Parse(cmbMes.SelectedIndex.ToString()) == 2 || int.Parse(cmbMes.SelectedIndex.ToString()) == 3 || int.Parse(cmbMes.SelectedIndex.ToString()) == 4 || int.Parse(cmbMes.SelectedIndex.ToString()) == 5 || int.Parse(cmbMes.SelectedIndex.ToString()) == 6 || int.Parse(cmbMes.SelectedIndex.ToString()) == 7 || int.Parse(cmbMes.SelectedIndex.ToString()) == 8 || int.Parse(cmbMes.SelectedIndex.ToString()) == 9)
                 {
@@ -73,7 +73,7 @@ namespace controlFallos
                 }
                 ConsultaGenera("where date_format(fechaHoraPedido, '%Y') = date_format(now(), '%Y') and t2.empresa = '" + empresa + "' and date_format(fechaHoraPedido, '%m') = '" + messel.ToString() + "'", "where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t2.empresa = '" + empresa + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "'");
             }
-            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex > 0)
+            else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex > 0 && cbFecha.Checked == false)
             {
                 if (int.Parse(cmbMes.SelectedIndex.ToString()) == 1 || int.Parse(cmbMes.SelectedIndex.ToString()) == 2 || int.Parse(cmbMes.SelectedIndex.ToString()) == 3 || int.Parse(cmbMes.SelectedIndex.ToString()) == 4 || int.Parse(cmbMes.SelectedIndex.ToString()) == 5 || int.Parse(cmbMes.SelectedIndex.ToString()) == 6 || int.Parse(cmbMes.SelectedIndex.ToString()) == 7 || int.Parse(cmbMes.SelectedIndex.ToString()) == 8 || int.Parse(cmbMes.SelectedIndex.ToString()) == 9)
                 {
@@ -85,7 +85,7 @@ namespace controlFallos
                 }
                 ConsultaGenera("where date_format(fechaHoraPedido, '%Y') = date_format(now(), '%Y') and t2.empresa = '" + empresa + "' and t2.codrefaccion = '" + txtcodigo.Text + "' and t2.Tipo = '" + cmbEmpresa.SelectedIndex + "' and date_format(fechaHoraPedido, '%m') = '" + messel.ToString() + "'", "where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.Cancelado = 0 and t2.codrefaccion = '" + txtcodigo.Text + "' and t2.empresa = '" + empresa + "' and t2.Tipo = '" + cmbEmpresa.SelectedIndex + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "'");
             }
-            else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0)
+            else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0 && cbFecha.Checked == false)
             {
                 if (int.Parse(cmbMes.SelectedIndex.ToString()) == 1 || int.Parse(cmbMes.SelectedIndex.ToString()) == 2 || int.Parse(cmbMes.SelectedIndex.ToString()) == 3 || int.Parse(cmbMes.SelectedIndex.ToString()) == 4 || int.Parse(cmbMes.SelectedIndex.ToString()) == 5 || int.Parse(cmbMes.SelectedIndex.ToString()) == 6 || int.Parse(cmbMes.SelectedIndex.ToString()) == 7 || int.Parse(cmbMes.SelectedIndex.ToString()) == 8 || int.Parse(cmbMes.SelectedIndex.ToString()) == 9)
                 {
@@ -97,17 +97,21 @@ namespace controlFallos
                 }
                 ConsultaGenera("where date_format(fechaHoraPedido, '%Y') = date_format(now(), '%Y') and t2.empresa = '" + empresa + "' and date_format(fechaHoraPedido, '%m') = '" + messel.ToString() + "'", "where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.Cancelado = 0 and date_format(FechaHora, '%m') = '" + messel.ToString() + "'");
             }
-            else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0)
+            else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 ConsultaGenera("where date_format(fechaHoraPedido, '%Y') = date_format(now(), '%Y') and t2.empresa = '" + empresa +  "' and t2.Tipo = '" + cmbEmpresa.SelectedIndex + "'", "where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.Cancelado = 0 and t2.codrefaccion = '" + txtcodigo.Text + "' and t2.empresa = '" + empresa + "' and t2.Tipo = '" + cmbEmpresa.SelectedIndex + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "'");
             }
-            else if (cbFecha.Checked == true)
+            else if (cbFecha.Checked == true && string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0)
             {
                 ConsultaGenera("where date_format(fechaHoraPedido, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'and t2.empresa = '" + empresa + "' and t2.Tipo = '" + cmbEmpresa.SelectedIndex + "'", "where date_format(FechaHora, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.Cancelado = 0  and t2.empresa = '" + empresa +"'");
             }
-            else if (cbFecha.Checked == true && !string.IsNullOrWhiteSpace(txtcodigo.Text))
+            else if (cbFecha.Checked == true && !string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0)
             {
                 ConsultaGenera("where date_format(fechaHoraPedido, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'and t2.empresa = '" + empresa  + "' and t2.codrefaccion = '" + txtcodigo.Text +"'", "where date_format(FechaHora, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.Cancelado = 0 and t2.codrefaccion = '" + txtcodigo.Text + "' and t2.empresa = '" + empresa + "'");
+            }
+            else if (cbFecha.Checked == true && string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0)
+            {
+                ConsultaGenera("where date_format(fechaHoraPedido, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'and t2.empresa = '" + empresa + "' and t2.Tipo = '" + cmbEmpresa.SelectedIndex + "'", "where date_format(FechaHora, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.Cancelado = 0 and t2.Tipo = '" + cmbEmpresa.SelectedIndex + "' and t2.empresa = '" + empresa + "'");
             }
             else
             {
@@ -161,7 +165,18 @@ namespace controlFallos
         void ConsultaGenera(string where1, string where2)
         {
             DataSet contar = new DataSet();
-            adaptador = (MySqlDataAdapter)v.getReport("SELECT codrefaccion As CODIGO,nombreRefaccion AS REFACCION, sum(CantidadEntregada) 'Total Salidas', Simbolo FROM (SELECT  t2.codrefaccion, t2.nombreRefaccion, t1.CantidadEntregada, t5.Simbolo FROM pedidosrefaccion as t1 inner join crefacciones as t2 on t2.idrefaccion = t1.RefaccionfkCRefaccion inner join cmarcas as t3 on t3.idmarca = t2.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida " + where1 + " union all SELECT t2.codrefaccion, t2.nombreRefaccion, t1.CantidadEntregada, t5.Simbolo FROM ccarrocero as t1 inner join crefacciones as t2 on t2.idrefaccion = t1.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t2.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida " + where2 + ") t GROUP BY codrefaccion");
+
+            DataTable dt = (DataTable)v.getData("SELECT idrefaccion, codrefaccion As CODIGO, nombreRefaccion AS REFACCION, sum(CantidadEntregada) 'Total Salidas', Simbolo, 'MÁS INFORMACIÓN' FROM(SELECT t2.idrefaccion, t2.codrefaccion, t2.nombreRefaccion, t1.CantidadEntregada, t5.Simbolo, 'MÁS INFORMACIÓN' FROM pedidosrefaccion as t1 inner join crefacciones as t2 on t2.idrefaccion = t1.RefaccionfkCRefaccion inner join cmarcas as t3 on t3.idmarca = t2.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida " + where1 + " union all SELECT t2.idrefaccion, t2.codrefaccion, t2.nombreRefaccion, t1.CantidadEntregada, t5.Simbolo, 'MÁS INFORMACIÓN' FROM ccarrocero as t1 inner join crefacciones as t2 on t2.idrefaccion = t1.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t2.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida " + where2 + ") t GROUP BY codrefaccion");
+            dgvSalidas.Rows.Clear();
+            int numFila = dt.Rows.Count;
+            if (numFila > 0)
+            {
+                for (int i = 0; i < numFila; i++)
+                {
+                    dgvSalidas.Rows.Add(dt.Rows[i].ItemArray);
+                }
+            }
+           /* adaptador = (MySqlDataAdapter)v.getReport("SELECT codrefaccion As CODIGO,nombreRefaccion AS REFACCION, sum(CantidadEntregada) 'Total Salidas', Simbolo FROM (SELECT  t2.codrefaccion, t2.nombreRefaccion, t1.CantidadEntregada, t5.Simbolo FROM pedidosrefaccion as t1 inner join crefacciones as t2 on t2.idrefaccion = t1.RefaccionfkCRefaccion inner join cmarcas as t3 on t3.idmarca = t2.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida " + where1 + " union all SELECT t2.codrefaccion, t2.nombreRefaccion, t1.CantidadEntregada, t5.Simbolo FROM ccarrocero as t1 inner join crefacciones as t2 on t2.idrefaccion = t1.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t2.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida " + where2 + ") t GROUP BY codrefaccion");
             adaptador.Fill(contar);
             if (contar.Tables[0].Rows.Count > 1)
             {
@@ -174,7 +189,7 @@ namespace controlFallos
                 adaptador.Fill(ds, 0, 1, "Entradas");
                 dgvSalidas.DataSource = ds.Tables[0];
                 gvimprimir.DataSource = contar.Tables[0];
-            }
+            }*/
 
         }
         void Limpiar()
@@ -182,7 +197,6 @@ namespace controlFallos
             txtcodigo.Text = "";
             cmbEmpresa.SelectedIndex = cmbMes.SelectedIndex = 0;
             buttonExcel.Visible = label35.Visible = true;
-
         }
         public void recorrerE(int valor)
         {
@@ -211,6 +225,18 @@ namespace controlFallos
             buttonExcel.Visible = false;
             label35.Location = new Point(486, 174);
             label35.Text = "EXPORTANDO";
+        }
+
+        private void dgvSalidas_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && (e.ColumnIndex == 5 || e.ColumnIndex == 6))
+            {
+                bool historial = (e.ColumnIndex == 6);
+                string id = v.mayusculas(dgvSalidas.Rows[e.RowIndex].Cells[0].Value.ToString());
+                masInfoES ifmormacion = new masInfoES(v, IdUsuario, empresa, area, Convert.ToInt32(id), "Salidas");
+                ifmormacion.ShowDialog();
+
+            }
         }
 
         delegate void Loading1();
