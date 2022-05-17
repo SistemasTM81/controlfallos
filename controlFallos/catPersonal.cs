@@ -1285,7 +1285,6 @@ namespace controlFallos
 
         }
 
-
         private void btnExcel_Click(object sender, EventArgs e)
         {
             ThreadStart delegado = new ThreadStart(ExportarExcel);

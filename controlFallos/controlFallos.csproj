@@ -550,6 +550,12 @@
     <Compile Include="Reporte Cierre.Designer.cs">
       <DependentUpon>Reporte Cierre.cs</DependentUpon>
     </Compile>
+    <Compile Include="ReporteCometadeOro.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReporteCometadeOro.Designer.cs">
+      <DependentUpon>ReporteCometadeOro.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReportePersonal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -880,6 +886,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="relacionServicioEstacion.resx">
       <DependentUpon>relacionServicioEstacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReporteCometadeOro.resx">
+      <DependentUpon>ReporteCometadeOro.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ReportePersonal.resx">
       <DependentUpon>ReportePersonal.cs</DependentUpon>

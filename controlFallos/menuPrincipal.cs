@@ -94,6 +94,11 @@ namespace controlFallos
                 if (reporteAlmacenToolStripMenuItem1.Visible)
                     abrirAlmacen();
             }
+            else if (tipoArea == 4)
+            {
+                if (reporteCometaDeOroToolStripMenuItem.Visible)
+                    abrirCometaOro();
+            }
         }
         public void paraPErsonal(string id)
         {
@@ -323,7 +328,9 @@ namespace controlFallos
                 t.CargarDatos();
             }
         }
-        private void reporteNivelMantenimientoToolStripMenuItem_Click(object sender, EventArgs e) { abrirMantenimiento(); }
+        private void reporteNivelMantenimientoToolStripMenuItem_Click(object sender, EventArgs e) { }
+
+        private void reporteUnidadesExternasToolStripMenuItem_Click(object sender, EventArgs e) { abrirMantenimiento(); }
         void abrirMantenimiento()
         {
             string name = "";
@@ -340,7 +347,7 @@ namespace controlFallos
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     //lbltitle.Location = new Point(1575, 13);
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                    Deshabilitar(reporteMantenimientoToolStripMenuItem);
+                    //*Deshabilitar(reporteMantenimientoToolStripMenuItem);
                     var form3 = Application.OpenForms.OfType<Mantenimiento>().FirstOrDefault();
                     Mantenimiento hijo = form3 ?? new Mantenimiento(idUsuario, empresa, area, newimg, v);
                     AddFormInPanel(hijo);
@@ -352,6 +359,39 @@ namespace controlFallos
                 // m.metodoCarga();
             }
         }
+
+        private void reporteCometaDeOroToolStripMenuItem_Click(object sender, EventArgs e){abrirCometaOro(); }
+       
+        void abrirCometaOro()
+        {
+            string name = "";
+            if (form != null) name = form.Name;
+            if (name != "FormCometaDeOro")
+            {
+                if (cerrar())
+                {
+                    resAnterior = 0;
+                    lblnumnotificaciones.BackgroundImage = null;
+                    lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
+                    lbltitle.Text = nombre + "Reporte Unidades Externas";
+                    this.Text = lbltitle.Text;
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    //lbltitle.Location = new Point(1575, 13);
+                    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    Deshabilitar(reporteCometaDeOroToolStripMenuItem);
+                    var form4 = Application.OpenForms.OfType<ReporteCometadeOro>().FirstOrDefault();
+                    ReporteCometadeOro hijo = form4 ?? new ReporteCometadeOro( idUsuario, empresa, area, v);
+                    AddFormInPanel(hijo);
+                }
+            }
+            else
+            {
+                ReporteCometadeOro co = (ReporteCometadeOro)form;
+               
+            }
+        }
+
+
         private void button2_Click(object sender, EventArgs e) { this.Close(); }
         private void menuPrincipal_Load(object sender, EventArgs e)
         {
@@ -1154,6 +1194,10 @@ namespace controlFallos
             venta.Owner = this;
             venta.Show();
         }
+
+      
+
+        
 
         private void asistencíaDelDíaToolStripMenuItem_Click(object sender, EventArgs e)
         {
