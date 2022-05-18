@@ -111,15 +111,15 @@ namespace controlFallos
             {
                 label60.Visible = true;
                 //label61.Visible = true;
-                buttonActualizarN.Visible = true;
-                label49.Visible = true;
+                /*buttonActualizarN.Visible = true;
+                label49.Visible = true;*/
             }
             else
             {
                 label60.Visible = false;
                 //label61.Visible = false;
-                buttonActualizarN.Visible = false;
-                label49.Visible = false;
+               /* buttonActualizarN.Visible = false;
+                label49.Visible = false;*/
             }
 
             if (checkBoxFechas.Checked == false)
@@ -1493,7 +1493,7 @@ namespace controlFallos
 
         private void buttonNuevoOC_Click(object sender, EventArgs e)
         {
-            try
+            /*try
             {
                 validacionval();
                 avilitado();
@@ -1523,7 +1523,8 @@ namespace controlFallos
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-            }
+            }*/
+            limpiar();
         }
         private void buttonAgregar_Click(object sender, EventArgs e)
         {
@@ -1840,6 +1841,7 @@ namespace controlFallos
             SubTotal = 0.0;
             Continuaagregando = 0;
             txtCostoEnvio.Text = "0.0";
+            gbAgregar.Visible = gbExcel.Visible = gbImprimir.Visible = false;
 
 
         }
@@ -1959,8 +1961,8 @@ namespace controlFallos
                     dataGridViewOCompra.DataSource = ds.Tables[0];
                     v.c.dbconection().Close();
                     ConsultaImprecion();
-
-                    if (ds.Tables[0].Rows.Count == 0)
+                gbAgregar.Visible = gbExcel.Visible = gbImprimir.Visible = true;
+                if (ds.Tables[0].Rows.Count == 0)
                     {
                         MessageBox.Show("No se encontraron reportes", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         metodocargaorden();
@@ -3044,8 +3046,9 @@ namespace controlFallos
                 {
                     btnProveedor3.BackgroundImage = Properties.Resources.check;
                 }*/
+                string editable = v.getaData("SET lc_time_names = 'es_ES';select if(date_format(FechaRegistro, '%Y-%m-%d') >= date_add(date_format(now(), '%Y-%m-%d') ,interval -1 day), '1','0') FROM ordencompra where requicisionfkCRequicision ='" + idRequicision.ToString() + "'").ToString();
 
-                if (!datos[7].ToString().Equals("0"))
+                if (!editable.ToString().Equals("0"))
                 {
                     noavilitado();
                 }
@@ -3053,10 +3056,10 @@ namespace controlFallos
                 {
                     avilitado();
                 }
+
+
                 selectiva();
                 calcular_costo();
-                buttonNuevoOC.Visible = true;
-                label17.Visible = true;
                 ultimaCompra();
             }
             else
@@ -3086,11 +3089,10 @@ namespace controlFallos
                 cmbEstatus.SelectedIndex = Convert.ToInt32(datos[12].ToString());
                 departamento = datos[13].ToString();
 
-                txtCostoEnvio.Text = datos[15].ToString();
+                //txtCostoEnvio.Text = datos[15].ToString();
                 selectiva();
                 calcular_costo();
-                buttonNuevoOC.Visible = true;
-                label17.Visible = true;
+                avilitado();
                 ultimaCompra();
                 if (Continuaagregando != 1)
                 {
@@ -3101,13 +3103,14 @@ namespace controlFallos
         void noavilitado()
         {
 
-            textBoxObservaciones.Enabled = txtCodigo.Enabled = txtNomRefaccion.Enabled = txtNumParte.Enabled = labelExistencia.Enabled = txtCantidadS.Enabled = cmbProveedor1.Enabled = cmbProveedor2.Enabled =cmbProveedor3.Enabled =lblFecha.Enabled =txtCosto.Enabled =txtMoneda.Enabled = txtMoneda2.Enabled = textBoxObservacionesRefacc.Enabled = cmbEstatus.Enabled = false;
-            buttonAgregar.Visible = false;
+            textBoxObservaciones.Enabled = txtCodigo.Enabled = txtNomRefaccion.Enabled = txtNumParte.Enabled = labelExistencia.Enabled = txtCantidadS.Enabled = cmbProveedor1.Enabled = cmbProveedor2.Enabled =cmbProveedor3.Enabled =lblFecha.Enabled =txtCosto.Enabled =txtMoneda.Enabled = txtMoneda2.Enabled = textBoxObservacionesRefacc.Enabled = cmbEstatus.Enabled = txtCostoEnvio.Enabled = false;
+            gbAgregar.Visible = gbExcel.Visible = gbImprimir.Visible = false;
+
         }
         void avilitado()
         {
-
-            textBoxObservaciones.Enabled = txtCodigo.Enabled = txtNomRefaccion.Enabled = txtNumParte.Enabled = labelExistencia.Enabled = txtCantidadS.Enabled = cmbProveedor1.Enabled = cmbProveedor2.Enabled = cmbProveedor3.Enabled = lblFecha.Enabled = txtCosto.Enabled = txtMoneda.Enabled = txtMoneda2.Enabled = textBoxObservacionesRefacc.Enabled = cmbEstatus.Enabled = true;
+            textBoxObservaciones.Enabled = txtCodigo.Enabled = txtNomRefaccion.Enabled = txtNumParte.Enabled = labelExistencia.Enabled = txtCantidadS.Enabled = cmbProveedor1.Enabled = cmbProveedor2.Enabled = cmbProveedor3.Enabled = lblFecha.Enabled = txtCosto.Enabled = txtMoneda.Enabled = txtMoneda2.Enabled = textBoxObservacionesRefacc.Enabled = cmbEstatus.Enabled = txtCostoEnvio.Enabled =  true;
+            gbAgregar.Visible = gbExcel.Visible = gbImprimir.Visible = gbOrden.Visible = true;
         }
         public void ultimaCompra()
         {
@@ -3349,13 +3352,14 @@ namespace controlFallos
             
             DataSet ds = (DataSet)v.TraerOrden(FolioOC, empresa);
             dgvimprimir.DataSource = ds.Tables[0];
-            string [] cadena = v.getaDataR("SET lc_time_names = 'es_ES';select convert(concat(t1.Folio, '|', (select if(t1.idcrequicision = t2.requicisionfkCRequicision, (Select if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa) from cproveedores as x1  where x1.idproveedor = t1.proveedorfkCproveedor), '')),'|',date_format(t2.FechaOCompra, '%d de %M de %Y'), '|',t2.ObservacionesOC),char) from crequicision as t1 inner join ordencompra as t2 on t2.requicisionfkCRequicision = t1.idcrequicision where (t2.FolioOrdCompra = '" + FolioOC + "' or t1.Folio = '" + FolioOC +"') and t2.empresa = '" + empresa + "' limit 1").ToString().Split('|');
+            string [] cadena = v.getaDataR("SET lc_time_names = 'es_ES';select convert(concat(t1.Folio, '|',t2.FolioOrdCompra,'|', (select if(t1.idcrequicision = t2.requicisionfkCRequicision, (Select if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa) from cproveedores as x1  where x1.idproveedor = t1.proveedorfkCproveedor), '')),'|',date_format(t2.FechaOCompra, '%d de %M de %Y'), '|',t2.ObservacionesOC),char) from crequicision as t1 inner join ordencompra as t2 on t2.requicisionfkCRequicision = t1.idcrequicision where (t2.FolioOrdCompra = '" + FolioOC + "' or t1.Folio = '" + FolioOC +"') and t2.empresa = '" + empresa + "' limit 1").ToString().Split('|');
             if (!cadena[0].ToString().Equals(""))
             {
                 FolioR = cadena[0].ToString();
-                proveedor = cadena[1].ToString();
-                Fecha = cadena[2].ToString();
-                observacionesd = cadena[3].ToString();
+                FolioOC = cadena[1].ToString();
+                proveedor = cadena[2].ToString();
+                Fecha = cadena[3].ToString();
+                observacionesd = cadena[4].ToString();
 
             }
            
