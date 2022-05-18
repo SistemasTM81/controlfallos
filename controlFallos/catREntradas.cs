@@ -22,6 +22,7 @@ namespace controlFallos
         string messel, cadenaBuesqueda;
         DataSet ds = new DataSet();
         DataTable dt;
+        public Thread hilo, th;
         public catREntradas()
         {
             InitializeComponent();
@@ -29,6 +30,8 @@ namespace controlFallos
 
         public catREntradas(validaciones v, int empresa, int area, int IdUsuario)
         {
+            th = new Thread(new ThreadStart(v.Splash));
+            th.Start();
             this.v = v;
             InitializeComponent();
             this.empresa = empresa;
@@ -75,6 +78,19 @@ namespace controlFallos
             cmbEmpresa.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             dtpFechaDe.MaxDate = DateTime.Now;
             dtpFechaA.MaxDate = DateTime.Now;
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm.GetType() == typeof(SplashScreen))
+                {
+                    if (frm.InvokeRequired)
+                    {
+                        validaciones.delgado dm = new validaciones.delgado(v.cerrarForm);
+                        Invoke(dm, frm);
+                    }
+                    break;
+                }
+            }
+            th.Abort();
         }
         private void Buscar(object sender, EventArgs e)
         {

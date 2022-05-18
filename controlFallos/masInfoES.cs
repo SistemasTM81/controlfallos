@@ -6,14 +6,17 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using h = Microsoft.Office.Interop.Excel;
 
 namespace controlFallos
 {
     public partial class masInfoES : Form
     {
         string proviene, cadena;
+        bool activo = true;
         validaciones v;
         int idUsuario, empresa, area;
         DataTable dt;
@@ -39,7 +42,42 @@ namespace controlFallos
         {
             this.Close();
         }
+        bool exportando = false;
+        public void Exportar(object sender, EventArgs e)
+        {
+            exportando = true;
+            ThreadStart excel = new ThreadStart(exportar_excel);
+            hiloEx2 = new Thread(excel);
+            hiloEx2.Start();
+        }
+        Thread hiloEx2;
+        public void carga1()
+        {
+            pictureBoxExcelLoad.Image = Properties.Resources.loader;
+            pictureBoxExcelLoad.Visible = true;
+            buttonExcel.Visible = false;
+            label35.Location = new Point(9, 492);
+            label35.Text = "EXPORTANDO";
+        }
 
+        delegate void Loading1();
+        public void carga2()
+        {
+            pictureBoxExcelLoad.Image = null;
+            pictureBoxExcelLoad.Visible = false;
+            buttonExcel.Visible = true;
+            label35.Location = new Point(9, 492);
+            label35.Text = "EXPORTAR";
+            if (activo)
+            {
+                buttonExcel.Visible = false;
+                label35.Visible = false;
+            }
+            activo = false;
+            exportando = false;
+        }
+
+        delegate void Loading();
         public void Load_(object sender, EventArgs e)
         {
             if (proviene.ToString().Equals("Entradas"))
@@ -104,6 +142,59 @@ namespace controlFallos
                     suma += Convert.ToDouble(row.Cells["toals"].Value);
             }
             lblCostoTotal.Text = lblCostoTotal.Text + " $ " + suma.ToString("n");
+        }
+        void exportar_excel()
+        {
+            if (dt.Rows.Count > 0)
+            {
+                //isexporting = true;
+               // dt = (DataTable)dataGridView2.DataSource;
+                /*  if (this.InvokeRequired)
+                  {
+                      uno delega = new uno(inicio);
+                      this.Invoke(delega);
+                  }*/
+                Microsoft.Office.Interop.Excel.Application X = new Microsoft.Office.Interop.Excel.Application();
+                X.Application.Workbooks.Add(Type.Missing);
+                h.Worksheet sheet = (h.Worksheet)X.ActiveSheet;
+                X.Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                X.Cells.VerticalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                for (int i = 1; i <= dt.Columns.Count; i++)
+                {
+                    h.Range rng = (h.Range)sheet.Cells[1, i];
+                    sheet.Cells[1, i] = dt.Columns[i - 1].ColumnName.ToUpper();
+                    rng.Interior.Color = System.Drawing.Color.Crimson;
+                    rng.Borders.Color = System.Drawing.Color.Black;
+                    rng.Font.Color = System.Drawing.Color.White;
+                    rng.Cells.Font.Name = "Calibri";
+                    rng.Cells.Font.Size = 12;
+                    rng.Font.Bold = true;
+                }
+                for (int i = 0; i < dt.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dt.Columns.Count; j++)
+                    {
+                        try
+                        {
+                            h.Range rng = (h.Range)sheet.Cells[i + 2, j + 1];
+                            sheet.Cells[i + 2, j + 1] = dt.Rows[i][j].ToString();
+                            rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
+                            rng.Cells.Font.Name = "Calibri";
+                            rng.Cells.Font.Size = 11;
+                            rng.Font.Bold = false;
+                            rng.Interior.Color = Color.FromArgb(231, 230, 230);
+                        }
+                        catch (System.NullReferenceException EX)
+                        { MessageBox.Show(EX.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                    }
+                }
+                X.Columns.AutoFit();
+                X.Rows.AutoFit();
+                X.Visible = true;
+               
+            }
+            else
+                MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
     }

@@ -23,12 +23,15 @@ namespace controlFallos
         string messel, cadenaBusqueda;
         DataSet ds = new DataSet();
         DataTable dt;
+        public Thread hilo, th;
         public catRSalidas()
         {
             InitializeComponent();
         }
         public catRSalidas(validaciones v, int empresa, int area, int IdUsuario)
         {
+            th = new Thread(new ThreadStart(v.Splash));
+            th.Start();
             this.v = v;
             InitializeComponent();
             this.empresa = empresa;
@@ -43,6 +46,7 @@ namespace controlFallos
 
         private void CargarSalidas(object sender, EventArgs e)
         {
+            
             v.comboswithuot(cmbMes, new string[] { "--seleccione mes--", "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre" });
             v.comboswithuot(cmbEmpresa, new string[] { "--Seleccione Empresa", "TRANSINSUMOS", "TRANSMASIVO", "PRODUCCION" });
             cmbMes.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
@@ -50,6 +54,20 @@ namespace controlFallos
             ConsultaGenera("where date_format(fechaHoraPedido, '%Y') = date_format(now(), '%Y') and t2.empresa = '" + empresa + "'", "where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.Cancelado = 0 and t1.empresa = '" + empresa + "'");
             dtpFechaDe.MaxDate = DateTime.Now;
             dtpFechaA.MaxDate = DateTime.Now;
+            cadenaBusqueda = " and date_format(fechaHoraPedido, '%Y') = date_format(now(), '%Y')" + "|" + " and date_format(FechaHora, '%Y') = date_format(now(), '%Y')";
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm.GetType() == typeof(SplashScreen))
+                {
+                    if (frm.InvokeRequired)
+                    {
+                        validaciones.delgado dm = new validaciones.delgado(v.cerrarForm);
+                        Invoke(dm, frm);
+                    }
+                    break;
+                }
+            }
+            th.Abort();
         }
         private void Buscar(object sender, EventArgs e)
         {
