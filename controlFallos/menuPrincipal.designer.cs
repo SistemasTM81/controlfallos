@@ -58,11 +58,13 @@
             this.rolesDeServiciosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.asistencíaDelDíaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteMantenimientoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteCometaDeOroToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reporteAlmacenToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.almacenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.consultaRetornoMaterialToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.corrocerosExtermosToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.materialParaProduccionToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.productoTerminadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.requisicionesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ordenesDeCompraToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.comparativasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -82,7 +84,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.productoTerminadoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reporteUnidadesExternasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbnotif)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -474,6 +476,9 @@
             // 
             // reporteMantenimientoToolStripMenuItem
             // 
+            this.reporteMantenimientoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reporteCometaDeOroToolStripMenuItem,
+            this.reporteUnidadesExternasToolStripMenuItem});
             this.reporteMantenimientoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
             this.reporteMantenimientoToolStripMenuItem.Image = global::controlFallos.Properties.Resources.construction;
             this.reporteMantenimientoToolStripMenuItem.Name = "reporteMantenimientoToolStripMenuItem";
@@ -482,6 +487,16 @@
             this.reporteMantenimientoToolStripMenuItem.Text = "Reporte Mantenimiento";
             this.reporteMantenimientoToolStripMenuItem.Visible = false;
             this.reporteMantenimientoToolStripMenuItem.Click += new System.EventHandler(this.reporteNivelMantenimientoToolStripMenuItem_Click);
+            // 
+            // reporteCometaDeOroToolStripMenuItem
+            // 
+            this.reporteCometaDeOroToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.reporteCometaDeOroToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.reporteCometaDeOroToolStripMenuItem.Name = "reporteCometaDeOroToolStripMenuItem";
+            this.reporteCometaDeOroToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 1, 0, 10);
+            this.reporteCometaDeOroToolStripMenuItem.Size = new System.Drawing.Size(309, 37);
+            this.reporteCometaDeOroToolStripMenuItem.Text = "Reporte Unidades Externas";
+            this.reporteCometaDeOroToolStripMenuItem.Click += new System.EventHandler(this.reporteCometaDeOroToolStripMenuItem_Click);
             // 
             // reporteAlmacenToolStripMenuItem1
             // 
@@ -545,6 +560,15 @@
             this.materialParaProduccionToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
             this.materialParaProduccionToolStripMenuItem.Text = "Material Para Produccion";
             this.materialParaProduccionToolStripMenuItem.Click += new System.EventHandler(this.materialParaProduccionToolStripMenuItem_Click);
+            // 
+            // productoTerminadoToolStripMenuItem
+            // 
+            this.productoTerminadoToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.productoTerminadoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.productoTerminadoToolStripMenuItem.Name = "productoTerminadoToolStripMenuItem";
+            this.productoTerminadoToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
+            this.productoTerminadoToolStripMenuItem.Text = "Producto Terminado";
+            this.productoTerminadoToolStripMenuItem.Click += new System.EventHandler(this.productoTerminadoToolStripMenuItem_Click);
             // 
             // requisicionesToolStripMenuItem
             // 
@@ -628,7 +652,7 @@
             this.reportesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.reportesToolStripMenuItem.Name = "reportesToolStripMenuItem";
             this.reportesToolStripMenuItem.Padding = new System.Windows.Forms.Padding(4, 0, 4, 15);
-            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(120, 51);
+            this.reportesToolStripMenuItem.Size = new System.Drawing.Size(120, 43);
             this.reportesToolStripMenuItem.Text = "Reportes";
             this.reportesToolStripMenuItem.Click += new System.EventHandler(this.reportesToolStripMenuItem_Click);
             // 
@@ -757,14 +781,15 @@
             this.panel1.Size = new System.Drawing.Size(67, 47);
             this.panel1.TabIndex = 1;
             // 
-            // productoTerminadoToolStripMenuItem
+            // reporteUnidadesExternasToolStripMenuItem
             // 
-            this.productoTerminadoToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
-            this.productoTerminadoToolStripMenuItem.ForeColor = System.Drawing.Color.White;
-            this.productoTerminadoToolStripMenuItem.Name = "productoTerminadoToolStripMenuItem";
-            this.productoTerminadoToolStripMenuItem.Size = new System.Drawing.Size(290, 28);
-            this.productoTerminadoToolStripMenuItem.Text = "Producto Terminado";
-            this.productoTerminadoToolStripMenuItem.Click += new System.EventHandler(this.productoTerminadoToolStripMenuItem_Click);
+            this.reporteUnidadesExternasToolStripMenuItem.BackColor = System.Drawing.Color.Crimson;
+            this.reporteUnidadesExternasToolStripMenuItem.ForeColor = System.Drawing.Color.White;
+            this.reporteUnidadesExternasToolStripMenuItem.Name = "reporteUnidadesExternasToolStripMenuItem";
+            this.reporteUnidadesExternasToolStripMenuItem.Padding = new System.Windows.Forms.Padding(0, 1, 0, 10);
+            this.reporteUnidadesExternasToolStripMenuItem.Size = new System.Drawing.Size(309, 37);
+            this.reporteUnidadesExternasToolStripMenuItem.Text = "Reporte Unidades Internas";
+            this.reporteUnidadesExternasToolStripMenuItem.Click += new System.EventHandler(this.reporteUnidadesExternasToolStripMenuItem_Click);
             // 
             // menuPrincipal
             // 
@@ -785,7 +810,7 @@
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(1920, 1040);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(1918, 1038);
+            this.MinimumSize = new System.Drawing.Size(1918, 1030);
             this.Name = "menuPrincipal";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "                                                                                 " +
@@ -859,5 +884,7 @@
         private System.Windows.Forms.ToolStripMenuItem ventaExternaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem materialParaProduccionToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem productoTerminadoToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteCometaDeOroToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reporteUnidadesExternasToolStripMenuItem;
     }
 }
