@@ -13,18 +13,18 @@ namespace controlFallos
 {
     public partial class masInfoES : Form
     {
-        string proviene;
+        string proviene, cadena;
         validaciones v;
-        int idUsuario, empresa, area, idRefaccion;
+        int idUsuario, empresa, area;
         DataTable dt;
 
-        public masInfoES(validaciones v, int idUsuario, int empresa, int area, int idRefaccion, string proviene)
+        public masInfoES(validaciones v, int idUsuario, int empresa, int area, string cadena, string proviene)
         {
             this.v = v;
             this.idUsuario = idUsuario;
             this.empresa = empresa;
             this.area = area;
-            this.idRefaccion = idRefaccion;
+            this.cadena = cadena;
             this.proviene = proviene;
             InitializeComponent();
         }
@@ -44,11 +44,13 @@ namespace controlFallos
         {
             if (proviene.ToString().Equals("Entradas"))
             {
-                ConsultaEntradas("where t2.refaccionfkCRefacciones = '" + idRefaccion + "'  and date_format(t2.FechaHora, '%Y') = '2022' and t1.empresa = '" + empresa + "'");
+                string [] cadena_corta = cadena.ToString().Split('|');
+                ConsultaEntradas("where t2.refaccionfkCRefacciones = " + cadena_corta[1].ToString()+ cadena_corta[0].ToString() + " and t1.empresa = '" + empresa + "'");
             }
             else
             {
-                ConsultaSalidas("where t1.idrefaccion = '" + idRefaccion + "' and date_format(t2.fechaHoraPedido, '%Y') = '2022' and t1.empresa = '" + empresa + "'","where t1.idrefaccion = '" + idRefaccion + "' and date_format(t2.FechaHora, '%Y') = '2022' and t1.empresa = '" + empresa + "'"); 
+                string[] cadena_corta = cadena.ToString().Split('|');
+                ConsultaSalidas("where t1.idrefaccion = " + cadena_corta[2].ToString() + cadena_corta[0].ToString() + " and t1.empresa = '" + empresa + "'", "where t1.idrefaccion = " + cadena_corta[2].ToString() + cadena_corta[1].ToString() + " and t1.empresa = '" + empresa + "'"); 
             }
             
         }

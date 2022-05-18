@@ -19,7 +19,7 @@ namespace controlFallos
         MySqlDataAdapter adaptador;
         int empresa, area, IdUsuario, total, inicio = 0;
         string consultaGeneral = "SELECT t1.idrefaccion, t1.codrefaccion as CODIGO, t1.nombreRefaccion AS REFACCION, CONVERT(sum(replace(t2.CantidadIngresa,',','')),decimal(12,2)) AS TOTAL, t5.Simbolo AS MEDIDA,'MÁS INFORMACIÓN' FROM crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion = t2.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t1.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida";
-        string messel;
+        string messel, cadenaBuesqueda;
         DataSet ds = new DataSet();
         DataTable dt;
         public catREntradas()
@@ -38,7 +38,8 @@ namespace controlFallos
         public void ConsultaGeneral(string cadena)
         {
             DataSet contar = new DataSet();
-            DataTable dt = (DataTable)v.getData(consultaGeneral + cadena);
+            cadenaBuesqueda = " and date_format(FechaHora, '%Y') = date_format(now(), '%Y')";
+            dt = (DataTable)v.getData(consultaGeneral + cadena);
             dgvEntrada.Rows.Clear();
             int numFila = dt.Rows.Count;
             if (numFila > 0 )
@@ -72,6 +73,8 @@ namespace controlFallos
             v.comboswithuot(cmbEmpresa, new string[] { "--Seleccione Empresa", "TRANSINSUMOS", "TRANSMASIVO", "PRODUCCION" });
             cmbMes.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
             cmbEmpresa.MouseWheel += new MouseEventHandler(v.paraComboBox_MouseWheel);
+            dtpFechaDe.MaxDate = DateTime.Now;
+            dtpFechaA.MaxDate = DateTime.Now;
         }
         private void Buscar(object sender, EventArgs e)
         {
@@ -79,10 +82,12 @@ namespace controlFallos
             if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.codrefaccion = '" + txtcodigo.Text + "' group by t1.idrefaccion");
+                cadenaBuesqueda = " and date_format(FechaHora, '%Y') = date_format(now(), '%Y')";
             }
             else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.Tipo = '" + cmbEmpresa.SelectedIndex + "' group by t1.idrefaccion");
+                cadenaBuesqueda = " and date_format(FechaHora, '%Y') = date_format(now(), '%Y')";
             }
             else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0 && cbFecha.Checked == false)
             {
@@ -95,10 +100,12 @@ namespace controlFallos
                     messel = cmbMes.SelectedIndex.ToString();
                 }
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "' group by t1.idrefaccion");
+                cadenaBuesqueda = " and date_format(FechaHora, '%m') = '" + messel.ToString() + "'";
             }
             else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.codrefaccion = '" + txtcodigo.Text + "' and t1.Tipo = '" + cmbEmpresa.SelectedIndex + "' group by t1.idrefaccion");
+                cadenaBuesqueda = " and date_format(FechaHora, '%Y') = date_format(now(), '%Y')";
             }
             else if (!string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex > 0 && cbFecha.Checked == false)
             {
@@ -111,6 +118,7 @@ namespace controlFallos
                     messel = cmbMes.SelectedIndex.ToString();
                 }
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.codrefaccion = '" + txtcodigo.Text + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "' group by t1.idrefaccion");
+                cadenaBuesqueda = " and date_format(FechaHora, '%m') = '" + messel.ToString() + "'";
             }
             else if (string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex > 0 && cbFecha.Checked == false)
             {
@@ -123,14 +131,21 @@ namespace controlFallos
                     messel = cmbMes.SelectedIndex.ToString();
                 }
                 ConsultaGeneral(" where date_format(FechaHora, '%Y') = date_format(now(), '%Y') and t1.empresa = '" + empresa + "' and t1.Tipo = '" + cmbEmpresa.SelectedIndex + "' and date_format(FechaHora, '%m') = '" + messel.ToString() + "' group by t1.idrefaccion");
+                cadenaBuesqueda = " and date_format(FechaHora, '%m') = '" + messel.ToString() + "'";
             }
             else if (cbFecha.Checked == true && !string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0)
             {
-                ConsultaGeneral(" where date_format(FechaHora, '%Y-%m-%d') between '"  + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "' group by t1.idrefaccion");
+                ConsultaGeneral(" where date_format(FechaHora, '%Y-%m-%d') between '"  + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "' and t1.codrefaccion = '" + txtcodigo.Text + "' group by t1.idrefaccion");
+                cadenaBuesqueda = " and date_format(FechaHora, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'";
             }
             else if (cbFecha.Checked == true && string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex > 0 && cmbMes.SelectedIndex == 0)
             {
                 ConsultaGeneral(" where date_format(FechaHora, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "' and t1.Tipo = '" + cmbEmpresa.SelectedIndex + "' group by t1.idrefaccion");
+            }
+            else if (cbFecha.Checked == true && string.IsNullOrWhiteSpace(txtcodigo.Text) && cmbEmpresa.SelectedIndex == 0 && cmbMes.SelectedIndex == 0)
+            {
+                ConsultaGeneral(" where date_format(FechaHora, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa +  "' group by t1.idrefaccion");
+                cadenaBuesqueda = " and date_format(FechaHora, '%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'";
             }
             else
             {
@@ -167,10 +182,10 @@ namespace controlFallos
         delegate void Loading();
         private void Excel_Export()
         {
-            if (gvimprimir.Rows.Count > 0)
+            if (dt.Rows.Count > 0)
             {
                 //isexporting = true;
-                dt = (DataTable)gvimprimir.DataSource;
+               // dt = (DataTable)gvimprimir.DataSource;
                 if (this.InvokeRequired)
                   {
                     Loading delega = new Loading(carga1);
@@ -181,10 +196,10 @@ namespace controlFallos
                 h.Worksheet sheet = (h.Worksheet)X.ActiveSheet;
                 X.Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
                 X.Cells.VerticalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                for (int i = 1; i <= dt.Columns.Count; i++)
+                for (int i = 1; i < dt.Columns.Count; i++)
                 {
                     h.Range rng = (h.Range)sheet.Cells[1, i];
-                    sheet.Cells[1, i] = dt.Columns[i - 1].ColumnName.ToUpper();
+                    sheet.Cells[1, i] = dt.Columns[i].ColumnName.ToUpper();
                     rng.Interior.Color = System.Drawing.Color.Crimson;
                     rng.Borders.Color = System.Drawing.Color.Black;
                     rng.Font.Color = System.Drawing.Color.White;
@@ -194,12 +209,12 @@ namespace controlFallos
                 }
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    for (int j = 0; j < dt.Columns.Count; j++)
+                    for (int j = 1; j < dt.Columns.Count; j++)
                     {
                         try
                         {
-                            h.Range rng = (h.Range)sheet.Cells[i + 2, j + 1];
-                            sheet.Cells[i + 2, j + 1] = dt.Rows[i][j].ToString();
+                            h.Range rng = (h.Range)sheet.Cells[i + 2, j];
+                            sheet.Cells[i + 2, j] = dt.Rows[i][j].ToString();
                             rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
                             rng.Cells.Font.Name = "Calibri";
                             rng.Cells.Font.Size = 11;
@@ -217,8 +232,8 @@ namespace controlFallos
                 {
                     Loading1 delega2 = new Loading1(carga2);
                     this.Invoke(delega2);
-                    buttonExcel.Visible = false;
-                    label35.Visible = false;
+                   // buttonExcel.Visible = false;
+                   // label35.Visible = false;
                 }
                
             }
@@ -288,7 +303,8 @@ namespace controlFallos
             {
                 bool historial = (e.ColumnIndex == 6);
                 string id = v.mayusculas(dgvEntrada.Rows[e.RowIndex].Cells[0].Value.ToString());
-                masInfoES ifmormacion = new masInfoES(v, IdUsuario, empresa, area, Convert.ToInt32(id), "Entradas");
+                cadenaBuesqueda = cadenaBuesqueda + "|" + id;
+                masInfoES ifmormacion = new masInfoES(v, IdUsuario, empresa, area, cadenaBuesqueda, "Entradas");
                 ifmormacion.ShowDialog();
                
             }
@@ -299,6 +315,7 @@ namespace controlFallos
             txtcodigo.Text = "";
             cmbEmpresa.SelectedIndex = cmbMes.SelectedIndex = 0;
             buttonExcel.Visible = label35.Visible = true;
+            cbFecha.Checked = false;
 
         }
         Thread hiloEx2;
