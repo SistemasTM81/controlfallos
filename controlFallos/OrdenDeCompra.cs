@@ -3142,6 +3142,7 @@ namespace controlFallos
             String.Format("{0:#,##0.##}", labelSubTotalOC.Text);
             String.Format("{0:n}", labelIVAOC.Text);
             String.Format("{0:n}", labelTotalOC.Text);
+            ///gggggsssss
         }
 
         private void labelTotalOC_Click(object sender, EventArgs e)
