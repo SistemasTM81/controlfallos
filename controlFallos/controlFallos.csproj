@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <MinimumRequiredVersion>1.1.2.305</MinimumRequiredVersion>
-    <ApplicationRevision>306</ApplicationRevision>
+    <MinimumRequiredVersion>1.1.2.309</MinimumRequiredVersion>
+    <ApplicationRevision>309</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -166,6 +166,12 @@
     </Compile>
     <Compile Include="catClasificaciones.designer.cs">
       <DependentUpon>catClasificaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CatConsulta_RM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CatConsulta_RM.Designer.cs">
+      <DependentUpon>CatConsulta_RM.cs</DependentUpon>
     </Compile>
     <Compile Include="catDescFallos.cs">
       <SubType>Form</SubType>
@@ -696,6 +702,9 @@
     <EmbeddedResource Include="catClasificaciones.resx">
       <DependentUpon>catClasificaciones.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CatConsulta_RM.resx">
+      <DependentUpon>CatConsulta_RM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="catDescFallos.resx">
       <DependentUpon>catDescFallos.cs</DependentUpon>
