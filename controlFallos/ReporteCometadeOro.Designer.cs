@@ -29,12 +29,18 @@ namespace controlFallos
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbbusqueda = new System.Windows.Forms.GroupBox();
+            this.pPdf = new System.Windows.Forms.Panel();
+            this.btnpdf = new System.Windows.Forms.Button();
+            this.label10 = new System.Windows.Forms.Label();
+            this.rbngeneral = new System.Windows.Forms.RadioButton();
+            this.rbnunidad = new System.Windows.Forms.RadioButton();
+            this.ConsultaReportes = new System.Windows.Forms.DataGridView();
             this.pexcel = new System.Windows.Forms.Panel();
             this.lblexcel = new System.Windows.Forms.Label();
             this.btnexportar = new System.Windows.Forms.Button();
@@ -47,11 +53,11 @@ namespace controlFallos
             this.label54 = new System.Windows.Forms.Label();
             this.cmbDiagTip = new System.Windows.Forms.ComboBox();
             this.label43 = new System.Windows.Forms.Label();
-            this.dtpfechaa = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaA = new System.Windows.Forms.DateTimePicker();
             this.label42 = new System.Windows.Forms.Label();
-            this.dtpfechade = new System.Windows.Forms.DateTimePicker();
+            this.dtpFechaDe = new System.Windows.Forms.DateTimePicker();
             this.label39 = new System.Windows.Forms.Label();
-            this.cbrango = new System.Windows.Forms.CheckBox();
+            this.cboxRango = new System.Windows.Forms.CheckBox();
             this.cmbmes1 = new System.Windows.Forms.ComboBox();
             this.label34 = new System.Windows.Forms.Label();
             this.cmbestado = new System.Windows.Forms.ComboBox();
@@ -64,8 +70,11 @@ namespace controlFallos
             this.label7 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.lblexportar = new System.Windows.Forms.GroupBox();
+            this.label17 = new System.Windows.Forms.Label();
             this.btnCancelFact = new System.Windows.Forms.Button();
+            this.cmbTipoD = new System.Windows.Forms.ComboBox();
             this.btnFolioFactura = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
             this.LBxRefacc = new System.Windows.Forms.ListBox();
             this.numUpDownHASTA = new System.Windows.Forms.NumericUpDown();
             this.numUpDownDE = new System.Windows.Forms.NumericUpDown();
@@ -74,19 +83,14 @@ namespace controlFallos
             this.lblmapoyo = new System.Windows.Forms.Label();
             this.lblmecanico = new System.Windows.Forms.Label();
             this.lbltiempototal = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.lbltiempoespera = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.lblhtmant = new System.Windows.Forms.Label();
-            this.label52 = new System.Windows.Forms.Label();
             this.label53 = new System.Windows.Forms.Label();
             this.lblhimant = new System.Windows.Forms.Label();
-            this.label50 = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
             this.txtsupervisor = new System.Windows.Forms.TextBox();
-            this.label47 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.txtobservacionesm = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
@@ -95,22 +99,14 @@ namespace controlFallos
             this.txtfoliof = new System.Windows.Forms.TextBox();
             this.label41 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
-            this.txttrabajo = new System.Windows.Forms.TextBox();
-            this.label38 = new System.Windows.Forms.Label();
             this.cmbrefacciones = new System.Windows.Forms.ComboBox();
             this.label37 = new System.Windows.Forms.Label();
-            this.txtmecanicoapoyo = new System.Windows.Forms.TextBox();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.txtmecanico = new System.Windows.Forms.TextBox();
-            this.label32 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.pPdf = new System.Windows.Forms.Panel();
-            this.btnpdf = new System.Windows.Forms.Button();
-            this.label10 = new System.Windows.Forms.Label();
-            this.rbngeneral = new System.Windows.Forms.RadioButton();
-            this.rbnunidad = new System.Windows.Forms.RadioButton();
-            this.ConsultaReportes = new System.Windows.Forms.DataGridView();
+            this.txttrabajo = new System.Windows.Forms.TextBox();
+            this.label38 = new System.Windows.Forms.Label();
             this.pguardar = new System.Windows.Forms.Panel();
             this.btnguardar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
@@ -121,26 +117,43 @@ namespace controlFallos
             this.btncancelar = new System.Windows.Forms.Button();
             this.lblCancelar = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.lblFolio = new System.Windows.Forms.Label();
-            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
-            this.cmbUnidad = new System.Windows.Forms.ComboBox();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.cmbTipoD = new System.Windows.Forms.ComboBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.cmbUnidad = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblFolio = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label25 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.textBox8 = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.label26 = new System.Windows.Forms.Label();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label29 = new System.Windows.Forms.Label();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.textBox12 = new System.Windows.Forms.TextBox();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
             this.gbbusqueda.SuspendLayout();
+            this.pPdf.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ConsultaReportes)).BeginInit();
             this.pexcel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbgif)).BeginInit();
             this.pactualizar.SuspendLayout();
@@ -148,8 +161,6 @@ namespace controlFallos
             this.lblexportar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).BeginInit();
-            this.pPdf.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ConsultaReportes)).BeginInit();
             this.pguardar.SuspendLayout();
             this.pfinalizar.SuspendLayout();
             this.pcancelar.SuspendLayout();
@@ -166,11 +177,11 @@ namespace controlFallos
             this.gbbusqueda.Controls.Add(this.pbuscar);
             this.gbbusqueda.Controls.Add(this.cmbDiagTip);
             this.gbbusqueda.Controls.Add(this.label43);
-            this.gbbusqueda.Controls.Add(this.dtpfechaa);
+            this.gbbusqueda.Controls.Add(this.dtpFechaA);
             this.gbbusqueda.Controls.Add(this.label42);
-            this.gbbusqueda.Controls.Add(this.dtpfechade);
+            this.gbbusqueda.Controls.Add(this.dtpFechaDe);
             this.gbbusqueda.Controls.Add(this.label39);
-            this.gbbusqueda.Controls.Add(this.cbrango);
+            this.gbbusqueda.Controls.Add(this.cboxRango);
             this.gbbusqueda.Controls.Add(this.cmbmes1);
             this.gbbusqueda.Controls.Add(this.label34);
             this.gbbusqueda.Controls.Add(this.cmbestado);
@@ -190,6 +201,140 @@ namespace controlFallos
             this.gbbusqueda.TabIndex = 275;
             this.gbbusqueda.TabStop = false;
             this.gbbusqueda.Text = "Búsqueda";
+            // 
+            // pPdf
+            // 
+            this.pPdf.Controls.Add(this.btnpdf);
+            this.pPdf.Controls.Add(this.label10);
+            this.pPdf.Controls.Add(this.rbngeneral);
+            this.pPdf.Controls.Add(this.rbnunidad);
+            this.pPdf.Location = new System.Drawing.Point(1608, 187);
+            this.pPdf.Name = "pPdf";
+            this.pPdf.Size = new System.Drawing.Size(147, 112);
+            this.pPdf.TabIndex = 280;
+            // 
+            // btnpdf
+            // 
+            this.btnpdf.AutoSize = true;
+            this.btnpdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnpdf.BackgroundImage = global::controlFallos.Properties.Resources.pdf;
+            this.btnpdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnpdf.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnpdf.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnpdf.FlatAppearance.BorderSize = 0;
+            this.btnpdf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnpdf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnpdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnpdf.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnpdf.Location = new System.Drawing.Point(50, 3);
+            this.btnpdf.Name = "btnpdf";
+            this.btnpdf.Size = new System.Drawing.Size(45, 45);
+            this.btnpdf.TabIndex = 235;
+            this.btnpdf.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnpdf.UseVisualStyleBackColor = false;
+            this.btnpdf.Click += new System.EventHandler(this.btnpdf_Click);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label10.Location = new System.Drawing.Point(34, 51);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(69, 18);
+            this.label10.TabIndex = 236;
+            this.label10.Text = "Exportar";
+            // 
+            // rbngeneral
+            // 
+            this.rbngeneral.AutoSize = true;
+            this.rbngeneral.Checked = true;
+            this.rbngeneral.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbngeneral.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.rbngeneral.Location = new System.Drawing.Point(2, 72);
+            this.rbngeneral.Name = "rbngeneral";
+            this.rbngeneral.Size = new System.Drawing.Size(144, 18);
+            this.rbngeneral.TabIndex = 239;
+            this.rbngeneral.TabStop = true;
+            this.rbngeneral.Text = "Reporte de Diagnostico";
+            this.rbngeneral.UseVisualStyleBackColor = true;
+            // 
+            // rbnunidad
+            // 
+            this.rbnunidad.AutoSize = true;
+            this.rbnunidad.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbnunidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.rbnunidad.Location = new System.Drawing.Point(2, 92);
+            this.rbnunidad.Name = "rbnunidad";
+            this.rbnunidad.Size = new System.Drawing.Size(123, 18);
+            this.rbnunidad.TabIndex = 240;
+            this.rbnunidad.Text = "Datos de la Unidad";
+            this.rbnunidad.UseVisualStyleBackColor = true;
+            // 
+            // ConsultaReportes
+            // 
+            this.ConsultaReportes.AllowUserToAddRows = false;
+            this.ConsultaReportes.AllowUserToDeleteRows = false;
+            this.ConsultaReportes.AllowUserToResizeColumns = false;
+            this.ConsultaReportes.AllowUserToResizeRows = false;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
+            this.ConsultaReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            this.ConsultaReportes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.ConsultaReportes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.ConsultaReportes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ConsultaReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            this.ConsultaReportes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ConsultaReportes.Cursor = System.Windows.Forms.Cursors.Hand;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle13.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ConsultaReportes.DefaultCellStyle = dataGridViewCellStyle13;
+            this.ConsultaReportes.EnableHeadersVisualStyles = false;
+            this.ConsultaReportes.GridColor = System.Drawing.Color.Gray;
+            this.ConsultaReportes.Location = new System.Drawing.Point(24, 109);
+            this.ConsultaReportes.Name = "ConsultaReportes";
+            this.ConsultaReportes.ReadOnly = true;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ConsultaReportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            this.ConsultaReportes.RowHeadersVisible = false;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White;
+            this.ConsultaReportes.RowsDefaultCellStyle = dataGridViewCellStyle15;
+            this.ConsultaReportes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.ConsultaReportes.ShowCellErrors = false;
+            this.ConsultaReportes.ShowCellToolTips = false;
+            this.ConsultaReportes.ShowEditingIcon = false;
+            this.ConsultaReportes.ShowRowErrors = false;
+            this.ConsultaReportes.Size = new System.Drawing.Size(1557, 308);
+            this.ConsultaReportes.TabIndex = 275;
             // 
             // pexcel
             // 
@@ -351,18 +496,18 @@ namespace controlFallos
             this.label43.TabIndex = 147;
             this.label43.Text = "Tipo de Diagnostico:";
             // 
-            // dtpfechaa
+            // dtpFechaA
             // 
-            this.dtpfechaa.CalendarMonthBackground = System.Drawing.Color.Gray;
-            this.dtpfechaa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dtpfechaa.Enabled = false;
-            this.dtpfechaa.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpfechaa.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpfechaa.Location = new System.Drawing.Point(247, 67);
-            this.dtpfechaa.Name = "dtpfechaa";
-            this.dtpfechaa.Size = new System.Drawing.Size(104, 24);
-            this.dtpfechaa.TabIndex = 146;
-            this.dtpfechaa.Value = new System.DateTime(2018, 10, 22, 0, 0, 0, 0);
+            this.dtpFechaA.CalendarMonthBackground = System.Drawing.Color.Gray;
+            this.dtpFechaA.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dtpFechaA.Enabled = false;
+            this.dtpFechaA.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaA.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaA.Location = new System.Drawing.Point(247, 67);
+            this.dtpFechaA.Name = "dtpFechaA";
+            this.dtpFechaA.Size = new System.Drawing.Size(104, 24);
+            this.dtpFechaA.TabIndex = 146;
+            this.dtpFechaA.Value = new System.DateTime(2018, 10, 22, 0, 0, 0, 0);
             // 
             // label42
             // 
@@ -375,18 +520,18 @@ namespace controlFallos
             this.label42.TabIndex = 145;
             this.label42.Text = "A:";
             // 
-            // dtpfechade
+            // dtpFechaDe
             // 
-            this.dtpfechade.CalendarMonthBackground = System.Drawing.Color.Gray;
-            this.dtpfechade.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dtpfechade.Enabled = false;
-            this.dtpfechade.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpfechade.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpfechade.Location = new System.Drawing.Point(110, 67);
-            this.dtpfechade.Name = "dtpfechade";
-            this.dtpfechade.Size = new System.Drawing.Size(104, 24);
-            this.dtpfechade.TabIndex = 144;
-            this.dtpfechade.Value = new System.DateTime(2018, 10, 22, 0, 0, 0, 0);
+            this.dtpFechaDe.CalendarMonthBackground = System.Drawing.Color.Gray;
+            this.dtpFechaDe.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.dtpFechaDe.Enabled = false;
+            this.dtpFechaDe.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dtpFechaDe.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtpFechaDe.Location = new System.Drawing.Point(110, 67);
+            this.dtpFechaDe.Name = "dtpFechaDe";
+            this.dtpFechaDe.Size = new System.Drawing.Size(104, 24);
+            this.dtpFechaDe.TabIndex = 144;
+            this.dtpFechaDe.Value = new System.DateTime(2018, 10, 22, 0, 0, 0, 0);
             // 
             // label39
             // 
@@ -399,19 +544,20 @@ namespace controlFallos
             this.label39.TabIndex = 143;
             this.label39.Text = "De:";
             // 
-            // cbrango
+            // cboxRango
             // 
-            this.cbrango.AutoSize = true;
-            this.cbrango.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cbrango.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cbrango.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbrango.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cbrango.Location = new System.Drawing.Point(11, 72);
-            this.cbrango.Name = "cbrango";
-            this.cbrango.Size = new System.Drawing.Size(62, 18);
-            this.cbrango.TabIndex = 142;
-            this.cbrango.Text = "Rango:";
-            this.cbrango.UseVisualStyleBackColor = true;
+            this.cboxRango.AutoSize = true;
+            this.cboxRango.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cboxRango.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboxRango.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cboxRango.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cboxRango.Location = new System.Drawing.Point(11, 72);
+            this.cboxRango.Name = "cboxRango";
+            this.cboxRango.Size = new System.Drawing.Size(62, 18);
+            this.cboxRango.TabIndex = 142;
+            this.cboxRango.Text = "Rango:";
+            this.cboxRango.UseVisualStyleBackColor = true;
+            this.cboxRango.CheckedChanged += new System.EventHandler(this.cboxRango_CheckedChanged);
             // 
             // cmbmes1
             // 
@@ -564,6 +710,18 @@ namespace controlFallos
             // lblexportar
             // 
             this.lblexportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.lblexportar.Controls.Add(this.label33);
+            this.lblexportar.Controls.Add(this.textBox12);
+            this.lblexportar.Controls.Add(this.label32);
+            this.lblexportar.Controls.Add(this.textBox11);
+            this.lblexportar.Controls.Add(this.textBox10);
+            this.lblexportar.Controls.Add(this.label29);
+            this.lblexportar.Controls.Add(this.textBox9);
+            this.lblexportar.Controls.Add(this.label26);
+            this.lblexportar.Controls.Add(this.textBox8);
+            this.lblexportar.Controls.Add(this.label4);
+            this.lblexportar.Controls.Add(this.textBox7);
+            this.lblexportar.Controls.Add(this.label2);
             this.lblexportar.Controls.Add(this.label17);
             this.lblexportar.Controls.Add(this.btnCancelFact);
             this.lblexportar.Controls.Add(this.cmbTipoD);
@@ -577,19 +735,14 @@ namespace controlFallos
             this.lblexportar.Controls.Add(this.lblmapoyo);
             this.lblexportar.Controls.Add(this.lblmecanico);
             this.lblexportar.Controls.Add(this.lbltiempototal);
-            this.lblexportar.Controls.Add(this.label2);
             this.lblexportar.Controls.Add(this.label3);
             this.lblexportar.Controls.Add(this.lbltiempoespera);
-            this.lblexportar.Controls.Add(this.label4);
             this.lblexportar.Controls.Add(this.label5);
             this.lblexportar.Controls.Add(this.lblhtmant);
-            this.lblexportar.Controls.Add(this.label52);
             this.lblexportar.Controls.Add(this.label53);
             this.lblexportar.Controls.Add(this.lblhimant);
-            this.lblexportar.Controls.Add(this.label50);
             this.lblexportar.Controls.Add(this.label51);
             this.lblexportar.Controls.Add(this.txtsupervisor);
-            this.lblexportar.Controls.Add(this.label47);
             this.lblexportar.Controls.Add(this.label48);
             this.lblexportar.Controls.Add(this.txtobservacionesm);
             this.lblexportar.Controls.Add(this.label46);
@@ -600,11 +753,9 @@ namespace controlFallos
             this.lblexportar.Controls.Add(this.label44);
             this.lblexportar.Controls.Add(this.cmbrefacciones);
             this.lblexportar.Controls.Add(this.label37);
-            this.lblexportar.Controls.Add(this.txtmecanicoapoyo);
             this.lblexportar.Controls.Add(this.label35);
             this.lblexportar.Controls.Add(this.label36);
             this.lblexportar.Controls.Add(this.txtmecanico);
-            this.lblexportar.Controls.Add(this.label32);
             this.lblexportar.Controls.Add(this.label30);
             this.lblexportar.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblexportar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
@@ -614,6 +765,17 @@ namespace controlFallos
             this.lblexportar.TabIndex = 280;
             this.lblexportar.TabStop = false;
             this.lblexportar.Text = "Diagnostico";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label17.Location = new System.Drawing.Point(538, 201);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(167, 17);
+            this.label17.TabIndex = 246;
+            this.label17.Text = "Reparaciones Realizadas:";
             // 
             // btnCancelFact
             // 
@@ -633,6 +795,24 @@ namespace controlFallos
             this.btnCancelFact.Size = new System.Drawing.Size(26, 30);
             this.btnCancelFact.TabIndex = 245;
             this.btnCancelFact.UseVisualStyleBackColor = false;
+            // 
+            // cmbTipoD
+            // 
+            this.cmbTipoD.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbTipoD.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmbTipoD.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbTipoD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTipoD.Enabled = false;
+            this.cmbTipoD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmbTipoD.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbTipoD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbTipoD.FormattingEnabled = true;
+            this.cmbTipoD.Items.AddRange(new object[] {
+            "Sistema eléctrico"});
+            this.cmbTipoD.Location = new System.Drawing.Point(210, 114);
+            this.cmbTipoD.Name = "cmbTipoD";
+            this.cmbTipoD.Size = new System.Drawing.Size(195, 23);
+            this.cmbTipoD.TabIndex = 247;
             // 
             // btnFolioFactura
             // 
@@ -654,6 +834,17 @@ namespace controlFallos
             this.btnFolioFactura.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.btnFolioFactura.UseVisualStyleBackColor = false;
             this.btnFolioFactura.Visible = false;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label13.Location = new System.Drawing.Point(11, 114);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(142, 17);
+            this.label13.TabIndex = 246;
+            this.label13.Text = "Tipo de Diagnostico:";
             // 
             // LBxRefacc
             // 
@@ -751,18 +942,6 @@ namespace controlFallos
             this.lbltiempototal.Size = new System.Drawing.Size(0, 17);
             this.lbltiempototal.TabIndex = 169;
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label2.Location = new System.Drawing.Point(819, 350);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(213, 9);
-            this.label2.TabIndex = 170;
-            this.label2.Text = "____________________________________________________";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -784,18 +963,6 @@ namespace controlFallos
             this.lbltiempoespera.Name = "lbltiempoespera";
             this.lbltiempoespera.Size = new System.Drawing.Size(0, 17);
             this.lbltiempoespera.TabIndex = 166;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label4.Location = new System.Drawing.Point(814, 315);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(213, 9);
-            this.label4.TabIndex = 167;
-            this.label4.Text = "____________________________________________________";
             // 
             // label5
             // 
@@ -819,18 +986,6 @@ namespace controlFallos
             this.lblhtmant.Size = new System.Drawing.Size(0, 17);
             this.lblhtmant.TabIndex = 163;
             // 
-            // label52
-            // 
-            this.label52.AutoSize = true;
-            this.label52.BackColor = System.Drawing.Color.Transparent;
-            this.label52.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label52.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label52.Location = new System.Drawing.Point(315, 346);
-            this.label52.Name = "label52";
-            this.label52.Size = new System.Drawing.Size(173, 9);
-            this.label52.TabIndex = 164;
-            this.label52.Text = "__________________________________________";
-            // 
             // label53
             // 
             this.label53.AutoSize = true;
@@ -852,18 +1007,6 @@ namespace controlFallos
             this.lblhimant.Name = "lblhimant";
             this.lblhimant.Size = new System.Drawing.Size(0, 17);
             this.lblhimant.TabIndex = 160;
-            // 
-            // label50
-            // 
-            this.label50.AutoSize = true;
-            this.label50.BackColor = System.Drawing.Color.Transparent;
-            this.label50.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label50.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label50.Location = new System.Drawing.Point(290, 311);
-            this.label50.Name = "label50";
-            this.label50.Size = new System.Drawing.Size(193, 9);
-            this.label50.TabIndex = 161;
-            this.label50.Text = "_______________________________________________";
             // 
             // label51
             // 
@@ -890,18 +1033,6 @@ namespace controlFallos
             this.txtsupervisor.ShortcutsEnabled = false;
             this.txtsupervisor.Size = new System.Drawing.Size(281, 18);
             this.txtsupervisor.TabIndex = 129;
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.BackColor = System.Drawing.Color.Transparent;
-            this.label47.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label47.Location = new System.Drawing.Point(185, 236);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(285, 9);
-            this.label47.TabIndex = 130;
-            this.label47.Text = "______________________________________________________________________";
             // 
             // label48
             // 
@@ -1007,33 +1138,6 @@ namespace controlFallos
             this.label44.TabIndex = 121;
             this.label44.Text = "Folio de Factura:";
             // 
-            // txttrabajo
-            // 
-            this.txttrabajo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txttrabajo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txttrabajo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txttrabajo.Enabled = false;
-            this.txttrabajo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txttrabajo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txttrabajo.Location = new System.Drawing.Point(24, 236);
-            this.txttrabajo.MaxLength = 150;
-            this.txttrabajo.Multiline = true;
-            this.txttrabajo.Name = "txttrabajo";
-            this.txttrabajo.ShortcutsEnabled = false;
-            this.txttrabajo.Size = new System.Drawing.Size(635, 84);
-            this.txttrabajo.TabIndex = 118;
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label38.Location = new System.Drawing.Point(220, 211);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(231, 17);
-            this.label38.TabIndex = 117;
-            this.label38.Text = "Fallos Reportados por el Operador:";
-            // 
             // cmbrefacciones
             // 
             this.cmbrefacciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1062,21 +1166,6 @@ namespace controlFallos
             this.label37.Size = new System.Drawing.Size(182, 17);
             this.label37.TabIndex = 115;
             this.label37.Text = "*Se Requieren Refacciones:";
-            // 
-            // txtmecanicoapoyo
-            // 
-            this.txtmecanicoapoyo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtmecanicoapoyo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtmecanicoapoyo.Enabled = false;
-            this.txtmecanicoapoyo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtmecanicoapoyo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtmecanicoapoyo.Location = new System.Drawing.Point(187, 67);
-            this.txtmecanicoapoyo.MaxLength = 18;
-            this.txtmecanicoapoyo.Name = "txtmecanicoapoyo";
-            this.txtmecanicoapoyo.PasswordChar = '*';
-            this.txtmecanicoapoyo.ShortcutsEnabled = false;
-            this.txtmecanicoapoyo.Size = new System.Drawing.Size(281, 18);
-            this.txtmecanicoapoyo.TabIndex = 113;
             // 
             // label35
             // 
@@ -1116,18 +1205,6 @@ namespace controlFallos
             this.txtmecanico.Size = new System.Drawing.Size(281, 18);
             this.txtmecanico.TabIndex = 108;
             // 
-            // label32
-            // 
-            this.label32.AutoSize = true;
-            this.label32.BackColor = System.Drawing.Color.Transparent;
-            this.label32.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label32.Location = new System.Drawing.Point(187, 37);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(285, 9);
-            this.label32.TabIndex = 109;
-            this.label32.Text = "______________________________________________________________________";
-            // 
             // label30
             // 
             this.label30.AutoSize = true;
@@ -1139,138 +1216,32 @@ namespace controlFallos
             this.label30.TabIndex = 107;
             this.label30.Text = "*Contraseña Mecánico:";
             // 
-            // pPdf
+            // txttrabajo
             // 
-            this.pPdf.Controls.Add(this.btnpdf);
-            this.pPdf.Controls.Add(this.label10);
-            this.pPdf.Controls.Add(this.rbngeneral);
-            this.pPdf.Controls.Add(this.rbnunidad);
-            this.pPdf.Location = new System.Drawing.Point(1608, 187);
-            this.pPdf.Name = "pPdf";
-            this.pPdf.Size = new System.Drawing.Size(147, 112);
-            this.pPdf.TabIndex = 280;
+            this.txttrabajo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txttrabajo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txttrabajo.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txttrabajo.Enabled = false;
+            this.txttrabajo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txttrabajo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txttrabajo.Location = new System.Drawing.Point(24, 236);
+            this.txttrabajo.MaxLength = 150;
+            this.txttrabajo.Multiline = true;
+            this.txttrabajo.Name = "txttrabajo";
+            this.txttrabajo.ShortcutsEnabled = false;
+            this.txttrabajo.Size = new System.Drawing.Size(635, 84);
+            this.txttrabajo.TabIndex = 118;
             // 
-            // btnpdf
+            // label38
             // 
-            this.btnpdf.AutoSize = true;
-            this.btnpdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.BackgroundImage = global::controlFallos.Properties.Resources.pdf;
-            this.btnpdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnpdf.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnpdf.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.FlatAppearance.BorderSize = 0;
-            this.btnpdf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnpdf.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnpdf.Location = new System.Drawing.Point(50, 3);
-            this.btnpdf.Name = "btnpdf";
-            this.btnpdf.Size = new System.Drawing.Size(45, 45);
-            this.btnpdf.TabIndex = 235;
-            this.btnpdf.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnpdf.UseVisualStyleBackColor = false;
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label10.Location = new System.Drawing.Point(34, 51);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(69, 18);
-            this.label10.TabIndex = 236;
-            this.label10.Text = "Exportar";
-            // 
-            // rbngeneral
-            // 
-            this.rbngeneral.AutoSize = true;
-            this.rbngeneral.Checked = true;
-            this.rbngeneral.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbngeneral.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.rbngeneral.Location = new System.Drawing.Point(2, 72);
-            this.rbngeneral.Name = "rbngeneral";
-            this.rbngeneral.Size = new System.Drawing.Size(144, 18);
-            this.rbngeneral.TabIndex = 239;
-            this.rbngeneral.TabStop = true;
-            this.rbngeneral.Text = "Reporte de Diagnostico";
-            this.rbngeneral.UseVisualStyleBackColor = true;
-            // 
-            // rbnunidad
-            // 
-            this.rbnunidad.AutoSize = true;
-            this.rbnunidad.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbnunidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.rbnunidad.Location = new System.Drawing.Point(2, 92);
-            this.rbnunidad.Name = "rbnunidad";
-            this.rbnunidad.Size = new System.Drawing.Size(123, 18);
-            this.rbnunidad.TabIndex = 240;
-            this.rbnunidad.Text = "Datos de la Unidad";
-            this.rbnunidad.UseVisualStyleBackColor = true;
-            // 
-            // ConsultaReportes
-            // 
-            this.ConsultaReportes.AllowUserToAddRows = false;
-            this.ConsultaReportes.AllowUserToDeleteRows = false;
-            this.ConsultaReportes.AllowUserToResizeColumns = false;
-            this.ConsultaReportes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            this.ConsultaReportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.ConsultaReportes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.ConsultaReportes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
-            this.ConsultaReportes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ConsultaReportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.ConsultaReportes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ConsultaReportes.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ConsultaReportes.DefaultCellStyle = dataGridViewCellStyle3;
-            this.ConsultaReportes.EnableHeadersVisualStyles = false;
-            this.ConsultaReportes.GridColor = System.Drawing.Color.Gray;
-            this.ConsultaReportes.Location = new System.Drawing.Point(24, 109);
-            this.ConsultaReportes.Name = "ConsultaReportes";
-            this.ConsultaReportes.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ConsultaReportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.ConsultaReportes.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            this.ConsultaReportes.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.ConsultaReportes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ConsultaReportes.ShowCellErrors = false;
-            this.ConsultaReportes.ShowCellToolTips = false;
-            this.ConsultaReportes.ShowEditingIcon = false;
-            this.ConsultaReportes.ShowRowErrors = false;
-            this.ConsultaReportes.Size = new System.Drawing.Size(1557, 308);
-            this.ConsultaReportes.TabIndex = 275;
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label38.Location = new System.Drawing.Point(220, 211);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(231, 17);
+            this.label38.TabIndex = 117;
+            this.label38.Text = "Fallos Reportados por el Operador:";
             // 
             // pguardar
             // 
@@ -1393,21 +1364,27 @@ namespace controlFallos
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.label25);
-            this.groupBox1.Controls.Add(this.label24);
-            this.groupBox1.Controls.Add(this.label18);
+            this.groupBox1.Controls.Add(this.textBox6);
             this.groupBox1.Controls.Add(this.label23);
+            this.groupBox1.Controls.Add(this.textBox5);
+            this.groupBox1.Controls.Add(this.label18);
+            this.groupBox1.Controls.Add(this.textBox4);
+            this.groupBox1.Controls.Add(this.label14);
+            this.groupBox1.Controls.Add(this.textBox3);
+            this.groupBox1.Controls.Add(this.label12);
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Controls.Add(this.label25);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.label24);
             this.groupBox1.Controls.Add(this.label20);
             this.groupBox1.Controls.Add(this.label22);
-            this.groupBox1.Controls.Add(this.label14);
             this.groupBox1.Controls.Add(this.label16);
-            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.cmbUnidad);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.dateTimePicker2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.label19);
             this.groupBox1.Controls.Add(this.lblFolio);
             this.groupBox1.Controls.Add(this.label38);
             this.groupBox1.Controls.Add(this.txttrabajo);
@@ -1420,158 +1397,16 @@ namespace controlFallos
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Datos de la Unidad";
             // 
-            // label6
+            // label24
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label6.Location = new System.Drawing.Point(220, 28);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(133, 18);
-            this.label6.TabIndex = 288;
-            this.label6.Text = "Fecha de Ingreso:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label1.Location = new System.Drawing.Point(9, 96);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(170, 18);
-            this.label1.TabIndex = 286;
-            this.label1.Text = "Seleccione una Unidad:";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Font = new System.Drawing.Font("Garamond", 6F);
-            this.label19.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label19.Location = new System.Drawing.Point(79, 61);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(73, 9);
-            this.label19.TabIndex = 284;
-            this.label19.Text = "_________________";
-            // 
-            // lblFolio
-            // 
-            this.lblFolio.AutoSize = true;
-            this.lblFolio.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFolio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblFolio.Location = new System.Drawing.Point(9, 49);
-            this.lblFolio.Name = "lblFolio";
-            this.lblFolio.Size = new System.Drawing.Size(64, 18);
-            this.lblFolio.TabIndex = 283;
-            this.lblFolio.Text = "FOLIO:";
-            // 
-            // dateTimePicker2
-            // 
-            this.dateTimePicker2.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker2.Location = new System.Drawing.Point(378, 26);
-            this.dateTimePicker2.Name = "dateTimePicker2";
-            this.dateTimePicker2.Size = new System.Drawing.Size(201, 21);
-            this.dateTimePicker2.TabIndex = 288;
-            // 
-            // cmbUnidad
-            // 
-            this.cmbUnidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbUnidad.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbUnidad.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbUnidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbUnidad.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbUnidad.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbUnidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbUnidad.FormattingEnabled = true;
-            this.cmbUnidad.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbUnidad.Location = new System.Drawing.Point(12, 124);
-            this.cmbUnidad.Name = "cmbUnidad";
-            this.cmbUnidad.Size = new System.Drawing.Size(162, 23);
-            this.cmbUnidad.TabIndex = 285;
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label11.Location = new System.Drawing.Point(214, 96);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(226, 18);
-            this.label11.TabIndex = 289;
-            this.label11.Text = "Persona que Ingresa la Unidad:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Garamond", 6F);
-            this.label12.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label12.Location = new System.Drawing.Point(446, 105);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(217, 9);
-            this.label12.TabIndex = 290;
-            this.label12.Text = "_____________________________________________________";
-            // 
-            // cmbTipoD
-            // 
-            this.cmbTipoD.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbTipoD.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbTipoD.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbTipoD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbTipoD.Enabled = false;
-            this.cmbTipoD.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbTipoD.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbTipoD.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbTipoD.FormattingEnabled = true;
-            this.cmbTipoD.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbTipoD.Location = new System.Drawing.Point(210, 114);
-            this.cmbTipoD.Name = "cmbTipoD";
-            this.cmbTipoD.Size = new System.Drawing.Size(195, 23);
-            this.cmbTipoD.TabIndex = 247;
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label13.Location = new System.Drawing.Point(11, 114);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(142, 17);
-            this.label13.TabIndex = 246;
-            this.label13.Text = "Tipo de Diagnostico:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Garamond", 6F);
-            this.label14.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label14.Location = new System.Drawing.Point(200, 173);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(89, 9);
-            this.label14.TabIndex = 292;
-            this.label14.Text = "_____________________";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label16.Location = new System.Drawing.Point(9, 164);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(184, 18);
-            this.label16.TabIndex = 291;
-            this.label16.Text = "Kilometraje de la Unidad:";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label17.Location = new System.Drawing.Point(538, 201);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(167, 17);
-            this.label17.TabIndex = 246;
-            this.label17.Text = "Reparaciones Realizadas:";
+            this.label24.AutoSize = true;
+            this.label24.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label24.Location = new System.Drawing.Point(280, 64);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(160, 17);
+            this.label24.TabIndex = 299;
+            this.label24.Text = "Hora Envio de Reporte:";
             // 
             // label20
             // 
@@ -1595,17 +1430,198 @@ namespace controlFallos
             this.label22.TabIndex = 293;
             this.label22.Text = "*Contraseña Mecánico:";
             // 
-            // label23
+            // label16
             // 
-            this.label23.AutoSize = true;
-            this.label23.BackColor = System.Drawing.Color.Transparent;
-            this.label23.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label23.Location = new System.Drawing.Point(486, 138);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(177, 9);
-            this.label23.TabIndex = 297;
-            this.label23.Text = "___________________________________________";
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label16.Location = new System.Drawing.Point(9, 164);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(184, 18);
+            this.label16.TabIndex = 291;
+            this.label16.Text = "Kilometraje de la Unidad:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label11.Location = new System.Drawing.Point(214, 96);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(226, 18);
+            this.label11.TabIndex = 289;
+            this.label11.Text = "Persona que Ingresa la Unidad:";
+            // 
+            // cmbUnidad
+            // 
+            this.cmbUnidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbUnidad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmbUnidad.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbUnidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbUnidad.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmbUnidad.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbUnidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbUnidad.FormattingEnabled = true;
+            this.cmbUnidad.Items.AddRange(new object[] {
+            "Sistema eléctrico"});
+            this.cmbUnidad.Location = new System.Drawing.Point(12, 124);
+            this.cmbUnidad.Name = "cmbUnidad";
+            this.cmbUnidad.Size = new System.Drawing.Size(162, 23);
+            this.cmbUnidad.TabIndex = 285;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label6.Location = new System.Drawing.Point(220, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(133, 18);
+            this.label6.TabIndex = 288;
+            this.label6.Text = "Fecha de Ingreso:";
+            // 
+            // dateTimePicker2
+            // 
+            this.dateTimePicker2.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker2.Location = new System.Drawing.Point(378, 26);
+            this.dateTimePicker2.Name = "dateTimePicker2";
+            this.dateTimePicker2.Size = new System.Drawing.Size(201, 21);
+            this.dateTimePicker2.TabIndex = 288;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label1.Location = new System.Drawing.Point(9, 96);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(170, 18);
+            this.label1.TabIndex = 286;
+            this.label1.Text = "Seleccione una Unidad:";
+            // 
+            // lblFolio
+            // 
+            this.lblFolio.AutoSize = true;
+            this.lblFolio.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblFolio.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lblFolio.Location = new System.Drawing.Point(9, 49);
+            this.lblFolio.Name = "lblFolio";
+            this.lblFolio.Size = new System.Drawing.Size(64, 18);
+            this.lblFolio.TabIndex = 283;
+            this.lblFolio.Text = "FOLIO:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox1.Location = new System.Drawing.Point(75, 49);
+            this.textBox1.MaxLength = 18;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ShortcutsEnabled = false;
+            this.textBox1.Size = new System.Drawing.Size(127, 18);
+            this.textBox1.TabIndex = 300;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.BackColor = System.Drawing.Color.Transparent;
+            this.label19.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label19.Location = new System.Drawing.Point(73, 60);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(137, 9);
+            this.label19.TabIndex = 301;
+            this.label19.Text = "_________________________________";
+            // 
+            // textBox2
+            // 
+            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox2.Location = new System.Drawing.Point(441, 63);
+            this.textBox2.MaxLength = 18;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.ShortcutsEnabled = false;
+            this.textBox2.Size = new System.Drawing.Size(177, 18);
+            this.textBox2.TabIndex = 302;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.BackColor = System.Drawing.Color.Transparent;
+            this.label25.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label25.Location = new System.Drawing.Point(439, 74);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(181, 9);
+            this.label25.TabIndex = 303;
+            this.label25.Text = "____________________________________________";
+            // 
+            // textBox3
+            // 
+            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox3.Location = new System.Drawing.Point(198, 164);
+            this.textBox3.MaxLength = 18;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.ShortcutsEnabled = false;
+            this.textBox3.Size = new System.Drawing.Size(79, 18);
+            this.textBox3.TabIndex = 304;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.BackColor = System.Drawing.Color.Transparent;
+            this.label12.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label12.Location = new System.Drawing.Point(196, 175);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(81, 9);
+            this.label12.TabIndex = 305;
+            this.label12.Text = "___________________";
+            // 
+            // textBox4
+            // 
+            this.textBox4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox4.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox4.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox4.Location = new System.Drawing.Point(441, 96);
+            this.textBox4.MaxLength = 18;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.ShortcutsEnabled = false;
+            this.textBox4.Size = new System.Drawing.Size(172, 18);
+            this.textBox4.TabIndex = 306;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.BackColor = System.Drawing.Color.Transparent;
+            this.label14.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label14.Location = new System.Drawing.Point(439, 107);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(173, 9);
+            this.label14.TabIndex = 307;
+            this.label14.Text = "__________________________________________";
+            // 
+            // textBox5
+            // 
+            this.textBox5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox5.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox5.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox5.Location = new System.Drawing.Point(485, 132);
+            this.textBox5.MaxLength = 18;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.ShortcutsEnabled = false;
+            this.textBox5.Size = new System.Drawing.Size(127, 18);
+            this.textBox5.TabIndex = 308;
             // 
             // label18
             // 
@@ -1613,33 +1629,187 @@ namespace controlFallos
             this.label18.BackColor = System.Drawing.Color.Transparent;
             this.label18.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label18.Location = new System.Drawing.Point(486, 177);
+            this.label18.Location = new System.Drawing.Point(483, 143);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(177, 9);
-            this.label18.TabIndex = 298;
-            this.label18.Text = "___________________________________________";
+            this.label18.Size = new System.Drawing.Size(137, 9);
+            this.label18.TabIndex = 309;
+            this.label18.Text = "_________________________________";
             // 
-            // label24
+            // textBox6
             // 
-            this.label24.AutoSize = true;
-            this.label24.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label24.Location = new System.Drawing.Point(280, 64);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(160, 17);
-            this.label24.TabIndex = 299;
-            this.label24.Text = "Hora Envio de Reporte:";
+            this.textBox6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox6.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox6.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox6.Location = new System.Drawing.Point(485, 170);
+            this.textBox6.MaxLength = 18;
+            this.textBox6.Name = "textBox6";
+            this.textBox6.ShortcutsEnabled = false;
+            this.textBox6.Size = new System.Drawing.Size(127, 18);
+            this.textBox6.TabIndex = 310;
             // 
-            // label25
+            // label23
             // 
-            this.label25.AutoSize = true;
-            this.label25.Font = new System.Drawing.Font("Garamond", 6F);
-            this.label25.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.label25.Location = new System.Drawing.Point(446, 72);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(217, 9);
-            this.label25.TabIndex = 300;
-            this.label25.Text = "_____________________________________________________";
+            this.label23.AutoSize = true;
+            this.label23.BackColor = System.Drawing.Color.Transparent;
+            this.label23.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label23.Location = new System.Drawing.Point(483, 181);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(137, 9);
+            this.label23.TabIndex = 311;
+            this.label23.Text = "_________________________________";
+            // 
+            // textBox7
+            // 
+            this.textBox7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox7.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox7.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox7.Location = new System.Drawing.Point(175, 22);
+            this.textBox7.MaxLength = 18;
+            this.textBox7.Name = "textBox7";
+            this.textBox7.ShortcutsEnabled = false;
+            this.textBox7.Size = new System.Drawing.Size(127, 18);
+            this.textBox7.TabIndex = 310;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label2.Location = new System.Drawing.Point(173, 33);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(137, 9);
+            this.label2.TabIndex = 311;
+            this.label2.Text = "_________________________________";
+            // 
+            // textBox8
+            // 
+            this.textBox8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox8.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox8.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox8.Location = new System.Drawing.Point(175, 221);
+            this.textBox8.MaxLength = 18;
+            this.textBox8.Name = "textBox8";
+            this.textBox8.ShortcutsEnabled = false;
+            this.textBox8.Size = new System.Drawing.Size(127, 18);
+            this.textBox8.TabIndex = 312;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label4.Location = new System.Drawing.Point(173, 232);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(137, 9);
+            this.label4.TabIndex = 313;
+            this.label4.Text = "_________________________________";
+            // 
+            // textBox9
+            // 
+            this.textBox9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox9.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox9.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox9.Location = new System.Drawing.Point(278, 303);
+            this.textBox9.MaxLength = 18;
+            this.textBox9.Name = "textBox9";
+            this.textBox9.ShortcutsEnabled = false;
+            this.textBox9.Size = new System.Drawing.Size(127, 18);
+            this.textBox9.TabIndex = 314;
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.BackColor = System.Drawing.Color.Transparent;
+            this.label26.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label26.Location = new System.Drawing.Point(276, 314);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(137, 9);
+            this.label26.TabIndex = 315;
+            this.label26.Text = "_________________________________";
+            // 
+            // textBox10
+            // 
+            this.textBox10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox10.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox10.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox10.Location = new System.Drawing.Point(297, 338);
+            this.textBox10.MaxLength = 18;
+            this.textBox10.Name = "textBox10";
+            this.textBox10.ShortcutsEnabled = false;
+            this.textBox10.Size = new System.Drawing.Size(127, 18);
+            this.textBox10.TabIndex = 316;
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.BackColor = System.Drawing.Color.Transparent;
+            this.label29.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label29.Location = new System.Drawing.Point(295, 349);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(137, 9);
+            this.label29.TabIndex = 317;
+            this.label29.Text = "_________________________________";
+            // 
+            // textBox11
+            // 
+            this.textBox11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox11.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox11.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox11.Location = new System.Drawing.Point(785, 340);
+            this.textBox11.MaxLength = 18;
+            this.textBox11.Name = "textBox11";
+            this.textBox11.ShortcutsEnabled = false;
+            this.textBox11.Size = new System.Drawing.Size(173, 18);
+            this.textBox11.TabIndex = 318;
+            // 
+            // textBox12
+            // 
+            this.textBox12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.textBox12.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox12.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.textBox12.Location = new System.Drawing.Point(823, 305);
+            this.textBox12.MaxLength = 18;
+            this.textBox12.Name = "textBox12";
+            this.textBox12.ShortcutsEnabled = false;
+            this.textBox12.Size = new System.Drawing.Size(127, 18);
+            this.textBox12.TabIndex = 320;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.BackColor = System.Drawing.Color.Transparent;
+            this.label32.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label32.Location = new System.Drawing.Point(821, 316);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(137, 9);
+            this.label32.TabIndex = 321;
+            this.label32.Text = "_________________________________";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.BackColor = System.Drawing.Color.Transparent;
+            this.label33.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label33.Location = new System.Drawing.Point(783, 347);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(169, 9);
+            this.label33.TabIndex = 323;
+            this.label33.Text = "_________________________________________";
+            this.label33.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ReporteCometadeOro
             // 
@@ -1658,8 +1828,12 @@ namespace controlFallos
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ReporteCometadeOro";
             this.Text = "ReporteCometadeOro";
+            this.Load += new System.EventHandler(this.ReporteCometadeOro_Load);
             this.gbbusqueda.ResumeLayout(false);
             this.gbbusqueda.PerformLayout();
+            this.pPdf.ResumeLayout(false);
+            this.pPdf.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ConsultaReportes)).EndInit();
             this.pexcel.ResumeLayout(false);
             this.pexcel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbgif)).EndInit();
@@ -1671,9 +1845,6 @@ namespace controlFallos
             this.lblexportar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).EndInit();
-            this.pPdf.ResumeLayout(false);
-            this.pPdf.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ConsultaReportes)).EndInit();
             this.pguardar.ResumeLayout(false);
             this.pguardar.PerformLayout();
             this.pfinalizar.ResumeLayout(false);
@@ -1700,11 +1871,11 @@ namespace controlFallos
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.ComboBox cmbDiagTip;
         private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.DateTimePicker dtpfechaa;
+        private System.Windows.Forms.DateTimePicker dtpFechaA;
         private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.DateTimePicker dtpfechade;
+        private System.Windows.Forms.DateTimePicker dtpFechaDe;
         private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.CheckBox cbrango;
+        private System.Windows.Forms.CheckBox cboxRango;
         private System.Windows.Forms.ComboBox cmbmes1;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.ComboBox cmbestado;
@@ -1727,19 +1898,14 @@ namespace controlFallos
         private System.Windows.Forms.Label lblmapoyo;
         private System.Windows.Forms.Label lblmecanico;
         private System.Windows.Forms.Label lbltiempototal;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lbltiempoespera;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label lblhtmant;
-        private System.Windows.Forms.Label label52;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Label lblhimant;
-        private System.Windows.Forms.Label label50;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.TextBox txtsupervisor;
-        private System.Windows.Forms.Label label47;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.TextBox txtobservacionesm;
         private System.Windows.Forms.Label label46;
@@ -1752,11 +1918,9 @@ namespace controlFallos
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.ComboBox cmbrefacciones;
         private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.TextBox txtmecanicoapoyo;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label36;
         private System.Windows.Forms.TextBox txtmecanico;
-        private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label30;
         private System.Windows.Forms.Panel pcancelar;
         private System.Windows.Forms.Button btncancelar;
@@ -1776,22 +1940,40 @@ namespace controlFallos
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label lblFolio;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
         private System.Windows.Forms.ComboBox cmbTipoD;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cmbUnidad;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.TextBox textBox12;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.TextBox textBox8;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label33;
     }
 }
