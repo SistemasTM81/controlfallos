@@ -423,7 +423,7 @@ namespace controlFallos
             pactualizar.Visible = true;
             cargardatos();
         }
-
+        /*/////////////////////*/
         private void cbrango_CheckedChanged(object sender, EventArgs e)
         {
             if (cbrango.Checked)
@@ -522,6 +522,7 @@ namespace controlFallos
                 MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+/*////////////////////////////////////////////*/
         private void btnpdf_Click(object sender, EventArgs e)
         {
             pdf();
