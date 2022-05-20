@@ -1081,8 +1081,7 @@ namespace controlFallos
                 btnmodificariva.BackgroundImage = Properties.Resources.uncheck;
             }
 
-            //combo();
-            //puestoCB.DropDownStyle = ComboBoxStyle.DropDownList;
+            
         }
 
         private void puestoCB_DrawItem(object sender, DrawItemEventArgs e)
