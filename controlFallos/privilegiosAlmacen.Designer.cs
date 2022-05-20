@@ -401,17 +401,11 @@
             this.puestoCB.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.puestoCB.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.puestoCB.FormattingEnabled = true;
-            this.puestoCB.Items.AddRange(new object[] {
-            "Administrador",
-            "Auxiliar de Almacen",
-            "Compras",
-            "Encargado de Almacen",
-            "Finanzas",
-            "Solo Consulta"});
             this.puestoCB.Location = new System.Drawing.Point(3, 16);
             this.puestoCB.Name = "puestoCB";
             this.puestoCB.Size = new System.Drawing.Size(212, 23);
             this.puestoCB.TabIndex = 144;
+            this.puestoCB.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.puestoCB_DrawItem);
             this.puestoCB.SelectedIndexChanged += new System.EventHandler(this.puestoCB_SelectedIndexChanged);
             // 
             // btnEliminarRR

@@ -126,12 +126,13 @@ namespace controlFallos
             if (idUsuario > 0)
             {
                 buscarNombre();
+               
                 exitenPrivilegios();
                
             }
             lbltitle.Left = (panel1.Width - lbltitle.Size.Width) / 2;
+            combo();
 
-           
         }
 
         private void button33_Click(object sender, EventArgs e)
@@ -629,12 +630,15 @@ namespace controlFallos
 
         }
 
+        void combo()
+        {
+            v.comboswithuot(puestoCB, new string[] { "--Seleccione el Puesto--", "Administrador", "Auxiliar de Almacen", "Compras", "Encargado de Almacen", "Finanzas", "Solo Consulta" });
+        }
         public void puestoCB_SelectedIndexChanged(object sender, EventArgs e)
         {
+          
 
-          puestoCB.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            if (puestoCB.Text=="Administrador")
+            if (puestoCB.Text == "ADMINISTRADOR")
             {
 
                // if (v.ImageToString(btninsertarempleado.BackgroundImage) != v.check)
@@ -712,7 +716,7 @@ namespace controlFallos
                 
             }
             
-            if (puestoCB.Text == "Auxiliar de Almacen")
+            if (puestoCB.Text == "AUXILIAR DE ALMACEN")
             {
                 //catalogo personal                                                         
                 btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
@@ -785,7 +789,7 @@ namespace controlFallos
                 btnmodificariva.BackgroundImage = Properties.Resources.uncheck;
             }
             
-            if (puestoCB.Text == "Compras")
+            if (puestoCB.Text == "COMPRAS")
             {
                 //catalogo personal                                                         
                 btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
@@ -858,7 +862,7 @@ namespace controlFallos
                 btnmodificariva.BackgroundImage = Properties.Resources.uncheck;
             }
 
-            if (puestoCB.Text == "Encargado de Almacen")
+            if (puestoCB.Text == "ENCARGADO DE ALMACEN")
             {
                 //catalogo personal                                                         
                 btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
@@ -931,7 +935,7 @@ namespace controlFallos
                 btnmodificariva.BackgroundImage = Properties.Resources.check;
             }
 
-            if (puestoCB.Text == "Finanzas")
+            if (puestoCB.Text == "FINANZAS")
             {
                 //catalogo personal                                                         
                 btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
@@ -1004,7 +1008,7 @@ namespace controlFallos
                 //iva
                 btnmodificariva.BackgroundImage = Properties.Resources.uncheck;
             }
-            if (puestoCB.Text == "Solo Consulta")
+            if (puestoCB.Text == "SOLO CONSULTA")
             {
                 //catalogo personal                                                         
                 btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
@@ -1076,8 +1080,14 @@ namespace controlFallos
                 //iva
                 btnmodificariva.BackgroundImage = Properties.Resources.uncheck;
             }
+
+            //combo();
+            //puestoCB.DropDownStyle = ComboBoxStyle.DropDownList;
         }
 
-        
+        private void puestoCB_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e); 
+        }
     }
 }

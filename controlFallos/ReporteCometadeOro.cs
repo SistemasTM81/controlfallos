@@ -43,60 +43,65 @@ namespace controlFallos
            // pdf();
         }
 
-       /* void pdf()
+        private void btnguardar_Click(object sender, EventArgs e)
         {
-            Document doc = new Document(PageSize.LETTER);
-            doc.SetMargins(20f, 20f, 10f, 10f);
-            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-            saveFileDialog1.InitialDirectory = "@C:";
-            saveFileDialog1.Title = "Guardar Reporte";
-            saveFileDialog1.AddExtension = true;
-            saveFileDialog1.DefaultExt = "*.pdf";
-            saveFileDialog1.Filter = "Archivos PDF(*.pdf)|*.pdf";
-            saveFileDialog1.FilterIndex = 1;
-            saveFileDialog1.RestoreDirectory = true;
-            string filename = "";
-            try
-            {
-                if (saveFileDialog1.ShowDialog() == DialogResult.OK)
-                {
-                    filename = saveFileDialog1.FileName;
-                    string p = Path.GetExtension(filename);
-                    if (p.ToLower() != ".pdf")
-                        filename = filename + ".pdf";
-                    while (filename.ToLower().Contains(".pdf.pdf"))
-                        filename = filename.ToLower().Replace(".pdf.pdf", ".pdf").Trim();
-                }
-                if (filename.Trim() != "")
-                {
-                    FileStream file = new FileStream(filename,
-                FileMode.Create,
-                FileAccess.ReadWrite,
-                FileShare.ReadWrite);
-                    PdfWriter.GetInstance(doc, file);
-                    doc.Open();
-                    byte[] logo = Convert.FromBase64String((empresa == 2 ? v.tri : v.TSD));
-                    iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(logo);
-                    imagen.ScalePercent(20f);
-                    imagen.SetAbsolutePosition(460f, 720f);
-                    imagen.Alignment = Element.ALIGN_RIGHT;
-                    doc.Add(new Phrase(new Chunk((rbngeneral.Checked ? "\n\n INFORME DE MANTENIMIENTO" : "\n\n INFORME DE UNIDAD"), FontFactory.GetFont("calibri", 17, iTextSharp.text.Font.BOLD))));
-                    doc.Add(imagen);
-                    doc.Add(new Phrase("\n"));
-                    doc.Add((rbngeneral.Checked ? general() : unidad()));
-                    doc.Add(new Phrase("\n", arial));
-                    doc.Add(new Phrase((dgvrefacciones.Rows.Count > 0 ? "REFACCIONES SOLICITADAS" : "NO SE REQUIEREN REFACCIONES"), encabezados));
-                    if (dgvrefacciones.Rows.Count > 0)
-                        Refacciones(doc);
-                    doc.Close();
-                    System.Diagnostics.Process.Start(filename);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }*/
+
+        }
+
+        /* void pdf()
+         {
+             Document doc = new Document(PageSize.LETTER);
+             doc.SetMargins(20f, 20f, 10f, 10f);
+             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+             saveFileDialog1.InitialDirectory = "@C:";
+             saveFileDialog1.Title = "Guardar Reporte";
+             saveFileDialog1.AddExtension = true;
+             saveFileDialog1.DefaultExt = "*.pdf";
+             saveFileDialog1.Filter = "Archivos PDF(*.pdf)|*.pdf";
+             saveFileDialog1.FilterIndex = 1;
+             saveFileDialog1.RestoreDirectory = true;
+             string filename = "";
+             try
+             {
+                 if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+                 {
+                     filename = saveFileDialog1.FileName;
+                     string p = Path.GetExtension(filename);
+                     if (p.ToLower() != ".pdf")
+                         filename = filename + ".pdf";
+                     while (filename.ToLower().Contains(".pdf.pdf"))
+                         filename = filename.ToLower().Replace(".pdf.pdf", ".pdf").Trim();
+                 }
+                 if (filename.Trim() != "")
+                 {
+                     FileStream file = new FileStream(filename,
+                 FileMode.Create,
+                 FileAccess.ReadWrite,
+                 FileShare.ReadWrite);
+                     PdfWriter.GetInstance(doc, file);
+                     doc.Open();
+                     byte[] logo = Convert.FromBase64String((empresa == 2 ? v.tri : v.TSD));
+                     iTextSharp.text.Image imagen = iTextSharp.text.Image.GetInstance(logo);
+                     imagen.ScalePercent(20f);
+                     imagen.SetAbsolutePosition(460f, 720f);
+                     imagen.Alignment = Element.ALIGN_RIGHT;
+                     doc.Add(new Phrase(new Chunk((rbngeneral.Checked ? "\n\n INFORME DE MANTENIMIENTO" : "\n\n INFORME DE UNIDAD"), FontFactory.GetFont("calibri", 17, iTextSharp.text.Font.BOLD))));
+                     doc.Add(imagen);
+                     doc.Add(new Phrase("\n"));
+                     doc.Add((rbngeneral.Checked ? general() : unidad()));
+                     doc.Add(new Phrase("\n", arial));
+                     doc.Add(new Phrase((dgvrefacciones.Rows.Count > 0 ? "REFACCIONES SOLICITADAS" : "NO SE REQUIEREN REFACCIONES"), encabezados));
+                     if (dgvrefacciones.Rows.Count > 0)
+                         Refacciones(doc);
+                     doc.Close();
+                     System.Diagnostics.Process.Start(filename);
+                 }
+             }
+             catch (Exception ex)
+             {
+                 MessageBox.Show(ex.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+             }
+         }*/
 
         private void ReporteCometadeOro_Load(object sender, EventArgs e)
         {
