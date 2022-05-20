@@ -60,6 +60,17 @@
             this.label24 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.groupBoxRefaccion = new System.Windows.Forms.GroupBox();
+            this.gbImprimir = new System.Windows.Forms.GroupBox();
+            this.lblImprimir = new System.Windows.Forms.Label();
+            this.buttonPDF = new System.Windows.Forms.Button();
+            this.gbExcel = new System.Windows.Forms.GroupBox();
+            this.label38 = new System.Windows.Forms.Label();
+            this.buttonExcel = new System.Windows.Forms.Button();
+            this.pictureBoxExcelLoad = new System.Windows.Forms.PictureBox();
+            this.gbAgregar = new System.Windows.Forms.GroupBox();
+            this.buttonAgregar = new System.Windows.Forms.Button();
+            this.gbOrden = new System.Windows.Forms.GroupBox();
+            this.buttonNuevoOC = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.txtCostoEnvio = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
@@ -99,7 +110,6 @@
             this.lblCantidad = new System.Windows.Forms.Label();
             this.cmbEstatus = new System.Windows.Forms.ComboBox();
             this.label52 = new System.Windows.Forms.Label();
-            this.lblImprimir = new System.Windows.Forms.Label();
             this.groupBoxEdicion = new System.Windows.Forms.GroupBox();
             this.txtMoneda2 = new System.Windows.Forms.TextBox();
             this.labelidMecanicoApo = new System.Windows.Forms.Label();
@@ -115,11 +125,8 @@
             this.label47 = new System.Windows.Forms.Label();
             this.textBoxIVA = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
-            this.buttonPDF = new System.Windows.Forms.Button();
             this.label45 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
-            this.buttonAgregar = new System.Windows.Forms.Button();
-            this.label38 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -141,9 +148,6 @@
             this.textBoxObservacionesRefacc = new System.Windows.Forms.TextBox();
             this.label42 = new System.Windows.Forms.Label();
             this.label43 = new System.Windows.Forms.Label();
-            this.buttonNuevoOC = new System.Windows.Forms.Button();
-            this.buttonExcel = new System.Windows.Forms.Button();
-            this.pictureBoxExcelLoad = new System.Windows.Forms.PictureBox();
             this.label34 = new System.Windows.Forms.Label();
             this.buttonFinalizar = new System.Windows.Forms.Button();
             this.buttonAgregarMas = new System.Windows.Forms.Button();
@@ -179,12 +183,13 @@
             this.textBoxOCompraB = new System.Windows.Forms.TextBox();
             this.label27 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
-            this.gbOrden = new System.Windows.Forms.GroupBox();
-            this.gbAgregar = new System.Windows.Forms.GroupBox();
-            this.gbExcel = new System.Windows.Forms.GroupBox();
-            this.gbImprimir = new System.Windows.Forms.GroupBox();
             this.groupBoxProveedor.SuspendLayout();
             this.groupBoxRefaccion.SuspendLayout();
+            this.gbImprimir.SuspendLayout();
+            this.gbExcel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExcelLoad)).BeginInit();
+            this.gbAgregar.SuspendLayout();
+            this.gbOrden.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvimprimir)).BeginInit();
             this.gbxRefaccionesASolicitar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRefaccionesaSolicitar)).BeginInit();
@@ -193,16 +198,11 @@
             this.groupBoxEdicion.SuspendLayout();
             this.groupBoxObs.SuspendLayout();
             this.groupBoxObsRef.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExcelLoad)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOCompra)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBoxBusqueda.SuspendLayout();
             this.groupBoxFechas.SuspendLayout();
-            this.gbOrden.SuspendLayout();
-            this.gbAgregar.SuspendLayout();
-            this.gbExcel.SuspendLayout();
-            this.gbImprimir.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -467,6 +467,168 @@
             this.groupBoxRefaccion.Text = "REFACCIÓN:";
             this.groupBoxRefaccion.Paint += new System.Windows.Forms.PaintEventHandler(this.groupBoxAll_Paint);
             this.groupBoxRefaccion.Enter += new System.EventHandler(this.groupBoxRefaccion_Enter);
+            // 
+            // gbImprimir
+            // 
+            this.gbImprimir.Controls.Add(this.lblImprimir);
+            this.gbImprimir.Controls.Add(this.buttonPDF);
+            this.gbImprimir.Location = new System.Drawing.Point(1120, 557);
+            this.gbImprimir.Name = "gbImprimir";
+            this.gbImprimir.Size = new System.Drawing.Size(176, 115);
+            this.gbImprimir.TabIndex = 280;
+            this.gbImprimir.TabStop = false;
+            this.gbImprimir.Visible = false;
+            // 
+            // lblImprimir
+            // 
+            this.lblImprimir.AutoSize = true;
+            this.lblImprimir.BackColor = System.Drawing.Color.Transparent;
+            this.lblImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.lblImprimir.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblImprimir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.lblImprimir.Location = new System.Drawing.Point(16, 76);
+            this.lblImprimir.Name = "lblImprimir";
+            this.lblImprimir.Size = new System.Drawing.Size(154, 36);
+            this.lblImprimir.TabIndex = 192;
+            this.lblImprimir.Text = "IMPRIMIR ORDEN\r\nDE COMPRA\r\n";
+            this.lblImprimir.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // buttonPDF
+            // 
+            this.buttonPDF.AutoSize = true;
+            this.buttonPDF.BackColor = System.Drawing.Color.Transparent;
+            this.buttonPDF.BackgroundImage = global::controlFallos.Properties.Resources.print;
+            this.buttonPDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonPDF.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonPDF.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonPDF.FlatAppearance.BorderSize = 0;
+            this.buttonPDF.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonPDF.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonPDF.Location = new System.Drawing.Point(61, 22);
+            this.buttonPDF.Name = "buttonPDF";
+            this.buttonPDF.Size = new System.Drawing.Size(54, 54);
+            this.buttonPDF.TabIndex = 18;
+            this.buttonPDF.UseVisualStyleBackColor = false;
+            this.buttonPDF.Click += new System.EventHandler(this.buttonPDF_Click);
+            this.buttonPDF.MouseLeave += new System.EventHandler(this.buttonAll_MouseLeave);
+            this.buttonPDF.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
+            // 
+            // gbExcel
+            // 
+            this.gbExcel.Controls.Add(this.label38);
+            this.gbExcel.Controls.Add(this.buttonExcel);
+            this.gbExcel.Controls.Add(this.pictureBoxExcelLoad);
+            this.gbExcel.Location = new System.Drawing.Point(984, 555);
+            this.gbExcel.Name = "gbExcel";
+            this.gbExcel.Size = new System.Drawing.Size(116, 111);
+            this.gbExcel.TabIndex = 279;
+            this.gbExcel.TabStop = false;
+            this.gbExcel.Visible = false;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label38.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label38.Location = new System.Drawing.Point(10, 83);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(97, 18);
+            this.label38.TabIndex = 221;
+            this.label38.Text = "EXPORTAR";
+            // 
+            // buttonExcel
+            // 
+            this.buttonExcel.BackColor = System.Drawing.Color.Transparent;
+            this.buttonExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
+            this.buttonExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonExcel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonExcel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonExcel.FlatAppearance.BorderSize = 0;
+            this.buttonExcel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExcel.Location = new System.Drawing.Point(27, 24);
+            this.buttonExcel.Name = "buttonExcel";
+            this.buttonExcel.Size = new System.Drawing.Size(54, 54);
+            this.buttonExcel.TabIndex = 17;
+            this.buttonExcel.UseVisualStyleBackColor = false;
+            this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
+            this.buttonExcel.MouseLeave += new System.EventHandler(this.buttonAll_MouseLeave);
+            this.buttonExcel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
+            // 
+            // pictureBoxExcelLoad
+            // 
+            this.pictureBoxExcelLoad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBoxExcelLoad.Location = new System.Drawing.Point(27, 24);
+            this.pictureBoxExcelLoad.Name = "pictureBoxExcelLoad";
+            this.pictureBoxExcelLoad.Size = new System.Drawing.Size(54, 51);
+            this.pictureBoxExcelLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxExcelLoad.TabIndex = 223;
+            this.pictureBoxExcelLoad.TabStop = false;
+            this.pictureBoxExcelLoad.Visible = false;
+            // 
+            // gbAgregar
+            // 
+            this.gbAgregar.Controls.Add(this.label9);
+            this.gbAgregar.Controls.Add(this.buttonAgregar);
+            this.gbAgregar.Location = new System.Drawing.Point(859, 555);
+            this.gbAgregar.Name = "gbAgregar";
+            this.gbAgregar.Size = new System.Drawing.Size(119, 110);
+            this.gbAgregar.TabIndex = 278;
+            this.gbAgregar.TabStop = false;
+            this.gbAgregar.Visible = false;
+            // 
+            // buttonAgregar
+            // 
+            this.buttonAgregar.BackColor = System.Drawing.Color.Transparent;
+            this.buttonAgregar.BackgroundImage = global::controlFallos.Properties.Resources.ajustes;
+            this.buttonAgregar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonAgregar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregar.FlatAppearance.BorderSize = 0;
+            this.buttonAgregar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonAgregar.Location = new System.Drawing.Point(34, 23);
+            this.buttonAgregar.Name = "buttonAgregar";
+            this.buttonAgregar.Size = new System.Drawing.Size(54, 54);
+            this.buttonAgregar.TabIndex = 13;
+            this.buttonAgregar.UseVisualStyleBackColor = false;
+            this.buttonAgregar.Click += new System.EventHandler(this.buttonAgregar_Click);
+            this.buttonAgregar.MouseLeave += new System.EventHandler(this.buttonAll_MouseLeave);
+            this.buttonAgregar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
+            // 
+            // gbOrden
+            // 
+            this.gbOrden.Controls.Add(this.buttonNuevoOC);
+            this.gbOrden.Controls.Add(this.label17);
+            this.gbOrden.Location = new System.Drawing.Point(681, 550);
+            this.gbOrden.Name = "gbOrden";
+            this.gbOrden.Size = new System.Drawing.Size(163, 115);
+            this.gbOrden.TabIndex = 277;
+            this.gbOrden.TabStop = false;
+            // 
+            // buttonNuevoOC
+            // 
+            this.buttonNuevoOC.BackColor = System.Drawing.Color.Transparent;
+            this.buttonNuevoOC.BackgroundImage = global::controlFallos.Properties.Resources.file;
+            this.buttonNuevoOC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.buttonNuevoOC.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.buttonNuevoOC.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonNuevoOC.FlatAppearance.BorderSize = 0;
+            this.buttonNuevoOC.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonNuevoOC.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.buttonNuevoOC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonNuevoOC.Location = new System.Drawing.Point(61, 28);
+            this.buttonNuevoOC.Name = "buttonNuevoOC";
+            this.buttonNuevoOC.Size = new System.Drawing.Size(54, 54);
+            this.buttonNuevoOC.TabIndex = 12;
+            this.buttonNuevoOC.UseVisualStyleBackColor = false;
+            this.buttonNuevoOC.Click += new System.EventHandler(this.buttonNuevoOC_Click);
+            this.buttonNuevoOC.MouseLeave += new System.EventHandler(this.buttonAll_MouseLeave);
+            this.buttonNuevoOC.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
             // 
             // textBox1
             // 
@@ -1051,20 +1213,6 @@
             this.label52.Text = "ESTATUS:";
             this.label52.Click += new System.EventHandler(this.label52_Click);
             // 
-            // lblImprimir
-            // 
-            this.lblImprimir.AutoSize = true;
-            this.lblImprimir.BackColor = System.Drawing.Color.Transparent;
-            this.lblImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lblImprimir.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblImprimir.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblImprimir.Location = new System.Drawing.Point(16, 76);
-            this.lblImprimir.Name = "lblImprimir";
-            this.lblImprimir.Size = new System.Drawing.Size(154, 36);
-            this.lblImprimir.TabIndex = 192;
-            this.lblImprimir.Text = "IMPRIMIR ORDEN\r\nDE COMPRA\r\n";
-            this.lblImprimir.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // groupBoxEdicion
             // 
             this.groupBoxEdicion.BackColor = System.Drawing.Color.Transparent;
@@ -1244,27 +1392,6 @@
             this.label46.Text = "_________________________________________________________________________________" +
     "";
             // 
-            // buttonPDF
-            // 
-            this.buttonPDF.AutoSize = true;
-            this.buttonPDF.BackColor = System.Drawing.Color.Transparent;
-            this.buttonPDF.BackgroundImage = global::controlFallos.Properties.Resources.print;
-            this.buttonPDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonPDF.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonPDF.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonPDF.FlatAppearance.BorderSize = 0;
-            this.buttonPDF.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonPDF.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonPDF.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonPDF.Location = new System.Drawing.Point(61, 22);
-            this.buttonPDF.Name = "buttonPDF";
-            this.buttonPDF.Size = new System.Drawing.Size(54, 54);
-            this.buttonPDF.TabIndex = 18;
-            this.buttonPDF.UseVisualStyleBackColor = false;
-            this.buttonPDF.Click += new System.EventHandler(this.buttonPDF_Click);
-            this.buttonPDF.MouseLeave += new System.EventHandler(this.buttonAll_MouseLeave);
-            this.buttonPDF.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
-            // 
             // label45
             // 
             this.label45.AutoSize = true;
@@ -1284,38 +1411,6 @@
             this.label44.Size = new System.Drawing.Size(16, 18);
             this.label44.TabIndex = 218;
             this.label44.Text = "$";
-            // 
-            // buttonAgregar
-            // 
-            this.buttonAgregar.BackColor = System.Drawing.Color.Transparent;
-            this.buttonAgregar.BackgroundImage = global::controlFallos.Properties.Resources.ajustes;
-            this.buttonAgregar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonAgregar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonAgregar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonAgregar.FlatAppearance.BorderSize = 0;
-            this.buttonAgregar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonAgregar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonAgregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonAgregar.Location = new System.Drawing.Point(34, 23);
-            this.buttonAgregar.Name = "buttonAgregar";
-            this.buttonAgregar.Size = new System.Drawing.Size(54, 54);
-            this.buttonAgregar.TabIndex = 13;
-            this.buttonAgregar.UseVisualStyleBackColor = false;
-            this.buttonAgregar.Click += new System.EventHandler(this.buttonAgregar_Click);
-            this.buttonAgregar.MouseLeave += new System.EventHandler(this.buttonAll_MouseLeave);
-            this.buttonAgregar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
-            // 
-            // label38
-            // 
-            this.label38.AutoSize = true;
-            this.label38.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label38.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label38.Location = new System.Drawing.Point(10, 83);
-            this.label38.Name = "label38";
-            this.label38.Size = new System.Drawing.Size(97, 18);
-            this.label38.TabIndex = 221;
-            this.label38.Text = "EXPORTAR";
             // 
             // label26
             // 
@@ -1555,57 +1650,6 @@
             this.label43.TabIndex = 216;
             this.label43.Text = "Facturar A:";
             // 
-            // buttonNuevoOC
-            // 
-            this.buttonNuevoOC.BackColor = System.Drawing.Color.Transparent;
-            this.buttonNuevoOC.BackgroundImage = global::controlFallos.Properties.Resources.file;
-            this.buttonNuevoOC.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonNuevoOC.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonNuevoOC.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonNuevoOC.FlatAppearance.BorderSize = 0;
-            this.buttonNuevoOC.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonNuevoOC.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonNuevoOC.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonNuevoOC.Location = new System.Drawing.Point(61, 28);
-            this.buttonNuevoOC.Name = "buttonNuevoOC";
-            this.buttonNuevoOC.Size = new System.Drawing.Size(54, 54);
-            this.buttonNuevoOC.TabIndex = 12;
-            this.buttonNuevoOC.UseVisualStyleBackColor = false;
-            this.buttonNuevoOC.Click += new System.EventHandler(this.buttonNuevoOC_Click);
-            this.buttonNuevoOC.MouseLeave += new System.EventHandler(this.buttonAll_MouseLeave);
-            this.buttonNuevoOC.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
-            // 
-            // buttonExcel
-            // 
-            this.buttonExcel.BackColor = System.Drawing.Color.Transparent;
-            this.buttonExcel.BackgroundImage = global::controlFallos.Properties.Resources.excel;
-            this.buttonExcel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.buttonExcel.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.buttonExcel.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonExcel.FlatAppearance.BorderSize = 0;
-            this.buttonExcel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.buttonExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExcel.Location = new System.Drawing.Point(27, 24);
-            this.buttonExcel.Name = "buttonExcel";
-            this.buttonExcel.Size = new System.Drawing.Size(54, 54);
-            this.buttonExcel.TabIndex = 17;
-            this.buttonExcel.UseVisualStyleBackColor = false;
-            this.buttonExcel.Click += new System.EventHandler(this.buttonExcel_Click);
-            this.buttonExcel.MouseLeave += new System.EventHandler(this.buttonAll_MouseLeave);
-            this.buttonExcel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.buttonAll_MouseMove);
-            // 
-            // pictureBoxExcelLoad
-            // 
-            this.pictureBoxExcelLoad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBoxExcelLoad.Location = new System.Drawing.Point(27, 24);
-            this.pictureBoxExcelLoad.Name = "pictureBoxExcelLoad";
-            this.pictureBoxExcelLoad.Size = new System.Drawing.Size(54, 51);
-            this.pictureBoxExcelLoad.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxExcelLoad.TabIndex = 223;
-            this.pictureBoxExcelLoad.TabStop = false;
-            this.pictureBoxExcelLoad.Visible = false;
-            // 
             // label34
             // 
             this.label34.AutoSize = true;
@@ -1770,6 +1814,7 @@
             this.groupBox1.Size = new System.Drawing.Size(1912, 936);
             this.groupBox1.TabIndex = 187;
             this.groupBox1.TabStop = false;
+            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
             // buttonActualizarN
             // 
@@ -2176,50 +2221,6 @@
             this.label49.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.label49.Visible = false;
             // 
-            // gbOrden
-            // 
-            this.gbOrden.Controls.Add(this.buttonNuevoOC);
-            this.gbOrden.Controls.Add(this.label17);
-            this.gbOrden.Location = new System.Drawing.Point(681, 550);
-            this.gbOrden.Name = "gbOrden";
-            this.gbOrden.Size = new System.Drawing.Size(163, 115);
-            this.gbOrden.TabIndex = 277;
-            this.gbOrden.TabStop = false;
-            // 
-            // gbAgregar
-            // 
-            this.gbAgregar.Controls.Add(this.label9);
-            this.gbAgregar.Controls.Add(this.buttonAgregar);
-            this.gbAgregar.Location = new System.Drawing.Point(859, 555);
-            this.gbAgregar.Name = "gbAgregar";
-            this.gbAgregar.Size = new System.Drawing.Size(119, 110);
-            this.gbAgregar.TabIndex = 278;
-            this.gbAgregar.TabStop = false;
-            this.gbAgregar.Visible = false;
-            // 
-            // gbExcel
-            // 
-            this.gbExcel.Controls.Add(this.label38);
-            this.gbExcel.Controls.Add(this.buttonExcel);
-            this.gbExcel.Controls.Add(this.pictureBoxExcelLoad);
-            this.gbExcel.Location = new System.Drawing.Point(984, 555);
-            this.gbExcel.Name = "gbExcel";
-            this.gbExcel.Size = new System.Drawing.Size(116, 111);
-            this.gbExcel.TabIndex = 279;
-            this.gbExcel.TabStop = false;
-            this.gbExcel.Visible = false;
-            // 
-            // gbImprimir
-            // 
-            this.gbImprimir.Controls.Add(this.lblImprimir);
-            this.gbImprimir.Controls.Add(this.buttonPDF);
-            this.gbImprimir.Location = new System.Drawing.Point(1120, 557);
-            this.gbImprimir.Name = "gbImprimir";
-            this.gbImprimir.Size = new System.Drawing.Size(176, 115);
-            this.gbImprimir.TabIndex = 280;
-            this.gbImprimir.TabStop = false;
-            this.gbImprimir.Visible = false;
-            // 
             // OrdenDeCompra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2240,6 +2241,15 @@
             this.groupBoxProveedor.PerformLayout();
             this.groupBoxRefaccion.ResumeLayout(false);
             this.groupBoxRefaccion.PerformLayout();
+            this.gbImprimir.ResumeLayout(false);
+            this.gbImprimir.PerformLayout();
+            this.gbExcel.ResumeLayout(false);
+            this.gbExcel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExcelLoad)).EndInit();
+            this.gbAgregar.ResumeLayout(false);
+            this.gbAgregar.PerformLayout();
+            this.gbOrden.ResumeLayout(false);
+            this.gbOrden.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvimprimir)).EndInit();
             this.gbxRefaccionesASolicitar.ResumeLayout(false);
             this.gbxRefaccionesASolicitar.PerformLayout();
@@ -2252,7 +2262,6 @@
             this.groupBoxObs.PerformLayout();
             this.groupBoxObsRef.ResumeLayout(false);
             this.groupBoxObsRef.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxExcelLoad)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOCompra)).EndInit();
@@ -2261,14 +2270,6 @@
             this.groupBoxBusqueda.PerformLayout();
             this.groupBoxFechas.ResumeLayout(false);
             this.groupBoxFechas.PerformLayout();
-            this.gbOrden.ResumeLayout(false);
-            this.gbOrden.PerformLayout();
-            this.gbAgregar.ResumeLayout(false);
-            this.gbAgregar.PerformLayout();
-            this.gbExcel.ResumeLayout(false);
-            this.gbExcel.PerformLayout();
-            this.gbImprimir.ResumeLayout(false);
-            this.gbImprimir.PerformLayout();
             this.ResumeLayout(false);
 
         }

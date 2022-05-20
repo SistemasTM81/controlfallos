@@ -2654,6 +2654,11 @@ namespace controlFallos
             ((HandledMouseEventArgs)e).Handled = true;
         }
 
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
         private void txtCosto_TextChanged(object sender, EventArgs e)
         {
 
@@ -3046,7 +3051,7 @@ namespace controlFallos
                 {
                     btnProveedor3.BackgroundImage = Properties.Resources.check;
                 }*/
-                string editable = v.getaData("SET lc_time_names = 'es_ES';select if(date_format(FechaRegistro, '%Y-%m-%d') >= date_add(date_format(now(), '%Y-%m-%d') ,interval -1 day), '1','0') FROM ordencompra where requicisionfkCRequicision ='" + idRequicision.ToString() + "'").ToString();
+                string editable = v.getaData("SET lc_time_names = 'es_ES';select if(date_format(FechaRegistro, '%Y-%m-%d') >= date_add(date_format(now(), '%Y-%m-%d') ,interval -1 day), '0','1') FROM ordencompra where requicisionfkCRequicision ='" + idRequicision.ToString() + "'").ToString();
 
                 if (!editable.ToString().Equals("0"))
                 {

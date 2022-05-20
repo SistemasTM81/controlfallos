@@ -305,7 +305,7 @@ namespace controlFallos
                     }
                     else
                     {
-                        if (pinsertar && peditar && pconsultar)
+                        if (pinsertar || peditar || pconsultar)
                         {
                             LblExcel.Visible = true;
                             if (!est_expor)
