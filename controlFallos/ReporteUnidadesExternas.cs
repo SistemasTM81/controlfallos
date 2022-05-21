@@ -16,9 +16,10 @@ using iTextSharp.text;
 using System.IO;
 using iTextSharp.text.pdf;
 
+
 namespace controlFallos
 {
-    public partial class ReporteCometadeOro : Form
+    public partial class ReporteUnidadesExternas : Form
     {
 
         validaciones v;
@@ -44,6 +45,38 @@ namespace controlFallos
         }
 
         private void btnguardar_Click(object sender, EventArgs e)
+        {
+
+        }
+                                                                            /*/////////////////////PRUEBAS////////////////////*/
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+            gbxbusqueda.Visible = true;
+            gbxDiag.Visible = true;
+            gbxUnidad.Visible = true;
+
+            pictureBox1.Visible = false;
+            lblText.Visible = false;
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            gbxbusqueda.Visible = false;
+            gbxDiag.Visible = false;
+            gbxUnidad.Visible = false;
+
+            pictureBox1.Visible = true;
+            lblText.Visible = true;
+
+
+        }
+
+
+        /*/////////////////////PRUEBAS////////////////////*/
+        private void ReporteUnidadesExternas_Load(object sender, EventArgs e)
         {
 
         }
@@ -103,12 +136,9 @@ namespace controlFallos
              }
          }*/
 
-        private void ReporteCometadeOro_Load(object sender, EventArgs e)
-        {
+    
 
-        }
-
-        public ReporteCometadeOro(int idUsuario, int empresa, int area, validaciones v)
+        public ReporteUnidadesExternas(int idUsuario, int empresa, int area, validaciones v)
         {
             InitializeComponent();
             this.idUsuario = idUsuario;
@@ -123,4 +153,4 @@ namespace controlFallos
         
     }
   }
-/*ACTUALIZACION 19-05-2022 REPORTE UNIDADES EXTERNAS*/
+/*ACTUALIZACION 21-05-2022 REPORTE UNIDADES EXTERNAS*/

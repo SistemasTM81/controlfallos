@@ -550,4 +550,16 @@
   <data name="fuegos-artificiales" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fuegos-artificiales.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="Server2gif" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Server2gif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="servergif" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\servergif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="servermantenimientogif" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\servermantenimientogif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="service_mategif" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\service_mategif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

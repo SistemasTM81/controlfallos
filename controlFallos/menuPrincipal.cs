@@ -379,14 +379,14 @@ namespace controlFallos
                     //lbltitle.Location = new Point(1575, 13);
                     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                     Deshabilitar(reporteCometaDeOroToolStripMenuItem);
-                    var form4 = Application.OpenForms.OfType<ReporteCometadeOro>().FirstOrDefault();
-                    ReporteCometadeOro hijo = form4 ?? new ReporteCometadeOro( idUsuario, empresa, area, v);
+                    var form4 = Application.OpenForms.OfType<ReporteUnidadesExternas>().FirstOrDefault();
+                    ReporteUnidadesExternas hijo = form4 ?? new ReporteUnidadesExternas( idUsuario, empresa, area, v);
                     AddFormInPanel(hijo);
                 }
             }
             else
             {
-                ReporteCometadeOro co = (ReporteCometadeOro)form;
+                ReporteUnidadesExternas co = (ReporteUnidadesExternas)form;
                
             }
         }
