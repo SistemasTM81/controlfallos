@@ -24,6 +24,7 @@ namespace controlFallos
 
         validaciones v;
         int idUsuario, empresa, area;
+        conexion con;
 
         private void cboxRango_CheckedChanged(object sender, EventArgs e)
         {
@@ -130,6 +131,59 @@ namespace controlFallos
         private void EstatusRepa_DrawItem(object sender, DrawItemEventArgs e)
         {
             v.combos_DrawItem(sender, e);
+        }
+
+        private void tbxFolio_TextChanged(object sender, EventArgs e)
+        {
+
+        } 
+           
+  
+        /*PRUEBA CONEXION A BASE DE DATOS*/
+        private void btnbuscar_Click(object sender, EventArgs e)
+        {
+            string folio = txtfoliob.Text;
+            MySqlDataReader reader = null;
+
+            string sql = "select FolioUE from reporteuniexternas WHERE FolioUE LIKE'" + folio + "'"; //LIMIT 1
+
+            // con.dbcon.Open(); con.dbconection();
+            MySqlConnection conexion = v.c.dbconection();
+            conexion.Open();
+            try
+            {
+                
+                MySqlCommand comando = new MySqlCommand(sql, conexion);
+                reader = comando.ExecuteReader();
+                
+
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        txtfoliob.Text = reader.GetString(0);
+                    }
+                }
+                else
+                {
+
+                    MessageBox.Show("No se encontraron Datos");
+
+                }
+
+            }
+            catch (MySqlException ex)
+            {
+
+                MessageBox.Show("Error" + ex.Message);
+
+            }
+            finally
+            {
+                conexion.Close();
+            }
+
+
         }
 
         /*/////////////////////PRUEBAS////////////////////*/
