@@ -31,6 +31,7 @@ namespace controlFallos
         string unidadMedida = "Select x1.Simbolo from cunidadmedida as x1 inner join cfamilias as x2 on x1.idunidadmedida = x2.umfkcunidadmedida inner join cmarcas as x3 on x2.idfamilia = x3.descripcionfkcfamilias inner join crefacciones as x4 on x4.marcafkcmarcas = x3.idmarca where x4.codrefaccion = ";
         List<string> lsEstatus = new List<string>();
         string IVAd = "", proveedor = "", datosO = "", FolioR = "", departamento = "", FolioOC="", Fecha="",observacionesd="";
+        string CantidadAnterior, costoanterior, proveedoranterior, subtotalanterior, ivaanterior, totalanterior, observacionesanterior = "",costoenvioanterior;
         string[] costos;
         DataTable dt = new DataTable();
         DataRow filas;
@@ -38,7 +39,7 @@ namespace controlFallos
 
         /* VAR ANTERIORES */
 
-        String estatusOCompra = "", observacionesanterior = "", proveedoranterior = "", facturaranterior = "", observacionesrefaccanterior = "", codigorefanterior = "";
+        String estatusOCompra = "", facturaranterior = "", observacionesrefaccanterior = "", codigorefanterior = "",observacionesEditar;
         int idproveedoranterior, idfacturaranterior;
        
         DateTime fentregaestimadanterior;
@@ -1579,6 +1580,7 @@ namespace controlFallos
                 }
                 else
                 {
+                    DialogResult edition = DialogResult.OK;
                     if (v.Checked(btnProveedor1.BackgroundImage).ToString().Equals("1"))
                     {
                         proveedor = cmbProveedor1.Text;
@@ -1594,7 +1596,13 @@ namespace controlFallos
                     if (v.validarcamposOC(cmbProveedor1.SelectedIndex, cmbProveedor2.SelectedIndex, cmbProveedor3.SelectedIndex, txtCodigo.Text, txtCantidadS.Text, txtCosto.Text, txtNumParte.Text, txtNomRefaccion.Text, labelSubTotal.Text))
                     {
                         datosO = datosO + "|" + txtCodigo.Text + "|" + txtNumParte.Text + "|" + textBoxObservacionesRefacc.Text + "|" + txtNomRefaccion.Text + "|" + txtCantidadS.Text + "|PZA|" + txtCosto.Text + "|" + labelSubTotal.Text + "|" + dtpFecha.Value.ToString("dd/MM/yyyy");
-                        EditarOrden();
+                        observacionesEdicion obs = new observacionesEdicion(v);
+                        obs.Owner = this;
+                        edition = obs.ShowDialog();
+                        if (edition == DialogResult.OK)
+                        {
+                            observacionesEditar = v.mayusculas(obs.txtgetedicion.Text.Trim().ToLower());
+                            EditarOrden();
                         var selectedOption = MessageBox.Show("¿Quiere agregar más productos?", "¡¡IMPORTANTE!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         if (selectedOption == DialogResult.Yes)
                         {
@@ -1621,7 +1629,9 @@ namespace controlFallos
                                 limpiar();
                             }
                         }
+
                     }
+                        }
                 }
                 /*if ((comboBoxFacturar.SelectedIndex == 0) && (cbcomparativa.SelectedIndex==0))
                 {
@@ -1869,6 +1879,7 @@ namespace controlFallos
         {
             v.AgregarRequicision("update ordencompra as t1 inner join crequicision as t2 on t1.requicisionfkCRequicision = t2.idcrequicision set t1.proveedorfkCproveedor =  '" + cmbProveedor1.SelectedValue.ToString() + "', t1.Estatus = '" + cmbEstatus.SelectedIndex + "', t2.Estatus = '" + cmbEstatus.SelectedIndex + "', t1.departamento = '" + departamento + "',costoenvio='" + txtCostoEnvio.Text + "', Subtotal = '" + labelSubTotal.Text + "', IVA = '" + labelIVAOC.Text + "',Total = '" + labelTotalOC.Text + "'  where t1.FolioOrdCompra = '" + labelFolioOC.Text + "' and t2.Folio='" + FolioR.ToString() + "' and t1.requicisionfkCRequicision='" + idRequicision + "'; ");
             v.AgregarRequicision("update crequicision set precio='" + txtCosto.Text + "', proveedorfkCProveedor = '" + cmbProveedor1.SelectedValue.ToString() + "',proveedorfkCProveedor2 = '" + cmbProveedor2.SelectedValue.ToString() + "', proveedorfkCProveedor3 = '" + cmbProveedor3.SelectedValue.ToString() + "'  where idcrequicision = '" + idRequicision + "' and empresa = '" + empresa + "' and departamento = '" + departamento + "'");
+            Modificacion_Crear();
 
         }
         private void buttonBuscar_Click(object sender, EventArgs e)
@@ -3026,16 +3037,17 @@ namespace controlFallos
                 txtNomRefaccion.Text = datos[3].ToString();
                 txtNumParte.Text = datos[4].ToString();
                 labelExistencia.Text = datos[5].ToString();
-                txtCantidadS.Text = datos[6].ToString();
+                CantidadAnterior = txtCantidadS.Text = datos[6].ToString();
                 cmbEstatus.SelectedIndex = Convert.ToInt32(datos[7].ToString());
                 lblFecha.Text = datos[8].ToString();
-                txtCosto.Text = datos[9].ToString();
+                costoanterior = txtCosto.Text = datos[9].ToString();
                 txtMoneda.Text = datos[10].ToString();
                 txtMoneda2.Text = datos[10].ToString();
-                textBoxObservacionesRefacc.Text = datos[11].ToString();
+                observacionesanterior = textBoxObservacionesRefacc.Text = datos[11].ToString();
                 cmbProveedor1.SelectedValue = Convert.ToInt32(datos[12].ToString());
+                proveedoranterior = datos[12].ToString();
                 departamento = datos[13].ToString();
-                txtCostoEnvio.Text = datos[14].ToString();
+                costoenvioanterior = txtCostoEnvio.Text = datos[14].ToString();
 
                 String.Format("{0:n}", txtCosto.Text);
 
@@ -3078,7 +3090,7 @@ namespace controlFallos
                 FolioR = dataGridViewOCompra.Rows[e.RowIndex].Cells[0].Value.ToString();
                 txtCodigo.Text = dataGridViewOCompra.Rows[e.RowIndex].Cells[2].Value.ToString();
                 string[] datos = v.ObtenerRefR("SET lc_time_names = 'es_ES';select upper(concat(t1.idcrequicision, '|',t1.Folio,'|',t2.codrefaccion,'|',t2.nombreRefaccion,'|',t1.NumParte,'|',t2.existencias,'|', t1.Cantidad,'|', if(t1.estatus = 0,'En Espera', if(t1.estatus=1, 'Aprobada', if(t1.estatus=2, 'Rechazada', if(t1.estatus = '', '','')))),'|',date_format(t1.Fecha, '%W %d de %M del %Y') ,'|', t1.precio,'|',(select simbolo from ctipocambio where idtipoCambio = t1.tipocambiofkCTipomoneda),'|',t1.Especificaciones,'|', t1.Estatus,'|',t1.departamento)) as r from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion  where t1.Folio='" + FolioR.ToString() + "' and t2.codrefaccion= '" + txtCodigo.Text + "';").ToString().Split('|');
-                idRequicision = Convert.ToInt32(datos[0].ToString());
+                 idRequicision = Convert.ToInt32(datos[0].ToString());
                 groupBoxRefaccion.Text = groupBoxRefaccion.Text + " " + datos[1].ToString();
                 FolioR = datos[1].ToString();
                 txtCodigo.Text = datos[2].ToString();
@@ -3109,7 +3121,7 @@ namespace controlFallos
         {
 
             textBoxObservaciones.Enabled = txtCodigo.Enabled = txtNomRefaccion.Enabled = txtNumParte.Enabled = labelExistencia.Enabled = txtCantidadS.Enabled = cmbProveedor1.Enabled = cmbProveedor2.Enabled =cmbProveedor3.Enabled =lblFecha.Enabled =txtCosto.Enabled =txtMoneda.Enabled = txtMoneda2.Enabled = textBoxObservacionesRefacc.Enabled = cmbEstatus.Enabled = txtCostoEnvio.Enabled = false;
-            gbAgregar.Visible = gbExcel.Visible = gbImprimir.Visible = false;
+            gbAgregar.Visible = gbExcel.Visible =  false; gbImprimir.Visible = true;
 
         }
         void avilitado()
@@ -3142,10 +3154,10 @@ namespace controlFallos
         public void calcular_costo()
         {
             string[] costos = v.calcular(txtCosto.Text, IVAd.ToString(), txtCantidadS.Text, txtCostoEnvio.Text).ToString().Split('/');
-            labelSubTotal.Text = costos[0].ToString();
+            subtotalanterior = labelSubTotal.Text = costos[0].ToString();
             labelSubTotalOC.Text = costos[1].ToString();
-            labelIVAOC.Text = costos[2].ToString();
-            labelTotalOC.Text = costos[3].ToString();
+            ivaanterior = labelIVAOC.Text = costos[2].ToString();
+            totalanterior = labelTotalOC.Text = costos[3].ToString();
             labelSubTotal.Text = String.Format("{0:#,##0.##}", labelSubTotal.Text);
             String.Format("{0:#,##0.##}", labelSubTotalOC.Text);
             String.Format("{0:n}", labelIVAOC.Text);
@@ -3376,6 +3388,10 @@ namespace controlFallos
             costos = v.calcularCompleto(SubTotal, textBoxIVA.Text, Convert.ToDouble(txtCostoEnvio.Text)).Split('/');
             Expota_PDF();
             limpiar();
+        }
+       void Modificacion_Crear()
+        {
+            var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Orden De Compra','" + idRequicision + "','" + CantidadAnterior + ";" + costoanterior + ";" + subtotalanterior + ";" + ivaanterior + ";" + costoenvioanterior + ";" + totalanterior + ";" + proveedoranterior + ";" + observacionesanterior + "','" + idUsuario + "',NOW(),'Actualización de Orden De Compra','" + observacionesEditar + "','" + empresa + "','" + area + "')");
         }
     }
 }
