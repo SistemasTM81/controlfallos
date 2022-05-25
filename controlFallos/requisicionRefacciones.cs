@@ -310,7 +310,7 @@ namespace controlFallos
         public void registrar()
         {
             datosO = datosO + "|" + txtCodigo.Text + "|" + txtRefaccion.Text + "|" + txtNumParte.Text + "|" + txtEspecificaciones.Text + "|" + txtExistencia.Text + "|" + txtCantidad.Text;
-            v.AgregarRequicision("insert into crequicision(Folio, cantidad, numparte, especificaciones, estatus,  refaccionfkCRefacciones, fecha, precio, empresa, usuariofkCPersonal,tipocambiofkCTipomoneda,departamento) value('" + txtFolio.Text + "','" + txtCantidad.Text + "','" + txtNumParte.Text + "','" + txtEspecificaciones.Text + "','0',(select Distinct(idrefaccion) from crefacciones where codrefaccion = '" + txtCodigo.Text + "' and empresa = '" + empresa + "'), now(), '" + txtCosto.Text + "','" + empresa + "','" + idUsuarioR.ToString() + "','" + cmbMoneda.SelectedValue + "','" + cmbDepartamento.SelectedValue + "' )");
+            v.AgregarRequicision("insert into crequicision(Folio, cantidad, numparte, especificaciones, estatus,  refaccionfkCRefacciones, fecha, precio, empresa, usuariofkCPersonal,tipocambiofkCTipomoneda,departamento,Existencia) value('" + txtFolio.Text + "','" + txtCantidad.Text + "','" + txtNumParte.Text + "','" + txtEspecificaciones.Text + "','0',(select Distinct(idrefaccion) from crefacciones where codrefaccion = '" + txtCodigo.Text + "' and empresa = '" + empresa + "'), now(), '" + txtCosto.Text + "','" + empresa + "','" + idUsuarioR.ToString() + "','" + cmbMoneda.SelectedValue + "','" + cmbDepartamento.SelectedValue + "','" + txtExistencia.Text + "' )");
         }
         public void editarRegistro()
         {
