@@ -191,10 +191,28 @@ namespace controlFallos
 
         }
 
+        //boton cancelar
+        bool editar;
+        private readonly object MessageboxButtons;
+
         private void btncancelar_Click(object sender, EventArgs e)
         {
+            if (!cambios())
+                cancelar();
+          else   if (MessageBox.Show ("Desea " + (editar ? "¿guardar los cambios?" : "¿concluir con el registro?"),
+                                      validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo,
+                                       MessageBoxIcon.Question) == DialogResult.No)
+                cancelar();
+         
+        }
+        private bool cambios()
+        {
+            throw new NotImplementedException();
+        }
 
-         // if (MessageBox.Show ("¿Desea cancelar el registro?" MessageboxButton.SiNo, MessageBoxIcon.Question)== DialogResult.Si)
+        private void cancelar()
+        {
+            throw new NotImplementedException();
         }
 
         /*/////////////////////PRUEBAS////////////////////*/
