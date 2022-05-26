@@ -215,7 +215,7 @@ namespace controlFallos
             throw new NotImplementedException();
         }
 
-        /*/////////////////////PRUEBAS////////////////////*/
+        /*/////////////////////PRUEBAS//////////////////*/
         private void ReporteUnidadesExternas_Load(object sender, EventArgs e)
         {
             combo();
