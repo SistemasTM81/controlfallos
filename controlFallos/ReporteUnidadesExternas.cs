@@ -142,7 +142,7 @@ namespace controlFallos
         /*PRUEBA CONEXION A BASE DE DATOS*/
         private void btnbuscar_Click(object sender, EventArgs e)
         {
-            string folio = txtfoliob.Text;
+           /* string folio = txtfoliob.Text;
             MySqlDataReader reader = null;
 
             string sql = "select FolioUE from reporteuniexternas WHERE FolioUE LIKE'" + folio + "'"; //LIMIT 1
@@ -183,7 +183,7 @@ namespace controlFallos
                 conexion.Close();
             }
 
-
+            */
         }
 
         /*/////////////////////PRUEBAS////////////////////*/
@@ -264,4 +264,4 @@ namespace controlFallos
         
     }
   }
-/*ACTUALIZACION 21-05-2022 REPORTE UNIDADES EXTERNAS*/
+/*ACTUALIZACION 26-05-2022 REPORTE UNIDADES EXTERNAS*/
