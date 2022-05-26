@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using h = Microsoft.Office.Interop.Excel;
 using MySql.Data.MySqlClient;
-              
+using System.Collections;
+using System.Diagnostics;
+
 namespace controlFallos
 {
     public partial class Reportes : Form
@@ -30,6 +32,9 @@ namespace controlFallos
         string unidades = "SET lc_time_names = 'es_ES';select convert(idunidad,char) as idunidad, convert(consecutivo,char) as Eco from cunidades order by consecutivo asc";
         string CosultaCarrocerosE = "SET lc_time_names = 'es_ES';convert(x1.Folio,char) as 'Folio Factura',convert(t4.CostoUni, char) as Costo, convert(t1.motivoActualizacion, char) as Actualizacion, convert(t2.usuario, char) as Usuario,  upper(date_format(convert(t1.fechaHora, char),'%d/%M/%Y')) as Fecha,UPPER(coalesce(convert(if(t5.empresa = '',concat(t5.aPaterno, ' ', t5.aMaterno, ' ', t5.nombres), t5.empresa),char),'')) as Proveedor FROM modificaciones_sistema as t1 inner join datosistema as t2 on t1.usuariofkcpersonal = t2.usuariofkcpersonal inner join cempresas as t3 on t1.empresa = t3.idempresa inner join crefacciones as t4 on t4.idrefaccion = t1.idregistro inner join cproveedores as t5 on t5.idproveedor = t4.proveedrofkCProveedores inner join cfoliosfactura x1 on x1.codrefaccionfkcrefacciones = t4.idrefaccion";
         int inicio = 0;
+
+        
+
         private void Reportes_Load(object sender, EventArgs e)
         {
             cargaEcoBusq();
@@ -470,13 +475,17 @@ namespace controlFallos
             label35.Visible = true;
         }
 
-        private void buttonExcel_Click(object sender, EventArgs e)
+        
+
+        private void buttonExcel_Click( object sender, EventArgs e)
         {
             if (rbSalidas.Checked == true)
             {
                 dataGridView2.DataSource = dsConsulta.Tables[0];
                 MessageBox.Show("Iniciando exportacion", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 exportar_excel();
+                
+
             }
             else if (rbEntradas.Checked == true)
             {
@@ -484,6 +493,12 @@ namespace controlFallos
                 MessageBox.Show("Iniciando exportacion", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 exportar_excel();
             }
+
+            /*EXPORTAR EXCEL*/
+
+
+
+            /*EXPORTAR EXCEL*/
         }
 
         public void activarPaginado()
@@ -516,8 +531,8 @@ namespace controlFallos
                       uno delega = new uno(inicio);
                       this.Invoke(delega);
                   }*/
+                
                 Microsoft.Office.Interop.Excel.Application X = new Microsoft.Office.Interop.Excel.Application();
-                X.Application.Workbooks.Add(Type.Missing);
                 h.Worksheet sheet = (h.Worksheet)X.ActiveSheet;
                 X.Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
                 X.Cells.VerticalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
