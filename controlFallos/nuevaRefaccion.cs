@@ -1047,10 +1047,9 @@ namespace controlFallos
         }
         void centradas(decimal costoUni, int moneda)
         {
-           
-
-
             var res3 = v.c.insertar("insert into centradasm(refaccionfkCRefacciones,FolioFactura, CantidadIngresa, FechaHora, UsuariofkCPersonal, Empresa, proveedor,Costo,tipomonedafkCTipoCambio) value ((Select idRefaccion from crefacciones where codrefaccion ='" + txtcodrefaccion.Text + "' and empresa = '" + empresa + "'), '" + txtFolioF.Text + "', '" + cantidada.Text + "',now()," + idUsuario + "," + empresa + ",'" + cmbPROVEEDOR.Text + "','" + costoUni + "','" + moneda + "');");
+            var res4 = v.c.insertar("insert cmaterialentregado(ordcomprafkordencompra,crequicisionfkcrequisicion,entradamfkcentradam,refaccionfkcrefaccion,fechahoraregistro,usuriofkcpersonal,empresa) value ((select max(t1.idOrdCompra) from ordencompra as t1 inner join crequicision as t2 on t1.requicisionfkCRequicision = t2.idcrequicision inner join crefacciones as t3 on t3.idrefaccion = t2.refaccionfkCRefacciones where t3.codrefaccion ='"+ txtcodrefaccion.Text + "' and t3.empresa = '" + empresa + "'),(select max(t2.idcrequicision) from  crequicision as t2  inner join crefacciones as t3 on t3.idrefaccion = t2.refaccionfkCRefacciones where t3.codrefaccion ='" + txtcodrefaccion.Text + "' and t3.empresa = '" + empresa + "'), (select max(t2.idEntradasM) from  centradasm as t2  inner join crefacciones as t3 on t3.idRefaccion = t2.refaccionfkCRefacciones where t3.codrefaccion ='" + txtcodrefaccion.Text + "' and t3.empresa = '" + empresa + "'),(Select idRefaccion from crefacciones where codrefaccion ='" + txtcodrefaccion.Text + "' and empresa = '" + empresa + "'),now(),'"+ empresa + "','" + idUsuario + "')");
+
         }
         void limpiar()
         {

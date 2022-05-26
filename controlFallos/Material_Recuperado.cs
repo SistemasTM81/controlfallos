@@ -24,7 +24,7 @@ namespace controlFallos
         delegate void uno();
         delegate void dos();
         int idUsuario, status, empresa, area, idEntrega, familiaanterior,  economicoanterior;
-        string inicioCodigo = "", codigoanterior = "", motivoanterior = "", nombreanterior = "",  mecanicoanterior = "";
+        string inicioCodigo = "", codigoanterior = "", motivoanterior = "", nombreanterior = "",  mecanicoanterior = "", cantidad ="";
         double cantidadanterior = 0.0;
         public bool editar { private set; get; }
         Thread exportar, th;
@@ -120,7 +120,7 @@ namespace controlFallos
         {
             if (!accion)
             {
-               
+                cantidad = txtCantidad.Text;
                agregar();
                
             }
@@ -129,10 +129,12 @@ namespace controlFallos
                 
                 if (!string.IsNullOrWhiteSpace(txtSalidas.Text))
                 {
+                    cantidad = txtSalidas.Text;
                     salida();
                 }
                 else
                 {
+                    cantidad = txtCantidad.Text;
                     modificar();
                 }
             }
@@ -410,7 +412,7 @@ namespace controlFallos
             motivoanterior = txtMotivo.Text = datos[8].ToString();
             lblUnidadMedida.Text = datos[9].ToString();
             pdelref.Visible = pCancelar.Visible = true;
-            txtSalidas.Visible = lblsalida.Visible = cmbMotivos.Visible = lblMotivo.Visible = lblSalidaC.Visible =  true;
+            txtSalidas.Visible = lblsalida.Visible = cmbMotivos.Visible = lblMotivo.Visible = lblSalidaC.Visible = label9.Visible = cmbBuscarUnidad.Visible =  true;
             accion = true;
             cargaEcoBusq(cmbBuscarUnidad);
 
@@ -473,7 +475,7 @@ namespace controlFallos
             txtCantidad.Text = txtcodrefaccionRep.Text = txtContasenna.Text = lblNombre.Text = txtContasenna.Text = txtMotivo.Text = txtnombrereFaccionRep.Text = txtCodigobusq.Text = txtnombrereFaccionbusq.Text = txtSalidas.Text ="";
             cmbDescripcion.DataSource = null;
             cmbEconomico.SelectedValue = cmbFamilia.SelectedValue = cmbMantenimiento.SelectedValue = cbfamiliabusq.SelectedValue = cmbMotivos.SelectedValue = cmbBuscarUnidad.SelectedValue = 0;
-            pCancelar.Visible = pdelref.Visible = btnCargar.Visible = btnExcel.Visible = false;
+            pCancelar.Visible = pdelref.Visible = btnCargar.Visible = btnExcel.Visible = cmbBuscarUnidad.Visible = txtSalidas.Visible = label9.Visible = cmbMotivos.Visible = lblMotivo.Visible = lblSalidaC.Visible = lblsalida.Visible = false;
             consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 limit 10 ;");
             accion = false;
 
@@ -622,7 +624,7 @@ namespace controlFallos
                     tabla.AddCell(v.valorCampo("\n\n Economico: " + cmbBuscarUnidad.Text, 1, 0, 0, arial));
                     tabla.AddCell(v.valorCampo("\n\n", 1, 0, 0, arial2));
                     tabla.AddCell(v.valorCampo("Refaccion Entregada:", 2, 1, 0, arial));
-                    tabla.AddCell(v.valorCampo("\n\n " + txtcodrefaccionRep.Text + "\t" + txtnombrereFaccionRep.Text + "\t Cantidad: " + txtCantidad.Text + " " + lblUnidadMedida.Text, 2, 1, 0, arial12));
+                    tabla.AddCell(v.valorCampo("\n\n " + txtcodrefaccionRep.Text + "\t" + txtnombrereFaccionRep.Text + "\t Cantidad: " + cantidad + " " + lblUnidadMedida.Text, 2, 1, 0, arial12));
                     // tabla.AddCell(v.valorCampo(proveedor.ToString(), 2, 1, 0, arial));
                     /* tabla.AddCell(v.valorCampo("Non. REFACCION", 1, 0, 0, arial));
                      tabla.AddCell(v.valorCampo("ENTREGA", 2, 0, 0, arial));
