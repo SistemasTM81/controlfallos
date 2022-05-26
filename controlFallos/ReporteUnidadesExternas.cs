@@ -186,6 +186,17 @@ namespace controlFallos
 
         }
 
+        private void txtFallos_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btncancelar_Click(object sender, EventArgs e)
+        {
+
+         // if (MessageBox.Show ("¿Desea cancelar el registro?" MessageboxButton.SiNo, MessageBoxIcon.Question)== DialogResult.Si)
+        }
+
         /*/////////////////////PRUEBAS////////////////////*/
         private void ReporteUnidadesExternas_Load(object sender, EventArgs e)
         {
