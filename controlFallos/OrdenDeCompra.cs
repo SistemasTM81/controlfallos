@@ -102,7 +102,7 @@ namespace controlFallos
             dtpFecha.Value = DateTime.Now;
             metodocargaiva();
             privilegios();
-            v.comboswithuot(cmbEstatus, new string[] { "----Selecciona----", "Aprobada", "Rechazada", });
+            v.comboswithuot(cmbEstatus, new string[] { "----Selecciona----", "ENTREGADA", "PENDIENTE", });
             iniProveedor1();
             iniProveedor2();
             iniProveedor3();
