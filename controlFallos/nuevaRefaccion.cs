@@ -967,7 +967,7 @@ namespace controlFallos
                                         }
                                         var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Refacciones','" + idRefaccionTemp + "','" +codrefAnterior + ";" + nomrefanterior + ";" + modrefanterior + ";" + ultimoabastecimiento + ";" + marcaAnterior + ";" + charolaAnterior + ";" + ultimacantidad + ";" + mediaAnterior + ";" + abastecimientoAnterior + ";" + descripcionAnterior + ";" + CostoAnterior + "','" + idUsuario + "',NOW(),'Actualización de Refacción','" + observaciones + "','" + empresa + "','" + area + "')");
 
-                                        /* var res3 = v.c.insertar("INSERT INTO cfoliosfactura(codrefaccionfkcrefacciones, Folio, Fecha,  Empresa,usuario) VALUES((select idrefaccion from crefacciones where codrefaccion = '" + codrefaccion + "'), '" + txtFolioF.Text + "', now(), '" + empresa +"','" + idUsuario + "')");*/
+                                         var res3 = v.c.insertar("INSERT INTO cfoliosfactura(codrefaccionfkcrefacciones, Folio, Fecha,  Empresa,usuario) VALUES((select idrefaccion from crefacciones where codrefaccion = '" + codrefaccion + "'), '" + txtFolioF.Text + "', now(), '" + empresa +"','" + idUsuario + "')");
                                         label40.Visible = label41.Visible = txtFolioF.Visible = false;
                                         txtFolioF.Text = "";
                                         if (pbImgRefaccion.Image !=null)
@@ -1052,7 +1052,7 @@ namespace controlFallos
             string idMaximo = v.getaData("select max(t1.idOrdCompra) from ordencompra as t1 inner join crequicision as t2 on t1.requicisionfkCRequicision = t2.idcrequicision inner join crefacciones as t3 on t3.idrefaccion = t2.refaccionfkCRefacciones where t3.codrefaccion ='" + txtcodrefaccion.Text + "' and t3.empresa = '" + empresa + "' and (t1.Estatus = 0 or t1.Estatus is null)").ToString();
             if (!string.IsNullOrWhiteSpace(idMaximo))
             {
-                var rese = v.c.insertar("update ordencompra set Estatus = 1 where idOrdCompra ='" + txtcodrefaccion.Text + "'");
+                var rese = v.c.insertar("update ordencompra as t1 left join crequicision as t2 on t1.requicisionfkCRequicision = t2.idcrequicision set t1.Estatus = 1, t2.Estatus = 1 where t1.idOrdCompra = '" + idMaximo + "'");
             }
         }
         void limpiar()

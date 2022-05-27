@@ -39,7 +39,7 @@ namespace controlFallos
         DataSet ds = new DataSet();
        
        
-        string Consulta = "Select convert(t1.Folio,char) as FOLIO, convert(t2.codrefaccion,char) as CODIGO, convert(t2.nombreRefaccion,  char) as 'Nombre Refaccion', convert(t1.NumParte,char) as 'Numero de Parte', convert(t1.Especificaciones,char) as 'Especificaiones', convert(t2.existencias, char) as 'Existencia',  convert(t1.Cantidad, char) as 'CANTIDAD SOLICITADA', if(t1.estatus = 0,'En Espera', if(t1.estatus=1, 'Aprobada', if(t1.estatus=2, 'Rechazada', if(t1.estatus = '', '','')))) as 'Estatus', convert(t1.Fecha, char) as 'Fecha De solicitud', convert(t1.precio,char) 'Precio de Compra', convert(t4.Simbolo, char) as MONEDA from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion INNER JOIN ctipocambio as t4 on t1.tipocambiofkCTipomoneda = t4.idtipocambio";
+        string Consulta = "Select convert(t1.Folio,char) as FOLIO, convert(t2.codrefaccion,char) as CODIGO, convert(t2.nombreRefaccion,  char) as 'Nombre Refaccion', convert(t1.NumParte,char) as 'Numero de Parte', convert(t1.Especificaciones,char) as 'Especificaiones', convert(t2.existencias, char) as 'Existencia',  convert(t1.Cantidad, char) as 'CANTIDAD SOLICITADA', if(t1.estatus = 0,'En Espera', if(t1.estatus=1, 'Entregada', if(t1.estatus is null, '',''))) as 'Estatus', convert(t1.Fecha, char) as 'Fecha De solicitud', convert(t1.precio,char) 'Precio de Compra', convert(t4.Simbolo, char) as MONEDA from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion INNER JOIN ctipocambio as t4 on t1.tipocambiofkCTipomoneda = t4.idtipocambio";
         string quitar = "delete from crequicision";
         string IVAd = "", proveedor = "", datosO = "";
         DataTable dt = new DataTable();
@@ -798,7 +798,7 @@ namespace controlFallos
         private void dtgRequicision_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (this.dtgRequicision.Columns[e.ColumnIndex].Name == "Estatus")
-                e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? Color.Khaki : e.Value.ToString() == "Aprobada" ? Color.PaleGreen : e.Value.ToString() == "Rechazada" ? Color.Red : Color.LightBlue);
+                e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? Color.Khaki : e.Value.ToString() == "Entregada" ? Color.PaleGreen : Color.LightBlue);
         }
 
         private void btnexportar_Click(object sender, EventArgs e)

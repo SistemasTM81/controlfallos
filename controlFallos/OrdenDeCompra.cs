@@ -26,7 +26,7 @@ namespace controlFallos
         byte[] img;
         bool registrar = true;
         double SubTotal = 0.0;
-        string ConsultaG = "SET lc_time_names = 'es_ES';Select convert(t1.Folio,char) as 'FOLIO REQUERIMIENTO', convert(t4.FolioOrdCompra, char) as 'FOLIO ORDEN COMPRA', convert(t2.codrefaccion,char) as CODIGO, convert(t2.nombreRefaccion,  char) as 'Nombre Refaccion', convert(t1.NumParte,char) as 'Numero de Parte', if(t1.Existencia is null,convert(t2.existencias, char), convert(t1.Existencia, char)) as 'Existencia',  convert(t1.Cantidad, char) as 'CANTIDAD SOLICITADA', if(t1.estatus = 0,'En Espera', if(t1.estatus=1, 'Aprobada', if(t1.estatus=2, 'Rechazada', if(t1.estatus = '', '','')))) as 'Estatus',(select convert(if(t1.idcrequicision = t4.requicisionfkCRequicision, (Select if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa) from cproveedores as x1  where x1.idproveedor = t4.proveedorfkCproveedor), ''), char)) as 'Proveedor Compra',convert(t1.Fecha, char) as 'Fecha De solicitud', convert(t1.precio,char) 'Precio de Compra',  convert(t4.Subtotal, char) as 'SubTotal', convert(t4.costoenvio, char) as 'COSTO ENVIO', convert(t4.iva, char) as 'IVA', convert(t4.Total,char) as 'TOTAL',convert(t1.Especificaciones,char) as 'Especificaiones',t4.ObservacionesOC as 'Comentarios' from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion left join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision";
+        string ConsultaG = "SET lc_time_names = 'es_ES';Select convert(t1.Folio,char) as 'FOLIO REQUERIMIENTO', convert(t4.FolioOrdCompra, char) as 'FOLIO ORDEN COMPRA', convert(t2.codrefaccion,char) as CODIGO, convert(t2.nombreRefaccion,  char) as 'Nombre Refaccion', convert(t1.NumParte,char) as 'Numero de Parte', if(t1.Existencia is null,convert(t2.existencias, char), convert(t1.Existencia, char)) as 'Existencia',  convert(t1.Cantidad, char) as 'CANTIDAD SOLICITADA', if(t4.estatus = 0,'En Espera', if(t4.estatus=1, 'Entregada', if(t4.estatus is null, 'En Espera',''))) as 'Estatus',(select convert(if(t1.idcrequicision = t4.requicisionfkCRequicision, (Select if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa) from cproveedores as x1  where x1.idproveedor = t4.proveedorfkCproveedor), ''), char)) as 'Proveedor Compra',convert(t1.Fecha, char) as 'Fecha De solicitud', convert(t1.precio,char) 'Precio de Compra',  convert(t4.Subtotal, char) as 'SubTotal', convert(t4.costoenvio, char) as 'COSTO ENVIO', convert(t4.iva, char) as 'IVA', convert(t4.Total,char) as 'TOTAL',convert(t1.Especificaciones,char) as 'Especificaiones',t4.ObservacionesOC as 'Comentarios' from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion left join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision";
         string obtenerFolio = "select convert(concat('OC00-',right(FolioOrdCompra,1) + 1), char) from ordencompra order by idOrdCompra desc limit 1";
         string unidadMedida = "Select x1.Simbolo from cunidadmedida as x1 inner join cfamilias as x2 on x1.idunidadmedida = x2.umfkcunidadmedida inner join cmarcas as x3 on x2.idfamilia = x3.descripcionfkcfamilias inner join crefacciones as x4 on x4.marcafkcmarcas = x3.idmarca where x4.codrefaccion = ";
         List<string> lsEstatus = new List<string>();
@@ -81,7 +81,7 @@ namespace controlFallos
         void iniProveedor1() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(t1.idproveedor,char) as idunidad, convert(if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedor1, "idunidad", "Nombre", "-- SELECCIONE PROVEEDOR --"); }
         void iniProveedor2() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(t1.idproveedor,char) as idunidad, convert(if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedor2, "idunidad", "Nombre", "-- SELECCIONE PROVEEDOR --"); }
         void iniProveedor3() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(t1.idproveedor,char) as idunidad, convert(if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedor3, "idunidad", "Nombre", "-- SELECCIONE PROVEEDOR --"); }
-        void iniTipo() { v.comboswithuot(cmbTipo, new string[] { "----Tipo De Requerimiento----", "PRODUCCION", "ALMACEN TRI", "TRANSMASIVO-TRI", "ALMACEN TRANSINSUMOS", "TRANSMASIVO-INSUMOS"}); }
+        void iniTipo() { v.comboswithuot(cmbTipo, new string[] { "----Tipo De Requerimiento----", "ENTREGADA", "EN ESPERA"}); }
         public void comprativas()
         {
             v.iniCombos("select upper(nombreComparativa) as n, idcomparativa as id from comparativas where status='3';", cmbEstatus, "id", "n", "--SELECCIONE COMPARATIVA--");
@@ -102,7 +102,7 @@ namespace controlFallos
             dtpFecha.Value = DateTime.Now;
             metodocargaiva();
             privilegios();
-            v.comboswithuot(cmbEstatus, new string[] { "----Selecciona----", "ENTREGADA", "PENDIENTE", });
+            v.comboswithuot(cmbEstatus, new string[] { "----Selecciona----", "ENTREGADA", "EN ESPERA", });
             iniProveedor1();
             iniProveedor2();
             iniProveedor3();
@@ -1891,7 +1891,7 @@ namespace controlFallos
                     String Ffin = "";
                     String FiniE = "";
                     String FfinE = "";
-                    string consulta = "SET lc_time_names = 'es_ES';Select convert(t1.Folio,char) as 'FOLIO REQUERIMIENTO', convert(t4.FolioOrdCompra, char) as 'FOLIO ORDEN COMPRA', convert(t2.codrefaccion,char) as CODIGO, convert(t2.nombreRefaccion,  char) as 'Nombre Refaccion', convert(t1.NumParte,char) as 'Numero de Parte', if(t1.Existencia is null,convert(t2.existencias, char), convert(t1.Existencia, char)) as 'Existencia',  convert(t1.Cantidad, char) as 'CANTIDAD SOLICITADA', if(t1.estatus = 0,'En Espera', if(t1.estatus=1, 'Aprobada', if(t1.estatus=2, 'Rechazada', if(t1.estatus = '', '','')))) as 'Estatus',(select convert(if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa),char) from cproveedores as x1  where x1.idproveedor = t4.proveedorfkCproveedor)as 'Proveedor Compra',convert(t1.Fecha, char) as 'Fecha De solicitud', convert(t1.precio,char) 'Precio de Compra', convert(t4.Subtotal, char) as 'SubTotal', convert(t4.iva, char) as 'IVA', convert(t4.Total,char) as 'TOTAL', convert(t1.Especificaciones,char) as 'Especificaiones', 	t4.ObservacionesOC as 'Comentarios' from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion left join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision  inner join cproveedores as t3 on t3.idproveedor = t4.proveedorfkCProveedor";
+                    string consulta = "SET lc_time_names = 'es_ES';Select convert(t1.Folio,char) as 'FOLIO REQUERIMIENTO', convert(t4.FolioOrdCompra, char) as 'FOLIO ORDEN COMPRA', convert(t2.codrefaccion,char) as CODIGO, convert(t2.nombreRefaccion,  char) as 'Nombre Refaccion', convert(t1.NumParte,char) as 'Numero de Parte', if(t1.Existencia is null,convert(t2.existencias, char), convert(t1.Existencia, char)) as 'Existencia',  convert(t1.Cantidad, char) as 'CANTIDAD SOLICITADA', if(t4.estatus = 0,'En Espera', if(t4.estatus=1, 'Entregada', if(t4.estatus is null,, '',''))) as 'Estatus',(select convert(if(x1.empresa = '',concat(x1.aPaterno, ' ', x1.aMaterno, ' ', x1.nombres) , x1.empresa),char) from cproveedores as x1  where x1.idproveedor = t4.proveedorfkCproveedor)as 'Proveedor Compra',convert(t1.Fecha, char) as 'Fecha De solicitud', convert(t1.precio,char) 'Precio de Compra', convert(t4.Subtotal, char) as 'SubTotal', convert(t4.iva, char) as 'IVA', convert(t4.Total,char) as 'TOTAL', convert(t1.Especificaciones,char) as 'Especificaiones', 	t4.ObservacionesOC as 'Comentarios' from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion left join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision  inner join cproveedores as t3 on t3.idproveedor = t4.proveedorfkCProveedor";
                     string WHERE = "";
                     if (!string.IsNullOrWhiteSpace(txtFolioB.Text))
                     {
@@ -1952,14 +1952,29 @@ namespace controlFallos
                     }
                     if (cmbTipo.SelectedIndex > 0 )
                     {
-                       
                         if (WHERE == "")
                         {
-                            WHERE = " WHERE t1.departamento = '" + cmbTipo.SelectedValue + "'";
+                        if (cmbTipo.SelectedIndex == 1)
+                        {
+                            WHERE = " WHERE t4.Estatus = 1";
+                        }
+                        else if (cmbTipo.SelectedIndex == 2)
+                        {
+                            WHERE = " and (t4.Estatus = 0 or t4.Estatus is null)";
+                        }
+                           
                         }
                         else
                         {
-                            WHERE += " t1.departamento = '" + cmbTipo.SelectedValue + "'";
+                        if (cmbTipo.SelectedIndex == 1)
+                        {
+                            WHERE += "and t4.Estatus = 1";
+                        }
+                        else if (cmbTipo.SelectedIndex == 2)
+                        {
+                            WHERE += " and (t4.Estatus = 0 or t4.Estatus is null)";
+                        }
+                        
                         }
                     }
                     if (WHERE != "")
@@ -2689,13 +2704,8 @@ namespace controlFallos
         }
         private void dataGridViewOCompra_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (this.dataGridViewOCompra.Columns[e.ColumnIndex].Name == "ESTATUS")
-            {
-                if (Convert.ToString(e.Value) == "FINALIZADA")
-                {
-                    e.CellStyle.BackColor = Color.PaleGreen;
-                }
-            }
+            if (this.dataGridViewOCompra.Columns[e.ColumnIndex].Name == "Estatus")
+                e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? Color.Red : e.Value.ToString() == "Entregada" ? Color.PaleGreen  : Color.LightBlue);
         }
 
         private void dataGridViewAll_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
@@ -3029,7 +3039,7 @@ namespace controlFallos
                 registrar = false;
                 FolioR = dataGridViewOCompra.Rows[e.RowIndex].Cells[0].Value.ToString();
                 txtCodigo.Text = dataGridViewOCompra.Rows[e.RowIndex].Cells[2].Value.ToString();
-                string[] datos = v.ObtenerRefR("SET lc_time_names = 'es_ES';select upper(concat(t1.idcrequicision, '|', t1.Folio,'|',t2.codrefaccion,'|',t2.nombreRefaccion,'|',t1.NumParte,'|',t2.existencias,'|', t1.Cantidad,'|', t1.estatus,'|',date_format(t1.Fecha, '%W %d de %M del %Y') ,'|', t1.precio,'|',(select simbolo from ctipocambio where idtipoCambio = t1.tipocambiofkCTipomoneda),'|',t1.Especificaciones, '|',t4.proveedorfkCproveedor, '|', t1.departamento,'|', t4.costoenvio)) as r from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion inner join cproveedores as t3 on t3.idproveedor = t1.proveedorfkCProveedor inner join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision where t1.Folio='" + FolioR.ToString() + "' and t2.codrefaccion= '" + txtCodigo.Text + "' and t1.empresa = '" + empresa + "';").ToString().Split('|');
+                string[] datos = v.ObtenerRefR("SET lc_time_names = 'es_ES';select upper(concat(t1.idcrequicision, '|', t1.Folio,'|',t2.codrefaccion,'|',t2.nombreRefaccion,'|',t1.NumParte,'|',t2.existencias,'|', t1.Cantidad,'|', t4.estatus,'|',date_format(t1.Fecha, '%W %d de %M del %Y') ,'|', t1.precio,'|',(select simbolo from ctipocambio where idtipoCambio = t1.tipocambiofkCTipomoneda),'|',t1.Especificaciones, '|',t4.proveedorfkCproveedor, '|', t1.departamento,'|', t4.costoenvio)) as r from crequicision as t1 inner join crefacciones as t2 on t1.refaccionfkCRefacciones = t2.idrefaccion inner join cproveedores as t3 on t3.idproveedor = t1.proveedorfkCProveedor inner join ordencompra as t4 on t4.requicisionfkCRequicision = t1.idcrequicision where t1.Folio='" + FolioR.ToString() + "' and t2.codrefaccion= '" + txtCodigo.Text + "' and t1.empresa = '" + empresa + "';").ToString().Split('|');
                 idRequicision = Convert.ToInt32(datos[0].ToString());
                 groupBoxRefaccion.Text = groupBoxRefaccion.Text + " " + datos[1].ToString();
                 FolioR = datos[1].ToString();
