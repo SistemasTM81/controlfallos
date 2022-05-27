@@ -186,7 +186,36 @@ namespace controlFallos
             */
         }
 
-        /*/////////////////////PRUEBAS////////////////////*/
+        private void txtFallos_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        //boton cancelar
+        bool editar;
+        private readonly object MessageboxButtons;
+
+        private void btncancelar_Click(object sender, EventArgs e)
+        {
+            if (!cambios())
+                cancelar();
+          else   if (MessageBox.Show ("Desea " + (editar ? "¿guardar los cambios?" : "¿concluir con el registro?"),
+                                      validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo,
+                                       MessageBoxIcon.Question) == DialogResult.No)
+                cancelar();
+         
+        }
+        private bool cambios()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void cancelar()
+        {
+            throw new NotImplementedException();
+        }
+
+        /*/////////////////////PRUEBAS//////////////////*/
         private void ReporteUnidadesExternas_Load(object sender, EventArgs e)
         {
             combo();

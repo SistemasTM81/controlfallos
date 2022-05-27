@@ -29,22 +29,29 @@ namespace controlFallos
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbxbusqueda = new System.Windows.Forms.GroupBox();
+            this.EstatusRepa = new System.Windows.Forms.ComboBox();
+            this.label35 = new System.Windows.Forms.Label();
             this.pPdf = new System.Windows.Forms.Panel();
+            this.btnpdf = new System.Windows.Forms.Button();
             this.label10 = new System.Windows.Forms.Label();
             this.rbngeneral = new System.Windows.Forms.RadioButton();
             this.rbnunidad = new System.Windows.Forms.RadioButton();
             this.ConsultaRepo = new System.Windows.Forms.DataGridView();
             this.pexcel = new System.Windows.Forms.Panel();
             this.lblexcel = new System.Windows.Forms.Label();
+            this.btnexportar = new System.Windows.Forms.Button();
+            this.pbgif = new System.Windows.Forms.PictureBox();
             this.pactualizar = new System.Windows.Forms.Panel();
+            this.btnactualizar = new System.Windows.Forms.Button();
             this.label57 = new System.Windows.Forms.Label();
             this.pbuscar = new System.Windows.Forms.Panel();
+            this.btnbuscar = new System.Windows.Forms.Button();
             this.label54 = new System.Windows.Forms.Label();
             this.cmbReTip = new System.Windows.Forms.ComboBox();
             this.label43 = new System.Windows.Forms.Label();
@@ -65,6 +72,11 @@ namespace controlFallos
             this.label7 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
             this.gbxDiag = new System.Windows.Forms.GroupBox();
+            this.cmbEstRep = new System.Windows.Forms.ComboBox();
+            this.label31 = new System.Windows.Forms.Label();
+            this.txtDiagMeca = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtMecanico2 = new System.Windows.Forms.TextBox();
             this.dtDiag = new System.Windows.Forms.DateTimePicker();
             this.label33 = new System.Windows.Forms.Label();
             this.txtHoraTot = new System.Windows.Forms.TextBox();
@@ -76,11 +88,14 @@ namespace controlFallos
             this.label26 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
+            this.btnCancelFact = new System.Windows.Forms.Button();
             this.cmbTipoR = new System.Windows.Forms.ComboBox();
+            this.btnFolioFactura = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.numUpDownHASTA = new System.Windows.Forms.NumericUpDown();
             this.numUpDownDE = new System.Windows.Forms.NumericUpDown();
             this.lblsupmant = new System.Windows.Forms.Label();
+            this.btnrefacciones = new System.Windows.Forms.Button();
             this.lblmapoyo = new System.Windows.Forms.Label();
             this.lblmecanico = new System.Windows.Forms.Label();
             this.lbltiempototal = new System.Windows.Forms.Label();
@@ -106,10 +121,13 @@ namespace controlFallos
             this.txtFallos = new System.Windows.Forms.TextBox();
             this.label38 = new System.Windows.Forms.Label();
             this.pguardar = new System.Windows.Forms.Panel();
+            this.btnguardar = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
             this.pfinalizar = new System.Windows.Forms.Panel();
+            this.btnfinalizar = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.pcancelar = new System.Windows.Forms.Panel();
+            this.btncancelar = new System.Windows.Forms.Button();
             this.lblCancelar = new System.Windows.Forms.Label();
             this.gbxUnidad = new System.Windows.Forms.GroupBox();
             this.txtMeca2 = new System.Windows.Forms.TextBox();
@@ -134,32 +152,15 @@ namespace controlFallos
             this.dtUnidad = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFolio = new System.Windows.Forms.Label();
-            this.btncancelar = new System.Windows.Forms.Button();
-            this.btnfinalizar = new System.Windows.Forms.Button();
-            this.btnCancelFact = new System.Windows.Forms.Button();
-            this.btnFolioFactura = new System.Windows.Forms.Button();
-            this.btnrefacciones = new System.Windows.Forms.Button();
-            this.btnguardar = new System.Windows.Forms.Button();
-            this.btnpdf = new System.Windows.Forms.Button();
-            this.btnexportar = new System.Windows.Forms.Button();
-            this.pbgif = new System.Windows.Forms.PictureBox();
-            this.btnactualizar = new System.Windows.Forms.Button();
-            this.btnbuscar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.lblText = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.txtMecanico2 = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtDiagMeca = new System.Windows.Forms.TextBox();
-            this.cmbEstRep = new System.Windows.Forms.ComboBox();
-            this.label31 = new System.Windows.Forms.Label();
-            this.EstatusRepa = new System.Windows.Forms.ComboBox();
-            this.label35 = new System.Windows.Forms.Label();
             this.gbxbusqueda.SuspendLayout();
             this.pPdf.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConsultaRepo)).BeginInit();
             this.pexcel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbgif)).BeginInit();
             this.pactualizar.SuspendLayout();
             this.pbuscar.SuspendLayout();
             this.gbxDiag.SuspendLayout();
@@ -169,7 +170,6 @@ namespace controlFallos
             this.pfinalizar.SuspendLayout();
             this.pcancelar.SuspendLayout();
             this.gbxUnidad.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbgif)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -210,6 +210,35 @@ namespace controlFallos
             this.gbxbusqueda.TabStop = false;
             this.gbxbusqueda.Visible = false;
             // 
+            // EstatusRepa
+            // 
+            this.EstatusRepa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.EstatusRepa.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.EstatusRepa.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.EstatusRepa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.EstatusRepa.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.EstatusRepa.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.EstatusRepa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.EstatusRepa.FormattingEnabled = true;
+            this.EstatusRepa.Items.AddRange(new object[] {
+            "Sistema eléctrico"});
+            this.EstatusRepa.Location = new System.Drawing.Point(1219, 66);
+            this.EstatusRepa.Name = "EstatusRepa";
+            this.EstatusRepa.Size = new System.Drawing.Size(200, 23);
+            this.EstatusRepa.TabIndex = 331;
+            this.EstatusRepa.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.EstatusRepa_DrawItem);
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label35.Location = new System.Drawing.Point(1059, 72);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(154, 17);
+            this.label35.TabIndex = 330;
+            this.label35.Text = "Estatus de Reparacion:";
+            // 
             // pPdf
             // 
             this.pPdf.Controls.Add(this.btnpdf);
@@ -220,6 +249,27 @@ namespace controlFallos
             this.pPdf.Name = "pPdf";
             this.pPdf.Size = new System.Drawing.Size(147, 112);
             this.pPdf.TabIndex = 280;
+            // 
+            // btnpdf
+            // 
+            this.btnpdf.AutoSize = true;
+            this.btnpdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnpdf.BackgroundImage = global::controlFallos.Properties.Resources.pdf;
+            this.btnpdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnpdf.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnpdf.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnpdf.FlatAppearance.BorderSize = 0;
+            this.btnpdf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnpdf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnpdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnpdf.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnpdf.Location = new System.Drawing.Point(50, 3);
+            this.btnpdf.Name = "btnpdf";
+            this.btnpdf.Size = new System.Drawing.Size(45, 45);
+            this.btnpdf.TabIndex = 235;
+            this.btnpdf.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnpdf.UseVisualStyleBackColor = false;
+            this.btnpdf.Click += new System.EventHandler(this.btnpdf_Click);
             // 
             // label10
             // 
@@ -264,57 +314,57 @@ namespace controlFallos
             this.ConsultaRepo.AllowUserToDeleteRows = false;
             this.ConsultaRepo.AllowUserToResizeColumns = false;
             this.ConsultaRepo.AllowUserToResizeRows = false;
-            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle41.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.Color.White;
-            this.ConsultaRepo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle41;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            this.ConsultaRepo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.ConsultaRepo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.ConsultaRepo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.ConsultaRepo.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle42.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle42.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle42.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ConsultaRepo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle42;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ConsultaRepo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.ConsultaRepo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ConsultaRepo.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle43.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle43.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle43.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ConsultaRepo.DefaultCellStyle = dataGridViewCellStyle43;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ConsultaRepo.DefaultCellStyle = dataGridViewCellStyle8;
             this.ConsultaRepo.EnableHeadersVisualStyles = false;
             this.ConsultaRepo.GridColor = System.Drawing.Color.Gray;
             this.ConsultaRepo.Location = new System.Drawing.Point(24, 109);
             this.ConsultaRepo.Name = "ConsultaRepo";
             this.ConsultaRepo.ReadOnly = true;
-            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle44.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle44.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ConsultaRepo.RowHeadersDefaultCellStyle = dataGridViewCellStyle44;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ConsultaRepo.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.ConsultaRepo.RowHeadersVisible = false;
-            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle45.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle45.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle45.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle45.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle45.SelectionForeColor = System.Drawing.Color.White;
-            this.ConsultaRepo.RowsDefaultCellStyle = dataGridViewCellStyle45;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
+            this.ConsultaRepo.RowsDefaultCellStyle = dataGridViewCellStyle10;
             this.ConsultaRepo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ConsultaRepo.ShowCellErrors = false;
             this.ConsultaRepo.ShowCellToolTips = false;
@@ -344,6 +394,37 @@ namespace controlFallos
             this.lblexcel.TabIndex = 154;
             this.lblexcel.Text = "Exportar";
             // 
+            // btnexportar
+            // 
+            this.btnexportar.AutoSize = true;
+            this.btnexportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnexportar.BackgroundImage = global::controlFallos.Properties.Resources.excel;
+            this.btnexportar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnexportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnexportar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnexportar.FlatAppearance.BorderSize = 0;
+            this.btnexportar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnexportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnexportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnexportar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnexportar.Location = new System.Drawing.Point(29, 5);
+            this.btnexportar.Name = "btnexportar";
+            this.btnexportar.Size = new System.Drawing.Size(35, 35);
+            this.btnexportar.TabIndex = 152;
+            this.btnexportar.UseVisualStyleBackColor = false;
+            // 
+            // pbgif
+            // 
+            this.pbgif.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbgif.Image = global::controlFallos.Properties.Resources.loader;
+            this.pbgif.Location = new System.Drawing.Point(29, 5);
+            this.pbgif.Name = "pbgif";
+            this.pbgif.Size = new System.Drawing.Size(35, 35);
+            this.pbgif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbgif.TabIndex = 227;
+            this.pbgif.TabStop = false;
+            this.pbgif.Visible = false;
+            // 
             // pactualizar
             // 
             this.pactualizar.Controls.Add(this.btnactualizar);
@@ -352,6 +433,26 @@ namespace controlFallos
             this.pactualizar.Name = "pactualizar";
             this.pactualizar.Size = new System.Drawing.Size(82, 62);
             this.pactualizar.TabIndex = 229;
+            // 
+            // btnactualizar
+            // 
+            this.btnactualizar.AutoSize = true;
+            this.btnactualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnactualizar.BackgroundImage = global::controlFallos.Properties.Resources._1491313940_repeat_82991;
+            this.btnactualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnactualizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnactualizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnactualizar.FlatAppearance.BorderSize = 0;
+            this.btnactualizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnactualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnactualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnactualizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnactualizar.Location = new System.Drawing.Point(24, 5);
+            this.btnactualizar.Name = "btnactualizar";
+            this.btnactualizar.Size = new System.Drawing.Size(35, 35);
+            this.btnactualizar.TabIndex = 151;
+            this.btnactualizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnactualizar.UseVisualStyleBackColor = false;
             // 
             // label57
             // 
@@ -372,6 +473,27 @@ namespace controlFallos
             this.pbuscar.Name = "pbuscar";
             this.pbuscar.Size = new System.Drawing.Size(61, 62);
             this.pbuscar.TabIndex = 228;
+            // 
+            // btnbuscar
+            // 
+            this.btnbuscar.AutoSize = true;
+            this.btnbuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnbuscar.BackgroundImage = global::controlFallos.Properties.Resources.xmag_search_find_export_locate_5984;
+            this.btnbuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnbuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnbuscar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnbuscar.FlatAppearance.BorderSize = 0;
+            this.btnbuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnbuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnbuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnbuscar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnbuscar.Location = new System.Drawing.Point(15, 9);
+            this.btnbuscar.Name = "btnbuscar";
+            this.btnbuscar.Size = new System.Drawing.Size(35, 35);
+            this.btnbuscar.TabIndex = 149;
+            this.btnbuscar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnbuscar.UseVisualStyleBackColor = false;
+            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
             // 
             // label54
             // 
@@ -685,6 +807,77 @@ namespace controlFallos
             this.gbxDiag.Text = "Diagnostico";
             this.gbxDiag.Visible = false;
             // 
+            // cmbEstRep
+            // 
+            this.cmbEstRep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbEstRep.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmbEstRep.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbEstRep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbEstRep.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmbEstRep.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbEstRep.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbEstRep.FormattingEnabled = true;
+            this.cmbEstRep.Items.AddRange(new object[] {
+            "Sistema eléctrico"});
+            this.cmbEstRep.Location = new System.Drawing.Point(212, 200);
+            this.cmbEstRep.Name = "cmbEstRep";
+            this.cmbEstRep.Size = new System.Drawing.Size(249, 23);
+            this.cmbEstRep.TabIndex = 329;
+            this.cmbEstRep.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbEstRep_DrawItem);
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label31.Location = new System.Drawing.Point(13, 201);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(161, 17);
+            this.label31.TabIndex = 328;
+            this.label31.Text = "*Estatus de Reparacion:";
+            // 
+            // txtDiagMeca
+            // 
+            this.txtDiagMeca.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtDiagMeca.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtDiagMeca.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtDiagMeca.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtDiagMeca.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtDiagMeca.Location = new System.Drawing.Point(541, 134);
+            this.txtDiagMeca.MaxLength = 150;
+            this.txtDiagMeca.Multiline = true;
+            this.txtDiagMeca.Name = "txtDiagMeca";
+            this.txtDiagMeca.ShortcutsEnabled = false;
+            this.txtDiagMeca.Size = new System.Drawing.Size(499, 62);
+            this.txtDiagMeca.TabIndex = 327;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.Color.Transparent;
+            this.label4.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label4.Location = new System.Drawing.Point(166, 73);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(293, 9);
+            this.label4.TabIndex = 326;
+            this.label4.Text = "________________________________________________________________________";
+            // 
+            // txtMecanico2
+            // 
+            this.txtMecanico2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtMecanico2.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtMecanico2.Enabled = false;
+            this.txtMecanico2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtMecanico2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtMecanico2.Location = new System.Drawing.Point(168, 63);
+            this.txtMecanico2.MaxLength = 18;
+            this.txtMecanico2.Name = "txtMecanico2";
+            this.txtMecanico2.PasswordChar = '*';
+            this.txtMecanico2.ShortcutsEnabled = false;
+            this.txtMecanico2.Size = new System.Drawing.Size(295, 18);
+            this.txtMecanico2.TabIndex = 325;
+            // 
             // dtDiag
             // 
             this.dtDiag.CalendarFont = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -823,6 +1016,25 @@ namespace controlFallos
             this.label17.TabIndex = 246;
             this.label17.Text = "Reparaciones Realizadas:";
             // 
+            // btnCancelFact
+            // 
+            this.btnCancelFact.AutoSize = true;
+            this.btnCancelFact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.BackgroundImage = global::controlFallos.Properties.Resources.cross;
+            this.btnCancelFact.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCancelFact.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelFact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatAppearance.BorderSize = 0;
+            this.btnCancelFact.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelFact.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelFact.Location = new System.Drawing.Point(1014, 63);
+            this.btnCancelFact.Name = "btnCancelFact";
+            this.btnCancelFact.Size = new System.Drawing.Size(26, 30);
+            this.btnCancelFact.TabIndex = 245;
+            this.btnCancelFact.UseVisualStyleBackColor = false;
+            // 
             // cmbTipoR
             // 
             this.cmbTipoR.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -840,6 +1052,27 @@ namespace controlFallos
             this.cmbTipoR.Size = new System.Drawing.Size(249, 23);
             this.cmbTipoR.TabIndex = 247;
             this.cmbTipoR.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbTipoD_DrawItem);
+            // 
+            // btnFolioFactura
+            // 
+            this.btnFolioFactura.AutoSize = true;
+            this.btnFolioFactura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.BackgroundImage = global::controlFallos.Properties.Resources.foliosFactura;
+            this.btnFolioFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFolioFactura.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFolioFactura.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatAppearance.BorderSize = 0;
+            this.btnFolioFactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFolioFactura.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFolioFactura.Location = new System.Drawing.Point(972, 63);
+            this.btnFolioFactura.Name = "btnFolioFactura";
+            this.btnFolioFactura.Size = new System.Drawing.Size(30, 30);
+            this.btnFolioFactura.TabIndex = 238;
+            this.btnFolioFactura.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnFolioFactura.UseVisualStyleBackColor = false;
+            this.btnFolioFactura.Visible = false;
             // 
             // label13
             // 
@@ -878,6 +1111,27 @@ namespace controlFallos
             this.lblsupmant.Name = "lblsupmant";
             this.lblsupmant.Size = new System.Drawing.Size(0, 13);
             this.lblsupmant.TabIndex = 234;
+            // 
+            // btnrefacciones
+            // 
+            this.btnrefacciones.AutoSize = true;
+            this.btnrefacciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.BackgroundImage = global::controlFallos.Properties.Resources.add;
+            this.btnrefacciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnrefacciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatAppearance.BorderSize = 0;
+            this.btnrefacciones.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnrefacciones.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnrefacciones.Location = new System.Drawing.Point(1014, 22);
+            this.btnrefacciones.Name = "btnrefacciones";
+            this.btnrefacciones.Size = new System.Drawing.Size(30, 30);
+            this.btnrefacciones.TabIndex = 233;
+            this.btnrefacciones.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnrefacciones.UseVisualStyleBackColor = false;
+            this.btnrefacciones.Visible = false;
             // 
             // lblmapoyo
             // 
@@ -1160,6 +1414,7 @@ namespace controlFallos
             this.txtFallos.ShortcutsEnabled = false;
             this.txtFallos.Size = new System.Drawing.Size(635, 84);
             this.txtFallos.TabIndex = 118;
+            this.txtFallos.TextChanged += new System.EventHandler(this.txtFallos_TextChanged);
             // 
             // label38
             // 
@@ -1181,6 +1436,26 @@ namespace controlFallos
             this.pguardar.Size = new System.Drawing.Size(71, 72);
             this.pguardar.TabIndex = 276;
             this.pguardar.Visible = false;
+            // 
+            // btnguardar
+            // 
+            this.btnguardar.AutoSize = true;
+            this.btnguardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnguardar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
+            this.btnguardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnguardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnguardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnguardar.FlatAppearance.BorderSize = 0;
+            this.btnguardar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnguardar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnguardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnguardar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnguardar.Location = new System.Drawing.Point(12, 3);
+            this.btnguardar.Name = "btnguardar";
+            this.btnguardar.Size = new System.Drawing.Size(45, 45);
+            this.btnguardar.TabIndex = 233;
+            this.btnguardar.UseVisualStyleBackColor = false;
+            this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
             // 
             // label9
             // 
@@ -1205,6 +1480,24 @@ namespace controlFallos
             this.pfinalizar.TabIndex = 281;
             this.pfinalizar.Visible = false;
             // 
+            // btnfinalizar
+            // 
+            this.btnfinalizar.AutoSize = true;
+            this.btnfinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnfinalizar.BackgroundImage = global::controlFallos.Properties.Resources.test;
+            this.btnfinalizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnfinalizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnfinalizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.btnfinalizar.FlatAppearance.BorderSize = 0;
+            this.btnfinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnfinalizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnfinalizar.Location = new System.Drawing.Point(13, 3);
+            this.btnfinalizar.Name = "btnfinalizar";
+            this.btnfinalizar.Size = new System.Drawing.Size(45, 45);
+            this.btnfinalizar.TabIndex = 238;
+            this.btnfinalizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnfinalizar.UseVisualStyleBackColor = false;
+            // 
             // label8
             // 
             this.label8.AutoSize = true;
@@ -1225,6 +1518,26 @@ namespace controlFallos
             this.pcancelar.Size = new System.Drawing.Size(79, 76);
             this.pcancelar.TabIndex = 284;
             this.pcancelar.Visible = false;
+            // 
+            // btncancelar
+            // 
+            this.btncancelar.AutoSize = true;
+            this.btncancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btncancelar.BackgroundImage = global::controlFallos.Properties.Resources.cross;
+            this.btncancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btncancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btncancelar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btncancelar.FlatAppearance.BorderSize = 0;
+            this.btncancelar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btncancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btncancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btncancelar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btncancelar.Location = new System.Drawing.Point(13, 3);
+            this.btncancelar.Name = "btncancelar";
+            this.btncancelar.Size = new System.Drawing.Size(45, 45);
+            this.btncancelar.TabIndex = 243;
+            this.btncancelar.UseVisualStyleBackColor = false;
+            this.btncancelar.Click += new System.EventHandler(this.btncancelar_Click);
             // 
             // lblCancelar
             // 
@@ -1541,217 +1854,6 @@ namespace controlFallos
             this.lblFolio.TabIndex = 283;
             this.lblFolio.Text = "FOLIO:";
             // 
-            // btncancelar
-            // 
-            this.btncancelar.AutoSize = true;
-            this.btncancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btncancelar.BackgroundImage = global::controlFallos.Properties.Resources.cross;
-            this.btncancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btncancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btncancelar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btncancelar.FlatAppearance.BorderSize = 0;
-            this.btncancelar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btncancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btncancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btncancelar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btncancelar.Location = new System.Drawing.Point(13, 3);
-            this.btncancelar.Name = "btncancelar";
-            this.btncancelar.Size = new System.Drawing.Size(45, 45);
-            this.btncancelar.TabIndex = 243;
-            this.btncancelar.UseVisualStyleBackColor = false;
-            // 
-            // btnfinalizar
-            // 
-            this.btnfinalizar.AutoSize = true;
-            this.btnfinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnfinalizar.BackgroundImage = global::controlFallos.Properties.Resources.test;
-            this.btnfinalizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnfinalizar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnfinalizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.btnfinalizar.FlatAppearance.BorderSize = 0;
-            this.btnfinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnfinalizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnfinalizar.Location = new System.Drawing.Point(13, 3);
-            this.btnfinalizar.Name = "btnfinalizar";
-            this.btnfinalizar.Size = new System.Drawing.Size(45, 45);
-            this.btnfinalizar.TabIndex = 238;
-            this.btnfinalizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnfinalizar.UseVisualStyleBackColor = false;
-            // 
-            // btnCancelFact
-            // 
-            this.btnCancelFact.AutoSize = true;
-            this.btnCancelFact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.BackgroundImage = global::controlFallos.Properties.Resources.cross;
-            this.btnCancelFact.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCancelFact.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelFact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.FlatAppearance.BorderSize = 0;
-            this.btnCancelFact.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelFact.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelFact.Location = new System.Drawing.Point(1014, 63);
-            this.btnCancelFact.Name = "btnCancelFact";
-            this.btnCancelFact.Size = new System.Drawing.Size(26, 30);
-            this.btnCancelFact.TabIndex = 245;
-            this.btnCancelFact.UseVisualStyleBackColor = false;
-            // 
-            // btnFolioFactura
-            // 
-            this.btnFolioFactura.AutoSize = true;
-            this.btnFolioFactura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.BackgroundImage = global::controlFallos.Properties.Resources.foliosFactura;
-            this.btnFolioFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnFolioFactura.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFolioFactura.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.FlatAppearance.BorderSize = 0;
-            this.btnFolioFactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFolioFactura.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFolioFactura.Location = new System.Drawing.Point(972, 63);
-            this.btnFolioFactura.Name = "btnFolioFactura";
-            this.btnFolioFactura.Size = new System.Drawing.Size(30, 30);
-            this.btnFolioFactura.TabIndex = 238;
-            this.btnFolioFactura.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnFolioFactura.UseVisualStyleBackColor = false;
-            this.btnFolioFactura.Visible = false;
-            // 
-            // btnrefacciones
-            // 
-            this.btnrefacciones.AutoSize = true;
-            this.btnrefacciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.BackgroundImage = global::controlFallos.Properties.Resources.add;
-            this.btnrefacciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnrefacciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatAppearance.BorderSize = 0;
-            this.btnrefacciones.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnrefacciones.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnrefacciones.Location = new System.Drawing.Point(1014, 22);
-            this.btnrefacciones.Name = "btnrefacciones";
-            this.btnrefacciones.Size = new System.Drawing.Size(30, 30);
-            this.btnrefacciones.TabIndex = 233;
-            this.btnrefacciones.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnrefacciones.UseVisualStyleBackColor = false;
-            this.btnrefacciones.Visible = false;
-            // 
-            // btnguardar
-            // 
-            this.btnguardar.AutoSize = true;
-            this.btnguardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnguardar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
-            this.btnguardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnguardar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnguardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnguardar.FlatAppearance.BorderSize = 0;
-            this.btnguardar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnguardar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnguardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnguardar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnguardar.Location = new System.Drawing.Point(12, 3);
-            this.btnguardar.Name = "btnguardar";
-            this.btnguardar.Size = new System.Drawing.Size(45, 45);
-            this.btnguardar.TabIndex = 233;
-            this.btnguardar.UseVisualStyleBackColor = false;
-            this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
-            // 
-            // btnpdf
-            // 
-            this.btnpdf.AutoSize = true;
-            this.btnpdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.BackgroundImage = global::controlFallos.Properties.Resources.pdf;
-            this.btnpdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnpdf.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnpdf.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.FlatAppearance.BorderSize = 0;
-            this.btnpdf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnpdf.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnpdf.Location = new System.Drawing.Point(50, 3);
-            this.btnpdf.Name = "btnpdf";
-            this.btnpdf.Size = new System.Drawing.Size(45, 45);
-            this.btnpdf.TabIndex = 235;
-            this.btnpdf.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnpdf.UseVisualStyleBackColor = false;
-            this.btnpdf.Click += new System.EventHandler(this.btnpdf_Click);
-            // 
-            // btnexportar
-            // 
-            this.btnexportar.AutoSize = true;
-            this.btnexportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.BackgroundImage = global::controlFallos.Properties.Resources.excel;
-            this.btnexportar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnexportar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnexportar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.FlatAppearance.BorderSize = 0;
-            this.btnexportar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnexportar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnexportar.Location = new System.Drawing.Point(29, 5);
-            this.btnexportar.Name = "btnexportar";
-            this.btnexportar.Size = new System.Drawing.Size(35, 35);
-            this.btnexportar.TabIndex = 152;
-            this.btnexportar.UseVisualStyleBackColor = false;
-            // 
-            // pbgif
-            // 
-            this.pbgif.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbgif.Image = global::controlFallos.Properties.Resources.loader;
-            this.pbgif.Location = new System.Drawing.Point(29, 5);
-            this.pbgif.Name = "pbgif";
-            this.pbgif.Size = new System.Drawing.Size(35, 35);
-            this.pbgif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbgif.TabIndex = 227;
-            this.pbgif.TabStop = false;
-            this.pbgif.Visible = false;
-            // 
-            // btnactualizar
-            // 
-            this.btnactualizar.AutoSize = true;
-            this.btnactualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.BackgroundImage = global::controlFallos.Properties.Resources._1491313940_repeat_82991;
-            this.btnactualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnactualizar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnactualizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.FlatAppearance.BorderSize = 0;
-            this.btnactualizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnactualizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnactualizar.Location = new System.Drawing.Point(24, 5);
-            this.btnactualizar.Name = "btnactualizar";
-            this.btnactualizar.Size = new System.Drawing.Size(35, 35);
-            this.btnactualizar.TabIndex = 151;
-            this.btnactualizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnactualizar.UseVisualStyleBackColor = false;
-            // 
-            // btnbuscar
-            // 
-            this.btnbuscar.AutoSize = true;
-            this.btnbuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.BackgroundImage = global::controlFallos.Properties.Resources.xmag_search_find_export_locate_5984;
-            this.btnbuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnbuscar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnbuscar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.FlatAppearance.BorderSize = 0;
-            this.btnbuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnbuscar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnbuscar.Location = new System.Drawing.Point(15, 9);
-            this.btnbuscar.Name = "btnbuscar";
-            this.btnbuscar.Size = new System.Drawing.Size(35, 35);
-            this.btnbuscar.TabIndex = 149;
-            this.btnbuscar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnbuscar.UseVisualStyleBackColor = false;
-            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
-            // 
             // pictureBox1
             // 
             this.pictureBox1.Image = global::controlFallos.Properties.Resources.service_mategif;
@@ -1795,106 +1897,6 @@ namespace controlFallos
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // txtMecanico2
-            // 
-            this.txtMecanico2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtMecanico2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMecanico2.Enabled = false;
-            this.txtMecanico2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtMecanico2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtMecanico2.Location = new System.Drawing.Point(168, 63);
-            this.txtMecanico2.MaxLength = 18;
-            this.txtMecanico2.Name = "txtMecanico2";
-            this.txtMecanico2.PasswordChar = '*';
-            this.txtMecanico2.ShortcutsEnabled = false;
-            this.txtMecanico2.Size = new System.Drawing.Size(295, 18);
-            this.txtMecanico2.TabIndex = 325;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.BackColor = System.Drawing.Color.Transparent;
-            this.label4.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label4.Location = new System.Drawing.Point(166, 73);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(293, 9);
-            this.label4.TabIndex = 326;
-            this.label4.Text = "________________________________________________________________________";
-            // 
-            // txtDiagMeca
-            // 
-            this.txtDiagMeca.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtDiagMeca.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtDiagMeca.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtDiagMeca.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtDiagMeca.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtDiagMeca.Location = new System.Drawing.Point(541, 134);
-            this.txtDiagMeca.MaxLength = 150;
-            this.txtDiagMeca.Multiline = true;
-            this.txtDiagMeca.Name = "txtDiagMeca";
-            this.txtDiagMeca.ShortcutsEnabled = false;
-            this.txtDiagMeca.Size = new System.Drawing.Size(499, 62);
-            this.txtDiagMeca.TabIndex = 327;
-            // 
-            // cmbEstRep
-            // 
-            this.cmbEstRep.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbEstRep.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbEstRep.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbEstRep.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEstRep.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbEstRep.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbEstRep.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbEstRep.FormattingEnabled = true;
-            this.cmbEstRep.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbEstRep.Location = new System.Drawing.Point(212, 200);
-            this.cmbEstRep.Name = "cmbEstRep";
-            this.cmbEstRep.Size = new System.Drawing.Size(249, 23);
-            this.cmbEstRep.TabIndex = 329;
-            this.cmbEstRep.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbEstRep_DrawItem);
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label31.Location = new System.Drawing.Point(13, 201);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(161, 17);
-            this.label31.TabIndex = 328;
-            this.label31.Text = "*Estatus de Reparacion:";
-            // 
-            // EstatusRepa
-            // 
-            this.EstatusRepa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.EstatusRepa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.EstatusRepa.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.EstatusRepa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.EstatusRepa.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.EstatusRepa.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EstatusRepa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.EstatusRepa.FormattingEnabled = true;
-            this.EstatusRepa.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.EstatusRepa.Location = new System.Drawing.Point(1219, 66);
-            this.EstatusRepa.Name = "EstatusRepa";
-            this.EstatusRepa.Size = new System.Drawing.Size(200, 23);
-            this.EstatusRepa.TabIndex = 331;
-            this.EstatusRepa.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.EstatusRepa_DrawItem);
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label35.Location = new System.Drawing.Point(1059, 72);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(154, 17);
-            this.label35.TabIndex = 330;
-            this.label35.Text = "Estatus de Reparacion:";
-            // 
             // ReporteUnidadesExternas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1923,6 +1925,7 @@ namespace controlFallos
             ((System.ComponentModel.ISupportInitialize)(this.ConsultaRepo)).EndInit();
             this.pexcel.ResumeLayout(false);
             this.pexcel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbgif)).EndInit();
             this.pactualizar.ResumeLayout(false);
             this.pactualizar.PerformLayout();
             this.pbuscar.ResumeLayout(false);
@@ -1939,7 +1942,6 @@ namespace controlFallos
             this.pcancelar.PerformLayout();
             this.gbxUnidad.ResumeLayout(false);
             this.gbxUnidad.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbgif)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
