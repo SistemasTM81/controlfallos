@@ -531,8 +531,8 @@ namespace controlFallos
                       uno delega = new uno(inicio);
                       this.Invoke(delega);
                   }*/
-                
                 Microsoft.Office.Interop.Excel.Application X = new Microsoft.Office.Interop.Excel.Application();
+                X.Application.Workbooks.Add(Type.Missing);
                 h.Worksheet sheet = (h.Worksheet)X.ActiveSheet;
                 X.Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
                 X.Cells.VerticalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
@@ -579,6 +579,7 @@ namespace controlFallos
             else
                 MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
+
 
         private void cmbBuscarUnidad_DrawItem(object sender, DrawItemEventArgs e)
         {

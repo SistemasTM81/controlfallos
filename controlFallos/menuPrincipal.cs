@@ -397,7 +397,7 @@ namespace controlFallos
         {
             /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             ///descomentado es pantalla pequeña
-            /*Screen screen = Screen.PrimaryScreen;
+           /* Screen screen = Screen.PrimaryScreen;
             Widthp = screen.Bounds.Width;
             Heightp = screen.Bounds.Height;
             this.Size = new Size(Convert.ToInt32(Widthp), Convert.ToInt32(Heightp) - 250);
