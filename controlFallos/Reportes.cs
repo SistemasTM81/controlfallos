@@ -729,7 +729,7 @@ namespace controlFallos
             dtE.Clear();
             DsE.Clear();
             Ds2E.Clear();
-            adaptador2 = v.getReport("SET lc_time_names='es_ES';Select t1.codrefaccion as Codigo, t1.nombreRefaccion as Refaccion, t2.FolioFactura as 'Folio de Factura', t2.CantidadIngresa as 'Cantidad Ingresada', convert(t2.Costo,char) as Costo, t4.Simbolo as 'Moneda', t2.Proveedor as Proveedor, date_format(t2.FechaHora, '%d-%M-%Y') as 'Fecha Entrada', t3.Usuario as Usuario From crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion =t2.refaccionfkCRefacciones inner join datosistema as t3 on t2.UsuariofkCPersonal = t3.usuariofkcpersonal inner join ctipocambio as t4 on t2.tipomonedafkCTipoCambio = t4.idtipoCambio" + busquedas + " order by t2.FechaHora desc;");
+            adaptador2 = v.getReport("SET lc_time_names='es_ES';select convert(t2.FolioOrdCompra,char) as 'Folio Orden De Compra', convert(t3.Folio,char) as 'Folio Requerimiento', convert(t4.codrefaccion,char) as 'Coidog', convert(t4.nombreRefaccion,char) as 'Refaccion', convert(t1.CantidadIngresa,char) as 'Cantidad Ingresada', convert(t1.FolioFactura,char) as 'Folio Factura', convert(t1.proveedor,char) as 'Provedor', convert(t1.FechaHora,char)as 'Fecha/Hora Alta', convert(t5.Usuario,char) as Usuario from centradasm as t1  inner join crefacciones as t4 on t1.refaccionfkCRefacciones = t4.idrefaccion inner join datosistema as t5 on t1.UsuariofkCPersonal = t5.usuariofkcpersonal left join  ordencompra as t2 on t2.idOrdCompra = t1.ordcomprafkordencompra left join crequicision as t3 on t1.crequicisionfkcrequisicion = t3.idcrequicision " + busquedas + " order by t1.FechaHora desc;");
             dt.Dispose();
             dt.EndInit();
             adaptador2.Fill(dtE);

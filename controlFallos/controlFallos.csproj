@@ -14,7 +14,7 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <TargetFrameworkProfile />
-    <PublishUrl>\\192.168.1.67\Users\Public\ERP\DISPOSITIVOS DE 23 PULGADAS\</PublishUrl>
+    <PublishUrl>\\192.168.1.67\Users\Public\ERP\DISPOSITIVOS MEDIANOS TSD Y LAPS\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Unc</InstallFrom>
     <UpdateEnabled>true</UpdateEnabled>
@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <MinimumRequiredVersion>1.1.2.319</MinimumRequiredVersion>
-    <ApplicationRevision>319</ApplicationRevision>
+    <MinimumRequiredVersion>1.1.2.321</MinimumRequiredVersion>
+    <ApplicationRevision>322</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
