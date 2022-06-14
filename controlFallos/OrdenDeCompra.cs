@@ -17,6 +17,9 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using h = Microsoft.Office.Interop.Excel;
 using System.Globalization;
+using SpreadsheetLight;
+using DocumentFormat.OpenXml.Spreadsheet;
+using SpreadsheetLight.Drawing;
 
 namespace controlFallos
 {
@@ -125,7 +128,7 @@ namespace controlFallos
 
             if (checkBoxFechas.Checked == false)
             {
-                checkBoxFechas.ForeColor = checkBoxFechas.Checked ? Color.Crimson : Color.Crimson;
+                checkBoxFechas.ForeColor = checkBoxFechas.Checked ? System.Drawing.Color.Crimson : System.Drawing.Color.Crimson;
             }
            
 
@@ -475,7 +478,7 @@ namespace controlFallos
             banderaeditar = true;
         }
 
-        public void DrawGroupBox(GroupBox box, Graphics g, Color textColor, Color borderColor, Form f)
+        public void DrawGroupBox(GroupBox box, Graphics g, System.Drawing.Color textColor, System.Drawing.Color borderColor, Form f)
         {
             if (box != null)
             {
@@ -860,83 +863,336 @@ namespace controlFallos
 
         public void exporta_a_excel() //Metodo Que Genera El Excel
         {
-            dtexcel = (DataTable)dataGridViewOCompra.DataSource;
-            if (dtexcel.Rows.Count > 0)
+
+            /*
+             dtexcel = (DataTable)dataGridViewOCompra.DataSource;
+             if (dtexcel.Rows.Count > 0)
+             {
+                 if (this.InvokeRequired)
+                 {
+                     Loading load = new Loading(carga1);
+                     this.Invoke(load);
+                 }
+
+                 Microsoft.Office.Interop.Excel.Application X = new Microsoft.Office.Interop.Excel.Application();
+                 X.Application.Workbooks.Add(Type.Missing);
+                 h.Worksheet sheet = X.ActiveSheet;
+                 X.Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                 X.Cells.VerticalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+
+                 for (int i = 0; i < dtexcel.Columns.Count; i++)
+                 {
+                     h.Range rng = (h.Range)sheet.Cells[1, i + 1];
+                     sheet.Cells[1, i + 1] = dtexcel.Columns[i].ColumnName.ToUpper();
+                     rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.Crimson);
+                     rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
+                     rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.White);
+                     rng.Font.FontStyle = "Calibri";
+                     rng.Font.Bold = true;
+                     rng.Font.Size = 12;
+                 }
+
+                 for (int i = 0; i < dtexcel.Rows.Count; i++)
+                 {
+                     for (int j = 0; j < dtexcel.Columns.Count; j++)
+                     {
+                         try
+                         {
+                             h.Range rng = (h.Range)sheet.Cells[i + 2, j + 1];
+                             sheet.Cells[i + 2, j + 1] = dtexcel.Rows[i][j].ToString();
+                             if (j == 5 || j == 6 || j == 7)
+                             {
+                                 rng.NumberFormat = "0.00";
+                                 sheet.Cells[i + 2, j + 1] = dtexcel.Rows[i][j].ToString();
+                             }
+                             else
+                             {
+                                 sheet.Cells[i + 2, j + 1] = dtexcel.Rows[i][j].ToString();
+                             }
+                             rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.FromArgb(231, 230, 230));
+                             rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
+                             rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
+                             rng.Font.FontStyle = "Calibri";
+                             rng.Font.Size = 11;
+                             if (dtexcel.Rows[i][j].ToString() == "FINALIZADA".ToString())
+                             {
+                                 rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.PaleGreen);
+                                 rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
+                             }
+                         }
+                         catch (Exception)
+                         {
+                             hiloEx2.Abort();
+                         }
+                     }
+                 }
+                 Thread.Sleep(10);
+                 X.Columns.AutoFit();
+                 X.Rows.AutoFit();
+                 X.Visible = true;
+             //    exportacionexcel();
+                 if (this.InvokeRequired)
+                 {
+                     Loading1 load1 = new Loading1(carga2);
+                     this.Invoke(load1);
+                 }
+             }
+             else
+             {
+                 MessageBox.Show("Es necesario que existan datos en la tabla para poder generar un archivo de excel \n Favor de actualizar la tabla para que existan reportes", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+             }*/
+
+            //Pruebas 
+
+            //Empezar a usar excel
+            SLDocument sl = new SLDocument();
+
+            //Importar imagen
+
+            // System.Drawing.Bitmap bm = new System.Drawing.Bitmap(@"C:\Users\Ing. Osky Lopez\Documents\Pruebas\controlfallos\controlFallos\Resources\logo.png");
+            //byte[] ba = null;
+
+
+            //using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            //{
+            // ba = Convert.FromBase64String(v.trainsumos);
+            // bm.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            //ms.Close();
+            //ba = ms.ToArray();
+            // }
+            /* byte[] ba = null;
+
+             var res = v.getaData("SELECT COALESCE(logo,'') FROM cempresas WHERE idempresa='3'").ToString();
+
+             if (res == "")
+             {
+                 if (empresa == 2)
+                     ba = Convert.FromBase64String(v.tri);
+
+                 else if (empresa == 3)
+                     ba = Convert.FromBase64String(v.trainsumos);
+
+             }
+             else
+             {
+                 System.Drawing.Image temp = v.StringToImage2(res);
+                 temp = v.CambiarTamanoImagen(temp, 50, 50);
+                 ba = Convert.FromBase64String(v.SerializarImg(temp));
+             }
+
+             SLPicture pic = new SLPicture(ba, DocumentFormat.OpenXml.Packaging.ImagePartType.Png);
+             pic.SetPosition(0, 0);
+             pic.ResizeInPixels(400, 250);
+             sl.InsertPicture(pic);
+             //Importar imagen
+
+             */
+
+            //Para saber en que celda iniciar
+            int celdaCabecera = 8, celdaInicial = 8;
+
+            int ic = 2;
+            foreach (DataGridViewColumn column in dataGridViewOCompra.Columns)
             {
-                if (this.InvokeRequired)
-                {
-                    Loading load = new Loading(carga1);
-                    this.Invoke(load);
-                }
 
-                Microsoft.Office.Interop.Excel.Application X = new Microsoft.Office.Interop.Excel.Application();
-                X.Application.Workbooks.Add(Type.Missing);
-                h.Worksheet sheet = X.ActiveSheet;
-                X.Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                X.Cells.VerticalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                sl.SetCellValue(8, ic, column.HeaderText.ToString());
+                ic++;
 
-                for (int i = 0; i < dtexcel.Columns.Count; i++)
-                {
-                    h.Range rng = (h.Range)sheet.Cells[1, i + 1];
-                    sheet.Cells[1, i + 1] = dtexcel.Columns[i].ColumnName.ToUpper();
-                    rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.Crimson);
-                    rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                    rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.White);
-                    rng.Font.FontStyle = "Calibri";
-                    rng.Font.Bold = true;
-                    rng.Font.Size = 12;
-                }
+            }
 
-                for (int i = 0; i < dtexcel.Rows.Count; i++)
+            //Formato Estatus
+
+            //if (this.dataGridViewOCompra.Columns[e.ColumnIndex].Name == "Estatus")
+            // e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? System.Drawing.Color.Red : e.Value.ToString() == "Entregada" ? System.Drawing.Color.PaleGreen : System.Drawing.Color.LightBlue);
+
+            //Formato Estatus
+
+            int ir = 9;
+            foreach (DataGridViewRow row in dataGridViewOCompra.Rows)
+            {
+
+                sl.SetCellValue(ir, 2, row.Cells[0].Value.ToString());
+                sl.SetCellValue(ir, 3, row.Cells[1].Value.ToString());
+                sl.SetCellValue(ir, 4, row.Cells[2].Value.ToString());
+                sl.SetCellValue(ir, 5, row.Cells[3].Value.ToString());
+                sl.SetCellValue(ir, 6, row.Cells[4].Value.ToString());
+                sl.SetCellValue(ir, 7, row.Cells[5].Value.ToString());
+                sl.SetCellValue(ir, 8, row.Cells[6].Value.ToString());
+                sl.SetCellValue(ir, 9, row.Cells[7].Value.ToString());
+                sl.SetCellValue(ir, 10, row.Cells[8].Value.ToString());
+                sl.SetCellValue(ir, 11, row.Cells[9].Value.ToString());
+                sl.SetCellValue(ir, 12, row.Cells[10].Value.ToString());
+                sl.SetCellValue(ir, 13, row.Cells[11].Value.ToString());
+                sl.SetCellValue(ir, 14, row.Cells[12].Value.ToString());
+                sl.SetCellValue(ir, 15, row.Cells[13].Value.ToString());
+                sl.SetCellValue(ir, 16, row.Cells[14].Value.ToString());
+                sl.SetCellValue(ir, 17, row.Cells[15].Value.ToString());
+                sl.SetCellValue(ir, 18, row.Cells[16].Value.ToString());
+
+                ir++;
+                celdaInicial++;
+
+                if (row.Cells[8].ToString() == "En Espera")
                 {
-                    for (int j = 0; j < dtexcel.Columns.Count; j++)
-                    {
-                        try
-                        {
-                            h.Range rng = (h.Range)sheet.Cells[i + 2, j + 1];
-                            sheet.Cells[i + 2, j + 1] = dtexcel.Rows[i][j].ToString();
-                            if (j == 5 || j == 6 || j == 7)
-                            {
-                                rng.NumberFormat = "0.00";
-                                sheet.Cells[i + 2, j + 1] = dtexcel.Rows[i][j].ToString();
-                            }
-                            else
-                            {
-                                sheet.Cells[i + 2, j + 1] = dtexcel.Rows[i][j].ToString();
-                            }
-                            rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.FromArgb(231, 230, 230));
-                            rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            rng.Font.FontStyle = "Calibri";
-                            rng.Font.Size = 11;
-                            if (dtexcel.Rows[i][j].ToString() == "FINALIZADA".ToString())
-                            {
-                                rng.Interior.Color = System.Drawing.ColorTranslator.ToOle(Color.PaleGreen);
-                                rng.Font.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            }
-                        }
-                        catch (Exception)
-                        {
-                            hiloEx2.Abort();
-                        }
-                    }
+                    ////pendiente
+
+                    SLStyle estiloEs = sl.CreateStyle();
+                    estiloEs.Font.FontColor = System.Drawing.Color.White;
+                    estiloEs.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
+                    sl.SetCellStyle("I" + celdaInicial, "I" + celdaInicial, estiloEs);
+
                 }
-                Thread.Sleep(10);
-                X.Columns.AutoFit();
-                X.Rows.AutoFit();
-                X.Visible = true;
-            //    exportacionexcel();
-                if (this.InvokeRequired)
+                else if(row.Cells.ToString() == "Entregada")
                 {
-                    Loading1 load1 = new Loading1(carga2);
-                    this.Invoke(load1);
+                    
+                    SLStyle estiloE = sl.CreateStyle();
+
+                    estiloE.Font.FontColor = System.Drawing.Color.White;
+                    estiloE.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Green, System.Drawing.Color.Green);
+                    sl.SetCellStyle("I" + celdaInicial, estiloE);
+
+                }
+ 
+            }
+                
+
+            
+
+            //Nombre de la Hoja de Excel
+            sl.RenameWorksheet(SLDocument.DefaultFirstSheetName, "Orden Compra");
+
+
+            //Estilos de la tabla 
+            SLStyle estiloCa = sl.CreateStyle();
+            estiloCa.Font.FontName = "Arial";
+            estiloCa.Font.FontSize = 14;
+            estiloCa.Font.Bold = true;
+            estiloCa.Font.FontColor = System.Drawing.Color.White;
+            estiloCa.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
+            sl.SetCellStyle("B" + celdaCabecera, "R" + celdaCabecera, estiloCa);
+            //Estilos de la tabla 
+
+
+            //Estilo Titulo
+
+            sl.SetCellValue("D4", "ORDEN DE COMPRA");
+            SLStyle estiloT = sl.CreateStyle();
+            estiloT.Font.FontName = "Arial";
+            estiloT.Font.FontSize = 15;
+            estiloT.Font.Bold = true;
+            sl.SetCellStyle("D4", estiloT);
+            sl.MergeWorksheetCells("D4", "E4");
+
+            //Estilo Titulo
+
+            //Estilos Para bordes de la tabla
+
+            SLStyle EstiloB = sl.CreateStyle();
+
+            EstiloB.Border.LeftBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.LeftBorder.Color = System.Drawing.Color.Black;
+
+            EstiloB.Border.TopBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.RightBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.BottomBorder.BorderStyle = BorderStyleValues.Thin;
+            sl.SetCellStyle("B" + celdaInicial, "R" + celdaCabecera, EstiloB);
+
+            //Ajustar celdas
+
+            sl.AutoFitColumn("B", "R");
+            //Estilos Para bordes de la tabla
+
+            //Extraer fecha
+
+            sl.SetCellValue("F3", "FECHA/HORA DE CONSULTA:");
+            SLStyle estiloF = sl.CreateStyle();
+            estiloF.Font.FontName = "Arial";
+            estiloF.Font.FontSize = 9;
+            estiloF.Font.Bold = true;
+            sl.SetCellStyle("F3", estiloF);
+            sl.MergeWorksheetCells("F3", "G3");
+
+/*
+            if (checkBoxFechas.Checked == true)
+            {
+
+                sl.SetCellValue("F4", "RANGO CONSULTA DE:");
+                SLStyle estiloF3 = sl.CreateStyle();
+                estiloF3.Font.FontName = "Arial";
+                estiloF3.Font.FontSize = 9;
+                estiloF3.Font.Bold = true;
+                sl.SetCellStyle("F4", estiloF3);
+                sl.MergeWorksheetCells("F4", "G4");
+
+                sl.SetCellValue("F5", "RANGO CONSULTA A:");
+                SLStyle estiloF2 = sl.CreateStyle();
+                estiloF2.Font.FontName = "Arial";
+                estiloF2.Font.FontSize = 9;
+                estiloF2.Font.Bold = true;
+                sl.SetCellStyle("F5", estiloF2);
+                sl.MergeWorksheetCells("F5", "G5");
+
+
+                var datestring3 = dateTimePickerIni.Value.ToLongDateString();
+
+                sl.SetCellValue("H4", datestring3);
+                SLStyle fechaDe = sl.CreateStyle();
+                fechaDe.Font.FontName = "Arial";
+                fechaDe.Font.FontSize = 10;
+                fechaDe.Font.Bold = true;
+                sl.SetCellStyle("H4", fechaDe);
+
+                var datestring2 = dateTimePickerFin.Value.ToLongDateString();
+
+                sl.SetCellValue("H5", datestring2);
+                SLStyle fechaA = sl.CreateStyle();
+                fechaA.Font.FontName = "Arial";
+                fechaA.Font.FontSize = 10;
+                fechaA.Font.Bold = true;
+                sl.SetCellStyle("H5", fechaA);
+            }
+*/
+            //Obtener Fecha
+            //var datestring = dtpFecha.Value.ToLongDateString();
+
+            DateTime fecha = DateTime.Now;
+
+            sl.SetCellValue("H3", fecha.ToString());
+            SLStyle fecha0 = sl.CreateStyle();
+            fecha0.Font.FontName = "Arial";
+            fecha0.Font.FontSize = 10;
+            fecha0.Font.Bold = true;
+            sl.SetCellStyle("H3", fecha0);
+
+            //Obtener Fecha
+
+            //Extraer fecha
+
+
+            //Directorio para Guardar el Excel
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Title = "GUARDAR ARCHIVO";
+            saveFileDialog1.CheckPathExists = true;
+            saveFileDialog1.DefaultExt = "*.xlsx";
+            saveFileDialog1.Filter = "Archivos de Excel (*.xlsx)|*.xlsx";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    sl.SaveAs(saveFileDialog1.FileName);
+                    MessageBox.Show("**ARCHIVO EXPORTADO CON EXITO**");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "**NO SE GUARGO EL ARCHIVO**");
                 }
             }
-            else
-            {
-                MessageBox.Show("Es necesario que existan datos en la tabla para poder generar un archivo de excel \n Favor de actualizar la tabla para que existan reportes", "ADVERTENCIA", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            hiloEx2.Abort();
+            //Directorio para Guardar el Excel
+
+            /*buttonExcel.Visible = false;
+            label35.Visible = false;
+            hiloEx2.Abort();*/
         }
 
         public void To_pdf()
@@ -2288,10 +2544,14 @@ namespace controlFallos
 
         private void buttonExcel_Click(object sender, EventArgs e)
         {
+            /*
             exportando = true;
             ThreadStart excel = new ThreadStart(exporta_a_excel);
             hiloEx2 = new Thread(excel);
             hiloEx2.Start();
+            */
+
+            exporta_a_excel();
         }
         public void _refacciones()
         {
@@ -2702,10 +2962,11 @@ namespace controlFallos
                 buttonBuscar_Click(sender, e);
             }
         }
-        private void dataGridViewOCompra_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+         private void dataGridViewOCompra_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
             if (this.dataGridViewOCompra.Columns[e.ColumnIndex].Name == "Estatus")
-                e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? Color.Red : e.Value.ToString() == "Entregada" ? Color.PaleGreen  : Color.LightBlue);
+                e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? System.Drawing.Color.Red : e.Value.ToString() == "Entregada" ? System.Drawing.Color.PaleGreen : System.Drawing.Color.LightBlue);
+           
         }
 
         private void dataGridViewAll_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
@@ -2738,9 +2999,9 @@ namespace controlFallos
                     if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
                     {
                         brush = SystemBrushes.HighlightText;
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, Color.Crimson);
+                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, System.Drawing.Color.Crimson);
                         e.DrawBackground();
-                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, new SolidBrush(Color.White), e.Bounds, sf);
+                        e.Graphics.DrawString(cbx.Items[e.Index].ToString(), cbx.Font, new SolidBrush(System.Drawing.Color.White), e.Bounds, sf);
                         e.DrawFocusRectangle();
                     }
                     else
@@ -2766,10 +3027,10 @@ namespace controlFallos
                     if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
                     {
                         brush = SystemBrushes.HighlightText;
-                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, Color.Crimson);
+                        e = new DrawItemEventArgs(e.Graphics, e.Font, e.Bounds, e.Index, e.State ^ DrawItemState.Selected, e.ForeColor, System.Drawing.Color.Crimson);
                         e.DrawBackground();
                         DataTable f = (DataTable)cbx.DataSource;
-                        e.Graphics.DrawString(f.Rows[e.Index].ItemArray[0].ToString(), cbx.Font, new SolidBrush(Color.White), e.Bounds, sf);
+                        e.Graphics.DrawString(f.Rows[e.Index].ItemArray[0].ToString(), cbx.Font, new SolidBrush(System.Drawing.Color.White), e.Bounds, sf);
                         e.DrawFocusRectangle();
                     }
                     else
@@ -2873,7 +3134,7 @@ namespace controlFallos
         private void groupBoxAll_Paint(object sender, PaintEventArgs e)
         {
             GroupBox box = sender as GroupBox;
-            DrawGroupBox(box, e.Graphics, Color.FromArgb(75, 44, 52), Color.FromArgb(75, 44, 52), this);
+            DrawGroupBox(box, e.Graphics, System.Drawing.Color.FromArgb(75, 44, 52), System.Drawing.Color.FromArgb(75, 44, 52), this);
         }
 
         private void groupBoxRefaccion_Enter(object sender, EventArgs e)
@@ -3301,7 +3562,7 @@ namespace controlFallos
 
             float[] headerwidths = GetTamañoColumnas(dt);
             datatable.SetWidths(headerwidths);
-            Color color = Color.PaleGreen;
+            System.Drawing.Color color = System.Drawing.Color.PaleGreen;
             datatable.WidthPercentage = 100;
             PdfPCell observaciones = new PdfPCell();
             datatable.DefaultCell.BorderWidth = 1;

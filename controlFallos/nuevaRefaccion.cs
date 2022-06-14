@@ -231,7 +231,7 @@ namespace controlFallos
             }
         }
 
-        private void button7_Click(object sender, EventArgs e)
+          void button7_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text.Trim()) || cbfamiliabusq.SelectedIndex > 0 || cbmarcasbusq.SelectedIndex > 0 || !string.IsNullOrWhiteSpace(txtCodigobusq.Text.Trim()))
             {
@@ -885,7 +885,13 @@ namespace controlFallos
         //        MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
         //    }
         //}
-        private void textBox5_KeyPress(object sender, KeyPressEventArgs e){v.letrasnumerosdiagonalypunto(e);}
+        private void textBox5_KeyPress(object sender, KeyPressEventArgs e){
+            v.letrasnumerosdiagonalypunto(e);
+        
+        
+        
+        
+        }
 
         private void cantidada_Validated(object sender, EventArgs e){}
 
