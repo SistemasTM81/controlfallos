@@ -215,6 +215,12 @@ namespace controlFallos
             throw new NotImplementedException();
         }
 
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+           button1.Visible = true;
+            button2.Visible = true;
+        }
+
         /*/////////////////////PRUEBAS//////////////////*/
         private void ReporteUnidadesExternas_Load(object sender, EventArgs e)
         {
