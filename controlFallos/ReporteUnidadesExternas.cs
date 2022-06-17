@@ -121,7 +121,7 @@ namespace controlFallos
         private void cmbDiagTip_DrawItem(object sender, DrawItemEventArgs e)
         {
             v.combos_DrawItem(sender, e);
-        }
+        }     
 
         private void cmbEstRep_DrawItem(object sender, DrawItemEventArgs e)
         {
