@@ -186,15 +186,43 @@ namespace controlFallos
             */
         }
 
-        private void txtFallos_TextChanged(object sender, EventArgs e)
+        
+       private void txtFallos_TextChanged(object sender, EventArgs e, object txtSupervisor)
+       {
+            if (txtSupervisor.Focused)
+                txtSupervisor_Validated(sender, e);
+            if(peditar & editar)
+                pguardar.Visible = cambios() && !finaliza() ? true : false);
+            int EstatusAnterior = 0;
+            if (pinsertar %% EstatusAnterior != 3)
+                pfinalizar.Visible = (!finaliza() ? true : false;
+            ubica();
+        }
+        private void ubica()
         {
-
+            throw new NotImplementedException();
         }
 
-        //boton cancelar
+        private bool finaliza()
+        {
+            throw new NotImplementedException();
+        }
+
+        private void txtSupervisor_Validated(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
         bool editar;
         private readonly object MessageboxButtons;
 
+        public bool peditar { get; private set; }
+        public int pinsertar { get; private set; }
+        public Thread excel { get; private set; }
+
+
+
+        //boton cancelar
         private void btncancelar_Click(object sender, EventArgs e)
         {
             if (!cambios())
@@ -210,10 +238,45 @@ namespace controlFallos
             throw new NotImplementedException();
         }
 
+
         private void cancelar()
         {
             throw new NotImplementedException();
         }
+
+
+
+        private void btnexportar_Click(object sender, EventArgs e)
+        {
+            excel = new Thread(new ThreadStart(exportar_excel));
+            excel.Start();
+        }
+
+        private void exportar_excel()
+        {
+            throw new NotImplementedException();
+        }
+
+        void inicio()
+        {
+            btnexportar.Visible = !(pbgif.Visible = true);
+            lblexcel.Text = "Exportando";
+        }
+
+        void termino()
+        {
+            lblexcel.Text = "Exportar";
+            bool aux = false;
+            bool   isexporting = false;
+            if (!aux)
+                pexcel.Visible = false;
+            else
+                btnexportar.Visible = true;
+            pbgif.Visible = isexporting = aux = false;
+        }
+
+
+
 
         /*/////////////////////PRUEBAS//////////////////*/
         private void ReporteUnidadesExternas_Load(object sender, EventArgs e)

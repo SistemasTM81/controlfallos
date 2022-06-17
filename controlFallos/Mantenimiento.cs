@@ -137,7 +137,6 @@ namespace controlFallos
         }
         private void txtmecanico_TextChanged(object sender, EventArgs e)
         {
-            
             if (txtsupervisor.Focused)
                 txtsupervisor_Validated(sender, e);
             if (peditar & editar)
