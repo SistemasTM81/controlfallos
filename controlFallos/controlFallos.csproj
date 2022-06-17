@@ -24,8 +24,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>true</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <MinimumRequiredVersion>1.1.2.321</MinimumRequiredVersion>
-    <ApplicationRevision>322</ApplicationRevision>
+    <MinimumRequiredVersion>1.1.2.325</MinimumRequiredVersion>
+    <ApplicationRevision>326</ApplicationRevision>
     <ApplicationVersion>1.1.2.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -82,6 +82,10 @@
     <Reference Include="Bitbucket.Net, Version=1.0.0.0, Culture=neutral, PublicKeyToken=676cfcd09bc93b26, processorArchitecture=MSIL">
       <HintPath>..\packages\Bitbucket.Net.2.1.12\lib\net452\Bitbucket.Net.dll</HintPath>
     </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>G:\lib\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
     <Reference Include="Flurl, Version=2.7.1.0, Culture=neutral, PublicKeyToken=46974597867576d1, processorArchitecture=MSIL">
       <HintPath>..\packages\Flurl.Signed.2.7.1\lib\net40\Flurl.dll</HintPath>
     </Reference>
@@ -115,12 +119,16 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="SpreadsheetLight">
+      <HintPath>G:\lib\lib\net40\SpreadsheetLight.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Numerics" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
     <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -280,6 +288,12 @@
     </Compile>
     <Compile Include="catREntradas.Designer.cs">
       <DependentUpon>catREntradas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="catReportUnidades.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catReportUnidades.Designer.cs">
+      <DependentUpon>catReportUnidades.cs</DependentUpon>
     </Compile>
     <Compile Include="CatRoles.cs">
       <SubType>Form</SubType>
@@ -761,6 +775,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="catREntradas.resx">
       <DependentUpon>catREntradas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catReportUnidades.resx">
+      <DependentUpon>catReportUnidades.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CatRoles.resx">
       <DependentUpon>CatRoles.cs</DependentUpon>
@@ -1288,6 +1305,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Nuget\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

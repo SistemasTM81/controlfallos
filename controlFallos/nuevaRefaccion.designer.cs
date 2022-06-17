@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbconsultar = new System.Windows.Forms.GroupBox();
             this.gbbuscar = new System.Windows.Forms.GroupBox();
             this.txtCodigobusq = new System.Windows.Forms.TextBox();
@@ -120,10 +120,10 @@
             this.cmbTipo = new System.Windows.Forms.ComboBox();
             this.label42 = new System.Windows.Forms.Label();
             this.gbaddrefaccion = new System.Windows.Forms.GroupBox();
-            this.pbImgRefaccion = new System.Windows.Forms.PictureBox();
             this.panelM = new System.Windows.Forms.Panel();
             this.label43 = new System.Windows.Forms.Label();
             this.lblMaxio = new System.Windows.Forms.Label();
+            this.pbImgRefaccion = new System.Windows.Forms.PictureBox();
             this.gbconsultar.SuspendLayout();
             this.gbbuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -135,8 +135,8 @@
             this.pExistencias.SuspendLayout();
             this.pStock.SuspendLayout();
             this.gbaddrefaccion.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImgRefaccion)).BeginInit();
             this.panelM.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImgRefaccion)).BeginInit();
             this.SuspendLayout();
             // 
             // gbconsultar
@@ -401,27 +401,27 @@
             this.tbrefaccion.AllowUserToDeleteRows = false;
             this.tbrefaccion.AllowUserToResizeColumns = false;
             this.tbrefaccion.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tbrefaccion.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tbrefaccion.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.tbrefaccion.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.tbrefaccion.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.tbrefaccion.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.tbrefaccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tbrefaccion.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SunkenVertical;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tbrefaccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Garamond", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tbrefaccion.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.tbrefaccion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.tbrefaccion.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.tbrefaccion.EnableHeadersVisualStyles = false;
@@ -432,14 +432,14 @@
             this.tbrefaccion.ReadOnly = true;
             this.tbrefaccion.RowHeadersVisible = false;
             this.tbrefaccion.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.tbrefaccion.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.tbrefaccion.RowsDefaultCellStyle = dataGridViewCellStyle6;
             this.tbrefaccion.RowTemplate.ReadOnly = true;
             this.tbrefaccion.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.tbrefaccion.ShowCellErrors = false;
@@ -1388,16 +1388,6 @@
             this.gbaddrefaccion.Paint += new System.Windows.Forms.PaintEventHandler(this.gbaddrefaccion_Paint);
             this.gbaddrefaccion.Enter += new System.EventHandler(this.gbaddrefaccion_Enter);
             // 
-            // pbImgRefaccion
-            // 
-            this.pbImgRefaccion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pbImgRefaccion.Location = new System.Drawing.Point(1656, 121);
-            this.pbImgRefaccion.Name = "pbImgRefaccion";
-            this.pbImgRefaccion.Size = new System.Drawing.Size(166, 158);
-            this.pbImgRefaccion.TabIndex = 106;
-            this.pbImgRefaccion.TabStop = false;
-            this.pbImgRefaccion.Click += new System.EventHandler(this.pictureOnClick);
-            // 
             // panelM
             // 
             this.panelM.Controls.Add(this.label43);
@@ -1425,6 +1415,16 @@
             this.lblMaxio.Name = "lblMaxio";
             this.lblMaxio.Size = new System.Drawing.Size(0, 24);
             this.lblMaxio.TabIndex = 0;
+            // 
+            // pbImgRefaccion
+            // 
+            this.pbImgRefaccion.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pbImgRefaccion.Location = new System.Drawing.Point(1656, 121);
+            this.pbImgRefaccion.Name = "pbImgRefaccion";
+            this.pbImgRefaccion.Size = new System.Drawing.Size(166, 158);
+            this.pbImgRefaccion.TabIndex = 106;
+            this.pbImgRefaccion.TabStop = false;
+            this.pbImgRefaccion.Click += new System.EventHandler(this.pictureOnClick);
             // 
             // nuevaRefaccion
             // 
@@ -1462,9 +1462,9 @@
             this.pStock.PerformLayout();
             this.gbaddrefaccion.ResumeLayout(false);
             this.gbaddrefaccion.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbImgRefaccion)).EndInit();
             this.panelM.ResumeLayout(false);
             this.panelM.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbImgRefaccion)).EndInit();
             this.ResumeLayout(false);
 
         }

@@ -389,7 +389,7 @@
             this.panel2.Location = new System.Drawing.Point(0, 28);
             this.panel2.Margin = new System.Windows.Forms.Padding(5);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(915, 781);
+            this.panel2.Size = new System.Drawing.Size(915, 888);
             this.panel2.TabIndex = 4;
             // 
             // puestoCB
@@ -1367,7 +1367,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.ClientSize = new System.Drawing.Size(915, 809);
+            this.ClientSize = new System.Drawing.Size(915, 916);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));

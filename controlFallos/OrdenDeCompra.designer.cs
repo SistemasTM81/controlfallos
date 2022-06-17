@@ -549,7 +549,7 @@
             this.buttonExcel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.buttonExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.buttonExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExcel.Location = new System.Drawing.Point(27, 24);
+            this.buttonExcel.Location = new System.Drawing.Point(27, 21);
             this.buttonExcel.Name = "buttonExcel";
             this.buttonExcel.Size = new System.Drawing.Size(54, 54);
             this.buttonExcel.TabIndex = 17;
@@ -1082,7 +1082,7 @@
             this.txtCantidadS.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCantidadS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.txtCantidadS.Location = new System.Drawing.Point(314, 328);
-            this.txtCantidadS.MaxLength = 2;
+            this.txtCantidadS.MaxLength = 5;
             this.txtCantidadS.Name = "txtCantidadS";
             this.txtCantidadS.ShortcutsEnabled = false;
             this.txtCantidadS.Size = new System.Drawing.Size(157, 18);

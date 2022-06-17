@@ -23,7 +23,7 @@ namespace controlFallos
         Thread excel;
         delegate void uno();
         delegate void dos();
-        int idUsuario, status, empresa, area, idEntrega, familiaanterior,  economicoanterior;
+        int idUsuario, status, empresa, area, idEntrega, familiaanterior,  economicoanterior, puesto, Tipo;
         string inicioCodigo = "", codigoanterior = "", motivoanterior = "", nombreanterior = "",  mecanicoanterior = "", cantidad ="";
         double cantidadanterior = 0.0;
         public bool editar { private set; get; }
@@ -58,15 +58,15 @@ namespace controlFallos
             d.Font = new System.Drawing.Font("Garamond", 14, FontStyle.Bold);
             d.WrapMode = DataGridViewTriState.True; d.BackColor = Color.FromArgb(200, 200, 200);
             tbrefaccion.ColumnHeadersDefaultCellStyle = d;
-            cadenaCodigo();
-            txtcodrefaccionRep.Text = obtenerFolio();
             cargaEcoBusq(cmbEconomico);
             CargarMecanico();
             iniFamilias();
             inifamiliasBusq();
-            consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 limit 10 ;");
             v.comboswithuot(cmbMotivos, new string[] { "--Seleccione Un Motivo--", "Reparacion", "Reuso"});
-
+            ObtenerPuesto(idUsuario);
+            consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 and t1.Tipo = '" + Tipo + "' limit 10 ;");
+            cadenaCodigo();
+            txtcodrefaccionRep.Text = obtenerFolio();
         }
         public Material_Recuperado(System.Drawing.Image logo, int idUsuario, string idefaccion, validaciones v)
         {
@@ -145,7 +145,7 @@ namespace controlFallos
         {
             if (!v.formularioRefacionesRecu(txtcodrefaccionRep.Text, txtnombrereFaccionRep.Text, txtCantidad.Text, cmbDescripcion.SelectedIndex, txtContasenna.Text, cmbMantenimiento.SelectedIndex, txtMotivo.Text))
             {
-                v.c.insertar("insert into crefaccionesrecu(coderefaccRecu, nomrefaccion, existencias, desfamilicnfamilias, fechaHoraalta, usuarioaltafkcpersonal, empresa, usuariomantenimiento, descripcion, ecofkcunidades,status) values('" + txtcodrefaccionRep.Text + "', '" + txtnombrereFaccionRep.Text + "', '" + txtCantidad.Text + "', '" + Convert.ToInt32(cmbDescripcion.SelectedValue) + "', now(), '" + idUsuario + "', '" + empresa + "', '" + cmbMantenimiento.SelectedValue + "', '" + txtMotivo.Text + "','" + Convert.ToInt32(cmbEconomico.SelectedValue) + "', '1')");
+                v.c.insertar("insert into crefaccionesrecu(coderefaccRecu, nomrefaccion, existencias, desfamilicnfamilias, fechaHoraalta, usuarioaltafkcpersonal, empresa,Tipo, usuariomantenimiento, descripcion, ecofkcunidades,status) values('" + txtcodrefaccionRep.Text + "', '" + txtnombrereFaccionRep.Text + "', '" + txtCantidad.Text + "', '" + Convert.ToInt32(cmbDescripcion.SelectedValue) + "', now(), '" + idUsuario + "', '" + empresa + "', '" + cmbTipo.SelectedValue + "','"+ cmbMantenimiento.SelectedValue + "', '" + txtMotivo.Text + "','" + Convert.ToInt32(cmbEconomico.SelectedValue) + "', '1')");
                 Limpiar();
             }
         }
@@ -189,7 +189,7 @@ namespace controlFallos
         private void btnCancelEmpresa_Click(object sender, EventArgs e)
         {
             Limpiar();
-            consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 limit 10 ;");
+            consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 and t1.Tipo = '" + Tipo + "' limit 10 ;");
         }
 
         private void btndelref_Click(object sender, EventArgs e)
@@ -203,34 +203,34 @@ namespace controlFallos
         {
             if (!string.IsNullOrWhiteSpace(txtCodigobusq.Text) && string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text) && cbfamiliabusq.SelectedIndex == 0)
             {
-                consultaGeneral(" where t1.coderefaccRecu = '" + txtCodigobusq.Text + "' and t1.empresa ='" + empresa + "'");
+                consultaGeneral(" where t1.coderefaccRecu = '" + txtCodigobusq.Text + "' and t1.empresa ='" + empresa + "' and t1.Tipo = '" + Tipo + "'");
             }
             else if(string.IsNullOrWhiteSpace(txtCodigobusq.Text) && !string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text) && cbfamiliabusq.SelectedIndex == 0)
             {
-                consultaGeneral(" where t1.nomrefaccion like '%" + txtnombrereFaccionbusq.Text + "%' and t1.empresa ='" + empresa + "'");
+                consultaGeneral(" where t1.nomrefaccion like '%" + txtnombrereFaccionbusq.Text + "%' and t1.empresa ='" + empresa + "' and t1.Tipo = '" + Tipo + "'");
             }
             else if (string.IsNullOrWhiteSpace(txtCodigobusq.Text) && string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text) && cbfamiliabusq.SelectedIndex != 0)
             {
-                consultaGeneral(" where x2.idcnFamilia = '" + Convert.ToInt32(cbfamiliabusq.SelectedValue) + "' and t1.empresa = '" + empresa + "'");
+                consultaGeneral(" where x2.idcnFamilia = '" + Convert.ToInt32(cbfamiliabusq.SelectedValue) + "' and t1.empresa = '" + empresa + "' and t1.Tipo = '" + Tipo + "'");
             }
             else if (!string.IsNullOrWhiteSpace(txtCodigobusq.Text) && !string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text) && cbfamiliabusq.SelectedIndex == 0)
             {
-                consultaGeneral(" where t1.coderefaccRecu = '" + txtCodigobusq.Text + "' and t1.nomrefaccion like '%" + txtnombrereFaccionbusq.Text + "%' and t1.empresa = '" + empresa + "'");
+                consultaGeneral(" where t1.coderefaccRecu = '" + txtCodigobusq.Text + "' and t1.nomrefaccion like '%" + txtnombrereFaccionbusq.Text + "%' and t1.empresa = '" + empresa + "' and t1.Tipo = '" + Tipo + "'");
             }
             else if (!string.IsNullOrWhiteSpace(txtCodigobusq.Text) && string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text) && cbfamiliabusq.SelectedIndex != 0)
             {
-                consultaGeneral(" where t1.coderefaccRecu = '" + txtCodigobusq.Text + "' and t1.empresa ='" + empresa + "' and x2.idcnFamilia = '" + cbfamiliabusq.SelectedIndex + "'");
+                consultaGeneral(" where t1.coderefaccRecu = '" + txtCodigobusq.Text + "' and t1.empresa ='" + empresa + "' and x2.idcnFamilia = '" + cbfamiliabusq.SelectedIndex + "' and t1.Tipo = '" + Tipo + "'");
             }
             else if (string.IsNullOrWhiteSpace(txtCodigobusq.Text) && !string.IsNullOrWhiteSpace(txtnombrereFaccionbusq.Text) && cbfamiliabusq.SelectedIndex == 0)
             {
-                consultaGeneral(" where t1.nomrefaccion like '%" + txtnombrereFaccionbusq.Text + "%' and t1.empresa ='" + empresa + "' and x2.idcnFamilia = '" + cbfamiliabusq.SelectedIndex + "'");
+                consultaGeneral(" where t1.nomrefaccion like '%" + txtnombrereFaccionbusq.Text + "%' and t1.empresa ='" + empresa + "' and x2.idcnFamilia = '" + cbfamiliabusq.SelectedIndex + "' and t1.Tipo = '" + Tipo + "'");
             }
             pActualizar.Visible = btnExcel.Visible = pictureBox2.Visible = LblExcel.Visible= true;
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 limit 10 ;");
+            consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 and t1.Tipo = '" + Tipo + "' limit 10 ;");
             Limpiar();
         }
 
@@ -283,7 +283,7 @@ namespace controlFallos
         {
             int valorinicial = 1000;
             string codigo = "";
-            int idContinuo = v.DatocoSigue("select count(idcrefaccionesrecu) from crefaccionesrecu where empresa ='" + empresa + "'");
+            int idContinuo = v.DatocoSigue("select count(idcrefaccionesrecu) from crefaccionesrecu where empresa ='" + empresa + "' and Tipo = '" + Tipo + "'");
             if (idContinuo > 0)
             {
                 codigo = inicioCodigo + Convert.ToString(valorinicial + idContinuo);
@@ -346,6 +346,9 @@ namespace controlFallos
         private void Material_Recuperado_Load(object sender, EventArgs e)
         {
             establecerPrivilegios();
+
+
+            
         }
 
         public void CargarMecanico()
@@ -396,21 +399,22 @@ namespace controlFallos
         private void tbrefaccion_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string codigo = tbrefaccion.Rows[e.RowIndex].Cells[0].Value.ToString();
-            string[] datos = v.getaData("SET lc_time_names = 'es_ES';select concat(convert(coderefaccRecu,char),'|',convert(nomrefaccion,char),'|',convert(existencias,char),'|',convert(ecofkcunidades,char),'|',(Select x4.idcnFamilia from  cfamilias as x2  inner join cnfamilias as x4 on x4.idcnFamilia = x2.familiafkcnfamilias where x2.idfamilia=desfamilicnfamilias),'|',convert(desfamilicnfamilias,char),'|',convert(usuarioaltafkcpersonal,char),'|',convert(usuariomantenimiento,char),'|',convert(descripcion,char), '|', (Select convert(x1.Simbolo,char) from cunidadmedida as x1 inner join cfamilias as x2 on x1.idunidadmedida = x2.umfkcunidadmedida inner join cnfamilias as x4 on x4.idcnFamilia = x2.familiafkcnfamilias where x2.idfamilia=desfamilicnfamilias)) from crefaccionesrecu  where coderefaccRecu = '" + codigo + "'  and empresa ='" + empresa + "'").ToString().Split('|');
+            string[] datos = v.getaData("SET lc_time_names = 'es_ES';select concat(convert(coderefaccRecu,char),'|',convert(nomrefaccion,char),'|',convert(existencias,char),'|',convert(ecofkcunidades,char),'|',convert(Tipo, char), '|',(Select x4.idcnFamilia from  cfamilias as x2  inner join cnfamilias as x4 on x4.idcnFamilia = x2.familiafkcnfamilias where x2.idfamilia=desfamilicnfamilias),'|',convert(desfamilicnfamilias,char),'|',convert(usuarioaltafkcpersonal,char),'|',convert(usuariomantenimiento,char),'|',convert(descripcion,char), '|', (Select convert(x1.Simbolo,char) from cunidadmedida as x1 inner join cfamilias as x2 on x1.idunidadmedida = x2.umfkcunidadmedida inner join cnfamilias as x4 on x4.idcnFamilia = x2.familiafkcnfamilias where x2.idfamilia=desfamilicnfamilias)) from crefaccionesrecu  where coderefaccRecu = '" + codigo + "'  and empresa ='" + empresa + "'").ToString().Split('|');
             txtcodrefaccionRep.Text = datos[0].ToString();
             nombreanterior = txtnombrereFaccionRep.Text = datos[1].ToString();
             txtCantidad.Text = datos[2].ToString();
             cantidadanterior =Double.Parse(datos[2].ToString());
             cmbEconomico.SelectedValue = Convert.ToInt32(datos[3].ToString());
             economicoanterior = Convert.ToInt32(datos[3].ToString());
-            cmbFamilia.SelectedValue = Convert.ToInt32(datos[4].ToString());
-            cmbDescripcion.SelectedValue = Convert.ToInt32(datos[5].ToString());
-            familiaanterior = Convert.ToInt32(datos[5].ToString());
+            cmbTipo.SelectedValue = Convert.ToInt32(datos[4].ToString());
+            cmbFamilia.SelectedValue = Convert.ToInt32(datos[5].ToString());
+            cmbDescripcion.SelectedValue = Convert.ToInt32(datos[6].ToString());
+            familiaanterior = Convert.ToInt32(datos[6].ToString());
             //cmbFamilia.SelectedValue = Convert.ToInt32(datos[5].ToString());
-             cmbMantenimiento.SelectedValue = datos[7].ToString();
-            mecanicoanterior = datos[7].ToString();
-            motivoanterior = txtMotivo.Text = datos[8].ToString();
-            lblUnidadMedida.Text = datos[9].ToString();
+             cmbMantenimiento.SelectedValue = datos[8].ToString();
+            mecanicoanterior = datos[8].ToString();
+            motivoanterior = txtMotivo.Text = datos[9].ToString();
+            lblUnidadMedida.Text = datos[10].ToString();
             pdelref.Visible = pCancelar.Visible = true;
             txtSalidas.Visible = lblsalida.Visible = cmbMotivos.Visible = lblMotivo.Visible = lblSalidaC.Visible = label9.Visible = cmbBuscarUnidad.Visible =  true;
             accion = true;
@@ -476,19 +480,23 @@ namespace controlFallos
             cmbDescripcion.DataSource = null;
             cmbEconomico.SelectedValue = cmbFamilia.SelectedValue = cmbMantenimiento.SelectedValue = cbfamiliabusq.SelectedValue = cmbMotivos.SelectedValue = cmbBuscarUnidad.SelectedValue = 0;
             pCancelar.Visible = pdelref.Visible = btnCargar.Visible = btnExcel.Visible = cmbBuscarUnidad.Visible = txtSalidas.Visible = label9.Visible = cmbMotivos.Visible = lblMotivo.Visible = lblSalidaC.Visible = lblsalida.Visible = false;
-            consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 limit 10 ;");
+            consultaGeneral(" where t1.empresa = '" + empresa + "' and t1.status = 1 and t1.Tipo = '" + Tipo + "' limit 10 ;");
             accion = false;
 
         }
         void cadenaCodigo()
         {
-            if (empresa == 2)
+            if (empresa == 2 && puesto != 52)
             {
                 inicioCodigo = "RECUVHF";
             }
-            else
+            else if(empresa == 3 && puesto != 52)
             {
                 inicioCodigo = "RECUTRI";
+            }
+            else if (empresa == 2 && puesto == 52)
+            {
+                inicioCodigo = "RECUPR";
             }
         }
         void desactivar(string cadena)
@@ -656,6 +664,20 @@ namespace controlFallos
                 MessageBox.Show(ex.ToString().ToUpper(), "ERROR AL EXPORTAR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        void ObtenerPuesto(int usuario)
+        {
+            puesto = Convert.ToInt32(v.getaData("select t1.cargofkcargos from cpersonal as t1 inner join datosistema as t2 on t1.idPersona = t2.usuariofkcpersonal where t2.usuariofkcpersonal = '" + usuario + "'").ToString());
+            if (puesto != 52)
+            {
+                Tipo = 1;
+                v.comboswithuot(cmbTipo, new string[] { "--SELECCIONA TIPO--", "TRANSINSUMOS" });
+            }
+            else
+            {
+                Tipo = 2;
+                v.comboswithuot(cmbTipo, new string[] { "--SELECCIONA TIPO--", "PRODUCCION" });
+            }
+        }
     }
+    
 }

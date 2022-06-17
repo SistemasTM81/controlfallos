@@ -7,10 +7,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using h = Microsoft.Office.Interop.Excel;
+//using h = Microsoft.Office.Interop.Excel;
 using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Diagnostics;
+using SpreadsheetLight;
+using DocumentFormat.OpenXml.Spreadsheet;
+using SpreadsheetLight.Drawing;
 
 namespace controlFallos
 {
@@ -116,7 +119,7 @@ namespace controlFallos
             if (!string.IsNullOrEmpty(txtcodigo.Text) && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 DsEntradas.Clear();
-                DsEntradas = cargaGridE(" where t1.codrefaccion ='" + txtcodigo.Text + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where t4.codrefaccion ='" + txtcodigo.Text + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -142,7 +145,7 @@ namespace controlFallos
                     messel = cmbMes.SelectedIndex.ToString();
                 }
 
-                DsEntradas = cargaGridE(" where  MONTH(t2.FechaHora) = '" + messel + "' AND YEAR(t2.FechaHora) = '" + DateTime.Now.Year + "' and t2.Empresa ='" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where  MONTH(t1.FechaHora) = '" + messel + "' AND YEAR(t1.FechaHora) = '" + DateTime.Now.Year + "' and t1.Empresa ='" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -155,7 +158,7 @@ namespace controlFallos
             }
             if (cbFecha.Checked == true && cmbMes.SelectedIndex == 0 && string.IsNullOrEmpty(txtcodigo.Text))
             {
-                DsEntradas = cargaGridE(" where date_format(convert(t2.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t2.empresa ='" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where date_format(convert(t1.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa ='" + empresa + "'", inicio);
 
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
@@ -170,7 +173,7 @@ namespace controlFallos
             if (cmbProveedorB.SelectedIndex != 0 && cbFecha.Checked == false && cmbMes.SelectedIndex == 0 && string.IsNullOrEmpty(txtcodigo.Text))
             {
                 cmbProveedorB.SelectedValue.ToString();
-                DsEntradas = cargaGridE("  where t2.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE("  where t1.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -194,7 +197,7 @@ namespace controlFallos
                 {
                     messel = cmbMes.SelectedIndex.ToString();
                 }
-                DsEntradas = cargaGridE(" where t1.codrefaccion ='" + txtcodigo.Text + "' and MONTH(t2.FechaHora) = '" + messel + "' AND YEAR(t2.FechaHora) = '" + DateTime.Now.Year + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where t4.codrefaccion ='" + txtcodigo.Text + "' and MONTH(t1.FechaHora) = '" + messel + "' AND YEAR(t1.FechaHora) = '" + DateTime.Now.Year + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -211,7 +214,7 @@ namespace controlFallos
             {
                 DsEntradas.Clear();
                
-                DsEntradas = cargaGridE(" where t1.codrefaccion ='" + txtcodigo.Text + "' and date_format(convert(t2.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where t4.codrefaccion ='" + txtcodigo.Text + "' and date_format(convert(t1.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -226,7 +229,7 @@ namespace controlFallos
             if (cmbProveedorB.SelectedIndex != 0 && cbFecha.Checked == true && cmbMes.SelectedIndex == 0 && string.IsNullOrEmpty(txtcodigo.Text))
             {
                 cmbProveedorB.SelectedValue.ToString();
-                DsEntradas = cargaGridE("  where t2.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and date_format(convert(t2.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE("  where t1.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and date_format(convert(t1.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -249,7 +252,7 @@ namespace controlFallos
                 {
                     messel = cmbMes.SelectedIndex.ToString();
                 }
-                DsEntradas = cargaGridE("  where t2.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and MONTH(t2.FechaHora) = '" + messel + "' AND YEAR(t2.FechaHora) = '" + DateTime.Now.Year + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE("  where t1.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and MONTH(t1.FechaHora) = '" + messel + "' AND YEAR(t1.FechaHora) = '" + DateTime.Now.Year + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -263,7 +266,7 @@ namespace controlFallos
             if (cmbProveedorB.SelectedIndex != 0 && cbFecha.Checked == false && cmbMes.SelectedIndex == 0 && !string.IsNullOrEmpty(txtcodigo.Text))
             {
                 cmbProveedorB.SelectedValue.ToString();
-                DsEntradas = cargaGridE("  where t2.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and t1.codrefaccion ='" + txtcodigo.Text + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE("  where t1.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and t4.codrefaccion ='" + txtcodigo.Text + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -491,7 +494,7 @@ namespace controlFallos
             {
                 dataGridView2.DataSource = DsE.Tables[0];
                 MessageBox.Show("Iniciando exportacion", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                exportar_excel();
+                exportar_excel2();
             }
 
             /*EXPORTAR EXCEL*/
@@ -520,8 +523,190 @@ namespace controlFallos
             txtcodigo.Enabled = true;
             btnBuscar.Enabled = true;
         }
+        void exportar_excel2()
+        {
+            //Pruebas 
+
+            //Empezar a usar excel
+            SLDocument sl = new SLDocument();
+
+            //Importar imagen
+
+          /*  System.Drawing.Bitmap bm = new System.Drawing.Bitmap(@"C:\Users\Ing. Osky Lopez\repos\controlfallos\controlFallos\Resources\logo.png");
+            byte[] ba;
+
+            using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            {
+                bm.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                ms.Close();
+                ba = ms.ToArray();
+            }
+
+            SLPicture pic = new SLPicture(ba, DocumentFormat.OpenXml.Packaging.ImagePartType.Png);
+            pic.SetPosition(0, 0);
+            pic.ResizeInPixels(165, 85);
+            sl.InsertPicture(pic);
+            */
+            //Importar imagen
+
+            //Para saber en que celda iniciar
+            int celdaCabecera = 8, celdaInicial = 8;
+
+
+            //Consulta en columnas
+
+            int ic = 2;
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+
+                sl.SetCellValue(8, ic, column.HeaderText.ToString());
+                ic++;
+
+
+            }
+            //Consulta en columnas
+
+            //Consulta en filas
+            int ir = 9;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+
+                sl.SetCellValue(ir, 2, row.Cells[0].Value.ToString());
+                sl.SetCellValue(ir, 3, row.Cells[1].Value.ToString());
+                sl.SetCellValue(ir, 4, row.Cells[2].Value.ToString());
+                sl.SetCellValue(ir, 5, row.Cells[3].Value.ToString());
+                sl.SetCellValue(ir, 6, row.Cells[4].Value.ToString());
+                sl.SetCellValue(ir, 7, row.Cells[5].Value.ToString());
+                sl.SetCellValue(ir, 8, row.Cells[6].Value.ToString());
+                sl.SetCellValue(ir, 9, row.Cells[7].Value.ToString());
+                sl.SetCellValue(ir, 10, row.Cells[8].Value.ToString());
+
+                ir++;
+
+                celdaInicial++;
+            }
+            //Consulta en filas
+
+            //Nombre de la Hoja de Excel
+            sl.RenameWorksheet(SLDocument.DefaultFirstSheetName, "Reporte Entradas");
+
+
+            //Estilos de la tabla 
+            SLStyle estiloCa = sl.CreateStyle();
+            estiloCa.Font.FontName = "Arial";
+            estiloCa.Font.FontSize = 14;
+            estiloCa.Font.Bold = true;
+            estiloCa.Font.FontColor = System.Drawing.Color.White;
+            estiloCa.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
+            sl.SetCellStyle("B" + celdaCabecera, "J" + celdaCabecera, estiloCa);
+            //Estilos de la tabla 
+
+
+            //Estilo Titulo
+
+            sl.SetCellValue("D4", "REPORTE ENTRADAS");
+            SLStyle estiloT = sl.CreateStyle();
+            estiloT.Font.FontName = "Arial";
+            estiloT.Font.FontSize = 15;
+            estiloT.Font.Bold = true;
+            sl.SetCellStyle("D4", estiloT);
+            sl.MergeWorksheetCells("D4", "E4");
+
+            //Estilo Titulo
+
+            //Estilos Para bordes de la tabla
+
+            SLStyle EstiloB = sl.CreateStyle();
+
+            EstiloB.Border.LeftBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.LeftBorder.Color = System.Drawing.Color.Black;
+
+            EstiloB.Border.TopBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.RightBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.BottomBorder.BorderStyle = BorderStyleValues.Thin;
+            sl.SetCellStyle("B" + celdaInicial, "J" + celdaCabecera, EstiloB);
+
+            //Ajustar celdas
+
+            sl.AutoFitColumn("B", "J");
+            //Estilos Para bordes de la tabla
+
+            //Extraer fecha
+
+            sl.SetCellValue("F3", "RANGO CONSULTA DE:");
+            SLStyle estiloF = sl.CreateStyle();
+            estiloF.Font.FontName = "Arial";
+            estiloF.Font.FontSize = 9;
+            estiloF.Font.Bold = true;
+            sl.SetCellStyle("F3", estiloF);
+            sl.MergeWorksheetCells("F3", "G3");
+
+            sl.SetCellValue("F4", "RANGO CONSULTA A:");
+            SLStyle estiloF2 = sl.CreateStyle();
+            estiloF2.Font.FontName = "Arial";
+            estiloF2.Font.FontSize = 9;
+            estiloF2.Font.Bold = true;
+            sl.SetCellStyle("F4", estiloF2);
+            sl.MergeWorksheetCells("F4", "G4");
+
+
+            //Obtener Fecha
+            var datestring = dtpFechaDe.Value.ToLongDateString();
+
+            sl.SetCellValue("H3", datestring);
+            SLStyle fechaDe = sl.CreateStyle();
+            fechaDe.Font.FontName = "Arial";
+            fechaDe.Font.FontSize = 10;
+            fechaDe.Font.Bold = true;
+            sl.SetCellStyle("H3", fechaDe);
+
+            var datestring2 = dtpFechaA.Value.ToLongDateString();
+
+            sl.SetCellValue("H4", datestring2);
+            SLStyle fechaA = sl.CreateStyle();
+            fechaA.Font.FontName = "Arial";
+            fechaA.Font.FontSize = 10;
+            fechaA.Font.Bold = true;
+            sl.SetCellStyle("H4", fechaA);
+
+            //Obtener Fecha
+
+            //Extraer fecha
+
+            //Directorio para Guardar el Excel
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Title = "GUARDAR ARCHIVO";
+            saveFileDialog1.CheckPathExists = true;
+            saveFileDialog1.DefaultExt = "*.xlsx";
+            saveFileDialog1.Filter = "Archivos de Excel (*.xlsx)|*.xlsx";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    sl.SaveAs(saveFileDialog1.FileName);
+                    MessageBox.Show("**ARCHIVO EXPORTADO CON EXITO**");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "**NO SE GUARGO EL ARCHIVO**");
+                }
+            }
+            //Directorio para Guardar el Excel
+
+            //Abrir Excel
+
+
+            //Abrir Excel
+
+            buttonExcel.Visible = false;
+            label35.Visible = false;
+
+        }
+
         void exportar_excel()
         {
+            /*
             if (dataGridView2.Rows.Count > 0)
             {
                 //isexporting = true;
@@ -530,7 +715,7 @@ namespace controlFallos
                   {
                       uno delega = new uno(inicio);
                       this.Invoke(delega);
-                  }*/
+                  }
                 Microsoft.Office.Interop.Excel.Application X = new Microsoft.Office.Interop.Excel.Application();
                 X.Application.Workbooks.Add(Type.Missing);
                 h.Worksheet sheet = (h.Worksheet)X.ActiveSheet;
@@ -572,12 +757,203 @@ namespace controlFallos
                 {
                     dos delega2 = new dos(termino);
                     this.Invoke(delega2);
-                }*/
+                }
                 buttonExcel.Visible = false;
                 label35.Visible = false;
             }
             else
-                MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);*/
+
+
+            //Pruebas 
+
+            //Empezar a usar excel
+            SLDocument sl = new SLDocument();
+
+            //Importar imagen
+
+            // System.Drawing.Bitmap bm = new System.Drawing.Bitmap(@"C:\Users\Ing. Osky Lopez\Documents\Pruebas\controlfallos\controlFallos\Resources\logo.png");
+            //byte[] ba = null;
+
+
+            //using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            //{
+            // ba = Convert.FromBase64String(v.trainsumos);
+            // bm.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            //ms.Close();
+            //ba = ms.ToArray();
+            // }
+          /*  byte[] ba = null;
+
+            var res = v.getaData("SELECT COALESCE(logo,'') FROM cempresas WHERE idempresa='3'").ToString();
+
+            if (res == "")
+            {
+                if (empresa == 2)
+                    ba = Convert.FromBase64String(v.tri);
+
+                else if (empresa == 3)
+                    ba = Convert.FromBase64String(v.trainsumos);
+
+            }
+            else
+            {
+                System.Drawing.Image temp = v.StringToImage2(res);
+                temp = v.CambiarTamanoImagen(temp, 50, 50);
+                ba = Convert.FromBase64String(v.SerializarImg(temp));
+            }
+
+            SLPicture pic = new SLPicture(ba, DocumentFormat.OpenXml.Packaging.ImagePartType.Png);
+            pic.SetPosition(0, 0);
+            pic.ResizeInPixels(400, 250);
+            sl.InsertPicture(pic);*/
+            //Importar imagen
+
+
+
+            //Para saber en que celda iniciar
+            int celdaCabecera = 8, celdaInicial = 8;
+
+            int ic = 2;
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+            {
+
+                sl.SetCellValue(8, ic, column.HeaderText.ToString());
+                ic++;
+
+            }
+
+            int ir = 9;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+
+                sl.SetCellValue(ir, 2, row.Cells[0].Value.ToString());
+                sl.SetCellValue(ir, 3, row.Cells[1].Value.ToString());
+                sl.SetCellValue(ir, 4, row.Cells[2].Value.ToString());
+                sl.SetCellValue(ir, 5, row.Cells[3].Value.ToString());
+                sl.SetCellValue(ir, 6, row.Cells[4].Value.ToString());
+                sl.SetCellValue(ir, 7, row.Cells[5].Value.ToString());
+                sl.SetCellValue(ir, 8, row.Cells[6].Value.ToString());
+                sl.SetCellValue(ir, 9, row.Cells[7].Value.ToString());
+                sl.SetCellValue(ir, 10, row.Cells[8].Value.ToString());
+                sl.SetCellValue(ir, 11, row.Cells[9].Value.ToString());
+
+                ir++;
+
+                celdaInicial++;
+            }
+
+
+
+            //Nombre de la Hoja de Excel
+            sl.RenameWorksheet(SLDocument.DefaultFirstSheetName, "Reporte Salidas");
+
+
+            //Estilos de la tabla 
+            SLStyle estiloCa = sl.CreateStyle();
+            estiloCa.Font.FontName = "Arial";
+            estiloCa.Font.FontSize = 14;
+            estiloCa.Font.Bold = true;
+            estiloCa.Font.FontColor = System.Drawing.Color.White;
+            estiloCa.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
+            sl.SetCellStyle("B" + celdaCabecera, "K" + celdaCabecera, estiloCa);
+            //Estilos de la tabla 
+
+
+            //Estilo Titulo
+
+            sl.SetCellValue("D4", "REPORTE SALIDAS");
+            SLStyle estiloT = sl.CreateStyle();
+            estiloT.Font.FontName = "Arial";
+            estiloT.Font.FontSize = 15;
+            estiloT.Font.Bold = true;
+            sl.SetCellStyle("D4", estiloT);
+            sl.MergeWorksheetCells("D4", "E4");
+
+            //Estilo Titulo
+
+            //Estilos Para bordes de la tabla
+
+            SLStyle EstiloB = sl.CreateStyle();
+
+            EstiloB.Border.LeftBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.LeftBorder.Color = System.Drawing.Color.Black;
+
+            EstiloB.Border.TopBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.RightBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.BottomBorder.BorderStyle = BorderStyleValues.Thin;
+            sl.SetCellStyle("B" + celdaInicial, "K" + celdaCabecera, EstiloB);
+
+            //Ajustar celdas
+
+            sl.AutoFitColumn("B", "K");
+            //Estilos Para bordes de la tabla
+
+            //Extraer fecha
+
+            sl.SetCellValue("F3", "RANGO CONSULTA DE:");
+            SLStyle estiloF = sl.CreateStyle();
+            estiloF.Font.FontName = "Arial";
+            estiloF.Font.FontSize = 9;
+            estiloF.Font.Bold = true;
+            sl.SetCellStyle("F3", estiloF);
+            sl.MergeWorksheetCells("F3", "G3");
+
+            sl.SetCellValue("F4", "RANGO CONSULTA A:");
+            SLStyle estiloF2 = sl.CreateStyle();
+            estiloF2.Font.FontName = "Arial";
+            estiloF2.Font.FontSize = 9;
+            estiloF2.Font.Bold = true;
+            sl.SetCellStyle("F4", estiloF2);
+            sl.MergeWorksheetCells("F4", "G4");
+
+
+            //Obtener Fecha
+            var datestring = dtpFechaDe.Value.ToLongDateString();
+
+            sl.SetCellValue("H3", datestring);
+            SLStyle fechaDe = sl.CreateStyle();
+            fechaDe.Font.FontName = "Arial";
+            fechaDe.Font.FontSize = 10;
+            fechaDe.Font.Bold = true;
+            sl.SetCellStyle("H3", fechaDe);
+
+            var datestring2 = dtpFechaA.Value.ToLongDateString();
+
+            sl.SetCellValue("H4", datestring2);
+            SLStyle fechaA = sl.CreateStyle();
+            fechaA.Font.FontName = "Arial";
+            fechaA.Font.FontSize = 10;
+            fechaA.Font.Bold = true;
+            sl.SetCellStyle("H4", fechaA);
+
+            //Obtener Fecha
+
+            //Extraer fecha
+
+            //Directorio para Guardar el Excel
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Title = "GUARDAR ARCHIVO";
+            saveFileDialog1.CheckPathExists = true;
+            saveFileDialog1.DefaultExt = "*.xlsx";
+            saveFileDialog1.Filter = "Archivos de Excel (*.xlsx)|*.xlsx";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    sl.SaveAs(saveFileDialog1.FileName);
+                    MessageBox.Show("**ARCHIVO EXPORTADO CON EXITO**");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "**NO SE GUARGO EL ARCHIVO**");
+                }
+            }
+            //Directorio para Guardar el Excel
+
+            buttonExcel.Visible = false;
+            label35.Visible = false;
         }
 
 
@@ -729,21 +1105,36 @@ namespace controlFallos
             dtE.Clear();
             DsE.Clear();
             Ds2E.Clear();
-            adaptador2 = v.getReport("SET lc_time_names='es_ES';select convert(t2.FolioOrdCompra,char) as 'Folio Orden De Compra', convert(t3.Folio,char) as 'Folio Requerimiento', convert(t4.codrefaccion,char) as 'Coidog', convert(t4.nombreRefaccion,char) as 'Refaccion', convert(t1.CantidadIngresa,char) as 'Cantidad Ingresada', convert(t1.FolioFactura,char) as 'Folio Factura', convert(t1.proveedor,char) as 'Provedor', convert(t1.FechaHora,char)as 'Fecha/Hora Alta', convert(t5.Usuario,char) as Usuario from centradasm as t1  inner join crefacciones as t4 on t1.refaccionfkCRefacciones = t4.idrefaccion inner join datosistema as t5 on t1.UsuariofkCPersonal = t5.usuariofkcpersonal left join  ordencompra as t2 on t2.idOrdCompra = t1.ordcomprafkordencompra left join crequicision as t3 on t1.crequicisionfkcrequisicion = t3.idcrequicision " + busquedas + " order by t1.FechaHora desc;");
+
+            adaptador2 = v.getReport("SET lc_time_names='es_ES';select convert(t2.FolioOrdCompra,char) as 'Folio Orden De Compra', convert(t3.Folio,char) as 'Folio Requerimiento', convert(t4.codrefaccion,char) as 'Coidog', convert(t4.nombreRefaccion,char) as 'Refaccion', convert(t1.CantidadIngresa,char) as 'Cantidad Ingresada',convert(t1.Costo,char) as 'Costo Compra',convert(t1.FolioFactura,char) as 'Folio Factura', convert(t1.proveedor,char) as 'Provedor', convert(t1.FechaHora,char) as 'Fecha/Hora Alta', convert(t5.Usuario,char) as Usuario from centradasm as t1  inner join crefacciones as t4 on t1.refaccionfkCRefacciones = t4.idrefaccion inner join datosistema as t5 on t1.UsuariofkCPersonal = t5.usuariofkcpersonal left join  ordencompra as t2 on t2.idOrdCompra = t1.ordcomprafkordencompra left join crequicision as t3 on t1.crequicisionfkcrequisicion = t3.idcrequicision " + busquedas + " order by t1.FechaHora desc;");
+
+            /*adaptador2 = v.getReport("SET lc_time_names='es_ES';Select t1.codrefaccion as Codigo, t1.nombreRefaccion as Refaccion, t2.FolioFactura as 'Folio de Factura', t2.CantidadIngresa as 'Cantidad Ingresada', convert(t2.Costo,char) as Costo, t4.Simbolo as 'Moneda', t2.Proveedor as Proveedor, date_format(t2.FechaHora, '%d-%M-%Y') as 'Fecha Entrada', t3.Usuario as Usuario From crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion =t2.refaccionfkCRefacciones inner join datosistema as t3 on t2.UsuariofkCPersonal = t3.usuariofkcpersonal inner join ctipocambio as t4 on t2.tipomonedafkCTipoCambio = t4.idtipoCambio" + busquedas + " order by t2.FechaHora desc;");*/
+
             dt.Dispose();
             dt.EndInit();
             adaptador2.Fill(dtE);
             total = dtE.Rows.Count;
             adaptador2.Fill(DsE);
+
+            /*
+            adaptador2.Fill(Ds2E);
+            Ds2E.Merge(Ds2E);
+
+            */
+            int v1 = 0;
+
+
             if (total == 1)
             {
                 adaptador2.Fill(Ds2E);
             }
             else
             {
-                adaptador2.Fill(Ds2E, valor, 10, "Entradas");
+                adaptador2.Fill(Ds2E, valor, v1, "Entradas");
+                v1++;
             }
             return Ds2E;
+
         }
 
 

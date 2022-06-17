@@ -732,6 +732,12 @@ namespace controlFallos
                 actualizaciónDeEncabezadosDeReportesToolStripMenuItem.Visible = true;
             else if (nombreForm == "catroles")
                 cátalogoDeRolesToolStripMenuItem.Visible = true;
+           else if (nombreForm == "reportunidades")
+            {
+                if (!reportesToolStripMenuItem.Visible)
+                    reportesToolStripMenuItem.Visible = true;
+                unidadesToolStripMenuItem.Visible = true;
+            }
         }
         private void catálogoDeRefaccionesToolStripMenuItem_Click(object sender, EventArgs e) {/* iraRefacciones(null);*/}
         void iraRefacciones(string idref)
@@ -1195,9 +1201,24 @@ namespace controlFallos
             venta.Show();
         }
 
-      
+        private void unidadesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
-        
+            if (cerrar())
+            {
+                lblnumnotificaciones.BackgroundImage = null;
+                lblnumnotificaciones.BorderStyle = BorderStyle.Fixed3D;
+                lbltitle.Text = nombre + "Reportes";
+                this.Text = "Sistema de Reporte de Fallos - Reportes Unidades";
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                //lbltitle.Location = defaultLocation;
+                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                Deshabilitar(catálogoDePersonalToolStripMenuItem);
+                var form = Application.OpenForms.OfType<catReportUnidades>().FirstOrDefault();
+                catReportUnidades hijo = form ?? new catReportUnidades(v, this.area, this.empresa, this.idUsuario);
+                AddFormInPanel(hijo);
+            }
+        }
 
         private void asistencíaDelDíaToolStripMenuItem_Click(object sender, EventArgs e)
         {
