@@ -400,7 +400,7 @@
             this.btnExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
             this.btnExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnExcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnExcel.Location = new System.Drawing.Point(442, 413);
+            this.btnExcel.Location = new System.Drawing.Point(445, 413);
             this.btnExcel.Name = "btnExcel";
             this.btnExcel.Size = new System.Drawing.Size(55, 50);
             this.btnExcel.TabIndex = 7;
@@ -565,7 +565,7 @@
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Location = new System.Drawing.Point(459, 413);
+            this.pictureBox2.Location = new System.Drawing.Point(445, 413);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(55, 50);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

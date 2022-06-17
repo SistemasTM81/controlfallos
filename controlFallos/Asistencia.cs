@@ -42,5 +42,10 @@ namespace controlFallos
         {
             busqueda();
         }
+
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

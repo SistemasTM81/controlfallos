@@ -12,6 +12,8 @@ using System.Threading;
 using System.IO;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using SpreadsheetLight;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace controlFallos
 {
@@ -94,9 +96,11 @@ namespace controlFallos
 
         private void btnExcel_Click(object sender, EventArgs e)
         {
-            ThreadStart delegado = new ThreadStart(ExportarExcel);
-            exportar = new Thread(delegado);
-            exportar.Start();
+            // ThreadStart delegado = new ThreadStart(ExportarExcel);
+            // exportar = new Thread(delegado);
+            // exportar.Start();
+
+            ExportarExcel();
         }
 
         private void Retorno_de_material_Load(object sender, EventArgs e)
@@ -306,50 +310,290 @@ namespace controlFallos
         }
         void ExportarExcel()
         {
-            if (dgAgregados.Rows.Count > 0)
+            /*     
+                       if (dgAgregados.Rows.Count > 0)
+                       {
+                           DataTable dt = new DataTable();
+                           for (int i = 0; i < dgAgregados.Columns.Count; i++)
+                           {
+                               if (dgAgregados.Columns[i].Visible)
+                               {
+                                   dt.Columns.Add(dgAgregados.Columns[i].HeaderText);
+                               }
+                           }
+                           for (int j = 0; j < dgAgregados.Rows.Count; j++)
+                           {
+                               DataRow row = dt.NewRow();
+                               int indice = 0;
+                               for (int i = 0; i < dgAgregados.Columns.Count; i++)
+                               {
+                                   if (dgAgregados.Columns[i].Visible)
+                                   {
+                                       row[dt.Columns[indice]] = dgAgregados.Rows[j].Cells[i].Value.ToString().Replace("\n", " ");
+                                       indice++;
+                                   }
+                               }
+                               dt.Rows.Add(row);
+                           }
+                           if (this.InvokeRequired)
+                           {
+                               El_Delegado delega = new El_Delegado(cargando);
+                               this.Invoke(delega);
+                           }
+                           v.exportaExcel(dt);
+                           try
+                           {
+                               if (this.InvokeRequired)
+                               {
+                                   El_Delegado1 delega = new El_Delegado1(cargando1);
+                                   this.Invoke(delega);
+                               }
+                           }
+                           catch (Exception)
+                           {
+
+                               throw;
+                           }
+                       }
+           */
+
+            //Pruebas 
+
+            //Empezar a usar excel
+            SLDocument sl = new SLDocument();
+
+            //Importar imagen
+
+            // System.Drawing.Bitmap bm = new System.Drawing.Bitmap(@"C:\Users\Ing. Osky Lopez\Documents\Pruebas\controlfallos\controlFallos\Resources\logo.png");
+            //byte[] ba = null;
+
+
+            //using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            //{
+            // ba = Convert.FromBase64String(v.trainsumos);
+            // bm.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            //ms.Close();
+            //ba = ms.ToArray();
+            // }
+            /*
+                         byte[] ba = null;
+
+                         var res = v.getaData("SELECT COALESCE(logo,'') FROM cempresas WHERE idempresa='3'").ToString();
+
+                         if (res == "")
+                         {
+                             if (empresa == 2)
+                                 ba = Convert.FromBase64String(v.tri);
+
+                             else if (empresa == 3)
+                                 ba = Convert.FromBase64String(v.trainsumos);
+
+                         }
+                         else
+                         {
+                             System.Drawing.Image temp = v.StringToImage2(res);
+                             temp = v.CambiarTamanoImagen(temp, 50, 50);
+                             ba = Convert.FromBase64String(v.SerializarImg(temp));
+                         }
+
+                         SLPicture pic = new SLPicture(ba, DocumentFormat.OpenXml.Packaging.ImagePartType.Png);
+                         pic.SetPosition(0, 0);
+                         pic.ResizeInPixels(400, 250);
+                         sl.InsertPicture(pic);
+                         //Importar imagen
+            */
+
+
+            //Para saber en que celda iniciar
+            int celdaCabecera = 8, celdaInicial = 8;
+
+            int ic = 2;
+            foreach (DataGridViewColumn column in dgAgregados.Columns)
             {
-                DataTable dt = new DataTable();
-                for (int i = 0; i < dgAgregados.Columns.Count; i++)
-                {
-                    if (dgAgregados.Columns[i].Visible)
-                    {
-                        dt.Columns.Add(dgAgregados.Columns[i].HeaderText);
-                    }
-                }
-                for (int j = 0; j < dgAgregados.Rows.Count; j++)
-                {
-                    DataRow row = dt.NewRow();
-                    int indice = 0;
-                    for (int i = 0; i < dgAgregados.Columns.Count; i++)
-                    {
-                        if (dgAgregados.Columns[i].Visible)
+
+                sl.SetCellValue(8, ic, column.HeaderText.ToString());
+                ic++;
+
+
+            }
+
+
+
+            int ir = 9;
+            foreach (DataGridViewRow row in dgAgregados.Rows)
+            {
+
+                sl.SetCellValue(ir, 2, row.Cells[0].Value.ToString());
+                sl.SetCellValue(ir, 3, row.Cells[1].Value.ToString());
+                sl.SetCellValue(ir, 4, row.Cells[2].Value.ToString());
+                sl.SetCellValue(ir, 5, row.Cells[3].Value.ToString());
+                sl.SetCellValue(ir, 6, row.Cells[4].Value.ToString());
+                sl.SetCellValue(ir, 7, row.Cells[5].Value.ToString());
+               
+                ir++;
+                celdaInicial++;
+
+            }
+
+            //Formato Estatus
+            /*
+                        if (dataGridViewOCompra.Rows.ToString() == "En Espera")
                         {
-                            row[dt.Columns[indice]] = dgAgregados.Rows[j].Cells[i].Value.ToString().Replace("\n", " ");
-                            indice++;
+                            ////pendiente
+
+                            SLStyle estiloEs = sl.CreateStyle();
+                            estiloEs.Font.FontColor = System.Drawing.Color.White;
+                            estiloEs.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
+                            sl.SetCellStyle("I" + celdaCabecera, "I" + celdaCabecera, estiloEs);
+                                celdaCabecera++;
+
                         }
-                    }
-                    dt.Rows.Add(row);
-                }
-                if (this.InvokeRequired)
-                {
-                    El_Delegado delega = new El_Delegado(cargando);
-                    this.Invoke(delega);
-                }
-                v.exportaExcel(dt);
+                        else if (dataGridViewOCompra.Rows.ToString() == "Entregada")
+                        {
+
+                            SLStyle estiloE = sl.CreateStyle();
+
+                            estiloE.Font.FontColor = System.Drawing.Color.White;
+                            estiloE.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Green, System.Drawing.Color.Green);
+                            sl.SetCellStyle("I" + celdaInicial, "I" + celdaInicial, estiloE);
+
+                            celdaInicial++;
+                        }
+            */
+
+
+            //if (this.dataGridViewOCompra.Columns[e.ColumnIndex].Name == "Estatus")
+            // e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? System.Drawing.Color.Red : e.Value.ToString() == "Entregada" ? System.Drawing.Color.PaleGreen : System.Drawing.Color.LightBlue);
+
+            //Formato Estatus
+
+            //Nombre de la Hoja de Excel
+            sl.RenameWorksheet(SLDocument.DefaultFirstSheetName, "Requerimiento Refacciones");
+
+
+            //Estilos de la tabla 
+            SLStyle estiloCa = sl.CreateStyle();
+            estiloCa.Font.FontName = "Arial";
+            estiloCa.Font.FontSize = 14;
+            estiloCa.Font.Bold = true;
+            estiloCa.Font.FontColor = System.Drawing.Color.White;
+            estiloCa.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
+            sl.SetCellStyle("B" + celdaCabecera, "H" + celdaCabecera, estiloCa);
+            //Estilos de la tabla 
+
+
+            //Estilo Titulo
+
+            sl.SetCellValue("D4", "CONSULTA REQUERIMIENTO DE REFACCIONES");
+            SLStyle estiloT = sl.CreateStyle();
+            estiloT.Font.FontName = "Arial";
+            estiloT.Font.FontSize = 15;
+            estiloT.Font.Bold = true;
+            sl.SetCellStyle("D4", estiloT);
+            sl.MergeWorksheetCells("D4", "E4");
+
+            //Estilo Titulo
+
+            //Estilos Para bordes de la tabla
+
+            SLStyle EstiloB = sl.CreateStyle();
+
+            EstiloB.Border.LeftBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.LeftBorder.Color = System.Drawing.Color.Black;
+
+            EstiloB.Border.TopBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.RightBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.BottomBorder.BorderStyle = BorderStyleValues.Thin;
+            sl.SetCellStyle("B" + celdaInicial, "H" + celdaCabecera, EstiloB);
+
+            //Ajustar celdas
+
+            sl.AutoFitColumn("B", "AJ");
+            //Estilos Para bordes de la tabla
+
+            //Extraer fecha
+
+            sl.SetCellValue("H3", "FECHA/HORA DE CONSULTA:");
+            SLStyle estiloF = sl.CreateStyle();
+            estiloF.Font.FontName = "Arial";
+            estiloF.Font.FontSize = 9;
+            estiloF.Font.Bold = true;
+            sl.SetCellStyle("H3", estiloF);
+            sl.MergeWorksheetCells("H3", "I3");
+
+
+            //Obtener Fecha
+
+
+            DateTime fecha = DateTime.Now;
+
+            sl.SetCellValue("J3", fecha.ToString());
+            SLStyle fecha0 = sl.CreateStyle();
+            fecha0.Font.FontName = "Arial";
+            fecha0.Font.FontSize = 10;
+            fecha0.Font.Bold = true;
+            sl.SetCellStyle("J3", fecha0);
+
+            sl.SetCellValue("H4", "RANGO CONSULTA DE:");
+            SLStyle estiloF3 = sl.CreateStyle();
+            estiloF3.Font.FontName = "Arial";
+            estiloF3.Font.FontSize = 9;
+            estiloF3.Font.Bold = true;
+            sl.SetCellStyle("H4", estiloF3);
+            sl.MergeWorksheetCells("H4", "I4");
+
+            sl.SetCellValue("H5", "RANGO CONSULTA A:");
+            SLStyle estiloF2 = sl.CreateStyle();
+            estiloF2.Font.FontName = "Arial";
+            estiloF2.Font.FontSize = 9;
+            estiloF2.Font.Bold = true;
+            sl.SetCellStyle("H5", estiloF2);
+            sl.MergeWorksheetCells("H5", "I5");
+
+
+            var datestring3 = dtpFechaInico.Value.ToLongDateString();
+
+            sl.SetCellValue("J4", datestring3);
+            SLStyle fechaDe = sl.CreateStyle();
+            fechaDe.Font.FontName = "Arial";
+            fechaDe.Font.FontSize = 10;
+            fechaDe.Font.Bold = true;
+            sl.SetCellStyle("J4", fechaDe);
+
+            var datestring2 = dtpFechaTermino.Value.ToLongDateString();
+
+            sl.SetCellValue("J5", datestring2);
+            SLStyle fechaA = sl.CreateStyle();
+            fechaA.Font.FontName = "Arial";
+            fechaA.Font.FontSize = 10;
+            fechaA.Font.Bold = true;
+            sl.SetCellStyle("J5", fechaA);
+
+            //Obtener Fecha
+
+            //Extraer fecha
+
+
+            //Directorio para Guardar el Excel
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Title = "GUARDAR ARCHIVO";
+            saveFileDialog1.CheckPathExists = true;
+            saveFileDialog1.DefaultExt = "*.xlsx";
+            saveFileDialog1.Filter = "Archivos de Excel (*.xlsx)|*.xlsx";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
                 try
                 {
-                    if (this.InvokeRequired)
-                    {
-                        El_Delegado1 delega = new El_Delegado1(cargando1);
-                        this.Invoke(delega);
-                    }
+                    sl.SaveAs(saveFileDialog1.FileName);
+                    MessageBox.Show("   **ARCHIVO EXPORTADO CON EXITO**  ");
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-
-                    throw;
+                    MessageBox.Show(ex.Message, "   **NO SE GUARGO EL ARCHIVO**   ");
                 }
             }
+            //Directorio para Guardar el Excel
         }
         public void Expota_PDF()
         {

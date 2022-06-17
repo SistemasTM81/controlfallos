@@ -787,6 +787,8 @@ namespace controlFallos
             ThreadStart delegado = new ThreadStart(ExportarExcel);
             exportar = new Thread(delegado);
             exportar.Start();
+        
+          
         }
         public void iniCombos(string sql, ComboBox cbx, string ValueMember, string DisplayMember, string TextoInicial)
         {

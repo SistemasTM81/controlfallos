@@ -92,6 +92,8 @@
             this.gbxRefaccionesASolicitar = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.dgvRefaccionesaSolicitar = new System.Windows.Forms.DataGridView();
+            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Refaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -140,8 +142,6 @@
             this.label62 = new System.Windows.Forms.Label();
             this.dtgRequicision = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.Codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Refaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbxRefacciones.SuspendLayout();
             this.gbGrupo.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -879,6 +879,20 @@
             this.dgvRefaccionesaSolicitar.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvRefaccionesaSolicitar_CellContentClick);
             this.dgvRefaccionesaSolicitar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dgvRefaccionesaSolicitar_KeyDown);
             // 
+            // Codigo
+            // 
+            this.Codigo.HeaderText = "CODIGO";
+            this.Codigo.Name = "Codigo";
+            this.Codigo.ReadOnly = true;
+            this.Codigo.Width = 119;
+            // 
+            // Refaccion
+            // 
+            this.Refaccion.HeaderText = "Refaccion";
+            this.Refaccion.Name = "Refaccion";
+            this.Refaccion.ReadOnly = true;
+            this.Refaccion.Width = 120;
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -1266,7 +1280,7 @@
             this.btnexportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnexportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnexportar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnexportar.Location = new System.Drawing.Point(19, 3);
+            this.btnexportar.Location = new System.Drawing.Point(29, 5);
             this.btnexportar.Name = "btnexportar";
             this.btnexportar.Size = new System.Drawing.Size(35, 35);
             this.btnexportar.TabIndex = 152;
@@ -1575,20 +1589,6 @@
             this.dataGridView2.Size = new System.Drawing.Size(240, 150);
             this.dataGridView2.TabIndex = 271;
             this.dataGridView2.Visible = false;
-            // 
-            // Codigo
-            // 
-            this.Codigo.HeaderText = "CODIGO";
-            this.Codigo.Name = "Codigo";
-            this.Codigo.ReadOnly = true;
-            this.Codigo.Width = 119;
-            // 
-            // Refaccion
-            // 
-            this.Refaccion.HeaderText = "Refaccion";
-            this.Refaccion.Name = "Refaccion";
-            this.Refaccion.ReadOnly = true;
-            this.Refaccion.Width = 120;
             // 
             // requisicionRefacciones
             // 

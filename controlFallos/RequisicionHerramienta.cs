@@ -14,6 +14,8 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using h = Microsoft.Office.Interop.Excel;
 using MySql.Data.MySqlClient;
+using SpreadsheetLight;
+using DocumentFormat.OpenXml.Spreadsheet;
 
 namespace controlFallos
 {
@@ -75,7 +77,7 @@ namespace controlFallos
         {
             v.iniCombos("select idTipoCambio as id, Simbolo from ctipocambio order by simbolo desc", cmbMoneda, "id", "Simbolo", "--MONEDA--");
         }
-        void cargrdepartamento() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(idcciglasreqh,char) as idCigla, convert(Departamento, char) as usu from cciglasreqh where empresa = '" + empresa + "'", cmbDepartamento, "idCigla", "usu", "--DEPASRTAMENTO--"); }
+        void cargrdepartamento() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(idcciglasreqh,char) as idCigla, convert(Departamento, char) as usu from cciglasreqh where empresa = '" + empresa + "'", cmbDepartamento, "idCigla", "usu", "--DEPARTAMENTO--"); }
         private void txtCantidad_KeyPress(object sender, KeyPressEventArgs e)
         {
             v.numerosDecimales(e);
@@ -155,8 +157,10 @@ namespace controlFallos
         }
         private void btnexportar_Click(object sender, EventArgs e)
         {
-            excel = new Thread(new ThreadStart(exportar_excel));
-            excel.Start();
+        //    excel = new Thread(new ThreadStart(exportar_excel));
+        //    excel.Start();
+
+            exportar_excel();
         }
         public void Principal()
         {
@@ -439,7 +443,7 @@ namespace controlFallos
 
             float[] headerwidths = GetTamañoColumnas(dt);
             datatable.SetWidths(headerwidths);
-            Color color = Color.PaleGreen;
+            System.Drawing.Color color = System.Drawing.Color.PaleGreen;
             datatable.WidthPercentage = 100;
             PdfPCell observaciones = new PdfPCell();
             datatable.DefaultCell.BorderWidth = 1;
@@ -563,61 +567,311 @@ namespace controlFallos
         }
         void exportar_excel()
         {
-            if (dtgRequicision.Rows.Count > 0)
-            {
-                isexporting = true;
-                dt = (DataTable)dtgRequicision.DataSource;
-                if (this.InvokeRequired)
-                {
-                    uno delega = new uno(inicio);
-                    this.Invoke(delega);
-                }
-                Microsoft.Office.Interop.Excel.Application X = new Microsoft.Office.Interop.Excel.Application();
-                X.Application.Workbooks.Add(Type.Missing);
-                h.Worksheet sheet = X.ActiveSheet;
-                X.Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                X.Cells.VerticalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
-                for (int i = 1; i < dt.Columns.Count; i++)
-                {
-                    h.Range rng = (h.Range)sheet.Cells[1, i];
-                    sheet.Cells[1, i] = dt.Columns[i].ColumnName.ToUpper();
-                    rng.Interior.Color = System.Drawing.Color.Crimson;
-                    rng.Borders.Color = System.Drawing.Color.Black;
-                    rng.Font.Color = System.Drawing.Color.White;
-                    rng.Cells.Font.Name = "Calibri";
-                    rng.Cells.Font.Size = 12;
-                    rng.Font.Bold = true;
-                }
-                for (int i = 0; i < dt.Rows.Count; i++)
-                {
-                    for (int j = 1; j < dt.Columns.Count; j++)
-                    {
-                        try
+            /*
+                        if (dtgRequicision.Rows.Count > 0)
                         {
-                            h.Range rng = (h.Range)sheet.Cells[i + 2, j];
-                            sheet.Cells[i + 2, j] = dt.Rows[i][j].ToString();
-                            rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
-                            rng.Cells.Font.Name = "Calibri";
-                            rng.Cells.Font.Size = 11;
-                            rng.Font.Bold = false;
-                            rng.Interior.Color = Color.FromArgb(231, 230, 230);
+                            isexporting = true;
+                            dt = (DataTable)dtgRequicision.DataSource;
+                            if (this.InvokeRequired)
+                            {
+                                uno delega = new uno(inicio);
+                                this.Invoke(delega);
+                            }
+                            Microsoft.Office.Interop.Excel.Application X = new Microsoft.Office.Interop.Excel.Application();
+                            X.Application.Workbooks.Add(Type.Missing);
+                            h.Worksheet sheet = X.ActiveSheet;
+                            X.Cells.HorizontalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                            X.Cells.VerticalAlignment = Microsoft.Office.Interop.Excel.XlHAlign.xlHAlignCenter;
+                            for (int i = 1; i < dt.Columns.Count; i++)
+                            {
+                                h.Range rng = (h.Range)sheet.Cells[1, i];
+                                sheet.Cells[1, i] = dt.Columns[i].ColumnName.ToUpper();
+                                rng.Interior.Color = System.Drawing.Color.Crimson;
+                                rng.Borders.Color = System.Drawing.Color.Black;
+                                rng.Font.Color = System.Drawing.Color.White;
+                                rng.Cells.Font.Name = "Calibri";
+                                rng.Cells.Font.Size = 12;
+                                rng.Font.Bold = true;
+                            }
+                            for (int i = 0; i < dt.Rows.Count; i++)
+                            {
+                                for (int j = 1; j < dt.Columns.Count; j++)
+                                {
+                                    try
+                                    {
+                                        h.Range rng = (h.Range)sheet.Cells[i + 2, j];
+                                        sheet.Cells[i + 2, j] = dt.Rows[i][j].ToString();
+                                        rng.Borders.Color = System.Drawing.ColorTranslator.ToOle(Color.Black);
+                                        rng.Cells.Font.Name = "Calibri";
+                                        rng.Cells.Font.Size = 11;
+                                        rng.Font.Bold = false;
+                                        rng.Interior.Color = Color.FromArgb(231, 230, 230);
+                                    }
+                                    catch (System.NullReferenceException EX)
+                                    { MessageBox.Show(EX.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+                                }
+                            }
+                            X.Columns.AutoFit();
+                            X.Rows.AutoFit();
+                            X.Visible = true;
+                            if (this.InvokeRequired)
+                            {
+                                dos delega2 = new dos(termino);
+                                this.Invoke(delega2);
+                            }
+                            excel.Abort();
                         }
-                        catch (System.NullReferenceException EX)
-                        { MessageBox.Show(EX.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error); }
-                    }
-                }
-                X.Columns.AutoFit();
-                X.Rows.AutoFit();
-                X.Visible = true;
-                if (this.InvokeRequired)
-                {
-                    dos delega2 = new dos(termino);
-                    this.Invoke(delega2);
-                }
-                excel.Abort();
+                        else
+                            MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            */
+
+            //Pruebas 
+
+            //Empezar a usar excel
+            SLDocument sl = new SLDocument();
+
+            //Importar imagen
+
+            // System.Drawing.Bitmap bm = new System.Drawing.Bitmap(@"C:\Users\Ing. Osky Lopez\Documents\Pruebas\controlfallos\controlFallos\Resources\logo.png");
+            //byte[] ba = null;
+
+
+            //using (System.IO.MemoryStream ms = new System.IO.MemoryStream())
+            //{
+            // ba = Convert.FromBase64String(v.trainsumos);
+            // bm.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            //ms.Close();
+            //ba = ms.ToArray();
+            // }
+            /*
+                         byte[] ba = null;
+
+                         var res = v.getaData("SELECT COALESCE(logo,'') FROM cempresas WHERE idempresa='3'").ToString();
+
+                         if (res == "")
+                         {
+                             if (empresa == 2)
+                                 ba = Convert.FromBase64String(v.tri);
+
+                             else if (empresa == 3)
+                                 ba = Convert.FromBase64String(v.trainsumos);
+
+                         }
+                         else
+                         {
+                             System.Drawing.Image temp = v.StringToImage2(res);
+                             temp = v.CambiarTamanoImagen(temp, 50, 50);
+                             ba = Convert.FromBase64String(v.SerializarImg(temp));
+                         }
+
+                         SLPicture pic = new SLPicture(ba, DocumentFormat.OpenXml.Packaging.ImagePartType.Png);
+                         pic.SetPosition(0, 0);
+                         pic.ResizeInPixels(400, 250);
+                         sl.InsertPicture(pic);
+                         //Importar imagen
+            */
+
+
+            //Para saber en que celda iniciar
+            int celdaCabecera = 8, celdaInicial = 8;
+
+            int ic = 2;
+            foreach (DataGridViewColumn column in dtgRequicision.Columns)
+            {
+
+                sl.SetCellValue(8, ic, column.HeaderText.ToString());
+                ic++;
+
+
             }
-            else
-                MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+
+
+            int ir = 9;
+            foreach (DataGridViewRow row in dtgRequicision.Rows)
+            {
+
+                sl.SetCellValue(ir, 2, row.Cells[0].Value.ToString());
+                sl.SetCellValue(ir, 3, row.Cells[1].Value.ToString());
+                sl.SetCellValue(ir, 4, row.Cells[2].Value.ToString());
+                sl.SetCellValue(ir, 5, row.Cells[3].Value.ToString());
+                sl.SetCellValue(ir, 6, row.Cells[4].Value.ToString());
+                sl.SetCellValue(ir, 7, row.Cells[5].Value.ToString());
+                sl.SetCellValue(ir, 8, row.Cells[6].Value.ToString());
+                sl.SetCellValue(ir, 9, row.Cells[7].Value.ToString());
+                sl.SetCellValue(ir, 10, row.Cells[8].Value.ToString());
+                sl.SetCellValue(ir, 11, row.Cells[9].Value.ToString());
+
+
+
+
+
+                ir++;
+                celdaInicial++;
+
+            }
+
+            //Formato Estatus
+            /*
+                        if (dataGridViewOCompra.Rows.ToString() == "En Espera")
+                        {
+                            ////pendiente
+
+                            SLStyle estiloEs = sl.CreateStyle();
+                            estiloEs.Font.FontColor = System.Drawing.Color.White;
+                            estiloEs.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
+                            sl.SetCellStyle("I" + celdaCabecera, "I" + celdaCabecera, estiloEs);
+                                celdaCabecera++;
+
+                        }
+                        else if (dataGridViewOCompra.Rows.ToString() == "Entregada")
+                        {
+
+                            SLStyle estiloE = sl.CreateStyle();
+
+                            estiloE.Font.FontColor = System.Drawing.Color.White;
+                            estiloE.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Green, System.Drawing.Color.Green);
+                            sl.SetCellStyle("I" + celdaInicial, "I" + celdaInicial, estiloE);
+
+                            celdaInicial++;
+                        }
+            */
+
+
+            //if (this.dataGridViewOCompra.Columns[e.ColumnIndex].Name == "Estatus")
+            // e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? System.Drawing.Color.Red : e.Value.ToString() == "Entregada" ? System.Drawing.Color.PaleGreen : System.Drawing.Color.LightBlue);
+
+            //Formato Estatus
+
+            //Nombre de la Hoja de Excel
+            sl.RenameWorksheet(SLDocument.DefaultFirstSheetName, "Requerimiento Refacciones");
+
+
+            //Estilos de la tabla 
+            SLStyle estiloCa = sl.CreateStyle();
+            estiloCa.Font.FontName = "Arial";
+            estiloCa.Font.FontSize = 14;
+            estiloCa.Font.Bold = true;
+            estiloCa.Font.FontColor = System.Drawing.Color.White;
+            estiloCa.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
+            sl.SetCellStyle("B" + celdaCabecera, "H" + celdaCabecera, estiloCa);
+            //Estilos de la tabla 
+
+
+            //Estilo Titulo
+
+            sl.SetCellValue("D4", "CONSULTA REQUERIMIENTO DE REFACCIONES");
+            SLStyle estiloT = sl.CreateStyle();
+            estiloT.Font.FontName = "Arial";
+            estiloT.Font.FontSize = 15;
+            estiloT.Font.Bold = true;
+            sl.SetCellStyle("D4", estiloT);
+            sl.MergeWorksheetCells("D4", "E4");
+
+            //Estilo Titulo
+
+            //Estilos Para bordes de la tabla
+
+            SLStyle EstiloB = sl.CreateStyle();
+
+            EstiloB.Border.LeftBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.LeftBorder.Color = System.Drawing.Color.Black;
+
+            EstiloB.Border.TopBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.RightBorder.BorderStyle = BorderStyleValues.Thin;
+            EstiloB.Border.BottomBorder.BorderStyle = BorderStyleValues.Thin;
+            sl.SetCellStyle("B" + celdaInicial, "H" + celdaCabecera, EstiloB);
+
+            //Ajustar celdas
+
+            sl.AutoFitColumn("B", "AJ");
+            //Estilos Para bordes de la tabla
+
+            //Extraer fecha
+
+            sl.SetCellValue("F3", "FECHA/HORA DE CONSULTA:");
+            SLStyle estiloF = sl.CreateStyle();
+            estiloF.Font.FontName = "Arial";
+            estiloF.Font.FontSize = 9;
+            estiloF.Font.Bold = true;
+            sl.SetCellStyle("F3", estiloF);
+            sl.MergeWorksheetCells("F3", "G3");
+
+
+            //Obtener Fecha
+
+
+            DateTime fecha = DateTime.Now;
+
+            sl.SetCellValue("H3", fecha.ToString());
+            SLStyle fecha0 = sl.CreateStyle();
+            fecha0.Font.FontName = "Arial";
+            fecha0.Font.FontSize = 10;
+            fecha0.Font.Bold = true;
+            sl.SetCellStyle("H3", fecha0);
+
+            sl.SetCellValue("F4", "RANGO CONSULTA DE:");
+            SLStyle estiloF3 = sl.CreateStyle();
+            estiloF3.Font.FontName = "Arial";
+            estiloF3.Font.FontSize = 9;
+            estiloF3.Font.Bold = true;
+            sl.SetCellStyle("F4", estiloF3);
+            sl.MergeWorksheetCells("F4", "G4");
+
+            sl.SetCellValue("F5", "RANGO CONSULTA A:");
+            SLStyle estiloF2 = sl.CreateStyle();
+            estiloF2.Font.FontName = "Arial";
+            estiloF2.Font.FontSize = 9;
+            estiloF2.Font.Bold = true;
+            sl.SetCellStyle("F5", estiloF2);
+            sl.MergeWorksheetCells("F5", "G5");
+
+
+            var datestring3 = dtpFechaDe.Value.ToLongDateString();
+
+            sl.SetCellValue("H4", datestring3);
+            SLStyle fechaDe = sl.CreateStyle();
+            fechaDe.Font.FontName = "Arial";
+            fechaDe.Font.FontSize = 10;
+            fechaDe.Font.Bold = true;
+            sl.SetCellStyle("H4", fechaDe);
+
+            var datestring2 = dtpFechaA.Value.ToLongDateString();
+
+            sl.SetCellValue("H5", datestring2);
+            SLStyle fechaA = sl.CreateStyle();
+            fechaA.Font.FontName = "Arial";
+            fechaA.Font.FontSize = 10;
+            fechaA.Font.Bold = true;
+            sl.SetCellStyle("H5", fechaA);
+
+            //Obtener Fecha
+
+            //Extraer fecha
+
+
+            //Directorio para Guardar el Excel
+
+            SaveFileDialog saveFileDialog1 = new SaveFileDialog();
+            saveFileDialog1.Title = "GUARDAR ARCHIVO";
+            saveFileDialog1.CheckPathExists = true;
+            saveFileDialog1.DefaultExt = "*.xlsx";
+            saveFileDialog1.Filter = "Archivos de Excel (*.xlsx)|*.xlsx";
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    sl.SaveAs(saveFileDialog1.FileName);
+                    MessageBox.Show("   **ARCHIVO EXPORTADO CON EXITO**  ");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "   **NO SE GUARGO EL ARCHIVO**   ");
+                }
+            }
+            //Directorio para Guardar el Excel
         }
+
     }
 }
