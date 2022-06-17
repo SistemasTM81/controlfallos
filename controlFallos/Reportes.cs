@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using h = Microsoft.Office.Interop.Excel;
+//using h = Microsoft.Office.Interop.Excel;
 using MySql.Data.MySqlClient;
 using System.Collections;
 using System.Diagnostics;
@@ -119,7 +119,7 @@ namespace controlFallos
             if (!string.IsNullOrEmpty(txtcodigo.Text) && cmbMes.SelectedIndex == 0 && cbFecha.Checked == false)
             {
                 DsEntradas.Clear();
-                DsEntradas = cargaGridE(" where t1.codrefaccion ='" + txtcodigo.Text + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where t4.codrefaccion ='" + txtcodigo.Text + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -145,7 +145,7 @@ namespace controlFallos
                     messel = cmbMes.SelectedIndex.ToString();
                 }
 
-                DsEntradas = cargaGridE(" where  MONTH(t2.FechaHora) = '" + messel + "' AND YEAR(t2.FechaHora) = '" + DateTime.Now.Year + "' and t2.Empresa ='" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where  MONTH(t1.FechaHora) = '" + messel + "' AND YEAR(t1.FechaHora) = '" + DateTime.Now.Year + "' and t1.Empresa ='" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -158,7 +158,7 @@ namespace controlFallos
             }
             if (cbFecha.Checked == true && cmbMes.SelectedIndex == 0 && string.IsNullOrEmpty(txtcodigo.Text))
             {
-                DsEntradas = cargaGridE(" where date_format(convert(t2.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t2.empresa ='" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where date_format(convert(t1.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa ='" + empresa + "'", inicio);
 
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
@@ -173,7 +173,7 @@ namespace controlFallos
             if (cmbProveedorB.SelectedIndex != 0 && cbFecha.Checked == false && cmbMes.SelectedIndex == 0 && string.IsNullOrEmpty(txtcodigo.Text))
             {
                 cmbProveedorB.SelectedValue.ToString();
-                DsEntradas = cargaGridE("  where t2.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE("  where t1.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -197,7 +197,7 @@ namespace controlFallos
                 {
                     messel = cmbMes.SelectedIndex.ToString();
                 }
-                DsEntradas = cargaGridE(" where t1.codrefaccion ='" + txtcodigo.Text + "' and MONTH(t2.FechaHora) = '" + messel + "' AND YEAR(t2.FechaHora) = '" + DateTime.Now.Year + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where t4.codrefaccion ='" + txtcodigo.Text + "' and MONTH(t1.FechaHora) = '" + messel + "' AND YEAR(t1.FechaHora) = '" + DateTime.Now.Year + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -214,7 +214,7 @@ namespace controlFallos
             {
                 DsEntradas.Clear();
                
-                DsEntradas = cargaGridE(" where t1.codrefaccion ='" + txtcodigo.Text + "' and date_format(convert(t2.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE(" where t4.codrefaccion ='" + txtcodigo.Text + "' and date_format(convert(t1.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -229,7 +229,7 @@ namespace controlFallos
             if (cmbProveedorB.SelectedIndex != 0 && cbFecha.Checked == true && cmbMes.SelectedIndex == 0 && string.IsNullOrEmpty(txtcodigo.Text))
             {
                 cmbProveedorB.SelectedValue.ToString();
-                DsEntradas = cargaGridE("  where t2.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and date_format(convert(t2.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE("  where t1.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and date_format(convert(t1.FechaHora, char),'%Y-%m-%d') between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -252,7 +252,7 @@ namespace controlFallos
                 {
                     messel = cmbMes.SelectedIndex.ToString();
                 }
-                DsEntradas = cargaGridE("  where t2.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and MONTH(t2.FechaHora) = '" + messel + "' AND YEAR(t2.FechaHora) = '" + DateTime.Now.Year + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE("  where t1.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and MONTH(t1.FechaHora) = '" + messel + "' AND YEAR(t1.FechaHora) = '" + DateTime.Now.Year + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -266,7 +266,7 @@ namespace controlFallos
             if (cmbProveedorB.SelectedIndex != 0 && cbFecha.Checked == false && cmbMes.SelectedIndex == 0 && !string.IsNullOrEmpty(txtcodigo.Text))
             {
                 cmbProveedorB.SelectedValue.ToString();
-                DsEntradas = cargaGridE("  where t2.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and t1.codrefaccion ='" + txtcodigo.Text + "' and t2.empresa = '" + empresa + "'", inicio);
+                DsEntradas = cargaGridE("  where t1.Proveedor = '" + cmbProveedorB.SelectedValue.ToString() + "' and t4.codrefaccion ='" + txtcodigo.Text + "' and t1.empresa = '" + empresa + "'", inicio);
                 if (DsEntradas.Tables[0].Rows.Count != 0)
                 {
                     dataGridView1.DataSource = DsEntradas.Tables[0];
@@ -1105,7 +1105,11 @@ namespace controlFallos
             dtE.Clear();
             DsE.Clear();
             Ds2E.Clear();
-            adaptador2 = v.getReport("SET lc_time_names='es_ES';Select t1.codrefaccion as Codigo, t1.nombreRefaccion as Refaccion, t2.FolioFactura as 'Folio de Factura', t2.CantidadIngresa as 'Cantidad Ingresada', convert(t2.Costo,char) as Costo, t4.Simbolo as 'Moneda', t2.Proveedor as Proveedor, date_format(t2.FechaHora, '%d-%M-%Y') as 'Fecha Entrada', t3.Usuario as Usuario From crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion =t2.refaccionfkCRefacciones inner join datosistema as t3 on t2.UsuariofkCPersonal = t3.usuariofkcpersonal inner join ctipocambio as t4 on t2.tipomonedafkCTipoCambio = t4.idtipoCambio" + busquedas + " order by t2.FechaHora desc;");
+
+            adaptador2 = v.getReport("SET lc_time_names='es_ES';select convert(t2.FolioOrdCompra,char) as 'Folio Orden De Compra', convert(t3.Folio,char) as 'Folio Requerimiento', convert(t4.codrefaccion,char) as 'Coidog', convert(t4.nombreRefaccion,char) as 'Refaccion', convert(t1.CantidadIngresa,char) as 'Cantidad Ingresada',convert(t1.Costo,char) as 'Costo Compra',convert(t1.FolioFactura,char) as 'Folio Factura', convert(t1.proveedor,char) as 'Provedor', convert(t1.FechaHora,char) as 'Fecha/Hora Alta', convert(t5.Usuario,char) as Usuario from centradasm as t1  inner join crefacciones as t4 on t1.refaccionfkCRefacciones = t4.idrefaccion inner join datosistema as t5 on t1.UsuariofkCPersonal = t5.usuariofkcpersonal left join  ordencompra as t2 on t2.idOrdCompra = t1.ordcomprafkordencompra left join crequicision as t3 on t1.crequicisionfkcrequisicion = t3.idcrequicision " + busquedas + " order by t1.FechaHora desc;");
+
+            /*adaptador2 = v.getReport("SET lc_time_names='es_ES';Select t1.codrefaccion as Codigo, t1.nombreRefaccion as Refaccion, t2.FolioFactura as 'Folio de Factura', t2.CantidadIngresa as 'Cantidad Ingresada', convert(t2.Costo,char) as Costo, t4.Simbolo as 'Moneda', t2.Proveedor as Proveedor, date_format(t2.FechaHora, '%d-%M-%Y') as 'Fecha Entrada', t3.Usuario as Usuario From crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion =t2.refaccionfkCRefacciones inner join datosistema as t3 on t2.UsuariofkCPersonal = t3.usuariofkcpersonal inner join ctipocambio as t4 on t2.tipomonedafkCTipoCambio = t4.idtipoCambio" + busquedas + " order by t2.FechaHora desc;");*/
+
             dt.Dispose();
             dt.EndInit();
             adaptador2.Fill(dtE);
