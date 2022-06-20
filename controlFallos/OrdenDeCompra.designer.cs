@@ -549,7 +549,7 @@
             this.buttonExcel.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.buttonExcel.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.buttonExcel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonExcel.Location = new System.Drawing.Point(27, 24);
+            this.buttonExcel.Location = new System.Drawing.Point(27, 21);
             this.buttonExcel.Name = "buttonExcel";
             this.buttonExcel.Size = new System.Drawing.Size(54, 54);
             this.buttonExcel.TabIndex = 17;

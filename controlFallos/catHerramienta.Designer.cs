@@ -953,6 +953,7 @@
             this.btnExcel.TabIndex = 71;
             this.btnExcel.UseVisualStyleBackColor = true;
             this.btnExcel.Visible = false;
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
             // 
             // LblExcel
             // 

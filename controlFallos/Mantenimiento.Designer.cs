@@ -28,16 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gbsupervision = new System.Windows.Forms.GroupBox();
             this.txtDescFalloNoC = new System.Windows.Forms.TextBox();
             this.lblDescripFalla = new System.Windows.Forms.Label();
@@ -65,10 +65,13 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.lblexportar = new System.Windows.Forms.GroupBox();
+            this.btnCancelFact = new System.Windows.Forms.Button();
+            this.btnFolioFactura = new System.Windows.Forms.Button();
             this.LBxRefacc = new System.Windows.Forms.ListBox();
             this.numUpDownHASTA = new System.Windows.Forms.NumericUpDown();
             this.numUpDownDE = new System.Windows.Forms.NumericUpDown();
             this.lblsupmant = new System.Windows.Forms.Label();
+            this.btnrefacciones = new System.Windows.Forms.Button();
             this.lblmapoyo = new System.Windows.Forms.Label();
             this.lblmecanico = new System.Windows.Forms.Label();
             this.lbltiempototal = new System.Windows.Forms.Label();
@@ -108,9 +111,13 @@
             this.gbbusqueda = new System.Windows.Forms.GroupBox();
             this.pexcel = new System.Windows.Forms.Panel();
             this.lblexcel = new System.Windows.Forms.Label();
+            this.btnexportar = new System.Windows.Forms.Button();
+            this.pbgif = new System.Windows.Forms.PictureBox();
             this.pactualizar = new System.Windows.Forms.Panel();
+            this.btnactualizar = new System.Windows.Forms.Button();
             this.label57 = new System.Windows.Forms.Label();
             this.pbuscar = new System.Windows.Forms.Panel();
+            this.btnbuscar = new System.Windows.Forms.Button();
             this.label54 = new System.Windows.Forms.Label();
             this.cmbgrupob = new System.Windows.Forms.ComboBox();
             this.label43 = new System.Windows.Forms.Label();
@@ -152,7 +159,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.dgvreportes = new System.Windows.Forms.DataGridView();
             this.pguardar = new System.Windows.Forms.Panel();
+            this.btnguardar = new System.Windows.Forms.Button();
             this.pcancelar = new System.Windows.Forms.Panel();
+            this.btncancelar = new System.Windows.Forms.Button();
             this.gbrefacciones = new System.Windows.Forms.GroupBox();
             this.lblNombre = new System.Windows.Forms.Label();
             this.txtCodigoRef = new System.Windows.Forms.TextBox();
@@ -163,10 +172,13 @@
             this.label60 = new System.Windows.Forms.Label();
             this.label65 = new System.Windows.Forms.Label();
             this.pRetorno = new System.Windows.Forms.Panel();
+            this.btnRetorno = new System.Windows.Forms.Button();
             this.label40 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnregresar = new System.Windows.Forms.Button();
             this.label62 = new System.Windows.Forms.Label();
             this.pagregar = new System.Windows.Forms.Panel();
+            this.btnagregar = new System.Windows.Forms.Button();
             this.label61 = new System.Windows.Forms.Label();
             this.dgvrefacciones = new System.Windows.Forms.DataGridView();
             this.txtcantidad = new System.Windows.Forms.TextBox();
@@ -178,28 +190,17 @@
             this.cmbrefaccion = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.pfinalizar = new System.Windows.Forms.Panel();
+            this.btnfinalizar = new System.Windows.Forms.Button();
             this.label64 = new System.Windows.Forms.Label();
             this.pPdf = new System.Windows.Forms.Panel();
             this.btnpdf = new System.Windows.Forms.Button();
-            this.btnfinalizar = new System.Windows.Forms.Button();
-            this.btncancelar = new System.Windows.Forms.Button();
-            this.btnguardar = new System.Windows.Forms.Button();
-            this.btnCancelFact = new System.Windows.Forms.Button();
-            this.btnFolioFactura = new System.Windows.Forms.Button();
-            this.btnrefacciones = new System.Windows.Forms.Button();
-            this.btnexportar = new System.Windows.Forms.Button();
-            this.pbgif = new System.Windows.Forms.PictureBox();
-            this.btnactualizar = new System.Windows.Forms.Button();
-            this.btnbuscar = new System.Windows.Forms.Button();
-            this.btnRetorno = new System.Windows.Forms.Button();
-            this.btnregresar = new System.Windows.Forms.Button();
-            this.btnagregar = new System.Windows.Forms.Button();
             this.gbsupervision.SuspendLayout();
             this.lblexportar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).BeginInit();
             this.gbbusqueda.SuspendLayout();
             this.pexcel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbgif)).BeginInit();
             this.pactualizar.SuspendLayout();
             this.pbuscar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvreportes)).BeginInit();
@@ -212,7 +213,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvrefacciones)).BeginInit();
             this.pfinalizar.SuspendLayout();
             this.pPdf.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbgif)).BeginInit();
             this.SuspendLayout();
             // 
             // gbsupervision
@@ -596,6 +596,48 @@
             this.lblexportar.Text = "Mantenimiento";
             this.lblexportar.Enter += new System.EventHandler(this.lblexportar_Enter);
             // 
+            // btnCancelFact
+            // 
+            this.btnCancelFact.AutoSize = true;
+            this.btnCancelFact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.BackgroundImage = global::controlFallos.Properties.Resources.cross;
+            this.btnCancelFact.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCancelFact.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelFact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatAppearance.BorderSize = 0;
+            this.btnCancelFact.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelFact.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelFact.Location = new System.Drawing.Point(1014, 92);
+            this.btnCancelFact.Name = "btnCancelFact";
+            this.btnCancelFact.Size = new System.Drawing.Size(26, 30);
+            this.btnCancelFact.TabIndex = 245;
+            this.btnCancelFact.UseVisualStyleBackColor = false;
+            this.btnCancelFact.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // btnFolioFactura
+            // 
+            this.btnFolioFactura.AutoSize = true;
+            this.btnFolioFactura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.BackgroundImage = global::controlFallos.Properties.Resources.foliosFactura;
+            this.btnFolioFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFolioFactura.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFolioFactura.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatAppearance.BorderSize = 0;
+            this.btnFolioFactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFolioFactura.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFolioFactura.Location = new System.Drawing.Point(972, 92);
+            this.btnFolioFactura.Name = "btnFolioFactura";
+            this.btnFolioFactura.Size = new System.Drawing.Size(30, 30);
+            this.btnFolioFactura.TabIndex = 238;
+            this.btnFolioFactura.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnFolioFactura.UseVisualStyleBackColor = false;
+            this.btnFolioFactura.Visible = false;
+            this.btnFolioFactura.Click += new System.EventHandler(this.btnFolioFactura_Click);
+            // 
             // LBxRefacc
             // 
             this.LBxRefacc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -641,6 +683,28 @@
             this.lblsupmant.Name = "lblsupmant";
             this.lblsupmant.Size = new System.Drawing.Size(0, 13);
             this.lblsupmant.TabIndex = 234;
+            // 
+            // btnrefacciones
+            // 
+            this.btnrefacciones.AutoSize = true;
+            this.btnrefacciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.BackgroundImage = global::controlFallos.Properties.Resources.add;
+            this.btnrefacciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnrefacciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatAppearance.BorderSize = 0;
+            this.btnrefacciones.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnrefacciones.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnrefacciones.Location = new System.Drawing.Point(1008, 60);
+            this.btnrefacciones.Name = "btnrefacciones";
+            this.btnrefacciones.Size = new System.Drawing.Size(30, 30);
+            this.btnrefacciones.TabIndex = 233;
+            this.btnrefacciones.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnrefacciones.UseVisualStyleBackColor = false;
+            this.btnrefacciones.Visible = false;
+            this.btnrefacciones.Click += new System.EventHandler(this.btnrefacciones_Click);
             // 
             // lblmapoyo
             // 
@@ -1165,6 +1229,38 @@
             this.lblexcel.TabIndex = 154;
             this.lblexcel.Text = "Exportar";
             // 
+            // btnexportar
+            // 
+            this.btnexportar.AutoSize = true;
+            this.btnexportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnexportar.BackgroundImage = global::controlFallos.Properties.Resources.excel;
+            this.btnexportar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnexportar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnexportar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnexportar.FlatAppearance.BorderSize = 0;
+            this.btnexportar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnexportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnexportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnexportar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnexportar.Location = new System.Drawing.Point(27, 5);
+            this.btnexportar.Name = "btnexportar";
+            this.btnexportar.Size = new System.Drawing.Size(35, 35);
+            this.btnexportar.TabIndex = 152;
+            this.btnexportar.UseVisualStyleBackColor = false;
+            this.btnexportar.Click += new System.EventHandler(this.btnexportar_Click);
+            // 
+            // pbgif
+            // 
+            this.pbgif.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pbgif.Image = global::controlFallos.Properties.Resources.loader;
+            this.pbgif.Location = new System.Drawing.Point(29, 5);
+            this.pbgif.Name = "pbgif";
+            this.pbgif.Size = new System.Drawing.Size(35, 35);
+            this.pbgif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbgif.TabIndex = 227;
+            this.pbgif.TabStop = false;
+            this.pbgif.Visible = false;
+            // 
             // pactualizar
             // 
             this.pactualizar.Controls.Add(this.btnactualizar);
@@ -1173,6 +1269,27 @@
             this.pactualizar.Name = "pactualizar";
             this.pactualizar.Size = new System.Drawing.Size(82, 62);
             this.pactualizar.TabIndex = 229;
+            // 
+            // btnactualizar
+            // 
+            this.btnactualizar.AutoSize = true;
+            this.btnactualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnactualizar.BackgroundImage = global::controlFallos.Properties.Resources._1491313940_repeat_82991;
+            this.btnactualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnactualizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnactualizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnactualizar.FlatAppearance.BorderSize = 0;
+            this.btnactualizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnactualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnactualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnactualizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnactualizar.Location = new System.Drawing.Point(24, 5);
+            this.btnactualizar.Name = "btnactualizar";
+            this.btnactualizar.Size = new System.Drawing.Size(35, 35);
+            this.btnactualizar.TabIndex = 151;
+            this.btnactualizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnactualizar.UseVisualStyleBackColor = false;
+            this.btnactualizar.Click += new System.EventHandler(this.btnactualizar_Click);
             // 
             // label57
             // 
@@ -1193,6 +1310,27 @@
             this.pbuscar.Name = "pbuscar";
             this.pbuscar.Size = new System.Drawing.Size(61, 62);
             this.pbuscar.TabIndex = 228;
+            // 
+            // btnbuscar
+            // 
+            this.btnbuscar.AutoSize = true;
+            this.btnbuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnbuscar.BackgroundImage = global::controlFallos.Properties.Resources.xmag_search_find_export_locate_5984;
+            this.btnbuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnbuscar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnbuscar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnbuscar.FlatAppearance.BorderSize = 0;
+            this.btnbuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnbuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnbuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnbuscar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnbuscar.Location = new System.Drawing.Point(15, 9);
+            this.btnbuscar.Name = "btnbuscar";
+            this.btnbuscar.Size = new System.Drawing.Size(35, 35);
+            this.btnbuscar.TabIndex = 149;
+            this.btnbuscar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnbuscar.UseVisualStyleBackColor = false;
+            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
             // 
             // label54
             // 
@@ -1687,57 +1825,57 @@
             this.dgvreportes.AllowUserToDeleteRows = false;
             this.dgvreportes.AllowUserToResizeColumns = false;
             this.dgvreportes.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvreportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvreportes.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
             this.dgvreportes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvreportes.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvreportes.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvreportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle12.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvreportes.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.dgvreportes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvreportes.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Coral;
-            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvreportes.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.Color.Coral;
+            dataGridViewCellStyle13.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvreportes.DefaultCellStyle = dataGridViewCellStyle13;
             this.dgvreportes.EnableHeadersVisualStyles = false;
             this.dgvreportes.GridColor = System.Drawing.Color.Gray;
             this.dgvreportes.Location = new System.Drawing.Point(12, 482);
             this.dgvreportes.Name = "dgvreportes";
             this.dgvreportes.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvreportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvreportes.RowHeadersDefaultCellStyle = dataGridViewCellStyle14;
             this.dgvreportes.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvreportes.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvreportes.RowsDefaultCellStyle = dataGridViewCellStyle15;
             this.dgvreportes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvreportes.ShowCellErrors = false;
             this.dgvreportes.ShowCellToolTips = false;
@@ -1759,6 +1897,26 @@
             this.pguardar.TabIndex = 274;
             this.pguardar.Visible = false;
             // 
+            // btnguardar
+            // 
+            this.btnguardar.AutoSize = true;
+            this.btnguardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnguardar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
+            this.btnguardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnguardar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnguardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnguardar.FlatAppearance.BorderSize = 0;
+            this.btnguardar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnguardar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnguardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnguardar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnguardar.Location = new System.Drawing.Point(12, 3);
+            this.btnguardar.Name = "btnguardar";
+            this.btnguardar.Size = new System.Drawing.Size(45, 45);
+            this.btnguardar.TabIndex = 233;
+            this.btnguardar.UseVisualStyleBackColor = false;
+            this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
+            // 
             // pcancelar
             // 
             this.pcancelar.Controls.Add(this.btncancelar);
@@ -1768,6 +1926,26 @@
             this.pcancelar.Size = new System.Drawing.Size(79, 76);
             this.pcancelar.TabIndex = 275;
             this.pcancelar.Visible = false;
+            // 
+            // btncancelar
+            // 
+            this.btncancelar.AutoSize = true;
+            this.btncancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btncancelar.BackgroundImage = global::controlFallos.Properties.Resources.cross;
+            this.btncancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btncancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btncancelar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btncancelar.FlatAppearance.BorderSize = 0;
+            this.btncancelar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btncancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btncancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btncancelar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btncancelar.Location = new System.Drawing.Point(13, 3);
+            this.btncancelar.Name = "btncancelar";
+            this.btncancelar.Size = new System.Drawing.Size(45, 45);
+            this.btncancelar.TabIndex = 243;
+            this.btncancelar.UseVisualStyleBackColor = false;
+            this.btncancelar.Click += new System.EventHandler(this.btncancelar_Click);
             // 
             // gbrefacciones
             // 
@@ -1919,6 +2097,27 @@
             this.pRetorno.TabIndex = 277;
             this.pRetorno.Visible = false;
             // 
+            // btnRetorno
+            // 
+            this.btnRetorno.AutoSize = true;
+            this.btnRetorno.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnRetorno.BackgroundImage = global::controlFallos.Properties.Resources.box;
+            this.btnRetorno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnRetorno.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnRetorno.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnRetorno.FlatAppearance.BorderSize = 0;
+            this.btnRetorno.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnRetorno.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnRetorno.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRetorno.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRetorno.Location = new System.Drawing.Point(14, 5);
+            this.btnRetorno.Name = "btnRetorno";
+            this.btnRetorno.Size = new System.Drawing.Size(45, 45);
+            this.btnRetorno.TabIndex = 233;
+            this.btnRetorno.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnRetorno.UseVisualStyleBackColor = false;
+            this.btnRetorno.Click += new System.EventHandler(this.btnRetorno_Click);
+            // 
             // label40
             // 
             this.label40.AutoSize = true;
@@ -1940,6 +2139,27 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(76, 72);
             this.panel1.TabIndex = 276;
+            // 
+            // btnregresar
+            // 
+            this.btnregresar.AutoSize = true;
+            this.btnregresar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnregresar.BackgroundImage = global::controlFallos.Properties.Resources.chevron_sign_left;
+            this.btnregresar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnregresar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnregresar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnregresar.FlatAppearance.BorderSize = 0;
+            this.btnregresar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnregresar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnregresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnregresar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnregresar.Location = new System.Drawing.Point(16, 3);
+            this.btnregresar.Name = "btnregresar";
+            this.btnregresar.Size = new System.Drawing.Size(45, 45);
+            this.btnregresar.TabIndex = 233;
+            this.btnregresar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnregresar.UseVisualStyleBackColor = false;
+            this.btnregresar.Click += new System.EventHandler(this.btnregresar_Click);
             // 
             // label62
             // 
@@ -1963,6 +2183,27 @@
             this.pagregar.Size = new System.Drawing.Size(71, 72);
             this.pagregar.TabIndex = 275;
             // 
+            // btnagregar
+            // 
+            this.btnagregar.AutoSize = true;
+            this.btnagregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnagregar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
+            this.btnagregar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnagregar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnagregar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnagregar.FlatAppearance.BorderSize = 0;
+            this.btnagregar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnagregar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnagregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnagregar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnagregar.Location = new System.Drawing.Point(12, 3);
+            this.btnagregar.Name = "btnagregar";
+            this.btnagregar.Size = new System.Drawing.Size(45, 45);
+            this.btnagregar.TabIndex = 233;
+            this.btnagregar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnagregar.UseVisualStyleBackColor = false;
+            this.btnagregar.Click += new System.EventHandler(this.btnagregar_Click);
+            // 
             // label61
             // 
             this.label61.AutoSize = true;
@@ -1982,57 +2223,57 @@
             this.dgvrefacciones.AllowUserToDeleteRows = false;
             this.dgvrefacciones.AllowUserToResizeColumns = false;
             this.dgvrefacciones.AllowUserToResizeRows = false;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvrefacciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvrefacciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
             this.dgvrefacciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvrefacciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvrefacciones.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvrefacciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle17.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle17.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvrefacciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
             this.dgvrefacciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvrefacciones.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle18.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle18.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvrefacciones.DefaultCellStyle = dataGridViewCellStyle18;
             this.dgvrefacciones.EnableHeadersVisualStyles = false;
             this.dgvrefacciones.GridColor = System.Drawing.Color.Gray;
             this.dgvrefacciones.Location = new System.Drawing.Point(416, 29);
             this.dgvrefacciones.Name = "dgvrefacciones";
             this.dgvrefacciones.ReadOnly = true;
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle9.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvrefacciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle19.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle19.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle19.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle19.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle19.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvrefacciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle19;
             this.dgvrefacciones.RowHeadersVisible = false;
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle10.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvrefacciones.RowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle20.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle20.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle20.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle20.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvrefacciones.RowsDefaultCellStyle = dataGridViewCellStyle20;
             this.dgvrefacciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvrefacciones.Size = new System.Drawing.Size(625, 293);
             this.dgvrefacciones.TabIndex = 274;
@@ -2153,6 +2394,25 @@
             this.pfinalizar.TabIndex = 277;
             this.pfinalizar.Visible = false;
             // 
+            // btnfinalizar
+            // 
+            this.btnfinalizar.AutoSize = true;
+            this.btnfinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnfinalizar.BackgroundImage = global::controlFallos.Properties.Resources.test;
+            this.btnfinalizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnfinalizar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnfinalizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.btnfinalizar.FlatAppearance.BorderSize = 0;
+            this.btnfinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnfinalizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnfinalizar.Location = new System.Drawing.Point(13, 3);
+            this.btnfinalizar.Name = "btnfinalizar";
+            this.btnfinalizar.Size = new System.Drawing.Size(45, 45);
+            this.btnfinalizar.TabIndex = 238;
+            this.btnfinalizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnfinalizar.UseVisualStyleBackColor = false;
+            this.btnfinalizar.Click += new System.EventHandler(this.btnfinalizar_Click);
+            // 
             // label64
             // 
             this.label64.AutoSize = true;
@@ -2196,266 +2456,6 @@
             this.btnpdf.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.btnpdf.UseVisualStyleBackColor = false;
             this.btnpdf.Click += new System.EventHandler(this.btnpdf_Click);
-            // 
-            // btnfinalizar
-            // 
-            this.btnfinalizar.AutoSize = true;
-            this.btnfinalizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnfinalizar.BackgroundImage = global::controlFallos.Properties.Resources.test;
-            this.btnfinalizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnfinalizar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnfinalizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.btnfinalizar.FlatAppearance.BorderSize = 0;
-            this.btnfinalizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnfinalizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnfinalizar.Location = new System.Drawing.Point(13, 3);
-            this.btnfinalizar.Name = "btnfinalizar";
-            this.btnfinalizar.Size = new System.Drawing.Size(45, 45);
-            this.btnfinalizar.TabIndex = 238;
-            this.btnfinalizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnfinalizar.UseVisualStyleBackColor = false;
-            this.btnfinalizar.Click += new System.EventHandler(this.btnfinalizar_Click);
-            // 
-            // btncancelar
-            // 
-            this.btncancelar.AutoSize = true;
-            this.btncancelar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btncancelar.BackgroundImage = global::controlFallos.Properties.Resources.cross;
-            this.btncancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btncancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btncancelar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btncancelar.FlatAppearance.BorderSize = 0;
-            this.btncancelar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btncancelar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btncancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btncancelar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btncancelar.Location = new System.Drawing.Point(13, 3);
-            this.btncancelar.Name = "btncancelar";
-            this.btncancelar.Size = new System.Drawing.Size(45, 45);
-            this.btncancelar.TabIndex = 243;
-            this.btncancelar.UseVisualStyleBackColor = false;
-            this.btncancelar.Click += new System.EventHandler(this.btncancelar_Click);
-            // 
-            // btnguardar
-            // 
-            this.btnguardar.AutoSize = true;
-            this.btnguardar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnguardar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
-            this.btnguardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnguardar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnguardar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnguardar.FlatAppearance.BorderSize = 0;
-            this.btnguardar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnguardar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnguardar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnguardar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnguardar.Location = new System.Drawing.Point(12, 3);
-            this.btnguardar.Name = "btnguardar";
-            this.btnguardar.Size = new System.Drawing.Size(45, 45);
-            this.btnguardar.TabIndex = 233;
-            this.btnguardar.UseVisualStyleBackColor = false;
-            this.btnguardar.Click += new System.EventHandler(this.btnguardar_Click);
-            // 
-            // btnCancelFact
-            // 
-            this.btnCancelFact.AutoSize = true;
-            this.btnCancelFact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.BackgroundImage = global::controlFallos.Properties.Resources.cross;
-            this.btnCancelFact.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCancelFact.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelFact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.FlatAppearance.BorderSize = 0;
-            this.btnCancelFact.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelFact.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelFact.Location = new System.Drawing.Point(1014, 92);
-            this.btnCancelFact.Name = "btnCancelFact";
-            this.btnCancelFact.Size = new System.Drawing.Size(26, 30);
-            this.btnCancelFact.TabIndex = 245;
-            this.btnCancelFact.UseVisualStyleBackColor = false;
-            this.btnCancelFact.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // btnFolioFactura
-            // 
-            this.btnFolioFactura.AutoSize = true;
-            this.btnFolioFactura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.BackgroundImage = global::controlFallos.Properties.Resources.foliosFactura;
-            this.btnFolioFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnFolioFactura.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFolioFactura.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.FlatAppearance.BorderSize = 0;
-            this.btnFolioFactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFolioFactura.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFolioFactura.Location = new System.Drawing.Point(972, 92);
-            this.btnFolioFactura.Name = "btnFolioFactura";
-            this.btnFolioFactura.Size = new System.Drawing.Size(30, 30);
-            this.btnFolioFactura.TabIndex = 238;
-            this.btnFolioFactura.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnFolioFactura.UseVisualStyleBackColor = false;
-            this.btnFolioFactura.Visible = false;
-            this.btnFolioFactura.Click += new System.EventHandler(this.btnFolioFactura_Click);
-            // 
-            // btnrefacciones
-            // 
-            this.btnrefacciones.AutoSize = true;
-            this.btnrefacciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.BackgroundImage = global::controlFallos.Properties.Resources.add;
-            this.btnrefacciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnrefacciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatAppearance.BorderSize = 0;
-            this.btnrefacciones.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnrefacciones.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnrefacciones.Location = new System.Drawing.Point(1008, 60);
-            this.btnrefacciones.Name = "btnrefacciones";
-            this.btnrefacciones.Size = new System.Drawing.Size(30, 30);
-            this.btnrefacciones.TabIndex = 233;
-            this.btnrefacciones.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnrefacciones.UseVisualStyleBackColor = false;
-            this.btnrefacciones.Visible = false;
-            this.btnrefacciones.Click += new System.EventHandler(this.btnrefacciones_Click);
-            // 
-            // btnexportar
-            // 
-            this.btnexportar.AutoSize = true;
-            this.btnexportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.BackgroundImage = global::controlFallos.Properties.Resources.excel;
-            this.btnexportar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnexportar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnexportar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.FlatAppearance.BorderSize = 0;
-            this.btnexportar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnexportar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnexportar.Location = new System.Drawing.Point(19, 3);
-            this.btnexportar.Name = "btnexportar";
-            this.btnexportar.Size = new System.Drawing.Size(35, 35);
-            this.btnexportar.TabIndex = 152;
-            this.btnexportar.UseVisualStyleBackColor = false;
-            this.btnexportar.Click += new System.EventHandler(this.btnexportar_Click);
-            // 
-            // pbgif
-            // 
-            this.pbgif.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbgif.Image = global::controlFallos.Properties.Resources.loader;
-            this.pbgif.Location = new System.Drawing.Point(29, 5);
-            this.pbgif.Name = "pbgif";
-            this.pbgif.Size = new System.Drawing.Size(35, 35);
-            this.pbgif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbgif.TabIndex = 227;
-            this.pbgif.TabStop = false;
-            this.pbgif.Visible = false;
-            // 
-            // btnactualizar
-            // 
-            this.btnactualizar.AutoSize = true;
-            this.btnactualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.BackgroundImage = global::controlFallos.Properties.Resources._1491313940_repeat_82991;
-            this.btnactualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnactualizar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnactualizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.FlatAppearance.BorderSize = 0;
-            this.btnactualizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnactualizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnactualizar.Location = new System.Drawing.Point(24, 5);
-            this.btnactualizar.Name = "btnactualizar";
-            this.btnactualizar.Size = new System.Drawing.Size(35, 35);
-            this.btnactualizar.TabIndex = 151;
-            this.btnactualizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnactualizar.UseVisualStyleBackColor = false;
-            this.btnactualizar.Click += new System.EventHandler(this.btnactualizar_Click);
-            // 
-            // btnbuscar
-            // 
-            this.btnbuscar.AutoSize = true;
-            this.btnbuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.BackgroundImage = global::controlFallos.Properties.Resources.xmag_search_find_export_locate_5984;
-            this.btnbuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnbuscar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnbuscar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.FlatAppearance.BorderSize = 0;
-            this.btnbuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnbuscar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnbuscar.Location = new System.Drawing.Point(15, 9);
-            this.btnbuscar.Name = "btnbuscar";
-            this.btnbuscar.Size = new System.Drawing.Size(35, 35);
-            this.btnbuscar.TabIndex = 149;
-            this.btnbuscar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnbuscar.UseVisualStyleBackColor = false;
-            this.btnbuscar.Click += new System.EventHandler(this.btnbuscar_Click);
-            // 
-            // btnRetorno
-            // 
-            this.btnRetorno.AutoSize = true;
-            this.btnRetorno.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnRetorno.BackgroundImage = global::controlFallos.Properties.Resources.box;
-            this.btnRetorno.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnRetorno.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnRetorno.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnRetorno.FlatAppearance.BorderSize = 0;
-            this.btnRetorno.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnRetorno.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnRetorno.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnRetorno.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRetorno.Location = new System.Drawing.Point(14, 5);
-            this.btnRetorno.Name = "btnRetorno";
-            this.btnRetorno.Size = new System.Drawing.Size(45, 45);
-            this.btnRetorno.TabIndex = 233;
-            this.btnRetorno.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnRetorno.UseVisualStyleBackColor = false;
-            this.btnRetorno.Click += new System.EventHandler(this.btnRetorno_Click);
-            // 
-            // btnregresar
-            // 
-            this.btnregresar.AutoSize = true;
-            this.btnregresar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnregresar.BackgroundImage = global::controlFallos.Properties.Resources.chevron_sign_left;
-            this.btnregresar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnregresar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnregresar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnregresar.FlatAppearance.BorderSize = 0;
-            this.btnregresar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnregresar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnregresar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnregresar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnregresar.Location = new System.Drawing.Point(16, 3);
-            this.btnregresar.Name = "btnregresar";
-            this.btnregresar.Size = new System.Drawing.Size(45, 45);
-            this.btnregresar.TabIndex = 233;
-            this.btnregresar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnregresar.UseVisualStyleBackColor = false;
-            this.btnregresar.Click += new System.EventHandler(this.btnregresar_Click);
-            // 
-            // btnagregar
-            // 
-            this.btnagregar.AutoSize = true;
-            this.btnagregar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnagregar.BackgroundImage = global::controlFallos.Properties.Resources.save1;
-            this.btnagregar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnagregar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnagregar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnagregar.FlatAppearance.BorderSize = 0;
-            this.btnagregar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnagregar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnagregar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnagregar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnagregar.Location = new System.Drawing.Point(12, 3);
-            this.btnagregar.Name = "btnagregar";
-            this.btnagregar.Size = new System.Drawing.Size(45, 45);
-            this.btnagregar.TabIndex = 233;
-            this.btnagregar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnagregar.UseVisualStyleBackColor = false;
-            this.btnagregar.Click += new System.EventHandler(this.btnagregar_Click);
             // 
             // Mantenimiento
             // 
@@ -2504,6 +2504,7 @@
             this.gbbusqueda.PerformLayout();
             this.pexcel.ResumeLayout(false);
             this.pexcel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbgif)).EndInit();
             this.pactualizar.ResumeLayout(false);
             this.pactualizar.PerformLayout();
             this.pbuscar.ResumeLayout(false);
@@ -2526,7 +2527,6 @@
             this.pfinalizar.PerformLayout();
             this.pPdf.ResumeLayout(false);
             this.pPdf.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbgif)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

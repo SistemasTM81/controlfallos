@@ -33,8 +33,8 @@ namespace controlFallos
         string obtenerFolio = "select convert(concat('OC00-',right(FolioOrdCompra,1) + 1), char) from ordencompra order by idOrdCompra desc limit 1";
         string unidadMedida = "Select x1.Simbolo from cunidadmedida as x1 inner join cfamilias as x2 on x1.idunidadmedida = x2.umfkcunidadmedida inner join cmarcas as x3 on x2.idfamilia = x3.descripcionfkcfamilias inner join crefacciones as x4 on x4.marcafkcmarcas = x3.idmarca where x4.codrefaccion = ";
         List<string> lsEstatus = new List<string>();
-        string IVAd = "", proveedor = "", datosO = "", FolioR = "", departamento = "", FolioOC="", Fecha="",observacionesd="";
-        string CantidadAnterior, costoanterior, proveedoranterior, subtotalanterior, ivaanterior, totalanterior, observacionesanterior = "",costoenvioanterior;
+        string IVAd = "", proveedor = "", datosO = "", FolioR = "", departamento = "", FolioOC = "", Fecha = "", observacionesd = "";
+        string CantidadAnterior, costoanterior, proveedoranterior, subtotalanterior, ivaanterior, totalanterior, observacionesanterior = "", costoenvioanterior;
         string[] costos;
         DataTable dt = new DataTable();
         DataRow filas;
@@ -42,9 +42,9 @@ namespace controlFallos
 
         /* VAR ANTERIORES */
 
-        String estatusOCompra = "", facturaranterior = "", observacionesrefaccanterior = "", codigorefanterior = "",observacionesEditar;
+        String estatusOCompra = "", facturaranterior = "", observacionesrefaccanterior = "", codigorefanterior = "", observacionesEditar;
         int idproveedoranterior, idfacturaranterior;
-       
+
         DateTime fentregaestimadanterior;
 
         /* VARIABLES */
@@ -64,10 +64,10 @@ namespace controlFallos
         String almacenistapdf = "", autorizapdf = "", proveedorpdf = "", facturarpdf = "", unidadM = "";
 
         new menuPrincipal Owner;
-        public OrdenDeCompra(int idUsuario, int empresa, int area, Form fh,System.Drawing.Image logo,validaciones v)
+        public OrdenDeCompra(int idUsuario, int empresa, int area, Form fh, System.Drawing.Image logo, validaciones v)
         {
             this.v = v;
-             th = new Thread(new ThreadStart(v.Splash));
+            th = new Thread(new ThreadStart(v.Splash));
             th.Start();
             InitializeComponent();
             cmbEstatus.DrawItem += v.comboBoxEstatusr_DrwaItem;
@@ -79,12 +79,12 @@ namespace controlFallos
             this.area = area;
             Owner = (menuPrincipal)fh;
             pictureBox1.BackgroundImage = logo;
-           
+
         }
         void iniProveedor1() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(t1.idproveedor,char) as idunidad, convert(if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedor1, "idunidad", "Nombre", "-- SELECCIONE PROVEEDOR --"); }
         void iniProveedor2() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(t1.idproveedor,char) as idunidad, convert(if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedor2, "idunidad", "Nombre", "-- SELECCIONE PROVEEDOR --"); }
         void iniProveedor3() { v.iniCombos("SET lc_time_names = 'es_ES';select convert(t1.idproveedor,char) as idunidad, convert(if(t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedor3, "idunidad", "Nombre", "-- SELECCIONE PROVEEDOR --"); }
-        void iniTipo() { v.comboswithuot(cmbTipo, new string[] { "----Tipo De Requerimiento----", "ENTREGADA", "EN ESPERA"}); }
+        void iniTipo() { v.comboswithuot(cmbTipo, new string[] { "----Tipo De Requerimiento----", "ENTREGADA", "EN ESPERA" }); }
         public void comprativas()
         {
             v.iniCombos("select upper(nombreComparativa) as n, idcomparativa as id from comparativas where status='3';", cmbEstatus, "id", "n", "--SELECCIONE COMPARATIVA--");
@@ -122,15 +122,15 @@ namespace controlFallos
             {
                 label60.Visible = false;
                 //label61.Visible = false;
-               /* buttonActualizarN.Visible = false;
-                label49.Visible = false;*/
+                /* buttonActualizarN.Visible = false;
+                 label49.Visible = false;*/
             }
 
             if (checkBoxFechas.Checked == false)
             {
                 checkBoxFechas.ForeColor = checkBoxFechas.Checked ? System.Drawing.Color.Crimson : System.Drawing.Color.Crimson;
             }
-           
+
 
 
             //comboBoxProveedor.Enabled = false;
@@ -179,16 +179,16 @@ namespace controlFallos
             //v.iniCombos("SELECT DISTINCT UPPER(t2.nombreEmpresa) AS nombreEmpresa, t2.idempresa FROM ordencompra as t1 INNER JOIN cempresas as t2 ON t1.facturadafkcempresas = t2.idempresa GROUP BY FacturadafkCEmpresas ORDER BY nombreEmpresa ASC", comboBoxEmpresaB, "idempresa", "nombreEmpresa", "-- SELECCIONE UNA EMPRESA --");
         }
 
-       
+
 
         public void CargarProveedoresBusqueda()
         {
-           v.iniCombos("SET lc_time_names = 'es_ES'; select convert(t1.idproveedor, char) as idunidad, convert(if (t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedorB, "idUnidad", "Nombre", "-- SELECCIONE PROVEEDOR --");
+            v.iniCombos("SET lc_time_names = 'es_ES'; select convert(t1.idproveedor, char) as idunidad, convert(if (t1.empresa = '',concat(t1.aPaterno, ' ', t1.aMaterno, ' ', t1.nombres) , t1.empresa),char) as Nombre from cproveedores as t1 inner join cempresas as t2 on t1.empresaS = t2.idempresa where t1.empresaS = '" + empresa + "' order by Nombre asc", cmbProveedorB, "idUnidad", "Nombre", "-- SELECCIONE PROVEEDOR --");
         }
 
         public void limpiarRefacc()
         {
-            
+
             labelExistencia.Text = "";
             lblCantidad.Text = "";
             lblPrecio.Text = "";
@@ -220,8 +220,8 @@ namespace controlFallos
             textBoxOCompraB.Text = "";
             cmbProveedorB.SelectedIndex = 0;
             //comboBoxEmpresaB.SelectedIndex = 0;
-            dateTimePickerIni.Value = DateTime.Now;
-            dateTimePickerFin.Value = DateTime.Now;
+            //dateTimePickerIni.Value = DateTime.Now;
+            //dateTimePickerFin.Value = DateTime.Now;
         }
 
         bool pverEmpresa;
@@ -249,13 +249,13 @@ namespace controlFallos
         public void actualizarcbx()
         {
             //CargarClave();
-           /* if (dataGridViewPedOCompra.Rows.Count == 0)
-            {
-                CargarEmpresas();
-                //CargarProveedores();
-            }*/
+            /* if (dataGridViewPedOCompra.Rows.Count == 0)
+             {
+                 CargarEmpresas();
+                 //CargarProveedores();
+             }*/
             CargarEmpresasBusqueda();
-           // CargarProveedoresBusqueda();
+            // CargarProveedoresBusqueda();
         }
 
         public void mostrarexcel()
@@ -405,13 +405,13 @@ namespace controlFallos
             metodorecid();
             personafinal = dataGridViewOCompra.CurrentRow.Cells["PERSONA FINAL"].Value.ToString();
             estatusOCompra = dataGridViewOCompra.CurrentRow.Cells["ESTATUS"].Value.ToString();
-            MySqlCommand cmd = new MySqlCommand("SELECT t1.idOrdCompra, t1.FechaEntregaOCompra, COALESCE(t1.Subtotal, '0') AS Subtotal, COALESCE(t1.IVA, '0') AS IVA, COALESCE(t1.Total, '0') AS Total, COALESCE(UPPER(t1.ObservacionesOC), '') AS Observaciones, UPPER(t2.nombreEmpresa) AS NEmpresa, t1.FacturadafkCEmpresas AS EFacturar, UPPER(t3.empresa) AS Proveedor, t1.ProveedorfkCProveedores AS NProveedores, COALESCE(SUM(t4.Total), '0') AS TotalCS FROM ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor INNER JOIN detallesordencompra AS t4 ON t1.idOrdCompra = t4.OrdfkOrdenCompra WHERE t1.FolioOrdCompra = '" + labelFolioOC.Text + "' and t1.empresa='"+empresa+"'", v.c.dbconection());
+            MySqlCommand cmd = new MySqlCommand("SELECT t1.idOrdCompra, t1.FechaEntregaOCompra, COALESCE(t1.Subtotal, '0') AS Subtotal, COALESCE(t1.IVA, '0') AS IVA, COALESCE(t1.Total, '0') AS Total, COALESCE(UPPER(t1.ObservacionesOC), '') AS Observaciones, UPPER(t2.nombreEmpresa) AS NEmpresa, t1.FacturadafkCEmpresas AS EFacturar, UPPER(t3.empresa) AS Proveedor, t1.ProveedorfkCProveedores AS NProveedores, COALESCE(SUM(t4.Total), '0') AS TotalCS FROM ordencompra AS t1 INNER JOIN cempresas AS t2 ON t1.FacturadafkCEmpresas = t2.idempresa INNER JOIN cproveedores AS t3 ON t1.ProveedorfkCProveedores = t3.idproveedor INNER JOIN detallesordencompra AS t4 ON t1.idOrdCompra = t4.OrdfkOrdenCompra WHERE t1.FolioOrdCompra = '" + labelFolioOC.Text + "' and t1.empresa='" + empresa + "'", v.c.dbconection());
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
             {
                 idordencompra = Convert.ToInt32(dr.GetString("idOrdCompra"));
                 cmbEstatus.SelectedValue = Convert.ToInt32(v.getaData("select t1.idcomparativa as id from comparativas as t1 inner join ordencompra as t2 on t2.ComparativaFKComparativas=t1.idcomparativa where t2.idOrdCompra='" + idordencompra + "';").ToString());
-                
+
                 fentregaestimadanterior = Convert.ToDateTime(dr.GetString("FechaEntregaOCompra"));
                 labelSubTotalOC.Text = dr.GetString("Subtotal");
                 if (personafinal.Equals(""))
@@ -419,7 +419,7 @@ namespace controlFallos
                 else
                     textBoxIVA.Text = dr.GetString("IVA");
                 labelTotalOC.Text = dr.GetString("Total");
-                labelIVAOC.Text = (Math.Truncate((dr.GetDouble("Subtotal")*(dr.GetDouble("IVA")/100))*100) / 100).ToString("N2");
+                labelIVAOC.Text = (Math.Truncate((dr.GetDouble("Subtotal") * (dr.GetDouble("IVA") / 100)) * 100) / 100).ToString("N2");
                 textBoxObservaciones.Text = dr.GetString("Observaciones");
                 observacionesanterior = dr.GetString("Observaciones");
                 proveedoranterior = dr.GetString("Proveedor");
@@ -432,11 +432,11 @@ namespace controlFallos
             if (estatusOCompra == "FINALIZADA")
             {
                 //cbcomparativa.Enabled = comboBoxClave.Enabled = comboBoxProveedor.Enabled = false;
-               /* if (!(string.IsNullOrWhiteSpace(comboBoxFacturar.Text)))
-                {
-                    comboBoxFacturar.Enabled = true;
-                }*/
-                
+                /* if (!(string.IsNullOrWhiteSpace(comboBoxFacturar.Text)))
+                 {
+                     comboBoxFacturar.Enabled = true;
+                 }*/
+
                 if (!(string.IsNullOrWhiteSpace(textBoxObservaciones.Text)))
                 {
                     textBoxObservaciones.Enabled = true;
@@ -445,7 +445,7 @@ namespace controlFallos
                 {
                     textBoxObservaciones.Enabled = true;
                 }
-                labelSubTotalOC.Visible = labelIVAOC.Visible =labelTotalOC.Visible = labelSubTotal.Visible = true;
+                labelSubTotalOC.Visible = labelIVAOC.Visible = labelTotalOC.Visible = labelSubTotal.Visible = true;
             }
             else
             {
@@ -506,7 +506,7 @@ namespace controlFallos
             if (banderaeditar == true)
             {
                 validacionval();
-                if ((((observacionesanterior == textBoxObservaciones.Text.Trim())) ))
+                if ((((observacionesanterior == textBoxObservaciones.Text.Trim()))))
                 {
                     buttonEditar.Visible = false;
                     label8.Visible = false;
@@ -637,9 +637,9 @@ namespace controlFallos
 
         public void metodocargaorden()
         {
-           /* DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES'; SELECT t1.FolioOrdCompra AS 'ORDEN DE COMPRA', UPPER(t2.empresa) AS PROVEEDOR, UPPER(t3.nombreEmpresa) AS 'NOMBRE DE LA EMPRESA', UPPER(DATE_FORMAT(t1.FechaOCompra, '%W %d %M %Y')) AS 'FECHA', UPPER(DATE_FORMAT(t1.FechaEntregaOCompra, '%W %d %M %Y')) AS 'FECHA DE ENTREGA', t1.SUBTOTAL, cast(((t1.IVA/100)*t1.Subtotal) as decimal (18,2)) as IVA, t1.TOTAL, coalesce((UPPER(t1.ESTATUS)), '') AS ESTATUS, coalesce((SELECT UPPER(CONCAT(coalesce(t4.ApPaterno,''), ' ', coalesce(t4.ApMaterno,''), ' ', coalesce(t4.nombres,''))) FROM cpersonal AS t4 WHERE t1.PersonaFinal = t4.idPersona), '') AS 'PERSONA FINAL', UPPER(t1.ObservacionesOC) AS 'OBSERVACIONES' FROM ordencompra AS t1 LEFT JOIN cproveedores AS t2 ON t1.ProveedorfkCProveedores = t2.idproveedor INNER JOIN cempresas AS t3 ON t1.FacturadafkCEmpresas = t3.idempresa where t1.empresa='" + empresa +"'ORDER BY t1.FolioOrdCompra DESC");
-            dataGridViewOCompra.DataSource = dt;
-            v.c.dbconection().Close();*/
+            /* DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES'; SELECT t1.FolioOrdCompra AS 'ORDEN DE COMPRA', UPPER(t2.empresa) AS PROVEEDOR, UPPER(t3.nombreEmpresa) AS 'NOMBRE DE LA EMPRESA', UPPER(DATE_FORMAT(t1.FechaOCompra, '%W %d %M %Y')) AS 'FECHA', UPPER(DATE_FORMAT(t1.FechaEntregaOCompra, '%W %d %M %Y')) AS 'FECHA DE ENTREGA', t1.SUBTOTAL, cast(((t1.IVA/100)*t1.Subtotal) as decimal (18,2)) as IVA, t1.TOTAL, coalesce((UPPER(t1.ESTATUS)), '') AS ESTATUS, coalesce((SELECT UPPER(CONCAT(coalesce(t4.ApPaterno,''), ' ', coalesce(t4.ApMaterno,''), ' ', coalesce(t4.nombres,''))) FROM cpersonal AS t4 WHERE t1.PersonaFinal = t4.idPersona), '') AS 'PERSONA FINAL', UPPER(t1.ObservacionesOC) AS 'OBSERVACIONES' FROM ordencompra AS t1 LEFT JOIN cproveedores AS t2 ON t1.ProveedorfkCProveedores = t2.idproveedor INNER JOIN cempresas AS t3 ON t1.FacturadafkCEmpresas = t3.idempresa where t1.empresa='" + empresa +"'ORDER BY t1.FolioOrdCompra DESC");
+             dataGridViewOCompra.DataSource = dt;
+             v.c.dbconection().Close();*/
             DataTable dt = (DataTable)v.getData(ConsultaG + " where (date_format(t1.Fecha,'%Y-%m-%d') BETWEEN (DATE_ADD(CURDATE() , INTERVAL -1 DAY)) AND  curdate()) and t1.empresa = '" + empresa + "'  order by t1.Folio desc");
             dataGridViewOCompra.DataSource = dt;
         }
@@ -676,17 +676,17 @@ namespace controlFallos
             comboBoxClave.SelectedIndex = 0;
         }*/
 
-       /* public bool metodotxtpedcompra() // checar
-        {
-            if (dataGridViewPedOCompra.Rows.Count == 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }*/
+        /* public bool metodotxtpedcompra() // checar
+         {
+             if (dataGridViewPedOCompra.Rows.Count == 0)
+             {
+                 return true;
+             }
+             else
+             {
+                 return false;
+             }
+         }*/
 
 
         void limpia_var()
@@ -762,11 +762,11 @@ namespace controlFallos
                 row2["nombreEmpresa"] = dr1["nombreEmpresa"].ToString();
                 dt.Rows.InsertAt(row2, 1);
                 dt.Rows.InsertAt(row, 0);
-               /* comboBoxFacturar.ValueMember = "idempresa";
-                comboBoxFacturar.DisplayMember = "nombreEmpresa";
-                comboBoxFacturar.DataSource = dt;
-                comboBoxFacturar.SelectedIndex = 1;
-                comboBoxFacturar.Text = dr1["nombreEmpresa"].ToString();*/
+                /* comboBoxFacturar.ValueMember = "idempresa";
+                 comboBoxFacturar.DisplayMember = "nombreEmpresa";
+                 comboBoxFacturar.DataSource = dt;
+                 comboBoxFacturar.SelectedIndex = 1;
+                 comboBoxFacturar.Text = dr1["nombreEmpresa"].ToString();*/
             }
             dr1.Close();
             v.c.dbconection().Close();
@@ -998,14 +998,10 @@ namespace controlFallos
                 sl.SetCellValue(8, ic, column.HeaderText.ToString());
                 ic++;
 
+
             }
 
-            //Formato Estatus
 
-            //if (this.dataGridViewOCompra.Columns[e.ColumnIndex].Name == "Estatus")
-            // e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? System.Drawing.Color.Red : e.Value.ToString() == "Entregada" ? System.Drawing.Color.PaleGreen : System.Drawing.Color.LightBlue);
-
-            //Formato Estatus
 
             int ir = 9;
             foreach (DataGridViewRow row in dataGridViewOCompra.Rows)
@@ -1032,31 +1028,37 @@ namespace controlFallos
                 ir++;
                 celdaInicial++;
 
-                if (row.Cells[8].ToString() == "En Espera")
-                {
-                    ////pendiente
-
-                    SLStyle estiloEs = sl.CreateStyle();
-                    estiloEs.Font.FontColor = System.Drawing.Color.White;
-                    estiloEs.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
-                    sl.SetCellStyle("I" + celdaInicial, "I" + celdaInicial, estiloEs);
-
-                }
-                else if(row.Cells.ToString() == "Entregada")
-                {
-                    
-                    SLStyle estiloE = sl.CreateStyle();
-
-                    estiloE.Font.FontColor = System.Drawing.Color.White;
-                    estiloE.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Green, System.Drawing.Color.Green);
-                    sl.SetCellStyle("I" + celdaInicial, estiloE);
-
-                }
- 
             }
-                
+/*
+            if (dataGridViewOCompra.Rows.ToString() == "En Espera")
+            {
+                ////pendiente
 
-            
+                SLStyle estiloEs = sl.CreateStyle();
+                estiloEs.Font.FontColor = System.Drawing.Color.White;
+                estiloEs.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
+                sl.SetCellStyle("I" + celdaCabecera, "I" + celdaCabecera, estiloEs);
+                    celdaCabecera++;
+
+            }
+            else if (dataGridViewOCompra.Rows.ToString() == "Entregada")
+            {
+
+                SLStyle estiloE = sl.CreateStyle();
+
+                estiloE.Font.FontColor = System.Drawing.Color.White;
+                estiloE.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Green, System.Drawing.Color.Green);
+                sl.SetCellStyle("I" + celdaInicial, "I" + celdaInicial, estiloE);
+
+                celdaInicial++;
+            }
+*/
+            //Formato Estatus
+
+            //if (this.dataGridViewOCompra.Columns[e.ColumnIndex].Name == "Estatus")
+            // e.CellStyle.BackColor = (e.Value.ToString() == "En Espera" ? System.Drawing.Color.Red : e.Value.ToString() == "Entregada" ? System.Drawing.Color.PaleGreen : System.Drawing.Color.LightBlue);
+
+            //Formato Estatus
 
             //Nombre de la Hoja de Excel
             sl.RenameWorksheet(SLDocument.DefaultFirstSheetName, "Orden Compra");
@@ -1112,9 +1114,7 @@ namespace controlFallos
             sl.SetCellStyle("F3", estiloF);
             sl.MergeWorksheetCells("F3", "G3");
 
-/*
-            if (checkBoxFechas.Checked == true)
-            {
+
 
                 sl.SetCellValue("F4", "RANGO CONSULTA DE:");
                 SLStyle estiloF3 = sl.CreateStyle();
@@ -1150,9 +1150,8 @@ namespace controlFallos
                 fechaA.Font.FontSize = 10;
                 fechaA.Font.Bold = true;
                 sl.SetCellStyle("H5", fechaA);
-            }
-*/
-            //Obtener Fecha
+
+             //Obtener Fecha
             //var datestring = dtpFecha.Value.ToLongDateString();
 
             DateTime fecha = DateTime.Now;

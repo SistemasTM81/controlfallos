@@ -3573,6 +3573,7 @@ namespace controlFallos
 
         public void exportaExcel(DataTable dt)
         {
+
             h.Application X = new h.Application();
             X.Application.Workbooks.Add(Type.Missing);
             X.Cells.HorizontalAlignment = h.XlHAlign.xlHAlignCenter;

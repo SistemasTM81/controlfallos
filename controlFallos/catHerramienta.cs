@@ -258,6 +258,11 @@ namespace controlFallos
 
         }
 
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void label33_Click(object sender, EventArgs e)
         {
 
