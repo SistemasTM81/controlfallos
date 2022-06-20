@@ -389,6 +389,7 @@
     <Compile Include="leerHost.Designer.cs">
       <DependentUpon>leerHost.cs</DependentUpon>
     </Compile>
+    <Compile Include="mainfoReportes.cs" />
     <Compile Include="marcas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -642,6 +643,12 @@
     </Compile>
     <Compile Include="searchworkday.Designer.cs">
       <DependentUpon>searchworkday.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Serie_Llantas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Serie_Llantas.Designer.cs">
+      <DependentUpon>Serie_Llantas.cs</DependentUpon>
     </Compile>
     <Compile Include="SplashScreen.cs">
       <SubType>Form</SubType>
@@ -949,6 +956,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="searchworkday.resx">
       <DependentUpon>searchworkday.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Serie_Llantas.resx">
+      <DependentUpon>Serie_Llantas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SplashScreen.resx">
       <DependentUpon>SplashScreen.cs</DependentUpon>

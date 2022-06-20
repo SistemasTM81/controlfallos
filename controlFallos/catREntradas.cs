@@ -18,7 +18,7 @@ namespace controlFallos
         validaciones v;
         MySqlDataAdapter adaptador;
         int empresa, area, IdUsuario, total, inicio = 0;
-        string consultaGeneral = "SELECT t1.idrefaccion, t1.codrefaccion as CODIGO, t1.nombreRefaccion AS REFACCION, CONVERT(sum(replace(t2.CantidadIngresa,',','')),decimal(12,2)) AS TOTAL, t5.Simbolo AS MEDIDA,'MÁS INFORMACIÓN' FROM crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion = t2.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t1.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida";
+        string consultaGeneral = "SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT t1.idrefaccion, t1.codrefaccion as CODIGO, t1.nombreRefaccion AS REFACCION, CONVERT(sum(replace(t2.CantidadIngresa,',','')),decimal(12,2)) AS TOTAL, t5.Simbolo AS MEDIDA,'MÁS INFORMACIÓN' FROM crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion = t2.refaccionfkCRefacciones inner join cmarcas as t3 on t3.idmarca = t1.marcafkcmarcas inner join cfamilias as t4 on t4.idfamilia = t3.descripcionfkcfamilias inner join cunidadmedida as t5 on t5.idunidadmedida = t4.umfkcunidadmedida";
         string messel, cadenaBuesqueda;
         DataSet ds = new DataSet();
         DataTable dt;

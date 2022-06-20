@@ -20,6 +20,7 @@ namespace controlFallos
         validaciones v;
         int idUsuario, empresa, area;
         DataTable dt;
+        mainfoReportes mas;
 
         public masInfoES(validaciones v, int idUsuario, int empresa, int area, string cadena, string proviene)
         {
@@ -83,12 +84,45 @@ namespace controlFallos
             if (proviene.ToString().Equals("Entradas"))
             {
                 string [] cadena_corta = cadena.ToString().Split('|');
+                dgvEntrada.Columns.Add("CODIGO", "CODIGO");
+                dgvEntrada.Columns.Add("REFACCION", "REFACCION");
+                dgvEntrada.Columns.Add("CANTIDAD", "CANTIDAD");
+                dgvEntrada.Columns.Add("SIMBOLO", "SIMBOLO");
+                dgvEntrada.Columns.Add("COSTO", "COSTO UNITARIO");
+                dgvEntrada.Columns.Add("IVA", "IVA");
+                dgvEntrada.Columns.Add("SUBTOTAL", "SUBTOTAL");
+                dgvEntrada.Columns.Add("TOL", "TOTAL");
                 ConsultaEntradas("where t2.refaccionfkCRefacciones = " + cadena_corta[1].ToString()+ cadena_corta[0].ToString() + " and t1.empresa = '" + empresa + "'");
             }
-            else
+            else if(proviene.ToString().Equals("Salidas"))
             {
                 string[] cadena_corta = cadena.ToString().Split('|');
+                dgvEntrada.Columns.Add("ECO", "ECONOMICO");
+                dgvEntrada.Columns.Add("CODIGO", "CODIGO");
+                dgvEntrada.Columns.Add("REFACCION", "REFACCION");
+                dgvEntrada.Columns.Add("CANTIDAD", "CANTIDAD");
+                dgvEntrada.Columns.Add("COSTO", "COSTO UNITARIO");
+                dgvEntrada.Columns.Add("VENTA", "COSTO VENTA");
+                dgvEntrada.Columns.Add("TOL", "TOTAL");
                 ConsultaSalidas("where t1.idrefaccion = " + cadena_corta[2].ToString() + cadena_corta[0].ToString() + " and t1.empresa = '" + empresa + "'", "where t1.idrefaccion = " + cadena_corta[2].ToString() + cadena_corta[1].ToString() + " and t1.empresa = '" + empresa + "'"); 
+            }
+            else if(proviene.ToString().Equals("Unidades"))
+            {
+                dgvEntrada.Columns.Add("UNIDAD", "UNIDAD");
+                dgvEntrada.Columns.Add("FECHA", "FECHA DE REPORTE");
+                dgvEntrada.Columns.Add("KM", "KILOMETRAJE DE REPORTE");
+                dgvEntrada.Columns.Add("FALLA", "DESCRIPCION DE FALLA");
+                mas = new mainfoReportes();
+               dt = mas.obtener_eportes("where t1.FechaReporte between '2022-05-01' and '2022-05-31'and t1.TipoFallo = 1 and t2.consecutivo = 85");
+                int numFila = dt.Rows.Count;
+                dgvEntrada.Visible = true;
+                if (numFila > 0)
+                {
+                    for (int i = 0; i < numFila; i++)
+                    {
+                        dgvEntrada.Rows.Add(dt.Rows[i].ItemArray);
+                    }
+                }
             }
             
         }
@@ -112,12 +146,11 @@ namespace controlFallos
             int numFila = dt.Rows.Count;
             if (numFila > 0)
             {
-                dgvSalidas.Visible = true;
                 for (int i = 0; i < numFila; i++)
                 {
-                    dgvSalidas.Rows.Add(dt.Rows[i].ItemArray);
+                    dgvEntrada.Rows.Add(dt.Rows[i].ItemArray);
                 }
-                sumarSalidas(dgvSalidas);
+                sumarSalidas(dgvEntrada);
             }
         }
 
@@ -126,8 +159,8 @@ namespace controlFallos
             double suma = 0.0;
             foreach (DataGridViewRow row in data.Rows)
             {
-                string[] sin_simbolo = row.Cells["toal"].Value.ToString().Split('$');
-                if (row.Cells["toal"].Value != null)
+                string[] sin_simbolo = row.Cells["TOL"].Value.ToString().Split('$');
+                if (row.Cells["TOL"].Value != null)
                     suma += Convert.ToDouble(sin_simbolo[1].ToString());
             }
             lblCostoTotal.Text = lblCostoTotal.Text + " $ " + suma.ToString("n");
@@ -138,8 +171,8 @@ namespace controlFallos
             foreach (DataGridViewRow row in data.Rows)
             {
                 
-                if (row.Cells["toals"].Value != null)
-                    suma += Convert.ToDouble(row.Cells["toals"].Value);
+                if (row.Cells["TOL"].Value != null)
+                    suma += Convert.ToDouble(row.Cells["TOL"].Value);
             }
             lblCostoTotal.Text = lblCostoTotal.Text + " $ " + suma.ToString("n");
         }

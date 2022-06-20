@@ -845,6 +845,11 @@ namespace controlFallos
 
         }
 
+        private void lblsave_Click(object sender, EventArgs e)
+        {
+
+        }
+
         //void ExportarExcel()
         //{
         //    if (tbrefaccion.Rows.Count > 0)
@@ -903,7 +908,12 @@ namespace controlFallos
        
         private void button11_Click(object sender, EventArgs e)
         {
-            try
+            //metodo para saber si son llantas
+
+            TraerDescripcion();
+
+
+          /*  try
             {
                 if (!editar)
                 {
@@ -920,7 +930,7 @@ namespace controlFallos
             {
                 MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-            }
+            }*/
         }
         void  b_editar()
         {
@@ -965,22 +975,22 @@ namespace controlFallos
                                     string quees = "";
                                     if (string.IsNullOrWhiteSpace(cantidada.Text)) cantidada.Text = "0.0";
                                     decimal exist = Convert.ToDecimal(cantidada.Text) + Convert.ToDecimal(ultimacantidad);
-                                    if (v.c.insertar(@"UPDATE crefacciones SET codrefaccion =LTRIM(RTRIM('" + codrefaccion + "')), nombreRefaccion = LTRIM(RTRIM('" + nombreRefaccion + "')), modeloRefaccion =LTRIM(RTRIM('" + modeloRefaccion + "'))" + (DateTime.Parse(proxabastecimiento.Value.ToString("yyyy-MM-dd")) > DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd")) ? " , proximoAbastecimiento = '" + proxabast + "'" : "") + ",charolafkcharolas = '" + charolafkccharolas + "', existencias = '" + exist + "', marcafkcmarcas = '" + marca + "', media = '" + media + "', abastecimiento = '" + abastecimiento + "',descripcionRefaccion='" + v.mayusculas(txtdesc.Text.ToLower()) + "', CostoUni='" + CostoUni + "', proveedrofkCProveedores='" + proveedor + "',tipoMonedafkCTipoCambio='" + moneda + "', Tipo = '" + Tipo + "'  WHERE idrefaccion = '" + this.idRefaccionTemp + "'"))
-                                    {
+                                    //if (v.c.insertar(@"UPDATE crefacciones SET codrefaccion =LTRIM(RTRIM('" + codrefaccion + "')), nombreRefaccion = LTRIM(RTRIM('" + nombreRefaccion + "')), modeloRefaccion =LTRIM(RTRIM('" + modeloRefaccion + "'))" + (DateTime.Parse(proxabastecimiento.Value.ToString("yyyy-MM-dd")) > DateTime.Parse(DateTime.Today.ToString("yyyy-MM-dd")) ? " , proximoAbastecimiento = '" + proxabast + "'" : "") + ",charolafkcharolas = '" + charolafkccharolas + "', existencias = '" + exist + "', marcafkcmarcas = '" + marca + "', media = '" + media + "', abastecimiento = '" + abastecimiento + "',descripcionRefaccion='" + v.mayusculas(txtdesc.Text.ToLower()) + "', CostoUni='" + CostoUni + "', proveedrofkCProveedores='" + proveedor + "',tipoMonedafkCTipoCambio='" + moneda + "', Tipo = '" + Tipo + "'  WHERE idrefaccion = '" + this.idRefaccionTemp + "'"))
+                                  //  {
                                         if (float.Parse(cantidada.Text) > 0.0 && !string.IsNullOrWhiteSpace(folioFactura))
                                         {
-                                            centradas(CostoUni, moneda);
+                                           // centradas(CostoUni, moneda);
                                         }
-                                        var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Refacciones','" + idRefaccionTemp + "','" +codrefAnterior + ";" + nomrefanterior + ";" + modrefanterior + ";" + ultimoabastecimiento + ";" + marcaAnterior + ";" + charolaAnterior + ";" + ultimacantidad + ";" + mediaAnterior + ";" + abastecimientoAnterior + ";" + descripcionAnterior + ";" + CostoAnterior + "','" + idUsuario + "',NOW(),'Actualización de Refacción','" + observaciones + "','" + empresa + "','" + area + "')");
+                                      //  var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,motivoActualizacion,empresa,area) VALUES('Catálogo de Refacciones','" + idRefaccionTemp + "','" +codrefAnterior + ";" + nomrefanterior + ";" + modrefanterior + ";" + ultimoabastecimiento + ";" + marcaAnterior + ";" + charolaAnterior + ";" + ultimacantidad + ";" + mediaAnterior + ";" + abastecimientoAnterior + ";" + descripcionAnterior + ";" + CostoAnterior + "','" + idUsuario + "',NOW(),'Actualización de Refacción','" + observaciones + "','" + empresa + "','" + area + "')");
 
-                                         var res3 = v.c.insertar("INSERT INTO cfoliosfactura(codrefaccionfkcrefacciones, Folio, Fecha,  Empresa,usuario) VALUES((select idrefaccion from crefacciones where codrefaccion = '" + codrefaccion + "' and empresa = '" + empresa +"'), '" + txtFolioF.Text + "', now(), '" + empresa +"','" + idUsuario + "')");
+                                        // var res3 = v.c.insertar("INSERT INTO cfoliosfactura(codrefaccionfkcrefacciones, Folio, Fecha,  Empresa,usuario) VALUES((select idrefaccion from crefacciones where codrefaccion = '" + codrefaccion + "' and empresa = '" + empresa +"'), '" + txtFolioF.Text + "', now(), '" + empresa +"','" + idUsuario + "')");
                                         label40.Visible = label41.Visible = txtFolioF.Visible = false;
                                         txtFolioF.Text = "";
                                         if (pbImgRefaccion.Image !=null)
                                         {
                                             guardarImagen();
                                         }
-                                    }
+                                   // }
                                     if (edition == DialogResult.OK)
                                     {
                                         if (!yaAparecioMensaje) MessageBox.Show("Refacción Actualizada Exitosamente", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1344,5 +1354,43 @@ namespace controlFallos
         {
             v.combos_DrawItem(sender,e);
         }
+
+
+         void TraerDescripcion()
+        {
+            string[] dividir = txtnombrereFaccion.Text.ToString().Split(' ');
+            if ((dividir[0].ToString().Equals("LLANTA") || dividir[0].ToString().Equals("LLANTAS")) || (dividir[0].ToString().Equals("Llanta") || dividir[0].ToString().Equals("Llantas")))
+            {
+                Serie_Llantas series = new Serie_Llantas(v,idUsuario,empresa,area,Convert.ToDouble(cantidada.Text));
+                series.ShowDialog();
+                metodo_accion();
+            }
+            else
+            {
+                metodo_accion();
+            }
+        }
+        void metodo_accion()
+        {
+            try
+            {
+                if (!editar)
+                {
+                    insertar();
+                    // btnsave.Enabled = false;
+                }
+                else
+                {
+                    b_editar();
+                    //btnsave.Enabled = false;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, validaciones.MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
+        }
+
     }
 }
