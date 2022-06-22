@@ -44,6 +44,7 @@ namespace controlFallos
         delegate void dos();
         static bool res = true, xkList = false;
         string consultagral = "SET lc_time_names = 'es_ES';select t1.idReporteSupervicion as 'id',t1.Folio as 'FOLIO',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'ECONOMICO', upper(date_format(t1.fechareporte,'%W %d de %M del %Y')) as 'FECHA DE REPORTE',upper((select concat(coalesce(x1.appaterno,''),' ',coalesce(x1.apmaterno,''),' ',coalesce(x1.nombres,'')) from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCPersonal)) as 'SUPERVISOR',t1.KmEntrada as 'KILOMETRAJE DE UNIDAD',if(t1.tipofallo='1','CORRECTIVO',(if(t1.tipofallo='2','PREVENTIVO',(if(t1.tipofallo='3','REITERATIVO',(if(t1.tipofallo='4','REPROGRAMADO','SEGUIMIENTO'))))))) as 'TIPO DE FALLO', t1.HoraEntrada as 'HORA DEREPORTE',coalesce((select codfallo from cfallosesp as x2 where x2.idfalloEsp=t1.CodFallofkcfallosesp ),'')as 'CÓDIGO DE FALLO',coalesce(t1.DescFalloNoCod,'') as 'FALLO NO CODIFICADO',coalesce(t1.ObservacionesSupervision,'') as 'OBSERVACIONES',(select upper(concat(coalesce(x3.appaterno,''),' ',coalesce(x3.apmaterno,''),' ',coalesce(x3.nombres,''))) from cpersonal as x3 where x3.idpersona=t2.MecanicofkPersonal) as 'MÉCANICO',(select upper(x4.nombreFalloGral) from cfallosgrales as x4 where x4.idFalloGral=t2.FalloGralfkFallosGenerales) as 'GRUPO DE FALLO',if(t2.StatusRefacciones is null,'',(if(t2.StatusRefacciones=1,'SI','NO'))) as 'SE REQUIEREN REFACCIONES',if(t2.estatus is null,'',(if(t2.Estatus=1,'EN PROCESO',(if(t2.estatus=2,'REPROGRAMADA','LIBERADA'))))) as 'ESTATUS',coalesce(upper(t2.TrabajoRealizado),'') as 'TRABAJO REALIZADO' from reportesupervicion as t1 left join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion inner join cunidades as t3 on t1.UnidadfkCUnidades=t3.idunidad INNER JOIN careas AS t4 on t4.idarea=t3.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas inner join cmodelos as t6 on t3.modelofkcmodelos = t6.idmodelo ";
+
         public Mantenimiento(int idUsuario, int empresa, int area, System.Drawing.Image newimg, validaciones v)
         {
             this.v = v;
@@ -607,6 +608,7 @@ namespace controlFallos
                 sl.SetCellValue(ir, 14, row.Cells[12].Value.ToString());
                 sl.SetCellValue(ir, 15, row.Cells[13].Value.ToString());
                 sl.SetCellValue(ir, 16, row.Cells[14].Value.ToString());
+                sl.SetCellValue(ir, 17, row.Cells[15].Value.ToString());
 
 
                 ir++;
@@ -666,7 +668,7 @@ namespace controlFallos
             sl.SetCellValue("D4", "CONSULTA REPORTE DE MANTENIMIENTO");
             SLStyle estiloT = sl.CreateStyle();
             estiloT.Font.FontName = "Arial";
-            estiloT.Font.FontSize = 15;
+            estiloT.Font.FontSize = 12;
             estiloT.Font.Bold = true;
             sl.SetCellStyle("D4", estiloT);
             sl.MergeWorksheetCells("D4", "E4");
@@ -692,13 +694,13 @@ namespace controlFallos
 
             //Extraer fecha
 
-            sl.SetCellValue("F3", "FECHA/HORA DE CONSULTA:");
+            sl.SetCellValue("G3", "FECHA/HORA DE CONSULTA:");
             SLStyle estiloF = sl.CreateStyle();
             estiloF.Font.FontName = "Arial";
             estiloF.Font.FontSize = 9;
             estiloF.Font.Bold = true;
-            sl.SetCellStyle("F3", estiloF);
-            sl.MergeWorksheetCells("F3", "G3");
+            sl.SetCellStyle("G3", estiloF);
+            sl.MergeWorksheetCells("G3", "G3");
 
 
             //Obtener Fecha
@@ -725,21 +727,32 @@ namespace controlFallos
             saveFileDialog1.CheckPathExists = true;
             saveFileDialog1.DefaultExt = "*.xlsx";
             saveFileDialog1.Filter = "Archivos de Excel (*.xlsx)|*.xlsx";
+            
+             OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            
+
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
+                    inicio();
                     sl.SaveAs(saveFileDialog1.FileName);
-                    MessageBox.Show("   **ARCHIVO EXPORTADO CON EXITO**  ");
+                    termino();
+                    MessageBox.Show("   **  ARCHIVO EXPORTADO CON EXITO  **  ");
+                  // openFileDialog1.FileName = saveFileDialog1.FileName;
+                  // openFileDialog1.OpenFile();
+                  // saveFileDialog1.OpenFile();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "   **NO SE GUARGO EL ARCHIVO**   ");
-                }
+                    MessageBox.Show(ex.Message, "   **  NO SE GUARGO EL ARCHIVO  **   ");
+                } 
             }
             //Directorio para Guardar el Excel
         }
 
+       
+        
         /*////////////////////////////////////////////*/
         private void btnpdf_Click(object sender, EventArgs e)
         {

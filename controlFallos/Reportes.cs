@@ -685,11 +685,11 @@ namespace controlFallos
                 try
                 {
                     sl.SaveAs(saveFileDialog1.FileName);
-                    MessageBox.Show("**ARCHIVO EXPORTADO CON EXITO**");
+                    MessageBox.Show("   **  ARCHIVO EXPORTADO CON EXITO  **");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "**NO SE GUARGO EL ARCHIVO**");
+                    MessageBox.Show(ex.Message, "   **  NO SE GUARGO EL ARCHIVO  **");
                 }
             }
             //Directorio para Guardar el Excel
@@ -783,30 +783,30 @@ namespace controlFallos
             //ms.Close();
             //ba = ms.ToArray();
             // }
-          /*  byte[] ba = null;
+            /*  byte[] ba = null;
 
-            var res = v.getaData("SELECT COALESCE(logo,'') FROM cempresas WHERE idempresa='3'").ToString();
+              var res = v.getaData("SELECT COALESCE(logo,'') FROM cempresas WHERE idempresa='3'").ToString();
 
-            if (res == "")
-            {
-                if (empresa == 2)
-                    ba = Convert.FromBase64String(v.tri);
+              if (res == "")
+              {
+                  if (empresa == 2)
+                      ba = Convert.FromBase64String(v.tri);
 
-                else if (empresa == 3)
-                    ba = Convert.FromBase64String(v.trainsumos);
+                  else if (empresa == 3)
+                      ba = Convert.FromBase64String(v.trainsumos);
 
-            }
-            else
-            {
-                System.Drawing.Image temp = v.StringToImage2(res);
-                temp = v.CambiarTamanoImagen(temp, 50, 50);
-                ba = Convert.FromBase64String(v.SerializarImg(temp));
-            }
+              }
+              else
+              {
+                  System.Drawing.Image temp = v.StringToImage2(res);
+                  temp = v.CambiarTamanoImagen(temp, 50, 50);
+                  ba = Convert.FromBase64String(v.SerializarImg(temp));
+              }
 
-            SLPicture pic = new SLPicture(ba, DocumentFormat.OpenXml.Packaging.ImagePartType.Png);
-            pic.SetPosition(0, 0);
-            pic.ResizeInPixels(400, 250);
-            sl.InsertPicture(pic);*/
+              SLPicture pic = new SLPicture(ba, DocumentFormat.OpenXml.Packaging.ImagePartType.Png);
+              pic.SetPosition(0, 0);
+              pic.ResizeInPixels(400, 250);
+              sl.InsertPicture(pic);*/
             //Importar imagen
 
 
@@ -931,6 +931,7 @@ namespace controlFallos
 
             //Extraer fecha
 
+            //Guardar el Excel
             //Directorio para Guardar el Excel
 
             SaveFileDialog saveFileDialog1 = new SaveFileDialog();
@@ -943,19 +944,19 @@ namespace controlFallos
                 try
                 {
                     sl.SaveAs(saveFileDialog1.FileName);
-                    MessageBox.Show("**ARCHIVO EXPORTADO CON EXITO**");
+                    MessageBox.Show("   **  ARCHIVO EXPORTADO CON EXITO  **   ");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "**NO SE GUARGO EL ARCHIVO**");
+                    MessageBox.Show(ex.Message, "   **  NO SE GUARGO EL ARCHIVO  **   ");
                 }
             }
             //Directorio para Guardar el Excel
 
+
             buttonExcel.Visible = false;
             label35.Visible = false;
         }
-
 
         private void cmbBuscarUnidad_DrawItem(object sender, DrawItemEventArgs e)
         {
