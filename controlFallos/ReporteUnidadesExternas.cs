@@ -21,10 +21,35 @@ namespace controlFallos
 {
     public partial class ReporteUnidadesExternas : Form
     {
+        public void ubica()
+        {
+            pPdf.Location = new Point(gbxbusqueda.Location.X + gbxbusqueda.Width + 10, gbxbusqueda.Location.Y); pguardar.Location = new Point(pPdf.Location.X + pPdf.Width + 10, gbxbusqueda.Location.Y); pfinalizar.Location = new Point(pguardar.Location.X + pguardar.Width + 10, gbxbusqueda.Location.Y); pcancelar.Location = new Point(pfinalizar.Location.X + pfinalizar.Width + 10, gbxbusqueda.Location.Y);
+            gbrefacciones.Location = new Point(gbxDiag.Location.X, 11);
+        }
 
         validaciones v;
-        int idUsuario, empresa, area;
+        int idUsuario, empresa, area, EstatusAnterior;
         conexion con;
+
+        public ReporteUnidadesExternas(int idUsuario, int empresa, int area, validaciones v)
+        {
+            InitializeComponent();
+            this.idUsuario = idUsuario;
+            this.empresa = empresa;
+            this.area = area;
+            this.v = v;
+
+            DateTime fecha = DateTime.Now;
+            tbxHoraEnvio.Text = fecha.ToString();
+
+            cmbEstatus1.DrawItem += v.combos_DrawItem;
+            EstatusRepa.DrawItem += v.combos_DrawItem;
+            cmbEstatus.DrawItem += v.combos_DrawItem;
+            cmbTipoR.DrawItem += v.combos_DrawItem;
+            cmbEstRep.DrawItem += v.combos_DrawItem;
+            cmbRefacciones1.DrawItem += v.combos_DrawItem;
+            cmbReTip.DrawItem += v.combos_DrawItem;
+        }
 
         private void cboxRango_CheckedChanged(object sender, EventArgs e)
         {
@@ -43,11 +68,6 @@ namespace controlFallos
         private void btnpdf_Click(object sender, EventArgs e)
         {
            // pdf();
-        }
-
-        private void btnguardar_Click(object sender, EventArgs e)
-        {
-
         }
                                                                             /*/////////////////////PRUEBAS////////////////////*/
         private void button1_Click(object sender, EventArgs e)
@@ -91,158 +111,78 @@ namespace controlFallos
             //eststus reparacion
             v.comboswithuot(cmbEstRep, new string[] { "--seleccione un estatus--", "en proceso", "reprogramada", "liberada" });
             v.comboswithuot(EstatusRepa, new string[] { "--seleccione un estatus--", "en proceso", "reprogramada", "liberada", });
+            //empresa
+            v.comboswithuot(cbxEmpresaS, new string[] { "--seleccione una empresa--", "atreyo tour", "browser", "cometa de oro", "nezahualpilli", "travelers" });
+            v.comboswithuot(cbxSempresa, new string[] { "--seleccione una empresa--", "atreyo tour", "browser", "cometa de oro", "nezahualpilli", "travelers" });
         }
 
         private void cmbmes1_DrawItem(object sender, DrawItemEventArgs e)
         {
-            v.combos_DrawItem(sender, e);
+            pintarcombos(sender, e);
         }
 
         private void cmbEstatus_DrawItem(object sender, DrawItemEventArgs e)
         {
-            v.combos_DrawItem(sender, e);
-        }
-
-        private void cmbTipoD_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            v.combos_DrawItem(sender, e);
-        }
-
-        private void cmbEstatus1_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            v.combos_DrawItem(sender, e);
-        }
-
-        private void cmbRefacciones1_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            v.combos_DrawItem(sender, e);
+            pintarcombos(sender, e);
         }
 
         private void cmbDiagTip_DrawItem(object sender, DrawItemEventArgs e)
         {
-            v.combos_DrawItem(sender, e);
+            pintarcombos(sender, e);
         }     
-
-        private void cmbEstRep_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            v.combos_DrawItem(sender, e);
-        }
 
         private void EstatusRepa_DrawItem(object sender, DrawItemEventArgs e)
         {
+            pintarcombos(sender, e);
+        }
+
+        private void cmbTipoR_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            pintarcombos(sender, e);
+        }
+
+        private void cmbRefacciones1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            pintarcombos(sender, e);
+        }
+
+        private void cmbEstatus1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            pintarcombos(sender, e);
+        }
+
+        private void cmbEstRep_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            pintarcombos(sender, e);
+        }
+
+        private void cmbUnidad1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            pintarcombos(sender, e);
+        }
+
+        private void cmbMecanicob1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            pintarcombos(sender, e);
+        }
+
+        private void cbxSempresa_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            pintarcombos(sender, e);
+        }
+
+        private void cbxEmpresaS_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            pintarcombos(sender, e);
+        }
+
+        private void pintarcombos(object sender, DrawItemEventArgs e)
+        {
             v.combos_DrawItem(sender, e);
         }
 
-        private void tbxFolio_TextChanged(object sender, EventArgs e)
-        {
 
-        } 
-           
-  
         /*PRUEBA CONEXION A BASE DE DATOS*/
-        private void btnbuscar_Click(object sender, EventArgs e)
-        {
-           /* string folio = txtfoliob.Text;
-            MySqlDataReader reader = null;
-
-            string sql = "select FolioUE from reporteuniexternas WHERE FolioUE LIKE'" + folio + "'"; //LIMIT 1
-
-            // con.dbcon.Open(); con.dbconection();
-            MySqlConnection conexion = v.c.dbconection();
-            conexion.Open();
-            try
-            {
-                
-                MySqlCommand comando = new MySqlCommand(sql, conexion);
-                reader = comando.ExecuteReader();
-                
-
-                if (reader.HasRows)
-                {
-                    while (reader.Read())
-                    {
-                        txtfoliob.Text = reader.GetString(0);
-                    }
-                }
-                else
-                {
-
-                    MessageBox.Show("No se encontraron Datos");
-
-                }
-
-            }
-            catch (MySqlException ex)
-            {
-
-                MessageBox.Show("Error" + ex.Message);
-
-            }
-            finally
-            {
-                conexion.Close();
-            }
-
-            */
-        }
-
-        
-       private void txtFallos_TextChanged(object sender, EventArgs e, object txtSupervisor)
-       {
-           /* if (txtSupervisor.Focused)
-                txtSupervisor_Validated(sender, e);
-            if(peditar & editar)
-                pguardar.Visible = cambios() && !finaliza() ? true : false);
-            int EstatusAnterior = 0;
-            if (pinsertar %% EstatusAnterior != 3)
-                pfinalizar.Visible = (!finaliza() ? true : false;
-            ubica();*/
-        }
-        private void ubica()
-        {
-            throw new NotImplementedException();
-        }
-
-        private bool finaliza()
-        {
-            throw new NotImplementedException();
-        }
-
-        private void txtSupervisor_Validated(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        bool editar;
-        private readonly object MessageboxButtons;
-
-        public bool peditar { get; private set; }
-        public int pinsertar { get; private set; }
-        public Thread excel { get; private set; }
-
-
-
-        //boton cancelar
-        private void btncancelar_Click(object sender, EventArgs e)
-        {
-            if (!cambios())
-                cancelar();
-          else   if (MessageBox.Show ("Desea " + (editar ? "¿guardar los cambios?" : "¿concluir con el registro?"),
-                                      validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo,
-                                       MessageBoxIcon.Question) == DialogResult.No)
-                cancelar();
-         
-        }
-        private bool cambios()
-        {
-            throw new NotImplementedException();
-        }
-
-
-        private void cancelar()
-        {
-            throw new NotImplementedException();
-        }
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
@@ -250,42 +190,26 @@ namespace controlFallos
             button2.Visible = true;
         }
 
-        private void btnexportar_Click(object sender, EventArgs e)
+        private void btnrefacciones_Click(object sender, EventArgs e)
         {
-            excel = new Thread(new ThreadStart(exportar_excel));
-            excel.Start();
+            gbxDiag.Visible = !(gbrefacciones.Visible = true);
+            v.iniCombos("select " + v.c.fieldscrefacciones[0] + " as id,upper(" + v.c.fieldscrefacciones[2] + ") as nombre from crefacciones where " + v.c.fieldscrefacciones[13] + "='1' and empresa='" + empresa + "' order by nombre asc;", cmbrefaccion, "id", "nombre", "--seleccione--");
+            pguardar.Visible = false;
+            ubica();
         }
 
-        private void exportar_excel()
+        private void cmbRefacciones1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            if (cmbRefacciones1.SelectedIndex > 0 && EstatusAnterior < 3)
+                txtfoliof.Enabled = btnrefacciones.Visible = (Convert.ToInt32(cmbRefacciones1.SelectedValue) == 1 ? true : false);
+            txtfoliof.Enabled = numUpDownDE.Enabled = numUpDownHASTA.Enabled = LBxRefacc.Enabled = btnFolioFactura.Enabled = btnCancelFact.Enabled = (cmbRefacciones1.SelectedIndex == 1) ? true : false;
         }
-
-        void inicio()
-        {
-            btnexportar.Visible = !(pbgif.Visible = true);
-            lblexcel.Text = "Exportando";
-        }
-
-        void termino()
-        {
-            lblexcel.Text = "Exportar";
-            bool aux = false;
-            bool   isexporting = false;
-            if (!aux)
-                pexcel.Visible = false;
-            else
-                btnexportar.Visible = true;
-            pbgif.Visible = isexporting = aux = false;
-        }
-
-
-
 
         /*/////////////////////PRUEBAS//////////////////*/
         private void ReporteUnidadesExternas_Load(object sender, EventArgs e)
         {
             combo();
+            busqueda();
         }
 
         /* void pdf()
@@ -343,21 +267,13 @@ namespace controlFallos
              }
          }*/
 
-    
-
-        public ReporteUnidadesExternas(int idUsuario, int empresa, int area, validaciones v)
+        void busqueda()
         {
-            InitializeComponent();
-            this.idUsuario = idUsuario;
-            this.empresa = empresa;
-            this.area = area;
-            this.v = v;
-
+            v.iniCombos("SELECT t1." + v.c.fieldscunidades[0] + ",concat(t2." + v.c.fieldscareas[2] + ",LPAD(" + v.c.fieldscunidades[1] + ",4,'0')) as ECo FROM cunidades as t1 INNER JOIN careas as t2 ON t1." + v.c.fieldscunidades[3] + "= t2." + v.c.fieldscareas[0] + " order by eco;", cmbUnidad1, "idunidad", "ECo", "--SELECCIONE UNIDAD--");
+            
+            v.iniCombos("select t1." + v.c.fieldscpersonal[0] + " as id, upper(concat(coalesce(t1." + v.c.fieldscpersonal[2] + ",''),' ',coalesce(t1." + v.c.fieldscpersonal[3] + ",''),' ',t1." + v.c.fieldscpersonal[4] + ")) as nombre from cpersonal as t1 inner join puestos as t2 on t2." + v.c.fieldspuestos[0] + "=t1." + v.c.fieldscpersonal[5] + " where t2." + v.c.fieldspuestos[1] + " like '%Mecánico%'", cmbMecanicob1, "id", "nombre", "--SELECCIONE UN MECÁNICO");
         }
 
-
-
-        
     }
   }
-/*ACTUALIZACION 26-05-2022 REPORTE UNIDADES EXTERNAS*/
+/*ACTUALIZACION 26-06-2022 REPORTE UNIDADES EXTERNAS*/
