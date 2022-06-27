@@ -105,6 +105,7 @@ namespace controlFallos
                 lblNomRef.Text = seprar[0].ToString();
                 lblMedida.Text = seprar[1].ToString();
                 existencia = Convert.ToDouble(seprar[2].ToString());
+                TraerDescripcion();
             }
 
 
@@ -143,7 +144,14 @@ namespace controlFallos
         {
             if (v.ValidarCantidad(codigo, cantidad, empresa))
             {
-                Guardar();
+                if (cmbllantas.Visible == false)
+                {
+                    Guardar();
+                }
+                else
+                {
+                    Guardar_llantas();
+                }
             }
             else
             {
@@ -151,27 +159,38 @@ namespace controlFallos
             }
             
         }
+        void agregarData()
+        {
+            if (dgImprimir.Rows.Count == 0)
+            {
+                dgImprimir.Columns.Add("ECO", "ECONOMICO");
+                dgImprimir.Columns.Add("COD", "CODIGO");
+                dgImprimir.Columns.Add("NOMBRE", "NOMBRE REFACCION");
+                dgImprimir.Columns.Add("CANTIDAD", "CANTIDAD");
+                dgImprimir.Columns.Add("UNIDAD", "UNIDAD MEDIDA");
+                dgImprimir.Columns.Add("FECHA", "FECHA");
+                dgImprimir.Columns.Add("MAN", "MANTENIMIENTO");
+                dgImprimir.Columns.Add("ALMACEN", "PERSONA ENTREGA");
+            }
+            dgImprimir.Rows.Add(cmbUnidad.Text, txtcodigo.Text, lblNomRef.Text, txtCantidad.Text, lblMedida.Text, dtFecha.Value.ToString("yyyy-MM-dd"), Mecanico.ToString(), lblNomUsuario.Text);
+        }
         public void Guardar()
         {
-            
-
             if (v.validadOtros(txtcodigo.Text, txtCantidad.Text, txtDispenso.Text, cmbUnidad.SelectedValue.ToString(), lblNomRef.Text, Mecanico.ToString(), textBoxObservaciones.Text, Convert.ToInt32(cmbSalida.SelectedValue), existencia))
             {
                 double existencianueva = existencia - Convert.ToDouble(txtCantidad.Text);
                 v.Carroceros("insert into ccarrocero (refaccionfkCRefacciones, unidadfkCUnidades, CantidadEntregada,usuariofkCPersonal,FechaHora,Empresa,mecanico,observacion, TipoSalida) value ((Select idrefaccion from crefacciones where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'), '" + cmbUnidad.SelectedValue.ToString() + "', '" + txtCantidad.Text + "', '" + idEntrega.ToString() + "' , now(), '" + empresa + "', '" + Mecanico.ToString() + "','" + textBoxObservaciones.Text + "', '" + cmbSalida.SelectedValue + "')");
                 v.CarroceroE("update crefacciones  set existencias='" + existencianueva + "' Where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'");
                 MessageBox.Show("Refaccion agregada correctamente", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
+                agregarData();
                 var selectedOption = MessageBox.Show("¿Desea continuar creando folios de la unidad actual?", "¡¡IMPORTANTE!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (selectedOption == DialogResult.Yes)
                 {
-                    dgImprimir.Rows.Add(cmbUnidad.Text, txtcodigo.Text, lblNomRef.Text, txtCantidad.Text, lblMedida.Text, dtFecha.Value.ToString("yyyy-MM-dd"), Mecanico.ToString(), lblNomUsuario.Text);
                     txtCantidad.Text = txtcodigo.Text = txtDispenso.Text = lblNomRef.Text = lblNomUsuario.Text = "";
                     cmbUnidad.Enabled = false;
                 }
                 else
                 {
-                    dgImprimir.Rows.Add(cmbUnidad.Text, txtcodigo.Text, lblNomRef.Text, txtCantidad.Text, lblMedida.Text, dtFecha.Value.ToString("yyyy-MM-dd"),Mecanico.ToString() ,lblNomUsuario.Text);
                     unidadImprime = cmbUnidad.Text;
                     Expota_PDF();
                     limpiar();
@@ -179,6 +198,51 @@ namespace controlFallos
 
             }
         }
+
+        void agregarDatal()
+        {
+            if (dgImprimir.Rows.Count == 0)
+            {
+                dgImprimir.Columns.Add("ECO", "ECONOMICO");
+                dgImprimir.Columns.Add("COD", "CODIGO");
+                dgImprimir.Columns.Add("NOMBRE", "NOMBRE REFACCION");
+                dgImprimir.Columns.Add("CANTIDAD", "CANTIDAD");
+                dgImprimir.Columns.Add("UNIDAD", "UNIDAD MEDIDA");
+                dgImprimir.Columns.Add("SERIE", "SERIE");
+                dgImprimir.Columns.Add("FECHA", "FECHA");
+                dgImprimir.Columns.Add("MAN", "MANTENIMIENTO");
+                dgImprimir.Columns.Add("ALMACEN", "PERSONA ENTREGA");
+            }
+            dgImprimir.Rows.Add(cmbUnidad.Text, txtcodigo.Text, lblNomRef.Text, txtCantidad.Text, lblMedida.Text, cmbllantas.Text, dtFecha.Value.ToString("yyyy-MM-dd"), Mecanico.ToString(), lblNomUsuario.Text);
+        }
+        public void Guardar_llantas()
+        {
+            if (v.validadOtros(txtcodigo.Text, txtCantidad.Text, txtDispenso.Text, cmbUnidad.SelectedValue.ToString(), lblNomRef.Text, Mecanico.ToString(), textBoxObservaciones.Text, Convert.ToInt32(cmbSalida.SelectedValue), existencia))
+            {
+                double existencianueva = existencia - Convert.ToDouble(txtCantidad.Text);
+                v.Carroceros("insert into ccarrocero (refaccionfkCRefacciones, unidadfkCUnidades, CantidadEntregada,usuariofkCPersonal,FechaHora,Empresa,mecanico,observacion, seriellantas, TipoSalida) value ((Select idrefaccion from crefacciones where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'), '" + cmbUnidad.SelectedValue.ToString() + "', '" + txtCantidad.Text + "', '" + idEntrega.ToString() + "' , now(), '" + empresa + "', '" + Mecanico.ToString() + "','" + textBoxObservaciones.Text + "', '"+ cmbllantas.SelectedValue + "','" + cmbSalida.SelectedValue + "')");
+               // v.CarroceroE("update crefacciones  set existencias='" + existencianueva + "' Where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'");
+                v.CarroceroE("update cseries_llantas  set unidadfkcunidad='" + cmbUnidad.SelectedValue.ToString() + "', colocada = 1 Where idcseries_llantas = '" + cmbllantas.SelectedValue + "'"); ;
+                MessageBox.Show("Refaccion agregada correctamente", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                agregarDatal();
+                var selectedOption = MessageBox.Show("¿Desea continuar creando folios de la unidad actual?", "¡¡IMPORTANTE!!", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (selectedOption == DialogResult.Yes)
+                {
+                    
+                    txtCantidad.Text = txtcodigo.Text = txtDispenso.Text = lblNomRef.Text = lblNomUsuario.Text = "";
+                    cmbUnidad.Enabled = false;
+                }
+                else
+                {
+                    unidadImprime = cmbUnidad.Text;
+                    Expota_PDF();
+                    limpiar();
+
+                }
+
+            }
+        }
+
         public void cargarDatos()
         {
             MySqlDataAdapter DT = new MySqlDataAdapter("Select convert(concat(t1.consecutivo, '-', t1.descripcioneco),char) as Eco, t3.codrefaccion as Codigo, t3.nombreRefaccion as Nombre, t2.CantidadEntregada as Cantidad, t2.FechaHora as Fecha, t4.usuario as Entrega from cunidades as t1 inner join ccarrocero as t2 on t1.idunidad = t2.unidadfkCUnidades inner join crefacciones as t3 on t3.idrefaccion = t2.refaccionfkCRefacciones inner join datosistema as t4 on t4.usuariofkcpersonal = t2.usuariofkCPersonal where left(t2.FechaHora,10) = curdate()", v.c.dbconection());
@@ -521,6 +585,31 @@ namespace controlFallos
         {
             v.combos_DrawItem(sender, e);
         }
-        
+
+        void TraerDescripcion()
+        {
+            string[] dividir = lblNomRef.Text.ToString().Split(' ');
+            if ((dividir[0].ToString().Equals("LLANTA") || dividir[0].ToString().Equals("LLANTAS")) || (dividir[0].ToString().Equals("Llanta") || dividir[0].ToString().Equals("Llantas")))
+            {
+                lblllantas.Visible = cmbllantas.Visible = true;
+                Consulta_Llantas(txtcodigo.Text);
+            }
+            else
+            {
+                lblllantas.Visible = cmbllantas.Visible = false;
+            }
+        }
+        void Consulta_Llantas(string codigo)
+        {
+            DataTable dt = (DataTable)v.getData("SET NAMES 'utf8';SET lc_time_names = 'es_ES';SELECT convert(t1.idcseries_llantas,char) as id, convert(serie, char) as 'serie' from cseries_llantas as t1 inner join crefacciones as t2 on t1.refaccionfkcrefacciones = t2.idrefaccion where t1.colocada = 0 and t2.codrefaccion = '" + codigo + "'");
+            DataRow nuevaFila = dt.NewRow();
+            nuevaFila["id"] = 0;
+            nuevaFila["serie"] = "--SELECCIONE SERIE--".ToUpper();
+            dt.Rows.InsertAt(nuevaFila, 0);
+            cmbllantas.DisplayMember = "serie";
+            cmbllantas.ValueMember = "id";
+            cmbllantas.DataSource = dt;
+        }
+
     }
 }
