@@ -146,7 +146,7 @@ namespace controlFallos
                 pguardar.Visible = (cambios() && !finaliza() ? true : false);
             if (pinsertar && EstatusAnterior != 3)
                 pfinalizar.Visible = (finaliza() ? true : false);
-            ubica();
+            ubica();  
         }
 
         void cargardatos()
