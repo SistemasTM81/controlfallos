@@ -221,7 +221,7 @@ namespace controlFallos
             {
                 double existencianueva = existencia - Convert.ToDouble(txtCantidad.Text);
                 v.Carroceros("insert into ccarrocero (refaccionfkCRefacciones, unidadfkCUnidades, CantidadEntregada,usuariofkCPersonal,FechaHora,Empresa,mecanico,observacion, seriellantas, TipoSalida) value ((Select idrefaccion from crefacciones where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'), '" + cmbUnidad.SelectedValue.ToString() + "', '" + txtCantidad.Text + "', '" + idEntrega.ToString() + "' , now(), '" + empresa + "', '" + Mecanico.ToString() + "','" + textBoxObservaciones.Text + "', '"+ cmbllantas.SelectedValue + "','" + cmbSalida.SelectedValue + "')");
-               // v.CarroceroE("update crefacciones  set existencias='" + existencianueva + "' Where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'");
+                v.CarroceroE("update crefacciones  set existencias='" + existencianueva + "' Where codrefaccion = '" + txtcodigo.Text + "' and empresa = '" + empresa + "'");
                 v.CarroceroE("update cseries_llantas  set unidadfkcunidad='" + cmbUnidad.SelectedValue.ToString() + "', colocada = 1 Where idcseries_llantas = '" + cmbllantas.SelectedValue + "'"); ;
                 MessageBox.Show("Refaccion agregada correctamente", "EXITO", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 agregarDatal();
@@ -390,6 +390,10 @@ namespace controlFallos
             while (dgImprimir.RowCount > 0)
             {
                 dgImprimir.Rows.Remove(dgImprimir.CurrentRow);
+            }
+            for (int i = dgImprimir.Columns.Count - 1; i >= 0; i--)
+            {
+                dgImprimir.Columns.RemoveAt(i);
             }
             cmbUnidad.Enabled = true;
             cargaEcoBusq();

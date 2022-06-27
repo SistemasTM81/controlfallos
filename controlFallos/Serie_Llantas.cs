@@ -47,7 +47,7 @@ namespace controlFallos
                 string a = v.getaDataR("SET NAMES 'utf8';SET lc_time_names = 'es_ES';select idcseries_llantas from cseries_llantas  where serie ='" + txtSeries.Text + "'").ToString();
                 if (a.ToString().Equals(""))
                 {
-                    v.c.insertar("INSERT INTO cseries_llantas(refaccionfkcrefacciones,serie, FechaHora) values ('" + codigo.ToString() + "','" + txtSeries.Text + "', now())");
+                    v.c.insertar("INSERT INTO cseries_llantas(refaccionfkcrefacciones,serie, FechaHora) values ((select idrefaccion from crefacciones where codrefaccion = '" + codigo.ToString() + "'and empresa = 3),'" + txtSeries.Text + "', now())");
                     Contador++;
                     Limpiar();
                 }
