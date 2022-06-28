@@ -1265,10 +1265,7 @@ namespace controlFallos
 
         private void dgvrefacciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (this.dgvrefacciones.Columns[e.ColumnIndex].Name == "EXISTENCIA")
-                e.CellStyle.BackColor = (e.Value.ToString() == "EXISTENCIA" ? System.Drawing.Color.PaleGreen : e.Value.ToString() == "SIN EXISTENCIA" ? System.Drawing.Color.LightCoral : e.Value.ToString() == "INCOMPLETO" ? System.Drawing.Color.Orange : System.Drawing.Color.Khaki);
-            if (this.dgvrefacciones.Columns[e.ColumnIndex].Name == "ESTATUS RETORNO")
-                e.CellStyle.BackColor = (e.Value.ToString() == "ENVIA" ? System.Drawing.Color.White : e.Value.ToString() == "SIN LECTURA" ? System.Drawing.Color.Aqua : e.Value.ToString() == "EVALUANDO" ? System.Drawing.Color.Aquamarine : e.Value.ToString() == "CORRECTO" ? System.Drawing.Color.GreenYellow : e.Value.ToString() == "INCORRECTO" ? System.Drawing.Color.Red : System.Drawing.Color.LightSlateGray);
+
         }
 
         private void dgvreportes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)

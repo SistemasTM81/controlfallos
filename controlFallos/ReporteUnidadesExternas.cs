@@ -29,13 +29,16 @@ namespace controlFallos
         bool pinsertar { get; set; }
         bool peditar { get; set; }
 
-        bool editar, cambiosEnFolios = false;
+        bool editar, cambiosEnFolios = false, editarRefaccion, EnviarAlmacen = false;
 
         validaciones v;
         conexion con;
 
-        int idUsuario, empresa, area, EstatusAnterior, idmecanico, idmecanicoApoyo, idmecaniAnterior, idmecanicoapoyoAnterior, idreporte, retornos = 0, conteoListFolios = 0;
-        string observacionesAnterior, folioAnterior, trabajoAnterior;
+        int idUsuario, empresa, area, EstatusAnterior, idmecanico, idmecanicoApoyo, idmecaniAnterior, idmecanicoapoyoAnterior, idreporte, retornos = 0, conteoListFolios = 0, idrefaccionAnterior, cantidadAnterior, idref, entregaRefacciones = 0;
+
+        string observacionesAnterior, folioAnterior, trabajoAnterior, RefaccionesSolicitadas = "";
+
+        string[] ArraryInformativo;
 
 
 
@@ -311,6 +314,190 @@ namespace controlFallos
             idmecanicoApoyo = (Convert.ToInt32(valoreslk.Length) > 1) ? Convert.ToInt32(valoreslk[0]) : 0;
             lblMeca2.Text = (Convert.ToInt32(valoreslk.Length) > 1) ? valoreslk[1] : "";
             mecanicosiguales(txtMeca2, lblMeca2);
+        }
+
+        private void btnregresar_Click(object sender, EventArgs e)
+        {
+            gbrefacciones.Visible = !(gbxDiag.Visible = true);
+            cmbRefacciones1.Enabled = (Convert.ToInt32(v.getaData("select count(*)  from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "';")) == 0 ? true : false);
+            limpiarRefaccion();
+            pguardar.Visible = true;
+            pRetorno.Visible = false;
+            ubica();
+        }
+
+        void cargarrefacciones()
+        {
+            MySqlDataAdapter r = new MySqlDataAdapter("select t1." + v.c.fieldspedidosrefaccion[0] + ", t1." + v.c.fieldspedidosrefaccion[2] + " as 'NÚMERO',upper(t2." + v.c.fieldscrefacciones[2] + ") as 'REFACCIÓN',t1." + v.c.fieldspedidosrefaccion[7] + " as 'CANTIDAD', if(t2.existencias >= Cantidad, 'EXISTENCIA','SIN EXISTENCIA') as 'EXISTENCIA',t1." + v.c.fieldspedidosrefaccion[9] + " as 'CANTIDAD ENTREGADA',UPPER((select if(envio='0', 'ENVIA', if(seen='0', 'Sin Lectura', if(AutorizaAlmacen ='0', 'Evaluando', if(AutorizaAlmacen ='1', 'Correcto', 'Incorrecto')))) from refacciones_standby as x1 where t1.idpedRef = x1.refaccionfkpedidosRefaccion)) as 'ESTATUS RETORNO' from pedidosrefaccion as t1 inner join crefacciones as t2 on t1." + v.c.fieldspedidosrefaccion[3] + "=t2." + v.c.fieldscrefacciones[0] + " where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "' ORDER BY t1.NumRefacc asc;", v.c.dbconection());
+            DataSet ds = new DataSet();
+            r.Fill(ds);
+            dgvrefacciones.DataSource = ds.Tables[0];
+            dgvrefacciones.Columns[0].Visible = false;
+            v.c.dbconection().Close();
+            dgvrefacciones.ClearSelection();
+        }
+
+        private void btnagregar_Click(object sender, EventArgs e)
+        {
+            //AGREGA REFACCIONES
+            if (!editarRefaccion)
+            {
+                int n = Convert.ToInt32(v.getaData("select count(" + v.c.fieldspedidosrefaccion[2] + ") from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "';"));
+                n++;
+                if (v.validarefacicion(Convert.ToInt32(cmbrefaccion.SelectedValue), txtcantidad.Text))
+                    if (v.c.insertar("insert into pedidosrefaccion (" + v.c.fieldspedidosrefaccion[1] + "," + v.c.fieldspedidosrefaccion[2] + "," + v.c.fieldspedidosrefaccion[3] + "," + v.c.fieldspedidosrefaccion[4] + "," + v.c.fieldspedidosrefaccion[7] + "," + v.c.fieldspedidosrefaccion[10] + ") values('" + idreporte + "','" + n + "','" + cmbrefaccion.SelectedValue + "',now(),'" + txtcantidad.Text + "','" + idUsuario + "')"))
+                    {
+                        entregaRefacciones = 1;
+                        string idRefk = v.getaData("select concat(idPedRef,';') as id from pedidosrefaccion as t1 where FolioPedfkSupervicion='" + idreporte + "' order by idPedRef desc limit 1").ToString();
+                        RefaccionesSolicitadas += idRefk;
+                        ArraryInformativo = separarRepetidos();
+                        string cadenaK = Convert.ToInt32(cmbrefaccion.SelectedValue) + ";" + txtcantidad.Text;
+                        Modificacion_Crear(idRefk.Replace(";", ""), "", cadenaK, "Inserción de Refacción en Reporte de Mantenimiento");
+
+                        MessageBox.Show("Refacción agregada de manera correcta", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        limpiarRefaccion();
+                    }
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(txtcantidad.Text) && cmbrefaccion.SelectedIndex > 0)
+                {
+                    if (v.c.insertar("update pedidosrefaccion set " + v.c.fieldspedidosrefaccion[3] + "='" + cmbrefaccion.SelectedValue + "', " + v.c.fieldspedidosrefaccion[7] + "='" + txtcantidad.Text + "' where " + v.c.fieldspedidosrefaccion[0] + "='" + idref + "';"))
+                    {
+                        entregaRefacciones = 1;
+                        string idRefk = v.getaData("select concat(idPedRef,';') as id from pedidosrefaccion as t1 where FolioPedfkSupervicion='" + idreporte + "'").ToString();
+                        RefaccionesSolicitadas += idRefk;
+                        ArraryInformativo = separarRepetidos();
+                        string cadenaK = Convert.ToInt32(cmbrefaccion.SelectedValue) + ";" + txtcantidad.Text;
+                        Modificacion_Crear(idRefk.Replace(";", ""), "", cadenaK, "Actualización de Refacción en Reporte de Mantenimiento");
+                        MessageBox.Show("Los datos de actualizaron de manera correcta", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        limpiarRefaccion();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Complete sus datos", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+        }
+
+        private void txtcantidad_TextChanged(object sender, EventArgs e)
+        {
+            if (editarRefaccion && peditar)
+            {
+                bool qh = ((idrefaccionAnterior != Convert.ToInt32(cmbrefaccion.SelectedValue) || cantidadAnterior != Convert.ToInt32((string.IsNullOrWhiteSpace(txtcantidad.Text) ? "0" : txtcantidad.Text)) && cmbrefaccion.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtcantidad.Text)) ? true : false);
+                pagregar.Visible = qh;
+                txtRetorno.Enabled = txtObsRetorno.Enabled = (qh == true ? false : true);
+                if (qh == true)
+                {
+                    txtObsRetorno.Text = txtRetorno.Text = "";
+                    pRetorno.Visible = false;
+                }
+            }
+        }
+
+        private void cmbrefaccion_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        string[] separarRepetidos()
+        {
+            return RefaccionesSolicitadas.Split(';').Distinct().ToArray();
+        }
+        /**********************************************************************************************************************/
+        void Modificacion_Crear(string folio, string porquemodificacion, string ultimaModificacion, string tipo)
+        {
+            string vark = (tipo == "Actualización de Refacción en Reporte de Mantenimiento" || tipo == "Inserción de Refacción en Reporte de Mantenimiento" ? folio : "(select IdReporte from reportesupervicion as t1 inner join reportemantenimiento as t2 on t1.idReporteSupervicion = t2.FoliofkSupervicion where t2.FoliofkSupervicion='" + folio + "')");
+            var res2 = v.c.insertar("INSERT INTO modificaciones_sistema(form, idregistro, ultimaModificacion, usuariofkcpersonal, fechaHora, Tipo,empresa,area, motivoActualizacion) VALUES('Reporte de Mantenimiento', " + vark + ",'" + ultimaModificacion + "','" + idUsuario + "',NOW(),'" + tipo + "','" + empresa + "','" + area + "', '" + porquemodificacion + "')");
+        }
+
+        private void btnRetorno_Click(object sender, EventArgs e)
+        {
+            //retorna refacciones provisionalmente, hasta que almacen corrobore
+            //refaccionfkpedidosRefaccion, cantEntregada, cantRetorno, FechaHoraSR, ObservacionMant, usuarioSR, AutorizaAlmacen, FechahoraR, ObservacionAlm, usuarioR
+            if (!string.IsNullOrWhiteSpace(txtcantidad.Text) && !string.IsNullOrWhiteSpace(idrefaccionAnterior.ToString()) && idrefaccionAnterior > 0 && !string.IsNullOrWhiteSpace(idref.ToString()) && idref > 0)
+            {
+                string cadena = "";
+                FormContraFinal o = new FormContraFinal(empresa, area, this, v, "1");
+                o.Owner = this;
+                if (o.ShowDialog() == DialogResult.OK)
+                {
+                    string IdGuardo = o.id;
+                    cadena = (Convert.ToInt32(v.getaData("select count(*) from refacciones_standby where refaccionfkpedidosrefaccion='" + idref + "'").ToString()) > 0) ? "update refacciones_standby set cantRetorno='" + txtcantidad.Text + "', ObservacionMant='" + txtObsRetorno.Text + "', usuarioSR='" + IdGuardo + "' where idStanby='" + v.getaData("select idStanby from refacciones_standby where refaccionfkpedidosrefaccion='" + idref + "'").ToString() + "'" : "insert into refacciones_standby(refaccionfkpedidosRefaccion, cantEntregada, cantRetorno, FechaHoraSR, ObservacionMant, usuarioSR) values('" + idref + "', '" + txtcantidad.Text + "', '" + txtRetorno.Text + "', now(),'" + txtObsRetorno.Text + "', '" + IdGuardo + "');";
+                    if (!string.IsNullOrWhiteSpace(cadena) && !string.IsNullOrWhiteSpace(IdGuardo))
+                    {
+                        if (v.c.insertar(cadena))
+                        {
+                            retornos = 1;
+                            EnviarAlmacen = true;
+                            limpiarRefaccion();
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Datos Faltantes, complete la información", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void dgvrefacciones_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
+
+        private void dgvrefacciones_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                string[] drefaccion = v.getaData("select concat(" + v.c.fieldspedidosrefaccion[3] + ",'|'," + v.c.fieldspedidosrefaccion[7] + ") from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[0] + "='" + (idref = Convert.ToInt32(dgvrefacciones.Rows[e.RowIndex].Cells[0].Value)) + "';").ToString().Split('|');
+                if (Convert.ToInt32(v.getaData("select if(" + v.c.fieldspedidosrefaccion[9] + "=" + v.c.fieldspedidosrefaccion[7] + ",1,0) as r from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[0] + "='" + idref + "';")) == 0)
+                {
+                    cmbrefaccion.SelectedValue = idrefaccionAnterior = Convert.ToInt32(drefaccion[0]);
+                    txtcantidad.Text = (cantidadAnterior = Convert.ToInt32(drefaccion[1])).ToString();
+                    cmbrefaccion.Enabled = true;
+                    muestraRetornos(false);
+                    txtcantidad.Enabled = true;
+                    pagregar.Visible = !(editarRefaccion = true);
+
+                }
+                else
+                {
+                    MessageBox.Show("La refacción no puede ser editada debido a que ya fue entregada por el área de almacén", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (dgvrefacciones.Rows[e.RowIndex].Cells[6].Value.ToString() != "CORRECTO")
+                    {
+                        pagregar.Visible = false;
+                        cmbrefaccion.SelectedValue = idrefaccionAnterior = Convert.ToInt32(drefaccion[0]);
+                        txtcantidad.Text = (cantidadAnterior = Convert.ToInt32(drefaccion[1])).ToString();
+                        cmbrefaccion.Enabled = false;
+                        muestraRetornos(true);
+                    }
+                    else
+                    {
+                        idref = 0; editarRefaccion = false;
+                        label60.Visible = label67.Visible = label65.Visible = txtRetorno.Visible = txtObsRetorno.Visible = pRetorno.Visible = btnRetorno.Visible = false;
+                        txtcantidad.Enabled = true;
+                    }
+                }
+                txtObsRetorno.Text = txtRetorno.Text = ""; txtRetorno.Enabled = txtObsRetorno.Enabled = true;
+            }
+        }
+
+        void muestraRetornos(bool q)
+        {
+            label60.Visible = label67.Visible = label65.Visible = txtRetorno.Visible = txtObsRetorno.Visible = pRetorno.Visible = btnRetorno.Visible = q == true ? true : false;
+            txtcantidad.Enabled = q == true ? false : false;
+        }
+
+        void limpiarRefaccion()
+        {
+            cmbrefaccion.SelectedIndex = 0;
+            editarRefaccion = false;
+            txtcantidad.Enabled = cmbrefaccion.Enabled = true;
+            txtcantidad.Clear();
+            lblum.Text = txtRetorno.Text = txtObsRetorno.Text = txtCodigoRef.Text = "";
+            cargarrefacciones();
         }
 
         private void txtmecanico_TextChanged(object sender, EventArgs e)
