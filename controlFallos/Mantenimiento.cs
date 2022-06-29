@@ -371,9 +371,9 @@ namespace controlFallos
         {
             txtfoliob.Clear();
             cmbunidadb.SelectedIndex = cmbmecanicob.SelectedIndex = cmbestatusb.SelectedIndex = cmbmesb.SelectedIndex = cmbgrupob.SelectedIndex = 0;
-            //cbrango.Checked = false;
-            
+            //cbrango.Checked = false;          
         }
+
         private void btnbuscar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtfoliob.Text) && cmbunidadb.SelectedIndex == 0 && cmbmecanicob.SelectedIndex == 0 && cmbestatusb.SelectedIndex == 0 && cmbmesb.SelectedIndex == 0 && cmbgrupob.SelectedIndex == 0 && !cbrango.Checked)
