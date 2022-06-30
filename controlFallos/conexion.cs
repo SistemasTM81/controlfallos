@@ -297,5 +297,6 @@ namespace controlFallos
         public string[] fieldsreportetri = new string[] { "idReporteTransinsumos", "idreportemfkreportemantenimiento", "FolioFactura", "FechaEntrega", "PersonaEntregafkcPersonal", "ObservacionesTrans", "empresa" };
         public string[] fieldssepomex = new string[] { "id", "idEstado", "estado", "idMunicipio", "municipio", "ciudad", "zona", "cp", "asentamiento", "tipo" };
         public string[] fieldsvigencias_supervision = new string[] { "idvigencia", "usuariofkcpersonal", "fechaEmisionTarjeton", "fechaVencimientoTarjeton", "tipolicenciafkcattipos", "fechaEmisionConducir", "fechaVencimientoConducir", "empresa", "area" };
+        public string[] fieldsreporteUEx = new string[] { "idRUEX", " folioR", "empresaU", "unidad", " fechaIngreso", "horaIngreso", "personaIngreso", "km", "fallosRepor", "mecanicoD", "fechaDiag", "mecanicoR", " diagnosticoMeca", "estatusDiag", " tipoRepa", " estatusRepa", " reafacciones", " folioFact", " reparacionesRa", " terminoDiag", " totalDiag", " espetaMante", " totMante" };
     }
 }

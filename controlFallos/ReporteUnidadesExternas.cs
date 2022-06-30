@@ -32,19 +32,18 @@ namespace controlFallos
         bool pconsultar { get; set; }
 
         bool editar, cambiosEnFolios = false, editarRefaccion, EnviarAlmacen = false, isexporting;
+        static bool res = true, xkList = false;
 
         validaciones v;
         conexion con;
 
-        int idUsuario, empresa, area, EstatusAnterior, idmecanico, idmecanicoApoyo, idmecaniAnterior, idmecanicoapoyoAnterior, idreporte, retornos = 0, conteoListFolios = 0, idrefaccionAnterior, cantidadAnterior, idref, entregaRefacciones = 0;
-
-       /**/ string observacionesAnterior, folioAnterior, trabajoAnterior, RefaccionesSolicitadas = "", cadenaEmpresa, valorBusquedak = " and t1.FechaReporte between left(subdate(now(), interval 1 day),10) and left(now(),10) ";
+        int idUsuario, empresa, area, EstatusAnterior, idmecanico, idmecanicoApoyo, idmecaniAnterior, idmecanicoapoyoAnterior, idreporte, retornos = 0, conteoListFolios = 0, idrefaccionAnterior, cantidadAnterior, idref, entregaRefacciones = 0, RefaccionesAnterior, existenciaAnterior, indexAnteriork = 0;
+       
+        string observacionesAnterior, folioAnterior, trabajoAnterior, RefaccionesSolicitadas = "", cadenaEmpresa, valorBusquedak ;
 
         string[] ArraryInformativo;
 
-      /**/  string consultagral = "SET lc_time_names = 'es_ES';select t1.idReporteSupervicion as 'id',t1.Folio as 'FOLIO',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'ECONOMICO', upper(date_format(t1.fechareporte,'%W %d de %M del %Y')) as 'FECHA DE REPORTE',upper((select concat(coalesce(x1.appaterno,''),' ',coalesce(x1.apmaterno,''),' ',coalesce(x1.nombres,'')) from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCPersonal)) as 'SUPERVISOR',t1.KmEntrada as 'KILOMETRAJE DE UNIDAD',if(t1.tipofallo='1','CORRECTIVO',(if(t1.tipofallo='2','PREVENTIVO',(if(t1.tipofallo='3','REITERATIVO',(if(t1.tipofallo='4','REPROGRAMADO','SEGUIMIENTO'))))))) as 'TIPO DE FALLO', t1.HoraEntrada as 'HORA DEREPORTE',coalesce((select codfallo from cfallosesp as x2 where x2.idfalloEsp=t1.CodFallofkcfallosesp ),'')as 'CÓDIGO DE FALLO',coalesce(t1.DescFalloNoCod,'') as 'FALLO NO CODIFICADO',coalesce(t1.ObservacionesSupervision,'') as 'OBSERVACIONES',(select upper(concat(coalesce(x3.appaterno,''),' ',coalesce(x3.apmaterno,''),' ',coalesce(x3.nombres,''))) from cpersonal as x3 where x3.idpersona=t2.MecanicofkPersonal) as 'MÉCANICO',(select upper(x4.nombreFalloGral) from cfallosgrales as x4 where x4.idFalloGral=t2.FalloGralfkFallosGenerales) as 'GRUPO DE FALLO',if(t2.StatusRefacciones is null,'',(if(t2.StatusRefacciones=1,'SI','NO'))) as 'SE REQUIEREN REFACCIONES',if(t2.estatus is null,'',(if(t2.Estatus=1,'EN PROCESO',(if(t2.estatus=2,'REPROGRAMADA','LIBERADA'))))) as 'ESTATUS',coalesce(upper(t2.TrabajoRealizado),'') as 'TRABAJO REALIZADO' from reportesupervicion as t1 left join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion inner join cunidades as t3 on t1.UnidadfkCUnidades=t3.idunidad INNER JOIN careas AS t4 on t4.idarea=t3.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas inner join cmodelos as t6 on t3.modelofkcmodelos = t6.idmodelo ";
-
-        string consultagral1 = "SET lc_time_names = 'es_ES';select t1.idReporteSupervicion as 'id',t1.Folio as 'FOLIO',(select concat(t4.identificador,LPAD(consecutivo,4,'0'))) AS 'EMPRESA', upper(date_format(t1.fechareporte,'%W %d de %M del %Y')) as 'UNIDAD',upper((select concat(coalesce(x1.appaterno,''),' ',coalesce(x1.apmaterno,''),' ',coalesce(x1.nombres,'')) from cpersonal as x1 where x1.idpersona=t1.SupervisorfkCPersonal)) as 'PERSONA QUE INGRESA LA UNIDAD',t1.KmEntrada as 'FECHA INGRESO',if(t1.tipofallo='1','CORRECTIVO',(if(t1.tipofallo='2','PREVENTIVO',(if(t1.tipofallo='3','REITERATIVO',(if(t1.tipofallo='4','REPROGRAMADO','SEGUIMIENTO'))))))) as 'TIPO DE FALLO', t1.HoraEntrada as 'HORA DEREPORTE',coalesce((select codfallo from cfallosesp as x2 where x2.idfalloEsp=t1.CodFallofkcfallosesp ),'')as 'CÓDIGO DE FALLO',coalesce(t1.DescFalloNoCod,'') as 'FALLO NO CODIFICADO',coalesce(t1.ObservacionesSupervision,'') as 'OBSERVACIONES',(select upper(concat(coalesce(x3.appaterno,''),' ',coalesce(x3.apmaterno,''),' ',coalesce(x3.nombres,''))) from cpersonal as x3 where x3.idpersona=t2.MecanicofkPersonal) as 'MÉCANICO',(select upper(x4.nombreFalloGral) from cfallosgrales as x4 where x4.idFalloGral=t2.FalloGralfkFallosGenerales) as 'GRUPO DE FALLO',if(t2.StatusRefacciones is null,'',(if(t2.StatusRefacciones=1,'SI','NO'))) as 'SE REQUIEREN REFACCIONES',if(t2.estatus is null,'',(if(t2.Estatus=1,'EN PROCESO',(if(t2.estatus=2,'REPROGRAMADA','LIBERADA'))))) as 'ESTATUS',coalesce(upper(t2.TrabajoRealizado),'') as 'TRABAJO REALIZADO' from reportesupervicion as t1 left join reportemantenimiento as t2 on t1.idReporteSupervicion=t2.FoliofkSupervicion inner join cunidades as t3 on t1.UnidadfkCUnidades=t3.idunidad INNER JOIN careas AS t4 on t4.idarea=t3.areafkcareas inner join cempresas as T5 on T5.idempresa=T4.empresafkcempresas inner join cmodelos as t6 on t3.modelofkcmodelos = t6.idmodelo ";
+        string consultagral = "select t1.idRUEX as 'ID',t1.folioR as 'FOLIO', t1.empresaU as 'EMPRESA', t1.unidad as 'UNIDAD', t1.fechaIngreso as 'FECHA DE INGRESO', t1.horaIngreso as 'HORA DE INGRESO', t1.personaIngreso as 'PERSONAL QUE INGRESA LA UNIDAD', t1.km as 'KILOMETRAJE',t1.fallosRepor as 'FALLOS REPORTADOS',t1.mecanicoD as 'MECANICO DE DIAGNOSTICO', t1.fechaDiag as 'FECHA DE DIAGNOSTICO',t1.mecanicoR as 'MECANICO DE REPARACION', t1.diagnosticoMeca as 'DIAGNOSTICO',t1.estaTusDiag as 'ESTATUS DIAGNOSTICO',t1.terminoDiag as'TERMINO DE DIAGNOSTICO',t1.totalDiag as 'TIEMPO TOTAL DE DIAGNOSTICO',t1.tipoRepa as 'TIPO DE REPARACION',t1.refacciones as 'REFACCIONES',t1.reparacionesRa as 'REPARACIONES REALIZADAS' ,t1.estatusRepa as 'ESTATUS DE REPARACION',t1.esperaMante as 'TIEMPO DE ESPERA PARA MANTENIMIENTO', t1.totMante as 'TIEMPO TOTAL DE MANTENIMIENTO' from reporteuniexternas as t1";
 
         public ReporteUnidadesExternas(int idUsuario, int empresa, int area, validaciones v)
         {
@@ -56,7 +55,7 @@ namespace controlFallos
 
             DateTime fecha = DateTime.Now;
             tbxHoraEnvio.Text = fecha.ToString();
-
+            //cadenaEmpresa = (empresa == 2 ? " and (t6.empresaMantenimiento = '2' or t6.empresaMantenimiento = '1') " : (empresa == 3 ? "and (t6.empresaMantenimiento = '3' or t6.empresaMantenimiento = '1')" : null));
             cmbEstatus1.DrawItem += v.combos_DrawItem;
             EstatusRepa.DrawItem += v.combos_DrawItem;
             cmbEstatus.DrawItem += v.combos_DrawItem;
@@ -130,7 +129,9 @@ namespace controlFallos
             v.comboswithuot(cbxEmpresaS, new string[] { "--seleccione una empresa--", "atreyo tour", "browser", "cometa de oro", "nezahualpilli", "travelers" });
             v.comboswithuot(cbxSempresa, new string[] { "--seleccione una empresa--", "atreyo tour", "browser", "cometa de oro", "nezahualpilli", "travelers" });
             //unidades
-            v.comboswithuot(cmbUnidad, new string[] { "--seleccione unidad--"});
+            v.comboswithuot(cmbUnidad, new string[] { "--seleccione unidad--" });
+
+            
         }
 
         private void cmbmes1_DrawItem(object sender, DrawItemEventArgs e)
@@ -343,7 +344,7 @@ namespace controlFallos
             v.c.dbconection().Close();
             dgvrefacciones.ClearSelection();
         }
-
+/***/
         private void btnagregar_Click(object sender, EventArgs e)
         {
             //AGREGA REFACCIONES
@@ -402,26 +403,45 @@ namespace controlFallos
                 }
             }
         }
-        /************************************************************************************************************************************************/
+       
         private void btnbuscar_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtfoliob.Text) && cmbUnidad1.SelectedIndex == 0 && cmbMecanicob1.SelectedIndex == 0 && EstatusRepa.SelectedIndex == 0 && cmbReTip.SelectedIndex == 0 &&  cbxEmpresaS.SelectedIndex == 0 && cmbmes1.SelectedIndex == 0 && cmbEstatus.SelectedIndex == 0 && !cboxRango.Checked)
+
+          /*  "select t1.idRUEX as 'ID',t1.folioR as 'FOLIO', t1.empresaU as 'EMPRESA', t1.unidad as 'UNIDAD', t1.fechaIngreso as 'FECHA DE INGRESO', t1.horaIngreso as 'HORA DE INGRESO', t1.personaIngreso as 'PERSONAL QUE INGRESA LA UNIDAD', t1.km as 'KILOMETRAJE',t1.fallosRepor as 'FALLOS REPORTADOS',t1.mecanicoD as 'MECANICO DE DIAGNOSTICO', t1.fechaDiag as 'FECHA DE DIAGNOSTICO',t1.mecanicoR as 'MECANICO DE REPARACION', t1.diagnosticoMeca as 'DIAGNOSTICO',t1.estaTusDiag as 'ESTATUS DIAGNOSTICO',t1.terminoDiag as'TERMINO DE DIAGNOSTICO',t1.totalDiag as 'TIEMPO TOTAL DE DIAGNOSTICO',t1.tipoRepa as 'TIPO DE REPARACION',t1.refacciones as 'REFACCIONES',t1.reparacionesRa as 'REPARACIONES REALIZADAS' ,t1.estatusRepa as 'ESTATUS DE REPARACION',t1.esperaMante as 'TIEMPO DE ESPERA PARA MANTENIMIENTO', t1.totMante as 'TIEMPO TOTAL DE MANTENIMIENTO' from reporteuniexternas as t1";*/
+
+            if (string.IsNullOrWhiteSpace(txtfoliob.Text) && cmbUnidad1.SelectedIndex == 0 && cbxEmpresaS.SelectedIndex == 0 && cmbMecanicob1.SelectedIndex == 0 && EstatusRepa.SelectedIndex == 0 && cmbReTip.SelectedIndex == 0  && cmbmes1.SelectedIndex == 0 && cmbEstatus.SelectedIndex == 0 && !cboxRango.Checked)
                 MessageBox.Show("Seleccione un criterio de búsqueda", validaciones.MessageBoxTitle.Información.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
             {
                 string wheres = "";
-                if (cboxRango.Checked)
-                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreportesupervicion[3] + " between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'" : " and (t1." + v.c.fieldsreportesupervicion[3] + " between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "') order by t1.idReporteSupervicion desc ");
-                if (cmbUnidad1.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreportesupervicion[2] + "='" + cmbUnidad1.SelectedValue + "'" : " and t1." + v.c.fieldsreportesupervicion[2] + "='" + cmbUnidad1.SelectedValue + "' order by t1.idReporteSupervicion desc ");
-                if (cmbMecanicob1.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where t2." + v.c.fieldsreportemantenimiento[4] + "='" + cmbMecanicob1.SelectedValue + "'" : " and " + v.c.fieldsreportemantenimiento[4] + "='´" + cmbMecanicob1.SelectedValue + "' order by t1.idReporteSupervicion desc ");
-                if (EstatusRepa.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where t2." + v.c.fieldsreportemantenimiento[10] + "='" + EstatusRepa.SelectedValue + "'" : " and t2." + v.c.fieldsreportemantenimiento[10] + "='" + EstatusRepa.SelectedValue + "' order by t1.idReporteSupervicion desc ");
-                if (cmbReTip.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where t2." + v.c.fieldsreportemantenimiento[2] + "='" + cmbReTip.SelectedValue + "'" : " and t2." + v.c.fieldsreportemantenimiento[2] + "='" + cmbReTip.SelectedValue + "' order by t1.idReporteSupervicion desc ");
-                if (cmbmes1.SelectedIndex > 0)
-                    wheres = (wheres == "" ? " where date_format(t1." + v.c.fieldsreportesupervicion[3] + ",'%c')='" + cmbmes1.SelectedValue + "' and date_format(t1." + v.c.fieldsreportesupervicion[3] + ",'%Y')=date_format(now(),'%Y') order by t1.idReporteSupervicion desc " : "");
+               /**/ if (cboxRango.Checked)
+                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreporteUEx[4] + " between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "'" : " and (t1." + v.c.fieldsreporteUEx[4] + " between '" + dtpFechaDe.Value.ToString("yyyy-MM-dd") + "' and '" + dtpFechaA.Value.ToString("yyyy-MM-dd") + "') order by t1.idRUEX ");
+
+               /**/ if (cmbUnidad1.SelectedIndex > 0)
+                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreporteUEx[3] + "='" + cmbUnidad1.SelectedValue + "'" : " and t1." + v.c.fieldsreporteUEx[3] + "='" + cmbUnidad1.SelectedValue + "' order by t1.idRUEX ");
+
+               /**/ if (cbxEmpresaS.SelectedIndex > 0)
+                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreporteUEx[2] + "='" + cbxEmpresaS.SelectedValue + "'" : " and t1." + v.c.fieldsreporteUEx[2] + "='" + cbxEmpresaS.SelectedValue + "' order by t1.idRUEX ");
+
+               /**/ if (cmbMecanicob1.SelectedIndex > 0)
+                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreporteUEx[11] + "='" + cmbMecanicob1.SelectedValue + "'" : " and " + v.c.fieldsreporteUEx[11] + "='´" + cmbMecanicob1.SelectedValue + "' order by t1.idRUEX ");
+
+               /**/ if (EstatusRepa.SelectedIndex > 0)
+                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreporteUEx[15] + "='" + EstatusRepa.SelectedValue + "'" : " and t1." + v.c.fieldsreporteUEx[15] + "='" + EstatusRepa.SelectedValue + "' order by t1.idRUEX ");
+
+               /**/ if (cmbReTip.SelectedIndex > 0)
+                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreporteUEx[14] + "='" + cmbReTip.SelectedValue + "'" : " and t1." + v.c.fieldsreporteUEx[14] + "='" + cmbReTip.SelectedValue + "' order by t1.idRUEX ");
+
+               /**/ if (cmbmes1.SelectedIndex > 0)
+                    wheres = (wheres == "" ? " where date_format(t1." + v.c.fieldsreporteUEx[4] + ",'%c')='" + cmbmes1.SelectedValue + "' and date_format(t1." + v.c.fieldsreporteUEx[4] + ",'%Y')=date_format(now(),'%Y') order by t1.idRUEX " : "");
+
+                
+
+                /**/
+                if (cmbEstatus.SelectedIndex > 0)
+                    wheres = (wheres == "" ? " where t1." + v.c.fieldsreporteUEx[13] + "='" + cmbEstatus.SelectedValue + "'" : " and t1." + v.c.fieldsreporteUEx[13] + "='" + cmbEstatus.SelectedValue + "' order by t1.idRUEX ");
+
+
                 MySqlDataAdapter da = new MySqlDataAdapter(consultagral + " " + cadenaEmpresa + " " + wheres, v.c.dbconection());
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -440,7 +460,7 @@ namespace controlFallos
                 limpiarbusqueda();
             }
         }
-        /*****************************************************************************************************************/
+       
         void limpiarbusqueda()
         {
             txtfoliob.Clear();
@@ -450,15 +470,15 @@ namespace controlFallos
 
         void obtenerReportes()
         {
-            lblenproceso.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["ESTATUS"].Value.ToString().Contains("EN PROCESO")).Count());
-            lblreprogramadas.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["ESTATUS"].Value.ToString().Contains("REPROGRAMADA")).Count());
-            lblliberadas.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["ESTATUS"].Value.ToString().Contains("LIBERADA")).Count());
-            lblenesepera.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => string.IsNullOrWhiteSpace(r.Cells["ESTATUS"].Value.ToString())).Count());
+            lblenproceso.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["ESTATUS DE REPARACION"].Value.ToString().Contains("EN PROCESO")).Count());
+            lblreprogramadas.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["ESTATUS DE REPARACION"].Value.ToString().Contains("REPROGRAMADA")).Count());
+            lblliberadas.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["ESTATUS DE REPARACION"].Value.ToString().Contains("LIBERADA")).Count());
+            lblenesepera.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => string.IsNullOrWhiteSpace(r.Cells["ESTATUS DE REPARACION"].Value.ToString())).Count());
         }
 
         void cargardatos()
         {
-            MySqlDataAdapter cargar = new MySqlDataAdapter(consultagral + " " + cadenaEmpresa + " " + valorBusquedak + " order by t1.idReporteSupervicion desc ", v.c.dbconection());
+            MySqlDataAdapter cargar = new MySqlDataAdapter(consultagral + " " + cadenaEmpresa + " " + valorBusquedak + " order by t1.idRUEX ", v.c.dbconection());
             DataSet ds = new DataSet();
             cargar.Fill(ds);
             ConsultaRepo.DataSource = ds.Tables[0];
@@ -476,36 +496,87 @@ namespace controlFallos
                 e.CellStyle.BackColor = (e.Value.ToString() == "EN PROCESO" ? System.Drawing.Color.Khaki : e.Value.ToString() == "LIBERADA" ? System.Drawing.Color.PaleGreen : e.Value.ToString() == "REPROGRAMADA" ? System.Drawing.Color.LightCoral : System.Drawing.Color.LightBlue);
         }
 
-        private void ConsultaRepo_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+       
+        /**************************************************************************************************************/
+        private void btnguardar_Click(object sender, EventArgs e)
         {
-          /*  if (e.RowIndex >= 0)
-            {
-                xkList = false;
-                string x = Convert.ToString(this.ConsultaRepo.Rows[e.RowIndex].Cells["ESTATUS"].Value);
+           
+             
 
-                limpiar();
-                if (!cambios())
+
+
+
+        }
+
+        private void btnSig_Click(object sender, EventArgs e)
+        {
+            txtmecanico.Enabled = true;
+            txtMecanico2.Enabled = true;
+            txtDiagMeca.Enabled = true;
+            btnRepa.Enabled = true;
+            cmbRefacciones1.Enabled = true;
+            cmbEstatus1.Enabled = true;
+            cmbEstRep.Enabled = true;
+            cmbTipoR.Enabled = true;
+            txtfoliof.Enabled = true;
+            numUpDownDE.Enabled = true;
+            numUpDownHASTA.Enabled = true;
+            btnrefacciones.Enabled = true;
+            btnCancelFact.Enabled = true;
+            txtRepaReal.Enabled = true;
+            LBxRefacc.Enabled = true;
+
+            DateTime fecha1 = DateTime.Now;
+            txtIniDiag.Text = fecha1.ToString();
+        }
+
+        void VerificaPedidoRefaccion(string Guarda)
+        {
+            //ResponsablePedido
+            if (entregaRefacciones == 1 && ArraryInformativo.Length > 1)
+            {
+                for (int i = 0; i < ArraryInformativo.Length; i++)
                 {
-                    doblegridview(e);
-                    //lblexportar.Visible = !(
-                    gbrefacciones.Visible = false;
-                    lblexportar.Visible = true;
-                    // );
+                    v.c.insertar("update pedidosrefaccion set ResponsablePedido='" + Guarda + "' where idPedRef='" + ArraryInformativo[i] + "'");
                 }
-                else if (MessageBox.Show("Desea " + (editar ? "guardar los cambios" : "concluir con el registro"), validaciones.MessageBoxTitle.Confirmar.ToString(), MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
-                {
-                    doblegridview(e);
-                    gbrefacciones.Visible = false;
-                    lblexportar.Visible = true;
-                }
-          
             }
-            ubica();*/
+            ArraryInformativo = null;
+        }
+
+        bool newinformation()
+        {
+            bool res = false;
+            if ((txtRepaReal.Text.Trim() != trabajoAnterior && string.IsNullOrWhiteSpace(trabajoAnterior)) || (folioAnterior != txtfoliof.Text && string.IsNullOrWhiteSpace(folioAnterior)) || (idmecanico != idmecaniAnterior && idmecaniAnterior == 0) || (txtDiagMeca.Text.Trim() != observacionesAnterior && string.IsNullOrWhiteSpace(observacionesAnterior)))
+                res = true;
+            return res;
+        }
+
+        /**/
+        void limpiar()
+        {
+            ubica();
+            LBxRefacc.DataSource = null;
+            btnFolioFactura.Visible = btnrefacciones.Visible = btnCancelFact.Visible = false;
+            txtmecanico.Clear(); txtFallos.Clear();
+            txtMeca.Clear();
+            txtfoliof.Clear();
+            txtMeca2.Clear();
+            txtRepaReal.Clear();
+            txtDiagMeca.Clear();
+            cmbEstatus1.SelectedIndex = cmbEstRep.SelectedIndex = cmbRefacciones1.SelectedIndex = idmecanico = idmecaniAnterior = idmecanicoapoyoAnterior =  RefaccionesAnterior = existenciaAnterior = idmecanicoApoyo = idreporte = indexAnteriork = conteoListFolios = 0;
+            tbxFolio.Text = tbxKilome.Text = lblMecanicoU.Text = tbxHoraEnvio.Text = tbxHoraEnvio.Text = txtFallos.Text = lblhimant.Text = lbltiempoespera.Text = lbltiempototal.Text = lblmecanico.Text = lblmapoyo.Text = folioAnterior = trabajoAnterior = observacionesAnterior = txtFinDiag.Text;
+            status(editar = pguardar.Visible = pcancelar.Visible = pPdf.Visible = false);
+            obtenerReportes();
+        }
+
+        void status(bool enabled)
+        {
+            cmbEstatus1.Enabled = cmbEstatus.Enabled = cmbRefacciones1.Enabled = txtRepaReal.Enabled = txtmecanico.Enabled = txtMecanico2.Enabled = txtMeca.Enabled = txtfoliof.Enabled = enabled;
         }
 
         void minandmaxdate()
         {
-            string[] date = v.getaData("select concat(MIN(" + v.c.fieldsreportesupervicion[3] + "),'|',MAX(" + v.c.fieldsreportesupervicion[3] + ")) as fechas from reportesupervicion;").ToString().Split('|');
+            string[] date = v.getaData("select concat(MIN(" + v.c.fieldsreporteUEx[4] + "),'|',MAX(" + v.c.fieldsreporteUEx[4] + ")) as fechas from reporteuniexternas").ToString().Split('|');
             if (!string.IsNullOrWhiteSpace(date[0]))
             {
                 dtpFechaDe.MinDate = dtpFechaA.MinDate = DateTime.Parse(date[0]);
@@ -702,7 +773,7 @@ namespace controlFallos
                 txtfoliof.Enabled = btnrefacciones.Visible = (Convert.ToInt32(cmbRefacciones1.SelectedValue) == 1 ? true : false);
             txtfoliof.Enabled = numUpDownDE.Enabled = numUpDownHASTA.Enabled = LBxRefacc.Enabled = btnFolioFactura.Enabled = btnCancelFact.Enabled = (cmbRefacciones1.SelectedIndex == 1) ? true : false;
         }
-        /*********************************************************************************************************************/
+       
         public void privilegios()
         {
             string sql = "SELECT " + v.c.fieldsprivilegios[4] + "  FROM privilegios where " + v.c.fieldsprivilegios[1] + " = '" + idUsuario + "' and " + v.c.fieldsprivilegios[2] + " = 'Mantenimiento'";
@@ -733,6 +804,7 @@ namespace controlFallos
             
             obtenerReportes();
             
+            /*********************************************************/
             // unidad2();
         }
 
@@ -822,6 +894,41 @@ namespace controlFallos
             cmbUnidad.ValueMember = "unidad";
             cmbUnidad.DataSource = dt;
         }
+
+        void cadenaCodigo()
+        {
+          /*if (empresa == 2 && puesto != 52)
+            {
+                inicioCodigo = "RECUVHF";
+            }
+            else if (empresa == 3 && puesto != 52)
+            {
+                inicioCodigo = "RECUTRI";
+            }
+            else if (empresa == 2 && puesto == 52)
+            {
+                inicioCodigo = "RECUPR";
+            }*/
+
+
+        }
+
+        /*public string obtenerFolio()
+        {
+            int valorinicial = 1000;
+            string codigo = "";
+            int idContinuo = v.DatocoSigue("select count(idcrefaccionesrecu) from crefaccionesrecu where empresa ='" + empresa + "' and Tipo = '" + Tipo + "'");
+            if (idContinuo > 0)
+            {
+                codigo = inicioCodigo + Convert.ToString(valorinicial + idContinuo);
+            }
+            else
+            {
+                codigo = inicioCodigo + valorinicial;
+            }
+
+            return codigo.ToString();
+        }*/
     }
 }
-/*ACTUALIZACION 26-06-2022 REPORTE UNIDADES EXTERNAS*/
+/*ACTUALIZACION 30-06-2022 REPORTE UNIDADES EXTERNAS*/

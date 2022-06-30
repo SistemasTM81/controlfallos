@@ -245,7 +245,6 @@
             this.gbaddfamilia.TabIndex = 0;
             this.gbaddfamilia.TabStop = false;
             this.gbaddfamilia.Text = "Agregar Familia de Refacciones";
-            this.gbaddfamilia.Visible = false;
             this.gbaddfamilia.Paint += new System.Windows.Forms.PaintEventHandler(this.gbaddfamilia_Paint);
             this.gbaddfamilia.Enter += new System.EventHandler(this.gbaddfamilia_Enter);
             // 

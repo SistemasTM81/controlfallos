@@ -345,10 +345,7 @@ namespace controlFallos
 
         private void Material_Recuperado_Load(object sender, EventArgs e)
         {
-            establecerPrivilegios();
-
-
-            
+            establecerPrivilegios(); 
         }
 
         public void CargarMecanico()
