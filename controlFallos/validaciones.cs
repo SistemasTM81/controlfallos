@@ -1937,6 +1937,151 @@ namespace controlFallos
                 return true;
             }
         }
+       
+        public bool formularioUnidadesExternas(string folio, string PersonaIngreso, string MecanicoU, string Fallos, string lblmecanico, string DiagMeca, string foliof, string RepaReal, string Sempresa, string Unidad, string Estatus1, string TipoR, string EstRep, string Refacciones1)
+        {
+            
+            if (!string.IsNullOrWhiteSpace(folio))
+            {
+                return false;
+                if (!string.IsNullOrWhiteSpace(PersonaIngreso))
+                {
+                    return false;
+                    if (!string.IsNullOrWhiteSpace(MecanicoU))
+                    {
+                        return false;
+                        if (!string.IsNullOrWhiteSpace(Fallos))
+                        {
+                            return false;
+                            if (!string.IsNullOrWhiteSpace(lblmecanico))
+                            {
+                                return false;
+                                if (!string.IsNullOrWhiteSpace(DiagMeca))
+                                {
+                                    return false;
+                                    if (!string.IsNullOrWhiteSpace(foliof))
+                                        {
+                                        return false;
+                                        if (!string.IsNullOrWhiteSpace(RepaReal))
+                                            {
+                                            return false;
+                                            if (!string.IsNullOrWhiteSpace(Sempresa))
+                                                {
+
+                                                return false;
+                                                if (!string.IsNullOrWhiteSpace(Unidad))
+                                                    {
+                                                    return false;
+                                                    if (!string.IsNullOrWhiteSpace(Estatus1))
+                                                        {
+                                                        return false;
+                                                        if (!string.IsNullOrWhiteSpace(TipoR))
+                                                            {
+                                                            return false;
+                                                            if (!string.IsNullOrWhiteSpace(EstRep))
+                                                                {
+                                                                return false;
+                                                                if (!string.IsNullOrWhiteSpace(Refacciones1))
+                                                                    {
+                                                                    return false;
+
+                                                                }
+                                                                else
+                                                                {
+                                                                    MessageBox.Show("Seleccione Si o No Necita Refacciones de la Lista Desplegable", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                                    return true;
+                                                                }
+                                                                
+                                                            }
+                                                            else
+                                                            {
+                                                                    MessageBox.Show("Seleccione un Estatus de Reparacion de la Lista Desplegable", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                                    return true;
+                                                            }
+
+                                                        }
+                                                        else
+                                                        {
+                                                                MessageBox.Show("Seleccione un Tipo de Reparacion de la Lista Desplegable", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                                return true;
+                                                        }
+
+                                                    }
+                                                     else
+                                                     {
+                                                            MessageBox.Show("Seleccione un Estatus de la Lista Desplegable", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                            return true;
+                                                     }
+
+                                                }
+                                                else
+                                                {
+                                                        MessageBox.Show("Seleccione una Unidad de la Lista Desplegable", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                        return true;
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                    MessageBox.Show("Seleccione una Empresa de la Lista Desplegable", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                    return true;
+                                            }
+                                        }
+                                       else
+                                       {
+                                                MessageBox.Show("El Campo Diagnostico No puede estar Vacio ", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                                return true;
+                                       }
+
+                                    }
+                                    else
+                                    {
+                                            MessageBox.Show("El Campo Folio de Factura No puede estar Vacio ", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                            return true;
+                                    }
+                                    
+                                }
+                                else
+                                {
+                                    MessageBox.Show("El Campo Diagnostico No puede estar Vacio ", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return true;
+                                }
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("El Campo Contarseña de Mecanico 2 No puede estar Vacio ", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return true;
+                            }
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("El Campo Descripcionde Fallos No puede estar Vacio", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return true;
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("El Campo Contraseña Mecanico 1 No puede estar Vacio", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return true;
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("El Campo Persona que Ingresa Unidad No puede estar Vacio", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return true;
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("El Campo Código de Refacción No Puede Estar Vacío", MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return true;
+            }
+        }
 
         public bool SalidaRecu(string codrefaccion,double cantidad, int tiposalida, string Contraseña, string almacen, int economico)
         {

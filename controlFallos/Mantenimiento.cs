@@ -371,9 +371,9 @@ namespace controlFallos
         {
             txtfoliob.Clear();
             cmbunidadb.SelectedIndex = cmbmecanicob.SelectedIndex = cmbestatusb.SelectedIndex = cmbmesb.SelectedIndex = cmbgrupob.SelectedIndex = 0;
-            //cbrango.Checked = false;
-            
+            //cbrango.Checked = false;          
         }
+
         private void btnbuscar_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(txtfoliob.Text) && cmbunidadb.SelectedIndex == 0 && cmbmecanicob.SelectedIndex == 0 && cmbestatusb.SelectedIndex == 0 && cmbmesb.SelectedIndex == 0 && cmbgrupob.SelectedIndex == 0 && !cbrango.Checked)
@@ -1265,10 +1265,7 @@ namespace controlFallos
 
         private void dgvrefacciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            if (this.dgvrefacciones.Columns[e.ColumnIndex].Name == "EXISTENCIA")
-                e.CellStyle.BackColor = (e.Value.ToString() == "EXISTENCIA" ? System.Drawing.Color.PaleGreen : e.Value.ToString() == "SIN EXISTENCIA" ? System.Drawing.Color.LightCoral : e.Value.ToString() == "INCOMPLETO" ? System.Drawing.Color.Orange : System.Drawing.Color.Khaki);
-            if (this.dgvrefacciones.Columns[e.ColumnIndex].Name == "ESTATUS RETORNO")
-                e.CellStyle.BackColor = (e.Value.ToString() == "ENVIA" ? System.Drawing.Color.White : e.Value.ToString() == "SIN LECTURA" ? System.Drawing.Color.Aqua : e.Value.ToString() == "EVALUANDO" ? System.Drawing.Color.Aquamarine : e.Value.ToString() == "CORRECTO" ? System.Drawing.Color.GreenYellow : e.Value.ToString() == "INCORRECTO" ? System.Drawing.Color.Red : System.Drawing.Color.LightSlateGray);
+             
         }
 
         private void dgvreportes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -1299,8 +1296,10 @@ namespace controlFallos
         private void cmbrefaccion_SelectedValueChanged(object sender, EventArgs e)
         {
             lblum.Text = (cmbrefaccion.SelectedIndex > 0 ? v.getaData("select coalesce(upper(t4." + v.c.fieldscunidadmedida[1] + "),'') from crefacciones as t1 inner join cmarcas as t2 on t1." + v.c.fieldscrefacciones[7] + "=t2." + v.c.fieldscmarcas[0] + " inner join cfamilias as t3 on t2." + v.c.fieldscmarcas[1] + "=t3." + v.c.fieldscfamilias[0] + " inner join cunidadmedida as t4 on t3." + v.c.fieldscfamilias[5] + " = t4." + v.c.fieldscunidadmedida[0] + " where t1." + v.c.fieldscrefacciones[0] + " = '" + cmbrefaccion.SelectedValue + "'").ToString() : "");
-        }
 
+            
+        }
+        
         private void dgvrefacciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
