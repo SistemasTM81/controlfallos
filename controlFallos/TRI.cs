@@ -499,7 +499,7 @@ namespace controlFallos
                                 existenciasR = Convert.ToString(DR1["existencias"]);
                                 fecha = Convert.ToString(DR1["fecha"]);
 
-                                if (Convert.ToInt32(existenciasR) == 0)
+                                if (Convert.ToDouble(existenciasR) == 0.0)
                                 {
                                     //si se solicita una sola refaccion y no tiene existencia mandamos mensaje de alerta
                                     MessageBox.Show("No se puede guardar el registro, por que la cantidad en existencias de la refacción se encuentra en 0. \n \n El próximo reabastecimiento es el día:  " + fecha, "SIN EXISTENCIAS DE REFACCIÓN".ToUpper(), MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -1530,9 +1530,9 @@
             this.cmbunidadb.FormattingEnabled = true;
             this.cmbunidadb.Items.AddRange(new object[] {
             "Sistema eléctrico"});
-            this.cmbunidadb.Location = new System.Drawing.Point(267, 24);
+            this.cmbunidadb.Location = new System.Drawing.Point(247, 25);
             this.cmbunidadb.Name = "cmbunidadb";
-            this.cmbunidadb.Size = new System.Drawing.Size(213, 23);
+            this.cmbunidadb.Size = new System.Drawing.Size(234, 23);
             this.cmbunidadb.TabIndex = 135;
             // 
             // label21
@@ -1540,7 +1540,7 @@
             this.label21.AutoSize = true;
             this.label21.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label21.Location = new System.Drawing.Point(198, 26);
+            this.label21.Location = new System.Drawing.Point(178, 27);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(63, 18);
             this.label21.TabIndex = 134;
@@ -1556,7 +1556,7 @@
             this.txtfoliob.MaxLength = 18;
             this.txtfoliob.Name = "txtfoliob";
             this.txtfoliob.ShortcutsEnabled = false;
-            this.txtfoliob.Size = new System.Drawing.Size(127, 18);
+            this.txtfoliob.Size = new System.Drawing.Size(112, 18);
             this.txtfoliob.TabIndex = 132;
             this.txtfoliob.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtfoliob_KeyPress);
             // 
@@ -1568,9 +1568,9 @@
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label7.Location = new System.Drawing.Point(51, 36);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(137, 9);
+            this.label7.Size = new System.Drawing.Size(121, 9);
             this.label7.TabIndex = 133;
-            this.label7.Text = "_________________________________";
+            this.label7.Text = "_____________________________";
             // 
             // label15
             // 

@@ -496,12 +496,6 @@ namespace controlFallos
                 MessageBox.Show("Iniciando exportacion", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 exportar_excel2();
             }
-
-            /*EXPORTAR EXCEL*/
-
-
-
-            /*EXPORTAR EXCEL*/
         }
 
         public void activarPaginado()
@@ -580,6 +574,7 @@ namespace controlFallos
                 sl.SetCellValue(ir, 8, row.Cells[6].Value.ToString());
                 sl.SetCellValue(ir, 9, row.Cells[7].Value.ToString());
                 sl.SetCellValue(ir, 10, row.Cells[8].Value.ToString());
+                sl.SetCellValue(ir, 11, row.Cells[9].Value.ToString());
 
                 ir++;
 
@@ -598,7 +593,7 @@ namespace controlFallos
             estiloCa.Font.Bold = true;
             estiloCa.Font.FontColor = System.Drawing.Color.White;
             estiloCa.Fill.SetPattern(PatternValues.Solid, System.Drawing.Color.Crimson, System.Drawing.Color.Crimson);
-            sl.SetCellStyle("B" + celdaCabecera, "J" + celdaCabecera, estiloCa);
+            sl.SetCellStyle("B" + celdaCabecera, "K" + celdaCabecera, estiloCa);
             //Estilos de la tabla 
 
 
@@ -624,11 +619,11 @@ namespace controlFallos
             EstiloB.Border.TopBorder.BorderStyle = BorderStyleValues.Thin;
             EstiloB.Border.RightBorder.BorderStyle = BorderStyleValues.Thin;
             EstiloB.Border.BottomBorder.BorderStyle = BorderStyleValues.Thin;
-            sl.SetCellStyle("B" + celdaInicial, "J" + celdaCabecera, EstiloB);
+            sl.SetCellStyle("B" + celdaInicial, "K" + celdaCabecera, EstiloB);
 
             //Ajustar celdas
 
-            sl.AutoFitColumn("B", "J");
+            sl.AutoFitColumn("B", "K");
             //Estilos Para bordes de la tabla
 
             //Extraer fecha
