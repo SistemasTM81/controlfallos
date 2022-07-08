@@ -502,7 +502,7 @@ namespace controlFallos
         }
         void exportar_excel()
         {
-            if (tbrefaccion.Rows.Count > 0)
+          /*  if (tbrefaccion.Rows.Count > 0)
             {
                 isexporting = true;
                 dt = (DataTable)tbrefaccion.DataSource;
@@ -556,7 +556,7 @@ namespace controlFallos
                 excel.Abort();
             }
             else
-                MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("No hay registros en la tabla para exportar".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);*/
         }
         public void Expota_PDF()
         {

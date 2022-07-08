@@ -1265,7 +1265,7 @@ namespace controlFallos
 
         private void dgvrefacciones_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-
+             
         }
 
         private void dgvreportes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
@@ -1296,8 +1296,10 @@ namespace controlFallos
         private void cmbrefaccion_SelectedValueChanged(object sender, EventArgs e)
         {
             lblum.Text = (cmbrefaccion.SelectedIndex > 0 ? v.getaData("select coalesce(upper(t4." + v.c.fieldscunidadmedida[1] + "),'') from crefacciones as t1 inner join cmarcas as t2 on t1." + v.c.fieldscrefacciones[7] + "=t2." + v.c.fieldscmarcas[0] + " inner join cfamilias as t3 on t2." + v.c.fieldscmarcas[1] + "=t3." + v.c.fieldscfamilias[0] + " inner join cunidadmedida as t4 on t3." + v.c.fieldscfamilias[5] + " = t4." + v.c.fieldscunidadmedida[0] + " where t1." + v.c.fieldscrefacciones[0] + " = '" + cmbrefaccion.SelectedValue + "'").ToString() : "");
-        }
 
+            
+        }
+        
         private void dgvrefacciones_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)

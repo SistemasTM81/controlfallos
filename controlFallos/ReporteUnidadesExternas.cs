@@ -37,9 +37,9 @@ namespace controlFallos
         validaciones v;
         conexion con;
 
-        int idUsuario, empresa, area, EstatusAnterior, idmecanico, idmecanicoApoyo, idmecaniAnterior, idmecanicoapoyoAnterior, idreporte, retornos = 0, conteoListFolios = 0, idrefaccionAnterior, cantidadAnterior, idref, entregaRefacciones = 0, RefaccionesAnterior, existenciaAnterior, indexAnteriork = 0;
+        int idUsuario, empresa, area, EstatusAnterior, idmecanico, idmecanicoApoyo, idmecaniAnterior, idmecanicoapoyoAnterior, idreporte, retornos = 0, conteoListFolios = 0, idrefaccionAnterior, cantidadAnterior, idref, entregaRefacciones = 0, RefaccionesAnterior, existenciaAnterior, indexAnteriork = 0,folio = 0;
        
-        string observacionesAnterior, folioAnterior, trabajoAnterior, RefaccionesSolicitadas = "", cadenaEmpresa, valorBusquedak ;
+        string observacionesAnterior, folioAnterior, trabajoAnterior, RefaccionesSolicitadas = "", cadenaEmpresa, valorBusquedak, inicioCodigo = "";
 
         string[] ArraryInformativo;
 
@@ -63,6 +63,10 @@ namespace controlFallos
             cmbEstRep.DrawItem += v.combos_DrawItem;
             cmbRefacciones1.DrawItem += v.combos_DrawItem;
             cmbReTip.DrawItem += v.combos_DrawItem;
+            cmbrefaccion.DrawItem += v.combos_DrawItem;
+
+            cadenaCodigo();
+           tbxFolio.Text = obtenerFolio();
         }
 
         private void cboxRango_CheckedChanged(object sender, EventArgs e)
@@ -307,13 +311,13 @@ namespace controlFallos
 
         private void txtMeca_TextChanged(object sender, EventArgs e)
         {
-            if (txtMeca.Focused)
+            /*if (txtMeca.Focused)
                 txtMeca_Validated(sender, e);
-            if (peditar & editar)
+            if (peditar & editar & pinsertar)
                 pguardar.Visible = (cambios() && !finaliza() ? true : false);
             if (pinsertar && EstatusAnterior != 3)
                 pfinalizar.Visible = (finaliza() ? true : false);
-            ubica();
+            ubica();*/
         }
 
         private void txtMeca2_Validated(object sender, EventArgs e)
@@ -500,12 +504,32 @@ namespace controlFallos
         /**************************************************************************************************************/
         private void btnguardar_Click(object sender, EventArgs e)
         {
-           
-             
+
+
+            agregar();
 
 
 
+        }
 
+        void agregar()
+        {
+
+            
+
+            if (!v.formularioUnidadesExternas(tbxFolio.Text, tbxPersonaIngreso.Text, lblMecanicoU.Text, txtFallos.Text, lblmecanico.Text, txtDiagMeca.Text, txtfoliof.Text, txtRepaReal.Text, cbxSempresa.Text.ToString(), cmbUnidad.Text.ToString(), cmbEstatus1.Text.ToString(), cmbTipoR.Text.ToString(), cmbEstRep.Text.ToString(), cmbRefacciones1.Text.ToString()))
+            { 
+                v.c.insertar("insert into reporteuniexternas(folioR,personaIngreso,mecanicoD,fallosRepor,mecanicoR,diagnosticoMeca,folioFact,reparacionesRa,empresaU,unidad,estatusDiag,tipoRepa,estatusRepa,refacciones) values ('" + tbxFolio.Text + "','" + tbxPersonaIngreso.Text + "','" + lblMecanicoU.Text + "','" + txtFallos.Text + "','" + lblmecanico.Text + "','" + txtDiagMeca.Text + "','" + txtfoliof.Text + "','" + txtRepaReal.Text + "','" + cbxSempresa.SelectedValue + "','" + cmbUnidad.SelectedValue + "','" + cmbEstatus1.SelectedValue + "','" + cmbTipoR.SelectedValue + "','" + cmbEstRep.SelectedValue + "','" + cmbRefacciones1.SelectedValue + "')");
+                MessageBox.Show("Reporte Guardado con Exito");
+
+
+                //Limpiar();
+            }
+            else
+            {
+               
+                MessageBox.Show("Reporte No se Guardo");
+            }
         }
 
         private void btnSig_Click(object sender, EventArgs e)
@@ -528,6 +552,72 @@ namespace controlFallos
 
             DateTime fecha1 = DateTime.Now;
             txtIniDiag.Text = fecha1.ToString();
+        }
+
+        private void btnRepa_Click(object sender, EventArgs e)
+        {
+            btnguardar.Visible = true;
+        }
+
+        private void txtCodigoRef_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((int)e.KeyChar == (int)Keys.Enter)
+            {
+                buscaref(txtCodigoRef.Text);
+            }
+        }
+
+        public void buscaref(string codigo)
+        {
+            //string[] cadenaR = v.getaData("SET lc_time_names = 'es_ES';SELECT concat(convert(t1.nombreRefaccion,char), '|', convert(t1.idrefaccion,char)) as id from crefacciones as t1  where t1.codrefaccion = '" + codigo + "' and t1.empresa  = '" + empresa + "' and t1.existencias > 0").ToString().Split('|');
+            string[] cadenaR = v.getaData("SET lc_time_names = 'es_ES';SELECT concat(if(count(convert(t1.nombreRefaccion,char))>0,convert(t1.nombreRefaccion,char),'0'), '|',if(count(convert(t1.idrefaccion,char))>0,convert(t1.idrefaccion,char),'0')) as id from crefacciones as t1  where t1.codrefaccion = '" + codigo + "' and t1.empresa  = '" + empresa + "' and t1.existencias > 0").ToString().Split('|');
+            if (cadenaR[0].ToString().Equals("").Equals("0"))
+            {
+                MessageBox.Show("No se encontro la refaccion y/o No hay en existencia".ToUpper(), "SIN REPORTES", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtCodigoRef.Text = "";
+                cmbrefaccion.Enabled = false;
+            }
+            else
+            {
+                cmbrefaccion.SelectedValue = int.Parse(cadenaR[1].ToString());
+
+            }
+        }
+
+        private void txtRetorno_TextChanged(object sender, EventArgs e)
+        {
+            //if (editarRefaccion && peditar)
+            if (peditar)
+            {
+                if (!string.IsNullOrWhiteSpace(txtRetorno.Text))
+                {
+                    if (Convert.ToInt32(txtRetorno.Text) <= Convert.ToInt32(txtcantidad.Text) && Convert.ToInt32(txtRetorno.Text) > 0)
+                    {
+                        pagregar.Visible = txtcantidad.Enabled = false;
+                        //txtcantidad.Text = cantidadAnterior.ToString();
+                        pRetorno.Visible = true;
+                    }
+                    else
+                    {
+                        txtRetorno.Text = "";
+                    }
+                }
+                //else
+                //{
+                //    txtcantidad.Enabled = true;
+                //    pRetorno.Visible = pagregar.Visible = false;
+                //}
+            }
+        }
+
+        private void txtcantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            v.SoloNumers(e);
+        }
+
+        private void cmbrefaccion_SelectedValueChanged(object sender, EventArgs e)
+        {
+            lblum.Text = (cmbrefaccion.SelectedIndex > 0 ? v.getaData("select coalesce(upper(t4." + v.c.fieldscunidadmedida[1] + "),'') from crefacciones as t1 inner join cmarcas as t2 on t1." + v.c.fieldscrefacciones[7] + "=t2." + v.c.fieldscmarcas[0] + " inner join cfamilias as t3 on t2." + v.c.fieldscmarcas[1] + "=t3." + v.c.fieldscfamilias[0] + " inner join cunidadmedida as t4 on t3." + v.c.fieldscfamilias[5] + " = t4." + v.c.fieldscunidadmedida[0] + " where t1." + v.c.fieldscrefacciones[0] + " = '" + cmbrefaccion.SelectedValue + "'").ToString() : "");
         }
 
         void VerificaPedidoRefaccion(string Guarda)
@@ -686,13 +776,13 @@ namespace controlFallos
 
         private void txtmecanico_TextChanged(object sender, EventArgs e)
         {
-            if (txtmecanico.Focused)
+            /*if (txtmecanico.Focused)
                 txtmecanico_Validated(sender, e);
-            if (peditar & editar)
+            if (peditar & editar & pinsertar)
                 pguardar.Visible = (cambios() && !finaliza() ? true : false);
             if (pinsertar && EstatusAnterior != 3)
                 pfinalizar.Visible = (finaliza() ? true : false);
-            ubica();
+            ubica();*/
         }
 
         private void txtmecanico_Validated(object sender, EventArgs e)
@@ -799,7 +889,7 @@ namespace controlFallos
             busqueda();
             unidad();
 
-            privilegios();
+            //privilegios();
             cargardatos();
             
             obtenerReportes();
@@ -895,29 +985,19 @@ namespace controlFallos
             cmbUnidad.DataSource = dt;
         }
 
-        void cadenaCodigo()
+        public void cadenaCodigo()
         {
-          /*if (empresa == 2 && puesto != 52)
+          if (empresa == 2)
             {
-                inicioCodigo = "RECUVHF";
+                inicioCodigo = "RUEX-";
             }
-            else if (empresa == 3 && puesto != 52)
-            {
-                inicioCodigo = "RECUTRI";
-            }
-            else if (empresa == 2 && puesto == 52)
-            {
-                inicioCodigo = "RECUPR";
-            }*/
-
-
         }
 
-        /*public string obtenerFolio()
+        public string obtenerFolio()
         {
-            int valorinicial = 1000;
+            int valorinicial = 1001;
             string codigo = "";
-            int idContinuo = v.DatocoSigue("select count(idcrefaccionesrecu) from crefaccionesrecu where empresa ='" + empresa + "' and Tipo = '" + Tipo + "'");
+            int idContinuo = v.DatocoSigue("select count(idRUEX) from reporteuniexternas where folioR ='" + folio + "'");
             if (idContinuo > 0)
             {
                 codigo = inicioCodigo + Convert.ToString(valorinicial + idContinuo);
@@ -928,7 +1008,8 @@ namespace controlFallos
             }
 
             return codigo.ToString();
-        }*/
+        }
+
     }
 }
 /*ACTUALIZACION 30-06-2022 REPORTE UNIDADES EXTERNAS*/
