@@ -829,7 +829,7 @@ namespace controlFallos
                 {
                     if (empresa == 1)
                     {
-                        privilegiosSupervision ps = new privilegiosSupervision(v, idUsuarioTemp);
+                        privilegiosSupervision ps = new privilegiosSupervision(v, idUsuarioTemp,1);
                         ps.Owner = this;
                         string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                         ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
@@ -840,7 +840,7 @@ namespace controlFallos
                     {
                         if (area == 1)
                         {
-                            privilegiosMantenimiento ps = new privilegiosMantenimiento(idUsuarioTemp, v);
+                            privilegiosSupervision ps = new privilegiosSupervision(v, idUsuarioTemp, 2);
                             ps.Owner = this;
                             string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                             ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
@@ -851,7 +851,7 @@ namespace controlFallos
                         }
                         else
                         {
-                            privilegiosAlmacen ps = new privilegiosAlmacen(idUsuarioTemp,v);
+                            privilegiosSupervision ps = new privilegiosSupervision(v, idUsuarioTemp, 3);
                             ps.Owner = this;
                             string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                             ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
@@ -868,7 +868,7 @@ namespace controlFallos
             {
                 if (empresa == 1)
                 {
-                    privilegiosSupervision ps = new privilegiosSupervision(v);
+                    privilegiosSupervision ps = new privilegiosSupervision(v,1);
                     ps.Owner = this;
                     string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                     ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
@@ -879,7 +879,7 @@ namespace controlFallos
                 {
                     if (area == 1)
                     {
-                        privilegiosMantenimiento ps = new privilegiosMantenimiento(idUsuarioTemp, v);
+                        privilegiosSupervision ps = new privilegiosSupervision(v, idUsuarioTemp, 2);
                         ps.Owner = this;
                         string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                         ps.lbltitle.Text = "Nombre del Empleado: " + nombre;
@@ -888,7 +888,7 @@ namespace controlFallos
                     }
                     else
                     {
-                        privilegiosAlmacen ps = new privilegiosAlmacen(idUsuarioTemp,v);
+                        privilegiosSupervision ps = new privilegiosSupervision(v, idUsuarioTemp, 3);
                         ps.Owner = this;
                         string nombre = v.mayusculas((txtgetnombre.Text.Trim() + " " + txtgetap.Text.Trim() + " " + txtgetam.Text.Trim()).ToLower());
                         ps.lbltitle.Text = "Nombre del Empleado: " + nombre;

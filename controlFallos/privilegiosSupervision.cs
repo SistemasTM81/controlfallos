@@ -5,20 +5,32 @@ namespace controlFallos
 {
     public partial class privilegiosSupervision : Form
     {
-        int idUsuario;
+        int idUsuario, proveine, nuevopermiso = 0;
         bool editar = false;
         DataTable t;
         validaciones v;
+        checarbotones cb;
+        string[,] privilegios = new string[32, 6];
+        string[,] respaldo = new string[32, 5];
         string[] id;
         void buscarNombre() { lbltitle.Text = "Nombre del Empleado: " + v.getaData("SELECT CONCAT(coalesce(nombres,''),' ',coalesce(apPaterno,''),' ',coalesce(apMaterno,'')) as Nombre FROM cpersonal WHERE idPersona ='" + idUsuario + "'"); }
-        public privilegiosSupervision(validaciones v, int idUsuario)
+        public privilegiosSupervision(validaciones v, int idUsuario, int proviene)
         {
             this.v = v;
             InitializeComponent();
             this.idUsuario = idUsuario;
+            this.proveine = proviene;
         }
-        public privilegiosSupervision(validaciones v) { this.v = v; InitializeComponent(); }
+        public privilegiosSupervision(validaciones v, int proviene) { this.v = v; this.proveine = proviene; InitializeComponent(); }
         private void CambiarEstado_Click(object sender, EventArgs e) { v.CambiarEstado_Click(sender, e); }
+
+        void cambios(object sender, EventArgs e)
+        {
+            cb = new checarbotones(v);
+            cb.cambiarestado(sender, e);
+
+        }
+
         private void button33_Click(object sender, EventArgs e)
         {
             foreach (Control ctrl in panel2.Controls)
@@ -37,6 +49,13 @@ namespace controlFallos
                 exitenPrivilegios();
             }
             lbltitle.Left = (panel1.Width - lbltitle.Size.Width) / 2;
+            habilitar_privilegios(proveine);
+            combo();
+
+        }
+        void combo()
+        {
+            v.comboswithuot(puestoCB, new string[] { "--Seleccione el Puesto--", "Administrador", "Auxiliar de Almacen", "Compras", "Encargado de Almacen", "Finanzas", "Solo Consulta" });
         }
         private void btnconsultararea_BackgroundImageChanged(object sender, EventArgs e)
         {
@@ -110,8 +129,6 @@ namespace controlFallos
         }
         private void button32_Click(object sender, EventArgs e)
         {
-            string[,] privilegios = new string[17, 6];
-            string[,] respaldo = new string[17, 5];
             respaldo[0, 0] = privilegios[0, 0] = v.getIntFrombool((v.ImageToString(btninsertararea.BackgroundImage) == v.check || v.ImageToString(btnconsultararea.BackgroundImage) == v.check || v.ImageToString(btnmodificararea.BackgroundImage) == v.check || v.ImageToString(btneliminararea.BackgroundImage) == v.check)).ToString();
             respaldo[0, 1] = privilegios[0, 1] = v.Checked(btninsertararea.BackgroundImage).ToString();
             respaldo[0, 2] = privilegios[0, 2] = v.Checked(btnconsultararea.BackgroundImage).ToString();
@@ -221,6 +238,112 @@ namespace controlFallos
             respaldo[16, 3] = privilegios[16, 3] = "0";
             respaldo[16, 4] = privilegios[16, 4] = "0";
             privilegios[16, 5] = "historial";
+
+            //mantyenimiento
+            respaldo[17, 0] = privilegios[17, 0] = v.getIntFrombool((v.ImageToString(btninsertarfallo.BackgroundImage) == v.check || v.ImageToString(btnconsultarfallo.BackgroundImage) == v.check || v.ImageToString(btnmodificarfallo.BackgroundImage) == v.check || v.ImageToString(btneliminarfallo.BackgroundImage) == v.check)).ToString();
+            respaldo[17, 1] = privilegios[17, 1] = v.Checked(btninsertarfallo.BackgroundImage).ToString();
+            respaldo[17, 2] = privilegios[17, 2] = v.Checked(btnconsultarfallo.BackgroundImage).ToString();
+            respaldo[17, 3] = privilegios[17, 3] = v.Checked(btnmodificarfallo.BackgroundImage).ToString();
+            respaldo[17, 4] = privilegios[17, 4] = v.Checked(btneliminarfallo.BackgroundImage).ToString();
+            privilegios[17, 5] = "catfallosGrales";
+
+
+            respaldo[18, 0] = privilegios[18, 0] = v.getIntFrombool((v.ImageToString(btninsertarunidad.BackgroundImage) == v.check || v.ImageToString(btnconsultarunidad.BackgroundImage) == v.check || v.ImageToString(btnmodificarunidad.BackgroundImage) == v.check)).ToString();
+            respaldo[18, 1] = privilegios[18, 1] = v.Checked(btninsertarunidad.BackgroundImage).ToString();
+            respaldo[18, 2] = privilegios[18, 2] = v.Checked(btnconsultarunidad.BackgroundImage).ToString();
+            respaldo[18, 3] = privilegios[18, 3] = v.Checked(btnmodificarunidad.BackgroundImage).ToString();
+            respaldo[18, 4] = privilegios[18, 4] = "0";
+            privilegios[18, 5] = "catUnidades";
+            respaldo[19, 0] = privilegios[19, 0] = v.getIntFrombool((v.ImageToString(btninsertarmante.BackgroundImage) == v.check || v.ImageToString(btnconsultarmante.BackgroundImage) == v.check || v.ImageToString(btnmodificarmante.BackgroundImage) == v.check)).ToString();
+            respaldo[19, 1] = privilegios[19, 1] = v.Checked(btninsertarmante.BackgroundImage).ToString();
+            respaldo[19, 2] = privilegios[19, 2] = v.Checked(btnconsultarmante.BackgroundImage).ToString();
+            respaldo[19, 3] = privilegios[19, 3] = v.Checked(btnmodificarmante.BackgroundImage).ToString();
+            respaldo[19, 4] = privilegios[19, 4] = "0";
+            privilegios[19, 5] = "Mantenimiento";
+
+            //ALMACEN
+
+
+
+            respaldo[20, 0] = privilegios[20, 0] = v.getIntFrombool((v.ImageToString(btninsertarproveedor.BackgroundImage) == v.check || v.ImageToString(btnconsultarproveedor.BackgroundImage) == v.check || v.ImageToString(btnmodificarproveedor.BackgroundImage) == v.check || v.ImageToString(btneliminarproveedor.BackgroundImage) == v.check)).ToString();
+            respaldo[20, 1] = privilegios[20, 1] = v.Checked(btninsertarproveedor.BackgroundImage).ToString();
+            respaldo[20, 2] = privilegios[20, 2] = v.Checked(btnconsultarproveedor.BackgroundImage).ToString();
+            respaldo[20, 3] = privilegios[20, 3] = v.Checked(btnmodificarproveedor.BackgroundImage).ToString();
+            respaldo[20, 4] = privilegios[20, 4] = v.Checked(btneliminarproveedor.BackgroundImage).ToString();
+            privilegios[20, 5] = "catProveedores";
+            respaldo[21, 0] = privilegios[21, 0] = v.getIntFrombool((v.ImageToString(btninsertarrefaccion.BackgroundImage) == v.check || v.ImageToString(btnconsultarrefaccion.BackgroundImage) == v.check || v.ImageToString(btnmodificarrefaccion.BackgroundImage) == v.check || v.ImageToString(btneliminarrefaccion.BackgroundImage) == v.check)).ToString();
+            respaldo[21, 1] = privilegios[21, 1] = v.Checked(btninsertarrefaccion.BackgroundImage).ToString();
+            respaldo[21, 2] = privilegios[21, 2] = v.Checked(btnconsultarrefaccion.BackgroundImage).ToString();
+            respaldo[21, 3] = privilegios[21, 3] = v.Checked(btnmodificarrefaccion.BackgroundImage).ToString();
+            respaldo[21, 4] = privilegios[21, 4] = v.Checked(btneliminarrefaccion.BackgroundImage).ToString();
+            privilegios[21, 5] = "catRefacciones";
+            respaldo[22, 0] = privilegios[22, 0] = v.getIntFrombool((v.ImageToString(btninsertarempresa.BackgroundImage) == v.check || v.ImageToString(btnconsultarempresa.BackgroundImage) == v.check || v.ImageToString(btnmodificarempresa.BackgroundImage) == v.check || v.ImageToString(btneliminarempresa.BackgroundImage) == v.check)).ToString();
+            respaldo[22, 1] = privilegios[22, 1] = v.Checked(btninsertarempresa.BackgroundImage).ToString();
+            respaldo[22, 2] = privilegios[22, 2] = v.Checked(btnconsultarempresa.BackgroundImage).ToString();
+            respaldo[22, 3] = privilegios[22, 3] = v.Checked(btnmodificarempresa.BackgroundImage).ToString();
+            respaldo[22, 4] = privilegios[22, 4] = v.Checked(btneliminarempresa.BackgroundImage).ToString();
+            privilegios[22, 5] = "catEmpresas";
+            respaldo[23, 0] = privilegios[23, 0] = v.getIntFrombool((v.ImageToString(btninsertargiro.BackgroundImage) == v.check || v.ImageToString(btnconsultargiro.BackgroundImage) == v.check || v.ImageToString(btnmodificargiro.BackgroundImage) == v.check || v.ImageToString(btneliminargiro.BackgroundImage) == v.check)).ToString();
+            respaldo[23, 1] = privilegios[23, 1] = v.Checked(btninsertargiro.BackgroundImage).ToString();
+            respaldo[23, 2] = privilegios[23, 2] = v.Checked(btnconsultargiro.BackgroundImage).ToString();
+            respaldo[23, 3] = privilegios[23, 3] = v.Checked(btnmodificargiro.BackgroundImage).ToString();
+            respaldo[23, 4] = privilegios[23, 4] = v.Checked(btneliminargiro.BackgroundImage).ToString();
+            privilegios[23, 5] = "catGiros";
+            
+            respaldo[24, 0] = privilegios[24, 0] = v.getIntFrombool((v.ImageToString(btninsertarrequisicion.BackgroundImage) == v.check || v.ImageToString(btnconsultarrequisicion.BackgroundImage) == v.check || v.ImageToString(btnmodificarrequisicion.BackgroundImage) == v.check)).ToString();
+            respaldo[24, 1] = privilegios[24, 1] = v.Checked(btninsertarrequisicion.BackgroundImage).ToString();
+            respaldo[24, 2] = privilegios[24, 2] = v.Checked(btnconsultarrequisicion.BackgroundImage).ToString();
+            respaldo[24, 3] = privilegios[24, 3] = v.Checked(btnmodificarrequisicion.BackgroundImage).ToString();
+            respaldo[24, 4] = privilegios[24, 4] = "0";
+            privilegios[24, 5] = "ordencompra";
+            respaldo[25, 0] = privilegios[25, 0] = v.getIntFrombool((v.ImageToString(btninsertarcomparativa.BackgroundImage) == v.check || v.ImageToString(btnconsultarcomparativa.BackgroundImage) == v.check || v.ImageToString(btnmodificarcomparativa.BackgroundImage) == v.check)).ToString();
+            respaldo[25, 1] = privilegios[25, 1] = v.Checked(btninsertarcomparativa.BackgroundImage).ToString();
+            respaldo[25, 2] = privilegios[25, 2] = v.Checked(btnconsultarcomparativa.BackgroundImage).ToString();
+            respaldo[25, 3] = privilegios[25, 3] = v.Checked(btnmodificarcomparativa.BackgroundImage).ToString();
+            respaldo[25, 4] = privilegios[25, 4] = "0";
+            privilegios[25, 5] = "comparativas";
+            respaldo[26, 0] = privilegios[26, 0] = v.getIntFrombool((v.ImageToString(btninsertaralmacen.BackgroundImage) == v.check || v.ImageToString(btnconsultaralmacen.BackgroundImage) == v.check || v.ImageToString(btnmodificaralmacen.BackgroundImage) == v.check)).ToString();
+            respaldo[26, 1] = privilegios[26, 1] = v.Checked(btninsertaralmacen.BackgroundImage).ToString();
+            respaldo[26, 2] = privilegios[26, 2] = v.Checked(btnconsultaralmacen.BackgroundImage).ToString();
+            respaldo[26, 3] = privilegios[26, 3] = v.Checked(btnmodificaralmacen.BackgroundImage).ToString();
+            respaldo[26, 4] = privilegios[26, 4] = "0";
+            privilegios[26, 5] = "Almacen";
+            
+            respaldo[27, 0] = privilegios[27, 0] = v.getIntFrombool((v.ImageToString(btnmodificariva.BackgroundImage) == v.check)).ToString();
+            respaldo[27, 1] = privilegios[27, 1] = "0";
+            respaldo[27, 2] = privilegios[27, 2] = "0";
+            respaldo[27, 3] = privilegios[27, 3] = v.Checked(btnmodificariva.BackgroundImage).ToString();
+            respaldo[27, 4] = privilegios[27, 4] = "0";
+            privilegios[27, 5] = "changeiva";
+            respaldo[28, 0] = privilegios[28, 0] = v.getIntFrombool((v.ImageToString(btnIncertarRR.BackgroundImage) == v.check)).ToString();
+            respaldo[28, 1] = privilegios[28, 1] = v.getIntFrombool((v.ImageToString(btnIncertarRR.BackgroundImage) == v.check)).ToString();
+            respaldo[28, 2] = privilegios[28, 2] = v.getIntFrombool((v.ImageToString(btnConsultaRR.BackgroundImage) == v.check)).ToString();
+            respaldo[28, 3] = privilegios[28, 3] = v.getIntFrombool((v.ImageToString(btnEditarRR.BackgroundImage) == v.check)).ToString();
+            respaldo[28, 4] = privilegios[28, 4] = v.getIntFrombool((v.ImageToString(btnEliminarRR.BackgroundImage) == v.check)).ToString();
+            privilegios[28, 5] = "catRefacC";
+            respaldo[29, 0] = privilegios[29, 0] = v.getIntFrombool((v.ImageToString(btnReportes.BackgroundImage) == v.check)).ToString();
+            respaldo[29, 1] = privilegios[29, 1] = "0";
+            respaldo[29, 2] = privilegios[29, 2] = v.Checked(btnReportes.BackgroundImage).ToString();
+            respaldo[29, 3] = privilegios[29, 3] = "0";
+            respaldo[29, 4] = privilegios[29, 4] = "0";
+            privilegios[29, 5] = "Reportes";
+            respaldo[30, 0] = privilegios[30, 0] = v.getIntFrombool((v.ImageToString(btnExternas.BackgroundImage) == v.check)).ToString();
+            respaldo[30, 1] = privilegios[30, 1] = "0";
+            respaldo[30, 2] = privilegios[30, 2] = v.Checked(btnExternas.BackgroundImage).ToString();
+            respaldo[30, 3] = privilegios[30, 3] = "0";
+            respaldo[30, 4] = privilegios[30, 4] = "0";
+            privilegios[30, 5] = "UnExternas";
+            respaldo[31, 0] = privilegios[31, 0] = v.getIntFrombool((v.ImageToString(btnInventario.BackgroundImage) == v.check)).ToString();
+            respaldo[31, 1] = privilegios[31, 1] = "0";
+            respaldo[31, 2] = privilegios[31, 2] = v.Checked(btnInventario.BackgroundImage).ToString();
+            respaldo[31, 3] = privilegios[31, 3] = "0";
+            respaldo[31, 4] = privilegios[31, 4] = "0";
+            privilegios[31, 5] = "Inventario";
+
+
+
+
+
             string mensaje = "";
             if (!v.todosFalsos(respaldo))
             {
@@ -275,7 +398,14 @@ namespace controlFallos
                             string modificar = privilegios[i, 3];
                             string eliminar = privilegios[i, 4];
                             string nombre = privilegios[i, 5];
-                            v.edit(id[i], ver, insertar, consultar, modificar, eliminar);
+                            try
+                            {
+                                v.edit(id[i], ver, insertar, consultar, modificar, eliminar);
+                            }
+                            catch
+                            {
+
+                            }
                             //v.c.editLocal(id[i], ver, insertar, consultar, modificar, eliminar);
                             //v.c.insertLocal(ver, insertar, consultar, modificar, eliminar, nombre, idUsuario);
                         }
@@ -312,21 +442,47 @@ namespace controlFallos
             a.Columns.RemoveAt(0);
             for (int i = 0; i < b.GetLength(0); i++)
             {
+                try { 
                 object[] c = a.Rows[i].ItemArray;
-                for (int j = 0; j < c.Length; j++)
-                {
-                    if (c[j].ToString() != b[i, j])
+                  for (int j = 0; j < c.Length; j++)
                     {
-                        res = true;
+                        if (c[j].ToString() != b[i, j])
+                        {
+                            res = true;
+                        }
                     }
                 }
+                catch
+                {
+                    nuevopermiso = i;
+                    agregarNuevoPermisos(); 
+                }
+               
             }
             return res;
         }
+
+        void agregarNuevoPermisos()
+        {
+           
+                string ver = privilegios[nuevopermiso, 0];
+                string insertar = privilegios[nuevopermiso, 1];
+                string consultar = privilegios[nuevopermiso, 2];
+                string modificar = privilegios[nuevopermiso, 3];
+                string eliminar = privilegios[nuevopermiso, 4];
+                string nombre = privilegios[nuevopermiso, 5];
+            if (!string.IsNullOrWhiteSpace(nombre))
+            {
+                v.insert(ver, insertar, consultar, modificar, eliminar, nombre, idUsuario);
+            }
+                
+                //v.c.insertLocal(ver, insertar, consultar, modificar, eliminar, nombre, idUsuario);
+           
+        }
         bool sehicieronModificaciones(string[,] a, string[,] b)
         {
-            string[,] temp = new string[17, 5];
-            for (int m = 0; m < 17; m++)
+            string[,] temp = new string[32, 5];
+            for (int m = 0; m < 32; m++)
             {
                 for (int n = 0; n < 5; n++)
                     temp[m, n] = a[m, n];
@@ -546,6 +702,95 @@ namespace controlFallos
                         case "historial":
                             btnconsultarhistorial.BackgroundImage = v.Checked(privilegios[1]);
                             break;
+                        case "catfallosGrales":
+
+                            btninsertarfallo.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarfallo.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarfallo.BackgroundImage = v.Checked(privilegios[2]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarfallo.BackgroundImage = v.Checked(privilegios[3]);
+                            }
+                            break;
+                        case "Mantenimiento":
+
+                            btninsertarmante.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarmante.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarmante.BackgroundImage = v.Checked(privilegios[2]);
+
+                            break;
+                        case "catProveedores":
+
+                            btninsertarproveedor.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarproveedor.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarproveedor.BackgroundImage = v.Checked(privilegios[2]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarproveedor.BackgroundImage = v.Checked(privilegios[3]);
+                            }
+                            break;
+                        case "catRefacciones":
+
+                            btninsertarrefaccion.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarrefaccion.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarrefaccion.BackgroundImage = v.Checked(privilegios[2]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminarrefaccion.BackgroundImage = v.Checked(privilegios[3]);
+                            }
+                            break;
+                        case "ordencompra":
+
+                            btninsertarrequisicion.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarrequisicion.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarrequisicion.BackgroundImage = v.Checked(privilegios[2]);
+                            break;
+                        case "comparativas":
+
+                            btninsertarcomparativa.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultarcomparativa.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificarcomparativa.BackgroundImage = v.Checked(privilegios[2]);
+                            break;
+                        case "Almacen":
+
+                            btninsertaralmacen.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultaralmacen.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificaralmacen.BackgroundImage = v.Checked(privilegios[2]);
+                            break;
+                        case "catGiros":
+                            btninsertargiro.BackgroundImage = v.Checked(privilegios[0]);
+                            btnconsultargiro.BackgroundImage = v.Checked(privilegios[1]);
+                            btnmodificargiro.BackgroundImage = v.Checked(privilegios[2]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btneliminargiro.BackgroundImage = v.Checked(privilegios[3]);
+                            }
+                            break;
+                        case "changeiva":
+                            btnmodificariva.BackgroundImage = v.Checked(privilegios[2]);
+                            break;
+                        case "catRefacC":
+                            btnIncertarRR.BackgroundImage = v.Checked(privilegios[0]);
+                            btnConsultaRR.BackgroundImage = v.Checked(privilegios[1]);
+                            btnEditarRR.BackgroundImage = v.Checked(privilegios[2]);
+                            if (Convert.ToInt32(privilegios.Length) > 3)
+                            {
+                                btnEliminarRR.BackgroundImage = v.Checked(privilegios[3]);
+                            }
+                            break;
+                        case "Reportes":
+                            btnReportes.BackgroundImage = v.Checked(privilegios[1]);
+                            break;
+                        case "UnExternas":
+                           
+                            btnExternas.BackgroundImage = v.Checked(privilegios[1]);
+                            break;
+                        case "Inventario":
+                            btnInventario.BackgroundImage = v.Checked(privilegios[1]);
+                            break;
+                        case "REntradas":
+                            btnConsultaEntrada.BackgroundImage = v.Checked(privilegios[1]);
+                            break;
                     }
                 }
             }
@@ -712,6 +957,622 @@ namespace controlFallos
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void privilegiosSupervision_LocationChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        void habilitar_privilegios(int provienen)
+        {
+            switch (provienen)
+            {
+                case 1:
+                    btninsertararea.Enabled = Enabled = btnmodificararea.Enabled = btneliminararea.Enabled = btninsertarservicio.Enabled = btnmodificarservicio.Enabled = btneliminarservicio.Enabled = btninsertarincidencia.Enabled = btnmodificarincidencia.Enabled = btneliminarincidencia.Enabled = btninsertarestacion.Enabled = btnmodificarestacion.Enabled = btneliminarestacion.Enabled = btninsertarunidad.Enabled = btnmodificarunidad.Enabled = btneliminarunidad.Enabled = btninsertarmodelo.Enabled = btnmodificarmodelo.Enabled = btneliminarmodelo.Enabled = btninsertarol.Enabled = btnmodificarol.Enabled = btndesactivarol.Enabled = btninsertarsuper.Enabled = btnmodificarsuper.Enabled = btninsertarpercances.Enabled = btnmodificarpercances.Enabled = btninsertarrp.Enabled = btnmodificarrp.Enabled = btninsertarip.Enabled = btnmodificarip.Enabled = true;
+                    btninsertarfallo.Enabled = btnUnidades.Enabled = btninsertarmante.Enabled = btnmodificarfallo.Enabled = btnmodificarcargo.Enabled = btnmodificaru.Enabled = btnmodificarmante.Enabled = btneliminarfallo.Enabled = false;
+                    btninsertarproveedor.Enabled = btninsertarrefaccion.Enabled = btnIncertarRR.Enabled = btninsertargiro.Enabled = btninsertarcomparativa.Enabled = btninsertaralmacen.Enabled = btnmodificarproveedor.Enabled = btnmodificarrefaccion.Enabled = btnEditarRR.Enabled = btnmodificargiro.Enabled = btnmodificarcomparativa.Enabled = btneliminarproveedor.Enabled = btneliminarrefaccion.Enabled = btnEliminarRR.Enabled = btneliminargiro.Enabled = btnmodificaralmacen.Enabled = btnmodificaralmacen.Enabled = btnmodificaralmacen.Enabled = btnmodificaralmacen.Enabled = false;
+                    break;
+                case 2:
+
+                    btninsertarfallo.Enabled = btnUnidades.Enabled = btninsertarmante.Enabled = btnmodificarfallo.Enabled = btnmodificarcargo.Enabled = btnmodificaru.Enabled = btnmodificarmante.Enabled = btneliminarfallo.Enabled = true;
+
+                    btninsertararea.Enabled = btnmodificararea.Enabled = btneliminararea.Enabled = btninsertarservicio.Enabled = btnmodificarservicio.Enabled = btneliminarservicio.Enabled = btninsertarincidencia.Enabled = btnmodificarincidencia.Enabled = btneliminarincidencia.Enabled = btninsertarestacion.Enabled = btnmodificarestacion.Enabled = btneliminarestacion.Enabled = btninsertarunidad.Enabled = btnmodificarunidad.Enabled = btneliminarunidad.Enabled = btninsertarmodelo.Enabled = btnmodificarmodelo.Enabled = btneliminarmodelo.Enabled = btninsertarol.Enabled = btnmodificarol.Enabled = btndesactivarol.Enabled = btninsertarsuper.Enabled = btnmodificarsuper.Enabled = btninsertarpercances.Enabled = btnmodificarpercances.Enabled = btninsertarrp.Enabled = btnmodificarrp.Enabled = btninsertarip.Enabled = btnmodificarip.Enabled = false;
+
+
+                    btninsertarproveedor.Enabled = btninsertarrefaccion.Enabled = btnIncertarRR.Enabled = btninsertargiro.Enabled = btninsertarcomparativa.Enabled = btninsertaralmacen.Enabled = btnmodificarproveedor.Enabled = btnmodificarrefaccion.Enabled = btnEditarRR.Enabled = btnmodificargiro.Enabled = btnmodificarcomparativa.Enabled = btneliminarproveedor.Enabled = btneliminarrefaccion.Enabled = btnEliminarRR.Enabled = btneliminargiro.Enabled = btnmodificaralmacen.Enabled = btnmodificaralmacen.Enabled = btnmodificaralmacen.Enabled = btnmodificaralmacen.Enabled = false;
+                    break;
+                case 3:
+
+                    btninsertarfallo.Enabled = btnUnidades.Enabled = btninsertarmante.Enabled = btnmodificarfallo.Enabled = btnmodificarcargo.Enabled = btnmodificaru.Enabled = btnmodificarmante.Enabled = btneliminarfallo.Enabled = false;
+
+                    btnmodificarip.Enabled = btninsertararea.Enabled =  btnmodificararea.Enabled = btneliminararea.Enabled = btninsertarservicio.Enabled = btnmodificarservicio.Enabled = btneliminarservicio.Enabled = btninsertarincidencia.Enabled = btnmodificarincidencia.Enabled = btneliminarincidencia.Enabled = btninsertarestacion.Enabled = btnmodificarestacion.Enabled = btneliminarestacion.Enabled = btninsertarunidad.Enabled = btnmodificarunidad.Enabled = btneliminarunidad.Enabled = btninsertarmodelo.Enabled = btnmodificarmodelo.Enabled = btneliminarmodelo.Enabled = btninsertarol.Enabled = btnmodificarol.Enabled = btndesactivarol.Enabled = btninsertarsuper.Enabled = btnmodificarsuper.Enabled = btninsertarpercances.Enabled = btnmodificarpercances.Enabled = btninsertarrp.Enabled = btnmodificarrp.Enabled = btninsertarip.Enabled = false;
+                    
+
+                    btninsertarproveedor.Enabled = btninsertarrefaccion.Enabled = btnIncertarRR.Enabled = btninsertargiro.Enabled = btninsertarcomparativa.Enabled = btninsertaralmacen.Enabled = btnmodificarproveedor.Enabled = btnmodificarrefaccion.Enabled = btnEditarRR.Enabled = btnmodificargiro.Enabled = btnmodificarcomparativa.Enabled = btneliminarproveedor.Enabled = btneliminarrefaccion.Enabled = btnEliminarRR.Enabled = btneliminargiro.Enabled = btnmodificaralmacen.Enabled = btnmodificaralmacen.Enabled = btnmodificaralmacen.Enabled = btnmodificaralmacen.Enabled = btninsertarrequisicion.Enabled = btnconsultarrequisicion.Enabled = btnmodificarrequisicion.Enabled = btnConsultaEntrada.Enabled = true;
+                    break;
+            }
+        }
+        public void puestoCB_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (puestoCB.Text == "ADMINISTRADOR")
+            {
+                administrador();
+            }
+
+            if (puestoCB.Text == "AUXILIAR DE ALMACEN")
+            {
+                auxiliar_almacen();
+            }
+
+            if (puestoCB.Text == "COMPRAS")
+            {
+                //catalogo personal                                                         
+                btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarempleado.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarempleado.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarempleado.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo cargos                                                         
+                btninsertarcargo.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarcargo.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarcargo.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarcargo.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo proveedores
+                btninsertarproveedor.BackgroundImage = Properties.Resources.check;
+                btnconsultarproveedor.BackgroundImage = Properties.Resources.check;
+                btnmodificarproveedor.BackgroundImage = Properties.Resources.check;
+                btneliminarproveedor.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo refacciones
+                btninsertarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarrefaccion.BackgroundImage = Properties.Resources.check;
+                btnmodificarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo refacciones recu
+                btnIncertarRR.BackgroundImage = Properties.Resources.uncheck;
+                btnConsultaRR.BackgroundImage = Properties.Resources.uncheck;
+                btnEditarRR.BackgroundImage = Properties.Resources.uncheck;
+                btnEliminarRR.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo empresas
+                btninsertarempresa.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarempresa.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarempresa.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarempresa.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo giro empresas
+                btninsertargiro.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultargiro.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificargiro.BackgroundImage = Properties.Resources.uncheck;
+                btneliminargiro.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo tipo lice
+                btninsertartipo.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultartipo.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificartipo.BackgroundImage = Properties.Resources.uncheck;
+                btneliminartipo.BackgroundImage = Properties.Resources.uncheck;
+
+                //orden compra
+                btninsertarrequisicion.BackgroundImage = Properties.Resources.check;
+                btnconsultarrequisicion.BackgroundImage = Properties.Resources.check;
+                btnmodificarrequisicion.BackgroundImage = Properties.Resources.check;
+
+                //requerimiento
+                btninsertarcomparativa.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarcomparativa.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarcomparativa.BackgroundImage = Properties.Resources.uncheck;
+
+                //reporte almacen
+                btninsertaralmacen.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultaralmacen.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificaralmacen.BackgroundImage = Properties.Resources.uncheck;
+
+                //modificaciones
+
+                btnconsultarhistorial.BackgroundImage = Properties.Resources.uncheck;
+
+                //iva
+                btnmodificariva.BackgroundImage = Properties.Resources.uncheck;
+            }
+
+            if (puestoCB.Text == "ENCARGADO DE ALMACEN")
+            {
+                //catalogo personal                                                         
+                btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarempleado.BackgroundImage = Properties.Resources.check;
+                btnmodificarempleado.BackgroundImage = Properties.Resources.check;
+                btneliminarempleado.BackgroundImage = Properties.Resources.check;
+
+                //catalogo cargos                                                         
+                btninsertarcargo.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarcargo.BackgroundImage = Properties.Resources.check;
+                btnmodificarcargo.BackgroundImage = Properties.Resources.check;
+                btneliminarcargo.BackgroundImage = Properties.Resources.check;
+
+                //catalogo proveedores
+                btninsertarproveedor.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarproveedor.BackgroundImage = Properties.Resources.check;
+                btnmodificarproveedor.BackgroundImage = Properties.Resources.check;
+                btneliminarproveedor.BackgroundImage = Properties.Resources.check;
+
+                //catalogo refacciones
+                btninsertarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarrefaccion.BackgroundImage = Properties.Resources.check;
+                btnmodificarrefaccion.BackgroundImage = Properties.Resources.check;
+                btneliminarrefaccion.BackgroundImage = Properties.Resources.check;
+
+                //catalogo refacciones recu
+                btnIncertarRR.BackgroundImage = Properties.Resources.uncheck;
+                btnConsultaRR.BackgroundImage = Properties.Resources.check;
+                btnEditarRR.BackgroundImage = Properties.Resources.check;
+                btnEliminarRR.BackgroundImage = Properties.Resources.check;
+
+                //catalogo empresas
+                btninsertarempresa.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarempresa.BackgroundImage = Properties.Resources.check;
+                btnmodificarempresa.BackgroundImage = Properties.Resources.check;
+                btneliminarempresa.BackgroundImage = Properties.Resources.check;
+
+                //catalogo giro empresas
+                btninsertargiro.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultargiro.BackgroundImage = Properties.Resources.check;
+                btnmodificargiro.BackgroundImage = Properties.Resources.check;
+                btneliminargiro.BackgroundImage = Properties.Resources.check;
+
+                //catalogo tipo lice
+                btninsertartipo.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultartipo.BackgroundImage = Properties.Resources.check;
+                btnmodificartipo.BackgroundImage = Properties.Resources.check;
+                btneliminartipo.BackgroundImage = Properties.Resources.check;
+
+                //orden compra
+                btninsertarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+
+                //requerimiento
+                btninsertarcomparativa.BackgroundImage = Properties.Resources.check;
+                btnconsultarcomparativa.BackgroundImage = Properties.Resources.check;
+                btnmodificarcomparativa.BackgroundImage = Properties.Resources.check;
+
+                //reporte almacen
+                btninsertaralmacen.BackgroundImage = Properties.Resources.check;
+                btnconsultaralmacen.BackgroundImage = Properties.Resources.check;
+                btnmodificaralmacen.BackgroundImage = Properties.Resources.check;
+
+                //modificaciones
+
+                btnconsultarhistorial.BackgroundImage = Properties.Resources.check;
+
+                //iva
+                btnmodificariva.BackgroundImage = Properties.Resources.check;
+            }
+
+            if (puestoCB.Text == "FINANZAS")
+            {
+                //catalogo personal                                                         
+                btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarempleado.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarempleado.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarempleado.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo cargos                                                         
+                btninsertarcargo.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarcargo.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarcargo.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarcargo.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo proveedores
+                btninsertarproveedor.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarproveedor.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarproveedor.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarproveedor.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo refacciones
+                btninsertarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo refacciones recu
+
+                btnIncertarRR.BackgroundImage = Properties.Resources.uncheck;
+                btnConsultaRR.BackgroundImage = Properties.Resources.uncheck;
+                btnEditarRR.BackgroundImage = Properties.Resources.uncheck;
+                btnEliminarRR.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo empresas
+                btninsertarempresa.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarempresa.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarempresa.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarempresa.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo giro empresas
+                btninsertargiro.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultargiro.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificargiro.BackgroundImage = Properties.Resources.uncheck;
+                btneliminargiro.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo tipo lice
+                btninsertartipo.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultartipo.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificartipo.BackgroundImage = Properties.Resources.uncheck;
+                btneliminartipo.BackgroundImage = Properties.Resources.uncheck;
+
+                //orden compra
+                btninsertarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarrequisicion.BackgroundImage = Properties.Resources.check;
+                btnmodificarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+
+                //requerimiento
+                btninsertarcomparativa.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarcomparativa.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificarcomparativa.BackgroundImage = Properties.Resources.uncheck;
+
+                //reporte almacen
+                btninsertaralmacen.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultaralmacen.BackgroundImage = Properties.Resources.uncheck;
+                btnmodificaralmacen.BackgroundImage = Properties.Resources.uncheck;
+
+                //modificaciones
+
+                btnconsultarhistorial.BackgroundImage = Properties.Resources.uncheck;
+
+                //iva
+                btnmodificariva.BackgroundImage = Properties.Resources.uncheck;
+            }
+            if (puestoCB.Text == "SOLO CONSULTA")
+            {
+                //catalogo personal                                                         
+                btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarempleado.BackgroundImage = Properties.Resources.check;
+                btnmodificarempleado.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarempleado.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo cargos                                                         
+                btninsertarcargo.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarcargo.BackgroundImage = Properties.Resources.check;
+                btnmodificarcargo.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarcargo.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo proveedores
+                btninsertarproveedor.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarproveedor.BackgroundImage = Properties.Resources.check;
+                btnmodificarproveedor.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarproveedor.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo refacciones
+                btninsertarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarrefaccion.BackgroundImage = Properties.Resources.check;
+                btnmodificarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo refacciones recu
+                btnIncertarRR.BackgroundImage = Properties.Resources.uncheck;
+                btnConsultaRR.BackgroundImage = Properties.Resources.check;
+                btnEditarRR.BackgroundImage = Properties.Resources.uncheck;
+                btnEliminarRR.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo empresas
+                btninsertarempresa.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarempresa.BackgroundImage = Properties.Resources.check;
+                btnmodificarempresa.BackgroundImage = Properties.Resources.uncheck;
+                btneliminarempresa.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo giro empresas
+                btninsertargiro.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultargiro.BackgroundImage = Properties.Resources.check;
+                btnmodificargiro.BackgroundImage = Properties.Resources.uncheck;
+                btneliminargiro.BackgroundImage = Properties.Resources.uncheck;
+
+                //catalogo tipo lice
+                btninsertartipo.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultartipo.BackgroundImage = Properties.Resources.check;
+                btnmodificartipo.BackgroundImage = Properties.Resources.uncheck;
+                btneliminartipo.BackgroundImage = Properties.Resources.uncheck;
+
+                //orden compra
+                btninsertarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarrequisicion.BackgroundImage = Properties.Resources.check;
+                btnmodificarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+
+                //requerimiento
+                btninsertarcomparativa.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultarcomparativa.BackgroundImage = Properties.Resources.check;
+                btnmodificarcomparativa.BackgroundImage = Properties.Resources.uncheck;
+
+                //reporte almacen
+                btninsertaralmacen.BackgroundImage = Properties.Resources.uncheck;
+                btnconsultaralmacen.BackgroundImage = Properties.Resources.check;
+                btnmodificaralmacen.BackgroundImage = Properties.Resources.uncheck;
+
+                //modificaciones
+
+                btnconsultarhistorial.BackgroundImage = Properties.Resources.check;
+
+                //iva
+                btnmodificariva.BackgroundImage = Properties.Resources.uncheck;
+            }
+
+
+        }
+
+        private void puestoCB_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            v.combos_DrawItem(sender, e);
+        }
+
+        void administrador()
+        {
+            btninsertararea.BackgroundImage = Properties.Resources.check;
+            btnconsultararea.BackgroundImage = Properties.Resources.check;
+            btnmodificararea.BackgroundImage = Properties.Resources.check; ;
+            btneliminararea.BackgroundImage = Properties.Resources.check;
+            btninsertarempresa.BackgroundImage = Properties.Resources.check;
+            btnconsultarempresa.BackgroundImage = Properties.Resources.check;
+            btnmodificarempresa.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarempresa.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarempleado.BackgroundImage = Properties.Resources.check;
+            btnconsultarempleado.BackgroundImage = Properties.Resources.check;
+            btnmodificarempleado.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarempleado.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarcargo.BackgroundImage = Properties.Resources.check;
+            btnconsultarcargo.BackgroundImage = Properties.Resources.check;
+            btnmodificarcargo.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarcargo.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarservicio.BackgroundImage = Properties.Resources.check;
+            btnconsultarservicio.BackgroundImage = Properties.Resources.check;
+            btnmodificarservicio.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarservicio.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertartipo.BackgroundImage = Properties.Resources.check;
+            btnconsultartipo.BackgroundImage = Properties.Resources.check;
+            btnmodificartipo.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminartipo.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarincidencia.BackgroundImage = Properties.Resources.check;
+            btnconsultarincidencia.BackgroundImage = Properties.Resources.check;
+            btnmodificarincidencia.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarincidencia.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarestacion.BackgroundImage = Properties.Resources.check; ;
+            btnconsultarestacion.BackgroundImage = Properties.Resources.check;
+            btnmodificarestacion.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarestacion.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarunidad.BackgroundImage = Properties.Resources.check;
+            btnconsultarunidad.BackgroundImage = Properties.Resources.check;
+            btnmodificarunidad.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarunidad.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarmodelo.BackgroundImage = Properties.Resources.check;
+            btnconsultarmodelo.BackgroundImage = Properties.Resources.check;
+            btnmodificarmodelo.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarmodelo.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarol.BackgroundImage = Properties.Resources.check;
+            btnconsultarol.BackgroundImage = Properties.Resources.check;
+            btnmodificarol.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btndesactivarol.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarsuper.BackgroundImage = Properties.Resources.check;
+            btnconsultarsuper.BackgroundImage = Properties.Resources.check;
+            btnmodificarsuper.BackgroundImage = Properties.Resources.check;
+            btninsertarpercances.BackgroundImage = Properties.Resources.check;
+            btnconsultarpercances.BackgroundImage = Properties.Resources.check;
+            btnmodificarpercances.BackgroundImage = Properties.Resources.check;
+            btninsertarrp.BackgroundImage = Properties.Resources.check;
+            btnconsultarrp.BackgroundImage = Properties.Resources.check;
+            btnmodificarrp.BackgroundImage = Properties.Resources.check;
+            btninsertarip.BackgroundImage = Properties.Resources.check;
+            btnconsultarip.BackgroundImage = Properties.Resources.check;
+            btnmodificarip.BackgroundImage = Properties.Resources.check;
+            btnmodificarencabezados.BackgroundImage = Properties.Resources.check;
+            btnconsultarhistorial.BackgroundImage = Properties.Resources.check;
+             btninsertarfallo.BackgroundImage = Properties.Resources.check;
+            btnconsultarfallo.BackgroundImage = Properties.Resources.check;
+            btnmodificarfallo.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarfallo.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarmante.BackgroundImage = Properties.Resources.check;
+            btnconsultarmante.BackgroundImage = Properties.Resources.check;
+            btnmodificarmante.BackgroundImage = Properties.Resources.check;
+            btninsertarproveedor.BackgroundImage = Properties.Resources.check;
+            btnconsultarproveedor.BackgroundImage = Properties.Resources.check;
+            btnmodificarproveedor.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarproveedor.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarrefaccion.BackgroundImage = Properties.Resources.check;
+            btnconsultarrefaccion.BackgroundImage = Properties.Resources.check;
+            btnmodificarrefaccion.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarrefaccion.BackgroundImage = Properties.Resources.check;
+            }
+            btninsertarrequisicion.BackgroundImage = Properties.Resources.check;
+            btnconsultarrequisicion.BackgroundImage = Properties.Resources.check;
+            btnmodificarrequisicion.BackgroundImage = Properties.Resources.check;
+            btninsertarcomparativa.BackgroundImage = Properties.Resources.check;
+            btnconsultarcomparativa.BackgroundImage = Properties.Resources.check;
+            btnmodificarcomparativa.BackgroundImage = Properties.Resources.check;
+            btninsertaralmacen.BackgroundImage = Properties.Resources.check;
+            btnconsultaralmacen.BackgroundImage = Properties.Resources.check;
+            btnmodificaralmacen.BackgroundImage = Properties.Resources.check;
+            btninsertargiro.BackgroundImage = Properties.Resources.check;
+            btnconsultargiro.BackgroundImage = Properties.Resources.check;
+            btnmodificargiro.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminargiro.BackgroundImage = Properties.Resources.check;
+            }
+            btnmodificariva.BackgroundImage = Properties.Resources.check;
+            btnIncertarRR.BackgroundImage = Properties.Resources.check;
+            btnConsultaRR.BackgroundImage = Properties.Resources.check;
+            btnEditarRR.BackgroundImage = Properties.Resources.check;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btnEliminarRR.BackgroundImage = Properties.Resources.check;
+            }
+            btnUnidades.BackgroundImage = Properties.Resources.check;
+            btnConsultarUnidades.BackgroundImage = Properties.Resources.check;
+            btnmodificaru.BackgroundImage = Properties.Resources.check;
+            btnReportes.BackgroundImage = Properties.Resources.check;
+            btnInventario.BackgroundImage = Properties.Resources.check;
+            btnExternas.BackgroundImage = Properties.Resources.check;
+            btnConsultaEntrada.BackgroundImage = Properties.Resources.check;
+        }
+        void auxiliar_almacen()
+        {
+            //catalogo personal                                                         
+            btninsertarempleado.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarempleado.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarempleado.BackgroundImage = Properties.Resources.uncheck;
+            btneliminarempleado.BackgroundImage = Properties.Resources.check;
+
+            //catalogo cargos                                                         
+            btninsertarcargo.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarcargo.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarcargo.BackgroundImage = Properties.Resources.uncheck;
+            btneliminarcargo.BackgroundImage = Properties.Resources.uncheck;
+
+            //catalogo proveedores
+            btninsertarproveedor.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarproveedor.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarproveedor.BackgroundImage = Properties.Resources.uncheck;
+            btneliminarproveedor.BackgroundImage = Properties.Resources.uncheck;
+
+            //catalogo refacciones
+            btninsertarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarrefaccion.BackgroundImage = Properties.Resources.check;
+            btnmodificarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+            btneliminarrefaccion.BackgroundImage = Properties.Resources.uncheck;
+
+            //catalogo refacciones recu
+            btnIncertarRR.BackgroundImage = Properties.Resources.uncheck;
+            btnConsultaRR.BackgroundImage = Properties.Resources.uncheck;
+            btnEditarRR.BackgroundImage = Properties.Resources.uncheck;
+            btnEliminarRR.BackgroundImage = Properties.Resources.uncheck;
+
+            //catalogo empresas
+            btninsertarempresa.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarempresa.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarempresa.BackgroundImage = Properties.Resources.uncheck;
+            btneliminarempresa.BackgroundImage = Properties.Resources.uncheck;
+
+            //catalogo giro empresas
+            btninsertargiro.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultargiro.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificargiro.BackgroundImage = Properties.Resources.uncheck;
+            btneliminargiro.BackgroundImage = Properties.Resources.uncheck;
+
+            //catalogo tipo lice
+            btninsertartipo.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultartipo.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificartipo.BackgroundImage = Properties.Resources.uncheck;
+            btneliminartipo.BackgroundImage = Properties.Resources.uncheck;
+
+            //orden compra
+            btninsertarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarrequisicion.BackgroundImage = Properties.Resources.uncheck;
+
+            //requerimiento
+            btninsertarcomparativa.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarcomparativa.BackgroundImage = Properties.Resources.check;
+            btnmodificarcomparativa.BackgroundImage = Properties.Resources.check;
+
+            //reporte almacen
+            btninsertaralmacen.BackgroundImage = Properties.Resources.check;
+            btnconsultaralmacen.BackgroundImage = Properties.Resources.check;
+            btnmodificaralmacen.BackgroundImage = Properties.Resources.check;
+
+            //modificaciones
+
+            btnconsultarhistorial.BackgroundImage = Properties.Resources.uncheck;
+
+            //iva
+            btnmodificariva.BackgroundImage = Properties.Resources.uncheck;
+
+
+            btninsertarestacion.BackgroundImage = Properties.Resources.uncheck; ;
+            btnconsultarestacion.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarestacion.BackgroundImage = Properties.Resources.uncheck;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarestacion.BackgroundImage = Properties.Resources.uncheck;
+            }
+            btninsertarunidad.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarunidad.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarunidad.BackgroundImage = Properties.Resources.uncheck;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarunidad.BackgroundImage = Properties.Resources.uncheck;
+            }
+            btninsertarmodelo.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarmodelo.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarmodelo.BackgroundImage = Properties.Resources.uncheck;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarmodelo.BackgroundImage = Properties.Resources.uncheck;
+            }
+            btninsertarol.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarol.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarol.BackgroundImage = Properties.Resources.uncheck;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btndesactivarol.BackgroundImage = Properties.Resources.uncheck;
+            }
+            btninsertarsuper.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarsuper.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarsuper.BackgroundImage = Properties.Resources.uncheck;
+            btninsertarpercances.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarpercances.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarpercances.BackgroundImage = Properties.Resources.uncheck;
+            btninsertarrp.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarrp.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarrp.BackgroundImage = Properties.Resources.uncheck;
+            btninsertarip.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarip.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarip.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarencabezados.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarhistorial.BackgroundImage = Properties.Resources.uncheck;
+            btninsertarfallo.BackgroundImage = Properties.Resources.uncheck;
+            btnconsultarfallo.BackgroundImage = Properties.Resources.uncheck;
+            btnmodificarfallo.BackgroundImage = Properties.Resources.uncheck;
+            if (Convert.ToInt32(privilegios.Length) > 3)
+            {
+                btneliminarfallo.BackgroundImage = Properties.Resources.uncheck;
+            }
         }
     }
 }

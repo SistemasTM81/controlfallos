@@ -166,6 +166,8 @@ namespace controlFallos
             }
         }
 
+        
+
         void sumar(DataGridView data)
         {
             double suma = 0.0;

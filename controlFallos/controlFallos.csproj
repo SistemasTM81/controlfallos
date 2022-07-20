@@ -330,6 +330,7 @@
     <Compile Include="catUnidaesTRI.designer.cs">
       <DependentUpon>catUnidaesTRI.cs</DependentUpon>
     </Compile>
+    <Compile Include="checarbotones.cs" />
     <Compile Include="exportar.cs" />
     <Compile Include="ConcentradosComparativas.cs">
       <SubType>Form</SubType>

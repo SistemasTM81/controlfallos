@@ -706,6 +706,7 @@
             this.inventarioGeneralToolStripMenuItem.Name = "inventarioGeneralToolStripMenuItem";
             this.inventarioGeneralToolStripMenuItem.Size = new System.Drawing.Size(237, 28);
             this.inventarioGeneralToolStripMenuItem.Text = "Inventario General";
+            this.inventarioGeneralToolStripMenuItem.Click += new System.EventHandler(this.inventarioGeneralToolStripMenuItem_Click);
             // 
             // ventaExternaToolStripMenuItem
             // 

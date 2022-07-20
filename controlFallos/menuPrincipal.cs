@@ -1220,6 +1220,13 @@ namespace controlFallos
             }
         }
 
+        private void inventarioGeneralToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Inventario rep = new Inventario(empresa, idUsuario, area, v);
+            rep.Owner = this;
+            rep.ShowDialog();
+        }
+
         private void asistencíaDelDíaToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (cerrar())
