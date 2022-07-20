@@ -541,6 +541,8 @@ namespace controlFallos
             exportacion.ExecuteNonQuery();
             v.c.dbcon.Close();
             //dtexcel.Reset();
+
+             
         }
 
         public void exportacionpdf()
