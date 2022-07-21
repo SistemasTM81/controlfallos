@@ -25,8 +25,8 @@ namespace controlFallos
         
         validaciones v;
         conexion con;
-
-        string consultagral = "select t1.idRUEX as 'ID',t1.folioR as 'FOLIO', t1.empresaU as 'EMPRESA', t1.unidad as 'UNIDAD', t1.fechaHI as 'FECHA DE INGRESO', t1.envioReporte as 'HORA ENVIO REPORTE', t1.personaIngreso as 'PERSONAL QUE INGRESA LA UNIDAD', t1.km as 'KILOMETRAJE',t1.fallosRepor as 'FALLOS REPORTADOS',t1.mecanicoD as 'MECANICO DE DIAGNOSTICO', t1.fechaDiag as 'FECHA DE DIAGNOSTICO',t1.mecanicoR as 'MECANICO DE REPARACION', t1.diagnosticoMeca as 'DIAGNOSTICO',t1.estaTusDiag as 'ESTATUS DIAGNOSTICO',t1.terminoDiag as'TERMINO DE DIAGNOSTICO',t1.totalDiag as 'TIEMPO TOTAL DE DIAGNOSTICO',t1.tipoRepa as 'TIPO DE REPARACION',t1.refacciones as 'REFACCIONES',t1.reparacionesRa as 'REPARACIONES REALIZADAS' ,t1.estatusRepa as 'ESTATUS DE REPARACION',t1.esperaMante as 'TIEMPO DE ESPERA PARA MANTENIMIENTO', t1.totMante as 'TIEMPO TOTAL DE MANTENIMIENTO' from reporteuniexternas as t1";
+     
+        string consultagral = "select t1.idRUEX as 'ID',t1.folioR as 'FOLIO', t1.empresaU as 'EMPRESA', t1.unidad as 'UNIDAD', t1.fechaHI as 'FECHA DE INGRESO', t1.envioReporte as 'HORA ENVIO REPORTE', t1.personaIngreso as 'PERSONAL QUE INGRESA LA UNIDAD', t1.km as 'KILOMETRAJE',t1.fallosRepor as 'FALLOS REPORTADOS',t1.mecanicoD as 'MECANICO DE DIAGNOSTICO',t1.mecaApoyo1 as 'MECANICO DE APOYO', t1.inicioDiag as 'FECHA DE DIAGNOSTICO',t1.diagnosticoMeca as 'DIAGNOSTICO',t1.estatusDiag as 'ESTATUS DIAGNOSTICO',t1.mecanicoR as 'MECANICO DE REPARACION',t1.mecaApoyo2 as 'MECANICO DE APOYO', t1.terminoDiag as'TERMINO DE DIAGNOSTICO',t1.totalDiag as 'TIEMPO TOTAL DE DIAGNOSTICO',t1.tipoRepa as 'TIPO DE REPARACION',if(t1.refacciones is null,'',(if(t1.refacciones = 1,'SI','NO'))) as 'REFACCIONES',t1.reparacionesRa as 'REPARACIONES REALIZADAS' ,t1.estatusRepa as 'ESTATUS DE REPARACION',t1.esperaMante as 'TIEMPO DE ESPERA PARA MANTENIMIENTO', t1.totMante as 'TIEMPO TOTAL DE MANTENIMIENTO' from reporteuniexternas as t1";
 
         int idUsuario, empresa, area, idmecanico, idmecanicoApoyo, idmecanico2, idmecanicoApoyo2, idmecaniAnterior, idmecanicoapoyoAnterior, EstatusAnterior, idreporte, idrefaccionAnterior, cantidadAnterior;
         string cadenaEmpresa, valorBusquedak;
@@ -43,12 +43,8 @@ namespace controlFallos
             this.idUsuario = idUsuario;
             this.empresa = empresa;
             this.area = area;
-            this.v = v;
-            
-            cadenaEmpresa = (empresa == 2 ? " and (t6.empresaMantenimiento = '2' or t6.empresaMantenimiento = '1') " : (empresa == 3 ? "and (t6.empresaMantenimiento = '3' or t6.empresaMantenimiento = '1')" : null));
-
+            this.v = v;        
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -63,7 +59,6 @@ namespace controlFallos
 
             pictureBox1.Visible = false;
             lblText.Visible = false;
-
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -95,7 +90,7 @@ namespace controlFallos
             Genera_Folio();
             hora2();
             obtenerReportes();
-           // cargardatos();
+            cargardatos();
         }
 
         //METODO GARGA DE COMBOS
@@ -333,7 +328,8 @@ namespace controlFallos
                 gbxDiag.Enabled = true;                               
                 gbxUnidad.Enabled = false;
                 pUnidad.Visible = false;
-                pDiag.Visible = true; 
+                pDiag.Visible = true;
+                gbxDiag.Enabled = true; 
 
                 hora();
             }
@@ -348,16 +344,15 @@ namespace controlFallos
             {
                 MessageBox.Show("Datos Ingresados Correctamente");
 
-                //gbxRefac.Enabled = true;
-                //pFin.Visible = true;
+                txtmecanico.Enabled = false;
+                txtMecanico2.Enabled = false;
+                txtDiagMeca.Enabled = false;
+                cmbTipoR.Enabled = false;
+                cmbEstRep.Enabled = false;
 
-                //txtmecanico.Enabled = false;
-                //txtMecanico2.Enabled = false;
-               // txtDiagMeca.Enabled = false;
-                //cmbTipoR.Enabled = false;
-               // cmbEstRep.Enabled = false;
-               // pDiag.Visible = false;
-               gbxDiag.Enabled=false; 
+                pDiag.Visible = false;
+                gbxRefac.Enabled = true;
+                pFin.Enabled = true;        
             }
         }
 
@@ -486,15 +481,14 @@ namespace controlFallos
 
             if (cmbEstRep.Text == "REPROGRAMADA")
             {
-                errorProvider1.SetError(cmbEstRep, "No podra Agregar Refacciones");
-                //MessageBox.Show("No podra Agregar Refaccines", "* ALERTA *");
+                errorProvider1.SetError(cmbEstRep, "No podra Agregar Refacciones");                
                 gbxRefac.Enabled = false;
                 pFin.Visible = true;
+                pFin.Enabled = true; 
             }
             else
             {
-                gbxRefac.Enabled = true;
-                pFin.Visible = true;
+                gbxRefac.Enabled = true;                
             }
 
             return ok;
@@ -659,7 +653,8 @@ namespace controlFallos
             Genera_Folio();
             hora2();
             Activar();
-            BorrarMensajeError2();             
+            BorrarMensajeError2();
+            cargardatos();
         }
 
         //METODO AGREGAR REGSITRO
@@ -710,7 +705,9 @@ namespace controlFallos
         private void btnFinaliza_Click(object sender, EventArgs e)
         {
             pguardar.Visible = true;
-            gbxRefac.Enabled = false; 
+            gbxRefac.Enabled = false;
+            gbxDiag.Enabled = false;
+            pFin.Visible = false; 
         }
 
         //METODO LIMPIAR CAMPOS
@@ -766,16 +763,19 @@ namespace controlFallos
 
         //ACTIVAR GROUBOX
         void Activar()
-        {
-            gbxUnidad.Enabled = true;
+        {           
             pUnidad.Visible = true;
-            pDiag.Visible = false;
-            pFin.Visible = false;
+            pDiag.Visible = false;          
             pguardar.Visible = false;
+            gbxUnidad.Enabled = true;
+            pFin.Visible = false; 
 
-            gbxRefac.Enabled = false;
-            gbxDiag.Enabled = false; 
 
+            txtmecanico.Enabled = true;
+            txtMecanico2.Enabled = true;
+            txtDiagMeca.Enabled = true;
+            cmbTipoR.Enabled = true;
+            cmbEstRep.Enabled = true;
         }
 
         //FORMATO DE CELDAS PARA EL DATAGRIDVIEW
@@ -816,15 +816,21 @@ namespace controlFallos
             if (!string.IsNullOrWhiteSpace(date[0]))
             {
                 dtpFechaDe.MinDate = dtpFechaA.MinDate = DateTime.Parse(date[0]);
-                dtpFechaDe.MaxDate = dtpFechaA.MaxDate = DateTime.Parse(date[1]);
+                dtpFechaDe.MaxDate = dtpFechaA.MaxDate = DateTime.Parse(date[1]);               
             }
         }
 
+        //BOTON ACTUALIZAR
+        private void btnactualizar_Click(object sender, EventArgs e)
+        {
+            cargardatos();
+        }
+
+        //
+
+
 
         /********************************************************************************************************************************************************************************************************************/
-
-        /****************************************************************************************************************************************************************************************************************/
-        /****************************************************************************************************************************************************************************************************************/
 
     }
 }
