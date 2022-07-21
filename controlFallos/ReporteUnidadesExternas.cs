@@ -26,9 +26,16 @@ namespace controlFallos
         validaciones v;
         conexion con;
 
-        
-        int idUsuario, empresa, area, idmecanico, idmecanicoApoyo, idmecaniAnterior, idmecanicoapoyoAnterior, EstatusAnterior, idreporte;
+        string consultagral = "select t1.idRUEX as 'ID',t1.folioR as 'FOLIO', t1.empresaU as 'EMPRESA', t1.unidad as 'UNIDAD', t1.fechaHI as 'FECHA DE INGRESO', t1.envioReporte as 'HORA ENVIO REPORTE', t1.personaIngreso as 'PERSONAL QUE INGRESA LA UNIDAD', t1.km as 'KILOMETRAJE',t1.fallosRepor as 'FALLOS REPORTADOS',t1.mecanicoD as 'MECANICO DE DIAGNOSTICO', t1.fechaDiag as 'FECHA DE DIAGNOSTICO',t1.mecanicoR as 'MECANICO DE REPARACION', t1.diagnosticoMeca as 'DIAGNOSTICO',t1.estaTusDiag as 'ESTATUS DIAGNOSTICO',t1.terminoDiag as'TERMINO DE DIAGNOSTICO',t1.totalDiag as 'TIEMPO TOTAL DE DIAGNOSTICO',t1.tipoRepa as 'TIPO DE REPARACION',t1.refacciones as 'REFACCIONES',t1.reparacionesRa as 'REPARACIONES REALIZADAS' ,t1.estatusRepa as 'ESTATUS DE REPARACION',t1.esperaMante as 'TIEMPO DE ESPERA PARA MANTENIMIENTO', t1.totMante as 'TIEMPO TOTAL DE MANTENIMIENTO' from reporteuniexternas as t1";
+
+        int idUsuario, empresa, area, idmecanico, idmecanicoApoyo, idmecanico2, idmecanicoApoyo2, idmecaniAnterior, idmecanicoapoyoAnterior, EstatusAnterior, idreporte, idrefaccionAnterior, cantidadAnterior;
+        string cadenaEmpresa, valorBusquedak;
         bool editarRefaccion;
+
+        bool pinsertar { get; set; }
+        bool peditar { get; set; }
+        bool pdesactivar { get; set; }
+        bool pconsultar { get; set; }
 
         public ReporteUnidadesExternas(int idUsuario, int empresa, int area, validaciones v)
         {
@@ -37,23 +44,22 @@ namespace controlFallos
             this.empresa = empresa;
             this.area = area;
             this.v = v;
-
-            DateTime fecha = DateTime.Now;
-            tbxHoraEnvio.Text = fecha.ToString();
+            
+            cadenaEmpresa = (empresa == 2 ? " and (t6.empresaMantenimiento = '2' or t6.empresaMantenimiento = '1') " : (empresa == 3 ? "and (t6.empresaMantenimiento = '3' or t6.empresaMantenimiento = '1')" : null));
 
         }
 
-      
+
         private void button1_Click(object sender, EventArgs e)
         {
 
-            gbxbusqueda.Visible = true;
+            gbxBusqueda.Visible = true;
             gbxDiag.Visible = true;
             gbxUnidad.Visible = true;
             gbxAlertas.Visible = true;
-            pguardar.Visible = true;
-            pcancelar.Visible = true;
-            pfinalizar.Visible = true;
+            //pguardar.Visible = true;
+            //pcancelar.Visible = true;
+            //pfinalizar.Visible = true;
 
             pictureBox1.Visible = false;
             lblText.Visible = false;
@@ -61,10 +67,13 @@ namespace controlFallos
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            gbxbusqueda.Visible = false;
+            gbxBusqueda.Visible = false;
             gbxDiag.Visible = false;
             gbxUnidad.Visible = false;
             gbxAlertas.Visible = false;
+            pguardar.Visible = false;
+            pcancelar.Visible = false;
+            pfinalizar.Visible = false; 
 
             pictureBox1.Visible = true;
             lblText.Visible = true;
@@ -84,6 +93,9 @@ namespace controlFallos
         {
             combo();
             Genera_Folio();
+            hora2();
+            obtenerReportes();
+           // cargardatos();
         }
 
         //METODO GARGA DE COMBOS
@@ -254,6 +266,10 @@ namespace controlFallos
         {
             soloNumeros(sender, e);
         }
+        private void txtcantidad_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            soloNumeros(sender, e);
+        }
 
         //VALIDACION SOLO LETRAS
         private void tbxPersonaIngreso_KeyPress(object sender, KeyPressEventArgs e)
@@ -264,7 +280,8 @@ namespace controlFallos
         //METODO VALIDACION SOLO NUMEROS
         void soloNumeros(object sender, KeyPressEventArgs e)
         {
-            if ((e.KeyChar >= 33 && e.KeyChar <= 47 || e.KeyChar >= 58 && e.KeyChar <= 255))
+            if ((e.KeyChar >= 33 && e.KeyChar <= 43 || e.KeyChar >= 45 && e.KeyChar <= 47 || e.KeyChar >= 58 && e.KeyChar <= 255))
+                //(e.KeyChar >= 33 && e.KeyChar <= 47 || e.KeyChar >= 58 && e.KeyChar <= 255)
             {
                 MessageBox.Show("Solo se permiten NUMEROS en este Campo", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 e.Handled = true;
@@ -297,7 +314,8 @@ namespace controlFallos
         //METODO VALIDACION SOLO LETRAS Y NUMEROS    
         void soloLetrasNum2(object sender, KeyPressEventArgs e)
         {
-            if ((e.KeyChar >= 33 && e.KeyChar <= 47 || e.KeyChar >= 58 && e.KeyChar <= 64 || e.KeyChar >= 91 && e.KeyChar <= 96 || e.KeyChar >= 123 && e.KeyChar <= 255))
+            if ((e.KeyChar >= 33 && e.KeyChar <= 43 || e.KeyChar >= 45 && e.KeyChar <= 45 || e.KeyChar >= 47 && e.KeyChar <= 47 || e.KeyChar >= 58 && e.KeyChar <= 64 || e.KeyChar >= 91 && e.KeyChar <= 96 || e.KeyChar >= 123 && e.KeyChar <= 255))
+            //(e.KeyChar >= 33 && e.KeyChar <= 47 || e.KeyChar >= 58 && e.KeyChar <= 64 || e.KeyChar >= 91 && e.KeyChar <= 96 || e.KeyChar >= 123 && e.KeyChar <= 255)
             {
                 MessageBox.Show("Solo se permiten LETRAS Y NUMEROS en este Campo", "Alerta", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 e.Handled = true;
@@ -309,41 +327,37 @@ namespace controlFallos
         private void btnSig_Click(object sender, EventArgs e)
         {
             BorrarMensajeError();
-
+            
             if (ValidarCampos())
-            {
-                MessageBox.Show("Datos Ingresados Correctamente");
+            {                
+                gbxDiag.Enabled = true;                               
+                gbxUnidad.Enabled = false;
+                pUnidad.Visible = false;
+                pDiag.Visible = true; 
 
-                gbxDiag.Enabled = true;
-                DateTime fecha1 = DateTime.Now;
-                txtIniDiag.Text = fecha1.ToString();
-                gbxUnidad.Enabled = false;               
+                hora();
             }
         }
 
         //BOTON SIGUIENTE (DIAGNOSTICO)
         private void btnRepa_Click(object sender, EventArgs e)
         {
-            BorrarMensajeError2();
-
+            BorrarMensajeError2(); 
+            
             if (ValidarCampos2())
             {
                 MessageBox.Show("Datos Ingresados Correctamente");
-                
-                cmbRefacciones1.Enabled = true;
-                btnrefacciones.Enabled = true;
-                txtRepaReal.Enabled = true;
-                txtfoliof.Enabled = true;
-                numUpDownDE.Enabled = true;
-                numUpDownHASTA.Enabled = true;
-                btnFolioFactura.Enabled = true;
-                btnCancelFact.Enabled = true;
 
-                txtmecanico.Enabled = false;
-                txtMecanico2.Enabled = false;
-                txtDiagMeca.Enabled = false;
-                cmbTipoR.Enabled = false;
-                cmbEstRep.Enabled = false;
+                //gbxRefac.Enabled = true;
+                //pFin.Visible = true;
+
+                //txtmecanico.Enabled = false;
+                //txtMecanico2.Enabled = false;
+               // txtDiagMeca.Enabled = false;
+                //cmbTipoR.Enabled = false;
+               // cmbEstRep.Enabled = false;
+               // pDiag.Visible = false;
+               gbxDiag.Enabled=false; 
             }
         }
 
@@ -389,7 +403,13 @@ namespace controlFallos
             {
                 ok = false;
                 errorProvider1.SetError(txtFallos, "Ingrese los Fallos Reportados");
-            }      
+            }
+
+            if (lblMecanicoU.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(lblMecanicoU, "Ingrese una Contraseña Valida");
+            }
 
             //VALIDACIONES COMBOBOX DATOS DE LA UNIDAD
             if (cbxSempresa.Text == "--SELECCIONE UN TIPO--")
@@ -409,7 +429,14 @@ namespace controlFallos
                 ok = false;
                 errorProvider1.SetError(cmbEstatus1, "Seleccione un Estatus de Diagnostico");
             }
-                 
+
+            if (cmbEstatus1.Text == "LIBERADA")
+            {
+                ok = false;
+                errorProvider1.SetError(cmbEstatus1, "La Unidad aun NO puede estar LIBERADA");
+                MessageBox.Show("¡¡ La Unidad aun NO puede estar LIBERADA !!","* ALERTA *");
+            }
+
             return ok;
         }
 
@@ -431,6 +458,12 @@ namespace controlFallos
                 errorProvider1.SetError(txtDiagMeca, "Ingrese el Diagnostico Correspondiente");
             }
 
+            if (lblmecanico.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(lblmecanico, "Ingrese una Contraseña Valida");
+            }
+
             //VALIDADCIONES COMBOBOX DIAGNOSTICO
             if (cmbTipoR.Text == "--SELECCIONE EL TIPO--")
             {
@@ -444,6 +477,26 @@ namespace controlFallos
                 errorProvider1.SetError(cmbEstRep, "Seleccione un Estatus de Reparacion");
             }
 
+            if (cmbEstRep.Text == "LIBERADA")
+            {
+                ok = false;
+                errorProvider1.SetError(cmbEstRep, "La Unidad aun NO puede estar LIBERADA");
+                MessageBox.Show("¡¡ La Unidad aun NO puede estar LIBERADA !!", "* ALERTA *");
+            }
+
+            if (cmbEstRep.Text == "REPROGRAMADA")
+            {
+                errorProvider1.SetError(cmbEstRep, "No podra Agregar Refacciones");
+                //MessageBox.Show("No podra Agregar Refaccines", "* ALERTA *");
+                gbxRefac.Enabled = false;
+                pFin.Visible = true;
+            }
+            else
+            {
+                gbxRefac.Enabled = true;
+                pFin.Visible = true;
+            }
+
             return ok;
         }
 
@@ -455,6 +508,7 @@ namespace controlFallos
             errorProvider1.SetError(tbxKilome, "");
             errorProvider1.SetError(txtMeca, "");
             errorProvider1.SetError(txtFallos, "");
+            errorProvider1.SetError(lblMecanicoU, "");
 
             //COMBOBOX
             errorProvider1.SetError(cbxSempresa,"");
@@ -468,6 +522,7 @@ namespace controlFallos
             //TEXTBOX
             errorProvider1.SetError(txtmecanico, "");
             errorProvider1.SetError(txtDiagMeca, "");
+            errorProvider1.SetError(lblmecanico,"");
 
             //COMBOBOX
             errorProvider1.SetError(cmbTipoR, "");
@@ -494,9 +549,9 @@ namespace controlFallos
         //METODO VALIDADCION MECANICOS IGUALES (DATOS DE LA UNIDAD)
         void mecanicosiguales(TextBox txt, Label lbl)
         {
-            if (((idmecanico > 0 && (idmecanicoApoyo > 0 || idmecanico > 0)) || (idmecanicoApoyo > 0 && idmecanico > 0)) && (idmecanicoApoyo == idmecanico || idmecanico == idmecanicoApoyo || idmecanico == idmecanicoApoyo))
+            if (((idmecanico > 0 && (idmecanicoApoyo > 0 || idmecanico > 0)) || (idmecanicoApoyo > 0 && idmecanico > 0)) && (idmecanicoApoyo == idmecanico || idmecanico == idmecanicoApoyo || idmecanico == idmecanicoApoyo))               
             {
-                MessageBox.Show("El" + (idmecanico == idmecanicoApoyo ? " el mecánico principal y mecánico de apoyo" : idmecanico == idmecanicoApoyo ? " el mecánico principal y mecanico apoyo" : idmecanicoApoyo == idmecanico ? " mecanico de apoyo y el mecánico principal " : "") + " no pueden ser la misma persona", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("El" + (idmecanico == idmecanicoApoyo ? " el mecánico principal y mecánico de apoyo" : idmecanico == idmecanicoApoyo ? " el mecánico principal y mecanico apoyo" : "") + " no pueden ser la misma persona", validaciones.MessageBoxTitle.Advertencia.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 txt.Clear();
                 lbl.Text = "";
             }
@@ -534,25 +589,17 @@ namespace controlFallos
             v.iniCombos("select " + v.c.fieldscrefacciones[0] + " as id,upper(" + v.c.fieldscrefacciones[2] + ") as nombre from crefacciones where " + v.c.fieldscrefacciones[13] + "='1' and empresa='" + empresa + "' order by nombre asc;", cmbrefaccion, "id", "nombre", "--seleccione--");
 
             pguardar.Visible = false;
-            ubica();
+            
         }
-
-        //METODO UBICACION BOTONES
-        public void ubica()
-        {
-            pPdf.Location = new Point(gbxbusqueda.Location.X + gbxbusqueda.Width + 10, gbxbusqueda.Location.Y); pguardar.Location = new Point(pPdf.Location.X + pPdf.Width + 10, gbxbusqueda.Location.Y); pfinalizar.Location = new Point(pguardar.Location.X + pguardar.Width + 10, gbxbusqueda.Location.Y); pcancelar.Location = new Point(pfinalizar.Location.X + pfinalizar.Width + 10, gbxbusqueda.Location.Y);
-            gbrefacciones.Location = new Point(gbxDiag.Location.X, 11);
-        }
-
+       
         //BOTON REGRESAR DIAGNOSTICO
         private void btnregresar_Click(object sender, EventArgs e)
         {
             gbrefacciones.Visible = !(gbxDiag.Visible = true);
             cmbRefacciones1.Enabled = (Convert.ToInt32(v.getaData("select count(*)  from pedidosrefaccion where " + v.c.fieldspedidosrefaccion[1] + "='" + idreporte + "';")) == 0 ? true : false);
             limpiarRefaccion();
-            pguardar.Visible = true;
+            
             pRetorno.Visible = false;
-            ubica();
         }
 
         //METODO PARA LIMPIAR REFACCION
@@ -584,13 +631,13 @@ namespace controlFallos
             if ((int)e.KeyChar == (int)Keys.Enter)
             {
                 buscaref(txtCodigoRef.Text);
+                soloLetrasNum(sender, e);
             }
         }
 
         //METODO BUSCAR REFACCIONES
         public void buscaref(string codigo)
-        {
-            //string[] cadenaR = v.getaData("SET lc_time_names = 'es_ES';SELECT concat(convert(t1.nombreRefaccion,char), '|', convert(t1.idrefaccion,char)) as id from crefacciones as t1  where t1.codrefaccion = '" + codigo + "' and t1.empresa  = '" + empresa + "' and t1.existencias > 0").ToString().Split('|');
+        {          
             string[] cadenaR = v.getaData("SET lc_time_names = 'es_ES';SELECT concat(if(count(convert(t1.nombreRefaccion,char))>0,convert(t1.nombreRefaccion,char),'0'), '|',if(count(convert(t1.idrefaccion,char))>0,convert(t1.idrefaccion,char),'0')) as id from crefacciones as t1  where t1.codrefaccion = '" + codigo + "' and t1.empresa  = '" + empresa + "' and t1.existencias > 0").ToString().Split('|');
             if (cadenaR[0].ToString().Equals("").Equals("0"))
             {
@@ -601,7 +648,6 @@ namespace controlFallos
             else
             {
                 cmbrefaccion.SelectedValue = int.Parse(cadenaR[1].ToString());
-
             }
         }
 
@@ -609,19 +655,173 @@ namespace controlFallos
         private void btnguardar_Click(object sender, EventArgs e)
         {
             agregar();
+            limpiar();
+            Genera_Folio();
+            hora2();
+            Activar();
+            BorrarMensajeError2();             
         }
 
         //METODO AGREGAR REGSITRO
         void agregar()
-        {           
-                v.c.insertar("insert into reporteuniexternas(folioR,personaIngreso,mecanicoD,fallosRepor,mecanicoR,diagnosticoMeca,folioFact,reparacionesRa,empresaU,unidad,estatusDiag,tipoRepa,estatusRepa,refacciones) values ('" + tbxFolio.Text + "','" + tbxPersonaIngreso.Text + "','" + lblMecanicoU.Text + "','" + txtFallos.Text + "','" + lblmecanico.Text + "','" + txtDiagMeca.Text + "','" + txtfoliof.Text + "','" + txtRepaReal.Text + "','" + cbxSempresa.SelectedValue + "','" + cmbUnidad.SelectedValue + "','" + cmbEstatus1.SelectedValue + "','" + cmbTipoR.SelectedValue + "','" + cmbEstRep.SelectedValue + "','" + cmbRefacciones1.SelectedValue + "')");
-                MessageBox.Show("Reporte Guardado con Exito");
-                //Limpiar();
-           
+        {
+            if (ValidarCampos()) {              
+            }
+            if (ValidarCampos2())
+            {
+                v.c.insertar("insert into reporteuniexternas(folioR,empresaU,unidad,fechaHI,envioReporte,personaIngreso,km,fallosRepor,mecanicoD,inicioDiag,mecanicoR,diagnosticoMeca,estatusDiag,tipoRepa,estatusRepa,Refacciones,folioFact,reparacionesRa,terminoDiag,totalDiag,esperaMante,totMante,mecaApoyo1,mecaApoyo2) values ('" + tbxFolio.Text + "','" + cbxSempresa.Text + "','" + cmbUnidad.Text + "','" + horaIngreso.Text + "','" + tbxHoraEnvio.Text + "','" + tbxPersonaIngreso.Text + "','" + tbxKilome.Text + "','" + txtFallos.Text + "','" + lblMecanicoU.Text + "','" + txtIniDiag.Text + "','" + lblmecanico.Text + "','" + txtDiagMeca.Text + "','" + cmbEstatus1.Text + "','" + cmbTipoR.Text + "','" + cmbEstRep.Text + "','" + cmbRefacciones1.SelectedIndex + "','" + txtfoliof.Text + "','" + txtRepaReal.Text + "','" + txtFinDiag.Text + "','" + txtTtotGiag.Text + "','" + txtManteEsp.Text + "','" + txtManteTot.Text + "','" + lblMeca2.Text + "','" + lblmapoyo.Text + "')");
+
+                MessageBox.Show("Reporte Guardado con Exito","* Alerta *");
+            }
+
+            else
+            {
+                MessageBox.Show("NO PUEDE AGREGAR UN REGISTRO");
+                gbxDiag.Enabled = false;
+                pguardar.Visible = false;
+                pfinalizar.Visible = false;
+                gbxRefac.Enabled = false; 
+            }
         }
 
+        //CANTIDAD A PEDIR (REFACCIONES)
+        private void txtcantidad_TextChanged(object sender, EventArgs e)
+        {
+            if (editarRefaccion && peditar)
+            {
+                bool qh = ((idrefaccionAnterior != Convert.ToInt32(cmbrefaccion.SelectedValue) || cantidadAnterior != Convert.ToInt32((string.IsNullOrWhiteSpace(txtcantidad.Text) ? "0" : txtcantidad.Text)) && cmbrefaccion.SelectedIndex > 0 && !string.IsNullOrWhiteSpace(txtcantidad.Text)) ? true : false);
+                pagregar.Visible = qh;
+                txtRetorno.Enabled = txtObsRetorno.Enabled = (qh == true ? false : true);
+                if (qh == true)
+                {
+                    txtObsRetorno.Text = txtRetorno.Text = "";
+                    pRetorno.Visible = false;
+                }
+            }
+        }
+
+        //ENVIO DE UNIDAD MEDIDA A LABEL (REFACCIONES)
+        private void cmbrefaccion_SelectedValueChanged(object sender, EventArgs e)
+        {
+            lblum.Text = (cmbrefaccion.SelectedIndex > 0 ? v.getaData("select coalesce(upper(t4." + v.c.fieldscunidadmedida[1] + "),'') from crefacciones as t1 inner join cmarcas as t2 on t1." + v.c.fieldscrefacciones[7] + "=t2." + v.c.fieldscmarcas[0] + " inner join cfamilias as t3 on t2." + v.c.fieldscmarcas[1] + "=t3." + v.c.fieldscfamilias[0] + " inner join cunidadmedida as t4 on t3." + v.c.fieldscfamilias[5] + " = t4." + v.c.fieldscunidadmedida[0] + " where t1." + v.c.fieldscrefacciones[0] + " = '" + cmbrefaccion.SelectedValue + "'").ToString() : "");
+        }
+
+        //BOTON FINALIZAR REGISTRO
+        private void btnFinaliza_Click(object sender, EventArgs e)
+        {
+            pguardar.Visible = true;
+            gbxRefac.Enabled = false; 
+        }
+
+        //METODO LIMPIAR CAMPOS
+        void limpiar()
+        {
+            //TEXBOX
+            tbxFolio.Clear();           
+            tbxPersonaIngreso.Clear();
+            tbxKilome.Clear();
+            txtMeca.Clear();
+            txtMeca2.Clear();
+            txtFallos.Clear();          
+            txtmecanico.Clear();
+            txtMecanico2.Clear();
+            txtDiagMeca.Clear();
+
+            lblMecanicoU.ResetText();
+            lblMeca2.ResetText();
+            lblmecanico.ResetText();
+            lblmapoyo.ResetText();
+
+            tbxHoraEnvio.Clear();
+            horaIngreso.Clear();
+            txtFinDiag.Clear();
+            txtTtotGiag.Clear();
+            txtManteEsp.Clear();
+            txtManteTot.Clear();
+            txtIniDiag.Clear();
+            txtRepaReal.Clear();
+            txtfoliof.Clear();
+
+
+            //COMBOBOX
+            cbxSempresa.SelectedIndex = cmbUnidad.SelectedIndex = cmbEstatus1.SelectedIndex = cmbTipoR.SelectedIndex = cmbEstRep.SelectedIndex = cmbRefacciones1.SelectedIndex = 0;
+        }
+
+        //METODO OBTENER HORA
+        void hora()
+        {            
+            txtFinDiag.Text  = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            txtTtotGiag.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            txtManteEsp.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            txtManteTot.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            txtIniDiag.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+        }
+
+        //METODO DOS PARA HORA
+        void hora2()
+        {
+            horaIngreso.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+            tbxHoraEnvio.Text = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+        }
+
+        //ACTIVAR GROUBOX
+        void Activar()
+        {
+            gbxUnidad.Enabled = true;
+            pUnidad.Visible = true;
+            pDiag.Visible = false;
+            pFin.Visible = false;
+            pguardar.Visible = false;
+
+            gbxRefac.Enabled = false;
+            gbxDiag.Enabled = false; 
+
+        }
+
+        //FORMATO DE CELDAS PARA EL DATAGRIDVIEW
+        private void ConsultaRepo_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (this.ConsultaRepo.Columns[e.ColumnIndex].Name == "ESTATUS")
+                e.CellStyle.BackColor = (e.Value.ToString() == "EN PROCESO" ? System.Drawing.Color.Khaki : e.Value.ToString() == "LIBERADA" ? System.Drawing.Color.PaleGreen : e.Value.ToString() == "REPROGRAMADA" ? System.Drawing.Color.LightCoral : System.Drawing.Color.LightBlue);
+        }
+
+        //VER ESTATUS DE REPARACION
+        void obtenerReportes()
+        {
+            lblenproceso.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["ESTATUS DE REPARACION"].Value.ToString().Contains("EN PROCESO")).Count());
+            lblreprogramadas.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["ESTATUS DE REPARACION"].Value.ToString().Contains("REPROGRAMADA")).Count());
+            lblliberadas.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => r.Cells["ESTATUS DE REPARACION"].Value.ToString().Contains("LIBERADA")).Count());
+            lblenesepera.Text = Convert.ToString(ConsultaRepo.Rows.Cast<DataGridViewRow>().Where(r => string.IsNullOrWhiteSpace(r.Cells["ESTATUS DE REPARACION"].Value.ToString())).Count());
+        }
+
+        //METODO CARGAR DATOS A DATAGRIDVIEW
+        void cargardatos()
+        {
+            MySqlDataAdapter cargar = new MySqlDataAdapter(consultagral + " " + cadenaEmpresa + " " + valorBusquedak + " order by t1.idRUEX ", v.c.dbconection());
+            DataSet ds = new DataSet();
+            cargar.Fill(ds);
+            ConsultaRepo.DataSource = ds.Tables[0];
+            ConsultaRepo.Columns[1].Frozen = true;
+            ConsultaRepo.Columns[0].Visible = false;
+            ConsultaRepo.ClearSelection();
+            v.c.dbconection().Close();
+            ConsultaRepo.ClearSelection();
+            minandmaxdate();
+        }
+
+        //METODO PARA FILTAR DATOS EN DATAGRID VIEWS POR FECHA 
+        void minandmaxdate()
+        {
+            string[] date = v.getaData("select concat(MIN(" + v.c.fieldsreporteUEx[4] + "),'|',MAX(" + v.c.fieldsreporteUEx[4] + ")) as fechas from reporteuniexternas").ToString().Split('|');
+            if (!string.IsNullOrWhiteSpace(date[0]))
+            {
+                dtpFechaDe.MinDate = dtpFechaA.MinDate = DateTime.Parse(date[0]);
+                dtpFechaDe.MaxDate = dtpFechaA.MaxDate = DateTime.Parse(date[1]);
+            }
+
+        }
 
 
     }
 }
-/*ACTUALIZACION 18 -07-2022 REPORTE UNIDADES EXTERNAS*/
+/*ACTUALIZACION 21 -07-2022 REPORTE UNIDADES EXTERNAS*/

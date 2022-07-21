@@ -52,7 +52,9 @@ namespace controlFallos
             this.btncancelar = new System.Windows.Forms.Button();
             this.lblCancelar = new System.Windows.Forms.Label();
             this.gbxUnidad = new System.Windows.Forms.GroupBox();
-            this.panel2 = new System.Windows.Forms.Panel();
+            this.horaIngreso = new System.Windows.Forms.TextBox();
+            this.label78 = new System.Windows.Forms.Label();
+            this.pUnidad = new System.Windows.Forms.Panel();
             this.btnSig = new System.Windows.Forms.Button();
             this.cbxSempresa = new System.Windows.Forms.ComboBox();
             this.label58 = new System.Windows.Forms.Label();
@@ -77,7 +79,6 @@ namespace controlFallos
             this.label11 = new System.Windows.Forms.Label();
             this.cmbUnidad = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.dtUnidad = new System.Windows.Forms.DateTimePicker();
             this.label1 = new System.Windows.Forms.Label();
             this.lblFolio = new System.Windows.Forms.Label();
             this.cmbEstatus1 = new System.Windows.Forms.ComboBox();
@@ -114,9 +115,13 @@ namespace controlFallos
             this.cmbrefaccion = new System.Windows.Forms.ComboBox();
             this.label56 = new System.Windows.Forms.Label();
             this.gbxDiag = new System.Windows.Forms.GroupBox();
+            this.txtManteEsp = new System.Windows.Forms.TextBox();
+            this.txtManteTot = new System.Windows.Forms.TextBox();
+            this.pFin = new System.Windows.Forms.Panel();
+            this.btnFinaliza = new System.Windows.Forms.Button();
             this.cmbEstausDiag = new System.Windows.Forms.ComboBox();
             this.label77 = new System.Windows.Forms.Label();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.pDiag = new System.Windows.Forms.Panel();
             this.btnRepa = new System.Windows.Forms.Button();
             this.txtTtotGiag = new System.Windows.Forms.TextBox();
             this.label74 = new System.Windows.Forms.Label();
@@ -145,9 +150,7 @@ namespace controlFallos
             this.btnrefacciones = new System.Windows.Forms.Button();
             this.lblmapoyo = new System.Windows.Forms.Label();
             this.lblmecanico = new System.Windows.Forms.Label();
-            this.lbltiempototal = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.lbltiempoespera = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label53 = new System.Windows.Forms.Label();
             this.lblhimant = new System.Windows.Forms.Label();
@@ -216,15 +219,14 @@ namespace controlFallos
             this.EstatusRepa = new System.Windows.Forms.ComboBox();
             this.label59 = new System.Windows.Forms.Label();
             this.cbxEmpresaS = new System.Windows.Forms.ComboBox();
-            this.gbxbusqueda = new System.Windows.Forms.GroupBox();
+            this.gbxBusqueda = new System.Windows.Forms.GroupBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.btnFinaliza = new System.Windows.Forms.Button();
+            this.gbxRefac = new System.Windows.Forms.GroupBox();
             this.pguardar.SuspendLayout();
             this.pfinalizar.SuspendLayout();
             this.pcancelar.SuspendLayout();
             this.gbxUnidad.SuspendLayout();
-            this.panel2.SuspendLayout();
+            this.pUnidad.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.gbrefacciones.SuspendLayout();
             this.pRetorno.SuspendLayout();
@@ -232,7 +234,8 @@ namespace controlFallos
             this.pagregar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvrefacciones)).BeginInit();
             this.gbxDiag.SuspendLayout();
-            this.panel3.SuspendLayout();
+            this.pFin.SuspendLayout();
+            this.pDiag.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).BeginInit();
             this.gbxAlertas.SuspendLayout();
@@ -242,576 +245,11 @@ namespace controlFallos
             this.pexcel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbgif)).BeginInit();
             this.pPdf.SuspendLayout();
-            this.gbxbusqueda.SuspendLayout();
+            this.gbxBusqueda.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.panel4.SuspendLayout();
+            this.gbxRefac.SuspendLayout();
             this.SuspendLayout();
             // 
-
-            // gbxbusqueda
-            // 
-            this.gbxbusqueda.BackColor = System.Drawing.Color.Transparent;
-            this.gbxbusqueda.Controls.Add(this.cbxEmpresaS);
-            this.gbxbusqueda.Controls.Add(this.label59);
-            this.gbxbusqueda.Controls.Add(this.EstatusRepa);
-            this.gbxbusqueda.Controls.Add(this.label35);
-            this.gbxbusqueda.Controls.Add(this.pPdf);
-            this.gbxbusqueda.Controls.Add(this.ConsultaRepo);
-            this.gbxbusqueda.Controls.Add(this.pexcel);
-            this.gbxbusqueda.Controls.Add(this.pactualizar);
-            this.gbxbusqueda.Controls.Add(this.pbuscar);
-            this.gbxbusqueda.Controls.Add(this.cmbReTip);
-            this.gbxbusqueda.Controls.Add(this.label43);
-            this.gbxbusqueda.Controls.Add(this.dtpFechaA);
-            this.gbxbusqueda.Controls.Add(this.label42);
-            this.gbxbusqueda.Controls.Add(this.dtpFechaDe);
-            this.gbxbusqueda.Controls.Add(this.label39);
-            this.gbxbusqueda.Controls.Add(this.cboxRango);
-            this.gbxbusqueda.Controls.Add(this.cmbmes1);
-            this.gbxbusqueda.Controls.Add(this.label34);
-            this.gbxbusqueda.Controls.Add(this.cmbEstatus);
-            this.gbxbusqueda.Controls.Add(this.label28);
-            this.gbxbusqueda.Controls.Add(this.cmbMecanicob1);
-            this.gbxbusqueda.Controls.Add(this.label27);
-            this.gbxbusqueda.Controls.Add(this.cmbUnidad1);
-            this.gbxbusqueda.Controls.Add(this.label21);
-            this.gbxbusqueda.Controls.Add(this.txtfoliob);
-            this.gbxbusqueda.Controls.Add(this.label7);
-            this.gbxbusqueda.Controls.Add(this.label15);
-            this.gbxbusqueda.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbxbusqueda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbxbusqueda.Location = new System.Drawing.Point(50, 489);
-            this.gbxbusqueda.Name = "gbxbusqueda";
-            this.gbxbusqueda.Size = new System.Drawing.Size(1762, 345);
-            this.gbxbusqueda.TabIndex = 275;
-            this.gbxbusqueda.TabStop = false;
-            this.gbxbusqueda.Visible = false;
-            // 
-            // cbxEmpresaS
-            // 
-            this.cbxEmpresaS.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cbxEmpresaS.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cbxEmpresaS.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cbxEmpresaS.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbxEmpresaS.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cbxEmpresaS.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cbxEmpresaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cbxEmpresaS.FormattingEnabled = true;
-            this.cbxEmpresaS.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cbxEmpresaS.Location = new System.Drawing.Point(486, 25);
-            this.cbxEmpresaS.Name = "cbxEmpresaS";
-            this.cbxEmpresaS.Size = new System.Drawing.Size(223, 23);
-            this.cbxEmpresaS.TabIndex = 334;
-            
-            // 
-            // label59
-            // 
-            this.label59.AutoSize = true;
-            this.label59.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label59.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label59.Location = new System.Drawing.Point(405, 25);
-            this.label59.Name = "label59";
-            this.label59.Size = new System.Drawing.Size(75, 18);
-            this.label59.TabIndex = 335;
-            this.label59.Text = "Empresa:";
-            // 
-            // EstatusRepa
-            // 
-            this.EstatusRepa.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.EstatusRepa.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.EstatusRepa.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.EstatusRepa.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.EstatusRepa.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.EstatusRepa.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.EstatusRepa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.EstatusRepa.FormattingEnabled = true;
-            this.EstatusRepa.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.EstatusRepa.Location = new System.Drawing.Point(1219, 66);
-            this.EstatusRepa.Name = "EstatusRepa";
-            this.EstatusRepa.Size = new System.Drawing.Size(252, 23);
-            this.EstatusRepa.TabIndex = 331;
-            
-            // 
-            // label35
-            // 
-            this.label35.AutoSize = true;
-            this.label35.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label35.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label35.Location = new System.Drawing.Point(1059, 72);
-            this.label35.Name = "label35";
-            this.label35.Size = new System.Drawing.Size(154, 17);
-            this.label35.TabIndex = 330;
-            this.label35.Text = "Estatus de Reparacion:";
-            // 
-            // pPdf
-            // 
-            this.pPdf.Controls.Add(this.btnpdf);
-            this.pPdf.Controls.Add(this.label10);
-            this.pPdf.Controls.Add(this.rbngeneral);
-            this.pPdf.Controls.Add(this.rbnunidad);
-            this.pPdf.Location = new System.Drawing.Point(1608, 187);
-            this.pPdf.Name = "pPdf";
-            this.pPdf.Size = new System.Drawing.Size(147, 112);
-            this.pPdf.TabIndex = 280;
-            // 
-            // btnpdf
-            // 
-            this.btnpdf.AutoSize = true;
-            this.btnpdf.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.BackgroundImage = global::controlFallos.Properties.Resources.pdf;
-            this.btnpdf.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnpdf.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnpdf.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.FlatAppearance.BorderSize = 0;
-            this.btnpdf.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnpdf.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnpdf.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnpdf.Location = new System.Drawing.Point(50, 3);
-            this.btnpdf.Name = "btnpdf";
-            this.btnpdf.Size = new System.Drawing.Size(45, 45);
-            this.btnpdf.TabIndex = 235;
-            this.btnpdf.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnpdf.UseVisualStyleBackColor = false;
-            
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label10.Location = new System.Drawing.Point(34, 51);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(69, 18);
-            this.label10.TabIndex = 236;
-            this.label10.Text = "Exportar";
-            // 
-            // rbngeneral
-            // 
-            this.rbngeneral.AutoSize = true;
-            this.rbngeneral.Checked = true;
-            this.rbngeneral.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbngeneral.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.rbngeneral.Location = new System.Drawing.Point(2, 72);
-            this.rbngeneral.Name = "rbngeneral";
-            this.rbngeneral.Size = new System.Drawing.Size(144, 18);
-            this.rbngeneral.TabIndex = 239;
-            this.rbngeneral.TabStop = true;
-            this.rbngeneral.Text = "Reporte de Diagnostico";
-            this.rbngeneral.UseVisualStyleBackColor = true;
-            // 
-            // rbnunidad
-            // 
-            this.rbnunidad.AutoSize = true;
-            this.rbnunidad.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbnunidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.rbnunidad.Location = new System.Drawing.Point(2, 92);
-            this.rbnunidad.Name = "rbnunidad";
-            this.rbnunidad.Size = new System.Drawing.Size(123, 18);
-            this.rbnunidad.TabIndex = 240;
-            this.rbnunidad.Text = "Datos de la Unidad";
-            this.rbnunidad.UseVisualStyleBackColor = true;
-            // 
-            // ConsultaRepo
-            // 
-            this.ConsultaRepo.AllowUserToAddRows = false;
-            this.ConsultaRepo.AllowUserToDeleteRows = false;
-            this.ConsultaRepo.AllowUserToResizeColumns = false;
-            this.ConsultaRepo.AllowUserToResizeRows = false;
-
-            this.ConsultaRepo.EnableHeadersVisualStyles = false;
-            this.ConsultaRepo.GridColor = System.Drawing.Color.Gray;
-            this.ConsultaRepo.Location = new System.Drawing.Point(24, 109);
-            this.ConsultaRepo.Name = "ConsultaRepo";
-            this.ConsultaRepo.ReadOnly = true;
-
-            this.ConsultaRepo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.ConsultaRepo.ShowCellErrors = false;
-            this.ConsultaRepo.ShowCellToolTips = false;
-            this.ConsultaRepo.ShowEditingIcon = false;
-            this.ConsultaRepo.ShowRowErrors = false;
-            this.ConsultaRepo.Size = new System.Drawing.Size(1557, 218);
-            this.ConsultaRepo.TabIndex = 275;
-            // 
-            // pexcel
-            // 
-            this.pexcel.Controls.Add(this.lblexcel);
-            this.pexcel.Controls.Add(this.btnexportar);
-            this.pexcel.Controls.Add(this.pbgif);
-            this.pexcel.Location = new System.Drawing.Point(1682, 29);
-            this.pexcel.Name = "pexcel";
-            this.pexcel.Size = new System.Drawing.Size(79, 60);
-            this.pexcel.TabIndex = 230;
-            // 
-            // lblexcel
-            // 
-            this.lblexcel.AutoSize = true;
-            this.lblexcel.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblexcel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblexcel.Location = new System.Drawing.Point(4, 39);
-            this.lblexcel.Name = "lblexcel";
-            this.lblexcel.Size = new System.Drawing.Size(69, 18);
-            this.lblexcel.TabIndex = 154;
-            this.lblexcel.Text = "Exportar";
-            // 
-            // btnexportar
-            // 
-            this.btnexportar.AutoSize = true;
-            this.btnexportar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.BackgroundImage = global::controlFallos.Properties.Resources.excel;
-            this.btnexportar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnexportar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnexportar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.FlatAppearance.BorderSize = 0;
-            this.btnexportar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnexportar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnexportar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnexportar.Location = new System.Drawing.Point(29, 5);
-            this.btnexportar.Name = "btnexportar";
-            this.btnexportar.Size = new System.Drawing.Size(35, 35);
-            this.btnexportar.TabIndex = 152;
-            this.btnexportar.UseVisualStyleBackColor = false;
-            // 
-            // pbgif
-            // 
-            this.pbgif.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbgif.Image = global::controlFallos.Properties.Resources.loader;
-            this.pbgif.Location = new System.Drawing.Point(29, 5);
-            this.pbgif.Name = "pbgif";
-            this.pbgif.Size = new System.Drawing.Size(35, 35);
-            this.pbgif.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbgif.TabIndex = 227;
-            this.pbgif.TabStop = false;
-            this.pbgif.Visible = false;
-            // 
-            // pactualizar
-            // 
-            this.pactualizar.Controls.Add(this.btnactualizar);
-            this.pactualizar.Controls.Add(this.label57);
-            this.pactualizar.Location = new System.Drawing.Point(1576, 24);
-            this.pactualizar.Name = "pactualizar";
-            this.pactualizar.Size = new System.Drawing.Size(82, 62);
-            this.pactualizar.TabIndex = 229;
-            // 
-            // btnactualizar
-            // 
-            this.btnactualizar.AutoSize = true;
-            this.btnactualizar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.BackgroundImage = global::controlFallos.Properties.Resources._1491313940_repeat_82991;
-            this.btnactualizar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnactualizar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnactualizar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.FlatAppearance.BorderSize = 0;
-            this.btnactualizar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnactualizar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnactualizar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnactualizar.Location = new System.Drawing.Point(24, 5);
-            this.btnactualizar.Name = "btnactualizar";
-            this.btnactualizar.Size = new System.Drawing.Size(35, 35);
-            this.btnactualizar.TabIndex = 151;
-            this.btnactualizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnactualizar.UseVisualStyleBackColor = false;
-            // 
-            // label57
-            // 
-            this.label57.AutoSize = true;
-            this.label57.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label57.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label57.Location = new System.Drawing.Point(2, 41);
-            this.label57.Name = "label57";
-            this.label57.Size = new System.Drawing.Size(79, 18);
-            this.label57.TabIndex = 153;
-            this.label57.Text = "Actualizar";
-            // 
-            // pbuscar
-            // 
-            this.pbuscar.Controls.Add(this.btnbuscar);
-            this.pbuscar.Controls.Add(this.label54);
-            this.pbuscar.Location = new System.Drawing.Point(1504, 25);
-            this.pbuscar.Name = "pbuscar";
-            this.pbuscar.Size = new System.Drawing.Size(61, 62);
-            this.pbuscar.TabIndex = 228;
-            // 
-            // btnbuscar
-            // 
-            this.btnbuscar.AutoSize = true;
-            this.btnbuscar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.BackgroundImage = global::controlFallos.Properties.Resources.xmag_search_find_export_locate_5984;
-            this.btnbuscar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnbuscar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnbuscar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.FlatAppearance.BorderSize = 0;
-            this.btnbuscar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnbuscar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnbuscar.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnbuscar.Location = new System.Drawing.Point(15, 9);
-            this.btnbuscar.Name = "btnbuscar";
-            this.btnbuscar.Size = new System.Drawing.Size(35, 35);
-            this.btnbuscar.TabIndex = 149;
-            this.btnbuscar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnbuscar.UseVisualStyleBackColor = false;
-            // 
-            // label54
-            // 
-            this.label54.AutoSize = true;
-            this.label54.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label54.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label54.Location = new System.Drawing.Point(1, 40);
-            this.label54.Name = "label54";
-            this.label54.Size = new System.Drawing.Size(57, 18);
-            this.label54.TabIndex = 150;
-            this.label54.Text = "Buscar";
-            // 
-            // cmbReTip
-            // 
-            this.cmbReTip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbReTip.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbReTip.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbReTip.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbReTip.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbReTip.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbReTip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbReTip.FormattingEnabled = true;
-            this.cmbReTip.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbReTip.Location = new System.Drawing.Point(533, 67);
-            this.cmbReTip.Name = "cmbReTip";
-            this.cmbReTip.Size = new System.Drawing.Size(249, 23);
-            this.cmbReTip.TabIndex = 148;
-            
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label43.Location = new System.Drawing.Point(366, 71);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(148, 18);
-            this.label43.TabIndex = 147;
-            this.label43.Text = "Tipo de Reparacion:";
-            // 
-            // dtpFechaA
-            // 
-            this.dtpFechaA.CalendarMonthBackground = System.Drawing.Color.Gray;
-            this.dtpFechaA.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dtpFechaA.Enabled = false;
-            this.dtpFechaA.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpFechaA.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaA.Location = new System.Drawing.Point(247, 67);
-            this.dtpFechaA.Name = "dtpFechaA";
-            this.dtpFechaA.Size = new System.Drawing.Size(104, 24);
-            this.dtpFechaA.TabIndex = 146;
-            this.dtpFechaA.Value = new System.DateTime(2018, 10, 22, 0, 0, 0, 0);
-            // 
-            // label42
-            // 
-            this.label42.AutoSize = true;
-            this.label42.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label42.Location = new System.Drawing.Point(220, 70);
-            this.label42.Name = "label42";
-            this.label42.Size = new System.Drawing.Size(23, 18);
-            this.label42.TabIndex = 145;
-            this.label42.Text = "A:";
-            // 
-            // dtpFechaDe
-            // 
-            this.dtpFechaDe.CalendarMonthBackground = System.Drawing.Color.Gray;
-            this.dtpFechaDe.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.dtpFechaDe.Enabled = false;
-            this.dtpFechaDe.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtpFechaDe.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpFechaDe.Location = new System.Drawing.Point(110, 67);
-            this.dtpFechaDe.Name = "dtpFechaDe";
-            this.dtpFechaDe.Size = new System.Drawing.Size(104, 24);
-            this.dtpFechaDe.TabIndex = 144;
-            this.dtpFechaDe.Value = new System.DateTime(2018, 10, 22, 0, 0, 0, 0);
-            // 
-            // label39
-            // 
-            this.label39.AutoSize = true;
-            this.label39.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label39.Location = new System.Drawing.Point(72, 70);
-            this.label39.Name = "label39";
-            this.label39.Size = new System.Drawing.Size(33, 18);
-            this.label39.TabIndex = 143;
-            this.label39.Text = "De:";
-            // 
-            // cboxRango
-            // 
-           this.cboxRango.AutoSize = true;
-            this.cboxRango.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cboxRango.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboxRango.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cboxRango.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cboxRango.Location = new System.Drawing.Point(11, 72);
-            this.cboxRango.Name = "cboxRango";
-            this.cboxRango.Size = new System.Drawing.Size(62, 18);
-            this.cboxRango.TabIndex = 142;
-            this.cboxRango.Text = "Rango:";
-            this.cboxRango.UseVisualStyleBackColor = true;
-            
-            // 
-            // cmbmes1
-            // 
-            this.cmbmes1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbmes1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbmes1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbmes1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbmes1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbmes1.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbmes1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbmes1.FormattingEnabled = true;
-            this.cmbmes1.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbmes1.Location = new System.Drawing.Point(847, 68);
-            this.cmbmes1.Name = "cmbmes1";
-            this.cmbmes1.Size = new System.Drawing.Size(189, 23);
-            this.cmbmes1.TabIndex = 141;
-            
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label34.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label34.Location = new System.Drawing.Point(799, 72);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(42, 18);
-            this.label34.TabIndex = 140;
-            this.label34.Text = "Mes:";
-            // 
-            // cmbEstatus
-            // 
-            this.cmbEstatus.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbEstatus.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbEstatus.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbEstatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbEstatus.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbEstatus.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbEstatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbEstatus.FormattingEnabled = true;
-            this.cmbEstatus.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbEstatus.Location = new System.Drawing.Point(1282, 29);
-            this.cmbEstatus.Name = "cmbEstatus";
-            this.cmbEstatus.Size = new System.Drawing.Size(216, 23);
-            this.cmbEstatus.TabIndex = 139;
-            
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label28.Location = new System.Drawing.Point(1104, 31);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(172, 18);
-            this.label28.TabIndex = 138;
-            this.label28.Text = "Estatus de Diagnostico:";
-            // 
-            // cmbMecanicob1
-            // 
-            this.cmbMecanicob1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbMecanicob1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbMecanicob1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbMecanicob1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbMecanicob1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbMecanicob1.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbMecanicob1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbMecanicob1.FormattingEnabled = true;
-            this.cmbMecanicob1.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbMecanicob1.Location = new System.Drawing.Point(798, 26);
-            this.cmbMecanicob1.Name = "cmbMecanicob1";
-            this.cmbMecanicob1.Size = new System.Drawing.Size(293, 23);
-            this.cmbMecanicob1.TabIndex = 137;
-            
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label27.Location = new System.Drawing.Point(715, 28);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(80, 18);
-            this.label27.TabIndex = 136;
-            this.label27.Text = "Mecánico:";
-            // 
-            // cmbUnidad1
-            // 
-            this.cmbUnidad1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbUnidad1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbUnidad1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbUnidad1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbUnidad1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbUnidad1.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbUnidad1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbUnidad1.FormattingEnabled = true;
-            this.cmbUnidad1.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbUnidad1.Location = new System.Drawing.Point(209, 22);
-            this.cmbUnidad1.Name = "cmbUnidad1";
-            this.cmbUnidad1.Size = new System.Drawing.Size(192, 23);
-            this.cmbUnidad1.TabIndex = 135;
-            
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label21.Location = new System.Drawing.Point(140, 24);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(63, 18);
-            this.label21.TabIndex = 134;
-            this.label21.Text = "Unidad:";
-            // 
-            // txtfoliob
-            // 
-            this.txtfoliob.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtfoliob.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtfoliob.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtfoliob.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtfoliob.Location = new System.Drawing.Point(53, 25);
-            this.txtfoliob.MaxLength = 18;
-            this.txtfoliob.Name = "txtfoliob";
-            this.txtfoliob.ShortcutsEnabled = false;
-            this.txtfoliob.Size = new System.Drawing.Size(87, 18);
-            this.txtfoliob.TabIndex = 132;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.BackColor = System.Drawing.Color.Transparent;
-            this.label7.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label7.Location = new System.Drawing.Point(51, 36);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(89, 9);
-            this.label7.TabIndex = 133;
-            this.label7.Text = "_____________________";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label15.Location = new System.Drawing.Point(6, 27);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(46, 18);
-            this.label15.TabIndex = 131;
-            this.label15.Text = "Folio:";
-            // 
-
             // txtFallos
             // 
             this.txtFallos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -820,7 +258,7 @@ namespace controlFallos
             this.txtFallos.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtFallos.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.txtFallos.Location = new System.Drawing.Point(24, 284);
-            this.txtFallos.MaxLength = 150;
+            this.txtFallos.MaxLength = 500;
             this.txtFallos.Multiline = true;
             this.txtFallos.Name = "txtFallos";
             this.txtFallos.ShortcutsEnabled = false;
@@ -843,7 +281,7 @@ namespace controlFallos
             // 
             this.pguardar.Controls.Add(this.btnguardar);
             this.pguardar.Controls.Add(this.label9);
-            this.pguardar.Location = new System.Drawing.Point(74, 440);
+            this.pguardar.Location = new System.Drawing.Point(337, 443);
             this.pguardar.Name = "pguardar";
             this.pguardar.Size = new System.Drawing.Size(70, 61);
             this.pguardar.TabIndex = 276;
@@ -886,7 +324,7 @@ namespace controlFallos
             // 
             this.pfinalizar.Controls.Add(this.btnfinalizar);
             this.pfinalizar.Controls.Add(this.label8);
-            this.pfinalizar.Location = new System.Drawing.Point(245, 440);
+            this.pfinalizar.Location = new System.Drawing.Point(592, 441);
             this.pfinalizar.Name = "pfinalizar";
             this.pfinalizar.Size = new System.Drawing.Size(74, 64);
             this.pfinalizar.TabIndex = 281;
@@ -925,11 +363,10 @@ namespace controlFallos
             // 
             this.pcancelar.Controls.Add(this.btncancelar);
             this.pcancelar.Controls.Add(this.lblCancelar);
-            this.pcancelar.Location = new System.Drawing.Point(160, 440);
+            this.pcancelar.Location = new System.Drawing.Point(82, 440);
             this.pcancelar.Name = "pcancelar";
             this.pcancelar.Size = new System.Drawing.Size(76, 64);
             this.pcancelar.TabIndex = 284;
-            this.pcancelar.Visible = false;
             // 
             // btncancelar
             // 
@@ -964,7 +401,9 @@ namespace controlFallos
             // 
             // gbxUnidad
             // 
-            this.gbxUnidad.Controls.Add(this.panel2);
+            this.gbxUnidad.Controls.Add(this.horaIngreso);
+            this.gbxUnidad.Controls.Add(this.label78);
+            this.gbxUnidad.Controls.Add(this.pUnidad);
             this.gbxUnidad.Controls.Add(this.cbxSempresa);
             this.gbxUnidad.Controls.Add(this.label58);
             this.gbxUnidad.Controls.Add(this.lblMeca2);
@@ -988,7 +427,6 @@ namespace controlFallos
             this.gbxUnidad.Controls.Add(this.label11);
             this.gbxUnidad.Controls.Add(this.cmbUnidad);
             this.gbxUnidad.Controls.Add(this.label6);
-            this.gbxUnidad.Controls.Add(this.dtUnidad);
             this.gbxUnidad.Controls.Add(this.label1);
             this.gbxUnidad.Controls.Add(this.lblFolio);
             this.gbxUnidad.Controls.Add(this.label38);
@@ -999,19 +437,45 @@ namespace controlFallos
             this.gbxUnidad.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.gbxUnidad.Location = new System.Drawing.Point(50, 12);
             this.gbxUnidad.Name = "gbxUnidad";
-            this.gbxUnidad.Size = new System.Drawing.Size(682, 425);
+            this.gbxUnidad.Size = new System.Drawing.Size(695, 425);
             this.gbxUnidad.TabIndex = 283;
             this.gbxUnidad.TabStop = false;
             this.gbxUnidad.Text = "Datos de la Unidad";
             this.gbxUnidad.Visible = false;
             // 
-            // panel2
+            // horaIngreso
             // 
-            this.panel2.Controls.Add(this.btnSig);
-            this.panel2.Location = new System.Drawing.Point(633, 378);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(39, 41);
-            this.panel2.TabIndex = 277;
+            this.horaIngreso.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.horaIngreso.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.horaIngreso.Enabled = false;
+            this.horaIngreso.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.horaIngreso.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.horaIngreso.Location = new System.Drawing.Point(450, 17);
+            this.horaIngreso.MaxLength = 18;
+            this.horaIngreso.Name = "horaIngreso";
+            this.horaIngreso.ShortcutsEnabled = false;
+            this.horaIngreso.Size = new System.Drawing.Size(177, 18);
+            this.horaIngreso.TabIndex = 334;
+            // 
+            // label78
+            // 
+            this.label78.AutoSize = true;
+            this.label78.BackColor = System.Drawing.Color.Transparent;
+            this.label78.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label78.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label78.Location = new System.Drawing.Point(448, 28);
+            this.label78.Name = "label78";
+            this.label78.Size = new System.Drawing.Size(181, 9);
+            this.label78.TabIndex = 335;
+            this.label78.Text = "____________________________________________";
+            // 
+            // pUnidad
+            // 
+            this.pUnidad.Controls.Add(this.btnSig);
+            this.pUnidad.Location = new System.Drawing.Point(633, 378);
+            this.pUnidad.Name = "pUnidad";
+            this.pUnidad.Size = new System.Drawing.Size(39, 41);
+            this.pUnidad.TabIndex = 277;
             // 
             // btnSig
             // 
@@ -1089,7 +553,6 @@ namespace controlFallos
             // 
             this.txtMeca2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.txtMeca2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMeca2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMeca2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMeca2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.txtMeca2.Location = new System.Drawing.Point(446, 204);
@@ -1097,7 +560,7 @@ namespace controlFallos
             this.txtMeca2.Name = "txtMeca2";
             this.txtMeca2.PasswordChar = '*';
             this.txtMeca2.ShortcutsEnabled = false;
-            this.txtMeca2.Size = new System.Drawing.Size(171, 18);
+            this.txtMeca2.Size = new System.Drawing.Size(170, 18);
             this.txtMeca2.TabIndex = 310;
             this.txtMeca2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMeca2_KeyPress);
             this.txtMeca2.Validated += new System.EventHandler(this.txtMeca2_Validated);
@@ -1118,7 +581,6 @@ namespace controlFallos
             // 
             this.txtMeca.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.txtMeca.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMeca.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMeca.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMeca.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.txtMeca.Location = new System.Drawing.Point(445, 160);
@@ -1151,10 +613,10 @@ namespace controlFallos
             this.tbxPersonaIngreso.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxPersonaIngreso.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.tbxPersonaIngreso.Location = new System.Drawing.Point(446, 94);
-            this.tbxPersonaIngreso.MaxLength = 18;
+            this.tbxPersonaIngreso.MaxLength = 45;
             this.tbxPersonaIngreso.Name = "tbxPersonaIngreso";
             this.tbxPersonaIngreso.ShortcutsEnabled = false;
-            this.tbxPersonaIngreso.Size = new System.Drawing.Size(209, 18);
+            this.tbxPersonaIngreso.Size = new System.Drawing.Size(226, 18);
             this.tbxPersonaIngreso.TabIndex = 306;
             this.tbxPersonaIngreso.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxPersonaIngreso_KeyPress);
             // 
@@ -1166,9 +628,9 @@ namespace controlFallos
             this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label14.Location = new System.Drawing.Point(444, 105);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(209, 9);
+            this.label14.Size = new System.Drawing.Size(229, 9);
             this.label14.TabIndex = 307;
-            this.label14.Text = "___________________________________________________";
+            this.label14.Text = "________________________________________________________";
             // 
             // tbxKilome
             // 
@@ -1177,10 +639,10 @@ namespace controlFallos
             this.tbxKilome.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxKilome.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.tbxKilome.Location = new System.Drawing.Point(480, 123);
-            this.tbxKilome.MaxLength = 18;
+            this.tbxKilome.MaxLength = 45;
             this.tbxKilome.Name = "tbxKilome";
             this.tbxKilome.ShortcutsEnabled = false;
-            this.tbxKilome.Size = new System.Drawing.Size(152, 18);
+            this.tbxKilome.Size = new System.Drawing.Size(192, 18);
             this.tbxKilome.TabIndex = 304;
             this.tbxKilome.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.tbxKilome_KeyPress);
             // 
@@ -1192,9 +654,9 @@ namespace controlFallos
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label12.Location = new System.Drawing.Point(478, 134);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(149, 9);
+            this.label12.Size = new System.Drawing.Size(193, 9);
             this.label12.TabIndex = 305;
-            this.label12.Text = "____________________________________";
+            this.label12.Text = "_______________________________________________";
             // 
             // tbxHoraEnvio
             // 
@@ -1327,20 +789,11 @@ namespace controlFallos
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label6.Location = new System.Drawing.Point(220, 28);
+            this.label6.Location = new System.Drawing.Point(258, 20);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(133, 18);
+            this.label6.Size = new System.Drawing.Size(186, 18);
             this.label6.TabIndex = 288;
-            this.label6.Text = "Fecha de Ingreso:";
-            // 
-            // dtUnidad
-            // 
-            this.dtUnidad.Enabled = false;
-            this.dtUnidad.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dtUnidad.Location = new System.Drawing.Point(378, 26);
-            this.dtUnidad.Name = "dtUnidad";
-            this.dtUnidad.Size = new System.Drawing.Size(203, 21);
-            this.dtUnidad.TabIndex = 288;
+            this.label6.Text = "Fecha / Hora de Ingreso:";
             // 
             // label1
             // 
@@ -1464,7 +917,7 @@ namespace controlFallos
             this.gbrefacciones.Controls.Add(this.label56);
             this.gbrefacciones.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbrefacciones.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbrefacciones.Location = new System.Drawing.Point(738, 12);
+            this.gbrefacciones.Location = new System.Drawing.Point(751, 12);
             this.gbrefacciones.Name = "gbrefacciones";
             this.gbrefacciones.Size = new System.Drawing.Size(1060, 425);
             this.gbrefacciones.TabIndex = 288;
@@ -1778,6 +1231,8 @@ namespace controlFallos
             this.txtcantidad.ShortcutsEnabled = false;
             this.txtcantidad.Size = new System.Drawing.Size(127, 18);
             this.txtcantidad.TabIndex = 233;
+            this.txtcantidad.TextChanged += new System.EventHandler(this.txtcantidad_TextChanged);
+            this.txtcantidad.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtcantidad_KeyPress);
             // 
             // label49
             // 
@@ -1842,6 +1297,7 @@ namespace controlFallos
             this.cmbrefaccion.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cmbrefaccion.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbrefaccion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbrefaccion.Enabled = false;
             this.cmbrefaccion.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmbrefaccion.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbrefaccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
@@ -1853,6 +1309,7 @@ namespace controlFallos
             this.cmbrefaccion.Size = new System.Drawing.Size(311, 25);
             this.cmbrefaccion.TabIndex = 228;
             this.cmbrefaccion.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbrefaccion_DrawItem);
+            this.cmbrefaccion.SelectedValueChanged += new System.EventHandler(this.cmbrefaccion_SelectedValueChanged);
             // 
             // label56
             // 
@@ -1868,14 +1325,16 @@ namespace controlFallos
             // gbxDiag
             // 
             this.gbxDiag.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.gbxDiag.Controls.Add(this.panel4);
+            this.gbxDiag.Controls.Add(this.gbxRefac);
+            this.gbxDiag.Controls.Add(this.txtManteEsp);
+            this.gbxDiag.Controls.Add(this.txtManteTot);
+            this.gbxDiag.Controls.Add(this.pFin);
             this.gbxDiag.Controls.Add(this.cmbEstausDiag);
             this.gbxDiag.Controls.Add(this.label77);
-            this.gbxDiag.Controls.Add(this.panel3);
+            this.gbxDiag.Controls.Add(this.pDiag);
             this.gbxDiag.Controls.Add(this.txtTtotGiag);
             this.gbxDiag.Controls.Add(this.label74);
             this.gbxDiag.Controls.Add(this.label76);
-            this.gbxDiag.Controls.Add(this.LBxRefacc);
             this.gbxDiag.Controls.Add(this.cmbEstRep);
             this.gbxDiag.Controls.Add(this.label31);
             this.gbxDiag.Controls.Add(this.txtDiagMeca);
@@ -1889,43 +1348,86 @@ namespace controlFallos
             this.gbxDiag.Controls.Add(this.txtIniDiag);
             this.gbxDiag.Controls.Add(this.label26);
             this.gbxDiag.Controls.Add(this.label2);
-            this.gbxDiag.Controls.Add(this.label17);
-            this.gbxDiag.Controls.Add(this.btnCancelFact);
             this.gbxDiag.Controls.Add(this.cmbTipoR);
-            this.gbxDiag.Controls.Add(this.btnFolioFactura);
             this.gbxDiag.Controls.Add(this.label13);
-            this.gbxDiag.Controls.Add(this.numUpDownHASTA);
-            this.gbxDiag.Controls.Add(this.numUpDownDE);
-            this.gbxDiag.Controls.Add(this.btnrefacciones);
             this.gbxDiag.Controls.Add(this.lblmapoyo);
             this.gbxDiag.Controls.Add(this.lblmecanico);
-            this.gbxDiag.Controls.Add(this.lbltiempototal);
             this.gbxDiag.Controls.Add(this.label3);
-            this.gbxDiag.Controls.Add(this.lbltiempoespera);
             this.gbxDiag.Controls.Add(this.label5);
             this.gbxDiag.Controls.Add(this.label53);
             this.gbxDiag.Controls.Add(this.lblhimant);
             this.gbxDiag.Controls.Add(this.label51);
-            this.gbxDiag.Controls.Add(this.txtRepaReal);
             this.gbxDiag.Controls.Add(this.label46);
-            this.gbxDiag.Controls.Add(this.txtfoliof);
-            this.gbxDiag.Controls.Add(this.label41);
-            this.gbxDiag.Controls.Add(this.label44);
-            this.gbxDiag.Controls.Add(this.cmbRefacciones1);
-            this.gbxDiag.Controls.Add(this.label37);
             this.gbxDiag.Controls.Add(this.label36);
             this.gbxDiag.Controls.Add(this.txtmecanico);
             this.gbxDiag.Controls.Add(this.label30);
             this.gbxDiag.Enabled = false;
             this.gbxDiag.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbxDiag.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbxDiag.Location = new System.Drawing.Point(738, 12);
+            this.gbxDiag.Location = new System.Drawing.Point(753, 11);
             this.gbxDiag.Name = "gbxDiag";
             this.gbxDiag.Size = new System.Drawing.Size(1074, 471);
             this.gbxDiag.TabIndex = 286;
             this.gbxDiag.TabStop = false;
             this.gbxDiag.Text = "Diagnostico";
             this.gbxDiag.Visible = false;
+            // 
+            // txtManteEsp
+            // 
+            this.txtManteEsp.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtManteEsp.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtManteEsp.Enabled = false;
+            this.txtManteEsp.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtManteEsp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtManteEsp.Location = new System.Drawing.Point(828, 360);
+            this.txtManteEsp.MaxLength = 18;
+            this.txtManteEsp.Name = "txtManteEsp";
+            this.txtManteEsp.ShortcutsEnabled = false;
+            this.txtManteEsp.Size = new System.Drawing.Size(177, 18);
+            this.txtManteEsp.TabIndex = 337;
+            // 
+            // txtManteTot
+            // 
+            this.txtManteTot.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtManteTot.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtManteTot.Enabled = false;
+            this.txtManteTot.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtManteTot.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtManteTot.Location = new System.Drawing.Point(798, 392);
+            this.txtManteTot.MaxLength = 18;
+            this.txtManteTot.Name = "txtManteTot";
+            this.txtManteTot.ShortcutsEnabled = false;
+            this.txtManteTot.Size = new System.Drawing.Size(189, 18);
+            this.txtManteTot.TabIndex = 336;
+            // 
+            // pFin
+            // 
+            this.pFin.Controls.Add(this.btnFinaliza);
+            this.pFin.Location = new System.Drawing.Point(1019, 424);
+            this.pFin.Name = "pFin";
+            this.pFin.Size = new System.Drawing.Size(39, 41);
+            this.pFin.TabIndex = 279;
+            this.pFin.Visible = false;
+            // 
+            // btnFinaliza
+            // 
+            this.btnFinaliza.AutoSize = true;
+            this.btnFinaliza.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFinaliza.BackgroundImage = global::controlFallos.Properties.Resources.chevron_sign_to_right;
+            this.btnFinaliza.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFinaliza.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFinaliza.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFinaliza.FlatAppearance.BorderSize = 0;
+            this.btnFinaliza.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFinaliza.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFinaliza.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFinaliza.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFinaliza.Location = new System.Drawing.Point(3, 6);
+            this.btnFinaliza.Name = "btnFinaliza";
+            this.btnFinaliza.Size = new System.Drawing.Size(30, 32);
+            this.btnFinaliza.TabIndex = 233;
+            this.btnFinaliza.UseVisualStyleBackColor = false;
+            this.btnFinaliza.Click += new System.EventHandler(this.btnFinaliza_Click);
             // 
             // cmbEstausDiag
             // 
@@ -1955,13 +1457,14 @@ namespace controlFallos
             this.label77.TabIndex = 334;
             this.label77.Text = "*Estatus de Diagnostico:";
             // 
-            // panel3
+            // pDiag
             // 
-            this.panel3.Controls.Add(this.btnRepa);
-            this.panel3.Location = new System.Drawing.Point(469, 163);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(39, 41);
-            this.panel3.TabIndex = 278;
+            this.pDiag.Controls.Add(this.btnRepa);
+            this.pDiag.Location = new System.Drawing.Point(486, 314);
+            this.pDiag.Name = "pDiag";
+            this.pDiag.Size = new System.Drawing.Size(39, 41);
+            this.pDiag.TabIndex = 278;
+            this.pDiag.Visible = false;
             // 
             // btnRepa
             // 
@@ -1994,7 +1497,7 @@ namespace controlFallos
             this.txtTtotGiag.MaxLength = 18;
             this.txtTtotGiag.Name = "txtTtotGiag";
             this.txtTtotGiag.ShortcutsEnabled = false;
-            this.txtTtotGiag.Size = new System.Drawing.Size(222, 18);
+            this.txtTtotGiag.Size = new System.Drawing.Size(192, 18);
             this.txtTtotGiag.TabIndex = 332;
             // 
             // label74
@@ -2005,9 +1508,9 @@ namespace controlFallos
             this.label74.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label74.Location = new System.Drawing.Point(197, 449);
             this.label74.Name = "label74";
-            this.label74.Size = new System.Drawing.Size(137, 9);
+            this.label74.Size = new System.Drawing.Size(169, 9);
             this.label74.TabIndex = 333;
-            this.label74.Text = "_________________________________";
+            this.label74.Text = "_________________________________________";
             // 
             // label76
             // 
@@ -2030,7 +1533,7 @@ namespace controlFallos
             this.LBxRefacc.ForeColor = System.Drawing.Color.Black;
             this.LBxRefacc.FormattingEnabled = true;
             this.LBxRefacc.ItemHeight = 18;
-            this.LBxRefacc.Location = new System.Drawing.Point(542, 115);
+            this.LBxRefacc.Location = new System.Drawing.Point(6, 118);
             this.LBxRefacc.Name = "LBxRefacc";
             this.LBxRefacc.Size = new System.Drawing.Size(499, 92);
             this.LBxRefacc.Sorted = true;
@@ -2073,7 +1576,7 @@ namespace controlFallos
             this.txtDiagMeca.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDiagMeca.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.txtDiagMeca.Location = new System.Drawing.Point(9, 205);
-            this.txtDiagMeca.MaxLength = 150;
+            this.txtDiagMeca.MaxLength = 500;
             this.txtDiagMeca.Multiline = true;
             this.txtDiagMeca.Name = "txtDiagMeca";
             this.txtDiagMeca.ShortcutsEnabled = false;
@@ -2087,25 +1590,24 @@ namespace controlFallos
             this.label4.BackColor = System.Drawing.Color.Transparent;
             this.label4.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label4.Location = new System.Drawing.Point(161, 152);
+            this.label4.Location = new System.Drawing.Point(165, 150);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(165, 9);
+            this.label4.Size = new System.Drawing.Size(161, 9);
             this.label4.TabIndex = 326;
-            this.label4.Text = "________________________________________";
+            this.label4.Text = "_______________________________________";
             // 
             // txtMecanico2
             // 
             this.txtMecanico2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.txtMecanico2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtMecanico2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtMecanico2.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMecanico2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtMecanico2.Location = new System.Drawing.Point(162, 139);
+            this.txtMecanico2.Location = new System.Drawing.Point(168, 138);
             this.txtMecanico2.MaxLength = 18;
             this.txtMecanico2.Name = "txtMecanico2";
             this.txtMecanico2.PasswordChar = '*';
             this.txtMecanico2.ShortcutsEnabled = false;
-            this.txtMecanico2.Size = new System.Drawing.Size(164, 18);
+            this.txtMecanico2.Size = new System.Drawing.Size(158, 18);
             this.txtMecanico2.TabIndex = 325;
             this.txtMecanico2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtMecanico2_KeyPress);
             this.txtMecanico2.Validated += new System.EventHandler(this.txtMecanico2_Validated);
@@ -2128,9 +1630,9 @@ namespace controlFallos
             this.label33.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label33.Location = new System.Drawing.Point(794, 406);
             this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(169, 9);
+            this.label33.Size = new System.Drawing.Size(193, 9);
             this.label33.TabIndex = 323;
-            this.label33.Text = "_________________________________________";
+            this.label33.Text = "_______________________________________________";
             this.label33.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label32
@@ -2141,9 +1643,9 @@ namespace controlFallos
             this.label32.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label32.Location = new System.Drawing.Point(826, 374);
             this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(137, 9);
+            this.label32.Size = new System.Drawing.Size(181, 9);
             this.label32.TabIndex = 321;
-            this.label32.Text = "_________________________________";
+            this.label32.Text = "____________________________________________";
             // 
             // txtFinDiag
             // 
@@ -2156,7 +1658,7 @@ namespace controlFallos
             this.txtFinDiag.MaxLength = 18;
             this.txtFinDiag.Name = "txtFinDiag";
             this.txtFinDiag.ShortcutsEnabled = false;
-            this.txtFinDiag.Size = new System.Drawing.Size(185, 18);
+            this.txtFinDiag.Size = new System.Drawing.Size(191, 18);
             this.txtFinDiag.TabIndex = 316;
             // 
             // label29
@@ -2167,9 +1669,9 @@ namespace controlFallos
             this.label29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.label29.Location = new System.Drawing.Point(284, 410);
             this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(137, 9);
+            this.label29.Size = new System.Drawing.Size(181, 9);
             this.label29.TabIndex = 317;
-            this.label29.Text = "_________________________________";
+            this.label29.Text = "____________________________________________";
             // 
             // txtIniDiag
             // 
@@ -2214,7 +1716,7 @@ namespace controlFallos
             this.label17.AutoSize = true;
             this.label17.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label17.Location = new System.Drawing.Point(539, 241);
+            this.label17.Location = new System.Drawing.Point(3, 244);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(167, 17);
             this.label17.TabIndex = 246;
@@ -2227,14 +1729,13 @@ namespace controlFallos
             this.btnCancelFact.BackgroundImage = global::controlFallos.Properties.Resources.cross;
             this.btnCancelFact.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnCancelFact.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelFact.Enabled = false;
             this.btnCancelFact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnCancelFact.FlatAppearance.BorderSize = 0;
             this.btnCancelFact.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnCancelFact.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnCancelFact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelFact.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelFact.Location = new System.Drawing.Point(1028, 67);
+            this.btnCancelFact.Location = new System.Drawing.Point(492, 70);
             this.btnCancelFact.Name = "btnCancelFact";
             this.btnCancelFact.Size = new System.Drawing.Size(26, 30);
             this.btnCancelFact.TabIndex = 245;
@@ -2265,14 +1766,13 @@ namespace controlFallos
             this.btnFolioFactura.BackgroundImage = global::controlFallos.Properties.Resources.foliosFactura;
             this.btnFolioFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnFolioFactura.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFolioFactura.Enabled = false;
             this.btnFolioFactura.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnFolioFactura.FlatAppearance.BorderSize = 0;
             this.btnFolioFactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnFolioFactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnFolioFactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnFolioFactura.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFolioFactura.Location = new System.Drawing.Point(986, 67);
+            this.btnFolioFactura.Location = new System.Drawing.Point(450, 70);
             this.btnFolioFactura.Name = "btnFolioFactura";
             this.btnFolioFactura.Size = new System.Drawing.Size(30, 30);
             this.btnFolioFactura.TabIndex = 238;
@@ -2294,8 +1794,7 @@ namespace controlFallos
             // numUpDownHASTA
             // 
             this.numUpDownHASTA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.numUpDownHASTA.Enabled = false;
-            this.numUpDownHASTA.Location = new System.Drawing.Point(920, 68);
+            this.numUpDownHASTA.Location = new System.Drawing.Point(384, 71);
             this.numUpDownHASTA.Name = "numUpDownHASTA";
             this.numUpDownHASTA.Size = new System.Drawing.Size(55, 29);
             this.numUpDownHASTA.TabIndex = 236;
@@ -2303,8 +1802,7 @@ namespace controlFallos
             // numUpDownDE
             // 
             this.numUpDownDE.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.numUpDownDE.Enabled = false;
-            this.numUpDownDE.Location = new System.Drawing.Point(859, 68);
+            this.numUpDownDE.Location = new System.Drawing.Point(323, 71);
             this.numUpDownDE.Name = "numUpDownDE";
             this.numUpDownDE.Size = new System.Drawing.Size(55, 29);
             this.numUpDownDE.TabIndex = 235;
@@ -2316,14 +1814,13 @@ namespace controlFallos
             this.btnrefacciones.BackgroundImage = global::controlFallos.Properties.Resources.add;
             this.btnrefacciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btnrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnrefacciones.Enabled = false;
             this.btnrefacciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnrefacciones.FlatAppearance.BorderSize = 0;
             this.btnrefacciones.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnrefacciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.btnrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnrefacciones.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnrefacciones.Location = new System.Drawing.Point(1028, 26);
+            this.btnrefacciones.Location = new System.Drawing.Point(492, 29);
             this.btnrefacciones.Name = "btnrefacciones";
             this.btnrefacciones.Size = new System.Drawing.Size(30, 30);
             this.btnrefacciones.TabIndex = 233;
@@ -2338,7 +1835,7 @@ namespace controlFallos
             this.lblmapoyo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.lblmapoyo.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblmapoyo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lblmapoyo.Location = new System.Drawing.Point(167, 163);
+            this.lblmapoyo.Location = new System.Drawing.Point(168, 164);
             this.lblmapoyo.Name = "lblmapoyo";
             this.lblmapoyo.Size = new System.Drawing.Size(0, 13);
             this.lblmapoyo.TabIndex = 172;
@@ -2354,19 +1851,6 @@ namespace controlFallos
             this.lblmecanico.Size = new System.Drawing.Size(0, 13);
             this.lblmecanico.TabIndex = 171;
             // 
-            // lbltiempototal
-            // 
-            this.lbltiempototal.AutoSize = true;
-            this.lbltiempototal.Enabled = false;
-            this.lbltiempototal.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltiempototal.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltiempototal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lbltiempototal.Location = new System.Drawing.Point(795, 390);
-            this.lbltiempototal.Name = "lbltiempototal";
-            this.lbltiempototal.Size = new System.Drawing.Size(29, 17);
-            this.lbltiempototal.TabIndex = 169;
-            this.lbltiempototal.Text = "000";
-            // 
             // label3
             // 
             this.label3.AutoSize = true;
@@ -2377,19 +1861,6 @@ namespace controlFallos
             this.label3.Size = new System.Drawing.Size(219, 17);
             this.label3.TabIndex = 168;
             this.label3.Text = "Tiempo Total de Mantenimiento:";
-            // 
-            // lbltiempoespera
-            // 
-            this.lbltiempoespera.AutoSize = true;
-            this.lbltiempoespera.Enabled = false;
-            this.lbltiempoespera.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.lbltiempoespera.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbltiempoespera.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.lbltiempoespera.Location = new System.Drawing.Point(830, 361);
-            this.lbltiempoespera.Name = "lbltiempoespera";
-            this.lbltiempoespera.Size = new System.Drawing.Size(57, 17);
-            this.lbltiempoespera.TabIndex = 166;
-            this.lbltiempoespera.Text = "0000000";
             // 
             // label5
             // 
@@ -2440,11 +1911,10 @@ namespace controlFallos
             this.txtRepaReal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.txtRepaReal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtRepaReal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRepaReal.Enabled = false;
             this.txtRepaReal.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtRepaReal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtRepaReal.Location = new System.Drawing.Point(542, 261);
-            this.txtRepaReal.MaxLength = 150;
+            this.txtRepaReal.Location = new System.Drawing.Point(6, 264);
+            this.txtRepaReal.MaxLength = 500;
             this.txtRepaReal.Multiline = true;
             this.txtRepaReal.Name = "txtRepaReal";
             this.txtRepaReal.ShortcutsEnabled = false;
@@ -2466,10 +1936,9 @@ namespace controlFallos
             // 
             this.txtfoliof.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.txtfoliof.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtfoliof.Enabled = false;
             this.txtfoliof.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtfoliof.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtfoliof.Location = new System.Drawing.Point(716, 76);
+            this.txtfoliof.Location = new System.Drawing.Point(178, 78);
             this.txtfoliof.MaxLength = 10;
             this.txtfoliof.Name = "txtfoliof";
             this.txtfoliof.ShortcutsEnabled = false;
@@ -2482,7 +1951,7 @@ namespace controlFallos
             this.label41.BackColor = System.Drawing.Color.Transparent;
             this.label41.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label41.Location = new System.Drawing.Point(712, 87);
+            this.label41.Location = new System.Drawing.Point(176, 90);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(141, 9);
             this.label41.TabIndex = 123;
@@ -2493,7 +1962,7 @@ namespace controlFallos
             this.label44.AutoSize = true;
             this.label44.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label44.Location = new System.Drawing.Point(552, 76);
+            this.label44.Location = new System.Drawing.Point(16, 79);
             this.label44.Name = "label44";
             this.label44.Size = new System.Drawing.Size(116, 17);
             this.label44.TabIndex = 121;
@@ -2505,14 +1974,13 @@ namespace controlFallos
             this.cmbRefacciones1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.cmbRefacciones1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.cmbRefacciones1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbRefacciones1.Enabled = false;
             this.cmbRefacciones1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.cmbRefacciones1.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbRefacciones1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbRefacciones1.FormattingEnabled = true;
             this.cmbRefacciones1.Items.AddRange(new object[] {
             "Sistema eléctrico"});
-            this.cmbRefacciones1.Location = new System.Drawing.Point(751, 30);
+            this.cmbRefacciones1.Location = new System.Drawing.Point(215, 33);
             this.cmbRefacciones1.Name = "cmbRefacciones1";
             this.cmbRefacciones1.Size = new System.Drawing.Size(265, 23);
             this.cmbRefacciones1.TabIndex = 116;
@@ -2524,7 +1992,7 @@ namespace controlFallos
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label37.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label37.Location = new System.Drawing.Point(552, 35);
+            this.label37.Location = new System.Drawing.Point(16, 38);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(182, 17);
             this.label37.TabIndex = 115;
@@ -2535,7 +2003,7 @@ namespace controlFallos
             this.label36.AutoSize = true;
             this.label36.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label36.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label36.Location = new System.Drawing.Point(6, 146);
+            this.label36.Location = new System.Drawing.Point(13, 147);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(149, 17);
             this.label36.TabIndex = 112;
@@ -2545,7 +2013,6 @@ namespace controlFallos
             // 
             this.txtmecanico.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.txtmecanico.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtmecanico.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtmecanico.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtmecanico.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.txtmecanico.Location = new System.Drawing.Point(168, 102);
@@ -2831,6 +2298,7 @@ namespace controlFallos
             this.ConsultaRepo.ShowRowErrors = false;
             this.ConsultaRepo.Size = new System.Drawing.Size(1557, 218);
             this.ConsultaRepo.TabIndex = 275;
+            this.ConsultaRepo.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.ConsultaRepo_CellFormatting);
             // 
             // label15
             // 
@@ -2890,6 +2358,7 @@ namespace controlFallos
             this.cmbUnidad1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbUnidad1.FormattingEnabled = true;
             this.cmbUnidad1.Items.AddRange(new object[] {
+            "Sistema eléctrico",
             "Sistema eléctrico"});
             this.cmbUnidad1.Location = new System.Drawing.Point(209, 22);
             this.cmbUnidad1.Name = "cmbUnidad1";
@@ -2918,6 +2387,7 @@ namespace controlFallos
             this.cmbMecanicob1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbMecanicob1.FormattingEnabled = true;
             this.cmbMecanicob1.Items.AddRange(new object[] {
+            "Sistema eléctrico",
             "Sistema eléctrico"});
             this.cmbMecanicob1.Location = new System.Drawing.Point(798, 26);
             this.cmbMecanicob1.Name = "cmbMecanicob1";
@@ -2946,6 +2416,7 @@ namespace controlFallos
             this.cmbEstatus.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbEstatus.FormattingEnabled = true;
             this.cmbEstatus.Items.AddRange(new object[] {
+            "Sistema eléctrico",
             "Sistema eléctrico"});
             this.cmbEstatus.Location = new System.Drawing.Point(1282, 29);
             this.cmbEstatus.Name = "cmbEstatus";
@@ -2974,6 +2445,7 @@ namespace controlFallos
             this.cmbmes1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbmes1.FormattingEnabled = true;
             this.cmbmes1.Items.AddRange(new object[] {
+            "Sistema eléctrico",
             "Sistema eléctrico"});
             this.cmbmes1.Location = new System.Drawing.Point(847, 68);
             this.cmbmes1.Name = "cmbmes1";
@@ -3064,6 +2536,7 @@ namespace controlFallos
             this.cmbReTip.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cmbReTip.FormattingEnabled = true;
             this.cmbReTip.Items.AddRange(new object[] {
+            "Sistema eléctrico",
             "Sistema eléctrico"});
             this.cmbReTip.Location = new System.Drawing.Point(533, 67);
             this.cmbReTip.Name = "cmbReTip";
@@ -3292,6 +2765,7 @@ namespace controlFallos
             this.EstatusRepa.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.EstatusRepa.FormattingEnabled = true;
             this.EstatusRepa.Items.AddRange(new object[] {
+            "Sistema eléctrico",
             "Sistema eléctrico"});
             this.EstatusRepa.Location = new System.Drawing.Point(1219, 66);
             this.EstatusRepa.Name = "EstatusRepa";
@@ -3320,81 +2794,77 @@ namespace controlFallos
             this.cbxEmpresaS.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.cbxEmpresaS.FormattingEnabled = true;
             this.cbxEmpresaS.Items.AddRange(new object[] {
+            "Sistema eléctrico",
             "Sistema eléctrico"});
             this.cbxEmpresaS.Location = new System.Drawing.Point(486, 25);
             this.cbxEmpresaS.Name = "cbxEmpresaS";
             this.cbxEmpresaS.Size = new System.Drawing.Size(223, 23);
             this.cbxEmpresaS.TabIndex = 334;
             // 
-            // gbxbusqueda
+            // gbxBusqueda
             // 
-            this.gbxbusqueda.BackColor = System.Drawing.Color.Transparent;
-            this.gbxbusqueda.Controls.Add(this.cbxEmpresaS);
-            this.gbxbusqueda.Controls.Add(this.label59);
-            this.gbxbusqueda.Controls.Add(this.EstatusRepa);
-            this.gbxbusqueda.Controls.Add(this.label35);
-            this.gbxbusqueda.Controls.Add(this.pPdf);
-            this.gbxbusqueda.Controls.Add(this.pexcel);
-            this.gbxbusqueda.Controls.Add(this.pactualizar);
-            this.gbxbusqueda.Controls.Add(this.pbuscar);
-            this.gbxbusqueda.Controls.Add(this.cmbReTip);
-            this.gbxbusqueda.Controls.Add(this.label43);
-            this.gbxbusqueda.Controls.Add(this.dtpFechaA);
-            this.gbxbusqueda.Controls.Add(this.label42);
-            this.gbxbusqueda.Controls.Add(this.dtpFechaDe);
-            this.gbxbusqueda.Controls.Add(this.label39);
-            this.gbxbusqueda.Controls.Add(this.cboxRango);
-            this.gbxbusqueda.Controls.Add(this.cmbmes1);
-            this.gbxbusqueda.Controls.Add(this.label34);
-            this.gbxbusqueda.Controls.Add(this.cmbEstatus);
-            this.gbxbusqueda.Controls.Add(this.label28);
-            this.gbxbusqueda.Controls.Add(this.cmbMecanicob1);
-            this.gbxbusqueda.Controls.Add(this.label27);
-            this.gbxbusqueda.Controls.Add(this.cmbUnidad1);
-            this.gbxbusqueda.Controls.Add(this.label21);
-            this.gbxbusqueda.Controls.Add(this.txtfoliob);
-            this.gbxbusqueda.Controls.Add(this.label7);
-            this.gbxbusqueda.Controls.Add(this.label15);
-            this.gbxbusqueda.Controls.Add(this.ConsultaRepo);
-            this.gbxbusqueda.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbxbusqueda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.gbxbusqueda.Location = new System.Drawing.Point(50, 495);
-            this.gbxbusqueda.Name = "gbxbusqueda";
-            this.gbxbusqueda.Size = new System.Drawing.Size(1762, 339);
-            this.gbxbusqueda.TabIndex = 275;
-            this.gbxbusqueda.TabStop = false;
-            this.gbxbusqueda.Visible = false;
+            this.gbxBusqueda.BackColor = System.Drawing.Color.Transparent;
+            this.gbxBusqueda.Controls.Add(this.cbxEmpresaS);
+            this.gbxBusqueda.Controls.Add(this.label59);
+            this.gbxBusqueda.Controls.Add(this.EstatusRepa);
+            this.gbxBusqueda.Controls.Add(this.label35);
+            this.gbxBusqueda.Controls.Add(this.pPdf);
+            this.gbxBusqueda.Controls.Add(this.pexcel);
+            this.gbxBusqueda.Controls.Add(this.pactualizar);
+            this.gbxBusqueda.Controls.Add(this.pbuscar);
+            this.gbxBusqueda.Controls.Add(this.cmbReTip);
+            this.gbxBusqueda.Controls.Add(this.label43);
+            this.gbxBusqueda.Controls.Add(this.dtpFechaA);
+            this.gbxBusqueda.Controls.Add(this.label42);
+            this.gbxBusqueda.Controls.Add(this.dtpFechaDe);
+            this.gbxBusqueda.Controls.Add(this.label39);
+            this.gbxBusqueda.Controls.Add(this.cboxRango);
+            this.gbxBusqueda.Controls.Add(this.cmbmes1);
+            this.gbxBusqueda.Controls.Add(this.label34);
+            this.gbxBusqueda.Controls.Add(this.cmbEstatus);
+            this.gbxBusqueda.Controls.Add(this.label28);
+            this.gbxBusqueda.Controls.Add(this.cmbMecanicob1);
+            this.gbxBusqueda.Controls.Add(this.label27);
+            this.gbxBusqueda.Controls.Add(this.cmbUnidad1);
+            this.gbxBusqueda.Controls.Add(this.label21);
+            this.gbxBusqueda.Controls.Add(this.txtfoliob);
+            this.gbxBusqueda.Controls.Add(this.label7);
+            this.gbxBusqueda.Controls.Add(this.label15);
+            this.gbxBusqueda.Controls.Add(this.ConsultaRepo);
+            this.gbxBusqueda.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gbxBusqueda.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.gbxBusqueda.Location = new System.Drawing.Point(50, 495);
+            this.gbxBusqueda.Name = "gbxBusqueda";
+            this.gbxBusqueda.Size = new System.Drawing.Size(1762, 339);
+            this.gbxBusqueda.TabIndex = 275;
+            this.gbxBusqueda.TabStop = false;
+            this.gbxBusqueda.Visible = false;
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // panel4
+            // gbxRefac
             // 
-            this.panel4.Controls.Add(this.btnFinaliza);
-            this.panel4.Location = new System.Drawing.Point(1019, 424);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(39, 41);
-            this.panel4.TabIndex = 279;
-            // 
-            // btnFinaliza
-            // 
-            this.btnFinaliza.AutoSize = true;
-            this.btnFinaliza.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFinaliza.BackgroundImage = global::controlFallos.Properties.Resources.chevron_sign_to_right;
-            this.btnFinaliza.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnFinaliza.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFinaliza.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFinaliza.FlatAppearance.BorderSize = 0;
-            this.btnFinaliza.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFinaliza.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFinaliza.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFinaliza.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFinaliza.Location = new System.Drawing.Point(3, 6);
-            this.btnFinaliza.Name = "btnFinaliza";
-            this.btnFinaliza.Size = new System.Drawing.Size(30, 32);
-            this.btnFinaliza.TabIndex = 233;
-            this.btnFinaliza.UseVisualStyleBackColor = false;
+            this.gbxRefac.Controls.Add(this.LBxRefacc);
+            this.gbxRefac.Controls.Add(this.label37);
+            this.gbxRefac.Controls.Add(this.cmbRefacciones1);
+            this.gbxRefac.Controls.Add(this.label44);
+            this.gbxRefac.Controls.Add(this.label41);
+            this.gbxRefac.Controls.Add(this.txtfoliof);
+            this.gbxRefac.Controls.Add(this.txtRepaReal);
+            this.gbxRefac.Controls.Add(this.btnrefacciones);
+            this.gbxRefac.Controls.Add(this.numUpDownDE);
+            this.gbxRefac.Controls.Add(this.numUpDownHASTA);
+            this.gbxRefac.Controls.Add(this.btnFolioFactura);
+            this.gbxRefac.Controls.Add(this.btnCancelFact);
+            this.gbxRefac.Controls.Add(this.label17);
+            this.gbxRefac.Enabled = false;
+            this.gbxRefac.Location = new System.Drawing.Point(532, 0);
+            this.gbxRefac.Name = "gbxRefac";
+            this.gbxRefac.Size = new System.Drawing.Size(542, 352);
+            this.gbxRefac.TabIndex = 338;
+            this.gbxRefac.TabStop = false;
             // 
             // ReporteUnidadesExternas
             // 
@@ -3412,10 +2882,10 @@ namespace controlFallos
             this.Controls.Add(this.pcancelar);
             this.Controls.Add(this.pfinalizar);
             this.Controls.Add(this.gbxUnidad);
-            this.Controls.Add(this.gbxbusqueda);
+            this.Controls.Add(this.gbxBusqueda);
+            this.Controls.Add(this.gbxDiag);
             this.Controls.Add(this.gbrefacciones);
             this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.gbxDiag);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ReporteUnidadesExternas";
             this.Load += new System.EventHandler(this.ReporteUnidadesExternas_Load);
@@ -3427,8 +2897,8 @@ namespace controlFallos
             this.pcancelar.PerformLayout();
             this.gbxUnidad.ResumeLayout(false);
             this.gbxUnidad.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
+            this.pUnidad.ResumeLayout(false);
+            this.pUnidad.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.gbrefacciones.ResumeLayout(false);
             this.gbrefacciones.PerformLayout();
@@ -3441,8 +2911,10 @@ namespace controlFallos
             ((System.ComponentModel.ISupportInitialize)(this.dgvrefacciones)).EndInit();
             this.gbxDiag.ResumeLayout(false);
             this.gbxDiag.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
+            this.pFin.ResumeLayout(false);
+            this.pFin.PerformLayout();
+            this.pDiag.ResumeLayout(false);
+            this.pDiag.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).EndInit();
             this.gbxAlertas.ResumeLayout(false);
@@ -3457,11 +2929,11 @@ namespace controlFallos
             ((System.ComponentModel.ISupportInitialize)(this.pbgif)).EndInit();
             this.pPdf.ResumeLayout(false);
             this.pPdf.PerformLayout();
-            this.gbxbusqueda.ResumeLayout(false);
-            this.gbxbusqueda.PerformLayout();
+            this.gbxBusqueda.ResumeLayout(false);
+            this.gbxBusqueda.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
+            this.gbxRefac.ResumeLayout(false);
+            this.gbxRefac.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3483,7 +2955,6 @@ namespace controlFallos
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblFolio;
-        private System.Windows.Forms.DateTimePicker dtUnidad;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ComboBox cmbUnidad;
         private System.Windows.Forms.Label label16;
@@ -3538,7 +3009,6 @@ namespace controlFallos
         private System.Windows.Forms.TextBox txtMecanico2;
         private System.Windows.Forms.DateTimePicker dtDiag;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.Label label32;
         private System.Windows.Forms.TextBox txtFinDiag;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.TextBox txtIniDiag;
@@ -3554,9 +3024,7 @@ namespace controlFallos
         private System.Windows.Forms.Button btnrefacciones;
         private System.Windows.Forms.Label lblmapoyo;
         private System.Windows.Forms.Label lblmecanico;
-        private System.Windows.Forms.Label lbltiempototal;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lbltiempoespera;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Label lblhimant;
@@ -3638,15 +3106,21 @@ namespace controlFallos
         private System.Windows.Forms.ComboBox EstatusRepa;
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.ComboBox cbxEmpresaS;
-        private System.Windows.Forms.GroupBox gbxbusqueda;
-        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.GroupBox gbxBusqueda;
+        private System.Windows.Forms.Panel pUnidad;
         private System.Windows.Forms.Button btnSig;
-        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel pDiag;
         private System.Windows.Forms.Button btnRepa;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.ComboBox cmbEstausDiag;
         private System.Windows.Forms.Label label77;
-        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Panel pFin;
         private System.Windows.Forms.Button btnFinaliza;
+        private System.Windows.Forms.TextBox horaIngreso;
+        private System.Windows.Forms.Label label78;
+        private System.Windows.Forms.TextBox txtManteEsp;
+        private System.Windows.Forms.TextBox txtManteTot;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.GroupBox gbxRefac;
     }
 }
