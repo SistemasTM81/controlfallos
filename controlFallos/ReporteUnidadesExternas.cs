@@ -821,7 +821,7 @@ namespace controlFallos
 
         }
 
-
+ 
     }
 }
 /*ACTUALIZACION 21 -07-2022 REPORTE UNIDADES EXTERNAS 12:28*/
