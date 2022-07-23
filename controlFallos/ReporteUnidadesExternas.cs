@@ -26,7 +26,10 @@ namespace controlFallos
         validaciones v;
         conexion con;
      
-        string consultagral = "select t1.idRUEX as 'ID',t1.folioR as 'FOLIO', t1.empresaU as 'EMPRESA', t1.unidad as 'UNIDAD', t1.fechaHI as 'FECHA DE INGRESO', t1.envioReporte as 'HORA ENVIO REPORTE', t1.personaIngreso as 'PERSONAL QUE INGRESA LA UNIDAD', t1.km as 'KILOMETRAJE',t1.fallosRepor as 'FALLOS REPORTADOS',t1.mecanicoD as 'MECANICO DE DIAGNOSTICO',t1.mecaApoyo1 as 'MECANICO DE APOYO', t1.inicioDiag as 'FECHA DE DIAGNOSTICO',t1.diagnosticoMeca as 'DIAGNOSTICO',t1.estatusDiag as 'ESTATUS DIAGNOSTICO',t1.mecanicoR as 'MECANICO DE REPARACION',t1.mecaApoyo2 as 'MECANICO DE APOYO', t1.terminoDiag as'TERMINO DE DIAGNOSTICO',t1.totalDiag as 'TIEMPO TOTAL DE DIAGNOSTICO',t1.tipoRepa as 'TIPO DE REPARACION',if(t1.refacciones is null,'',(if(t1.refacciones = 1,'SI','NO'))) as 'REFACCIONES',t1.reparacionesRa as 'REPARACIONES REALIZADAS' ,t1.estatusRepa as 'ESTATUS DE REPARACION',t1.esperaMante as 'TIEMPO DE ESPERA PARA MANTENIMIENTO', t1.totMante as 'TIEMPO TOTAL DE MANTENIMIENTO' from reporteuniexternas as t1";
+       /* string consultagral = "select t1.idRUEX as 'ID',t1.folioR as 'FOLIO', t1.empresaU as 'EMPRESA', t1.unidad as 'UNIDAD', t1.fechaHI as 'FECHA DE INGRESO', t1.envioReporte as 'HORA ENVIO REPORTE', t1.personaIngreso as 'PERSONAL QUE INGRESA LA UNIDAD', t1.km as 'KILOMETRAJE',t1.fallosRepor as 'FALLOS REPORTADOS',t1.inicioDiag as 'FECHA DE DIAGNOSTICO',t1.mecanicoD as 'MECANICO DE DIAGNOSTICO',t1.mecaApoyo1 as 'MECANICO DE APOYO 1', t1.diagnosticoMeca as 'DIAGNOSTICO',t1.estatusDiag as 'ESTATUS DIAGNOSTICO',t1.mecanicoR as 'MECANICO DE REPARACION',t1.mecaApoyo2 as 'MECANICO DE APOYO 2',t1.estatusRepa as 'ESTATUS DE REPARACION',t1.tipoRepa as 'TIPO DE REPARACION', if(t1.refacciones is null,'',(if(t1.refacciones = 1,'SI','NO'))) as 'REFACCIONES', t1.reparacionesRa as 'REPARACIONES REALIZADAS' ,t1.terminoDiag as'TERMINO DE DIAGNOSTICO',t1.totalDiag as 'TIEMPO TOTAL DE DIAGNOSTICO',t1.esperaMante as 'TIEMPO DE ESPERA PARA MANTENIMIENTO', t1.totMante as 'TIEMPO TOTAL DE MANTENIMIENTO' from reporteuniexternas as t1 ";*/
+
+        string consultagral= "select t1.idRUEX as 'ID',t1.folioR as 'FOLIO', t1.empresaU as 'EMPRESA', (select concat(t2.consecutivo,'-',t2.descripcioneco)) as 'UNIDAD', t1.fechaHI as 'FECHA DE INGRESO', t1.envioReporte as 'HORA ENVIO REPORTE', t1.personaIngreso as 'PERSONAL QUE INGRESA LA UNIDAD', t1.km as 'KILOMETRAJE',t1.fallosRepor as 'FALLOS REPORTADOS',t1.inicioDiag as 'FECHA DE DIAGNOSTICO',t1.mecanicoD as 'MECANICO DE DIAGNOSTICO',t1.mecaApoyo1 as 'MECANICO DE APOYO 1', t1.diagnosticoMeca as 'DIAGNOSTICO',t1.estatusDiag as 'ESTATUS DIAGNOSTICO',t1.mecanicoR as 'MECANICO DE REPARACION',t1.mecaApoyo2 as 'MECANICO DE APOYO 2',t1.estatusRepa as 'ESTATUS DE REPARACION',t1.tipoRepa as 'TIPO DE REPARACION', if(t1.refacciones is null,'',(if(t1.refacciones = 1,'SI','NO'))) as 'REFACCIONES', t1.reparacionesRa as 'REPARACIONES REALIZADAS' ,t1.terminoDiag as'TERMINO DE DIAGNOSTICO',t1.totalDiag as 'TIEMPO TOTAL DE DIAGNOSTICO',t1.esperaMante as 'TIEMPO DE ESPERA PARA MANTENIMIENTO', t1.totMante as 'TIEMPO TOTAL DE MANTENIMIENTO' from reporteuniexternas as t1 inner join cunidades as t2 on t2.idunidad = t1.unidad";
+
 
         int idUsuario, empresa, area, idmecanico, idmecanicoApoyo, idmecanico2, idmecanicoApoyo2, idmecaniAnterior, idmecanicoapoyoAnterior, EstatusAnterior, idreporte, idrefaccionAnterior, cantidadAnterior;
         string cadenaEmpresa, valorBusquedak;
@@ -79,7 +82,7 @@ namespace controlFallos
             button2.Visible = true;
         }
 
-        /************************************************************************************************************************************************************************************************************************/
+     /*****************************************************************************************************************************************************************************************************************/
 
         /*/////////////////////INICIO PROGRAMA////////////////////*/
 
@@ -324,14 +327,17 @@ namespace controlFallos
             BorrarMensajeError();
             
             if (ValidarCampos())
-            {                
-                gbxDiag.Enabled = true;                               
+            {                                                              
                 gbxUnidad.Enabled = false;
-                pUnidad.Visible = false;
-                pDiag.Visible = true;
-                gbxDiag.Enabled = true; 
+                pUnidad.Visible = false;                
+                pGuardarUnidad.Visible = true;
+                gbxDiag.Enabled = true;
 
-                hora();
+                txtmecanico.Enabled = false;
+                txtMecanico2.Enabled = false;
+                txtDiagMeca.Enabled = false;
+                cmbTipoR.Enabled = false;
+                cmbEstRep.Enabled = false;
             }
         }
 
@@ -351,8 +357,7 @@ namespace controlFallos
                 cmbEstRep.Enabled = false;
 
                 pDiag.Visible = false;
-                gbxRefac.Enabled = true;
-                pFin.Enabled = true;        
+                pguardar.Visible = true;              
             }
         }
 
@@ -482,13 +487,39 @@ namespace controlFallos
             if (cmbEstRep.Text == "REPROGRAMADA")
             {
                 errorProvider1.SetError(cmbEstRep, "No podra Agregar Refacciones");                
-                gbxRefac.Enabled = false;
-                pFin.Visible = true;
-                pFin.Enabled = true; 
+                gbxRefac.Enabled = false;                 
             }
             else
             {
-                gbxRefac.Enabled = true;                
+                gbxRefac.Enabled = true;
+            }
+
+            return ok;
+        }
+
+        //METODO VALIDACION CAMPOS VACIOS REFACCIONES
+        private bool ValidarCampos3()
+        {
+            bool ok = true;
+
+            //VALIDACIONES TEXTBOX DIAGNOSTICO
+            if (txtRepaReal.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtRepaReal, "Ingrese las Reparaciones Realizadas");
+            }
+
+            if (txtfoliof.Text == "")
+            {
+                ok = false;
+                errorProvider1.SetError(txtfoliof, "Ingrese un Numero de Factura");
+            }
+
+            //VALIDADCIONES COMBOBOX DIAGNOSTICO
+            if (cmbRefacciones1.Text == "--SELECCIONE UNA OPCIÓN--")
+            {
+                ok = false;
+                errorProvider1.SetError(cmbRefacciones1, "Seleccione SI/NO Nececitas Refacciones");
             }
 
             return ok;
@@ -521,6 +552,17 @@ namespace controlFallos
             //COMBOBOX
             errorProvider1.SetError(cmbTipoR, "");
             errorProvider1.SetError(cmbEstRep, "");
+        }
+
+        //BORRAR ERRORPROVIDER CAMPOS VALIDACION DIAGNOSTICO 
+        private void BorrarMensajeError3()
+        {
+            //TEXTBOX
+            errorProvider1.SetError(txtRepaReal, "");
+            errorProvider1.SetError(txtfoliof, "");           
+
+            //COMBOBOX
+            errorProvider1.SetError(cmbRefacciones1, "");
         }
 
         //OBTENER MECANICO CON CONTRASEÑA (DATOS DE LA UNIDAD)
@@ -656,15 +698,16 @@ namespace controlFallos
             BorrarMensajeError2();
             cargardatos();
         }
-
+      
         //METODO AGREGAR REGSITRO
         void agregar()
         {
-            if (ValidarCampos()) {              
-            }
+            
             if (ValidarCampos2())
             {
-                v.c.insertar("insert into reporteuniexternas(folioR,empresaU,unidad,fechaHI,envioReporte,personaIngreso,km,fallosRepor,mecanicoD,inicioDiag,mecanicoR,diagnosticoMeca,estatusDiag,tipoRepa,estatusRepa,Refacciones,folioFact,reparacionesRa,terminoDiag,totalDiag,esperaMante,totMante,mecaApoyo1,mecaApoyo2) values ('" + tbxFolio.Text + "','" + cbxSempresa.Text + "','" + cmbUnidad.Text + "','" + horaIngreso.Text + "','" + tbxHoraEnvio.Text + "','" + tbxPersonaIngreso.Text + "','" + tbxKilome.Text + "','" + txtFallos.Text + "','" + lblMecanicoU.Text + "','" + txtIniDiag.Text + "','" + lblmecanico.Text + "','" + txtDiagMeca.Text + "','" + cmbEstatus1.Text + "','" + cmbTipoR.Text + "','" + cmbEstRep.Text + "','" + cmbRefacciones1.SelectedIndex + "','" + txtfoliof.Text + "','" + txtRepaReal.Text + "','" + txtFinDiag.Text + "','" + txtTtotGiag.Text + "','" + txtManteEsp.Text + "','" + txtManteTot.Text + "','" + lblMeca2.Text + "','" + lblmapoyo.Text + "')");
+                v.c.insertar("insert into reporteuniexternas (inicioDiag,mecanicoR,mecaApoyo2,diagnosticoMeca,tipoRepa,estatusRepa,reparacionesRa,terminoDiag,totalDiag) values ('" + txtIniDiag.Text + "','" + lblmecanico.Text + "','" + txtDiagMeca.Text + "','" + cmbEstatus1.Text + "','" + cmbTipoR.Text + "','" + cmbEstRep.Text + "','" + cmbRefacciones1.SelectedIndex + "','" + txtFinDiag.Text + "','" + txtTtotGiag.Text + "','" + lblmapoyo.Text + "') where folioR ="+ tbxFolio );
+
+                //*v.c.insertar("update reporteuniexternas(folioR,empresaU,unidad,fechaHI,envioReporte,personaIngreso,km,fallosRepor,mecanicoD,inicioDiag,mecanicoR,diagnosticoMeca,estatusDiag,tipoRepa,estatusRepa,Refacciones,folioFact,reparacionesRa,terminoDiag,totalDiag,esperaMante,totMante,mecaApoyo1,mecaApoyo2) set ('" + tbxFolio.Text + "','" + cbxSempresa.Text + "','" + cmbUnidad.SelectedIndex.ToString() + "','" + horaIngreso.Text + "','" + tbxHoraEnvio.Text + "','" + tbxPersonaIngreso.Text + "','" + tbxKilome.Text + "','" + txtFallos.Text + "','" + lblMecanicoU.Text + "','" + txtIniDiag.Text + "','" + lblmecanico.Text + "','" + txtDiagMeca.Text + "','" + cmbEstatus1.Text + "','" + cmbTipoR.Text + "','" + cmbEstRep.Text + "','" + cmbRefacciones1.SelectedIndex + "','" + txtfoliof.Text + "','" + txtRepaReal.Text + "','" + txtFinDiag.Text + "','" + txtTtotGiag.Text + "','" + txtManteEsp.Text + "','" + txtManteTot.Text + "','" + lblMeca2.Text + "','" + lblmapoyo.Text + "')");*/
 
                 MessageBox.Show("Reporte Guardado con Exito","* Alerta *");
             }
@@ -703,11 +746,21 @@ namespace controlFallos
 
         //BOTON FINALIZAR REGISTRO
         private void btnFinaliza_Click(object sender, EventArgs e)
-        {
+        {            
+            if (gbxRefac.Enabled == true)
+            {
+                BorrarMensajeError3();
+                if (ValidarCampos3())
+                {
+                    MessageBox.Show("Datos Ingresados Correctamente");
+
+                    pguardar.Visible = true;
+                    //gbxRefac.Enabled = false;                   
+                }                    
+            }
             pguardar.Visible = true;
-            gbxRefac.Enabled = false;
-            gbxDiag.Enabled = false;
-            pFin.Visible = false; 
+            //gbxRefac.Enabled = false;
+            gbxDiag.Enabled = false;            
         }
 
         //METODO LIMPIAR CAMPOS
@@ -797,7 +850,7 @@ namespace controlFallos
         //METODO CARGAR DATOS A DATAGRIDVIEW
         void cargardatos()
         {
-            MySqlDataAdapter cargar = new MySqlDataAdapter(consultagral + " " + cadenaEmpresa + " " + valorBusquedak + " order by t1.idRUEX ", v.c.dbconection());
+            MySqlDataAdapter cargar = new MySqlDataAdapter(consultagral + " " + cadenaEmpresa + " " + valorBusquedak + " order by t1.idRUEX desc", v.c.dbconection());
             DataSet ds = new DataSet();
             cargar.Fill(ds);
             ConsultaRepo.DataSource = ds.Tables[0];
@@ -826,13 +879,47 @@ namespace controlFallos
             cargardatos();
         }
 
-        //
+        //BOTON GUARDAR DIAGNOSTICO
+        private void btnGunidad_Click(object sender, EventArgs e)
+        {
+            agregar2();
+            cargardatos();
+            
+        }
+
+        //METODO AGREGAR POR PARTES (DATOS DE LA UNIDAD)
+        void agregar2()
+        {
+            if (ValidarCampos())
+            {
+                v.c.insertar("insert into reporteuniexternas(folioR,empresaU,unidad,fechaHI,envioReporte,personaIngreso,km,fallosRepor,mecanicoD,mecaApoyo1,estatusDiag) values ('" + tbxFolio.Text + "','" + cbxSempresa.Text + "','" + cmbUnidad.Text + "','" + horaIngreso.Text + "','" + tbxHoraEnvio.Text + "','" + tbxPersonaIngreso.Text + "','" + tbxKilome.Text + "','" + txtFallos.Text + "','" + lblMecanicoU.Text + "','" + lblMeca2.Text + "','" + cmbEstatus1.Text + "')");
+              
+                MessageBox.Show("Reporte Guardado con Exito", "* Alerta Puede Seguir con el Registro*");
+
+                gbxDiag.Enabled = true;
+                pDiag.Visible = true;
+                hora();                
+
+                txtmecanico.Enabled = true;
+                txtMecanico2.Enabled = true;
+                txtDiagMeca.Enabled = true;
+                cmbTipoR.Enabled = true;
+                cmbEstRep.Enabled = true;
+                pGuardarUnidad.Visible = false;
+            }           
+            else
+            {
+                MessageBox.Show("NO PUEDE AGREGAR UN REGISTRO");
+
+                pGuardarUnidad.Visible = false;     
+            }
+        }
 
 
 
-        /********************************************************************************************************************************************************************************************************************/
+     /*****************************************************************************************************************************************************************************************************************/
 
     }
 }
 
-/*ACTUALIZACION 21-07-2022 REPORTE UNIDADES EXTERNAS 13 :06*/
+/*ACTUALIZACION 23-07-2022 REPORTE UNIDADES EXTERNAS 11:10*/

@@ -30,16 +30,16 @@ namespace controlFallos
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle41 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle42 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle43 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle44 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle45 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle46 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle47 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle48 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle49 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle50 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txtFallos = new System.Windows.Forms.TextBox();
             this.label38 = new System.Windows.Forms.Label();
             this.pguardar = new System.Windows.Forms.Panel();
@@ -115,6 +115,20 @@ namespace controlFallos
             this.cmbrefaccion = new System.Windows.Forms.ComboBox();
             this.label56 = new System.Windows.Forms.Label();
             this.gbxDiag = new System.Windows.Forms.GroupBox();
+            this.gbxRefac = new System.Windows.Forms.GroupBox();
+            this.LBxRefacc = new System.Windows.Forms.ListBox();
+            this.label37 = new System.Windows.Forms.Label();
+            this.cmbRefacciones1 = new System.Windows.Forms.ComboBox();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.txtfoliof = new System.Windows.Forms.TextBox();
+            this.txtRepaReal = new System.Windows.Forms.TextBox();
+            this.btnrefacciones = new System.Windows.Forms.Button();
+            this.numUpDownDE = new System.Windows.Forms.NumericUpDown();
+            this.numUpDownHASTA = new System.Windows.Forms.NumericUpDown();
+            this.btnFolioFactura = new System.Windows.Forms.Button();
+            this.btnCancelFact = new System.Windows.Forms.Button();
+            this.label17 = new System.Windows.Forms.Label();
             this.txtManteEsp = new System.Windows.Forms.TextBox();
             this.txtManteTot = new System.Windows.Forms.TextBox();
             this.pFin = new System.Windows.Forms.Panel();
@@ -126,7 +140,6 @@ namespace controlFallos
             this.txtTtotGiag = new System.Windows.Forms.TextBox();
             this.label74 = new System.Windows.Forms.Label();
             this.label76 = new System.Windows.Forms.Label();
-            this.LBxRefacc = new System.Windows.Forms.ListBox();
             this.cmbEstRep = new System.Windows.Forms.ComboBox();
             this.label31 = new System.Windows.Forms.Label();
             this.txtDiagMeca = new System.Windows.Forms.TextBox();
@@ -140,14 +153,8 @@ namespace controlFallos
             this.txtIniDiag = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.btnCancelFact = new System.Windows.Forms.Button();
             this.cmbTipoR = new System.Windows.Forms.ComboBox();
-            this.btnFolioFactura = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
-            this.numUpDownHASTA = new System.Windows.Forms.NumericUpDown();
-            this.numUpDownDE = new System.Windows.Forms.NumericUpDown();
-            this.btnrefacciones = new System.Windows.Forms.Button();
             this.lblmapoyo = new System.Windows.Forms.Label();
             this.lblmecanico = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -155,13 +162,7 @@ namespace controlFallos
             this.label53 = new System.Windows.Forms.Label();
             this.lblhimant = new System.Windows.Forms.Label();
             this.label51 = new System.Windows.Forms.Label();
-            this.txtRepaReal = new System.Windows.Forms.TextBox();
             this.label46 = new System.Windows.Forms.Label();
-            this.txtfoliof = new System.Windows.Forms.TextBox();
-            this.label41 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.cmbRefacciones1 = new System.Windows.Forms.ComboBox();
-            this.label37 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
             this.txtmecanico = new System.Windows.Forms.TextBox();
             this.label30 = new System.Windows.Forms.Label();
@@ -221,7 +222,9 @@ namespace controlFallos
             this.cbxEmpresaS = new System.Windows.Forms.ComboBox();
             this.gbxBusqueda = new System.Windows.Forms.GroupBox();
             this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            this.gbxRefac = new System.Windows.Forms.GroupBox();
+            this.pGuardarUnidad = new System.Windows.Forms.Panel();
+            this.btnGunidad = new System.Windows.Forms.Button();
+            this.label79 = new System.Windows.Forms.Label();
             this.pguardar.SuspendLayout();
             this.pfinalizar.SuspendLayout();
             this.pcancelar.SuspendLayout();
@@ -234,10 +237,11 @@ namespace controlFallos
             this.pagregar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvrefacciones)).BeginInit();
             this.gbxDiag.SuspendLayout();
+            this.gbxRefac.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).BeginInit();
             this.pFin.SuspendLayout();
             this.pDiag.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).BeginInit();
             this.gbxAlertas.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConsultaRepo)).BeginInit();
             this.pbuscar.SuspendLayout();
@@ -247,7 +251,7 @@ namespace controlFallos
             this.pPdf.SuspendLayout();
             this.gbxBusqueda.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
-            this.gbxRefac.SuspendLayout();
+            this.pGuardarUnidad.SuspendLayout();
             this.SuspendLayout();
             // 
             // txtFallos
@@ -441,7 +445,6 @@ namespace controlFallos
             this.gbxUnidad.TabIndex = 283;
             this.gbxUnidad.TabStop = false;
             this.gbxUnidad.Text = "Datos de la Unidad";
-            this.gbxUnidad.Visible = false;
             // 
             // horaIngreso
             // 
@@ -855,6 +858,7 @@ namespace controlFallos
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 281;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // lblText
@@ -869,6 +873,7 @@ namespace controlFallos
             this.lblText.TabIndex = 285;
             this.lblText.Text = "MANTENIMIENTO ESTAMOS TRABJANDO EN ELLO";
             this.lblText.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblText.Visible = false;
             // 
             // button1
             // 
@@ -940,6 +945,7 @@ namespace controlFallos
             // 
             this.txtCodigoRef.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.txtCodigoRef.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtCodigoRef.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtCodigoRef.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCodigoRef.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
             this.txtCodigoRef.Location = new System.Drawing.Point(99, 35);
@@ -1164,57 +1170,57 @@ namespace controlFallos
             this.dgvrefacciones.AllowUserToDeleteRows = false;
             this.dgvrefacciones.AllowUserToResizeColumns = false;
             this.dgvrefacciones.AllowUserToResizeRows = false;
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle21.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle21.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle21.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle21.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvrefacciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle41.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle41.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle41.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle41.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle41.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvrefacciones.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle41;
             this.dgvrefacciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dgvrefacciones.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dgvrefacciones.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle22.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvrefacciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle42.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle42.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle42.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle42.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle42.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle42.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle42.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle42.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvrefacciones.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle42;
             this.dgvrefacciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle23.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvrefacciones.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle43.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle43.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle43.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle43.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle43.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle43.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle43.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle43.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvrefacciones.DefaultCellStyle = dataGridViewCellStyle43;
             this.dgvrefacciones.EnableHeadersVisualStyles = false;
             this.dgvrefacciones.GridColor = System.Drawing.Color.Gray;
             this.dgvrefacciones.Location = new System.Drawing.Point(416, 29);
             this.dgvrefacciones.Name = "dgvrefacciones";
             this.dgvrefacciones.ReadOnly = true;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle24.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle24.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle24.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle24.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvrefacciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle44.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle44.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle44.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle44.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle44.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle44.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvrefacciones.RowHeadersDefaultCellStyle = dataGridViewCellStyle44;
             this.dgvrefacciones.RowHeadersVisible = false;
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle25.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle25.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle25.SelectionForeColor = System.Drawing.Color.White;
-            this.dgvrefacciones.RowsDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle45.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle45.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle45.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle45.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle45.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle45.SelectionForeColor = System.Drawing.Color.White;
+            this.dgvrefacciones.RowsDefaultCellStyle = dataGridViewCellStyle45;
             this.dgvrefacciones.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvrefacciones.Size = new System.Drawing.Size(625, 381);
             this.dgvrefacciones.TabIndex = 274;
@@ -1370,7 +1376,214 @@ namespace controlFallos
             this.gbxDiag.TabIndex = 286;
             this.gbxDiag.TabStop = false;
             this.gbxDiag.Text = "Diagnostico";
-            this.gbxDiag.Visible = false;
+            // 
+            // gbxRefac
+            // 
+            this.gbxRefac.Controls.Add(this.LBxRefacc);
+            this.gbxRefac.Controls.Add(this.label37);
+            this.gbxRefac.Controls.Add(this.cmbRefacciones1);
+            this.gbxRefac.Controls.Add(this.label44);
+            this.gbxRefac.Controls.Add(this.label41);
+            this.gbxRefac.Controls.Add(this.txtfoliof);
+            this.gbxRefac.Controls.Add(this.txtRepaReal);
+            this.gbxRefac.Controls.Add(this.btnrefacciones);
+            this.gbxRefac.Controls.Add(this.numUpDownDE);
+            this.gbxRefac.Controls.Add(this.numUpDownHASTA);
+            this.gbxRefac.Controls.Add(this.btnFolioFactura);
+            this.gbxRefac.Controls.Add(this.btnCancelFact);
+            this.gbxRefac.Controls.Add(this.label17);
+            this.gbxRefac.Enabled = false;
+            this.gbxRefac.Location = new System.Drawing.Point(532, 0);
+            this.gbxRefac.Name = "gbxRefac";
+            this.gbxRefac.Size = new System.Drawing.Size(542, 352);
+            this.gbxRefac.TabIndex = 338;
+            this.gbxRefac.TabStop = false;
+            // 
+            // LBxRefacc
+            // 
+            this.LBxRefacc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.LBxRefacc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.LBxRefacc.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.LBxRefacc.Enabled = false;
+            this.LBxRefacc.Font = new System.Drawing.Font("Garamond", 12F);
+            this.LBxRefacc.ForeColor = System.Drawing.Color.Black;
+            this.LBxRefacc.FormattingEnabled = true;
+            this.LBxRefacc.ItemHeight = 18;
+            this.LBxRefacc.Location = new System.Drawing.Point(6, 118);
+            this.LBxRefacc.Name = "LBxRefacc";
+            this.LBxRefacc.Size = new System.Drawing.Size(499, 92);
+            this.LBxRefacc.Sorted = true;
+            this.LBxRefacc.TabIndex = 330;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label37.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label37.Location = new System.Drawing.Point(16, 38);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(182, 17);
+            this.label37.TabIndex = 115;
+            this.label37.Text = "*Se Requieren Refacciones:";
+            // 
+            // cmbRefacciones1
+            // 
+            this.cmbRefacciones1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.cmbRefacciones1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.cmbRefacciones1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
+            this.cmbRefacciones1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRefacciones1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.cmbRefacciones1.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmbRefacciones1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.cmbRefacciones1.FormattingEnabled = true;
+            this.cmbRefacciones1.Items.AddRange(new object[] {
+            "Sistema eléctrico"});
+            this.cmbRefacciones1.Location = new System.Drawing.Point(215, 33);
+            this.cmbRefacciones1.Name = "cmbRefacciones1";
+            this.cmbRefacciones1.Size = new System.Drawing.Size(265, 23);
+            this.cmbRefacciones1.TabIndex = 116;
+            this.cmbRefacciones1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbRefacciones1_DrawItem);
+            this.cmbRefacciones1.SelectedIndexChanged += new System.EventHandler(this.cmbRefacciones1_SelectedIndexChanged);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label44.Location = new System.Drawing.Point(16, 79);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(116, 17);
+            this.label44.TabIndex = 121;
+            this.label44.Text = "Folio de Factura:";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.BackColor = System.Drawing.Color.Transparent;
+            this.label41.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label41.Location = new System.Drawing.Point(139, 85);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(141, 9);
+            this.label41.TabIndex = 123;
+            this.label41.Text = "__________________________________";
+            // 
+            // txtfoliof
+            // 
+            this.txtfoliof.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtfoliof.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtfoliof.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtfoliof.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtfoliof.Location = new System.Drawing.Point(141, 70);
+            this.txtfoliof.MaxLength = 10;
+            this.txtfoliof.Name = "txtfoliof";
+            this.txtfoliof.ShortcutsEnabled = false;
+            this.txtfoliof.Size = new System.Drawing.Size(136, 18);
+            this.txtfoliof.TabIndex = 122;
+            // 
+            // txtRepaReal
+            // 
+            this.txtRepaReal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.txtRepaReal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.txtRepaReal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.txtRepaReal.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtRepaReal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.txtRepaReal.Location = new System.Drawing.Point(6, 264);
+            this.txtRepaReal.MaxLength = 500;
+            this.txtRepaReal.Multiline = true;
+            this.txtRepaReal.Name = "txtRepaReal";
+            this.txtRepaReal.ShortcutsEnabled = false;
+            this.txtRepaReal.Size = new System.Drawing.Size(499, 79);
+            this.txtRepaReal.TabIndex = 127;
+            // 
+            // btnrefacciones
+            // 
+            this.btnrefacciones.AutoSize = true;
+            this.btnrefacciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.BackgroundImage = global::controlFallos.Properties.Resources.add;
+            this.btnrefacciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnrefacciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatAppearance.BorderSize = 0;
+            this.btnrefacciones.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnrefacciones.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnrefacciones.Location = new System.Drawing.Point(492, 29);
+            this.btnrefacciones.Name = "btnrefacciones";
+            this.btnrefacciones.Size = new System.Drawing.Size(30, 30);
+            this.btnrefacciones.TabIndex = 233;
+            this.btnrefacciones.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnrefacciones.UseVisualStyleBackColor = false;
+            this.btnrefacciones.Visible = false;
+            this.btnrefacciones.Click += new System.EventHandler(this.btnrefacciones_Click);
+            // 
+            // numUpDownDE
+            // 
+            this.numUpDownDE.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.numUpDownDE.Location = new System.Drawing.Point(323, 71);
+            this.numUpDownDE.Name = "numUpDownDE";
+            this.numUpDownDE.Size = new System.Drawing.Size(55, 29);
+            this.numUpDownDE.TabIndex = 235;
+            // 
+            // numUpDownHASTA
+            // 
+            this.numUpDownHASTA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.numUpDownHASTA.Location = new System.Drawing.Point(384, 71);
+            this.numUpDownHASTA.Name = "numUpDownHASTA";
+            this.numUpDownHASTA.Size = new System.Drawing.Size(55, 29);
+            this.numUpDownHASTA.TabIndex = 236;
+            // 
+            // btnFolioFactura
+            // 
+            this.btnFolioFactura.AutoSize = true;
+            this.btnFolioFactura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.BackgroundImage = global::controlFallos.Properties.Resources.foliosFactura;
+            this.btnFolioFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnFolioFactura.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnFolioFactura.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatAppearance.BorderSize = 0;
+            this.btnFolioFactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnFolioFactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnFolioFactura.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnFolioFactura.Location = new System.Drawing.Point(450, 70);
+            this.btnFolioFactura.Name = "btnFolioFactura";
+            this.btnFolioFactura.Size = new System.Drawing.Size(30, 30);
+            this.btnFolioFactura.TabIndex = 238;
+            this.btnFolioFactura.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.btnFolioFactura.UseVisualStyleBackColor = false;
+            this.btnFolioFactura.Visible = false;
+            // 
+            // btnCancelFact
+            // 
+            this.btnCancelFact.AutoSize = true;
+            this.btnCancelFact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.BackgroundImage = global::controlFallos.Properties.Resources.cross;
+            this.btnCancelFact.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnCancelFact.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCancelFact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatAppearance.BorderSize = 0;
+            this.btnCancelFact.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnCancelFact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelFact.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelFact.Location = new System.Drawing.Point(492, 70);
+            this.btnCancelFact.Name = "btnCancelFact";
+            this.btnCancelFact.Size = new System.Drawing.Size(26, 30);
+            this.btnCancelFact.TabIndex = 245;
+            this.btnCancelFact.UseVisualStyleBackColor = false;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label17.Location = new System.Drawing.Point(3, 244);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(167, 17);
+            this.label17.TabIndex = 246;
+            this.label17.Text = "Reparaciones Realizadas:";
             // 
             // txtManteEsp
             // 
@@ -1522,22 +1735,6 @@ namespace controlFallos
             this.label76.Size = new System.Drawing.Size(184, 17);
             this.label76.TabIndex = 331;
             this.label76.Text = "Tiempo Total Diagnostico: ";
-            // 
-            // LBxRefacc
-            // 
-            this.LBxRefacc.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.LBxRefacc.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.LBxRefacc.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.LBxRefacc.Enabled = false;
-            this.LBxRefacc.Font = new System.Drawing.Font("Garamond", 12F);
-            this.LBxRefacc.ForeColor = System.Drawing.Color.Black;
-            this.LBxRefacc.FormattingEnabled = true;
-            this.LBxRefacc.ItemHeight = 18;
-            this.LBxRefacc.Location = new System.Drawing.Point(6, 118);
-            this.LBxRefacc.Name = "LBxRefacc";
-            this.LBxRefacc.Size = new System.Drawing.Size(499, 92);
-            this.LBxRefacc.Sorted = true;
-            this.LBxRefacc.TabIndex = 330;
             // 
             // cmbEstRep
             // 
@@ -1711,36 +1908,6 @@ namespace controlFallos
             this.label2.TabIndex = 311;
             this.label2.Text = "_______________________________________";
             // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label17.Location = new System.Drawing.Point(3, 244);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(167, 17);
-            this.label17.TabIndex = 246;
-            this.label17.Text = "Reparaciones Realizadas:";
-            // 
-            // btnCancelFact
-            // 
-            this.btnCancelFact.AutoSize = true;
-            this.btnCancelFact.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.BackgroundImage = global::controlFallos.Properties.Resources.cross;
-            this.btnCancelFact.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnCancelFact.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnCancelFact.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.FlatAppearance.BorderSize = 0;
-            this.btnCancelFact.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnCancelFact.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelFact.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelFact.Location = new System.Drawing.Point(492, 70);
-            this.btnCancelFact.Name = "btnCancelFact";
-            this.btnCancelFact.Size = new System.Drawing.Size(26, 30);
-            this.btnCancelFact.TabIndex = 245;
-            this.btnCancelFact.UseVisualStyleBackColor = false;
-            // 
             // cmbTipoR
             // 
             this.cmbTipoR.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
@@ -1759,27 +1926,6 @@ namespace controlFallos
             this.cmbTipoR.TabIndex = 247;
             this.cmbTipoR.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbTipoR_DrawItem);
             // 
-            // btnFolioFactura
-            // 
-            this.btnFolioFactura.AutoSize = true;
-            this.btnFolioFactura.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.BackgroundImage = global::controlFallos.Properties.Resources.foliosFactura;
-            this.btnFolioFactura.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnFolioFactura.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnFolioFactura.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.FlatAppearance.BorderSize = 0;
-            this.btnFolioFactura.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnFolioFactura.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnFolioFactura.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnFolioFactura.Location = new System.Drawing.Point(450, 70);
-            this.btnFolioFactura.Name = "btnFolioFactura";
-            this.btnFolioFactura.Size = new System.Drawing.Size(30, 30);
-            this.btnFolioFactura.TabIndex = 238;
-            this.btnFolioFactura.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnFolioFactura.UseVisualStyleBackColor = false;
-            this.btnFolioFactura.Visible = false;
-            // 
             // label13
             // 
             this.label13.AutoSize = true;
@@ -1790,44 +1936,6 @@ namespace controlFallos
             this.label13.Size = new System.Drawing.Size(139, 17);
             this.label13.TabIndex = 246;
             this.label13.Text = "*Tipo deReparacion:";
-            // 
-            // numUpDownHASTA
-            // 
-            this.numUpDownHASTA.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.numUpDownHASTA.Location = new System.Drawing.Point(384, 71);
-            this.numUpDownHASTA.Name = "numUpDownHASTA";
-            this.numUpDownHASTA.Size = new System.Drawing.Size(55, 29);
-            this.numUpDownHASTA.TabIndex = 236;
-            // 
-            // numUpDownDE
-            // 
-            this.numUpDownDE.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.numUpDownDE.Location = new System.Drawing.Point(323, 71);
-            this.numUpDownDE.Name = "numUpDownDE";
-            this.numUpDownDE.Size = new System.Drawing.Size(55, 29);
-            this.numUpDownDE.TabIndex = 235;
-            // 
-            // btnrefacciones
-            // 
-            this.btnrefacciones.AutoSize = true;
-            this.btnrefacciones.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.BackgroundImage = global::controlFallos.Properties.Resources.add;
-            this.btnrefacciones.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnrefacciones.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnrefacciones.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatAppearance.BorderSize = 0;
-            this.btnrefacciones.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.btnrefacciones.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnrefacciones.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnrefacciones.Location = new System.Drawing.Point(492, 29);
-            this.btnrefacciones.Name = "btnrefacciones";
-            this.btnrefacciones.Size = new System.Drawing.Size(30, 30);
-            this.btnrefacciones.TabIndex = 233;
-            this.btnrefacciones.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.btnrefacciones.UseVisualStyleBackColor = false;
-            this.btnrefacciones.Visible = false;
-            this.btnrefacciones.Click += new System.EventHandler(this.btnrefacciones_Click);
             // 
             // lblmapoyo
             // 
@@ -1906,21 +2014,6 @@ namespace controlFallos
             this.label51.TabIndex = 159;
             this.label51.Text = "Fecha/Hora de inicio de Diagnostico:";
             // 
-            // txtRepaReal
-            // 
-            this.txtRepaReal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtRepaReal.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.txtRepaReal.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtRepaReal.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtRepaReal.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtRepaReal.Location = new System.Drawing.Point(6, 264);
-            this.txtRepaReal.MaxLength = 500;
-            this.txtRepaReal.Multiline = true;
-            this.txtRepaReal.Name = "txtRepaReal";
-            this.txtRepaReal.ShortcutsEnabled = false;
-            this.txtRepaReal.Size = new System.Drawing.Size(499, 79);
-            this.txtRepaReal.TabIndex = 127;
-            // 
             // label46
             // 
             this.label46.AutoSize = true;
@@ -1931,72 +2024,6 @@ namespace controlFallos
             this.label46.Size = new System.Drawing.Size(178, 17);
             this.label46.TabIndex = 126;
             this.label46.Text = "Diagnostico del Mecanico:";
-            // 
-            // txtfoliof
-            // 
-            this.txtfoliof.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.txtfoliof.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtfoliof.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtfoliof.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.txtfoliof.Location = new System.Drawing.Point(178, 78);
-            this.txtfoliof.MaxLength = 10;
-            this.txtfoliof.Name = "txtfoliof";
-            this.txtfoliof.ShortcutsEnabled = false;
-            this.txtfoliof.Size = new System.Drawing.Size(136, 18);
-            this.txtfoliof.TabIndex = 122;
-            // 
-            // label41
-            // 
-            this.label41.AutoSize = true;
-            this.label41.BackColor = System.Drawing.Color.Transparent;
-            this.label41.Font = new System.Drawing.Font("Garamond", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label41.Location = new System.Drawing.Point(176, 90);
-            this.label41.Name = "label41";
-            this.label41.Size = new System.Drawing.Size(141, 9);
-            this.label41.TabIndex = 123;
-            this.label41.Text = "__________________________________";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label44.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label44.Location = new System.Drawing.Point(16, 79);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(116, 17);
-            this.label44.TabIndex = 121;
-            this.label44.Text = "Folio de Factura:";
-            // 
-            // cmbRefacciones1
-            // 
-            this.cmbRefacciones1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.cmbRefacciones1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.cmbRefacciones1.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
-            this.cmbRefacciones1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbRefacciones1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.cmbRefacciones1.Font = new System.Drawing.Font("Garamond", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmbRefacciones1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.cmbRefacciones1.FormattingEnabled = true;
-            this.cmbRefacciones1.Items.AddRange(new object[] {
-            "Sistema eléctrico"});
-            this.cmbRefacciones1.Location = new System.Drawing.Point(215, 33);
-            this.cmbRefacciones1.Name = "cmbRefacciones1";
-            this.cmbRefacciones1.Size = new System.Drawing.Size(265, 23);
-            this.cmbRefacciones1.TabIndex = 116;
-            this.cmbRefacciones1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.cmbRefacciones1_DrawItem);
-            this.cmbRefacciones1.SelectedIndexChanged += new System.EventHandler(this.cmbRefacciones1_SelectedIndexChanged);
-            // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.label37.Location = new System.Drawing.Point(16, 38);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(182, 17);
-            this.label37.TabIndex = 115;
-            this.label37.Text = "*Se Requieren Refacciones:";
             // 
             // label36
             // 
@@ -2058,7 +2085,6 @@ namespace controlFallos
             this.gbxAlertas.Size = new System.Drawing.Size(1670, 50);
             this.gbxAlertas.TabIndex = 304;
             this.gbxAlertas.TabStop = false;
-            this.gbxAlertas.Visible = false;
             // 
             // label64
             // 
@@ -2240,57 +2266,57 @@ namespace controlFallos
             this.ConsultaRepo.AllowUserToDeleteRows = false;
             this.ConsultaRepo.AllowUserToResizeColumns = false;
             this.ConsultaRepo.AllowUserToResizeRows = false;
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
-            dataGridViewCellStyle26.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle26.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.Color.White;
-            this.ConsultaRepo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle46.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle46.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            dataGridViewCellStyle46.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle46.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle46.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle46.SelectionForeColor = System.Drawing.Color.White;
+            this.ConsultaRepo.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle46;
             this.ConsultaRepo.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.ConsultaRepo.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.ConsultaRepo.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle27.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle27.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle27.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle27.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ConsultaRepo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle47.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle47.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle47.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle47.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle47.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle47.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle47.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle47.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ConsultaRepo.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle47;
             this.ConsultaRepo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.ConsultaRepo.Cursor = System.Windows.Forms.Cursors.Hand;
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle28.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle28.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle28.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle28.Padding = new System.Windows.Forms.Padding(2);
-            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ConsultaRepo.DefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle48.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle48.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle48.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle48.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle48.Padding = new System.Windows.Forms.Padding(2);
+            dataGridViewCellStyle48.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle48.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle48.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.ConsultaRepo.DefaultCellStyle = dataGridViewCellStyle48;
             this.ConsultaRepo.EnableHeadersVisualStyles = false;
             this.ConsultaRepo.GridColor = System.Drawing.Color.Gray;
             this.ConsultaRepo.Location = new System.Drawing.Point(24, 109);
             this.ConsultaRepo.Name = "ConsultaRepo";
             this.ConsultaRepo.ReadOnly = true;
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle29.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle29.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle29.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle29.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
-            dataGridViewCellStyle29.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle29.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ConsultaRepo.RowHeadersDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle49.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle49.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle49.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle49.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle49.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(120)))), ((int)(((byte)(85)))), ((int)(((byte)(105)))));
+            dataGridViewCellStyle49.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle49.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.ConsultaRepo.RowHeadersDefaultCellStyle = dataGridViewCellStyle49;
             this.ConsultaRepo.RowHeadersVisible = false;
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle30.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            dataGridViewCellStyle30.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle30.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.Color.Crimson;
-            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.Color.White;
-            this.ConsultaRepo.RowsDefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle50.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle50.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            dataGridViewCellStyle50.Font = new System.Drawing.Font("Garamond", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle50.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            dataGridViewCellStyle50.SelectionBackColor = System.Drawing.Color.Crimson;
+            dataGridViewCellStyle50.SelectionForeColor = System.Drawing.Color.White;
+            this.ConsultaRepo.RowsDefaultCellStyle = dataGridViewCellStyle50;
             this.ConsultaRepo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.ConsultaRepo.ShowCellErrors = false;
             this.ConsultaRepo.ShowCellToolTips = false;
@@ -2611,6 +2637,7 @@ namespace controlFallos
             this.btnactualizar.TabIndex = 151;
             this.btnactualizar.TextAlign = System.Drawing.ContentAlignment.BottomRight;
             this.btnactualizar.UseVisualStyleBackColor = false;
+            this.btnactualizar.Click += new System.EventHandler(this.btnactualizar_Click);
             // 
             // label57
             // 
@@ -2838,33 +2865,53 @@ namespace controlFallos
             this.gbxBusqueda.Size = new System.Drawing.Size(1762, 339);
             this.gbxBusqueda.TabIndex = 275;
             this.gbxBusqueda.TabStop = false;
-            this.gbxBusqueda.Visible = false;
             // 
             // errorProvider1
             // 
             this.errorProvider1.ContainerControl = this;
             // 
-            // gbxRefac
+            // pGuardarUnidad
             // 
-            this.gbxRefac.Controls.Add(this.LBxRefacc);
-            this.gbxRefac.Controls.Add(this.label37);
-            this.gbxRefac.Controls.Add(this.cmbRefacciones1);
-            this.gbxRefac.Controls.Add(this.label44);
-            this.gbxRefac.Controls.Add(this.label41);
-            this.gbxRefac.Controls.Add(this.txtfoliof);
-            this.gbxRefac.Controls.Add(this.txtRepaReal);
-            this.gbxRefac.Controls.Add(this.btnrefacciones);
-            this.gbxRefac.Controls.Add(this.numUpDownDE);
-            this.gbxRefac.Controls.Add(this.numUpDownHASTA);
-            this.gbxRefac.Controls.Add(this.btnFolioFactura);
-            this.gbxRefac.Controls.Add(this.btnCancelFact);
-            this.gbxRefac.Controls.Add(this.label17);
-            this.gbxRefac.Enabled = false;
-            this.gbxRefac.Location = new System.Drawing.Point(532, 0);
-            this.gbxRefac.Name = "gbxRefac";
-            this.gbxRefac.Size = new System.Drawing.Size(542, 352);
-            this.gbxRefac.TabIndex = 338;
-            this.gbxRefac.TabStop = false;
+            this.pGuardarUnidad.Controls.Add(this.btnGunidad);
+            this.pGuardarUnidad.Controls.Add(this.label79);
+            this.pGuardarUnidad.Location = new System.Drawing.Point(410, 444);
+            this.pGuardarUnidad.Name = "pGuardarUnidad";
+            this.pGuardarUnidad.Size = new System.Drawing.Size(70, 61);
+            this.pGuardarUnidad.TabIndex = 277;
+            this.pGuardarUnidad.Visible = false;
+            // 
+            // btnGunidad
+            // 
+            this.btnGunidad.AutoSize = true;
+            this.btnGunidad.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnGunidad.BackgroundImage = global::controlFallos.Properties.Resources.save1;
+            this.btnGunidad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnGunidad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGunidad.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnGunidad.FlatAppearance.BorderSize = 0;
+            this.btnGunidad.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnGunidad.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
+            this.btnGunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnGunidad.Font = new System.Drawing.Font("Garamond", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGunidad.Location = new System.Drawing.Point(20, 6);
+            this.btnGunidad.Name = "btnGunidad";
+            this.btnGunidad.Size = new System.Drawing.Size(37, 37);
+            this.btnGunidad.TabIndex = 233;
+            this.btnGunidad.UseVisualStyleBackColor = false;
+            this.btnGunidad.Click += new System.EventHandler(this.btnGunidad_Click);
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.BackColor = System.Drawing.Color.Transparent;
+            this.label79.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label79.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(75)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.label79.Location = new System.Drawing.Point(1, 43);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(66, 18);
+            this.label79.TabIndex = 234;
+            this.label79.Text = "Guardar";
+            this.label79.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // ReporteUnidadesExternas
             // 
@@ -2874,6 +2921,7 @@ namespace controlFallos
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ClientSize = new System.Drawing.Size(1850, 933);
+            this.Controls.Add(this.pGuardarUnidad);
             this.Controls.Add(this.pguardar);
             this.Controls.Add(this.gbxAlertas);
             this.Controls.Add(this.lblText);
@@ -2911,12 +2959,14 @@ namespace controlFallos
             ((System.ComponentModel.ISupportInitialize)(this.dgvrefacciones)).EndInit();
             this.gbxDiag.ResumeLayout(false);
             this.gbxDiag.PerformLayout();
+            this.gbxRefac.ResumeLayout(false);
+            this.gbxRefac.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).EndInit();
             this.pFin.ResumeLayout(false);
             this.pFin.PerformLayout();
             this.pDiag.ResumeLayout(false);
             this.pDiag.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownHASTA)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numUpDownDE)).EndInit();
             this.gbxAlertas.ResumeLayout(false);
             this.gbxAlertas.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConsultaRepo)).EndInit();
@@ -2932,8 +2982,8 @@ namespace controlFallos
             this.gbxBusqueda.ResumeLayout(false);
             this.gbxBusqueda.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
-            this.gbxRefac.ResumeLayout(false);
-            this.gbxRefac.PerformLayout();
+            this.pGuardarUnidad.ResumeLayout(false);
+            this.pGuardarUnidad.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3122,5 +3172,10 @@ namespace controlFallos
         private System.Windows.Forms.TextBox txtManteTot;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.GroupBox gbxRefac;
+        private System.Windows.Forms.Panel pGuardarUnidad;
+        private System.Windows.Forms.Button btnGunidad;
+        private System.Windows.Forms.Label label79;
     }
 }
+
+/***/
