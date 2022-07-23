@@ -34,7 +34,7 @@ namespace controlFallos
         delegate void dos();
         byte[] img;
         bool editar, editarRefaccion, isexporting, aux;
-        string idUsuarioR = "",codigoanterior = "", Folio = "", fecha ="";
+        string idUsuarioR = "",codigoanterior = "", Folio = "", fecha ="", ultimasCompras = "";
         string unidadMedida = "Select x1.Simbolo from cunidadmedida as x1 inner join cfamilias as x2 on x1.idunidadmedida = x2.umfkcunidadmedida inner join cmarcas as x3 on x2.idfamilia = x3.descripcionfkcfamilias inner join crefacciones as x4 on x4.marcafkcmarcas = x3.idmarca where x4.codrefaccion = ";
         int RowDataRefaccionesASolicitar;
         DataSet ds = new DataSet();
@@ -287,7 +287,9 @@ namespace controlFallos
                 columnas = new DataColumn();
                 columnas.ColumnName = "Unidad Medida";
                 dt.Columns.Add(columnas);
-                
+                columnas = new DataColumn();
+                columnas.ColumnName = "Costo Ultimas Compras";
+                dt.Columns.Add(columnas);
             }
             string[] arr = datosO.ToString().Split('|');
             for (int i = 1; i < arr.Count();)
@@ -301,6 +303,7 @@ namespace controlFallos
                 filas["Existencia"] = arr[i + 4].ToString();
                 filas["Cantidad Solicitada"] = arr[i + 5].ToString();
                 filas["Unidad Medida"] = medida.ToString();
+                filas["Costo Ultimas Compras"] = ultimasCompras.ToString();
                 dt.Rows.Add(filas);
                 i = i + 6;
             }
@@ -592,6 +595,7 @@ namespace controlFallos
                 lblCosto.Text = seprar[2].ToString();
                 txtNumParte.Text = seprar[3].ToString();
                 txtProveedor.Text = seprar[4].ToString();
+                ultimaCompra();
             }
         }
 
@@ -1207,6 +1211,20 @@ namespace controlFallos
             pImprimir.Visible = false;
             Expota_PDF();
             limpiar_Definitivo();
+        }
+
+        public void ultimaCompra()
+        {
+            MySqlDataAdapter adp = new MySqlDataAdapter("Select concat(convert(t1.CostoUni,char),' ', t4.Simbolo, ' ', date_format(t2.FechaHora, '%d-%m-%Y')) as cadena From crefacciones as t1 inner join centradasm as t2 on t1.idrefaccion =t2.refaccionfkCRefacciones inner join datosistema as t3 on t2.UsuariofkCPersonal = t3.usuariofkcpersonal inner join ctipocambio as t4 on t2.tipomonedafkCTipoCambio = t4.idtipoCambio where t1.codrefaccion ='" + txtCodigo.Text + "' order by t2.FechaHora desc limit 3", v.c.dbconection());
+            DataSet ds = new DataSet();
+            adp.Fill(ds);
+            v.c.dbconection().Close();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ultimasCompras += dr["cadena"].ToString() + "\n";
+            }
+
         }
 
     }

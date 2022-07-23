@@ -3348,9 +3348,9 @@ namespace controlFallos
                 MessageBox.Show(ex.Message, MessageBoxTitle.Error.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        public void edit(string id, string ver, string insertar, string consultar, string modificar, string eliminar)
+        public void edit(int usuario, string ver, string insertar, string consultar, string modificar, string eliminar, string nombre)
         {
-            c.insertar("UPDATE privilegios SET ver='" + ver + "', privilegios='" + insertar + "/" + consultar + "/" + modificar +  "/" + eliminar  + "' WHERE idprivilegio='" + id + "'");
+            c.insertar("UPDATE privilegios SET ver='" + ver + "', privilegios='" + insertar + "/" + consultar + "/" + modificar +  "/" + eliminar  + "' WHERE usuariofkcpersonal='" + usuario + "' and namform = '" + nombre + "'");
         }
         public void insert(string ver, string insertar, string consultar, string modificar, string eliminar, string nombre, int idUsuario)
         {

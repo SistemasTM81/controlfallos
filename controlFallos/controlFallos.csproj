@@ -210,6 +210,12 @@
     <Compile Include="catFamiliasH.Designer.cs">
       <DependentUpon>catFamiliasH.cs</DependentUpon>
     </Compile>
+    <Compile Include="catFechaEntrega.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="catFechaEntrega.Designer.cs">
+      <DependentUpon>catFechaEntrega.cs</DependentUpon>
+    </Compile>
     <Compile Include="catGiros.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -742,6 +748,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="catFamiliasH.resx">
       <DependentUpon>catFamiliasH.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="catFechaEntrega.resx">
+      <DependentUpon>catFechaEntrega.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="catGiros.resx">
       <DependentUpon>catGiros.cs</DependentUpon>

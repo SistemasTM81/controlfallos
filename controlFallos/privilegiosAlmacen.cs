@@ -280,7 +280,7 @@ namespace controlFallos
                                     string modificar = privilegios[i, 3];
                                     string eliminar = privilegios[i, 4];
                                     string nombre = privilegios[i, 5];
-                                    v.edit(id[i], ver, insertar, consultar, modificar, eliminar);
+                                    //v.edit(id[i], ver, insertar, consultar, modificar, eliminar);
                                     //v.c.editLocal(id[i], ver, insertar, consultar, modificar, eliminar);
                                     //v.c.insertLocal(ver, insertar, consultar, modificar, eliminar, nombre, idUsuario);
                                 }

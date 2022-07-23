@@ -56,12 +56,6 @@
             this.btnconsultarincidencia = new System.Windows.Forms.Button();
             this.btninsertarincidencia = new System.Windows.Forms.Button();
             this.label25 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.btneliminarunidad = new System.Windows.Forms.Button();
-            this.btnmodificarunidad = new System.Windows.Forms.Button();
-            this.btnconsultarunidad = new System.Windows.Forms.Button();
-            this.btninsertarunidad = new System.Windows.Forms.Button();
-            this.label11 = new System.Windows.Forms.Label();
             this.btneliminarservicio = new System.Windows.Forms.Button();
             this.btnmodificarservicio = new System.Windows.Forms.Button();
             this.btnconsultarservicio = new System.Windows.Forms.Button();
@@ -108,8 +102,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.label56 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnmodificarmante = new System.Windows.Forms.Button();
             this.btnconsultarmante = new System.Windows.Forms.Button();
             this.btninsertarmante = new System.Windows.Forms.Button();
@@ -121,10 +113,6 @@
             this.label55 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label45 = new System.Windows.Forms.Label();
-            this.btnmodificaru = new System.Windows.Forms.Button();
-            this.btnConsultarUnidades = new System.Windows.Forms.Button();
-            this.btnUnidades = new System.Windows.Forms.Button();
-            this.label46 = new System.Windows.Forms.Label();
             this.btneliminarfallo = new System.Windows.Forms.Button();
             this.btnmodificarfallo = new System.Windows.Forms.Button();
             this.btnconsultarfallo = new System.Windows.Forms.Button();
@@ -243,6 +231,12 @@
             this.btninsertartipo = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.puestoCB = new System.Windows.Forms.ComboBox();
+            this.label24 = new System.Windows.Forms.Label();
+            this.btneliminarunidad = new System.Windows.Forms.Button();
+            this.btnmodificarunidad = new System.Windows.Forms.Button();
+            this.btnconsultarunidad = new System.Windows.Forms.Button();
+            this.btninsertarunidad = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -251,7 +245,6 @@
             this.groupBox2.SuspendLayout();
             this.panel3.SuspendLayout();
             this.tabPage2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -378,12 +371,6 @@
             this.groupBox1.Controls.Add(this.btnconsultarincidencia);
             this.groupBox1.Controls.Add(this.btninsertarincidencia);
             this.groupBox1.Controls.Add(this.label25);
-            this.groupBox1.Controls.Add(this.label24);
-            this.groupBox1.Controls.Add(this.btneliminarunidad);
-            this.groupBox1.Controls.Add(this.btnmodificarunidad);
-            this.groupBox1.Controls.Add(this.btnconsultarunidad);
-            this.groupBox1.Controls.Add(this.btninsertarunidad);
-            this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.btneliminarservicio);
             this.groupBox1.Controls.Add(this.btnmodificarservicio);
             this.groupBox1.Controls.Add(this.btnconsultarservicio);
@@ -414,7 +401,7 @@
             this.btndesactivarol.FlatAppearance.BorderSize = 0;
             this.btndesactivarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btndesactivarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btndesactivarol.Location = new System.Drawing.Point(769, 233);
+            this.btndesactivarol.Location = new System.Drawing.Point(769, 199);
             this.btndesactivarol.Name = "btndesactivarol";
             this.btndesactivarol.Size = new System.Drawing.Size(20, 20);
             this.btndesactivarol.TabIndex = 121;
@@ -431,7 +418,7 @@
             this.btnmodificarol.FlatAppearance.BorderSize = 0;
             this.btnmodificarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnmodificarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmodificarol.Location = new System.Drawing.Point(620, 234);
+            this.btnmodificarol.Location = new System.Drawing.Point(620, 200);
             this.btnmodificarol.Name = "btnmodificarol";
             this.btnmodificarol.Size = new System.Drawing.Size(20, 20);
             this.btnmodificarol.TabIndex = 120;
@@ -447,7 +434,7 @@
             this.btnconsultarol.FlatAppearance.BorderSize = 0;
             this.btnconsultarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnconsultarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultarol.Location = new System.Drawing.Point(446, 234);
+            this.btnconsultarol.Location = new System.Drawing.Point(446, 200);
             this.btnconsultarol.Name = "btnconsultarol";
             this.btnconsultarol.Size = new System.Drawing.Size(20, 20);
             this.btnconsultarol.TabIndex = 119;
@@ -464,7 +451,7 @@
             this.btninsertarol.FlatAppearance.BorderSize = 0;
             this.btninsertarol.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btninsertarol.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btninsertarol.Location = new System.Drawing.Point(311, 234);
+            this.btninsertarol.Location = new System.Drawing.Point(311, 200);
             this.btninsertarol.Name = "btninsertarol";
             this.btninsertarol.Size = new System.Drawing.Size(20, 20);
             this.btninsertarol.TabIndex = 118;
@@ -476,7 +463,7 @@
             // 
             this.label41.AutoSize = true;
             this.label41.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label41.Location = new System.Drawing.Point(96, 235);
+            this.label41.Location = new System.Drawing.Point(96, 201);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(136, 18);
             this.label41.TabIndex = 117;
@@ -491,7 +478,7 @@
             this.btneliminarmodelo.FlatAppearance.BorderSize = 0;
             this.btneliminarmodelo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btneliminarmodelo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btneliminarmodelo.Location = new System.Drawing.Point(769, 201);
+            this.btneliminarmodelo.Location = new System.Drawing.Point(769, 167);
             this.btneliminarmodelo.Name = "btneliminarmodelo";
             this.btneliminarmodelo.Size = new System.Drawing.Size(20, 20);
             this.btneliminarmodelo.TabIndex = 114;
@@ -508,7 +495,7 @@
             this.btnmodificarmodelo.FlatAppearance.BorderSize = 0;
             this.btnmodificarmodelo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnmodificarmodelo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmodificarmodelo.Location = new System.Drawing.Point(620, 202);
+            this.btnmodificarmodelo.Location = new System.Drawing.Point(620, 168);
             this.btnmodificarmodelo.Name = "btnmodificarmodelo";
             this.btnmodificarmodelo.Size = new System.Drawing.Size(20, 20);
             this.btnmodificarmodelo.TabIndex = 113;
@@ -524,7 +511,7 @@
             this.btnconsultarmodelo.FlatAppearance.BorderSize = 0;
             this.btnconsultarmodelo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnconsultarmodelo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultarmodelo.Location = new System.Drawing.Point(446, 202);
+            this.btnconsultarmodelo.Location = new System.Drawing.Point(446, 168);
             this.btnconsultarmodelo.Name = "btnconsultarmodelo";
             this.btnconsultarmodelo.Size = new System.Drawing.Size(20, 20);
             this.btnconsultarmodelo.TabIndex = 112;
@@ -541,7 +528,7 @@
             this.btninsertarmodelo.FlatAppearance.BorderSize = 0;
             this.btninsertarmodelo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btninsertarmodelo.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btninsertarmodelo.Location = new System.Drawing.Point(311, 202);
+            this.btninsertarmodelo.Location = new System.Drawing.Point(311, 168);
             this.btninsertarmodelo.Name = "btninsertarmodelo";
             this.btninsertarmodelo.Size = new System.Drawing.Size(20, 20);
             this.btninsertarmodelo.TabIndex = 111;
@@ -553,7 +540,7 @@
             // 
             this.label39.AutoSize = true;
             this.label39.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label39.Location = new System.Drawing.Point(79, 204);
+            this.label39.Location = new System.Drawing.Point(79, 170);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(153, 18);
             this.label39.TabIndex = 110;
@@ -712,93 +699,6 @@
             this.label25.Size = new System.Drawing.Size(174, 18);
             this.label25.TabIndex = 77;
             this.label25.Text = "Catálogo de Incidencias";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(49, 143);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(840, 21);
-            this.label24.TabIndex = 75;
-            this.label24.Text = "_________________________________________________________________________________" +
-    "__";
-            // 
-            // btneliminarunidad
-            // 
-            this.btneliminarunidad.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btneliminarunidad.BackgroundImage")));
-            this.btneliminarunidad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btneliminarunidad.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btneliminarunidad.Enabled = false;
-            this.btneliminarunidad.FlatAppearance.BorderSize = 0;
-            this.btneliminarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btneliminarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btneliminarunidad.Location = new System.Drawing.Point(769, 168);
-            this.btneliminarunidad.Name = "btneliminarunidad";
-            this.btneliminarunidad.Size = new System.Drawing.Size(20, 20);
-            this.btneliminarunidad.TabIndex = 36;
-            this.btneliminarunidad.TabStop = false;
-            this.btneliminarunidad.UseVisualStyleBackColor = true;
-            this.btneliminarunidad.Click += new System.EventHandler(this.CambiarEstado_Click);
-            // 
-            // btnmodificarunidad
-            // 
-            this.btnmodificarunidad.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnmodificarunidad.BackgroundImage")));
-            this.btnmodificarunidad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnmodificarunidad.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnmodificarunidad.Enabled = false;
-            this.btnmodificarunidad.FlatAppearance.BorderSize = 0;
-            this.btnmodificarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnmodificarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmodificarunidad.Location = new System.Drawing.Point(620, 169);
-            this.btnmodificarunidad.Name = "btnmodificarunidad";
-            this.btnmodificarunidad.Size = new System.Drawing.Size(20, 20);
-            this.btnmodificarunidad.TabIndex = 35;
-            this.btnmodificarunidad.TabStop = false;
-            this.btnmodificarunidad.UseVisualStyleBackColor = true;
-            this.btnmodificarunidad.Click += new System.EventHandler(this.CambiarEstado_Click);
-            // 
-            // btnconsultarunidad
-            // 
-            this.btnconsultarunidad.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnconsultarunidad.BackgroundImage")));
-            this.btnconsultarunidad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnconsultarunidad.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnconsultarunidad.FlatAppearance.BorderSize = 0;
-            this.btnconsultarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnconsultarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultarunidad.Location = new System.Drawing.Point(446, 169);
-            this.btnconsultarunidad.Name = "btnconsultarunidad";
-            this.btnconsultarunidad.Size = new System.Drawing.Size(20, 20);
-            this.btnconsultarunidad.TabIndex = 34;
-            this.btnconsultarunidad.TabStop = false;
-            this.btnconsultarunidad.UseVisualStyleBackColor = true;
-            this.btnconsultarunidad.BackgroundImageChanged += new System.EventHandler(this.btnconsultarunidad_BackgroundImageChanged);
-            this.btnconsultarunidad.Click += new System.EventHandler(this.CambiarEstado_Click);
-            // 
-            // btninsertarunidad
-            // 
-            this.btninsertarunidad.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btninsertarunidad.BackgroundImage")));
-            this.btninsertarunidad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btninsertarunidad.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btninsertarunidad.FlatAppearance.BorderSize = 0;
-            this.btninsertarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btninsertarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btninsertarunidad.Location = new System.Drawing.Point(311, 169);
-            this.btninsertarunidad.Name = "btninsertarunidad";
-            this.btninsertarunidad.Size = new System.Drawing.Size(20, 20);
-            this.btninsertarunidad.TabIndex = 33;
-            this.btninsertarunidad.TabStop = false;
-            this.btninsertarunidad.UseVisualStyleBackColor = true;
-            this.btninsertarunidad.Click += new System.EventHandler(this.CambiarEstado_Click);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(72, 172);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(160, 18);
-            this.label11.TabIndex = 31;
-            this.label11.Text = "Catálogo de Unidades";
             // 
             // btneliminarservicio
             // 
@@ -987,7 +887,7 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(49, 176);
+            this.label38.Location = new System.Drawing.Point(49, 142);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(840, 21);
             this.label38.TabIndex = 115;
@@ -997,7 +897,7 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(49, 209);
+            this.label40.Location = new System.Drawing.Point(49, 175);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(840, 21);
             this.label40.TabIndex = 116;
@@ -1412,8 +1312,6 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
-            this.tabPage2.Controls.Add(this.label56);
-            this.tabPage2.Controls.Add(this.groupBox4);
             this.tabPage2.Controls.Add(this.panel5);
             this.tabPage2.Controls.Add(this.groupBox3);
             this.tabPage2.Controls.Add(this.label43);
@@ -1424,28 +1322,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "MANTENIMIENTO";
             // 
-            // label56
-            // 
-            this.label56.AutoSize = true;
-            this.label56.Font = new System.Drawing.Font("Garamond", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label56.Location = new System.Drawing.Point(484, 232);
-            this.label56.Name = "label56";
-            this.label56.Size = new System.Drawing.Size(63, 21);
-            this.label56.TabIndex = 130;
-            this.label56.Text = "Extras";
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.btnmodificarmante);
-            this.groupBox4.Controls.Add(this.btnconsultarmante);
-            this.groupBox4.Controls.Add(this.btninsertarmante);
-            this.groupBox4.Controls.Add(this.label58);
-            this.groupBox4.Location = new System.Drawing.Point(20, 256);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(924, 117);
-            this.groupBox4.TabIndex = 159;
-            this.groupBox4.TabStop = false;
-            // 
             // btnmodificarmante
             // 
             this.btnmodificarmante.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnmodificarmante.BackgroundImage")));
@@ -1455,7 +1331,7 @@
             this.btnmodificarmante.FlatAppearance.BorderSize = 0;
             this.btnmodificarmante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnmodificarmante.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmodificarmante.Location = new System.Drawing.Point(590, 37);
+            this.btnmodificarmante.Location = new System.Drawing.Point(590, 62);
             this.btnmodificarmante.Name = "btnmodificarmante";
             this.btnmodificarmante.Size = new System.Drawing.Size(20, 20);
             this.btnmodificarmante.TabIndex = 126;
@@ -1471,7 +1347,7 @@
             this.btnconsultarmante.FlatAppearance.BorderSize = 0;
             this.btnconsultarmante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnconsultarmante.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultarmante.Location = new System.Drawing.Point(413, 33);
+            this.btnconsultarmante.Location = new System.Drawing.Point(413, 58);
             this.btnconsultarmante.Name = "btnconsultarmante";
             this.btnconsultarmante.Size = new System.Drawing.Size(20, 20);
             this.btnconsultarmante.TabIndex = 125;
@@ -1487,7 +1363,7 @@
             this.btninsertarmante.FlatAppearance.BorderSize = 0;
             this.btninsertarmante.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btninsertarmante.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btninsertarmante.Location = new System.Drawing.Point(254, 37);
+            this.btninsertarmante.Location = new System.Drawing.Point(254, 62);
             this.btninsertarmante.Name = "btninsertarmante";
             this.btninsertarmante.Size = new System.Drawing.Size(20, 20);
             this.btninsertarmante.TabIndex = 124;
@@ -1499,7 +1375,7 @@
             // 
             this.label58.AutoSize = true;
             this.label58.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label58.Location = new System.Drawing.Point(6, 37);
+            this.label58.Location = new System.Drawing.Point(6, 62);
             this.label58.Name = "label58";
             this.label58.Size = new System.Drawing.Size(192, 18);
             this.label58.TabIndex = 123;
@@ -1556,19 +1432,19 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.btnmodificaru);
-            this.groupBox3.Controls.Add(this.btnConsultarUnidades);
-            this.groupBox3.Controls.Add(this.btnUnidades);
-            this.groupBox3.Controls.Add(this.label46);
+            this.groupBox3.Controls.Add(this.btnmodificarmante);
             this.groupBox3.Controls.Add(this.btneliminarfallo);
+            this.groupBox3.Controls.Add(this.btnconsultarmante);
             this.groupBox3.Controls.Add(this.btnmodificarfallo);
+            this.groupBox3.Controls.Add(this.btninsertarmante);
             this.groupBox3.Controls.Add(this.btnconsultarfallo);
+            this.groupBox3.Controls.Add(this.label58);
             this.groupBox3.Controls.Add(this.btninsertarfallo);
             this.groupBox3.Controls.Add(this.label49);
             this.groupBox3.Controls.Add(this.label45);
             this.groupBox3.Location = new System.Drawing.Point(20, 91);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(949, 114);
+            this.groupBox3.Size = new System.Drawing.Size(949, 387);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             // 
@@ -1581,65 +1457,6 @@
             this.label45.TabIndex = 156;
             this.label45.Text = "_________________________________________________________________________________" +
     "__";
-            // 
-            // btnmodificaru
-            // 
-            this.btnmodificaru.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnmodificaru.BackgroundImage")));
-            this.btnmodificaru.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnmodificaru.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnmodificaru.Enabled = false;
-            this.btnmodificaru.FlatAppearance.BorderSize = 0;
-            this.btnmodificaru.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnmodificaru.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnmodificaru.Location = new System.Drawing.Point(589, 56);
-            this.btnmodificaru.Name = "btnmodificaru";
-            this.btnmodificaru.Size = new System.Drawing.Size(20, 20);
-            this.btnmodificaru.TabIndex = 147;
-            this.btnmodificaru.TabStop = false;
-            this.btnmodificaru.UseVisualStyleBackColor = true;
-            this.btnmodificaru.Click += new System.EventHandler(this.cambios);
-            // 
-            // btnConsultarUnidades
-            // 
-            this.btnConsultarUnidades.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnConsultarUnidades.BackgroundImage")));
-            this.btnConsultarUnidades.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnConsultarUnidades.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConsultarUnidades.FlatAppearance.BorderSize = 0;
-            this.btnConsultarUnidades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConsultarUnidades.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConsultarUnidades.Location = new System.Drawing.Point(412, 52);
-            this.btnConsultarUnidades.Name = "btnConsultarUnidades";
-            this.btnConsultarUnidades.Size = new System.Drawing.Size(20, 20);
-            this.btnConsultarUnidades.TabIndex = 146;
-            this.btnConsultarUnidades.TabStop = false;
-            this.btnConsultarUnidades.UseVisualStyleBackColor = true;
-            this.btnConsultarUnidades.Click += new System.EventHandler(this.cambios);
-            // 
-            // btnUnidades
-            // 
-            this.btnUnidades.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnUnidades.BackgroundImage")));
-            this.btnUnidades.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnUnidades.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnUnidades.FlatAppearance.BorderSize = 0;
-            this.btnUnidades.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUnidades.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUnidades.Location = new System.Drawing.Point(253, 56);
-            this.btnUnidades.Name = "btnUnidades";
-            this.btnUnidades.Size = new System.Drawing.Size(20, 20);
-            this.btnUnidades.TabIndex = 145;
-            this.btnUnidades.TabStop = false;
-            this.btnUnidades.UseVisualStyleBackColor = true;
-            this.btnUnidades.Click += new System.EventHandler(this.cambios);
-            // 
-            // label46
-            // 
-            this.label46.AutoSize = true;
-            this.label46.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label46.Location = new System.Drawing.Point(43, 58);
-            this.label46.Name = "label46";
-            this.label46.Size = new System.Drawing.Size(160, 18);
-            this.label46.TabIndex = 144;
-            this.label46.Text = "Catálogo de Unidades";
             // 
             // btneliminarfallo
             // 
@@ -2761,9 +2578,7 @@
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.btnconsultarhistorial);
             this.groupBox8.Controls.Add(this.btneliminartipo);
-            this.groupBox8.Controls.Add(this.label8);
             this.groupBox8.Controls.Add(this.btnmodificartipo);
             this.groupBox8.Controls.Add(this.btnconsultartipo);
             this.groupBox8.Controls.Add(this.btninsertartipo);
@@ -2786,6 +2601,14 @@
             this.groupBox8.Controls.Add(this.label116);
             this.groupBox8.Controls.Add(this.label117);
             this.groupBox8.Controls.Add(this.label119);
+            this.groupBox8.Controls.Add(this.label24);
+            this.groupBox8.Controls.Add(this.btneliminarunidad);
+            this.groupBox8.Controls.Add(this.btnmodificarunidad);
+            this.groupBox8.Controls.Add(this.btnconsultarunidad);
+            this.groupBox8.Controls.Add(this.btninsertarunidad);
+            this.groupBox8.Controls.Add(this.label11);
+            this.groupBox8.Controls.Add(this.btnconsultarhistorial);
+            this.groupBox8.Controls.Add(this.label8);
             this.groupBox8.Controls.Add(this.label9);
             this.groupBox8.Location = new System.Drawing.Point(28, 86);
             this.groupBox8.Name = "groupBox8";
@@ -3109,7 +2932,7 @@
             this.btnconsultarhistorial.FlatAppearance.BorderSize = 0;
             this.btnconsultarhistorial.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnconsultarhistorial.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnconsultarhistorial.Location = new System.Drawing.Point(443, 153);
+            this.btnconsultarhistorial.Location = new System.Drawing.Point(443, 186);
             this.btnconsultarhistorial.Name = "btnconsultarhistorial";
             this.btnconsultarhistorial.Size = new System.Drawing.Size(20, 20);
             this.btnconsultarhistorial.TabIndex = 153;
@@ -3120,7 +2943,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(65, 154);
+            this.label8.Location = new System.Drawing.Point(65, 187);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(197, 18);
             this.label8.TabIndex = 152;
@@ -3129,7 +2952,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(46, 129);
+            this.label9.Location = new System.Drawing.Point(46, 162);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(840, 21);
             this.label9.TabIndex = 154;
@@ -3224,6 +3047,88 @@
             this.puestoCB.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.puestoCB_DrawItem);
             this.puestoCB.SelectedIndexChanged += new System.EventHandler(this.puestoCB_SelectedIndexChanged);
             // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(46, 130);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(840, 21);
+            this.label24.TabIndex = 160;
+            this.label24.Text = "_________________________________________________________________________________" +
+    "__";
+            // 
+            // btneliminarunidad
+            // 
+            this.btneliminarunidad.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btneliminarunidad.BackgroundImage")));
+            this.btneliminarunidad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btneliminarunidad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btneliminarunidad.Enabled = false;
+            this.btneliminarunidad.FlatAppearance.BorderSize = 0;
+            this.btneliminarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btneliminarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btneliminarunidad.Location = new System.Drawing.Point(766, 155);
+            this.btneliminarunidad.Name = "btneliminarunidad";
+            this.btneliminarunidad.Size = new System.Drawing.Size(20, 20);
+            this.btneliminarunidad.TabIndex = 159;
+            this.btneliminarunidad.TabStop = false;
+            this.btneliminarunidad.UseVisualStyleBackColor = true;
+            // 
+            // btnmodificarunidad
+            // 
+            this.btnmodificarunidad.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnmodificarunidad.BackgroundImage")));
+            this.btnmodificarunidad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnmodificarunidad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnmodificarunidad.Enabled = false;
+            this.btnmodificarunidad.FlatAppearance.BorderSize = 0;
+            this.btnmodificarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnmodificarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnmodificarunidad.Location = new System.Drawing.Point(617, 156);
+            this.btnmodificarunidad.Name = "btnmodificarunidad";
+            this.btnmodificarunidad.Size = new System.Drawing.Size(20, 20);
+            this.btnmodificarunidad.TabIndex = 158;
+            this.btnmodificarunidad.TabStop = false;
+            this.btnmodificarunidad.UseVisualStyleBackColor = true;
+            // 
+            // btnconsultarunidad
+            // 
+            this.btnconsultarunidad.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnconsultarunidad.BackgroundImage")));
+            this.btnconsultarunidad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnconsultarunidad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnconsultarunidad.FlatAppearance.BorderSize = 0;
+            this.btnconsultarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnconsultarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnconsultarunidad.Location = new System.Drawing.Point(443, 156);
+            this.btnconsultarunidad.Name = "btnconsultarunidad";
+            this.btnconsultarunidad.Size = new System.Drawing.Size(20, 20);
+            this.btnconsultarunidad.TabIndex = 157;
+            this.btnconsultarunidad.TabStop = false;
+            this.btnconsultarunidad.UseVisualStyleBackColor = true;
+            // 
+            // btninsertarunidad
+            // 
+            this.btninsertarunidad.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btninsertarunidad.BackgroundImage")));
+            this.btninsertarunidad.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btninsertarunidad.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btninsertarunidad.FlatAppearance.BorderSize = 0;
+            this.btninsertarunidad.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btninsertarunidad.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btninsertarunidad.Location = new System.Drawing.Point(308, 156);
+            this.btninsertarunidad.Name = "btninsertarunidad";
+            this.btninsertarunidad.Size = new System.Drawing.Size(20, 20);
+            this.btninsertarunidad.TabIndex = 156;
+            this.btninsertarunidad.TabStop = false;
+            this.btninsertarunidad.UseVisualStyleBackColor = true;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Font = new System.Drawing.Font("Garamond", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(69, 159);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(160, 18);
+            this.label11.TabIndex = 155;
+            this.label11.Text = "Catálogo de Unidades";
+            // 
             // privilegiosSupervision
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -3259,8 +3164,6 @@
             this.panel3.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -3311,11 +3214,6 @@
         private System.Windows.Forms.Button btnconsultarservicio;
         private System.Windows.Forms.Button btninsertarservicio;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Button btneliminarunidad;
-        private System.Windows.Forms.Button btnmodificarunidad;
-        private System.Windows.Forms.Button btnconsultarunidad;
-        private System.Windows.Forms.Button btninsertarunidad;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnmodificarsuper;
         private System.Windows.Forms.Button btnconsultarsuper;
         private System.Windows.Forms.Button btninsertarsuper;
@@ -3329,7 +3227,6 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label24;
         public System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Button btneliminarestacion;
         private System.Windows.Forms.Button btnmodificarestacion;
@@ -3382,24 +3279,18 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label45;
-        private System.Windows.Forms.Button btnmodificaru;
-        private System.Windows.Forms.Button btnConsultarUnidades;
-        private System.Windows.Forms.Button btnUnidades;
-        private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Button btneliminarfallo;
         private System.Windows.Forms.Button btnmodificarfallo;
         private System.Windows.Forms.Button btnconsultarfallo;
         private System.Windows.Forms.Button btninsertarfallo;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.Label label56;
         private System.Windows.Forms.Button btnmodificarmante;
         private System.Windows.Forms.Button btnconsultarmante;
         private System.Windows.Forms.Button btninsertarmante;
@@ -3507,5 +3398,11 @@
         private System.Windows.Forms.Label label127;
         private System.Windows.Forms.Label label128;
         public System.Windows.Forms.ComboBox puestoCB;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Button btneliminarunidad;
+        private System.Windows.Forms.Button btnmodificarunidad;
+        private System.Windows.Forms.Button btnconsultarunidad;
+        private System.Windows.Forms.Button btninsertarunidad;
+        private System.Windows.Forms.Label label11;
     }
 }
